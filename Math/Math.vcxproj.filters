@@ -13,8 +13,10 @@
     <ClInclude Include="Src\Precompiled.h" />
     <ClInclude Include="Inc\EngineMath.h" />
     <ClInclude Include="Inc\Vector3.h" />
+    <ClInclude Include="Inc\Matrix4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp" />
+    <ClCompile Include="Src\EngineMath.cpp" />
   </ItemGroup>
 </Project>
