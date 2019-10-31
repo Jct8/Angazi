@@ -19,7 +19,7 @@ namespace Angazi::Math
 
 	inline float Magnitude(const Vector3& v)
 	{
-		return sqrt(Magnitude(v));
+		return sqrt(MagnitudeSqr(v));
 	}
 
 	inline Vector3 Normalize(const Vector3 & v)
@@ -104,6 +104,4 @@ namespace Angazi::Math
 			(v.x * m._13) + (v.y * m._23) + (v.z * m._33)
 		};
 	}
-
-
 }
