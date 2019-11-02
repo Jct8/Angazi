@@ -155,12 +155,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\App.h" />
     <ClInclude Include="Inc\Angazi.h" />
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Src\Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Angazi.cpp" />
+    <ClCompile Include="Src\App.cpp" />
     <ClCompile Include="Src\Precompiled.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Core\Core.vcxproj">
+      <Project>{5bf63145-a348-4b75-8137-f3bc803343fd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Math\Math.vcxproj">
+      <Project>{8683af56-c8c7-4387-91b1-468616ffb20b}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,11 +8,11 @@ LRESULT CALLBACK WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam
 {
 	switch (message)
 	{
-		case WM_DESTROY:
-		{
-			PostQuitMessage(0);
-			return 0;
-		}
+	case WM_DESTROY:
+	{
+		PostQuitMessage(0);
+		return 0;
+	}
 	}
 	return DefWindowProcA(handle, message, wParam, lParam);
 }
@@ -36,7 +36,7 @@ void Angazi::Core::Window::Initialize(HINSTANCE instance, LPCSTR appName, uint32
 	classInfo.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
 	classInfo.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	classInfo.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-	classInfo.lpszClassName - appName;
+	classInfo.lpszClassName = appName;
 	classInfo.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
 
 	RegisterClassExA(&classInfo);
@@ -68,6 +68,7 @@ void Angazi::Core::Window::Initialize(HINSTANCE instance, LPCSTR appName, uint32
 	ShowWindow(mWindow, true);
 	SetCursorPos(screenWidth / 2, screenHeight / 2);
 
+	mActive = (mWindow != nullptr);
 }
 
 void Angazi::Core::Window::Terminate()
@@ -80,19 +81,15 @@ void Angazi::Core::Window::Terminate()
 	mInstance = nullptr;
 }
 
-bool Angazi::Core::Window::ProcessMessage()
+void Angazi::Core::Window::ProcessMessage()
 {
 	MSG msg{};
-	bool quit = false;
-
-	while (PeekMessageA(&msg,nullptr,0,0,PM_REMOVE))
+	while (PeekMessageA(&msg, nullptr, 0, 0, PM_REMOVE))
 	{
 		TranslateMessage(&msg);
 		DispatchMessageA(&msg);
 
 		if (WM_QUIT == msg.message)
-			quit = true;
+			mActive = false;
 	}
-
-	return quit;
 }

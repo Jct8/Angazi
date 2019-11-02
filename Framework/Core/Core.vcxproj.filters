@@ -12,10 +12,16 @@
     <ClInclude Include="Src\Precompiled.h">
       <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Common.h" />
-    <ClInclude Include="Inc\Core.h" />
-    <ClInclude Include="Inc\Debug.h" />
     <ClInclude Include="Inc\Window.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Core.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Common.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Debug.h">
       <Filter>Inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -23,6 +29,8 @@
     <ClCompile Include="Src\Precompiled.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Window.cpp" />
+    <ClCompile Include="Src\Window.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
