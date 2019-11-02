@@ -3,15 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{5BF63145-A348-4B75-8137-F3BC803343FD}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "Math\Math.vcxproj", "{8683AF56-C8C7-4387-91B1-468616FFB20B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{D5041A66-2726-44FB-98A5-AA067A5786D6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathTest", "MathTest\MathTest.vcxproj", "{CDDABE6D-2953-4CF3-98B9-EE49FF774F99}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VGP242", "VGP242", "{9B852B2F-139B-4C48-9F1D-76E03C623EE6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{586E07A6-2D9B-4332-A260-D110FFA2B503}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Framework\Core\Core.vcxproj", "{5BF63145-A348-4B75-8137-F3BC803343FD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "Framework\Math\Math.vcxproj", "{8683AF56-C8C7-4387-91B1-468616FFB20B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathTest", "UnitTests\MathTest\MathTest.vcxproj", "{CDDABE6D-2953-4CF3-98B9-EE49FF774F99}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Angazi", "Engine\Angazi\Angazi.vcxproj", "{C3204D71-84AC-46FA-8CBB-42ED98FA9E8C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01_HelloWindow", "VGP242\01_HelloWindow\01_HelloWindow.vcxproj", "{EBED988D-20C9-4C62-A19C-25EF7D425431}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +53,22 @@ Global
 		{CDDABE6D-2953-4CF3-98B9-EE49FF774F99}.Release|x64.Build.0 = Release|x64
 		{CDDABE6D-2953-4CF3-98B9-EE49FF774F99}.Release|x86.ActiveCfg = Release|Win32
 		{CDDABE6D-2953-4CF3-98B9-EE49FF774F99}.Release|x86.Build.0 = Release|Win32
+		{C3204D71-84AC-46FA-8CBB-42ED98FA9E8C}.Debug|x64.ActiveCfg = Debug|x64
+		{C3204D71-84AC-46FA-8CBB-42ED98FA9E8C}.Debug|x64.Build.0 = Debug|x64
+		{C3204D71-84AC-46FA-8CBB-42ED98FA9E8C}.Debug|x86.ActiveCfg = Debug|Win32
+		{C3204D71-84AC-46FA-8CBB-42ED98FA9E8C}.Debug|x86.Build.0 = Debug|Win32
+		{C3204D71-84AC-46FA-8CBB-42ED98FA9E8C}.Release|x64.ActiveCfg = Release|x64
+		{C3204D71-84AC-46FA-8CBB-42ED98FA9E8C}.Release|x64.Build.0 = Release|x64
+		{C3204D71-84AC-46FA-8CBB-42ED98FA9E8C}.Release|x86.ActiveCfg = Release|Win32
+		{C3204D71-84AC-46FA-8CBB-42ED98FA9E8C}.Release|x86.Build.0 = Release|Win32
+		{EBED988D-20C9-4C62-A19C-25EF7D425431}.Debug|x64.ActiveCfg = Debug|x64
+		{EBED988D-20C9-4C62-A19C-25EF7D425431}.Debug|x64.Build.0 = Debug|x64
+		{EBED988D-20C9-4C62-A19C-25EF7D425431}.Debug|x86.ActiveCfg = Debug|Win32
+		{EBED988D-20C9-4C62-A19C-25EF7D425431}.Debug|x86.Build.0 = Debug|Win32
+		{EBED988D-20C9-4C62-A19C-25EF7D425431}.Release|x64.ActiveCfg = Release|x64
+		{EBED988D-20C9-4C62-A19C-25EF7D425431}.Release|x64.Build.0 = Release|x64
+		{EBED988D-20C9-4C62-A19C-25EF7D425431}.Release|x86.ActiveCfg = Release|Win32
+		{EBED988D-20C9-4C62-A19C-25EF7D425431}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,26 +77,36 @@ Global
 		{5BF63145-A348-4B75-8137-F3BC803343FD} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 		{8683AF56-C8C7-4387-91B1-468616FFB20B} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 		{CDDABE6D-2953-4CF3-98B9-EE49FF774F99} = {D5041A66-2726-44FB-98A5-AA067A5786D6}
+		{C3204D71-84AC-46FA-8CBB-42ED98FA9E8C} = {586E07A6-2D9B-4332-A260-D110FFA2B503}
+		{EBED988D-20C9-4C62-A19C-25EF7D425431} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 6
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
-		SccProjectUniqueName1 = Core\\Core.vcxproj
+		SccProjectUniqueName1 = Framework\\Core\\Core.vcxproj
 		SccProjectTopLevelParentUniqueName1 = Angazi.sln
-		SccProjectName1 = Core
-		SccLocalPath1 = Core
-		SccProjectUniqueName2 = Math\\Math.vcxproj
+		SccProjectName1 = Framework/Core
+		SccLocalPath1 = Framework\\Core
+		SccProjectUniqueName2 = Framework\\Math\\Math.vcxproj
 		SccProjectTopLevelParentUniqueName2 = Angazi.sln
-		SccProjectName2 = Math
-		SccLocalPath2 = Math
-		SccProjectUniqueName3 = MathTest\\MathTest.vcxproj
+		SccProjectName2 = Framework/Math
+		SccLocalPath2 = Framework\\Math
+		SccProjectUniqueName3 = UnitTests\\MathTest\\MathTest.vcxproj
 		SccProjectTopLevelParentUniqueName3 = Angazi.sln
-		SccProjectName3 = MathTest
-		SccLocalPath3 = MathTest
+		SccProjectName3 = UnitTests/MathTest
+		SccLocalPath3 = UnitTests\\MathTest
+		SccProjectUniqueName4 = Engine\\Angazi\\Angazi.vcxproj
+		SccProjectTopLevelParentUniqueName4 = Angazi.sln
+		SccProjectName4 = Engine/Angazi
+		SccLocalPath4 = Engine\\Angazi
+		SccProjectUniqueName5 = VGP242\\01_HelloWindow\\01_HelloWindow.vcxproj
+		SccProjectTopLevelParentUniqueName5 = Angazi.sln
+		SccProjectName5 = VGP242/01_HelloWindow
+		SccLocalPath5 = VGP242\\01_HelloWindow
 	EndGlobalSection
 EndGlobal
