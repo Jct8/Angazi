@@ -33,7 +33,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	}
 
 	//Terminate engine systems
-	GraphicsSystem::StaticInitialize();
+	GraphicsSystem::StaticTerminate();
 	InputSystem::StaticTerminate();
 
 	//Terminate window
