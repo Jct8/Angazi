@@ -21,6 +21,9 @@
     <ClInclude Include="Inc\App.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\AppState.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -29,6 +32,8 @@
     <ClCompile Include="Src\App.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Angazi.cpp" />
+    <ClCompile Include="Src\Angazi.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

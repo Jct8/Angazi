@@ -7,7 +7,7 @@
 	#define LOG(format, ...)\
 	BEGIN_MACRO\
 		char _buffer[4096];\
-		int ret = _snprintf_s(_buffer, std::size(_buffer), _TRUCATE, "%s(%d) "  ##format, __FILE__,__LINE__,__VA_ARGS__);\
+		int ret = _snprintf_s(_buffer, std::size(_buffer), _TRUNCATE, "%s(%d) "  ##format, __FILE__,__LINE__, __VA_ARGS__);\
 		OutputDebugStringA(_buffer);\
 		if (ret = 1)\
 			OutputDebugStringA("** message truncated **\n");\
@@ -18,7 +18,7 @@
 	BEGIN_MACRO\
 		if(!(condition))\
 		{\
-			LOG(format, __VA__ARGS__);\
+			LOG(format, __VA_ARGS__);\
 			DebugBreak();\
 		}\
 	END_MACRO

@@ -4,3 +4,4 @@
 
 #include "Debug.h"
 #include "Window.h"
+#include "WindowsMessageHandler.h"

@@ -21,6 +21,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Angazi", "Engine\Angazi\Ang
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01_HelloWindow", "VGP242\01_HelloWindow\01_HelloWindow.vcxproj", "{EBED988D-20C9-4C62-A19C-25EF7D425431}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTK_Desktop_2017", "External\DirectXTK\DirectXTK_Desktop_2017.vcxproj", "{E0B52AE7-E160-4D32-BF3F-910B785E5A8E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Framework\Graphics\Graphics.vcxproj", "{06E6ABDE-CF57-4616-A611-454834E8C04A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Input", "Framework\Input\Input.vcxproj", "{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -69,6 +77,30 @@ Global
 		{EBED988D-20C9-4C62-A19C-25EF7D425431}.Release|x64.Build.0 = Release|x64
 		{EBED988D-20C9-4C62-A19C-25EF7D425431}.Release|x86.ActiveCfg = Release|Win32
 		{EBED988D-20C9-4C62-A19C-25EF7D425431}.Release|x86.Build.0 = Release|Win32
+		{E0B52AE7-E160-4D32-BF3F-910B785E5A8E}.Debug|x64.ActiveCfg = Debug|x64
+		{E0B52AE7-E160-4D32-BF3F-910B785E5A8E}.Debug|x64.Build.0 = Debug|x64
+		{E0B52AE7-E160-4D32-BF3F-910B785E5A8E}.Debug|x86.ActiveCfg = Debug|Win32
+		{E0B52AE7-E160-4D32-BF3F-910B785E5A8E}.Debug|x86.Build.0 = Debug|Win32
+		{E0B52AE7-E160-4D32-BF3F-910B785E5A8E}.Release|x64.ActiveCfg = Release|x64
+		{E0B52AE7-E160-4D32-BF3F-910B785E5A8E}.Release|x64.Build.0 = Release|x64
+		{E0B52AE7-E160-4D32-BF3F-910B785E5A8E}.Release|x86.ActiveCfg = Release|Win32
+		{E0B52AE7-E160-4D32-BF3F-910B785E5A8E}.Release|x86.Build.0 = Release|Win32
+		{06E6ABDE-CF57-4616-A611-454834E8C04A}.Debug|x64.ActiveCfg = Debug|x64
+		{06E6ABDE-CF57-4616-A611-454834E8C04A}.Debug|x64.Build.0 = Debug|x64
+		{06E6ABDE-CF57-4616-A611-454834E8C04A}.Debug|x86.ActiveCfg = Debug|Win32
+		{06E6ABDE-CF57-4616-A611-454834E8C04A}.Debug|x86.Build.0 = Debug|Win32
+		{06E6ABDE-CF57-4616-A611-454834E8C04A}.Release|x64.ActiveCfg = Release|x64
+		{06E6ABDE-CF57-4616-A611-454834E8C04A}.Release|x64.Build.0 = Release|x64
+		{06E6ABDE-CF57-4616-A611-454834E8C04A}.Release|x86.ActiveCfg = Release|Win32
+		{06E6ABDE-CF57-4616-A611-454834E8C04A}.Release|x86.Build.0 = Release|Win32
+		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}.Debug|x64.ActiveCfg = Debug|x64
+		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}.Debug|x64.Build.0 = Debug|x64
+		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}.Debug|x86.ActiveCfg = Debug|Win32
+		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}.Debug|x86.Build.0 = Debug|Win32
+		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}.Release|x64.ActiveCfg = Release|x64
+		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}.Release|x64.Build.0 = Release|x64
+		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}.Release|x86.ActiveCfg = Release|Win32
+		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,12 +111,15 @@ Global
 		{CDDABE6D-2953-4CF3-98B9-EE49FF774F99} = {D5041A66-2726-44FB-98A5-AA067A5786D6}
 		{C3204D71-84AC-46FA-8CBB-42ED98FA9E8C} = {586E07A6-2D9B-4332-A260-D110FFA2B503}
 		{EBED988D-20C9-4C62-A19C-25EF7D425431} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
+		{E0B52AE7-E160-4D32-BF3F-910B785E5A8E} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
+		{06E6ABDE-CF57-4616-A611-454834E8C04A} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
+		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 9
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -108,5 +143,17 @@ Global
 		SccProjectTopLevelParentUniqueName5 = Angazi.sln
 		SccProjectName5 = VGP242/01_HelloWindow
 		SccLocalPath5 = VGP242\\01_HelloWindow
+		SccProjectUniqueName6 = External\\DirectXTK\\DirectXTK_Desktop_2017.vcxproj
+		SccProjectTopLevelParentUniqueName6 = Angazi.sln
+		SccProjectName6 = External/DirectXTK
+		SccLocalPath6 = External\\DirectXTK
+		SccProjectUniqueName7 = Framework\\Graphics\\Graphics.vcxproj
+		SccProjectTopLevelParentUniqueName7 = Angazi.sln
+		SccProjectName7 = Framework/Graphics
+		SccLocalPath7 = Framework\\Graphics
+		SccProjectUniqueName8 = Framework\\Input\\Input.vcxproj
+		SccProjectTopLevelParentUniqueName8 = Angazi.sln
+		SccProjectName8 = Framework/Input
+		SccLocalPath8 = Framework\\Input
 	EndGlobalSection
 EndGlobal

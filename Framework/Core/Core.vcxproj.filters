@@ -24,12 +24,18 @@
     <ClInclude Include="Inc\Debug.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\WindowsMessageHandler.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\Window.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\WindowsMessageHandler.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

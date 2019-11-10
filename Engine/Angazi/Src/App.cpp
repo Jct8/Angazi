@@ -2,6 +2,8 @@
 #include "App.h"
 
 using namespace Angazi;
+using namespace Angazi::Graphics;
+using namespace Angazi::Input;
 
 void Angazi::App::Run(AppConfig appConfig)
 {
@@ -10,7 +12,12 @@ void Angazi::App::Run(AppConfig appConfig)
 	// Setup out application window
 	mWindow.Initialize(GetModuleHandle(NULL), appConfig.appName.c_str(), appConfig.windowWidth, appConfig.windowHeight);
 
-	//Initialize engine systems
+	//Initialize the input systems
+	auto handle = mWindow.GetWindowHandle();
+	InputSystem::StaticInitialize(handle);
+
+	//Initialize the graphics systems
+	GraphicsSystem::StaticInitialize(handle, false);
 
 	mRunning = true;
 	while (mRunning && mWindow.IsActive())
@@ -22,11 +29,13 @@ void Angazi::App::Run(AppConfig appConfig)
 			Quit();
 		}
 		//Do game stuff...
+
 	}
 
 	//Terminate engine systems
+	GraphicsSystem::StaticInitialize();
+	InputSystem::StaticTerminate();
 
 	//Terminate window
 	mWindow.Terminate();
 }
-
