@@ -58,9 +58,9 @@ void Angazi::Core::Window::Initialize(HINSTANCE instance, LPCSTR appName, uint32
 	mWindow = CreateWindowA
 	(
 		appName, appName,
-		WS_OVERLAPPEDWINDOW,
-		posX, posY,
-		winWidth, winHeight,
+		WS_OVERLAPPEDWINDOW,	//WindowStyle
+		posX, posY,				//Window initial position
+		winWidth, winHeight,	//Window size
 		nullptr, nullptr,
 		instance, nullptr
 	);
