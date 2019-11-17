@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Framework\Graph
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Input", "Framework\Input\Input.vcxproj", "{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "02_HelloDirectX", "VGP242\02_HelloDirectX\02_HelloDirectX.vcxproj", "{CDA47632-A0C5-47AF-8839-8191A6B2105E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -101,6 +103,14 @@ Global
 		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}.Release|x64.Build.0 = Release|x64
 		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}.Release|x86.ActiveCfg = Release|Win32
 		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A}.Release|x86.Build.0 = Release|Win32
+		{CDA47632-A0C5-47AF-8839-8191A6B2105E}.Debug|x64.ActiveCfg = Debug|x64
+		{CDA47632-A0C5-47AF-8839-8191A6B2105E}.Debug|x64.Build.0 = Debug|x64
+		{CDA47632-A0C5-47AF-8839-8191A6B2105E}.Debug|x86.ActiveCfg = Debug|Win32
+		{CDA47632-A0C5-47AF-8839-8191A6B2105E}.Debug|x86.Build.0 = Debug|Win32
+		{CDA47632-A0C5-47AF-8839-8191A6B2105E}.Release|x64.ActiveCfg = Release|x64
+		{CDA47632-A0C5-47AF-8839-8191A6B2105E}.Release|x64.Build.0 = Release|x64
+		{CDA47632-A0C5-47AF-8839-8191A6B2105E}.Release|x86.ActiveCfg = Release|Win32
+		{CDA47632-A0C5-47AF-8839-8191A6B2105E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,12 +124,13 @@ Global
 		{E0B52AE7-E160-4D32-BF3F-910B785E5A8E} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
 		{06E6ABDE-CF57-4616-A611-454834E8C04A} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
+		{CDA47632-A0C5-47AF-8839-8191A6B2105E} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
+		SccNumberOfProjects = 10
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -155,5 +166,9 @@ Global
 		SccProjectTopLevelParentUniqueName8 = Angazi.sln
 		SccProjectName8 = Framework/Input
 		SccLocalPath8 = Framework\\Input
+		SccProjectUniqueName9 = VGP242\\02_HelloDirectX\\02_HelloDirectX.vcxproj
+		SccProjectTopLevelParentUniqueName9 = Angazi.sln
+		SccProjectName9 = VGP242/02_HelloDirectX
+		SccLocalPath9 = VGP242\\02_HelloDirectX
 	EndGlobalSection
 EndGlobal

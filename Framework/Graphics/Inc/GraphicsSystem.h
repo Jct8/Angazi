@@ -1,4 +1,5 @@
 #pragma once
+#include "Colors.h"
 
 namespace Angazi::Graphics {
 
@@ -28,7 +29,7 @@ public:
 	void ResetRenderTarget();
 	void ResetViewport();
 
-	//void SetClearColor(Color clearColor) { mClearColor = clearColor; }
+	void SetClearColor(Color clearColor) { mClearColor = clearColor; }
 	void SetVSync(bool vSync) { mVSync = vSync ? 1 : 0; }
 
 	uint32_t GetBackBufferWidth() const;
@@ -57,7 +58,7 @@ private:
 	DXGI_SWAP_CHAIN_DESC mSwapChainDesc{};
 	D3D11_VIEWPORT mViewport{};
 
-	//Color mClearColor = Colors::White;
+	Color mClearColor = Colors::White;
 	UINT mVSync = 1;
 };
 

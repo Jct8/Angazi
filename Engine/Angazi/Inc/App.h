@@ -1,8 +1,9 @@
 #pragma once
 
+#include "AppState.h"
+
 namespace Angazi
 {
-	class AppState;
 
 	struct AppConfig
 	{
@@ -20,7 +21,7 @@ namespace Angazi
 			mAppStates.emplace(std::move(name), std::make_unique<StateType>());
 		}
 
-		void ChangeState(std::string name);
+		void ChangeState(const std::string& name);
 
 		void Run(AppConfig appConfig);
 		void Quit() { mRunning = false; };
