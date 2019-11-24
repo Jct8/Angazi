@@ -31,6 +31,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Input", "Framework\Input\In
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "02_HelloDirectX", "VGP242\02_HelloDirectX\02_HelloDirectX.vcxproj", "{CDA47632-A0C5-47AF-8839-8191A6B2105E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03_HelloTriangle", "VGP242\03_HelloTriangle\03_HelloTriangle.vcxproj", "{6EFD7FB0-4EBF-4570-85B8-ABA270365C47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{151081E7-6860-49B2-904A-B1EFA6CCB4D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA6B8E-242B-46B4-8366-0A659EFAE1D1}"
+	ProjectSection(SolutionItems) = preProject
+		Assets\Shaders\DoNothing.fx = Assets\Shaders\DoNothing.fx
+		Assets\Shaders\DoSomething.fx = Assets\Shaders\DoSomething.fx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -111,6 +121,14 @@ Global
 		{CDA47632-A0C5-47AF-8839-8191A6B2105E}.Release|x64.Build.0 = Release|x64
 		{CDA47632-A0C5-47AF-8839-8191A6B2105E}.Release|x86.ActiveCfg = Release|Win32
 		{CDA47632-A0C5-47AF-8839-8191A6B2105E}.Release|x86.Build.0 = Release|Win32
+		{6EFD7FB0-4EBF-4570-85B8-ABA270365C47}.Debug|x64.ActiveCfg = Debug|x64
+		{6EFD7FB0-4EBF-4570-85B8-ABA270365C47}.Debug|x64.Build.0 = Debug|x64
+		{6EFD7FB0-4EBF-4570-85B8-ABA270365C47}.Debug|x86.ActiveCfg = Debug|Win32
+		{6EFD7FB0-4EBF-4570-85B8-ABA270365C47}.Debug|x86.Build.0 = Debug|Win32
+		{6EFD7FB0-4EBF-4570-85B8-ABA270365C47}.Release|x64.ActiveCfg = Release|x64
+		{6EFD7FB0-4EBF-4570-85B8-ABA270365C47}.Release|x64.Build.0 = Release|x64
+		{6EFD7FB0-4EBF-4570-85B8-ABA270365C47}.Release|x86.ActiveCfg = Release|Win32
+		{6EFD7FB0-4EBF-4570-85B8-ABA270365C47}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,12 +143,14 @@ Global
 		{06E6ABDE-CF57-4616-A611-454834E8C04A} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 		{02DC0CE5-72DF-4F89-8AF2-FF9C0E351A1A} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 		{CDA47632-A0C5-47AF-8839-8191A6B2105E} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
+		{6EFD7FB0-4EBF-4570-85B8-ABA270365C47} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
+		{7BEA6B8E-242B-46B4-8366-0A659EFAE1D1} = {151081E7-6860-49B2-904A-B1EFA6CCB4D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 10
+		SccNumberOfProjects = 11
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -170,5 +190,9 @@ Global
 		SccProjectTopLevelParentUniqueName9 = Angazi.sln
 		SccProjectName9 = VGP242/02_HelloDirectX
 		SccLocalPath9 = VGP242\\02_HelloDirectX
+		SccProjectUniqueName10 = VGP242\\03_HelloTriangle\\03_HelloTriangle.vcxproj
+		SccProjectTopLevelParentUniqueName10 = Angazi.sln
+		SccProjectName10 = VGP242/03_HelloTriangle
+		SccLocalPath10 = VGP242\\03_HelloTriangle
 	EndGlobalSection
 EndGlobal
