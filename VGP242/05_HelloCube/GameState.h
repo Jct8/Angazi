@@ -19,22 +19,15 @@ private:
 		Angazi::Graphics::Color color;
 	};
 
-	
-
 	std::vector<Vertex> mVertices;
 
 	ID3D11Buffer* mConstantBuffer = nullptr;
-
-	std::map<std::string, std::vector<Vertex>> mMeshes;
 
 	//gets placed in vram
 	ID3D11Buffer* mVertexBuffer = nullptr;
 	ID3D11VertexShader *mVertexShader = nullptr;
 	ID3D11InputLayout *mInputLayout = nullptr;
 	ID3D11PixelShader *mPixelShader = nullptr;
-
-	std::vector<ID3D11Buffer*> mVertexBufferList;
-	int mCurrentVertexCount = 0;
 
 	float mRotation = 0.0f;
 

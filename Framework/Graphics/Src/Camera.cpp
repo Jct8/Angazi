@@ -77,7 +77,7 @@ Math::Matrix4 Camera::GetViewMatrix() const
 {
 	const Math::Vector3 l = mDirection;
 	const Math::Vector3 r = Math::Normalize(Math::Cross(Math::Vector3::YAxis, l));
-	const Math::Vector3 u = Math::Normalize(Math::Cross(l, 3));
+	const Math::Vector3 u = Math::Normalize(Math::Cross(l, r));
 
 	const float dx = -Math::Dot(r, mPosition);
 	const float dy = -Math::Dot(u, mPosition);
@@ -97,7 +97,7 @@ Math::Matrix4 Camera::GetPerspectiveMatrix() const
 {
 	const auto width = GraphicsSystem::Get()->GetBackBufferWidth();
 	const auto height = GraphicsSystem::Get()->GetBackBufferHeight();
-	const float aspectRatio = static_cast<float> (width) / height;
+	const float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
 	const float h = 1.0f / tan(mFov*0.5f);
 	const float w = h / aspectRatio;
 	const float zf = mFarPlane;
@@ -109,7 +109,7 @@ Math::Matrix4 Camera::GetPerspectiveMatrix() const
 		w,		0.0f, 0.0f,		0.0f,
 		0.0f,	h,    0.0f,		0.0f,
 		0.0f,	0.0f, d ,		1.0f,
-		0.0f,	0.0f, -zn * d,	0.0f,
+		0.0f,	0.0f, -zn * d,	0.0f
 	};
 
 }

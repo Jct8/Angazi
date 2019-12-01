@@ -11,154 +11,61 @@ void GameState::Initialize()
 	GraphicsSystem::Get()->SetClearColor(Colors::LightGray);
 
 	mCamera.SetPosition({ 0.0f,0.0f,-5.0f });
-	mCamera.SetDirection( { 0.0f,0.0f, 1.0f });
+	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
-	//Basic
-	mVertices.emplace_back(Vertex{ Vector3{  0.0f,  0.5f, 0.0f } , Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Purple });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::White });
+	//Front
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Blue });
 
-	mMeshes["Basic"] = mVertices;
-	mVertices.clear();
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Blue });
 
-	//Triforce
-	mVertices.emplace_back(Vertex{ Vector3{  0.0f, 1.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, 0.0f, 0.0f }, Colors::Red });
+	//Back
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Blue });
 
-	mVertices.emplace_back(Vertex{ Vector3{ 0.5f, 0.0f, 0.0f }, Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{ 1.0f, -1.0f, 0.0f }, Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.0f, -1.0f, 0.0f }, Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, 0.5f,  1.0f } , Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Blue });
 
-	mVertices.emplace_back(Vertex{ Vector3{ 0.0f, -1.0f, 0.0f }, Colors::Green });
-	mVertices.emplace_back(Vertex{ Vector3{ -1.0f, -1.0f, 0.0f }, Colors::Green });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, 0.0f, 0.0f  }, Colors::Green });
+	//Right
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Gold });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Gold });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Gold });
 
-	mMeshes["TriForce"] = mVertices;
-	mVertices.clear();
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Gold });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 1.0f } , Colors::Gold });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Gold });
 
-	//Heart
-	mVertices.emplace_back(Vertex{ Vector3{ -0.47f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.47f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.0f, -1.0f, 0.0f }, Colors::Red });
+	//Left
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Gold });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Gold });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Gold });
 
-	//left side
-	mVertices.emplace_back(Vertex{ Vector3{ -0.47f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.45f, 0.2f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.25f, 0.0f, 0.0f }, Colors::Red });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Gold });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Gold });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Gold });
 
-	mVertices.emplace_back(Vertex{ Vector3{ -0.45f, 0.2f, 0.0f  }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.35f, 0.4f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.25f, 0.0f, 0.0f }, Colors::Red });
+	//Top
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Green });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Green });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Green });
 
-	mVertices.emplace_back(Vertex{ Vector3{ -0.35f, 0.4f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.25f, 0.45f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.25f, 0.0f, 0.0f }, Colors::Red });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Green });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Green });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 1.0f } , Colors::Green });
 
-	mVertices.emplace_back(Vertex{ Vector3{ -0.25f, 0.45f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.15f, 0.4f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.25f, 0.0f, 0.0f }, Colors::Red });
+	//Bottom
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Green });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Green });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Green });
 
-	mVertices.emplace_back(Vertex{ Vector3{ -0.15f, 0.4f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.05f, 0.2f, 0.0f  }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.25f, 0.0f, 0.0f }, Colors::Red });
-
-	mVertices.emplace_back(Vertex{ Vector3{ -0.05f, 0.2f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{  0.0f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.25f, 0.0f, 0.0f }, Colors::Red });
-
-	//Right side
-	mVertices.emplace_back(Vertex{ Vector3{ 0.25f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.45f, 0.2f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.47f, 0.0f, 0.0f }, Colors::Red });
-
-	mVertices.emplace_back(Vertex{ Vector3{ 0.25f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.35f, 0.4f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.45f, 0.2f, 0.0f  }, Colors::Red });
-
-	mVertices.emplace_back(Vertex{ Vector3{ 0.25f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.25f, 0.45f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.35f, 0.4f, 0.0f }, Colors::Red });
-
-	mVertices.emplace_back(Vertex{ Vector3{ 0.25f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.15f, 0.4f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.25f, 0.45f, 0.0f }, Colors::Red });
-
-	mVertices.emplace_back(Vertex{ Vector3{ 0.25f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.05f, 0.2f, 0.0f  }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.15f, 0.4f, 0.0f }, Colors::Red });
-
-	mVertices.emplace_back(Vertex{ Vector3{ 0.25f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.0f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.05f, 0.2f, 0.0f }, Colors::Red });
-
-	/*mVertices.emplace_back(Vertex{ Vector3{ -0.25f, 0.5f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.0f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, 0.0f, 0.0f }, Colors::Red });
-
-	mVertices.emplace_back(Vertex{ Vector3{ 0.25f, 0.5f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.5f, 0.0f, 0.0f }, Colors::Red });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.0f, 0.0f, 0.0f }, Colors::Red });*/
-
-	mMeshes["Heart"] = mVertices;
-	mVertices.clear();
-
-	//LeftSide
-	mVertices.emplace_back(Vertex{ Vector3{ -0.02f, 0.3f, 0.0f }, Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.42f, 0.6f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.02f, 0.5f, 0.0f }, Colors::Gold });
-
-	mVertices.emplace_back(Vertex{ Vector3{ -0.42f, 0.6f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.32f, 0.65f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.02f, 0.5f, 0.0f }, Colors::Gold });
-
-
-	mVertices.emplace_back(Vertex{ Vector3{ -0.02f, 0.2f, 0.0f }, Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.37f, 0.3f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.42f, 0.5f, 0.0f }, Colors::Black });
-
-	mVertices.emplace_back(Vertex{ Vector3{ -0.02f, 0.2f, 0.0f }, Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.12f, 0.0f, 0.0f }, Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.37f, 0.3f, 0.0f }, Colors::Black });
-
-
-	mVertices.emplace_back(Vertex{ Vector3{ -0.02f, 0.1f, 0.0f }, Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.02f, -0.9f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.07f, -0.8f, 0.0f }, Colors::Black });
-
-	mVertices.emplace_back(Vertex{ Vector3{ -0.07f, -0.8f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.12f, -0.08f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.02f, 0.1f, 0.0f }, Colors::Gold });
-
-	//RightSide
-	mVertices.emplace_back(Vertex{ Vector3{ 0.02f, 0.5f, 0.0f }, Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.42f, 0.6f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.02f, 0.3f, 0.0f }, Colors::Gold });
-
-	mVertices.emplace_back(Vertex{ Vector3{ 0.02f, 0.5f, 0.0f }, Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.32f, 0.65f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.42f, 0.6f, 0.0f }, Colors::Black });
-
-
-	mVertices.emplace_back(Vertex{ Vector3{ 0.42f, 0.5f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.37f, 0.3f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.02f, 0.2f, 0.0f }, Colors::Gold });
-
-	mVertices.emplace_back(Vertex{ Vector3{ 0.37f, 0.3f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.12f, 0.0f, 0.0f }, Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.02f, 0.2f, 0.0f }, Colors::Gold });
-
-
-	mVertices.emplace_back(Vertex{ Vector3{ 0.07f, -0.8f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.02f, -0.9f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.02f, 0.1f, 0.0f }, Colors::Gold });
-
-	mVertices.emplace_back(Vertex{ Vector3{ 0.02f, 0.1f, 0.0f }, Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.12f, -0.08f, 0.0f }, Colors::Black });
-	mVertices.emplace_back(Vertex{ Vector3{ 0.07f, -0.8f, 0.0f }, Colors::Black });
-
-	mMeshes["Kobe"] = mVertices;
-	mVertices.clear();
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Green });
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Green });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Green });
 
 	auto device = GraphicsSystem::Get()->GetDevice();
 
@@ -170,34 +77,28 @@ void GameState::Initialize()
 	constantBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-	HRESULT hr = device->CreateBuffer(&constantBufferDesc, nullptr,&mConstantBuffer);
+	HRESULT hr = device->CreateBuffer(&constantBufferDesc, nullptr, &mConstantBuffer);
 	ASSERT(SUCCEEDED(hr), "Failed to create constant buffer.");
 #pragma endregion
 
-
 #pragma region CreateVertexBuffer
 	//Create vertex buffer
-	for (auto iter = mMeshes.begin(); iter != mMeshes.end(); ++iter)
-	{
-		D3D11_BUFFER_DESC bufferDesc{};
-		bufferDesc.ByteWidth = iter->second.size() * sizeof(Vertex);
-		bufferDesc.Usage = D3D11_USAGE_DEFAULT;
-		bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		bufferDesc.CPUAccessFlags = 0;
-		bufferDesc.MiscFlags = 0;
-		bufferDesc.StructureByteStride = 0;
 
-		//Initialization
-		D3D11_SUBRESOURCE_DATA initData{};
-		initData.pSysMem = iter->second.data();
+	D3D11_BUFFER_DESC bufferDesc{};
+	bufferDesc.ByteWidth = mVertices.size() * sizeof(Vertex);
+	bufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bufferDesc.CPUAccessFlags = 0;
+	bufferDesc.MiscFlags = 0;
+	bufferDesc.StructureByteStride = 0;
 
-		//hresult is an error code as a long
-		mVertexBufferList.emplace_back();
-		hr = device->CreateBuffer(&bufferDesc, &initData, &mVertexBufferList.back());
-		ASSERT(SUCCEEDED(hr), "Failed to create vertex buffer.");
-	}
-	mVertexBuffer = mVertexBufferList.front();
-	mCurrentVertexCount = mMeshes["Basic"].size();
+	//Initialization
+	D3D11_SUBRESOURCE_DATA initData{};
+	initData.pSysMem = mVertices.data();
+
+	//hresult is an error code as a long
+	hr = device->CreateBuffer(&bufferDesc, &initData, &mVertexBuffer);
+	ASSERT(SUCCEEDED(hr), "Failed to create vertex buffer.");
 #pragma endregion
 
 #pragma region CompileAndCreateVertexShader
@@ -271,37 +172,28 @@ void GameState::Terminate()
 {
 	SafeRelease(mConstantBuffer);
 	SafeRelease(mVertexBuffer);
-	for (int i = 0; i < mVertexBufferList.size(); i++)
-	{
-		SafeRelease(mVertexBufferList[i]);
-	}
 	SafeRelease(mVertexShader);
 	SafeRelease(mInputLayout);
 	SafeRelease(mPixelShader);
 }
 
-void GameState::Update(float deltatTime)
+void GameState::Update(float deltaTime)
 {
-	if (InputSystem::Get()->IsKeyPressed(Input::KeyCode::ONE))
-	{
-		mVertexBuffer = mVertexBufferList[0];
-		mCurrentVertexCount = mMeshes["Basic"].size();
-	}
-	if (InputSystem::Get()->IsKeyPressed(Input::KeyCode::TWO))
-	{
-		mVertexBuffer = mVertexBufferList[1];
-		mCurrentVertexCount = mMeshes["Heart"].size();
-	}
-	if (InputSystem::Get()->IsKeyPressed(Input::KeyCode::THREE))
-	{
-		mVertexBuffer = mVertexBufferList[2];
-		mCurrentVertexCount = mMeshes["Kobe"].size();
-	}
-	if (InputSystem::Get()->IsKeyPressed(Input::KeyCode::FOUR))
-	{
-		mVertexBuffer = mVertexBufferList[3];
-		mCurrentVertexCount = mMeshes["TriForce"].size();
-	}
+	const float kMoveSpeed = 10.0f;
+	const float kTurnSpeed = 1.0f;
+
+	auto inputSystem = InputSystem::Get();
+	if (inputSystem->IsKeyDown(KeyCode::W))
+		mCamera.Walk(kMoveSpeed*deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::S))
+		mCamera.Walk(-kMoveSpeed * deltaTime);
+	mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
+	mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+
+	if (inputSystem->IsKeyDown(KeyCode::A))
+		mRotation += deltaTime;
+	if (inputSystem->IsKeyDown(KeyCode::D))
+		mRotation -= deltaTime;
 }
 
 void GameState::Render()
@@ -311,7 +203,7 @@ void GameState::Render()
 	auto matWorld = Matrix4::RotationY(mRotation);
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
-	auto matWVP = Transpose( matWorld * matView * matProj);
+	auto matWVP = Transpose(matWorld * matView * matProj);
 	context->UpdateSubresource(mConstantBuffer, 0, nullptr, &matWVP, 0, 0);
 	context->VSSetConstantBuffers(0, 1, &mConstantBuffer);
 
@@ -325,8 +217,5 @@ void GameState::Render()
 	context->VSSetShader(mVertexShader, nullptr, 0);
 	context->PSSetShader(mPixelShader, nullptr, 0);
 
-	context->Draw(mCurrentVertexCount, 0);
+	context->Draw(mVertices.size(), 0);
 }
-
-
-

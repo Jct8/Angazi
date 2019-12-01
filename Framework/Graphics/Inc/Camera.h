@@ -2,7 +2,7 @@
 
 namespace Angazi::Graphics
 {
-	// This acamera assumes YAxis as up direction. You cannot
+	// This camera assumes YAxis as up direction. You cannot
 	// look straight up nor straight down.
 	class Camera
 	{
