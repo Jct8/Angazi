@@ -39,9 +39,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA
 	ProjectSection(SolutionItems) = preProject
 		Assets\Shaders\DoNothing.fx = Assets\Shaders\DoNothing.fx
 		Assets\Shaders\DoSomething.fx = Assets\Shaders\DoSomething.fx
+		Assets\Shaders\DoTransform.fx = Assets\Shaders\DoTransform.fx
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_HelloShapes", "VGP242\04_HelloShapes\04_HelloShapes.vcxproj", "{464D5F6E-2CE0-4664-8A84-70F54725E22B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05_HelloCube", "VGP242\05_HelloCube\05_HelloCube.vcxproj", "{78303C56-896B-4853-8BC2-C45D7FF793D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +142,14 @@ Global
 		{464D5F6E-2CE0-4664-8A84-70F54725E22B}.Release|x64.Build.0 = Release|x64
 		{464D5F6E-2CE0-4664-8A84-70F54725E22B}.Release|x86.ActiveCfg = Release|Win32
 		{464D5F6E-2CE0-4664-8A84-70F54725E22B}.Release|x86.Build.0 = Release|Win32
+		{78303C56-896B-4853-8BC2-C45D7FF793D3}.Debug|x64.ActiveCfg = Debug|x64
+		{78303C56-896B-4853-8BC2-C45D7FF793D3}.Debug|x64.Build.0 = Debug|x64
+		{78303C56-896B-4853-8BC2-C45D7FF793D3}.Debug|x86.ActiveCfg = Debug|Win32
+		{78303C56-896B-4853-8BC2-C45D7FF793D3}.Debug|x86.Build.0 = Debug|Win32
+		{78303C56-896B-4853-8BC2-C45D7FF793D3}.Release|x64.ActiveCfg = Release|x64
+		{78303C56-896B-4853-8BC2-C45D7FF793D3}.Release|x64.Build.0 = Release|x64
+		{78303C56-896B-4853-8BC2-C45D7FF793D3}.Release|x86.ActiveCfg = Release|Win32
+		{78303C56-896B-4853-8BC2-C45D7FF793D3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -156,12 +167,13 @@ Global
 		{6EFD7FB0-4EBF-4570-85B8-ABA270365C47} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
 		{7BEA6B8E-242B-46B4-8366-0A659EFAE1D1} = {151081E7-6860-49B2-904A-B1EFA6CCB4D5}
 		{464D5F6E-2CE0-4664-8A84-70F54725E22B} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
+		{78303C56-896B-4853-8BC2-C45D7FF793D3} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 12
+		SccNumberOfProjects = 13
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -209,5 +221,9 @@ Global
 		SccProjectTopLevelParentUniqueName11 = Angazi.sln
 		SccProjectName11 = VGP242/04_HelloShapes
 		SccLocalPath11 = VGP242\\04_HelloShapes
+		SccProjectUniqueName12 = VGP242\\05_HelloCube\\05_HelloCube.vcxproj
+		SccProjectTopLevelParentUniqueName12 = Angazi.sln
+		SccProjectName12 = VGP242/05_HelloCube
+		SccLocalPath12 = VGP242\\05_HelloCube
 	EndGlobalSection
 EndGlobal
