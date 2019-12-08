@@ -18,54 +18,76 @@ void GameState::Initialize()
 	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Blue });
 	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Blue });
 
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Blue });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::SlateBlue });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Blue });
 
 	//Back
+	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Blue });
 	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Blue });
+	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 1.0f } , Colors::SlateBlue });
 
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, 0.5f,  1.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Blue });
+	mIndices.push_back(0);
+	mIndices.push_back(1);
+	mIndices.push_back(2);
 
-	//Right
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Gold });
+	mIndices.push_back(0);
+	mIndices.push_back(3);
+	mIndices.push_back(1);
 
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 1.0f } , Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Gold });
+	mIndices.push_back();
+	mIndices.push_back(1);
+	mIndices.push_back(2);
 
-	//Left
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Gold });
+	mIndices.push_back(0);
+	mIndices.push_back(3);
+	mIndices.push_back(1);
 
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Gold });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Gold });
+	////Back
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Blue });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Blue });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Blue });
 
-	//Top
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Green });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Green });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Green });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Blue });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, 0.5f,  1.0f } , Colors::Blue });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Blue });
 
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Green });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Green });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 1.0f } , Colors::Green });
+	////Right
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Gold });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Gold });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Gold });
 
-	//Bottom
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Green });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Green });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Green });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Gold });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 1.0f } , Colors::Gold });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Gold });
 
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Green });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Green });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Green });
+	////Left
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Gold });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Gold });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Gold });
+
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Gold });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Gold });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Gold });
+
+	////Top
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Green });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Green });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Green });
+
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Green });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Green });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 1.0f } , Colors::Green });
+
+	////Bottom
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Green });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Green });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Green });
+
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Green });
+	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Green });
+	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Green });
 
 	auto device = GraphicsSystem::Get()->GetDevice();
 
@@ -101,6 +123,17 @@ void GameState::Initialize()
 	ASSERT(SUCCEEDED(hr), "Failed to create vertex buffer.");
 #pragma endregion
 
+#pragma region CreateIndexBuffer
+	//Create index Buffer
+	bufferDesc.ByteWidth = mIndices.size() * sizeof(uint32_t);
+	bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	initData.pSysMem = mIndices.data();
+
+	hr = device->CreateBuffer(&bufferDesc, &initData, &mIndexBuffer);
+	ASSERT(SUCCEEDED(hr), "Failed to create index buffer.");
+
+#pragma endregion
+
 	//Compile and create vertex shader
 	mVertexShader.Initialize();
 	mPixelShader.Initialize();
@@ -113,6 +146,7 @@ void GameState::Terminate()
 	mPixelShader.Terminate();
 
 	SafeRelease(mConstantBuffer);
+	SafeRelease(mIndexBuffer);
 	SafeRelease(mVertexBuffer);
 
 }
@@ -152,9 +186,13 @@ void GameState::Render()
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
 	context->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
+	context->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
+	//mMeshBuffer.Draw();
 
-	context->Draw(mVertices.size(), 0);
+	//context->Draw(mVertices.size(), 0); <- this is for when we dont have an index buffer
+	context->DrawIndexed((UINT)mIndices.size(), 0, 0);
+
 }
