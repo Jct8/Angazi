@@ -22,12 +22,11 @@ private:
 	std::vector<Vertex> mVertices;
 
 	ID3D11Buffer* mConstantBuffer = nullptr;
-
-	//gets placed in vram
 	ID3D11Buffer* mVertexBuffer = nullptr;
-	ID3D11VertexShader *mVertexShader = nullptr;
-	ID3D11InputLayout *mInputLayout = nullptr;
-	ID3D11PixelShader *mPixelShader = nullptr;
+
+	Angazi::Graphics::VertexShader mVertexShader;
+	Angazi::Graphics::PixelShader mPixelShader;
+
 
 	float mRotation = 0.0f;
 
