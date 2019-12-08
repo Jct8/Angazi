@@ -13,128 +13,70 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f,0.0f,-5.0f });
 	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
-	//Front
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Blue });
+	//Front Vertices
+	mMesh.mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Gold });
+	mMesh.mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Purple });
+	mMesh.mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Gold });
+	mMesh.mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Black });
 
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::SlateBlue });
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Blue });
+	//Back Vertices
+	mMesh.mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Gold });
+	mMesh.mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 1.0f } , Colors::Purple });
+	mMesh.mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Black });
+	mMesh.mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Gold });
 
-	//Back
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Blue });
-	mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 1.0f } , Colors::SlateBlue });
+	////Front
+	//mMesh.mIndices.push_back(0);
+	//mMesh.mIndices.push_back(1);
+	//mMesh.mIndices.push_back(2);
 
-	mIndices.push_back(0);
-	mIndices.push_back(1);
-	mIndices.push_back(2);
-
-	mIndices.push_back(0);
-	mIndices.push_back(3);
-	mIndices.push_back(1);
-
-	mIndices.push_back();
-	mIndices.push_back(1);
-	mIndices.push_back(2);
-
-	mIndices.push_back(0);
-	mIndices.push_back(3);
-	mIndices.push_back(1);
+	//mMesh.mIndices.push_back(0);
+	//mMesh.mIndices.push_back(2);
+	//mMesh.mIndices.push_back(3);
 
 	////Back
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Blue });
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Blue });
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Blue });
+	//mMesh.mIndices.push_back(4);
+	//mMesh.mIndices.push_back(6);
+	//mMesh.mIndices.push_back(5);
 
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Blue });
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, 0.5f,  1.0f } , Colors::Blue });
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Blue });
-
-	////Right
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Gold });
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Gold });
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Gold });
-
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Gold });
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 1.0f } , Colors::Gold });
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Gold });
-
-	////Left
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Gold });
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Gold });
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Gold });
-
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Gold });
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Gold });
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Gold });
-
-	////Top
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Green });
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Green });
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Green });
-
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Green });
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Green });
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f,  0.5f, 1.0f } , Colors::Green });
-
-	////Bottom
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Green });
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Green });
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Green });
-
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Green });
-	//mVertices.emplace_back(Vertex{ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Green });
-	//mVertices.emplace_back(Vertex{ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Green });
-
-	auto device = GraphicsSystem::Get()->GetDevice();
+	//mMesh.mIndices.push_back(4);
+	//mMesh.mIndices.push_back(7);
+	//mMesh.mIndices.push_back(6);
 
 
-#pragma region CreateConstantBuffer
-	//Create constant buffer
-	D3D11_BUFFER_DESC constantBufferDesc{};
-	constantBufferDesc.ByteWidth = sizeof(Matrix4);
-	constantBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	//Triangle Strip
+	//Front
+	mMesh.mIndices.push_back(0);
+	mMesh.mIndices.push_back(1);
+	mMesh.mIndices.push_back(3);
+	mMesh.mIndices.push_back(2);
 
-	HRESULT hr = device->CreateBuffer(&constantBufferDesc, nullptr, &mConstantBuffer);
-	ASSERT(SUCCEEDED(hr), "Failed to create constant buffer.");
-#pragma endregion
+	//Bottom 1
+	mMesh.mIndices.push_back(6);
+	//Right
+	mMesh.mIndices.push_back(1);
+	mMesh.mIndices.push_back(5);
 
-#pragma region CreateVertexBuffer
-	//Create vertex buffer
+	//Top
+	mMesh.mIndices.push_back(0);
+	mMesh.mIndices.push_back(4);
+	
+	//Left
+	mMesh.mIndices.push_back(3);
+	mMesh.mIndices.push_back(7);
 
-	D3D11_BUFFER_DESC bufferDesc{};
-	bufferDesc.ByteWidth = mVertices.size() * sizeof(Vertex);
-	bufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bufferDesc.CPUAccessFlags = 0;
-	bufferDesc.MiscFlags = 0;
-	bufferDesc.StructureByteStride = 0;
+	//Bottom 2
+	mMesh.mIndices.push_back(6);
 
-	//Initialization
-	D3D11_SUBRESOURCE_DATA initData{};
-	initData.pSysMem = mVertices.data();
+	//Back
+	mMesh.mIndices.push_back(4);
+	mMesh.mIndices.push_back(5);
 
-	//hresult is an error code as a long
-	hr = device->CreateBuffer(&bufferDesc, &initData, &mVertexBuffer);
-	ASSERT(SUCCEEDED(hr), "Failed to create vertex buffer.");
-#pragma endregion
+	mConstantBuffer.Initialize(sizeof(Matrix4));
+	mMeshBuffer.Initialize(
+		mMesh.mVertices.data(), mMesh.mVertices.size(),
+		mMesh.mIndices.data(), mMesh.mIndices.size());
 
-#pragma region CreateIndexBuffer
-	//Create index Buffer
-	bufferDesc.ByteWidth = mIndices.size() * sizeof(uint32_t);
-	bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	initData.pSysMem = mIndices.data();
-
-	hr = device->CreateBuffer(&bufferDesc, &initData, &mIndexBuffer);
-	ASSERT(SUCCEEDED(hr), "Failed to create index buffer.");
-
-#pragma endregion
-
-	//Compile and create vertex shader
 	mVertexShader.Initialize();
 	mPixelShader.Initialize();
 
@@ -142,13 +84,10 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
-	mVertexShader.Terminate();
+	mMeshBuffer.Terminate();
+	mConstantBuffer.Terminate();
 	mPixelShader.Terminate();
-
-	SafeRelease(mConstantBuffer);
-	SafeRelease(mIndexBuffer);
-	SafeRelease(mVertexBuffer);
-
+	mVertexShader.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -174,25 +113,26 @@ void GameState::Render()
 {
 	auto context = GraphicsSystem::Get()->GetContext();
 
-	auto matWorld = Matrix4::RotationY(mRotation);
-	auto matView = mCamera.GetViewMatrix();
-	auto matProj = mCamera.GetPerspectiveMatrix();
-	auto matWVP = Transpose(matWorld * matView * matProj);
-	context->UpdateSubresource(mConstantBuffer, 0, nullptr, &matWVP, 0, 0);
-	context->VSSetConstantBuffers(0, 1, &mConstantBuffer);
+	float rot = mRotation;
 
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	for (int i = 1; i < 3; i++)
+	{
+		auto matWorld = Matrix4::RotationY(rot*i*3.14);
+		auto matView = mCamera.GetViewMatrix();
+		auto matProj = mCamera.GetPerspectiveMatrix();
+		auto matWVP = Transpose(matWorld * matView * matProj);
 
-	UINT stride = sizeof(Vertex);
-	UINT offset = 0;
-	context->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
-	context->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+		mConstantBuffer.Set(&matWVP);
+		mConstantBuffer.Bind();
 
-	mVertexShader.Bind();
-	mPixelShader.Bind();
-	//mMeshBuffer.Draw();
+		mVertexShader.Bind();
+		mPixelShader.Bind();
+		mMeshBuffer.Draw();
+	}
+
+	
 
 	//context->Draw(mVertices.size(), 0); <- this is for when we dont have an index buffer
-	context->DrawIndexed((UINT)mIndices.size(), 0, 0);
+	//context->DrawIndexed((UINT)mIndices.size(), 0, 0);
 
 }

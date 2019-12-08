@@ -1,14 +1,12 @@
 #pragma once
 
-namespace Angazi::Graphics {
-
-
+namespace Angazi::Graphics 
+{
 	class PixelShader
 	{
 	public:
 		void Initialize();
 		void Terminate();
-
 		void Bind();
 
 	private:
