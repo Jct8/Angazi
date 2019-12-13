@@ -113,14 +113,13 @@ void GameState::Render()
 {
 	auto context = GraphicsSystem::Get()->GetContext();
 
-	float rot = mRotation;
-
-	for (int i = 1; i < 3; i++)
+	for (int i = 0; i < 50; i++)
 	{
-		auto matWorld = Matrix4::RotationY(rot*i*3.14);
+		auto matWorld = Matrix4::RotationY(i*mRotation);
 		auto matView = mCamera.GetViewMatrix();
 		auto matProj = mCamera.GetPerspectiveMatrix();
-		auto matWVP = Transpose(matWorld * matView * matProj);
+		auto translation = Matrix4::Translation({ i*2.0f,i*1.0f,i* 4.0f });
+		auto matWVP = Transpose( translation *matWorld * matView * matProj);
 
 		mConstantBuffer.Set(&matWVP);
 		mConstantBuffer.Bind();
