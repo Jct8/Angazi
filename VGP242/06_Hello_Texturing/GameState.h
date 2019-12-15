@@ -13,7 +13,7 @@ public:
 private:
 	Angazi::Graphics::Camera mCamera;
 
-	Angazi::Graphics::MeshPX mMesh;
+	Angazi::Graphics::MeshPC mMesh;
 	Angazi::Graphics::MeshBuffer mMeshBuffer;
 
 	Angazi::Graphics::VertexShader mVertexShader;
