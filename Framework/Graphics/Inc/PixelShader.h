@@ -5,7 +5,7 @@ namespace Angazi::Graphics
 	class PixelShader
 	{
 	public:
-		void Initialize();
+		void Initialize(const std::filesystem::path& filePath);
 		void Terminate();
 		void Bind();
 

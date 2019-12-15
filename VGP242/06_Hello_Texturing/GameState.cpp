@@ -18,11 +18,60 @@ void GameState::Initialize()
 	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Purple });
 	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Gold });
 	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Black });
-	//Back
+	//
 	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Gold });
 	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f } , Colors::Purple });
 	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Black });
 	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Gold });
+
+	//Homework
+	// Update HellowTexuring to use a MeshPC data to draw texture mapped cubes
+	// You will need to add sampler and Texture classes provided
+	// You will need to use DoTexturing.fx shaders
+	// Add a new class called Graphics::MeshBuilder with the following functions
+
+	//namespace Angazi::Graphics
+	/*{
+		class Meshbuilder
+		{
+		public: 
+			static MeshPX CreatePlanePX();
+			static MeshPX CreateCylinderPX();
+			static MeshPX CreateSpherePX(float radius,int rings = 16, int slices = 16);
+		};
+	}*/
+
+	//This will allow you ti create a mesh easily by doing
+	//	auto mesh = MeshBuilder::CreateSpherePX(...);
+
+	// Add HelloEarth to test a texture mapped sphere using Earth Texture
+
+	// A plane:
+	/*for (int y = 0; y < height; y++)
+	{
+		for (int i = 0; i < width; i++)
+		{
+			vertices.push_back({x,y,0.0f}...);
+		}
+	}*/
+
+	// A cylinder:
+	/*for (int y = 0; y < height; y++)
+	{
+		for (int theta = 0; theta < TwoPi; theta+= ...)
+		{
+			vertices.push_back({sin(theta),y,cos(theta)}...);
+		}
+	}*/
+
+	// A sphere:
+	/*for (int phi = 0; phi < Pi; phi+=)
+	{
+		for (int theta = 0; theta < TwoPi; theta+= ...)
+		{
+			vertices.push_back({sin(theta) * r ,y,cos(theta)*r}...);
+		}
+	}*/
 
 	////Front
 	//mMesh.mIndices.push_back(0);
@@ -74,8 +123,8 @@ void GameState::Initialize()
 	mConstantBuffer.Initialize(sizeof(Matrix4));
 	mMeshBuffer.Initialize(mMesh);
 
-	mVertexShader.Initialize("../../Assets/Shaders/DoTransform.fx", VertexPC::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/DoTransform.fx");
+	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx",VertexPC::Format);
+	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
 
 }
 

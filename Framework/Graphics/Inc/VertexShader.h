@@ -6,7 +6,7 @@ namespace Angazi::Graphics
 	class VertexShader
 	{
 	public:
-		void Initialize();
+		void Initialize(const std::filesystem::path& filePath, uint32_t vertextFormat);
 		void Terminate();
 
 		void Bind();

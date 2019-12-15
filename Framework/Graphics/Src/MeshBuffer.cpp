@@ -6,11 +6,14 @@
 using namespace Angazi;
 using namespace Angazi::Graphics;
 
-void MeshBuffer::Initialize(Vertex * vertices, int vertexCount, uint32_t * indices, int indexCount)
+void MeshBuffer::InitializeInternal(const void * vertices, int vertexSize, int vertexCount,const  uint32_t* indices, int indexCount)
 {
+	mVertexSize = vertexSize;
+	mIndexCount = indexCount;
+
 	//Create vertex buffer
 	D3D11_BUFFER_DESC bufferDesc{};
-	bufferDesc.ByteWidth = vertexCount * sizeof(Vertex);
+	bufferDesc.ByteWidth = vertexCount * vertexSize;
 	bufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bufferDesc.CPUAccessFlags = 0;
@@ -27,7 +30,6 @@ void MeshBuffer::Initialize(Vertex * vertices, int vertexCount, uint32_t * indic
 	ASSERT(SUCCEEDED(hr), "Failed to create vertex buffer.");
 
 	//Create index Buffer
-	mIndexCount = indexCount;
 	bufferDesc.ByteWidth = indexCount * sizeof(uint32_t);
 	bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	initData.pSysMem = indices;
@@ -48,7 +50,7 @@ void MeshBuffer::Draw()
 
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-	UINT stride = sizeof(Vertex);
+	UINT stride = mVertexSize;
 	UINT offset = 0;
 	context->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
 	context->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);

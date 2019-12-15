@@ -6,7 +6,7 @@
 using namespace Angazi;
 using namespace Angazi::Graphics;
 
-void Angazi::Graphics::PixelShader::Initialize()
+void Angazi::Graphics::PixelShader::Initialize(const std::filesystem::path& filePath)
 {
 	//CompileAndCreatePixelShader
 	DWORD shaderFlags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
@@ -14,7 +14,7 @@ void Angazi::Graphics::PixelShader::Initialize()
 	ID3DBlob* errorBlob = nullptr; // gets passed to vram
 
 	HRESULT hr = D3DCompileFromFile(
-		L"../../Assets/Shaders/DoTransform.fx",
+		filePath.wstring().c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
 		"PS", "ps_5_0",

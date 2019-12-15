@@ -12,12 +12,13 @@ public:
 
 private:
 	Angazi::Graphics::Camera mCamera;
-	Angazi::Graphics::MeshPC mMesh;
+
+	Angazi::Graphics::MeshPX mMesh;
+	Angazi::Graphics::MeshBuffer mMeshBuffer;
 
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader mPixelShader;
 	Angazi::Graphics::ConstantBuffer mConstantBuffer;
-	Angazi::Graphics::MeshBuffer mMeshBuffer;
 
 	float mRotation = 0.0f;
 };

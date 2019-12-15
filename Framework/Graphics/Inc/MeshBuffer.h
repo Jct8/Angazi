@@ -2,28 +2,32 @@
 
 namespace Angazi::Graphics
 {
-	struct Vertex
-	{
-		Angazi::Math::Vector3 position;
-		Angazi::Math::Vector4 color;
-		//Angazi::Graphics::Color color;
-	};
-	struct Mesh
-	{
-		std::vector<Vertex> mVertices;
-		std::vector<uint32_t> mIndices;
-	};
-	
 	class MeshBuffer
 	{
 	public:
-		void Initialize(Vertex * vertices, int vertexCount, uint32_t* indices, int indexCount);
+		template <class MeshType>
+		void Initialize(const MeshType& mesh)
+		{
+			Initialize( mesh.vertices.data(), static_cast<int>(mesh.vertices.size()), mesh.indices.data() , static_cast<int>(mesh.indices.size()));
+		}
+
+		template <class VertexType>
+		void Initialize(const VertexType * vertices, int vertexCount, const  uint32_t* indices, int indexCount)
+		{
+			InitializeInternal(vertices,sizeof(VertexType), vertexCount, indices,indexCount);
+		}
+
+
 		void Terminate();
+
 		void Draw();
 	private:
-		int mIndexCount = 0;
 		ID3D11Buffer* mVertexBuffer = nullptr;
 		ID3D11Buffer* mIndexBuffer = nullptr;
+
+		void InitializeInternal(const void * vertices, int vertexSize, int vertexCount, const  uint32_t* indices, int indexCount);
+		int mIndexCount = 0;
+		int mVertexSize = 0;
 	};
 
 }
