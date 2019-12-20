@@ -36,6 +36,8 @@ void MeshBuffer::InitializeInternal(const void * vertices, int vertexSize, int v
 
 	hr = device->CreateBuffer(&bufferDesc, &initData, &mIndexBuffer);
 	ASSERT(SUCCEEDED(hr), "Failed to create index buffer.");
+	auto context = GetContext();
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 void MeshBuffer::Terminate()
@@ -47,8 +49,6 @@ void MeshBuffer::Terminate()
 void MeshBuffer::Draw()
 {
 	auto context = GetContext();
-
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	UINT stride = mVertexSize;
 	UINT offset = 0;

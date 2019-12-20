@@ -164,6 +164,8 @@
     <ClInclude Include="Inc\Mesh.h" />
     <ClInclude Include="Inc\MeshBuffer.h" />
     <ClInclude Include="Inc\PixelShader.h" />
+    <ClInclude Include="Inc\Sampler.h" />
+    <ClInclude Include="Inc\Texture.h" />
     <ClInclude Include="Inc\VertexTypes.h" />
     <ClInclude Include="Inc\VertexShader.h" />
     <ClInclude Include="Src\D3DUtil.h" />
@@ -177,6 +179,8 @@
     <ClCompile Include="Src\MeshBuffer.cpp" />
     <ClCompile Include="Src\PixelShader.cpp" />
     <ClCompile Include="Src\Precompiled.cpp" />
+    <ClCompile Include="Src\Sampler.cpp" />
+    <ClCompile Include="Src\Texture.cpp" />
     <ClCompile Include="Src\VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>

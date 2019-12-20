@@ -7,18 +7,21 @@ public:
 	void Initialize() override;
 	void Terminate() override;
 
-	void Update(float deltatTime) override;
+	void Update(float deltaTime) override;
 	void Render() override;
 
 private:
 	Angazi::Graphics::Camera mCamera;
 
-	Angazi::Graphics::MeshPC mMesh;
+	Angazi::Graphics::MeshPX mMesh;
 	Angazi::Graphics::MeshBuffer mMeshBuffer;
 
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader mPixelShader;
 	Angazi::Graphics::ConstantBuffer mConstantBuffer;
+
+	Angazi::Graphics::Sampler mSampler;
+	Angazi::Graphics::Texture mTexture;
 
 	float mRotation = 0.0f;
 };

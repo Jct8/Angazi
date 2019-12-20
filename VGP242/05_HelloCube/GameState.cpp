@@ -118,6 +118,7 @@ void GameState::Render()
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 	for (int i = 0; i < 50; i++)
 	{
 		auto translation = Matrix4::Translation({ i*2.0f,i*1.0f,i* 4.0f });

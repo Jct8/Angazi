@@ -14,18 +14,18 @@ void GameState::Initialize()
 	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
 	//Front Vertices
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , Colors::Gold });
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , Colors::Purple });
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Gold });
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Black });
+	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , 0.0f , 0.0f });
+	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , 1.0f , 0.0f });
+	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , 1.0f , 1.0f });
+	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , 0.0f , 1.0f });
 	//
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f } , Colors::Gold });
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f } , Colors::Purple });
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f } , Colors::Black });
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f } , Colors::Gold });
+	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f }  , 0.0f , 0.0f });
+	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f }  , 1.0f , 0.0f });
+	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f }  , 1.0f , 1.0f });
+	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f }  , 0.0f , 1.0f });
 
 	//Homework
-	// Update HellowTexuring to use a MeshPC data to draw texture mapped cubes
+	// Update HelloTexuring to use a MeshPC data to draw texture mapped cubes
 	// You will need to add sampler and Texture classes provided
 	// You will need to use DoTexturing.fx shaders
 	// Add a new class called Graphics::MeshBuilder with the following functions
@@ -73,63 +73,73 @@ void GameState::Initialize()
 		}
 	}*/
 
-	////Front
-	//mMesh.mIndices.push_back(0);
-	//mMesh.mIndices.push_back(1);
-	//mMesh.mIndices.push_back(2);
-
-	//mMesh.mIndices.push_back(0);
-	//mMesh.mIndices.push_back(2);
-	//mMesh.mIndices.push_back(3);
-
-	////Back
-	//mMesh.mIndices.push_back(4);
-	//mMesh.mIndices.push_back(6);
-	//mMesh.mIndices.push_back(5);
-
-	//mMesh.mIndices.push_back(4);
-	//mMesh.mIndices.push_back(7);
-	//mMesh.mIndices.push_back(6);
-
-
-	//Triangle Strip
 	//Front
 	mMesh.indices.push_back(0);
 	mMesh.indices.push_back(1);
-	mMesh.indices.push_back(3);
 	mMesh.indices.push_back(2);
 
-	//Bottom 1
-	mMesh.indices.push_back(6);
-	//Right
-	mMesh.indices.push_back(1);
-	mMesh.indices.push_back(5);
-
-	//Top
 	mMesh.indices.push_back(0);
-	mMesh.indices.push_back(4);
-
-	//Left
+	mMesh.indices.push_back(2);
 	mMesh.indices.push_back(3);
-	mMesh.indices.push_back(7);
-
-	//Bottom 2
-	mMesh.indices.push_back(6);
 
 	//Back
 	mMesh.indices.push_back(4);
+	mMesh.indices.push_back(6);
 	mMesh.indices.push_back(5);
+
+	mMesh.indices.push_back(4);
+	mMesh.indices.push_back(7);
+	mMesh.indices.push_back(6);
+
+	//Left
+	mMesh.indices.push_back(4);
+	mMesh.indices.push_back(0);
+	mMesh.indices.push_back(3);
+
+	mMesh.indices.push_back(4);
+	mMesh.indices.push_back(3);
+	mMesh.indices.push_back(7);
+
+	//Right
+	mMesh.indices.push_back(1);
+	mMesh.indices.push_back(5);
+	mMesh.indices.push_back(6);
+
+	mMesh.indices.push_back(1);
+	mMesh.indices.push_back(6);
+	mMesh.indices.push_back(2);
+
+	//Top
+	mMesh.indices.push_back(4);
+	mMesh.indices.push_back(5);
+	mMesh.indices.push_back(1);
+
+	mMesh.indices.push_back(4);
+	mMesh.indices.push_back(1);
+	mMesh.indices.push_back(0);
+
+	//Bottom
+	mMesh.indices.push_back(3);
+	mMesh.indices.push_back(2);
+	mMesh.indices.push_back(6);
+
+	mMesh.indices.push_back(3);
+	mMesh.indices.push_back(6);
+	mMesh.indices.push_back(7);
 
 	mConstantBuffer.Initialize(sizeof(Matrix4));
 	mMeshBuffer.Initialize(mMesh);
 
-	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx",VertexPC::Format);
+	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx",VertexPX::Format);
 	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
-
+	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Wrap);
+	mTexture.Initialize("GOAT.jpg");
 }
 
 void GameState::Terminate()
 {
+	mTexture.Terminate();
+	mSampler.Terminate();
 	mMeshBuffer.Terminate();
 	mConstantBuffer.Terminate();
 	mPixelShader.Terminate();
@@ -149,7 +159,7 @@ void GameState::Update(float deltaTime)
 	mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
 	mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
 
-	//if (inputSystem->IsKeyDown(KeyCode::A))
+	if (inputSystem->IsKeyDown(KeyCode::A))
 	mRotation += deltaTime;
 	if (inputSystem->IsKeyDown(KeyCode::D))
 		mRotation -= deltaTime;
@@ -166,6 +176,8 @@ void GameState::Render()
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
+	mSampler.Bind();
+	mTexture.Bind();
 
 	for (int i = 0; i < 50; i++)
 	{
@@ -175,8 +187,6 @@ void GameState::Render()
 		mConstantBuffer.Set(&matWVP);
 		mMeshBuffer.Draw();
 	}
-
-
 
 	//context->Draw(mVertices.size(), 0); <- this is for when we dont have an index buffer
 	//context->DrawIndexed((UINT)mIndices.size(), 0, 0);
