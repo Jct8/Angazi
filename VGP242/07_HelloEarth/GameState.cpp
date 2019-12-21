@@ -14,7 +14,7 @@ void GameState::Initialize()
 	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
 	mMeshPlane = MeshBuilder::CreatePlanePX(5, 5);
-	mMeshSphere =  MeshBuilder::CreateSpherePX(10);
+	mMeshSphere =  MeshBuilder::CreateSpherePX(10,32,32);
 	mConstantBuffer.Initialize(sizeof(Matrix4));
 
 	mMeshBufferPlane.Initialize(mMeshPlane);

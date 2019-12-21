@@ -15,26 +15,28 @@ MeshPX MeshBuilder::CreatePlanePX(int height, int width)
 		{
 			float u = static_cast<float>(x) / static_cast<float>(width);
 			float v = static_cast<float>(y) / static_cast<float>(height);
-			retMesh.vertices.push_back({ Math::Vector3{static_cast<float>(x),-static_cast<float>(y) , 0.0f } , u , v });
+			retMesh.vertices.push_back({
+				Math::Vector3{-0.5f*width + static_cast<float>(x) ,  0.5f*height - static_cast<float>(y)  , 0.0f } , u , v });
 
-			retMesh.indices.push_back(y * height + x);
-			retMesh.indices.push_back((y + 1) * height + x + 1);
-			retMesh.indices.push_back((y + 1) * height + x);
+			if (x != width)
+			{
+				retMesh.indices.push_back(y * height + x);
+				retMesh.indices.push_back((y + 1) * height + x + 1);
+				retMesh.indices.push_back((y + 1) * height + x);
 
-			retMesh.indices.push_back(y * height + x);
-			retMesh.indices.push_back(y * height + x + 1);
-			retMesh.indices.push_back((y + 1) * height + x + 1);
-
+				retMesh.indices.push_back(y * height + x);
+				retMesh.indices.push_back(y * height + x + 1);
+				retMesh.indices.push_back((y + 1) * height + x + 1);
+			}
 		}
 	}
-
 	return retMesh;
 }
 
 MeshPX MeshBuilder::CreateCylinderPX(int height, int radius, int sectors)
 {
 	MeshPX retMesh;
-	float increment = Math::Constants::TwoPi / sectors;
+	float increment = Math::Constants::TwoPi / static_cast<float>(sectors);
 
 	for (int y = 0; y <= height; y++)
 	{
@@ -43,35 +45,36 @@ MeshPX MeshBuilder::CreateCylinderPX(int height, int radius, int sectors)
 			float u = theta / Math::Constants::TwoPi;
 			float v = static_cast<float>(y) / static_cast<float>(height);
 			retMesh.vertices.push_back(
-				{ Math::Vector3{ cosf(theta) * radius, -static_cast<float>(y) , sinf(theta) * radius }
+				{ Math::Vector3{ cosf(theta) * radius, 0.5f*height - y , sinf(theta) * radius }
 				, u , v });
 		}
 	}
 
-	for (int y = 0; y <= height; y++)
+	float sectorCount = sectors + 1;
+	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < sectors; x++)
 		{
-			retMesh.indices.push_back(y * height + x);
-			retMesh.indices.push_back((y + 1) * height + x + 1);
-			retMesh.indices.push_back((y + 1) * height + x);
+			retMesh.indices.push_back(y * sectorCount + x);
+			retMesh.indices.push_back((y + 1) * sectorCount + x + 1);
+			retMesh.indices.push_back((y + 1) * sectorCount + x);
 
-			retMesh.indices.push_back(y * height + x);
-			retMesh.indices.push_back(y * height + x + 1);
-			retMesh.indices.push_back((y + 1)* height + x + 1);
+			retMesh.indices.push_back(y * sectorCount + x);
+			retMesh.indices.push_back(y * sectorCount + x + 1);
+			retMesh.indices.push_back((y + 1)* sectorCount + x + 1);
 		}
 	}
 
 	return retMesh;
 }
 
-MeshPX MeshBuilder::CreateSpherePX(float radius, int rings , int slices)
+MeshPX MeshBuilder::CreateSpherePX(float radius, int rings, int slices)
 {
 	MeshPX retMesh;
 	float thetaIncrement = Math::Constants::TwoPi / rings;
 	float phiIncrement = Math::Constants::Pi / slices;
 
-	for (float phi = 0; phi <= Math::Constants::Pi; phi+= phiIncrement)
+	for (float phi = 0; phi <= Math::Constants::Pi; phi += phiIncrement)
 	{
 		for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
 		{
