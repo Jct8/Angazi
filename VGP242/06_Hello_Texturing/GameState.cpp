@@ -18,60 +18,11 @@ void GameState::Initialize()
 	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , 1.0f , 0.0f });
 	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , 1.0f , 1.0f });
 	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , 0.0f , 1.0f });
-	//
+	//Back
 	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f }  , 0.0f , 0.0f });
 	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f }  , 1.0f , 0.0f });
 	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f }  , 1.0f , 1.0f });
 	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f }  , 0.0f , 1.0f });
-
-	//Homework
-	// Update HelloTexuring to use a MeshPC data to draw texture mapped cubes
-	// You will need to add sampler and Texture classes provided
-	// You will need to use DoTexturing.fx shaders
-	// Add a new class called Graphics::MeshBuilder with the following functions
-
-	//namespace Angazi::Graphics
-	/*{
-		class Meshbuilder
-		{
-		public: 
-			static MeshPX CreatePlanePX();
-			static MeshPX CreateCylinderPX();
-			static MeshPX CreateSpherePX(float radius,int rings = 16, int slices = 16);
-		};
-	}*/
-
-	//This will allow you ti create a mesh easily by doing
-	//	auto mesh = MeshBuilder::CreateSpherePX(...);
-
-	// Add HelloEarth to test a texture mapped sphere using Earth Texture
-
-	// A plane:
-	/*for (int y = 0; y < height; y++)
-	{
-		for (int i = 0; i < width; i++)
-		{
-			vertices.push_back({x,y,0.0f}...);
-		}
-	}*/
-
-	// A cylinder:
-	/*for (int y = 0; y < height; y++)
-	{
-		for (int theta = 0; theta < TwoPi; theta+= ...)
-		{
-			vertices.push_back({sin(theta),y,cos(theta)}...);
-		}
-	}*/
-
-	// A sphere:
-	/*for (int phi = 0; phi < Pi; phi+=)
-	{
-		for (int theta = 0; theta < TwoPi; theta+= ...)
-		{
-			vertices.push_back({sin(theta) * r ,y,cos(theta)*r}...);
-		}
-	}*/
 
 	//Front
 	mMesh.indices.push_back(0);
@@ -127,8 +78,14 @@ void GameState::Initialize()
 	mMesh.indices.push_back(6);
 	mMesh.indices.push_back(7);
 
+	mMeshPlane = MeshBuilder::CreatePlanePX(50, 50);
+	mMeshCylinder = MeshBuilder::CreateCylinderPX(16, 3,16);
+	mMeshSphere =  MeshBuilder::CreateSpherePX(5);
 	mConstantBuffer.Initialize(sizeof(Matrix4));
 	mMeshBuffer.Initialize(mMesh);
+	mMeshBufferPlane.Initialize(mMeshPlane);
+	mMeshBufferCylinder.Initialize(mMeshCylinder);
+	mMeshBufferSphere.Initialize(mMeshSphere);
 
 	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx",VertexPX::Format);
 	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
@@ -141,6 +98,9 @@ void GameState::Terminate()
 	mTexture.Terminate();
 	mSampler.Terminate();
 	mMeshBuffer.Terminate();
+	mMeshBufferPlane.Terminate();
+	mMeshBufferCylinder.Terminate();
+	mMeshBufferSphere.Terminate();
 	mConstantBuffer.Terminate();
 	mPixelShader.Terminate();
 	mVertexShader.Terminate();
@@ -179,16 +139,13 @@ void GameState::Render()
 	mSampler.Bind();
 	mTexture.Bind();
 
-	for (int i = 0; i < 50; i++)
-	{
-		auto translation = Matrix4::Translation({ i*2.0f,i*1.0f,i* 4.0f });
-		auto matWVP = Transpose(translation *matWorld * matView * matProj);
+	auto matWVP = Transpose(matWorld * matView * matProj);
 
-		mConstantBuffer.Set(&matWVP);
-		mMeshBuffer.Draw();
-	}
-
-	//context->Draw(mVertices.size(), 0); <- this is for when we dont have an index buffer
-	//context->DrawIndexed((UINT)mIndices.size(), 0, 0);
+	mConstantBuffer.Set(&matWVP);
+	mMeshBuffer.Draw();
+	mMeshBufferPlane.Draw();
+	mMeshBufferCylinder.Draw();
+	mMeshBufferSphere.Draw();
+	
 
 }
