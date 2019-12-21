@@ -49,6 +49,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05_HelloCube", "VGP242\05_H
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "06_Hello_Texturing", "VGP242\06_Hello_Texturing\06_Hello_Texturing.vcxproj", "{8DE518EE-56C4-4B9F-8546-14C3D5F54E45}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07_HelloEarth", "VGP242\07_HelloEarth\07_HelloEarth.vcxproj", "{DAA08175-4D9C-4022-A424-776319EF2458}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -161,6 +163,14 @@ Global
 		{8DE518EE-56C4-4B9F-8546-14C3D5F54E45}.Release|x64.Build.0 = Release|x64
 		{8DE518EE-56C4-4B9F-8546-14C3D5F54E45}.Release|x86.ActiveCfg = Release|Win32
 		{8DE518EE-56C4-4B9F-8546-14C3D5F54E45}.Release|x86.Build.0 = Release|Win32
+		{DAA08175-4D9C-4022-A424-776319EF2458}.Debug|x64.ActiveCfg = Debug|x64
+		{DAA08175-4D9C-4022-A424-776319EF2458}.Debug|x64.Build.0 = Debug|x64
+		{DAA08175-4D9C-4022-A424-776319EF2458}.Debug|x86.ActiveCfg = Debug|Win32
+		{DAA08175-4D9C-4022-A424-776319EF2458}.Debug|x86.Build.0 = Debug|Win32
+		{DAA08175-4D9C-4022-A424-776319EF2458}.Release|x64.ActiveCfg = Release|x64
+		{DAA08175-4D9C-4022-A424-776319EF2458}.Release|x64.Build.0 = Release|x64
+		{DAA08175-4D9C-4022-A424-776319EF2458}.Release|x86.ActiveCfg = Release|Win32
+		{DAA08175-4D9C-4022-A424-776319EF2458}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,12 +190,13 @@ Global
 		{464D5F6E-2CE0-4664-8A84-70F54725E22B} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
 		{78303C56-896B-4853-8BC2-C45D7FF793D3} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
 		{8DE518EE-56C4-4B9F-8546-14C3D5F54E45} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
+		{DAA08175-4D9C-4022-A424-776319EF2458} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 14
+		SccNumberOfProjects = 15
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -241,5 +252,9 @@ Global
 		SccProjectTopLevelParentUniqueName13 = Angazi.sln
 		SccProjectName13 = VGP242/06_Hello_Texturing
 		SccLocalPath13 = VGP242\\06_Hello_Texturing
+		SccProjectUniqueName14 = VGP242\\07_HelloEarth\\07_HelloEarth.vcxproj
+		SccProjectTopLevelParentUniqueName14 = Angazi.sln
+		SccProjectName14 = VGP242/07_HelloEarth
+		SccLocalPath14 = VGP242\\07_HelloEarth
 	EndGlobalSection
 EndGlobal

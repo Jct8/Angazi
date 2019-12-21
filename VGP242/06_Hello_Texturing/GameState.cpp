@@ -78,8 +78,8 @@ void GameState::Initialize()
 	mMesh.indices.push_back(6);
 	mMesh.indices.push_back(7);
 
-	mMeshPlane = MeshBuilder::CreatePlanePX(50, 50);
-	mMeshCylinder = MeshBuilder::CreateCylinderPX(16, 3,16);
+	mMeshPlane = MeshBuilder::CreatePlanePX(20, 20);
+	mMeshCylinder = MeshBuilder::CreateCylinderPX(16, 3 , 16);
 	mMeshSphere =  MeshBuilder::CreateSpherePX(5);
 	mConstantBuffer.Initialize(sizeof(Matrix4));
 	mMeshBuffer.Initialize(mMesh);
@@ -89,7 +89,7 @@ void GameState::Initialize()
 
 	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx",VertexPX::Format);
 	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
-	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Wrap);
+	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Border);
 	mTexture.Initialize("GOAT.jpg");
 }
 
@@ -146,6 +146,5 @@ void GameState::Render()
 	mMeshBufferPlane.Draw();
 	mMeshBufferCylinder.Draw();
 	mMeshBufferSphere.Draw();
-	
 
 }
