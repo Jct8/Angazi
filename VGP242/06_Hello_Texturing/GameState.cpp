@@ -79,7 +79,7 @@ void GameState::Initialize()
 	mMesh.indices.push_back(7);
 
 	mMeshPlane = MeshBuilder::CreatePlanePX(20, 20);
-	mMeshCylinder = MeshBuilder::CreateCylinderPX(20, 3 , 16);
+	mMeshCylinder = MeshBuilder::CreateCylinderPX(3, 2 , 16);
 	mMeshSphere =  MeshBuilder::CreateSpherePX(5);
 	mConstantBuffer.Initialize(sizeof(Matrix4));
 	mMeshBuffer.Initialize(mMesh);

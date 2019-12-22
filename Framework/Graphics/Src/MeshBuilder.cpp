@@ -50,7 +50,7 @@ MeshPX MeshBuilder::CreateCylinderPX(int height, int radius, int sectors)
 		}
 	}
 
-	float sectorCount = sectors + 1;
+	int sectorCount = sectors + 1;
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < sectors; x++)
@@ -68,7 +68,7 @@ MeshPX MeshBuilder::CreateCylinderPX(int height, int radius, int sectors)
 	return retMesh;
 }
 
-MeshPX MeshBuilder::CreateSpherePX(float radius, int rings, int slices)
+MeshPX MeshBuilder::CreateSpherePX(float radius, int rings, int slices, bool IsInsideOut)
 {
 	MeshPX retMesh;
 	float thetaIncrement = Math::Constants::TwoPi / rings;
@@ -91,13 +91,26 @@ MeshPX MeshBuilder::CreateSpherePX(float radius, int rings, int slices)
 	{
 		for (int x = 0; x < rings; x++)
 		{
-			retMesh.indices.push_back(y * slices + x);
-			retMesh.indices.push_back((y + 1) * slices + x + 1);
-			retMesh.indices.push_back((y + 1) * slices + x);
+			if (IsInsideOut)
+			{
+				retMesh.indices.push_back((y + 1) * slices + x);
+				retMesh.indices.push_back((y + 1) * slices + x + 1);
+				retMesh.indices.push_back(y * slices + x);
 
-			retMesh.indices.push_back(y * slices + x);
-			retMesh.indices.push_back(y * slices + x + 1);
-			retMesh.indices.push_back((y + 1)* slices + x + 1);
+				retMesh.indices.push_back((y + 1)* slices + x + 1);
+				retMesh.indices.push_back(y * slices + x + 1);
+				retMesh.indices.push_back(y * slices + x);
+			}
+			else
+			{
+				retMesh.indices.push_back(y * slices + x);
+				retMesh.indices.push_back((y + 1) * slices + x + 1);
+				retMesh.indices.push_back((y + 1) * slices + x);
+
+				retMesh.indices.push_back(y * slices + x);
+				retMesh.indices.push_back(y * slices + x + 1);
+				retMesh.indices.push_back((y + 1)* slices + x + 1);
+			}
 		}
 	}
 
