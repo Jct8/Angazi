@@ -50,37 +50,37 @@ void GameState::Initialize()
 	mDomeTexture.Initialize("Stars.jpg");
 
 	mSelfRotationSpeed[0] = 0.0f;
-	mSelfRotationSpeed[1] = 1.5f;
-	mSelfRotationSpeed[2] = 1.5f;
-	mSelfRotationSpeed[3] = 1.5f;
-	mSelfRotationSpeed[4] = 1.5f;
-	mSelfRotationSpeed[5] = 1.5f;
-	mSelfRotationSpeed[6] = 1.5f;
-	mSelfRotationSpeed[7] = 1.5f;
-	mSelfRotationSpeed[8] = 1.5f;
-	mSelfRotationSpeed[9] = 1.5f;
+	mSelfRotationSpeed[1] = 0.2f;
+	mSelfRotationSpeed[2] = 1.4f;
+	mSelfRotationSpeed[3] = 1.0f;
+	mSelfRotationSpeed[4] = 1.4f;
+	mSelfRotationSpeed[5] = 0.8f;
+	mSelfRotationSpeed[6] = 0.4f;
+	mSelfRotationSpeed[7] = 0.6f;
+	mSelfRotationSpeed[8] = 1.2f;
+	mSelfRotationSpeed[9] = 0.4f;
 
-	mRotationSpeed[0] = 1.5f;
-	mRotationSpeed[1] = 0.5f;
-	mRotationSpeed[2] = 1.3f;
-	mRotationSpeed[3] = 0.4f;
-	mRotationSpeed[4] = 1.5f;
-	mRotationSpeed[5] = 1.1f;
-	mRotationSpeed[6] = 0.5f;
-	mRotationSpeed[7] = 2.5f;
-	mRotationSpeed[8] = 0.8f;
-	mRotationSpeed[9] = 1.5f;
+	mRotationSpeed[0] = 0.0f;
+	mRotationSpeed[1] = 1.36f;
+	mRotationSpeed[2] = 1.16f;
+	mRotationSpeed[3] = 0.96f;
+	mRotationSpeed[4] = 0.80f;
+	mRotationSpeed[5] = 0.63f;
+	mRotationSpeed[6] = 0.50f;
+	mRotationSpeed[7] = 0.40f;
+	mRotationSpeed[8] = 0.3f;
+	mRotationSpeed[9] = 0.56f;
 
 	mScale[0] = 2.0f;
-	mScale[1] = 0.3f;
-	mScale[2] = 0.8f;
+	mScale[1] = 0.4f;
+	mScale[2] = 0.9f;
 	mScale[3] = 0.9f;
-	mScale[4] = 0.7f;
-	mScale[5] = 1.2f;
-	mScale[6] = 1.0f;
-	mScale[7] = 0.4f;
-	mScale[8] = 0.7f;
-	mScale[9] = 0.2f;
+	mScale[4] = 0.6f;
+	mScale[5] = 1.4f;
+	mScale[6] = 1.2f;
+	mScale[7] = 1.0f;
+	mScale[8] = 1.0f;
+	mScale[9] = 0.3f;
 }
 
 void GameState::Terminate()
@@ -143,7 +143,7 @@ void GameState::Render()
 
 		//Moon
 		auto matMoon = Matrix4::RotationY(mRotation*0.4f);
-		auto matMoonSelfRotation = Matrix4::RotationY(mRotation*20.5f);
+		auto matMoonSelfRotation = Matrix4::RotationY(mRotation*10.5f);
 		auto matMoonScale = Matrix4::Scaling(0.1f);
 		auto matMoonTrans = Matrix4::Translation({ 2.0f,0.0f,0.0f });
 		auto matMoonWVP = Transpose(matMoonScale *matMoonSelfRotation * matMoonTrans * matMoon * matTrans * matWorld * matView * matProj);

@@ -4,6 +4,6 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	Angazi::MainApp().AddState<GameState>("GameState");
-	Angazi::MainApp().Run({ "Hello Earth" ,1280, 720});
+	Angazi::MainApp().Run({ "Hello Solar System" ,1280, 720});
 	return 0;
 }
