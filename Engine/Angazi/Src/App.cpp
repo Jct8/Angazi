@@ -26,7 +26,8 @@ void Angazi::App::Run(AppConfig appConfig)
 	InputSystem::StaticInitialize(handle);
 
 	//Initialize the graphics systems
-	GraphicsSystem::StaticInitialize(handle, false);
+	//GraphicsSystem::StaticInitialize(handle, false);
+	GraphicsSystemGL::StaticInitialize(handle, false);
 
 	//Initialize the starting state
 	mCurrentState = mAppStates.begin()->second.get();
@@ -55,7 +56,8 @@ void Angazi::App::Run(AppConfig appConfig)
 		float deltaTime = 1.0f / 60.0f;
 		mCurrentState->Update(deltaTime);
 
-		auto graphicsSystem = GraphicsSystem::Get();
+		//auto graphicsSystem = GraphicsSystem::Get();
+		auto graphicsSystem = GraphicsSystemGL::Get();
 		graphicsSystem->BeginRender();
 
 		mCurrentState->Render();
@@ -67,7 +69,8 @@ void Angazi::App::Run(AppConfig appConfig)
 	mCurrentState->Terminate();
 
 	//Terminate engine systems
-	GraphicsSystem::StaticTerminate();
+	//GraphicsSystem::StaticTerminate();
+	GraphicsSystemGL::StaticTerminate(handle);
 	InputSystem::StaticTerminate();
 
 	//Terminate window

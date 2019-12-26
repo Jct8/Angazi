@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Colors.h"
 #include "GraphicsSystem.h"
+#include "GraphicsSystemGL.h"
 #include "PixelShader.h"
 #include "VertexShader.h"
 #include "ConstantBuffer.h"

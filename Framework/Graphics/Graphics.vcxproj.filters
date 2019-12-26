@@ -57,6 +57,9 @@
     <ClInclude Include="Inc\MeshBuilder.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\GraphicsSystemGL.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\GraphicsSystem.cpp">
@@ -90,6 +93,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\MeshBuilder.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GraphicsSystemGL.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
