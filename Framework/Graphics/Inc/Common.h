@@ -13,13 +13,13 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
-// OpenGL headers
-#include<GL/gl.h>
-#include<GL/glu.h>
-
-// OpenGL libraries
-#pragma comment(lib, "opengl32.lib")  
-#pragma comment(lib, "glu32.lib") 
+//// OpenGL headers
+//#include<GL/gl.h>
+//#include<GL/glu.h>
+//
+//// OpenGL libraries
+//#pragma comment(lib, "opengl32.lib")  
+//#pragma comment(lib, "glu32.lib") 
 
 template <class T>
 void SafeRelease(T*& ptr) //*& otherwise copy of the pointer is passed

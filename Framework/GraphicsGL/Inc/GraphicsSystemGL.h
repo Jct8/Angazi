@@ -1,5 +1,5 @@
 #pragma once
-#include "Colors.h"
+#include "Graphics/Inc/Colors.h"
 
 namespace Angazi::Graphics {
 

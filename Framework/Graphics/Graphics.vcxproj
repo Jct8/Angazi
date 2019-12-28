@@ -161,7 +161,6 @@
     <ClInclude Include="Inc\ConstantBuffer.h" />
     <ClInclude Include="Inc\Graphics.h" />
     <ClInclude Include="Inc\GraphicsSystem.h" />
-    <ClInclude Include="Inc\GraphicsSystemGL.h" />
     <ClInclude Include="Inc\Mesh.h" />
     <ClInclude Include="Inc\MeshBuffer.h" />
     <ClInclude Include="Inc\MeshBuilder.h" />
@@ -178,7 +177,6 @@
     <ClCompile Include="Src\ConstantBuffer.cpp" />
     <ClCompile Include="Src\D3DUtil.cpp" />
     <ClCompile Include="Src\GraphicsSystem.cpp" />
-    <ClCompile Include="Src\GraphicsSystemGL.cpp" />
     <ClCompile Include="Src\MeshBuffer.cpp" />
     <ClCompile Include="Src\MeshBuilder.cpp" />
     <ClCompile Include="Src\PixelShader.cpp" />

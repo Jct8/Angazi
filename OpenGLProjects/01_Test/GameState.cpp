@@ -10,7 +10,6 @@ using namespace Angazi::Math;
 
 void GameState::Initialize()
 {
-
 }
 
 void GameState::Terminate()

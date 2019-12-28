@@ -170,6 +170,9 @@
     <ProjectReference Include="..\..\Framework\Core\Core.vcxproj">
       <Project>{5bf63145-a348-4b75-8137-f3bc803343fd}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Framework\GraphicsGL\GraphicsGL.vcxproj">
+      <Project>{d7dcc971-b132-44a6-a6a0-86b8c5640f17}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Graphics\Graphics.vcxproj">
       <Project>{06e6abde-cf57-4616-a611-454834e8c04a}</Project>
     </ProjectReference>
