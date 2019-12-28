@@ -59,6 +59,8 @@ GraphicsSystemGL::~GraphicsSystemGL()
 
 void GraphicsSystemGL::Initialize(HWND window, bool fullscreen)
 {
+	
+
 	int pixelFormat;
 	PIXELFORMATDESCRIPTOR pfd;
 	RECT rect;
@@ -109,8 +111,11 @@ void GraphicsSystemGL::Initialize(HWND window, bool fullscreen)
 	glRenderingContext = wglCreateContext(hDeviceContext);
 	ASSERT(glRenderingContext != NULL, "[GraphicsSystemGL] Can't create GL context");
 
+	//Link OpenGL Extension functions
+
 	//make the context active
 	ASSERT(wglMakeCurrent(hDeviceContext, glRenderingContext), "[GraphicsSystemGL] Can't make current GL context");
+
 
 	Resize(width, height);
 	sWindowMessageHandler.Hook(window, GraphicsSystemMessageHandler);
