@@ -164,11 +164,15 @@
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\GraphicsGL.h" />
     <ClInclude Include="Inc\GraphicsSystemGL.h" />
+    <ClInclude Include="Inc\MeshBufferGL.h" />
+    <ClInclude Include="Inc\Shader.h" />
     <ClInclude Include="Src\Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\GraphicsSystemGL.cpp" />
+    <ClCompile Include="Src\MeshBufferGL.cpp" />
     <ClCompile Include="Src\Precompiled.cpp" />
+    <ClCompile Include="Src\Shader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

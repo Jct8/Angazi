@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{151081
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA6B8E-242B-46B4-8366-0A659EFAE1D1}"
 	ProjectSection(SolutionItems) = preProject
+		Assets\Shaders\Basic.glsl = Assets\Shaders\Basic.glsl
+		Assets\Shaders\Basic2.glsl = Assets\Shaders\Basic2.glsl
 		Assets\Shaders\DoNothing.fx = Assets\Shaders\DoNothing.fx
 		Assets\Shaders\DoSomething.fx = Assets\Shaders\DoSomething.fx
 		Assets\Shaders\DoTexturing.fx = Assets\Shaders\DoTexturing.fx

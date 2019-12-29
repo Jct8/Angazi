@@ -21,12 +21,24 @@
     <ClInclude Include="Inc\GraphicsGL.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Shader.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\MeshBufferGL.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\GraphicsSystemGL.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Shader.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MeshBufferGL.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

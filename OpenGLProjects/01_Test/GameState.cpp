@@ -8,79 +8,25 @@ using namespace Angazi::Math;
 
 void GameState::Initialize()
 {
-	float positions[6] = {
-		-0.5f, -0.5f,
-		 0.0f,  0.5f,
-		 0.5f, -0.5f
-	};
+	mMeshPC.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Gold });
+	mMeshPC.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Purple });
+	mMeshPC.vertices.push_back({ Vector3{  0.0f,  0.5f, 0.0f } , Colors::Gold });
 
-	std::string vertexShader = 
-		"#version 330 core\n"
-		"\n"
-		"layout(location =0) in vec4 position;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"	gl_Position = position;\n"
-		"}\n";
-	std::string fragmentShader =
-		"#version 330 core\n"
-		"\n"
-		"layout(location =0) out vec4 color;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"	color = vec4(1.0 , 0.0 , 0.0 , 1.0);\n"
-		"}\n";
+	mMeshPC.indices.push_back(0);
+	mMeshPC.indices.push_back(1);
+	mMeshPC.indices.push_back(2);
 
-	unsigned int buffer;
-	glGenBuffers(1, &buffer);
-	glBindBuffer(GL_ARRAY_BUFFER,buffer);
-	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
+	mMeshBuffer.Initialize(mMeshPC, VertexPC::Format);
 
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+	mShader.Initialize("../../Assets/Shaders/Basic2.glsl");
+	mShader.Bind();
 
-	unsigned int program = glCreateProgram();
-
-	unsigned int id = glCreateShader(GL_VERTEX_SHADER);
-	const char* src = vertexShader.c_str();
-	glShaderSource(id, 1, &src,nullptr);
-	glCompileShader(id);
-
-	int result;
-	glGetShaderiv(id, GL_COMPILE_STATUS, &result);
-	if (result == GL_FALSE)
-	{
-		int length;
-		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-		char *message = (char*) alloca(length * sizeof(char));
-		glGetShaderInfoLog(id, length, &length, message);
-		glDeleteShader(id);
-	}
-	unsigned int vs = id;
-
-	unsigned int idFrag = glCreateShader(GL_FRAGMENT_SHADER);
-	const char* srcFrag = fragmentShader.c_str();
-	glShaderSource(idFrag, 1, &srcFrag, nullptr);
-	glCompileShader(idFrag);
-	unsigned int fs = idFrag;
-
-	glAttachShader(program, vs);
-	glAttachShader(program, fs);
-	glLinkProgram(program);
-	glValidateProgram(program);
-
-	glDeleteShader(vs);
-	glDeleteShader(fs);
-
-	glUseProgram(program);
-	
 }
 
 void GameState::Terminate()
 {
-
+	mShader.Terminate();
+	mMeshBuffer.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -90,5 +36,6 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	mShader.Bind();
+	mMeshBuffer.Draw();
 }
