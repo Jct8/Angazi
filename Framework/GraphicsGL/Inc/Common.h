@@ -5,7 +5,6 @@
 #include <Math/Inc/EngineMath.h>
 
 // OpenGL headers
-
 #include <glatter/include/glatter/glatter.h>
 #include<GL/glu.h>
 //#include <Glad/include/glad/glad.h>

@@ -10,7 +10,7 @@ void GameState::Initialize()
 {
 	mMeshPC.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , Colors::Gold });
 	mMeshPC.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , Colors::Purple });
-	mMeshPC.vertices.push_back({ Vector3{  0.0f,  0.5f, 0.0f } , Colors::Gold });
+	mMeshPC.vertices.push_back({ Vector3{  0.0f,  0.5f, 0.0f } , Colors::White });
 
 	mMeshPC.indices.push_back(0);
 	mMeshPC.indices.push_back(1);
@@ -18,7 +18,7 @@ void GameState::Initialize()
 
 	mMeshBuffer.Initialize(mMeshPC, VertexPC::Format);
 
-	mShader.Initialize("../../Assets/Shaders/Basic2.glsl");
+	mShader.Initialize("../../Assets/Shaders/BasicColor.glsl");
 	mShader.Bind();
 
 }

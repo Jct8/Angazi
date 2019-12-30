@@ -39,7 +39,8 @@ namespace
 		if (vertexFormat & VE_Color)
 			vertexLayout.push_back({ GL_FLOAT,4,GL_FALSE });
 
-		//if (vertexFormat & VE_TexCoord)
+		if (vertexFormat & VE_TexCoord)
+			vertexLayout.push_back({ GL_FLOAT,2,GL_FALSE });
 
 
 		return vertexLayout;

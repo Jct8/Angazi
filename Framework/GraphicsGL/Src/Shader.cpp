@@ -59,6 +59,7 @@ unsigned int Angazi::Graphics::Shader::CompileShader(unsigned int type, const st
 
 	int result;
 	glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+	ASSERT(result, "Shader failed to compile.");
 	if (result == GL_FALSE)
 	{
 		int length;

@@ -38,7 +38,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA6B8E-242B-46B4-8366-0A659EFAE1D1}"
 	ProjectSection(SolutionItems) = preProject
 		Assets\Shaders\Basic.glsl = Assets\Shaders\Basic.glsl
-		Assets\Shaders\Basic2.glsl = Assets\Shaders\Basic2.glsl
+		Assets\Shaders\BasicColor.glsl = Assets\Shaders\BasicColor.glsl
+		Assets\Shaders\BasicTexturing.glsl = Assets\Shaders\BasicTexturing.glsl
 		Assets\Shaders\DoNothing.fx = Assets\Shaders\DoNothing.fx
 		Assets\Shaders\DoSomething.fx = Assets\Shaders\DoSomething.fx
 		Assets\Shaders\DoTexturing.fx = Assets\Shaders\DoTexturing.fx
@@ -57,11 +58,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "08_HelloSolarSystem", "VGP2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenGLProjects", "OpenGLProjects", "{CBC87F91-E468-482E-8B22-D8AAA1668ABB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_Test_01", "OpenGLProjects\01_Test\01_Test.vcxproj", "{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphicsGL", "Framework\GraphicsGL\GraphicsGL.vcxproj", "{D7DCC971-B132-44A6-A6A0-86B8C5640F17}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Glad", "External\Glad\Glad.vcxproj", "{0DEA2684-550A-4071-9F82-B0955F1D94D8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_02_Texturing", "OpenGLProjects\OpenGL_02_Texturing\OpenGL_02_Texturing.vcxproj", "{ED845C21-24C1-4226-A6A2-3CF523338C1D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_01_Triangle", "OpenGLProjects\OpenGL_01_Triangle\OpenGL_01_Triangle.vcxproj", "{0D025616-84EE-41BC-9DB0-30D9F91498D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -315,22 +318,6 @@ Global
 		{52DF0404-3BA5-42CB-8432-5684BD54E6D0}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{52DF0404-3BA5-42CB-8432-5684BD54E6D0}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{52DF0404-3BA5-42CB-8432-5684BD54E6D0}.RelWithDebInfo|x86.Build.0 = Release|Win32
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.Debug|x64.ActiveCfg = Debug|x64
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.Debug|x64.Build.0 = Debug|x64
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.Debug|x86.ActiveCfg = Debug|Win32
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.Debug|x86.Build.0 = Debug|Win32
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.MinSizeRel|x64.ActiveCfg = Release|x64
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.MinSizeRel|x64.Build.0 = Release|x64
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.MinSizeRel|x86.ActiveCfg = Release|Win32
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.MinSizeRel|x86.Build.0 = Release|Win32
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.Release|x64.ActiveCfg = Release|x64
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.Release|x64.Build.0 = Release|x64
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.Release|x86.ActiveCfg = Release|Win32
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.Release|x86.Build.0 = Release|Win32
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.RelWithDebInfo|x64.ActiveCfg = Release|x64
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.RelWithDebInfo|x64.Build.0 = Release|x64
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385}.RelWithDebInfo|x86.Build.0 = Release|Win32
 		{D7DCC971-B132-44A6-A6A0-86B8C5640F17}.Debug|x64.ActiveCfg = Debug|x64
 		{D7DCC971-B132-44A6-A6A0-86B8C5640F17}.Debug|x64.Build.0 = Debug|x64
 		{D7DCC971-B132-44A6-A6A0-86B8C5640F17}.Debug|x86.ActiveCfg = Debug|Win32
@@ -363,6 +350,38 @@ Global
 		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.Debug|x64.ActiveCfg = Debug|x64
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.Debug|x64.Build.0 = Debug|x64
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.Debug|x86.ActiveCfg = Debug|Win32
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.Debug|x86.Build.0 = Debug|Win32
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.MinSizeRel|x64.Build.0 = Release|x64
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.MinSizeRel|x86.Build.0 = Release|Win32
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.Release|x64.ActiveCfg = Release|x64
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.Release|x64.Build.0 = Release|x64
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.Release|x86.ActiveCfg = Release|Win32
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.Release|x86.Build.0 = Release|Win32
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.Debug|x64.ActiveCfg = Debug|x64
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.Debug|x64.Build.0 = Debug|x64
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.Debug|x86.ActiveCfg = Debug|Win32
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.Debug|x86.Build.0 = Debug|Win32
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.MinSizeRel|x64.Build.0 = Release|x64
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.MinSizeRel|x86.Build.0 = Release|Win32
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.Release|x64.ActiveCfg = Release|x64
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.Release|x64.Build.0 = Release|x64
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.Release|x86.ActiveCfg = Release|Win32
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.Release|x86.Build.0 = Release|Win32
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -384,15 +403,16 @@ Global
 		{8DE518EE-56C4-4B9F-8546-14C3D5F54E45} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
 		{DAA08175-4D9C-4022-A424-776319EF2458} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
 		{52DF0404-3BA5-42CB-8432-5684BD54E6D0} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
-		{4E49D918-3347-4F2A-AEA0-5DFA1DEDD385} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{D7DCC971-B132-44A6-A6A0-86B8C5640F17} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 		{0DEA2684-550A-4071-9F82-B0955F1D94D8} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
+		{ED845C21-24C1-4226-A6A2-3CF523338C1D} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
+		{0D025616-84EE-41BC-9DB0-30D9F91498D2} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 18
+		SccNumberOfProjects = 19
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -456,13 +476,17 @@ Global
 		SccProjectTopLevelParentUniqueName15 = Angazi.sln
 		SccProjectName15 = VGP242/08_HelloSolarSystem
 		SccLocalPath15 = VGP242\\08_HelloSolarSystem
-		SccProjectUniqueName16 = OpenGLProjects\\01_Test\\01_Test.vcxproj
+		SccProjectUniqueName16 = External\\Glad\\Glad.vcxproj
 		SccProjectTopLevelParentUniqueName16 = Angazi.sln
-		SccProjectName16 = OpenGLProjects/01_Test
-		SccLocalPath16 = OpenGLProjects\\01_Test
-		SccProjectUniqueName17 = External\\Glad\\Glad.vcxproj
+		SccProjectName16 = External/Glad
+		SccLocalPath16 = External\\Glad
+		SccProjectUniqueName17 = OpenGLProjects\\OpenGL_02_Texturing\\OpenGL_02_Texturing.vcxproj
 		SccProjectTopLevelParentUniqueName17 = Angazi.sln
-		SccProjectName17 = External/Glad
-		SccLocalPath17 = External\\Glad
+		SccProjectName17 = OpenGLProjects/OpenGL_02_Texturing
+		SccLocalPath17 = OpenGLProjects\\OpenGL_02_Texturing
+		SccProjectUniqueName18 = OpenGLProjects\\OpenGL_01_Triangle\\OpenGL_01_Triangle.vcxproj
+		SccProjectTopLevelParentUniqueName18 = Angazi.sln
+		SccProjectName18 = OpenGLProjects/OpenGL_01_Triangle
+		SccLocalPath18 = OpenGLProjects\\OpenGL_01_Triangle
 	EndGlobalSection
 EndGlobal

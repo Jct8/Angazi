@@ -6,3 +6,4 @@
 #include "GraphicsSystemGL.h"
 #include "Shader.h"
 #include "MeshBufferGL.h"
+#include "TextureGL.h"
