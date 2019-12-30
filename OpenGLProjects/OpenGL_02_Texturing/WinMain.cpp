@@ -4,6 +4,6 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	Angazi::MainApp().AddState<GameState>("GameState");
-	Angazi::MainApp().Run({ "OpenGl Texturing" ,1280, 720});
+	Angazi::MainApp().Run({ "OpenGl Texturing" ,1280, 720,Angazi::GraphicsAPI::OpenGL});
 	return 0;
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Angazi::Graphics 
+namespace Angazi::GraphicsGL
 {
 	class TextureGL
 	{

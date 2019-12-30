@@ -7,3 +7,6 @@
 #include "Shader.h"
 #include "MeshBufferGL.h"
 #include "TextureGL.h"
+#include "Mesh.h"
+#include "VertexTypes.h"
+#include "Colors.h"

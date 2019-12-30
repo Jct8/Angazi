@@ -161,12 +161,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\Colors.h" />
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\GraphicsGL.h" />
     <ClInclude Include="Inc\GraphicsSystemGL.h" />
+    <ClInclude Include="Inc\Mesh.h" />
     <ClInclude Include="Inc\MeshBufferGL.h" />
     <ClInclude Include="Inc\Shader.h" />
     <ClInclude Include="Inc\TextureGL.h" />
+    <ClInclude Include="Inc\VertexTypes.h" />
     <ClInclude Include="Src\Precompiled.h" />
     <ClInclude Include="stb_image\stb_image.h" />
   </ItemGroup>

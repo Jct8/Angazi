@@ -1,7 +1,7 @@
 #pragma once
-#include "Graphics/Inc/Colors.h"
+#include "Colors.h"
 
-namespace Angazi::Graphics {
+namespace Angazi::GraphicsGL {
 
 class GraphicsSystemGL
 {

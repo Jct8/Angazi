@@ -1,7 +1,7 @@
 #include "GameState.h"
 
 using namespace Angazi;
-using namespace Angazi::Graphics;
+using namespace Angazi::GraphicsGL;
 using namespace Angazi::Input;
 using namespace Angazi::Math;
 

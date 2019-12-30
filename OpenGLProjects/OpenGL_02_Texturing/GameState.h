@@ -11,10 +11,10 @@ public:
 	void Render() override;
 
 private:
-	Angazi::Graphics::Shader mShader;
-	Angazi::Graphics::TextureGL mTexture;
+	Angazi::GraphicsGL::Shader mShader;
+	Angazi::GraphicsGL::TextureGL mTexture;
 
-	Angazi::Graphics::MeshBufferGL mMeshBuffer;
-	Angazi::Graphics::MeshPX mMeshPC;
+	Angazi::GraphicsGL::MeshBufferGL mMeshBuffer;
+	Angazi::GraphicsGL::MeshPX mMeshPC;
 
 };

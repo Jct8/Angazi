@@ -1,9 +1,9 @@
 #include "Precompiled.h"
 #include "MeshBufferGL.h"
-#include "Graphics/Inc/VertexTypes.h"
+#include "VertexTypes.h"
 
 using namespace Angazi;
-using namespace Angazi::Graphics;
+using namespace Angazi::GraphicsGL;
 
 namespace
 {
@@ -48,13 +48,13 @@ namespace
 }
 
 
-void Angazi::Graphics::MeshBufferGL::Terminate()
+void Angazi::GraphicsGL::MeshBufferGL::Terminate()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glDeleteVertexArrays(1, &mVertexArray);
 }
 
-void Angazi::Graphics::MeshBufferGL::Draw()
+void Angazi::GraphicsGL::MeshBufferGL::Draw()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
 	glBindVertexArray(mVertexArray);
@@ -62,7 +62,7 @@ void Angazi::Graphics::MeshBufferGL::Draw()
 	glDrawElements(GL_TRIANGLES, mIndexCount, GL_UNSIGNED_INT, nullptr);
 }
 
-void Angazi::Graphics::MeshBufferGL::InitializeInternal(const void * vertices, int vertexSize, int vertexCount, const uint32_t * indices, int indexCount, uint32_t vertexFormat)
+void Angazi::GraphicsGL::MeshBufferGL::InitializeInternal(const void * vertices, int vertexSize, int vertexCount, const uint32_t * indices, int indexCount, uint32_t vertexFormat)
 {
 	mVertexSize = vertexSize;
 	mIndexCount = indexCount;

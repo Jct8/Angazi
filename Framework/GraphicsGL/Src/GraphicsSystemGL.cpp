@@ -2,7 +2,7 @@
 #include "GraphicsSystemGL.h"
 
 using namespace Angazi;
-using namespace Angazi::Graphics;
+using namespace Angazi::GraphicsGL;
 
 namespace
 {
@@ -10,8 +10,8 @@ namespace
 	Core::WindowMessageHandler sWindowMessageHandler;
 }
 
-// if window resize, update back buffer
-LRESULT CALLBACK Graphics::GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
+ //if window resize, update back buffer
+LRESULT CALLBACK GraphicsGL::GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (sGraphicsSystem)
 	{
@@ -145,8 +145,8 @@ void GraphicsSystemGL::EndRender()
 void GraphicsSystemGL::Resize(uint32_t width, uint32_t height)
 {
 	glViewport(0, 0, width, height);
-	/*glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();*/
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 	gluPerspective(45.0, 1.0 * (width / height), 1.0, 1000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

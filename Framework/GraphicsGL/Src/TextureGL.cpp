@@ -3,10 +3,13 @@
 #include "../stb_image/stb_image.h"
 
 using namespace Angazi;
-using namespace Angazi::Graphics;
+using namespace Angazi::GraphicsGL;
 
-void Angazi::Graphics::TextureGL::Initialize(const std::filesystem::path filePath)
+void Angazi::GraphicsGL::TextureGL::Initialize(const std::filesystem::path filePath)
 {
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glGenTextures(1, &mTextureID);
 	glBindTexture(GL_TEXTURE_2D, mTextureID);
 
@@ -27,12 +30,12 @@ void Angazi::Graphics::TextureGL::Initialize(const std::filesystem::path filePat
 	}
 }
 
-void Angazi::Graphics::TextureGL::Terminate()
+void Angazi::GraphicsGL::TextureGL::Terminate()
 {
 	glDeleteTextures(1, &mTextureID);
 }
 
-void Angazi::Graphics::TextureGL::Bind(unsigned int slot) const
+void Angazi::GraphicsGL::TextureGL::Bind(unsigned int slot) const
 {
 	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(GL_TEXTURE_2D, mTextureID);

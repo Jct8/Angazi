@@ -5,7 +5,7 @@
 #include <sstream>
 
 using namespace Angazi;
-using namespace Angazi::Graphics;
+using namespace Angazi::GraphicsGL;
 
 namespace
 {
@@ -13,7 +13,7 @@ namespace
 	const char * fsDefine = "#define COMPILING_FS\n";
 }
 
-void Angazi::Graphics::Shader::Initialize(const std::filesystem::path filePath)
+void Angazi::GraphicsGL::Shader::Initialize(const std::filesystem::path filePath)
 {
 	mProgram = glCreateProgram();
 
@@ -39,17 +39,17 @@ void Angazi::Graphics::Shader::Initialize(const std::filesystem::path filePath)
 	glDeleteShader(vs);
 }
 
-void Angazi::Graphics::Shader::Terminate()
+void Angazi::GraphicsGL::Shader::Terminate()
 {
 	glDeleteProgram(mProgram);
 }
 
-void Angazi::Graphics::Shader::Bind()
+void Angazi::GraphicsGL::Shader::Bind()
 {
 	glUseProgram(mProgram);
 }
 
-unsigned int Angazi::Graphics::Shader::CompileShader(unsigned int type, const std::string& source)
+unsigned int Angazi::GraphicsGL::Shader::CompileShader(unsigned int type, const std::string& source)
 {
 	unsigned int id = glCreateShader(type);
 	const char* src = source.c_str();
@@ -73,7 +73,7 @@ unsigned int Angazi::Graphics::Shader::CompileShader(unsigned int type, const st
 	return id;
 }
 
-std::vector<std::string> Angazi::Graphics::Shader::ParseShader(const std::filesystem::path & filepath)
+std::vector<std::string> Angazi::GraphicsGL::Shader::ParseShader(const std::filesystem::path & filepath)
 {
 	std::ifstream stream(filepath);
 	std::vector<std::string> retVec;
