@@ -30,7 +30,6 @@ namespace Angazi::GraphicsGL
 		Math::Matrix4 GetViewMatrix() const;
 		Math::Matrix4 GetPerspectiveMatrix() const;
 
-
 	private:
 		Math::Vector3 mPosition = Math::Vector3::Zero;
 		Math::Vector3 mDirection = Math::Vector3::ZAxis;
@@ -38,6 +37,5 @@ namespace Angazi::GraphicsGL
 		float mFov = 60.0f * Math::Constants::DegToRad;
 		float mNearPlane = 1.0f;
 		float mFarPlane = 10000.0f;
-};
-
+	};
 } //namespace Angazi::GraphicsGL

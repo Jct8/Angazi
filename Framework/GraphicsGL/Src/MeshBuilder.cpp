@@ -1,6 +1,5 @@
 #include "Precompiled.h"
 #include "Mesh.h"
-
 #include "MeshBuilder.h"
 
 using namespace Angazi;

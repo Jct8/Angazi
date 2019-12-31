@@ -42,19 +42,20 @@ namespace
 		if (vertexFormat & VE_TexCoord)
 			vertexLayout.push_back({ GL_FLOAT,2,GL_FALSE });
 
-
 		return vertexLayout;
 	}
 }
 
-
-void Angazi::GraphicsGL::MeshBufferGL::Terminate()
+void MeshBufferGL::Terminate()
 {
+	mIndexCount = 0;
+	mVertexSize = 0;
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glDeleteVertexArrays(1, &mVertexArray);
 }
 
-void Angazi::GraphicsGL::MeshBufferGL::Draw()
+void MeshBufferGL::Draw()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
 	glBindVertexArray(mVertexArray);
@@ -62,7 +63,7 @@ void Angazi::GraphicsGL::MeshBufferGL::Draw()
 	glDrawElements(GL_TRIANGLES, mIndexCount, GL_UNSIGNED_INT, nullptr);
 }
 
-void Angazi::GraphicsGL::MeshBufferGL::InitializeInternal(const void * vertices, int vertexSize, int vertexCount, const uint32_t * indices, int indexCount, uint32_t vertexFormat)
+void MeshBufferGL::InitializeInternal(const void * vertices, int vertexSize, int vertexCount, const uint32_t * indices, int indexCount, uint32_t vertexFormat)
 {
 	mVertexSize = vertexSize;
 	mIndexCount = indexCount;
@@ -87,5 +88,4 @@ void Angazi::GraphicsGL::MeshBufferGL::InitializeInternal(const void * vertices,
 	glGenBuffers(1, &mIndexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(uint32_t), indices, GL_STATIC_DRAW);
-
 }

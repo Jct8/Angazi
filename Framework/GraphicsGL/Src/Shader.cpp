@@ -1,9 +1,6 @@
 #include "Precompiled.h"
 #include "Shader.h"
 
-#include <fstream>
-#include <sstream>
-
 using namespace Angazi;
 using namespace Angazi::GraphicsGL;
 
@@ -13,7 +10,7 @@ namespace
 	const char * fsDefine = "#define COMPILING_FS\n";
 }
 
-void Angazi::GraphicsGL::Shader::Initialize(const std::filesystem::path filePath)
+void Shader::Initialize(const std::filesystem::path filePath)
 {
 	mProgram = glCreateProgram();
 
@@ -23,7 +20,6 @@ void Angazi::GraphicsGL::Shader::Initialize(const std::filesystem::path filePath
 	std::string fileContents = buffer.str();
 
 	std::vector<std::string> shaders = ParseShader(filePath);
-
 	std::string vsSource = shaders[0];
 	std::string fsSource = shaders[1];
 
@@ -39,32 +35,32 @@ void Angazi::GraphicsGL::Shader::Initialize(const std::filesystem::path filePath
 	glDeleteShader(vs);
 }
 
-void Angazi::GraphicsGL::Shader::Terminate()
+void Shader::Terminate()
 {
 	glDeleteProgram(mProgram);
 }
 
-void Angazi::GraphicsGL::Shader::Bind()
+void Shader::Bind()
 {
 	glUseProgram(mProgram);
 }
 
-void Angazi::GraphicsGL::Shader::SetUniform1i(const std::string name, int value)
+void Shader::SetUniform1i(const std::string name, int value)
 {
 	glUniform1i(glGetUniformLocation(mProgram,name.c_str()), value);
 }
 
-void Angazi::GraphicsGL::Shader::SetUniform1f(const std::string name, float value)
+void Shader::SetUniform1f(const std::string name, float value)
 {
 	glUniform1f(glGetUniformLocation(mProgram, name.c_str()), value);
 }
 
-void Angazi::GraphicsGL::Shader::SetUniform4f(const std::string name, float v0, float v1, float v2, float v3)
+void Shader::SetUniform4f(const std::string name, float v0, float v1, float v2, float v3)
 {
 	glUniform4f(glGetUniformLocation(mProgram, name.c_str()), v0, v1, v2, v3);
 }
 
-void Angazi::GraphicsGL::Shader::SetUniformMat4f(const std::string name, Math::Matrix4 mat)
+void Shader::SetUniformMat4f(const std::string name, Math::Matrix4 mat)
 {
 	GLfloat glMat[16] = {
 	mat._11,mat._12, mat._13, mat._14,
@@ -72,11 +68,10 @@ void Angazi::GraphicsGL::Shader::SetUniformMat4f(const std::string name, Math::M
 	mat._31,mat._32, mat._33, mat._34,
 	mat._41,mat._42, mat._43, mat._44
 	};
-
 	glUniformMatrix4fv(glGetUniformLocation(mProgram, name.c_str()), 1, GL_TRUE, glMat);
 }
 
-unsigned int Angazi::GraphicsGL::Shader::CompileShader(unsigned int type, const std::string& source)
+unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
 {
 	unsigned int id = glCreateShader(type);
 	const char* src = source.c_str();
@@ -100,7 +95,7 @@ unsigned int Angazi::GraphicsGL::Shader::CompileShader(unsigned int type, const 
 	return id;
 }
 
-std::vector<std::string> Angazi::GraphicsGL::Shader::ParseShader(const std::filesystem::path & filepath)
+std::vector<std::string> Shader::ParseShader(const std::filesystem::path & filepath)
 {
 	std::ifstream stream(filepath);
 	std::vector<std::string> retVec;

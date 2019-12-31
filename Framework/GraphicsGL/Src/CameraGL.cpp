@@ -5,7 +5,6 @@
 using namespace Angazi;
 using namespace Angazi::GraphicsGL;
 
-
 void CameraGL::SetPosition(const Math::Vector3 & position)
 {
 	mPosition = position;
@@ -53,7 +52,6 @@ void CameraGL::Pitch(float radian)
 	const float dot = Math::Dot(newLook, Math::Vector3::YAxis);
 	if (Math::Abs(dot) < 0.995f)
 		mDirection = newLook;
-
 }
 
 void CameraGL::SetFov(float fov)
@@ -90,7 +88,6 @@ Math::Matrix4 CameraGL::GetViewMatrix() const
 		r.z , u.z, l.z, 0.0f,
 		dx  , dy , dz , 1.0f
 	};
-
 }
 
 Math::Matrix4 CameraGL::GetPerspectiveMatrix() const
@@ -111,5 +108,4 @@ Math::Matrix4 CameraGL::GetPerspectiveMatrix() const
 		0.0f,	0.0f, d ,		1.0f,
 		0.0f,	0.0f, -zn * d,	0.0f
 	};
-
 }

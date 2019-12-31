@@ -26,7 +26,6 @@ LRESULT CALLBACK GraphicsGL::GraphicsSystemMessageHandler(HWND window, UINT mess
 			}
 		}
 	}
-
 	return sWindowMessageHandler.ForwardMessage(window, message, wParam, lParam);
 }
 
@@ -59,8 +58,6 @@ GraphicsSystemGL::~GraphicsSystemGL()
 
 void GraphicsSystemGL::Initialize(HWND window, bool fullscreen)
 {
-	
-
 	int pixelFormat;
 	PIXELFORMATDESCRIPTOR pfd;
 	RECT rect;
@@ -112,10 +109,10 @@ void GraphicsSystemGL::Initialize(HWND window, bool fullscreen)
 	ASSERT(glRenderingContext != NULL, "[GraphicsSystemGL] Can't create GL context");
 
 	//Link OpenGL Extension functions
+	//TODO: With GLAD 
 
 	//make the context active
 	ASSERT(wglMakeCurrent(hDeviceContext, glRenderingContext), "[GraphicsSystemGL] Can't make current GL context");
-
 
 	Resize(width, height);
 	sWindowMessageHandler.Hook(window, GraphicsSystemMessageHandler);
@@ -148,14 +145,14 @@ void GraphicsSystemGL::EndRender()
 
 uint32_t Angazi::GraphicsGL::GraphicsSystemGL::GetBackBufferWidth() const
 {
-	RECT    rcCli;
+	RECT rcCli;
 	GetClientRect(WindowFromDC(hDeviceContext), &rcCli);
 	return rcCli.right - rcCli.left;
 }
 
 uint32_t Angazi::GraphicsGL::GraphicsSystemGL::GetBackBufferHeight() const
 {
-	RECT    rcCli;
+	RECT rcCli;
 	GetClientRect(WindowFromDC(hDeviceContext), &rcCli);
 	return rcCli.bottom - rcCli.top;
 }

@@ -4,6 +4,9 @@
 #include <Core/Inc/Core.h>
 #include <Math/Inc/EngineMath.h>
 
+#include <fstream>
+#include <sstream>
+
 // OpenGL headers
 #include <glatter/include/glatter/glatter.h>
 #include<GL/glu.h>
