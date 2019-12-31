@@ -10,3 +10,4 @@
 #include "Mesh.h"
 #include "VertexTypes.h"
 #include "Colors.h"
+#include "CameraGL.h"

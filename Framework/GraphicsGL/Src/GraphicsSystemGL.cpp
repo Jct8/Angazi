@@ -142,6 +142,20 @@ void GraphicsSystemGL::EndRender()
 	SwapBuffers(hDeviceContext);
 }
 
+uint32_t Angazi::GraphicsGL::GraphicsSystemGL::GetBackBufferWidth() const
+{
+	RECT    rcCli;
+	GetClientRect(WindowFromDC(hDeviceContext), &rcCli);
+	return rcCli.right - rcCli.left;
+}
+
+uint32_t Angazi::GraphicsGL::GraphicsSystemGL::GetBackBufferHeight() const
+{
+	RECT    rcCli;
+	GetClientRect(WindowFromDC(hDeviceContext), &rcCli);
+	return rcCli.bottom - rcCli.top;
+}
+
 void GraphicsSystemGL::Resize(uint32_t width, uint32_t height)
 {
 	glViewport(0, 0, width, height);

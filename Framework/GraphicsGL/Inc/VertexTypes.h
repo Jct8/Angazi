@@ -28,4 +28,4 @@ namespace Angazi::GraphicsGL
 		float u, v;
 	};
 
-}//namespace Angazi::Graphics
+}//namespace Angazi::GraphicsGL

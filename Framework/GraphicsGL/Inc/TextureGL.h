@@ -13,4 +13,4 @@ namespace Angazi::GraphicsGL
 		unsigned int mTextureID;
 	};
 
-} // namespace Angazi::Graphics
+} // namespace Angazi::GraphicsGL

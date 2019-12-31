@@ -151,4 +151,4 @@ namespace Colors
 	constexpr Color YellowGreen				{ 0.603921592f, 0.803921640f, 0.196078449f, 1.000000000f };
 }
 
-} // namespace Angazi::Graphics
+} // namespace Angazi::GraphicsGL

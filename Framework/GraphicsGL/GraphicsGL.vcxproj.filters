@@ -45,6 +45,9 @@
     <ClInclude Include="Inc\VertexTypes.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\CameraGL.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -64,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="stb_image\stb_image.cpp">
       <Filter>stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CameraGL.cpp">
+      <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

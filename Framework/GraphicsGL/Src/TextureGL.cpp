@@ -19,7 +19,7 @@ void Angazi::GraphicsGL::TextureGL::Initialize(const std::filesystem::path fileP
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	int width, height, bytesPerPixel;
-	stbi_set_flip_vertically_on_load(true);
+	//stbi_set_flip_vertically_on_load(true);
 	unsigned char* imageData = stbi_load(filePath.u8string().c_str(), &width, &height, &bytesPerPixel,0);
 
 	if (imageData)

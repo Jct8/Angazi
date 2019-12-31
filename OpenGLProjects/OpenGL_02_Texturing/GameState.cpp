@@ -8,20 +8,20 @@ using namespace Angazi::Math;
 
 void GameState::Initialize()
 {
-	mMeshPC.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , 1.0f, 1.0f });
-	mMeshPC.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , 1.0f, 0.0f });
-	mMeshPC.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , 0.0f, 0.0f });
-	mMeshPC.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , 0.0f, 1.0f });
+	mMeshPX.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , 1.0f, 1.0f });
+	mMeshPX.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , 1.0f, 0.0f });
+	mMeshPX.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , 0.0f, 0.0f });
+	mMeshPX.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , 0.0f, 1.0f });
 
-	mMeshPC.indices.push_back(0);
-	mMeshPC.indices.push_back(1);
-	mMeshPC.indices.push_back(3);
+	mMeshPX.indices.push_back(0);
+	mMeshPX.indices.push_back(1);
+	mMeshPX.indices.push_back(3);
 
-	mMeshPC.indices.push_back(1);
-	mMeshPC.indices.push_back(2);
-	mMeshPC.indices.push_back(3);
+	mMeshPX.indices.push_back(1);
+	mMeshPX.indices.push_back(2);
+	mMeshPX.indices.push_back(3);
 
-	mMeshBuffer.Initialize(mMeshPC, VertexPX::Format);
+	mMeshBuffer.Initialize(mMeshPX, VertexPX::Format);
 
 	mShader.Initialize("../../Assets/Shaders/BasicTexturing.glsl");
 	mShader.Bind();

@@ -14,4 +14,4 @@ namespace Angazi::GraphicsGL
 	using MeshPC = MeshBase<VertexPC>;
 	using MeshPX = MeshBase<VertexPX>;
 
-}//namespace Angazi::Graphics
+}//namespace Angazi::GraphicsGL

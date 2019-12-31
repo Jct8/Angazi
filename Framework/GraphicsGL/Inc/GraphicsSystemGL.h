@@ -23,6 +23,9 @@ public:
 	void BeginRender();
 	void EndRender();
 
+	uint32_t GetBackBufferWidth() const;
+	uint32_t GetBackBufferHeight() const;
+
 
 private:
 	friend LRESULT CALLBACK GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -34,4 +37,4 @@ private:
 	HGLRC glRenderingContext = NULL ;
 };
 
-} // namespace Angazi::Graphics
+} // namespace Angazi::GraphicsGL

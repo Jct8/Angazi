@@ -49,6 +49,33 @@ void Angazi::GraphicsGL::Shader::Bind()
 	glUseProgram(mProgram);
 }
 
+void Angazi::GraphicsGL::Shader::SetUniform1i(const std::string name, int value)
+{
+	glUniform1i(glGetUniformLocation(mProgram,name.c_str()), value);
+}
+
+void Angazi::GraphicsGL::Shader::SetUniform1f(const std::string name, float value)
+{
+	glUniform1f(glGetUniformLocation(mProgram, name.c_str()), value);
+}
+
+void Angazi::GraphicsGL::Shader::SetUniform4f(const std::string name, float v0, float v1, float v2, float v3)
+{
+	glUniform4f(glGetUniformLocation(mProgram, name.c_str()), v0, v1, v2, v3);
+}
+
+void Angazi::GraphicsGL::Shader::SetUniformMat4f(const std::string name, Math::Matrix4 mat)
+{
+	GLfloat glMat[16] = {
+	mat._11,mat._12, mat._13, mat._14,
+	mat._21,mat._22, mat._23, mat._24,
+	mat._31,mat._32, mat._33, mat._34,
+	mat._41,mat._42, mat._43, mat._44
+	};
+
+	glUniformMatrix4fv(glGetUniformLocation(mProgram, name.c_str()), 1, GL_TRUE, glMat);
+}
+
 unsigned int Angazi::GraphicsGL::Shader::CompileShader(unsigned int type, const std::string& source)
 {
 	unsigned int id = glCreateShader(type);

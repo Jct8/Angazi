@@ -31,4 +31,4 @@ namespace Angazi::GraphicsGL
 		int mVertexSize;
 	};
 
-} //namespace Angazi::Graphics
+} //namespace Angazi::GraphicsGL
