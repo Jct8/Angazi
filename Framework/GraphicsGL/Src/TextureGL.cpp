@@ -7,9 +7,6 @@ using namespace Angazi::GraphicsGL;
 
 void Angazi::GraphicsGL::TextureGL::Initialize(const std::filesystem::path filePath)
 {
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	glGenTextures(1, &mTextureID);
 	glBindTexture(GL_TEXTURE_2D, mTextureID);
 
@@ -24,7 +21,7 @@ void Angazi::GraphicsGL::TextureGL::Initialize(const std::filesystem::path fileP
 
 	if (imageData)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGB , GL_UNSIGNED_BYTE,imageData);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height, 0, GL_RGB , GL_UNSIGNED_BYTE,imageData);
 		glGenerateMipmap(GL_TEXTURE_2D);
 		stbi_image_free(imageData);
 	}

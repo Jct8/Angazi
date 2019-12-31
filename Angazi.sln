@@ -37,14 +37,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{151081
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA6B8E-242B-46B4-8366-0A659EFAE1D1}"
 	ProjectSection(SolutionItems) = preProject
-		Assets\Shaders\Basic.glsl = Assets\Shaders\Basic.glsl
-		Assets\Shaders\BasicCamera.glsl = Assets\Shaders\BasicCamera.glsl
-		Assets\Shaders\BasicColor.glsl = Assets\Shaders\BasicColor.glsl
-		Assets\Shaders\BasicTexturing.glsl = Assets\Shaders\BasicTexturing.glsl
 		Assets\Shaders\DoNothing.fx = Assets\Shaders\DoNothing.fx
 		Assets\Shaders\DoSomething.fx = Assets\Shaders\DoSomething.fx
 		Assets\Shaders\DoTexturing.fx = Assets\Shaders\DoTexturing.fx
 		Assets\Shaders\DoTransform.fx = Assets\Shaders\DoTransform.fx
+		Assets\Shaders\GLBasic.glsl = Assets\Shaders\GLBasic.glsl
+		Assets\Shaders\GLCamera.glsl = Assets\Shaders\GLCamera.glsl
+		Assets\Shaders\GLColor.glsl = Assets\Shaders\GLColor.glsl
+		Assets\Shaders\GLTexturing.glsl = Assets\Shaders\GLTexturing.glsl
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_HelloShapes", "VGP242\04_HelloShapes\04_HelloShapes.vcxproj", "{464D5F6E-2CE0-4664-8A84-70F54725E22B}"
@@ -68,6 +68,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_01_Triangle", "OpenGLProjects\OpenGL_01_Triangle\OpenGL_01_Triangle.vcxproj", "{0D025616-84EE-41BC-9DB0-30D9F91498D2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_03_Cube", "OpenGLProjects\OpenGL_03_Cube\OpenGL_03_Cube.vcxproj", "{9D0DE007-45D1-4D13-BF7C-B7752C94329B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_04_SolarSystem", "OpenGLProjects\OpenGL_04_SolarSystem\OpenGL_04_SolarSystem.vcxproj", "{09E4523B-767B-454C-BE07-96EA212ADA7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -401,6 +403,22 @@ Global
 		{9D0DE007-45D1-4D13-BF7C-B7752C94329B}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{9D0DE007-45D1-4D13-BF7C-B7752C94329B}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{9D0DE007-45D1-4D13-BF7C-B7752C94329B}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.Debug|x64.ActiveCfg = Debug|x64
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.Debug|x64.Build.0 = Debug|x64
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.Debug|x86.ActiveCfg = Debug|Win32
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.Debug|x86.Build.0 = Debug|Win32
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.MinSizeRel|x64.Build.0 = Release|x64
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.MinSizeRel|x86.Build.0 = Release|Win32
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.Release|x64.ActiveCfg = Release|x64
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.Release|x64.Build.0 = Release|x64
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.Release|x86.ActiveCfg = Release|Win32
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.Release|x86.Build.0 = Release|Win32
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{09E4523B-767B-454C-BE07-96EA212ADA7D}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -427,12 +445,13 @@ Global
 		{ED845C21-24C1-4226-A6A2-3CF523338C1D} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{0D025616-84EE-41BC-9DB0-30D9F91498D2} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{9D0DE007-45D1-4D13-BF7C-B7752C94329B} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
+		{09E4523B-767B-454C-BE07-96EA212ADA7D} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 20
+		SccNumberOfProjects = 21
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -512,5 +531,9 @@ Global
 		SccProjectTopLevelParentUniqueName19 = Angazi.sln
 		SccProjectName19 = OpenGLProjects/OpenGL_03_Cube
 		SccLocalPath19 = OpenGLProjects\\OpenGL_03_Cube
+		SccProjectUniqueName20 = OpenGLProjects\\OpenGL_04_SolarSystem\\OpenGL_04_SolarSystem.vcxproj
+		SccProjectTopLevelParentUniqueName20 = Angazi.sln
+		SccProjectName20 = OpenGLProjects/OpenGL_04_SolarSystem
+		SccLocalPath20 = OpenGLProjects\\OpenGL_04_SolarSystem
 	EndGlobalSection
 EndGlobal

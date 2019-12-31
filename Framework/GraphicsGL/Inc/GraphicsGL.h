@@ -11,3 +11,4 @@
 #include "VertexTypes.h"
 #include "Colors.h"
 #include "CameraGL.h"
+#include "MeshBuilder.h"
