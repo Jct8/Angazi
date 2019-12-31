@@ -61,8 +61,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenGLProjects", "OpenGLPro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphicsGL", "Framework\GraphicsGL\GraphicsGL.vcxproj", "{D7DCC971-B132-44A6-A6A0-86B8C5640F17}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Glad", "External\Glad\Glad.vcxproj", "{0DEA2684-550A-4071-9F82-B0955F1D94D8}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_02_Texturing", "OpenGLProjects\OpenGL_02_Texturing\OpenGL_02_Texturing.vcxproj", "{ED845C21-24C1-4226-A6A2-3CF523338C1D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_01_Triangle", "OpenGLProjects\OpenGL_01_Triangle\OpenGL_01_Triangle.vcxproj", "{0D025616-84EE-41BC-9DB0-30D9F91498D2}"
@@ -339,22 +337,6 @@ Global
 		{D7DCC971-B132-44A6-A6A0-86B8C5640F17}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{D7DCC971-B132-44A6-A6A0-86B8C5640F17}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{D7DCC971-B132-44A6-A6A0-86B8C5640F17}.RelWithDebInfo|x86.Build.0 = Release|Win32
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.Debug|x64.ActiveCfg = Debug|x64
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.Debug|x64.Build.0 = Debug|x64
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.Debug|x86.ActiveCfg = Debug|Win32
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.Debug|x86.Build.0 = Debug|Win32
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.MinSizeRel|x64.ActiveCfg = Release|x64
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.MinSizeRel|x64.Build.0 = Release|x64
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.MinSizeRel|x86.ActiveCfg = Release|Win32
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.MinSizeRel|x86.Build.0 = Release|Win32
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.Release|x64.ActiveCfg = Release|x64
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.Release|x64.Build.0 = Release|x64
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.Release|x86.ActiveCfg = Release|Win32
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.Release|x86.Build.0 = Release|Win32
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.RelWithDebInfo|x64.ActiveCfg = Release|x64
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.RelWithDebInfo|x64.Build.0 = Release|x64
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8}.RelWithDebInfo|x86.Build.0 = Release|Win32
 		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.Debug|x64.ActiveCfg = Debug|x64
 		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.Debug|x64.Build.0 = Debug|x64
 		{ED845C21-24C1-4226-A6A2-3CF523338C1D}.Debug|x86.ActiveCfg = Debug|Win32
@@ -441,7 +423,6 @@ Global
 		{DAA08175-4D9C-4022-A424-776319EF2458} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
 		{52DF0404-3BA5-42CB-8432-5684BD54E6D0} = {9B852B2F-139B-4C48-9F1D-76E03C623EE6}
 		{D7DCC971-B132-44A6-A6A0-86B8C5640F17} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
-		{0DEA2684-550A-4071-9F82-B0955F1D94D8} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
 		{ED845C21-24C1-4226-A6A2-3CF523338C1D} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{0D025616-84EE-41BC-9DB0-30D9F91498D2} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{9D0DE007-45D1-4D13-BF7C-B7752C94329B} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
@@ -451,7 +432,7 @@ Global
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 21
+		SccNumberOfProjects = 20
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -515,25 +496,21 @@ Global
 		SccProjectTopLevelParentUniqueName15 = Angazi.sln
 		SccProjectName15 = VGP242/08_HelloSolarSystem
 		SccLocalPath15 = VGP242\\08_HelloSolarSystem
-		SccProjectUniqueName16 = External\\Glad\\Glad.vcxproj
+		SccProjectUniqueName16 = OpenGLProjects\\OpenGL_02_Texturing\\OpenGL_02_Texturing.vcxproj
 		SccProjectTopLevelParentUniqueName16 = Angazi.sln
-		SccProjectName16 = External/Glad
-		SccLocalPath16 = External\\Glad
-		SccProjectUniqueName17 = OpenGLProjects\\OpenGL_02_Texturing\\OpenGL_02_Texturing.vcxproj
+		SccProjectName16 = OpenGLProjects/OpenGL_02_Texturing
+		SccLocalPath16 = OpenGLProjects\\OpenGL_02_Texturing
+		SccProjectUniqueName17 = OpenGLProjects\\OpenGL_01_Triangle\\OpenGL_01_Triangle.vcxproj
 		SccProjectTopLevelParentUniqueName17 = Angazi.sln
-		SccProjectName17 = OpenGLProjects/OpenGL_02_Texturing
-		SccLocalPath17 = OpenGLProjects\\OpenGL_02_Texturing
-		SccProjectUniqueName18 = OpenGLProjects\\OpenGL_01_Triangle\\OpenGL_01_Triangle.vcxproj
+		SccProjectName17 = OpenGLProjects/OpenGL_01_Triangle
+		SccLocalPath17 = OpenGLProjects\\OpenGL_01_Triangle
+		SccProjectUniqueName18 = OpenGLProjects\\OpenGL_03_Cube\\OpenGL_03_Cube.vcxproj
 		SccProjectTopLevelParentUniqueName18 = Angazi.sln
-		SccProjectName18 = OpenGLProjects/OpenGL_01_Triangle
-		SccLocalPath18 = OpenGLProjects\\OpenGL_01_Triangle
-		SccProjectUniqueName19 = OpenGLProjects\\OpenGL_03_Cube\\OpenGL_03_Cube.vcxproj
+		SccProjectName18 = OpenGLProjects/OpenGL_03_Cube
+		SccLocalPath18 = OpenGLProjects\\OpenGL_03_Cube
+		SccProjectUniqueName19 = OpenGLProjects\\OpenGL_04_SolarSystem\\OpenGL_04_SolarSystem.vcxproj
 		SccProjectTopLevelParentUniqueName19 = Angazi.sln
-		SccProjectName19 = OpenGLProjects/OpenGL_03_Cube
-		SccLocalPath19 = OpenGLProjects\\OpenGL_03_Cube
-		SccProjectUniqueName20 = OpenGLProjects\\OpenGL_04_SolarSystem\\OpenGL_04_SolarSystem.vcxproj
-		SccProjectTopLevelParentUniqueName20 = Angazi.sln
-		SccProjectName20 = OpenGLProjects/OpenGL_04_SolarSystem
-		SccLocalPath20 = OpenGLProjects\\OpenGL_04_SolarSystem
+		SccProjectName19 = OpenGLProjects/OpenGL_04_SolarSystem
+		SccLocalPath19 = OpenGLProjects\\OpenGL_04_SolarSystem
 	EndGlobalSection
 EndGlobal

@@ -162,7 +162,7 @@ void GraphicsSystemGL::Resize(uint32_t width, uint32_t height)
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0, 1.0 * (width / height), 1.0, 1000);
+	//gluPerspective(45.0, 1.0 * (width / height), 1.0, 1000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }

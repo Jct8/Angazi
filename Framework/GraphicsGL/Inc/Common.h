@@ -9,9 +9,9 @@
 
 // OpenGL headers
 #include <glatter/include/glatter/glatter.h>
-#include<GL/glu.h>
-//#include <Glad/include/glad/glad.h>
+//#include<GL/glu.h>
 //#include<GL/gl.h>
+//#include <Glad/include/glad/glad.h>
 
 // OpenGL libraries
 #pragma comment(lib, "opengl32.lib")
