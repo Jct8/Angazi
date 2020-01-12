@@ -34,7 +34,10 @@ void Angazi::App::Run(AppConfig appConfig)
 		SimpleDraw::StaticInitialize();
 	}
 	else if (appConfig.api == GraphicsAPI::OpenGL)
+	{
 		GraphicsSystemGL::StaticInitialize(handle, false);
+		//DebugUIGL::StaticInitialize(handle, false);
+	}
 
 
 
@@ -91,6 +94,11 @@ void Angazi::App::Run(AppConfig appConfig)
 
 			mCurrentState->Render();
 
+			//DebugUIGL::BeginRender();
+			//mCurrentState->DebugUI();
+			//DebugUIGL::EndRender();
+
+
 			graphicsSystem->EndRender();
 		}
 
@@ -108,7 +116,10 @@ void Angazi::App::Run(AppConfig appConfig)
 		GraphicsSystem::StaticTerminate();
 	}
 	else if (appConfig.api == GraphicsAPI::OpenGL)
+	{
 		GraphicsSystemGL::StaticTerminate(handle);
+		//DebugUIGL::StaticTerminate();
+	}
 	InputSystem::StaticTerminate();
 
 	//Terminate window

@@ -164,6 +164,7 @@
     <ClInclude Include="Inc\CameraGL.h" />
     <ClInclude Include="Inc\Colors.h" />
     <ClInclude Include="Inc\Common.h" />
+    <ClInclude Include="Inc\DebugUI.h" />
     <ClInclude Include="Inc\GraphicsGL.h" />
     <ClInclude Include="Inc\GraphicsSystemGL.h" />
     <ClInclude Include="Inc\Mesh.h" />
@@ -177,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\CameraGL.cpp" />
+    <ClCompile Include="Src\DebugUI.cpp" />
     <ClCompile Include="Src\GraphicsSystemGL.cpp" />
     <ClCompile Include="Src\MeshBufferGL.cpp" />
     <ClCompile Include="Src\MeshBuilder.cpp" />
