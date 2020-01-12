@@ -8,10 +8,9 @@
 #include <sstream>
 
 // OpenGL headers
-#include <glatter/include/glatter/glatter.h>
-//#include<GL/glu.h>
-//#include<GL/gl.h>
-//#include <Glad/include/glad/glad.h>
+#define GLEW_STATIC
+#include <Glew/include/GL/glew.h>
+//#include <glatter/include/glatter/glatter.h>
 
 // OpenGL libraries
 #pragma comment(lib, "opengl32.lib")

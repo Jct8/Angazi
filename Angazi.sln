@@ -80,6 +80,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10_HelloSimpleDraw", "VGP33
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_05_ImGui", "OpenGLProjects\OpenGL_05_ImGui\OpenGL_05_ImGui.vcxproj", "{CA0BC289-41EF-4B17-BE94-1300C2B8D58F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glew_static", "External\Glew\build\vc15\glew_static.vcxproj", "{664E6F0D-6784-4760-9565-D54F8EB1EDF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -476,6 +478,22 @@ Global
 		{CA0BC289-41EF-4B17-BE94-1300C2B8D58F}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{CA0BC289-41EF-4B17-BE94-1300C2B8D58F}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{CA0BC289-41EF-4B17-BE94-1300C2B8D58F}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.Debug|x64.ActiveCfg = Debug|x64
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.Debug|x64.Build.0 = Debug|x64
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.Debug|x86.ActiveCfg = Debug|Win32
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.Debug|x86.Build.0 = Debug|Win32
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.MinSizeRel|x64.Build.0 = Release|x64
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.MinSizeRel|x86.Build.0 = Release|Win32
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.Release|x64.ActiveCfg = Release|x64
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.Release|x64.Build.0 = Release|x64
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.Release|x86.ActiveCfg = Release|Win32
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.Release|x86.Build.0 = Release|Win32
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -506,12 +524,13 @@ Global
 		{532D9138-B4AB-4041-AB7D-DEF96BD524A1} = {F8400894-831D-4B54-8637-B23ED468BE24}
 		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE} = {F8400894-831D-4B54-8637-B23ED468BE24}
 		{CA0BC289-41EF-4B17-BE94-1300C2B8D58F} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
+		{664E6F0D-6784-4760-9565-D54F8EB1EDF4} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 24
+		SccNumberOfProjects = 25
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -607,5 +626,9 @@ Global
 		SccProjectTopLevelParentUniqueName23 = Angazi.sln
 		SccProjectName23 = OpenGLProjects/OpenGL_05_ImGui
 		SccLocalPath23 = OpenGLProjects\\OpenGL_05_ImGui
+		SccProjectUniqueName24 = External\\Glew\\build\\vc15\\glew_static.vcxproj
+		SccProjectTopLevelParentUniqueName24 = Angazi.sln
+		SccProjectName24 = External/Glew/build/vc15
+		SccLocalPath24 = External\\Glew\\build\\vc15
 	EndGlobalSection
 EndGlobal

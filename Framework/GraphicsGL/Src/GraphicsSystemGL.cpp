@@ -108,11 +108,13 @@ void GraphicsSystemGL::Initialize(HWND window, bool fullscreen)
 	glRenderingContext = wglCreateContext(hDeviceContext);
 	ASSERT(glRenderingContext != NULL, "[GraphicsSystemGL] Can't create GL context");
 
-	//Link OpenGL Extension functions
-	//TODO: With GLAD 
-
 	//make the context active
 	ASSERT(wglMakeCurrent(hDeviceContext, glRenderingContext), "[GraphicsSystemGL] Can't make current GL context");
+
+	//Init Glew
+	ASSERT(glewInit() == GLEW_OK, "Glew Init Failed");
+	//Link OpenGL Extension functions
+	ASSERT(glGetString(GL_EXTENSIONS),"Glew extentions failed");
 
 	Resize(width, height);
 	sWindowMessageHandler.Hook(window, GraphicsSystemMessageHandler);
