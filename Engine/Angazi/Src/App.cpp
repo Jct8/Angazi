@@ -28,23 +28,33 @@ void Angazi::App::Run(AppConfig appConfig)
 
 	//Initialize the graphics systems
 	if (appConfig.api == GraphicsAPI::DirectX)
+	{
 		GraphicsSystem::StaticInitialize(handle, false);
-	else if(appConfig.api == GraphicsAPI::OpenGL)
+		DebugUI::StaticInitialize(handle, false, true);
+	}
+	else if (appConfig.api == GraphicsAPI::OpenGL)
 		GraphicsSystemGL::StaticInitialize(handle, false);
+
+
 
 	//Initialize the starting state
 	mCurrentState = mAppStates.begin()->second.get();
 	mCurrentState->Initialize();
 
 	mRunning = true;
-	while (mRunning && mWindow.IsActive())
+	while (mRunning)
 	{
 		mWindow.ProcessMessage();
+		if (!mWindow.IsActive())
+		{
+			Quit();
+			continue;
+		}
 
 		if (mNextState)
 		{
 			mCurrentState->Terminate();
-			mCurrentState = std::exchange(mNextState,nullptr);
+			mCurrentState = std::exchange(mNextState, nullptr);
 			mCurrentState->Initialize();
 		}
 		auto inputSystem = InputSystem::Get();
@@ -59,13 +69,17 @@ void Angazi::App::Run(AppConfig appConfig)
 		float deltaTime = 1.0f / 60.0f;
 		mCurrentState->Update(deltaTime);
 
-		
+
 		if (appConfig.api == GraphicsAPI::DirectX)
 		{
 			auto graphicsSystem = GraphicsSystem::Get();
 			graphicsSystem->BeginRender();
 
 			mCurrentState->Render();
+
+			DebugUI::BeginRender();
+			mCurrentState->DebugUI();
+			DebugUI::EndRender();
 
 			graphicsSystem->EndRender();
 		}
@@ -79,7 +93,7 @@ void Angazi::App::Run(AppConfig appConfig)
 			graphicsSystem->EndRender();
 		}
 
-		
+
 
 	}
 
@@ -87,7 +101,10 @@ void Angazi::App::Run(AppConfig appConfig)
 
 	//Terminate engine systems
 	if (appConfig.api == GraphicsAPI::DirectX)
+	{
+		DebugUI::StaticTerminate();
 		GraphicsSystem::StaticTerminate();
+	}
 	else if (appConfig.api == GraphicsAPI::OpenGL)
 		GraphicsSystemGL::StaticTerminate(handle);
 	InputSystem::StaticTerminate();

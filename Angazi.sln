@@ -71,6 +71,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_04_SolarSystem", "Op
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "External\ImGui\ImGui.vcxproj", "{9DE256EB-9199-4BCE-AF41-ED0BDF8021FF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VGP330", "VGP330", "{F8400894-831D-4B54-8637-B23ED468BE24}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "09_HelloImGui", "VGP330\09_HelloImGui\09_HelloImGui.vcxproj", "{532D9138-B4AB-4041-AB7D-DEF96BD524A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -419,6 +423,22 @@ Global
 		{9DE256EB-9199-4BCE-AF41-ED0BDF8021FF}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{9DE256EB-9199-4BCE-AF41-ED0BDF8021FF}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{9DE256EB-9199-4BCE-AF41-ED0BDF8021FF}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.Debug|x64.ActiveCfg = Debug|x64
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.Debug|x64.Build.0 = Debug|x64
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.Debug|x86.ActiveCfg = Debug|Win32
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.Debug|x86.Build.0 = Debug|Win32
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.MinSizeRel|x64.Build.0 = Release|x64
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.MinSizeRel|x86.Build.0 = Release|Win32
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.Release|x64.ActiveCfg = Release|x64
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.Release|x64.Build.0 = Release|x64
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.Release|x86.ActiveCfg = Release|Win32
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.Release|x86.Build.0 = Release|Win32
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -446,12 +466,13 @@ Global
 		{9D0DE007-45D1-4D13-BF7C-B7752C94329B} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{09E4523B-767B-454C-BE07-96EA212ADA7D} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{9DE256EB-9199-4BCE-AF41-ED0BDF8021FF} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
+		{532D9138-B4AB-4041-AB7D-DEF96BD524A1} = {F8400894-831D-4B54-8637-B23ED468BE24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 21
+		SccNumberOfProjects = 22
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -535,5 +556,9 @@ Global
 		SccProjectTopLevelParentUniqueName20 = Angazi.sln
 		SccProjectName20 = External/ImGui
 		SccLocalPath20 = External\\ImGui
+		SccProjectUniqueName21 = VGP330\\09_HelloImGui\\09_HelloImGui.vcxproj
+		SccProjectTopLevelParentUniqueName21 = Angazi.sln
+		SccProjectName21 = VGP330/09_HelloImGui
+		SccLocalPath21 = VGP330\\09_HelloImGui
 	EndGlobalSection
 EndGlobal
