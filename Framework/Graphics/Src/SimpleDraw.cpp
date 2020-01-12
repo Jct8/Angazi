@@ -57,7 +57,7 @@ namespace
 			mMeshBuffer.SetTopology(MeshBuffer::Topology::Lines);
 			mMeshBuffer.Draw();
 
-			mVertexCount = 0;
+			//mVertexCount = 0;
 
 		}
 
@@ -76,7 +76,7 @@ namespace
 
 void SimpleDraw::StaticInitialize(uint32_t maxVertexCount)
 {
-	std::make_unique<SimpleDrawImpl>();
+	sInstance = std::make_unique<SimpleDrawImpl>();
 	sInstance->Initialize(maxVertexCount);
 }
 

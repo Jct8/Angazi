@@ -45,6 +45,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA
 		Assets\Shaders\GLCamera.glsl = Assets\Shaders\GLCamera.glsl
 		Assets\Shaders\GLColor.glsl = Assets\Shaders\GLColor.glsl
 		Assets\Shaders\GLTexturing.glsl = Assets\Shaders\GLTexturing.glsl
+		Assets\Shaders\SimpleDraw.fx = Assets\Shaders\SimpleDraw.fx
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_HelloShapes", "VGP242\04_HelloShapes\04_HelloShapes.vcxproj", "{464D5F6E-2CE0-4664-8A84-70F54725E22B}"
@@ -74,6 +75,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VGP330", "VGP330", "{F8400894-831D-4B54-8637-B23ED468BE24}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "09_HelloImGui", "VGP330\09_HelloImGui\09_HelloImGui.vcxproj", "{532D9138-B4AB-4041-AB7D-DEF96BD524A1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10_HelloSimpleDraw", "VGP330\10_HelloSimpleDraw\10_HelloSimpleDraw.vcxproj", "{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -439,6 +442,22 @@ Global
 		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{532D9138-B4AB-4041-AB7D-DEF96BD524A1}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.Debug|x64.ActiveCfg = Debug|x64
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.Debug|x64.Build.0 = Debug|x64
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.Debug|x86.ActiveCfg = Debug|Win32
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.Debug|x86.Build.0 = Debug|Win32
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.MinSizeRel|x64.Build.0 = Release|x64
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.MinSizeRel|x86.Build.0 = Release|Win32
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.Release|x64.ActiveCfg = Release|x64
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.Release|x64.Build.0 = Release|x64
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.Release|x86.ActiveCfg = Release|Win32
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.Release|x86.Build.0 = Release|Win32
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -467,12 +486,13 @@ Global
 		{09E4523B-767B-454C-BE07-96EA212ADA7D} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{9DE256EB-9199-4BCE-AF41-ED0BDF8021FF} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
 		{532D9138-B4AB-4041-AB7D-DEF96BD524A1} = {F8400894-831D-4B54-8637-B23ED468BE24}
+		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE} = {F8400894-831D-4B54-8637-B23ED468BE24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 22
+		SccNumberOfProjects = 23
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -560,5 +580,9 @@ Global
 		SccProjectTopLevelParentUniqueName21 = Angazi.sln
 		SccProjectName21 = VGP330/09_HelloImGui
 		SccLocalPath21 = VGP330\\09_HelloImGui
+		SccProjectUniqueName22 = VGP330\\10_HelloSimpleDraw\\10_HelloSimpleDraw.vcxproj
+		SccProjectTopLevelParentUniqueName22 = Angazi.sln
+		SccProjectName22 = VGP330/10_HelloSimpleDraw
+		SccLocalPath22 = VGP330\\10_HelloSimpleDraw
 	EndGlobalSection
 EndGlobal
