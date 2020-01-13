@@ -31,12 +31,13 @@ void Angazi::App::Run(AppConfig appConfig)
 	{
 		GraphicsSystem::StaticInitialize(handle, false);
 		DebugUI::StaticInitialize(handle, false, true);
-		SimpleDraw::StaticInitialize();
+		Graphics::SimpleDraw::StaticInitialize();
 	}
 	else if (appConfig.api == GraphicsAPI::OpenGL)
 	{
 		GraphicsSystemGL::StaticInitialize(handle, false);
 		DebugUIGL::StaticInitialize(handle, false);
+		GraphicsGL::SimpleDraw::StaticInitialize();
 	}
 
 
@@ -111,14 +112,15 @@ void Angazi::App::Run(AppConfig appConfig)
 	//Terminate engine systems
 	if (appConfig.api == GraphicsAPI::DirectX)
 	{
-		SimpleDraw::StaticTerminate();
+		Graphics::SimpleDraw::StaticTerminate();
 		DebugUI::StaticTerminate();
 		GraphicsSystem::StaticTerminate();
 	}
 	else if (appConfig.api == GraphicsAPI::OpenGL)
 	{
+		GraphicsGL::SimpleDraw::StaticTerminate();
 		GraphicsSystemGL::StaticTerminate(handle);
-		//DebugUIGL::StaticTerminate();
+		DebugUIGL::StaticTerminate();
 	}
 	InputSystem::StaticTerminate();
 

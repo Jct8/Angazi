@@ -10,5 +10,6 @@
 #include "MeshBufferGL.h"
 #include "MeshBuilder.h"
 #include "Shader.h"
+#include "SimpleDraw.h"
 #include "TextureGL.h"
 #include "VertexTypes.h"

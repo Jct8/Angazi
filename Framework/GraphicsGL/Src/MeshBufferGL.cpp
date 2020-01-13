@@ -30,7 +30,7 @@ namespace
 		std::vector<VertexElementDesc> vertexLayout; // rvo - copy elision
 
 		if (vertexFormat & VE_Position)
-			vertexLayout.push_back({GL_FLOAT,3,GL_FALSE });
+			vertexLayout.push_back({ GL_FLOAT,3,GL_FALSE });
 
 		//if (vertexFormat & VE_Normal)
 
@@ -46,6 +46,25 @@ namespace
 	}
 }
 
+void MeshBufferGL::SetTopology(Topology topology)
+{
+	if (topology == Topology::Lines)
+		mTopology = GL_LINE;
+	if (topology == Topology::Triangles)
+		mTopology = GL_TRIANGLES;
+}
+
+void MeshBufferGL::Update(const void * vertexData, uint32_t numVertices)
+{
+	mVertexCount = numVertices;
+
+	glBindVertexArray(mVertexArray);
+	glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
+	void *resource = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+	memcpy(resource, vertexData, mVertexCount * mVertexSize);
+	glUnmapBuffer(GL_ARRAY_BUFFER);
+}
+
 void MeshBufferGL::Terminate()
 {
 	mIndexCount = 0;
@@ -57,35 +76,49 @@ void MeshBufferGL::Terminate()
 
 void MeshBufferGL::Draw()
 {
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
-	glBindVertexArray(mVertexArray);
-
-	glDrawElements(GL_TRIANGLES, mIndexCount, GL_UNSIGNED_INT, nullptr);
+	if (mIndexCount > 0)
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
+		glBindVertexArray(mVertexArray);
+		glDrawElements(mTopology, mIndexCount, GL_UNSIGNED_INT, nullptr);
+	}
+	else
+	{
+		glBindVertexArray(mVertexArray);
+		glDrawArrays(mTopology, 0, mVertexCount);
+	}
 }
 
-void MeshBufferGL::InitializeInternal(const void * vertices, int vertexSize, int vertexCount, const uint32_t * indices, int indexCount, uint32_t vertexFormat)
+void MeshBufferGL::InitializeInternal(const void * vertices, int vertexSize, int vertexCount, const uint32_t * indices, int indexCount, uint32_t vertexFormat, bool dynamic)
 {
 	mVertexSize = vertexSize;
+	mVertexCount = vertexCount;
 	mIndexCount = indexCount;
-	
+
 	glGenVertexArrays(1, &mVertexArray);
 	glGenBuffers(1, &mVertexBuffer);
 	glBindVertexArray(mVertexArray);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertexCount * vertexSize, vertices, GL_STATIC_DRAW);
-
+	unsigned int drawType = GL_STATIC_DRAW;
+	if (dynamic)
+		drawType = GL_DYNAMIC_DRAW;
+	glBufferData(GL_ARRAY_BUFFER, vertexCount * vertexSize, vertices, drawType);
+	
 	auto vertexLayout = GetVertexLayout(vertexFormat);
 	unsigned int offset = 0;
 	for (int i = 0; i < vertexLayout.size(); i++)
 	{
 		glEnableVertexAttribArray(i);
-		glVertexAttribPointer(i, vertexLayout[i].count, vertexLayout[i].type , vertexLayout[i].normalized ,
-			vertexSize, (const void*) offset );
+		glVertexAttribPointer(i, vertexLayout[i].count, vertexLayout[i].type, vertexLayout[i].normalized,
+			vertexSize, (const void*)offset);
 		offset += vertexLayout[i].count * VertexElementDesc::GetSizeOfType(vertexLayout[i].type);
 	}
 
-	glGenBuffers(1, &mIndexBuffer);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+	if (indexCount > 0)
+	{
+		glGenBuffers(1, &mIndexBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+	}
 }

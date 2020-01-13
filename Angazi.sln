@@ -46,6 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA
 		Assets\Shaders\GLColor.glsl = Assets\Shaders\GLColor.glsl
 		Assets\Shaders\GLTexturing.glsl = Assets\Shaders\GLTexturing.glsl
 		Assets\Shaders\SimpleDraw.fx = Assets\Shaders\SimpleDraw.fx
+		Assets\Shaders\SimpleDraw.glsl = Assets\Shaders\SimpleDraw.glsl
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_HelloShapes", "VGP242\04_HelloShapes\04_HelloShapes.vcxproj", "{464D5F6E-2CE0-4664-8A84-70F54725E22B}"
@@ -81,6 +82,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_05_ImGui", "OpenGLProjects\OpenGL_05_ImGui\OpenGL_05_ImGui.vcxproj", "{CA0BC289-41EF-4B17-BE94-1300C2B8D58F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glew_static", "External\Glew\build\vc15\glew_static.vcxproj", "{664E6F0D-6784-4760-9565-D54F8EB1EDF4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_06_SimpleDraw", "OpenGLProjects\OpenGL_06_SimpleDraw\OpenGL_06_SimpleDraw.vcxproj", "{6DB48E72-FE6F-4403-BB34-F02568F37F36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -494,6 +497,22 @@ Global
 		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.Debug|x64.ActiveCfg = Debug|x64
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.Debug|x64.Build.0 = Debug|x64
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.Debug|x86.ActiveCfg = Debug|Win32
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.Debug|x86.Build.0 = Debug|Win32
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.MinSizeRel|x64.Build.0 = Release|x64
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.MinSizeRel|x86.Build.0 = Release|Win32
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.Release|x64.ActiveCfg = Release|x64
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.Release|x64.Build.0 = Release|x64
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.Release|x86.ActiveCfg = Release|Win32
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.Release|x86.Build.0 = Release|Win32
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -525,12 +544,13 @@ Global
 		{6E4149ED-A502-46D4-ABFA-1BA1BCAC25BE} = {F8400894-831D-4B54-8637-B23ED468BE24}
 		{CA0BC289-41EF-4B17-BE94-1300C2B8D58F} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{664E6F0D-6784-4760-9565-D54F8EB1EDF4} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
+		{6DB48E72-FE6F-4403-BB34-F02568F37F36} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 25
+		SccNumberOfProjects = 26
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -630,5 +650,9 @@ Global
 		SccProjectTopLevelParentUniqueName24 = Angazi.sln
 		SccProjectName24 = External/Glew/build/vc15
 		SccLocalPath24 = External\\Glew\\build\\vc15
+		SccProjectUniqueName25 = OpenGLProjects\\OpenGL_06_SimpleDraw\\OpenGL_06_SimpleDraw.vcxproj
+		SccProjectTopLevelParentUniqueName25 = Angazi.sln
+		SccProjectName25 = OpenGLProjects/OpenGL_06_SimpleDraw
+		SccLocalPath25 = OpenGLProjects\\OpenGL_06_SimpleDraw
 	EndGlobalSection
 EndGlobal

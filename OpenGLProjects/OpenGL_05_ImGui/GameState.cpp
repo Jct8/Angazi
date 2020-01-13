@@ -100,7 +100,7 @@ void GameState::Update(float deltaTime)
 		mCamera.Walk(kMoveSpeed*deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::S))
 		mCamera.Walk(-kMoveSpeed * deltaTime);
-	if (inputSystem->IsMousePressed(MouseButton::RBUTTON))
+	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
 	{
 		mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
 		mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);

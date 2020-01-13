@@ -86,10 +86,6 @@ void GameState::Initialize()
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Border);
 	mTexture.Initialize("GOAT.jpg");
 
-	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 5.0f,0.0f,0.0f }, Colors::Blue);
-	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,0.0f,5.0f }, Colors::Red);
-	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,5.0f,0.0f }, Colors::Yellow);
-
 }
 
 void GameState::Terminate()
@@ -122,6 +118,10 @@ void GameState::Update(float deltaTime)
 		mRotation += deltaTime;
 	if (inputSystem->IsKeyDown(KeyCode::D))
 		mRotation -= deltaTime;
+
+	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 5.0f,0.0f,0.0f }, Colors::Blue);
+	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,0.0f,5.0f }, Colors::Red);
+	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,5.0f,0.0f }, Colors::Yellow);
 }
 
 void GameState::Render()

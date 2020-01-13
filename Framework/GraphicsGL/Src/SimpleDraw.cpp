@@ -1,15 +1,13 @@
 #include "Precompiled.h"
 #include "SimpleDraw.h"
 
-#include "PixelShader.h"
-#include "VertexShader.h"
-#include "ConstantBuffer.h"
-#include "MeshBuffer.h"
+#include "Shader.h"
+#include "MeshBufferGL.h"
 #include "VertexTypes.h"
-#include "Camera.h"
+#include "CameraGL.h"
 
 using namespace Angazi;
-using namespace Angazi::Graphics;
+using namespace Angazi::GraphicsGL;
 
 namespace
 {
@@ -18,10 +16,8 @@ namespace
 	public:
 		void Initialize(uint32_t maxVertexCount)
 		{
-			mVertexShader.Initialize("../../Assets/Shaders/SimpleDraw.fx",VertexPC::Format);
-			mPixelShader.Initialize("../../Assets/Shaders/SimpleDraw.fx");
-			mConstantBuffer.Initialize(sizeof(Math::Matrix4));
-			mMeshBuffer.Initialize<VertexPC>(nullptr, maxVertexCount, true);
+			mShader.Initialize("../../Assets/Shaders/SimpleDraw.glsl");
+			mMeshBuffer.Initialize<VertexPC>(nullptr, maxVertexCount, VertexPC::Format,false);
 			mLineVertices = std::make_unique<VertexPC[]>(maxVertexCount);
 			mVertexCount = 0;
 			mMaxVertexCount = maxVertexCount;
@@ -29,9 +25,7 @@ namespace
 		void Terminate()
 		{
 			mMeshBuffer.Terminate();
-			mConstantBuffer.Terminate();
-			mPixelShader.Terminate();
-			mVertexShader.Terminate();
+			mShader.Terminate();
 		}
 
 		void AddLine(const Math::Vector3 & v0, const Math::Vector3 & v1, const Color & color)
@@ -42,29 +36,27 @@ namespace
 				mLineVertices[mVertexCount++] = VertexPC{ v1, color };
 			}
 		}
-		void Render(const Camera& camera)
+		void Render(const CameraGL& camera)
 		{
 			auto matView = camera.GetViewMatrix();
 			auto matProj = camera.GetPerspectiveMatrix();
 			auto transform = Math::Transpose(matView* matProj);
-			mConstantBuffer.Set(&transform);
-			mConstantBuffer.Bind();
 
-			mVertexShader.Bind();
-			mPixelShader.Bind();
+			mShader.Bind();
 
-			mMeshBuffer.Update(mLineVertices.get() , mVertexCount);
-			mMeshBuffer.SetTopology(MeshBuffer::Topology::Lines);
+			mShader.SetUniformMat4f("WVP", transform);
+
+			//mMeshBuffer.Update(mLineVertices.get() , mVertexCount);
+			mMeshBuffer.SetTopology(MeshBufferGL::Topology::Lines);
 			mMeshBuffer.Draw();
 
-			mVertexCount = 0;
+			//mVertexCount = 0;
+
 		}
 
 	private:
-		VertexShader mVertexShader;
-		PixelShader mPixelShader;
-		ConstantBuffer mConstantBuffer;
-		MeshBuffer mMeshBuffer;
+		Shader mShader;
+		MeshBufferGL mMeshBuffer;
 		std::unique_ptr<VertexPC[]> mLineVertices;
 		uint32_t mVertexCount = 0;
 		uint32_t mMaxVertexCount = 0;
@@ -90,7 +82,7 @@ void SimpleDraw::AddLine(const Math::Vector3 & v0, const Math::Vector3 & v1, con
 	sInstance->AddLine(v0, v1, color);
 }
 
-void SimpleDraw::Render(const Camera & camera)
+void SimpleDraw::Render(const CameraGL & camera)
 {
 	sInstance->Render(camera);
 }
