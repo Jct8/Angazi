@@ -10,6 +10,8 @@ public:
 	void Update(float deltaTime) override;
 	void Render() override;
 
+	void DebugUI() override;
+
 private:
 	Angazi::GraphicsGL::CameraGL mCamera;
 	Angazi::GraphicsGL::Shader mShader;

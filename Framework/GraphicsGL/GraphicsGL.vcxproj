@@ -191,6 +191,9 @@
     <ProjectReference Include="..\..\External\Glew\build\vc15\glew_static.vcxproj">
       <Project>{664e6f0d-6784-4760-9565-d54f8eb1edf4}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\External\ImGui\ImGui.vcxproj">
+      <Project>{9de256eb-9199-4bce-af41-ed0bdf8021ff}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

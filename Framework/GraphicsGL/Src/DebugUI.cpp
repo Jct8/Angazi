@@ -49,7 +49,7 @@ namespace
 	}
 }
 
-LRESULT CALLBACK DebugUIMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK DebugUIGLMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	ImGuiIO& io = ImGui::GetIO();
 
@@ -81,7 +81,7 @@ void DebugUIGL::StaticInitialize(HWND window, bool docking, bool multiViewport)
 	const char* glslVersion = "#version 130";
 	ImGui_ImplOpenGL3_Init(glslVersion);
 
-	sWindowMessageHandler.Hook(window, DebugUIMessageHandler);
+	sWindowMessageHandler.Hook(window, DebugUIGLMessageHandler);
 
 }
 

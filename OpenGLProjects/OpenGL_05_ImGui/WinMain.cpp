@@ -4,6 +4,6 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	Angazi::MainApp().AddState<GameState>("GameState");
-	Angazi::MainApp().Run({ "OpenGl Cube" ,1280, 720,Angazi::GraphicsAPI::OpenGL});
+	Angazi::MainApp().Run({ "OpenGL ImGui" ,1280, 720, Angazi::GraphicsAPI::OpenGL});
 	return 0;
 }

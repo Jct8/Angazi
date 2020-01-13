@@ -100,8 +100,11 @@ void GameState::Update(float deltaTime)
 		mCamera.Walk(kMoveSpeed*deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::S))
 		mCamera.Walk(-kMoveSpeed * deltaTime);
-	mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
-	mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+	if (inputSystem->IsMousePressed(MouseButton::RBUTTON))
+	{
+		mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
+		mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+	}
 
 	if (inputSystem->IsKeyDown(KeyCode::A))
 		mRotation += deltaTime;
@@ -122,4 +125,10 @@ void GameState::Render()
 	mShader.SetUniformMat4f("WVP", matWVP);
 
 	mMeshBuffer.Draw();
+}
+
+#include "ImGui/Inc/imgui.h"
+void GameState::DebugUI()
+{
+	ImGui::ShowDemoWindow();
 }
