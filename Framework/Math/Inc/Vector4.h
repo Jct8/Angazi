@@ -16,6 +16,7 @@ namespace Angazi::Math
 		const static Vector4 XAxis;
 		const static Vector4 YAxis;
 		const static Vector4 ZAxis;
+		const static Vector4 WAxis;
 
 		Vector4 operator-() const { return Vector4(-x, -y, -z, -w); }
 		Vector4 operator+(const Vector4& rhs) const { return Vector4(x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w); }
