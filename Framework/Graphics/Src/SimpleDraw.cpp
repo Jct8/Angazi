@@ -18,7 +18,7 @@ namespace
 	public:
 		void Initialize(uint32_t maxVertexCount)
 		{
-			mVertexShader.Initialize("../../Assets/Shaders/SimpleDraw.fx",VertexPC::Format);
+			mVertexShader.Initialize("../../Assets/Shaders/SimpleDraw.fx", VertexPC::Format);
 			mPixelShader.Initialize("../../Assets/Shaders/SimpleDraw.fx");
 			mConstantBuffer.Initialize(sizeof(Math::Matrix4));
 			mMeshBuffer.Initialize<VertexPC>(nullptr, maxVertexCount, true);
@@ -53,7 +53,7 @@ namespace
 			mVertexShader.Bind();
 			mPixelShader.Bind();
 
-			mMeshBuffer.Update(mLineVertices.get() , mVertexCount);
+			mMeshBuffer.Update(mLineVertices.get(), mVertexCount);
 			mMeshBuffer.SetTopology(MeshBuffer::Topology::Lines);
 			mMeshBuffer.Draw();
 

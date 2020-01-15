@@ -7,7 +7,7 @@ namespace Angazi::Math
 		float x, y;
 
 		constexpr Vector2() noexcept : Vector2{ 0.0f } {}
-		constexpr Vector2(float f) noexcept : Vector2{ f,f } {}
+		constexpr Vector2(float f) noexcept : Vector2{ f , f } {}
 		constexpr Vector2(float x, float y) noexcept : x{ x }, y{ y } {}
 
 		//Declaration

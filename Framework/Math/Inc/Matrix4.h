@@ -11,9 +11,40 @@ namespace Angazi::Math
 
 		const static Matrix4 Identity;
 
+		constexpr Matrix4 operator-() const
+		{
+			return Matrix4
+			{
+				-_11 , -_12 , -_13 , -_14 ,
+				-_21 , -_22 , -_23 , -_24 ,
+				-_31 , -_32 , -_33 , -_34 ,
+				-_41 , -_42 , -_43 , -_44 
+			};
+		}
+		constexpr Matrix4 operator+(const Matrix4& rhs) const
+		{
+			return Matrix4
+			{
+				_11 + rhs._11, _12 + rhs._12, _13 + rhs._13, _14 + rhs._14,
+				_21 + rhs._21, _22 + rhs._22, _23 + rhs._23, _24 + rhs._24,
+				_31 + rhs._31, _32 + rhs._32, _33 + rhs._33, _34 + rhs._34,
+				_41 + rhs._41, _42 + rhs._42, _43 + rhs._43, _44 + rhs._44
+			};
+		}
+		constexpr Matrix4 operator-(const Matrix4& rhs) const
+		{
+			return Matrix4
+			{
+				_11 - rhs._11, _12 - rhs._12, _13 - rhs._13, _14 - rhs._14,
+				_21 - rhs._21, _22 - rhs._22, _23 - rhs._23, _24 - rhs._24,
+				_31 - rhs._31, _32 - rhs._32, _33 - rhs._33, _34 - rhs._34,
+				_41 - rhs._41, _42 - rhs._42, _43 - rhs._43, _44 - rhs._44
+			};
+		}
+
 		constexpr Matrix4 operator*(const Matrix4 &m) const
 		{
-			return 
+			return
 			{
 				(_11 * m._11) + (_12 * m._21) + (_13 * m._31) + (_14 * m._41),
 				(_11 * m._12) + (_12 * m._22) + (_13 * m._32) + (_14 * m._42),
@@ -36,7 +67,46 @@ namespace Angazi::Math
 				(_41 * m._14) + (_42 * m._24) + (_43 * m._34) + (_44 * m._44)
 			};
 		}
+		constexpr Matrix4 operator*(float f) const
+		{
+			return Matrix4
+			{
+				_11 * f, _12 * f, _13 * f, _14 * f,
+				_21 * f, _22 * f, _23 * f, _24 * f,
+				_31 * f, _32 * f, _33 * f, _34 * f,
+				_41 * f, _42 * f, _43 * f, _44 * f
+			};
+		}
 
+		constexpr Matrix4 operator/(float s) const
+		{
+			return Matrix4
+			{
+				_11 / s, _12 / s, _13 / s, _14 / s,
+				_21 / s, _22 / s, _23 / s, _24 / s,
+				_31 / s, _32 / s, _33 / s, _34 / s,
+				_41 / s, _42 / s, _43 / s, _44 / s 
+			};
+		}
+		constexpr Matrix4 operator+=(const Matrix4& rhs)
+		{
+			_11 += rhs._11; _12 += rhs._12; _13 += rhs._13; _14 += rhs._14;
+			_21 += rhs._21; _22 += rhs._22; _23 += rhs._23; _24 += rhs._24;
+			_31 += rhs._31; _32 += rhs._32; _33 += rhs._33; _34 += rhs._34;
+			_41 += rhs._41; _42 += rhs._42; _43 += rhs._43; _44 += rhs._44;
+			return *this;
+		}
+
+		static Matrix4 Translation(float x, float y, float z)
+		{
+			return
+			{
+				1.0f, 0.0f, 0.0f, 0.0f,
+				0.0f, 1.0f, 0.0f, 0.0f,
+				0.0f, 0.0f, 1.0f, 0.0f,
+				x , y , z , 1.0f
+			};
+		}
 		static Matrix4 Translation(const Vector3 & d)
 		{
 			return
@@ -78,7 +148,6 @@ namespace Angazi::Math
 				0.0f, 0.0f, 0.0f, 1.0f
 			};
 		}
-
 		static Matrix4 RotationAxis(const Vector3 & axis, float radian)
 		{
 			float cos = cosf(radian);
@@ -100,6 +169,7 @@ namespace Angazi::Math
 				0.0f, 0.0f, 0.0f, 1.0f
 			};
 		}
+
 		static Matrix4 Scaling(float scale)
 		{
 			return
