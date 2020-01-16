@@ -23,6 +23,8 @@ public:
 	void BeginRender();
 	void EndRender();
 
+	void SetClearColor(Color clearColor) { mClearColor = clearColor; }
+
 	uint32_t GetBackBufferWidth() const;
 	uint32_t GetBackBufferHeight() const;
 
@@ -30,7 +32,7 @@ private:
 	friend LRESULT CALLBACK GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 	void Resize(uint32_t width, uint32_t height);
 
-	Color mClearColor = Colors::White;
+	Color mClearColor = Colors::LightGray;
 	UINT mVSync = 1;
 	HDC hDeviceContext = NULL;
 	HGLRC glRenderingContext = NULL ;

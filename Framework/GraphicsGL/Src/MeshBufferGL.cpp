@@ -49,7 +49,7 @@ namespace
 void MeshBufferGL::SetTopology(Topology topology)
 {
 	if (topology == Topology::Lines)
-		mTopology = GL_LINE;
+		mTopology = GL_LINES;
 	if (topology == Topology::Triangles)
 		mTopology = GL_TRIANGLES;
 }
@@ -58,7 +58,6 @@ void MeshBufferGL::Update(const void * vertexData, uint32_t numVertices)
 {
 	mVertexCount = numVertices;
 
-	glBindVertexArray(mVertexArray);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
 	void *resource = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	memcpy(resource, vertexData, mVertexCount * mVertexSize);

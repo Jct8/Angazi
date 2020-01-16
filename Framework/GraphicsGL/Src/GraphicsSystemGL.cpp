@@ -137,6 +137,7 @@ void GraphicsSystemGL::Terminate(HWND window)
 void GraphicsSystemGL::BeginRender()
 {
 	wglMakeCurrent(hDeviceContext, glRenderingContext);
+	glClearColor(mClearColor.x, mClearColor.y, mClearColor.z, mClearColor.w);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 }
