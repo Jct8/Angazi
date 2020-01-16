@@ -105,7 +105,7 @@ void MeshBufferGL::InitializeInternal(const void * vertices, int vertexSize, int
 	glBufferData(GL_ARRAY_BUFFER, vertexCount * vertexSize, vertices, drawType);
 	
 	auto vertexLayout = GetVertexLayout(vertexFormat);
-	unsigned int offset = 0;
+	UINT_PTR offset = 0;
 	for (int i = 0; i < vertexLayout.size(); i++)
 	{
 		glEnableVertexAttribArray(i);

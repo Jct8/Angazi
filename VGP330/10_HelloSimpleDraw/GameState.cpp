@@ -10,8 +10,11 @@ void GameState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::LightGray);
 
-	mCamera.SetPosition({ 0.0f, 0.0f,-5.0f });
-	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
+	//mCamera.SetPosition({ 0.0f, 0.0f,-5.0f });
+	//mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
+	mCamera.SetFov(60.0f * Math::Constants::DegToRad);
+	mCamera.SetNearPlane(0.01f);
+	mCamera.SetFarPlane(10000.0f);
 
 	mConstantBuffer.Initialize(sizeof(Matrix4));
 

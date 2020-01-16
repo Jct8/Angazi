@@ -64,7 +64,7 @@ namespace
 				}
 			}
 		}
-		void AddSphere(float radius, const Color& color, float slices, float rings)
+		void AddSphere(float radius, const Color& color, int slices, int rings)
 		{
 			float thetaIncrement = Math::Constants::TwoPi / rings;
 			float phiIncrement = Math::Constants::Pi / slices;
@@ -80,19 +80,20 @@ namespace
 					list.push_back(Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) });
 				}
 			}
+			int intSlices = static_cast<int>(slices);
 			for (int y = 0; y <= slices; y++)
 			{
 				for (int x = 0; x < rings; x++)
 				{
 					//mLineVertices[mVertexCount++] = VertexPC{ list[y * slices + x] ,color };
-					mLineVertices[mVertexCount++] = VertexPC{ list[(y + 1) * slices + x + 1],color };
-					mLineVertices[mVertexCount++] = VertexPC{ list[(y + 1) * slices + x],color };
+					mLineVertices[mVertexCount++] = VertexPC{ list[(y + 1) * intSlices + x + 1],color };
+					mLineVertices[mVertexCount++] = VertexPC{ list[(y + 1) * intSlices + x],color };
 					//mLineVertices[mVertexCount++] = VertexPC{ list[y * slices + x] ,color };
 
-					mLineVertices[mVertexCount++] = VertexPC{ list[y * slices + x],color };
-					mLineVertices[mVertexCount++] = VertexPC{ list[y * slices + x + 1],color };
-					mLineVertices[mVertexCount++] = VertexPC{ list[(y + 1)* slices + x + 1],color };
-					mLineVertices[mVertexCount++] = VertexPC{ list[y * slices + x],color };
+					mLineVertices[mVertexCount++] = VertexPC{ list[y * intSlices + x],color };
+					mLineVertices[mVertexCount++] = VertexPC{ list[y * intSlices + x + 1],color };
+					mLineVertices[mVertexCount++] = VertexPC{ list[(y + 1)* intSlices + x + 1],color };
+					mLineVertices[mVertexCount++] = VertexPC{ list[y * intSlices + x],color };
 
 				}
 			}
