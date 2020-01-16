@@ -44,7 +44,7 @@ namespace
 		}
 		void AddBox(float width, float length, float height, const Color & color)
 		{
-			if (mVertexCount + 24 > mMaxVertexCount)
+			if (mVertexCount + 24 >= mMaxVertexCount)
 			{
 				return;
 			}
@@ -86,6 +86,12 @@ namespace
 					list.push_back(Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) });
 				}
 			}
+
+			if (mVertexCount + list.size()-1 > mMaxVertexCount)
+			{
+				return;
+			}
+
 			for (int y = 0; y <= slices; y++)
 			{
 				for (int x = 0; x < rings; x++)
@@ -110,6 +116,10 @@ namespace
 			for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
 			{
 				 list.push_back({ radius * cosf(theta), 0.0f , radius * sinf(theta) });
+			}
+			if (mVertexCount + list.size() - 1 > mMaxVertexCount)
+			{
+				return;
 			}
 			for (int i = 0; i < list.size()-1; i++)
 			{

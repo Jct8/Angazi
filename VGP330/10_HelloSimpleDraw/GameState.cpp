@@ -10,8 +10,8 @@ void GameState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::LightGray);
 
-	//mCamera.SetPosition({ 0.0f, 0.0f,-5.0f });
-	//mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
+	mCamera.SetPosition({ 0.0f, 0.0f,0.0f });
+	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 	mCamera.SetFov(60.0f * Math::Constants::DegToRad);
 	mCamera.SetNearPlane(0.01f);
 	mCamera.SetFarPlane(10000.0f);
@@ -50,9 +50,9 @@ void GameState::Update(float deltaTime)
 	if (inputSystem->IsKeyDown(KeyCode::D))
 		mRotation -= deltaTime;
 
-	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 5.0f,0.0f,0.0f }, Colors::Blue);
 	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,0.0f,5.0f }, Colors::Red);
 	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,5.0f,0.0f }, Colors::Green);
+	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 5.0f,0.0f,0.0f }, Colors::Blue);
 	SimpleDraw::AddBox(2.0f, 3.0f, 4.0f, Colors::AliceBlue);
 	SimpleDraw::AddCone(2.0f, 1.0f, Colors::MintCream);
 	SimpleDraw::AddSphere(2.0f,Colors::Black);
