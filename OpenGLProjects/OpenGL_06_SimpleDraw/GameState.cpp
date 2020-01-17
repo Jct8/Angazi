@@ -39,9 +39,11 @@ void GameState::Update(float deltaTime)
 	}
 
 	if (inputSystem->IsKeyDown(KeyCode::A))
-		mRotation += deltaTime;
+		mCamera.Strafe(-kMoveSpeed*deltaTime);
+		//mRotation += deltaTime;
 	if (inputSystem->IsKeyDown(KeyCode::D))
-		mRotation -= deltaTime;
+		mCamera.Strafe(kMoveSpeed*deltaTime);
+		//mRotation -= deltaTime;
 
 	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 5.0f,0.0f,0.0f }, Colors::Blue);
 	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,0.0f,5.0f }, Colors::Red);
