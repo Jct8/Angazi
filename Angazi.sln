@@ -85,6 +85,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glew_static", "External\Gle
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_06_SimpleDraw", "OpenGLProjects\OpenGL_06_SimpleDraw\OpenGL_06_SimpleDraw.vcxproj", "{6DB48E72-FE6F-4403-BB34-F02568F37F36}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VGP332", "VGP332", "{CD843822-043F-4D75-AD52-51A21848EF77}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloPathFinding", "VGP332\HelloPathFinding\HelloPathFinding.vcxproj", "{5B801706-94DC-47E8-9FAB-B96117F8108D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AI", "Framework\AI\AI.vcxproj", "{F1BD903B-178C-463B-AF72-101BAA27CCC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -513,6 +519,38 @@ Global
 		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{6DB48E72-FE6F-4403-BB34-F02568F37F36}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.Debug|x64.ActiveCfg = Debug|x64
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.Debug|x64.Build.0 = Debug|x64
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.Debug|x86.ActiveCfg = Debug|Win32
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.Debug|x86.Build.0 = Debug|Win32
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.MinSizeRel|x64.Build.0 = Release|x64
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.MinSizeRel|x86.Build.0 = Release|Win32
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.Release|x64.ActiveCfg = Release|x64
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.Release|x64.Build.0 = Release|x64
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.Release|x86.ActiveCfg = Release|Win32
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.Release|x86.Build.0 = Release|Win32
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{5B801706-94DC-47E8-9FAB-B96117F8108D}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.Debug|x64.ActiveCfg = Debug|x64
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.Debug|x64.Build.0 = Debug|x64
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.Debug|x86.ActiveCfg = Debug|Win32
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.Debug|x86.Build.0 = Debug|Win32
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.MinSizeRel|x64.Build.0 = Release|x64
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.MinSizeRel|x86.Build.0 = Release|Win32
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.Release|x64.ActiveCfg = Release|x64
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.Release|x64.Build.0 = Release|x64
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.Release|x86.ActiveCfg = Release|Win32
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.Release|x86.Build.0 = Release|Win32
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -545,12 +583,14 @@ Global
 		{CA0BC289-41EF-4B17-BE94-1300C2B8D58F} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{664E6F0D-6784-4760-9565-D54F8EB1EDF4} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
 		{6DB48E72-FE6F-4403-BB34-F02568F37F36} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
+		{5B801706-94DC-47E8-9FAB-B96117F8108D} = {CD843822-043F-4D75-AD52-51A21848EF77}
+		{F1BD903B-178C-463B-AF72-101BAA27CCC8} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 26
+		SccNumberOfProjects = 28
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -654,5 +694,13 @@ Global
 		SccProjectTopLevelParentUniqueName25 = Angazi.sln
 		SccProjectName25 = OpenGLProjects/OpenGL_06_SimpleDraw
 		SccLocalPath25 = OpenGLProjects\\OpenGL_06_SimpleDraw
+		SccProjectUniqueName26 = VGP332\\HelloPathFinding\\HelloPathFinding.vcxproj
+		SccProjectTopLevelParentUniqueName26 = Angazi.sln
+		SccProjectName26 = VGP332/HelloPathFinding
+		SccLocalPath26 = VGP332\\HelloPathFinding
+		SccProjectUniqueName27 = Framework\\AI\\AI.vcxproj
+		SccProjectTopLevelParentUniqueName27 = Angazi.sln
+		SccProjectName27 = Framework/AI
+		SccLocalPath27 = Framework\\AI
 	EndGlobalSection
 EndGlobal
