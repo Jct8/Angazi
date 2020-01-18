@@ -12,13 +12,12 @@ void GameState::Initialize()
 
 	mCamera.SetPosition({ 0.0f, 0.0f,0.0f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
-	mCamera.SetFov(60.0f * Math::Constants::DegToRad);
-	mCamera.SetNearPlane(0.01f);
-	mCamera.SetFarPlane(10000.0f);
+
+	mMeshSphere = MeshBuilder::CreateSpherePN();
 
 	mConstantBuffer.Initialize(sizeof(Matrix4));
 
-	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx", VertexPX::Format);
+	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx", VertexPN::Format);
 	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
 }
 
@@ -52,20 +51,14 @@ void GameState::Update(float deltaTime)
 		mCamera.Strafe(kMoveSpeed*deltaTime);
 	//mRotation -= deltaTime;
 
-	//SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,0.0f,5.0f }, Colors::Red);
-	//SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,5.0f,0.0f }, Colors::Green);
-	//SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 5.0f,0.0f,0.0f }, Colors::Blue);
-	//SimpleDraw::AddBox(2.0f, 3.0f, 4.0f, Colors::AliceBlue,true);
-	//SimpleDraw::AddCone(2.0f, 1.0f, Colors::MintCream,true);
-	SimpleDraw::AddSphere(2.0f,Colors::Gold,false);
-	//SimpleDraw::AddLine({ 0,0 }, { 0,1 }, Colors::AliceBlue);
+	SimpleDraw::AddSphere(2.0f,Colors::Gold,true);
 }
 
 void GameState::Render()
 {
 	auto context = GraphicsSystem::Get()->GetContext();
 
-	auto matWorld = Matrix4::RotationY(mRotation);
+	auto matWorld = Matrix4::RotationY(mRotation.x);
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
 	mConstantBuffer.Bind();
@@ -77,4 +70,9 @@ void GameState::Render()
 
 	mConstantBuffer.Set(&matWVP);
 	SimpleDraw::Render(mCamera);
+}
+
+void GameState::DebugUI()
+{
+	
 }

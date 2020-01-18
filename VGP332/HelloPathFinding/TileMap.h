@@ -8,13 +8,13 @@ public:
 	void Unload();
 
 	void Update(float deltaTime);
-	void Render() const;
+	void Render();
 
 private:
-
 	int GetIndex(int x, int y) const;
 
-	std::array<Angazi::TextureId, 6> mTextureIds;
+	AI::Graph mGraph; // Homework: draw circle and line to neighbors
+	std::array<X::TextureId, 6> mTextureIds;
 	std::vector<int> mTiles;
 	int mColumns = 0;
 	int mRows = 0;

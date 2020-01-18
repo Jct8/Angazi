@@ -13,5 +13,6 @@ namespace Angazi::Graphics
 
 	using MeshPC = MeshBase<VertexPC>;
 	using MeshPX = MeshBase<VertexPX>;
+	using MeshPN = MeshBase<VertexPN>;
 
 }//namespace Angazi::Graphics

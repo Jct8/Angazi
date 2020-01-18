@@ -2,6 +2,7 @@
 
 using namespace Angazi;
 using namespace Angazi::Input;
+using namespace Angazi::Graphics;
 
 void TileMap::Load()
 {
@@ -42,8 +43,10 @@ void TileMap::Update(float deltaTime)
 	}
 }
 
-void TileMap::Render() const
+void TileMap::Render() 
 {
+	float offset = mTileSize * 0.5f;
+	float circleRadius = mTileSize * 0.2f;
 	for (int y = 0; y < mRows; y++)
 	{
 		for (int x = 0; x < mColumns; x++)
@@ -55,6 +58,12 @@ void TileMap::Render() const
 				static_cast<float>(y)*32.0f
 			};
 			//X::DrawSprite(mTextureIds[mTiles[index]], { pos.x , pos.y }, X::Pivot::TopLeft);
+			//X::DrawScreenCircle({ pos.x + offset , pos.y + offset }, circleRadius, X::Colors::AliceBlue);
+			std::vector<AI::Coord> coords = mGraph.GetNode({ x,y })->neighbors;
+			for (int i = 0; i < coords.size(); i++)
+			{
+				SimpleDraw::AddScreenLine(pos.x + offset, pos.y + offset, coords[i].x*mTileSize + offset, coords[i].y*mTileSize + offset, Colors::AliceBlue);
+			}
 		}
 	}
 }

@@ -116,3 +116,39 @@ MeshPX MeshBuilder::CreateSpherePX(float radius, int rings, int slices, bool IsI
 
 	return retMesh;
 }
+
+MeshPN MeshBuilder::CreateSpherePN(float radius, int rings, int slices)
+{
+	MeshPN retMesh;
+	float thetaIncrement = Math::Constants::TwoPi / rings;
+	float phiIncrement = Math::Constants::Pi / slices;
+
+	for (float phi = 0; phi <= Math::Constants::Pi; phi += phiIncrement)
+	{
+		for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
+		{
+			float u = theta / Math::Constants::TwoPi;
+			float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
+			float newRadius = radius * sinf(phi);
+			retMesh.vertices.push_back(
+				{ Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) }
+				, u , v });
+		}
+	}
+
+	for (int y = 0; y <= slices; y++)
+	{
+		for (int x = 0; x < rings; x++)
+		{
+				retMesh.indices.push_back(y * slices + x);
+				retMesh.indices.push_back((y + 1) * slices + x + 1);
+				retMesh.indices.push_back((y + 1) * slices + x);
+
+				retMesh.indices.push_back(y * slices + x);
+				retMesh.indices.push_back(y * slices + x + 1);
+				retMesh.indices.push_back((y + 1)* slices + x + 1);
+		}
+	}
+
+	return retMesh;
+}

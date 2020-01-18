@@ -7,6 +7,8 @@
 #include "ConstantBuffer.h"
 #include "DebugUI.h"
 #include "GraphicsSystem.h"
+#include "LightTypes.h"
+#include "Material.h"
 #include "Mesh.h"
 #include "MeshBuffer.h"
 #include "MeshBuilder.h"
