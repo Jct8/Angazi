@@ -130,9 +130,9 @@ MeshPN MeshBuilder::CreateSpherePN(float radius, int rings, int slices)
 			float u = theta / Math::Constants::TwoPi;
 			float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
 			float newRadius = radius * sinf(phi);
+			Math::Vector3 vec = Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) };
 			retMesh.vertices.push_back(
-				{ Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) }
-				, u , v });
+				{ vec, Math::Normalize(vec)});
 		}
 	}
 

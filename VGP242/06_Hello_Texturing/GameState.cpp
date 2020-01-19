@@ -132,7 +132,7 @@ void GameState::Render()
 	auto matWorld = Matrix4::RotationY(mRotation);
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
-	mConstantBuffer.Bind();
+	mConstantBuffer.BindVS();
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
@@ -141,7 +141,7 @@ void GameState::Render()
 
 	auto matWVP = Transpose(matWorld * matView * matProj);
 
-	mConstantBuffer.Set(&matWVP);
+	mConstantBuffer.Update(&matWVP);
 	mMeshBuffer.Draw();
 	mMeshBufferPlane.Draw();
 	mMeshBufferCylinder.Draw();

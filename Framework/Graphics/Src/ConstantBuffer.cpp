@@ -30,7 +30,7 @@ void ConstantBuffer::BindVS(uint32_t slot) const
 	GetContext()->VSSetConstantBuffers(slot, 1, &mConstantBuffer);
 }
 
-void ConstantBuffer::BindVS(uint32_t slot) const
+void ConstantBuffer::BindPS(uint32_t slot) const
 {
 	GetContext()->PSSetConstantBuffers(slot, 1, &mConstantBuffer);
 }

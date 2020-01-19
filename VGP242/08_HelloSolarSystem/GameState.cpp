@@ -122,7 +122,7 @@ void GameState::Render()
 
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
-	mConstantBuffer.Bind();
+	mConstantBuffer.BindVS();
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
@@ -137,7 +137,7 @@ void GameState::Render()
 		auto matTrans = Matrix4::Translation({ 0.5f*i + i*5.0f,0.0f,0.0f });
 		auto matWVP = Transpose( matScale * matSelfRotation * matTrans * matWorld * matView * matProj);
 
-		mConstantBuffer.Set(&matWVP);
+		mConstantBuffer.Update(&matWVP);
 		mPlanetTextures[i].Bind();
 		mMeshBufferSphere.Draw();
 
@@ -149,7 +149,7 @@ void GameState::Render()
 		auto matMoonWVP = Transpose(matMoonScale *matMoonSelfRotation * matMoonTrans * matMoon * matTrans * matWorld * matView * matProj);
 		
 		mMoonTextures[i].Bind();
-		mConstantBuffer.Set(&matMoonWVP);
+		mConstantBuffer.Update(&matMoonWVP);
 		mMeshBufferSphere.Draw();
 	}
 
@@ -158,6 +158,6 @@ void GameState::Render()
 	auto matWVP = Transpose(matScale * matWorld * matView * matProj);
 
 	mDomeTexture.Bind();
-	mConstantBuffer.Set(&matWVP);
+	mConstantBuffer.Update(&matWVP);
 	mMeshBufferDome.Draw();
 }

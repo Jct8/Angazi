@@ -113,18 +113,18 @@ void GameState::Render()
 	auto matWorld = Matrix4::RotationY(mRotation);
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
-	mConstantBuffer.Bind();
+	mConstantBuffer.BindVS();
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	mMeshBuffer.SetTopology(MeshBuffer::Topology::TrianglesStrip);
 	for (int i = 0; i < 50; i++)
 	{
 		auto translation = Matrix4::Translation({ i*2.0f,i*1.0f,i* 4.0f });
 		auto matWVP = Transpose(translation *matWorld * matView * matProj);
 
-		mConstantBuffer.Set(&matWVP);
+		mConstantBuffer.Update(&matWVP);
 		mMeshBuffer.Draw();
 	}
 

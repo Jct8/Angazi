@@ -54,8 +54,10 @@ void MeshBuffer::SetTopology(Topology topology)
 {
 	if (topology == Topology::Lines)
 		mTopology = D3D11_PRIMITIVE_TOPOLOGY_LINELIST;
-	else
+	else if(topology == Topology::Triangles)
 		mTopology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	else if(topology == Topology::TrianglesStrip)
+		mTopology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP;
 }
 
 void MeshBuffer::Update(const void * vertexData, uint32_t numVertices)

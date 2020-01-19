@@ -10,7 +10,7 @@ void GameState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::LightGray);
 
-	mCamera.SetPosition({ 0.0f, 0.0f,0.0f });
+	mCamera.SetPosition({ 0.0f, 0.0f,-1.0f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 	mCamera.SetFov(60.0f * Math::Constants::DegToRad);
 	mCamera.SetNearPlane(0.01f);
@@ -52,13 +52,13 @@ void GameState::Update(float deltaTime)
 		mCamera.Strafe(kMoveSpeed*deltaTime);
 	//mRotation -= deltaTime;
 
-	//SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,0.0f,5.0f }, Colors::Red);
-	//SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,5.0f,0.0f }, Colors::Green);
-	//SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 5.0f,0.0f,0.0f }, Colors::Blue);
+	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,0.0f,5.0f }, Colors::Red);
+	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,5.0f,0.0f }, Colors::Green);
+	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 5.0f,0.0f,0.0f }, Colors::Blue);
 	//SimpleDraw::AddBox(2.0f, 3.0f, 4.0f, Colors::AliceBlue,true);
-	//SimpleDraw::AddCone(2.0f, 1.0f, Colors::MintCream,true);
-	SimpleDraw::AddSphere(2.0f,Colors::Gold,false);
-	//SimpleDraw::AddLine({ 0,0 }, { 0,1 }, Colors::AliceBlue);
+	//SimpleDraw::AddCone(2.0f, 1.0f, Colors::MintCream, true);
+	//SimpleDraw::AddSphere(2.0f,Colors::Gold,true);
+	SimpleDraw::AddScreenLine({ 0,0 }, { 0.0f,5.0f }, Colors::Red);
 }
 
 void GameState::Render()
@@ -68,13 +68,13 @@ void GameState::Render()
 	auto matWorld = Matrix4::RotationY(mRotation);
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
-	mConstantBuffer.Bind();
+	mConstantBuffer.BindVS();
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 
 	auto matWVP = Transpose(matWorld * matView * matProj);
 
-	mConstantBuffer.Set(&matWVP);
+	mConstantBuffer.Update(&matWVP);
 	SimpleDraw::Render(mCamera);
 }
