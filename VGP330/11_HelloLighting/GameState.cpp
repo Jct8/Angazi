@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "ImGui/Inc/imgui.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
@@ -10,15 +11,25 @@ void GameState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::LightGray);
 
-	mCamera.SetPosition({ 0.0f, 0.0f,0.0f });
+	mCamera.SetPosition({ 0.0f, 0.0f,-2.0f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
-	mMesh = MeshBuilder::CreateSpherePN();
+	mMesh = MeshBuilder::CreateSpherePN(1.0f,30,30);
 	mMeshBuffer.Initialize(mMesh);
 
 	mTransformBuffer.Initialize();
 	mLightBuffer.Initialize();
 	mMaterialBuffer.Initialize();
+
+	mDirectionalLight.direction = Normalize({ 1.0f, -1.0f,1.0f });
+	mDirectionalLight.ambient = { 0.3f };
+	mDirectionalLight.diffuse = { 0.7f };
+	mDirectionalLight.specular = { 0.5f };
+
+	mMaterial.ambient = { 0.3f };
+	mMaterial.diffuse = { 0.7f };
+	mMaterial.specular = { 0.5f };
+	mMaterial.power = 1.0f;
 
 	mVertexShader.Initialize("../../Assets/Shaders/DoPhongLighting.fx", VertexPN::Format);
 	mPixelShader.Initialize("../../Assets/Shaders/DoPhongLighting.fx");
@@ -57,29 +68,66 @@ void GameState::Update(float deltaTime)
 		mCamera.Strafe(kMoveSpeed*deltaTime);
 	//mRotation -= deltaTime;
 
-	SimpleDraw::AddSphere(2.0f,Colors::Gold,true);
 }
 
 void GameState::Render()
 {
 	auto context = GraphicsSystem::Get()->GetContext();
 
-	auto matRot = Matrix4::RotationX(mRotation.x) *Matrix4::RotationY(mRotation.y);
+	auto matTrans = Matrix4::Translation({0.0f});
+	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y);
+	auto matWorld = matRot * matTrans;
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
 
-	Transfo
-	mTransformBuffer.Bind();
+	TransformData transformData;
+	transformData.world = Transpose(matWorld);
+	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.viewPosition = mCamera.GetPosition();
+
+	mTransformBuffer.Update(&transformData);
+	mTransformBuffer.BindVS(0);
+
+	mLightBuffer.Update(&mDirectionalLight);
+	mLightBuffer.BindVS(1);
+
+	mMaterialBuffer.Update(&mMaterial);
+	mMaterialBuffer.BindVS(2);
+
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 
-	auto matWVP = Transpose(matWorld * matView * matProj);
+	mMeshBuffer.Draw();
 
-	mConstantBuffer.Set(&matWVP);
-	SimpleDraw::Render(mCamera);
 }
 
 void GameState::DebugUI()
 {
-	
+	ImGui::Begin("Setting",nullptr,ImGuiWindowFlags_AlwaysAutoResize);
+	if (ImGui::CollapsingHeader("Light"))
+	{
+		bool directionChanged = false;
+		directionChanged |= ImGui::DragFloat("Direction X##Light", &mDirectionalLight.direction.x, 0.01f, -1.0f, 1.0f);
+		directionChanged |= ImGui::DragFloat("Direction Y##Light", &mDirectionalLight.direction.y, 0.01f, -1.0f, 1.0f);
+		directionChanged |= ImGui::DragFloat("Direction Z##Light", &mDirectionalLight.direction.z, 0.01f, -1.0f, 1.0f);
+		if (directionChanged)
+		{
+			mDirectionalLight.direction = Normalize(mDirectionalLight.direction);
+		}
+		ImGui::ColorEdit4("Ambient##Light", &mDirectionalLight.ambient.x);
+		ImGui::ColorEdit4("Diffuse##Light", &mDirectionalLight.diffuse.x);
+		ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.x);
+	}
+	if (ImGui::CollapsingHeader("Material"))
+	{
+		ImGui::ColorEdit4("Ambient##Material", &mMaterial.ambient.x);
+		ImGui::ColorEdit4("Diffuse##Material", &mMaterial.diffuse.x);
+		ImGui::ColorEdit4("Specular##Material", &mMaterial.specular.x);
+		ImGui::DragFloat("Power##Material", &mMaterial.power, 1.0f, 1.0f, 100.0f);
+	}
+	if (ImGui::CollapsingHeader("Transform"))
+	{
+		ImGui::DragFloat3("Rotation##Transform", &mRotation.x, 0.01f);
+	}
+	ImGui::End();
 }

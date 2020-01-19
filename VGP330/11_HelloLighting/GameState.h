@@ -18,17 +18,20 @@ private:
 	Angazi::Graphics::MeshPN mMesh;
 	Angazi::Graphics::MeshBuffer mMeshBuffer;
 
+	Angazi::Graphics::DirectionalLight mDirectionalLight;
+	Angazi::Graphics::Material mMaterial;
+
 	struct TransformData
 	{
 		Angazi::Math::Matrix4 world;
 		Angazi::Math::Matrix4 wvp;
-		Angazi::Math::Matrix4 viewPosition;
+		Angazi::Math::Vector3 viewPosition;
 		float padding;
 	};
 
 	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
-	using LightBuffer = Angazi::Graphics::TypedConstantBuffer<DirectionalLight>;
-	using MaterialBuffer = Angazi::Graphics::TypedConstantBuffer<Material>;
+	using LightBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::DirectionalLight>;
+	using MaterialBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::Material>;
 
 	TransformBuffer mTransformBuffer;
 	LightBuffer mLightBuffer;

@@ -71,12 +71,11 @@ MeshPX MeshBuilder::CreateCylinderPX(int height, int radius, int sectors)
 MeshPX MeshBuilder::CreateSpherePX(float radius, int rings, int slices, bool IsInsideOut)
 {
 	MeshPX retMesh;
-	float thetaIncrement = Math::Constants::TwoPi / rings;
-	float phiIncrement = Math::Constants::Pi / slices;
-
-	for (float phi = 0; phi <= Math::Constants::Pi; phi += phiIncrement)
+	float thetaIncrement = Math::Constants::TwoPi / (rings);
+	float phiIncrement = Math::Constants::Pi / (slices);
+	for (float phi = 0; phi <= Math::Constants::Pi + phiIncrement; phi += phiIncrement)
 	{
-		for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
+		for (float theta = 0; theta < Math::Constants::TwoPi ; theta += thetaIncrement)
 		{
 			float u = theta / Math::Constants::TwoPi;
 			float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
@@ -86,10 +85,34 @@ MeshPX MeshBuilder::CreateSpherePX(float radius, int rings, int slices, bool IsI
 				, u , v });
 		}
 	}
+	/*float phi = 0.0f;
+	float theta = 0.0f;
+	for (int i = 0; i < slices; i++)
+	{
+		if (i != 0)
+		{
+			phi += phiIncrement;
+		}
+		theta = 0.0f;
+		for (int j = 0; j <= rings; j++)
+		{
+			theta += thetaIncrement;
+			float u = static_cast<float>(j) / rings;
+			float v = 1.0f + static_cast<float>(i) / slices;
+			float newRadius = radius * sinf(phi);
+			retMesh.vertices.push_back(
+				{ Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) }
+				, u , v });
+		}
+		if (i == 0)
+		{
+			phi += phiIncrement;
+		}
+	}*/
 
 	for (int y = 0; y <= slices; y++)
 	{
-		for (int x = 0; x < rings; x++)
+		for (int x = 0; x <= rings; x++)
 		{
 			if (IsInsideOut)
 			{
@@ -123,7 +146,7 @@ MeshPN MeshBuilder::CreateSpherePN(float radius, int rings, int slices)
 	float thetaIncrement = Math::Constants::TwoPi / rings;
 	float phiIncrement = Math::Constants::Pi / slices;
 
-	for (float phi = 0; phi <= Math::Constants::Pi; phi += phiIncrement)
+	for (float phi = 0; phi <= Math::Constants::Pi + phiIncrement; phi += phiIncrement)
 	{
 		for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
 		{
@@ -138,7 +161,7 @@ MeshPN MeshBuilder::CreateSpherePN(float radius, int rings, int slices)
 
 	for (int y = 0; y <= slices; y++)
 	{
-		for (int x = 0; x < rings; x++)
+		for (int x = 0; x <= rings; x++)
 		{
 				retMesh.indices.push_back(y * slices + x);
 				retMesh.indices.push_back((y + 1) * slices + x + 1);

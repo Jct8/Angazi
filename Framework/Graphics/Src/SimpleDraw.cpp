@@ -123,7 +123,7 @@ namespace
 			float phiIncrement = Math::Constants::Pi / slices;
 			std::vector<Math::Vector3> list;
 
-			for (float phi = 0; phi <= Math::Constants::Pi; phi += phiIncrement)
+			for (float phi = 0; phi <= Math::Constants::Pi+ phiIncrement; phi += phiIncrement)
 			{
 				for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
 				{
@@ -141,7 +141,7 @@ namespace
 
 			for (int y = 0; y <= slices; y++)
 			{
-				for (int x = 0; x < rings; x++)
+				for (int x = 0; x <= rings; x++)
 				{
 					if (!fill)
 					{

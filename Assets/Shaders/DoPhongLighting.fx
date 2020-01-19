@@ -25,14 +25,14 @@ cbuffer MaterialBuffer : register(b2)
 
 struct VS_INPUT
 {
-    float4 position : POSITION;
+    float3 position : POSITION;
     float4 normal : NORMAL;
 };
 
 struct VS_OUTPUT
 {
 	float4 position : SV_POSITION;
-	float4 color : Color;
+	float4 color : COLOR;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
@@ -45,19 +45,19 @@ VS_OUTPUT VS(VS_INPUT input)
 	float4 ambient = LightAmbient * MaterialAmbient;
 
 	float3 dirToLight = -LightDirection;
-	float diffuseIntensity = saturate(dot(dirToLight,worldNormal))
+	float diffuseIntensity = saturate(dot(dirToLight, worldNormal));
 	float4 diffuse = diffuseIntensity* LightDiffuse * MaterialDiffuse;
 
-	float3 dirToView = normalize(viewPosition -  worldPosition);
-	float3 halfAngle = normalize(dirToLight + dirToView)
+	float3 dirToView = normalize(ViewPosition -  worldPosition);
+	float3 halfAngle = normalize(dirToLight + dirToView);
 	float  specularBase = saturate(dot(halfAngle, worldNormal));
-	float  specularIntensity = pow(specularBase,MaterialPower)
+	float  specularIntensity = pow(specularBase, MaterialPower);
 	float4 specular = specularIntensity * LightSpecular * MaterialSpecular;
 	
 	float4 color = ambient + diffuse + specular;
 
     output.position = mul(float4(input.position, 1.0f), WVP);
-    output.color = color;
+	output.color = color;
 
     return output;
 }
