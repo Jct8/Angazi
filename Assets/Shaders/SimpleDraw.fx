@@ -1,9 +1,4 @@
-//====================================================================================================
-// SIEGE - Super Innovative Exciting Game Engine
-// Copyright (c) 2019 Peter Chan. All rights reserved.
-//
-// Description: Shader for simple geometry.
-//====================================================================================================
+//Description: Shader for simple geometry.
 
 cbuffer ConstantBuffer : register(b0)
 {

@@ -15,10 +15,24 @@ public:
 private:
 	Angazi::Graphics::Camera mCamera;
 
-	Angazi::Graphics::MeshPN mMeshSphere;
-	Angazi::Graphics::MeshBuffer mMeshBufferSphere;
+	Angazi::Graphics::MeshPN mMesh;
+	Angazi::Graphics::MeshBuffer mMeshBuffer;
 
-	Angazi::Graphics::ConstantBuffer mConstantBuffer;
+	struct TransformData
+	{
+		Angazi::Math::Matrix4 world;
+		Angazi::Math::Matrix4 wvp;
+		Angazi::Math::Matrix4 viewPosition;
+		float padding;
+	};
+
+	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
+	using LightBuffer = Angazi::Graphics::TypedConstantBuffer<DirectionalLight>;
+	using MaterialBuffer = Angazi::Graphics::TypedConstantBuffer<Material>;
+
+	TransformBuffer mTransformBuffer;
+	LightBuffer mLightBuffer;
+	MaterialBuffer mMaterialBuffer;
 
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader mPixelShader;

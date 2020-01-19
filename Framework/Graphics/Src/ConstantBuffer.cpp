@@ -25,14 +25,17 @@ void ConstantBuffer::Terminate()
 	SafeRelease(mConstantBuffer);
 }
 
-void ConstantBuffer::Bind()
+void ConstantBuffer::BindVS(uint32_t slot) const
 {
-	auto context = GetContext();
-	context->VSSetConstantBuffers(0, 1, &mConstantBuffer);
+	GetContext()->VSSetConstantBuffers(slot, 1, &mConstantBuffer);
 }
 
-void ConstantBuffer::Set(void * data)
+void ConstantBuffer::BindVS(uint32_t slot) const
 {
-	auto context = GetContext();
-	context->UpdateSubresource(mConstantBuffer, 0, nullptr, data, 0, 0);
+	GetContext()->PSSetConstantBuffers(slot, 1, &mConstantBuffer);
+}
+
+void ConstantBuffer::Update(void * data)
+{
+	GetContext()->UpdateSubresource(mConstantBuffer, 0, nullptr, data, 0, 0);
 }

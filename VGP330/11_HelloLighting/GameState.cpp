@@ -13,19 +13,25 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 0.0f,0.0f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
-	mMeshSphere = MeshBuilder::CreateSpherePN();
+	mMesh = MeshBuilder::CreateSpherePN();
+	mMeshBuffer.Initialize(mMesh);
 
-	mConstantBuffer.Initialize(sizeof(Matrix4));
+	mTransformBuffer.Initialize();
+	mLightBuffer.Initialize();
+	mMaterialBuffer.Initialize();
 
-	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx", VertexPN::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
+	mVertexShader.Initialize("../../Assets/Shaders/DoPhongLighting.fx", VertexPN::Format);
+	mPixelShader.Initialize("../../Assets/Shaders/DoPhongLighting.fx");
 }
 
 void GameState::Terminate()
 {
-	mConstantBuffer.Terminate();
 	mPixelShader.Terminate();
 	mVertexShader.Terminate();
+	mMaterialBuffer.Terminate();
+	mLightBuffer.Terminate();
+	mTransformBuffer.Terminate();
+	mMeshBuffer.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -58,11 +64,12 @@ void GameState::Render()
 {
 	auto context = GraphicsSystem::Get()->GetContext();
 
-	auto matWorld = Matrix4::RotationY(mRotation.x);
+	auto matRot = Matrix4::RotationX(mRotation.x) *Matrix4::RotationY(mRotation.y);
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
-	mConstantBuffer.Bind();
 
+	Transfo
+	mTransformBuffer.Bind();
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 

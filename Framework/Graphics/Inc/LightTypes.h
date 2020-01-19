@@ -17,6 +17,5 @@ namespace Angazi::Graphics
 		Color ambient;
 		Color diffuse;
 		Color specular;
-
 	};
 }
