@@ -36,9 +36,9 @@ void TileMap::Update(float deltaTime)
 	{
 		if (row < mRows && column < mColumns)
 		{
-			mCurrentIndex = (mCurrentIndex + 1) % (mTextureIds.size() - 1);
 			const int index = GetIndex(column, row);
-			mTiles[index] = mCurrentIndex;
+			int tileIndex = (mTiles[index] + 1) % (mTextureIds.size());
+			mTiles[index] = tileIndex;
 		}
 	}
 }

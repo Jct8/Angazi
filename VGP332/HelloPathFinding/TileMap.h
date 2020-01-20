@@ -19,6 +19,4 @@ private:
 	int mColumns = 0;
 	int mRows = 0;
 	int mTileSize = 32;
-
-	int mCurrentIndex = 0;
 };
