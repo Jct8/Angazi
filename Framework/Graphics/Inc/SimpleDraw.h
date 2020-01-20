@@ -11,7 +11,7 @@ namespace Angazi::Graphics::SimpleDraw {
 
 	//3D Simple Draw
 	void AddLine(const Math::Vector3& v0, const Math::Vector3& v1, const Color& color);
-	void AddBox(float width, float length, float height, const Color & color, bool fill = false);
+	void AddBox(const Math::Vector3& center, float width, float length, float height, const Color & color, bool fill = false);
 	void AddCone(float height, float radius, const Color& color, bool fill = false, int slices = 16);
 	void AddCone(const Math::Vector3& base, const Math::Vector3& direction, float radius, const Color& color, bool fill = false, int slices = 16);
 	void AddCylinder(const Math::Vector3& base, const Math::Vector3& direction, float radius, const Color& color, bool fill = false, int slices = 16);

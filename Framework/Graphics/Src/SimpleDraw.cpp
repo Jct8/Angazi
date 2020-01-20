@@ -94,7 +94,7 @@ namespace
 			AddScreenLine({ rect.right , rect.top }, { rect.right , rect.bottom }, color);
 		}
 
-		void AddBox(float width, float length, float height, const Color & color, bool fill)
+		void AddBox(const Math::Vector3& center, float width, float length, float height, const Color & color, bool fill)
 		{
 			if (mVertexCount + 24 >= mMaxVertexCount)
 				return;
@@ -105,23 +105,23 @@ namespace
 			if (fill)
 			{
 				//Front
-				AddFace({ -halfLength, halfHeight, -halfWidth }, { halfLength, -halfHeight, -halfWidth }, { -halfLength, -halfHeight, -halfWidth }, color);
-				AddFace({ -halfLength, halfHeight, -halfWidth }, { halfLength,  halfHeight, -halfWidth }, { halfLength, -halfHeight, -halfWidth }, color);
+				AddFace(Math::Vector3{ -halfLength, halfHeight, -halfWidth }+center, Math::Vector3{ halfLength, -halfHeight, -halfWidth }+center, Math::Vector3{ -halfLength, -halfHeight, -halfWidth }+center, color);
+				AddFace(Math::Vector3{ -halfLength, halfHeight, -halfWidth }+center, Math::Vector3{ halfLength,  halfHeight, -halfWidth }+center, Math::Vector3{ halfLength, -halfHeight, -halfWidth }+center, color);
 				//Back
-				AddFace({ -halfLength, halfHeight,  halfWidth }, { -halfLength, -halfHeight,  halfWidth }, { halfLength, -halfHeight,  halfWidth }, color);
-				AddFace({ -halfLength, halfHeight,  halfWidth }, { halfLength, -halfHeight,  halfWidth }, { halfLength,  halfHeight,  halfWidth }, color);
+				AddFace(Math::Vector3{ -halfLength, halfHeight,  halfWidth }+center, Math::Vector3{ -halfLength, -halfHeight,  halfWidth }+center, Math::Vector3{ halfLength, -halfHeight,  halfWidth }+center, color);
+				AddFace(Math::Vector3{ -halfLength, halfHeight,  halfWidth }+center, Math::Vector3{ halfLength, -halfHeight,  halfWidth }+center, Math::Vector3{ halfLength,  halfHeight,  halfWidth }+center, color);
 				//Left
-				AddFace({ -halfLength, halfHeight, -halfWidth }, { -halfLength, -halfHeight, -halfWidth }, { -halfLength, -halfHeight,  halfWidth }, color);
-				AddFace({ -halfLength, halfHeight, -halfWidth }, { -halfLength, -halfHeight,  halfWidth }, { -halfLength,  halfHeight,  halfWidth }, color);
+				AddFace(Math::Vector3{ -halfLength, halfHeight, -halfWidth }+center, Math::Vector3{ -halfLength, -halfHeight, -halfWidth }+center, Math::Vector3{ -halfLength, -halfHeight,  halfWidth }+center, color);
+				AddFace(Math::Vector3{ -halfLength, halfHeight, -halfWidth }+center, Math::Vector3{ -halfLength, -halfHeight,  halfWidth }+center, Math::Vector3{ -halfLength,  halfHeight,  halfWidth }+center, color);
 				//Right
-				AddFace({ halfLength, halfHeight, -halfWidth }, { halfLength, -halfHeight,  halfWidth }, { halfLength, -halfHeight, -halfWidth }, color);
-				AddFace({ halfLength, halfHeight, -halfWidth }, { halfLength,  halfHeight,  halfWidth }, { halfLength, -halfHeight,  halfWidth }, color);
+				AddFace(Math::Vector3{ halfLength, halfHeight, -halfWidth }+center, Math::Vector3{ halfLength, -halfHeight,  halfWidth }+center, Math::Vector3{ halfLength, -halfHeight, -halfWidth }+center, color);
+				AddFace(Math::Vector3{ halfLength, halfHeight, -halfWidth }+center, Math::Vector3{ halfLength,  halfHeight,  halfWidth }+center, Math::Vector3{ halfLength, -halfHeight,  halfWidth }+center, color);
 				//Top
-				AddFace({ -halfLength, halfHeight, -halfWidth }, { -halfLength,  halfHeight,  halfWidth }, { halfLength,  halfHeight,  halfWidth }, color);
-				AddFace({ -halfLength, halfHeight, -halfWidth }, { halfLength,  halfHeight,  halfWidth }, { halfLength,  halfHeight, -halfWidth }, color);
+				AddFace(Math::Vector3{ -halfLength, halfHeight, -halfWidth }+center, Math::Vector3{ -halfLength,  halfHeight,  halfWidth }+center, Math::Vector3{ halfLength,  halfHeight,  halfWidth }+center, color);
+				AddFace(Math::Vector3{ -halfLength, halfHeight, -halfWidth }+center, Math::Vector3{ halfLength,  halfHeight,  halfWidth }+center, Math::Vector3{ halfLength,  halfHeight, -halfWidth }+center, color);
 				//Bottom
-				AddFace({ -halfLength, -halfHeight, -halfWidth }, { halfLength, -halfHeight,  halfWidth }, { -halfLength, -halfHeight,  halfWidth }, color);
-				AddFace({ -halfLength, -halfHeight, -halfWidth }, { halfLength, -halfHeight, -halfWidth }, { halfLength, -halfHeight,  halfWidth }, color);
+				AddFace(Math::Vector3{ -halfLength, -halfHeight, -halfWidth }+center, Math::Vector3{ halfLength, -halfHeight,  halfWidth }+center, Math::Vector3{ -halfLength, -halfHeight,  halfWidth }+center, color);
+				AddFace(Math::Vector3{ -halfLength, -halfHeight, -halfWidth }+center, Math::Vector3{ halfLength, -halfHeight, -halfWidth }+center, Math::Vector3{ halfLength, -halfHeight,  halfWidth }+center, color);
 				return;
 			}
 
@@ -129,15 +129,15 @@ namespace
 			{
 				for (int j = -1; j <= 1; j += 2)
 				{
-					AddLine({ -halfLength,i*halfHeight,j*halfWidth }, { halfLength,i*halfHeight,j*halfWidth }, color);
+					AddLine(Math::Vector3{ -halfLength,i*halfHeight,j*halfWidth } + center, Math::Vector3{ halfLength,i*halfHeight,j*halfWidth }+center, color);
 				}
 				for (int j = -1; j <= 1; j += 2)
 				{
-					AddLine({ i*halfLength,-halfHeight,j*halfWidth }, { i*halfLength, halfHeight,j*halfWidth }, color);
+					AddLine(Math::Vector3{ i*halfLength,-halfHeight,j*halfWidth }+center, Math::Vector3{ i*halfLength, halfHeight,j*halfWidth }+center, color);
 				}
 				for (int j = -1; j <= 1; j += 2)
 				{
-					AddLine({ i*halfLength,j*halfHeight, -halfWidth }, { i*halfLength,j*halfHeight,  halfWidth }, color);
+					AddLine(Math::Vector3{ i*halfLength,j*halfHeight, -halfWidth }+center, Math::Vector3{ i*halfLength,j*halfHeight,  halfWidth }+center, color);
 				}
 			}
 		}
@@ -329,9 +329,9 @@ void SimpleDraw::AddScreenRect(float left, float top, float right, float bottom,
 	sInstance->AddScreenRect(rect, color);
 }
 
-void SimpleDraw::AddBox(float width, float length, float height, const Color & color, bool fill)
+void SimpleDraw::AddBox(const Math::Vector3& center, float width, float length, float height, const Color & color, bool fill)
 {
-	sInstance->AddBox(width, length, height, color, fill);
+	sInstance->AddBox(center,width, length, height, color, fill);
 }
 
 void SimpleDraw::AddCone(float height, float radius, const Color& color, bool fill, int slices)
