@@ -65,9 +65,33 @@ namespace
 				m2DLineVertices[m2DVertexCount++] = VertexPC{ Math::Vector3(v1.x, v1.y, 0.0f), color };
 			}
 		}
-		void AddScreenCircle(Math::Vector2 center, float radius, const Color & color)
+		void AddScreenCircle(const Math::Vector2& center, float radius, const Color & color)
 		{
+			if (m2DVertexCount + 32 >= mMaxVertexCount)
+				return;
+			int slices = 16;
+			float thetaIncrement = Math::Constants::TwoPi / slices;
 
+			std::vector<Math::Vector2> list;
+			for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
+			{
+				list.push_back(Math::Vector2{ radius*cosf(theta),radius* sinf(theta) } + center);
+			}
+
+			for (size_t i = 0; i < list.size() -1; i++)
+			{
+				AddScreenLine(list[i],list[i+1],color);
+			}
+
+		}
+		void AddScreenRect(const Math::Rect & rect, const Color & color)
+		{
+			if (m2DVertexCount + 8 >= mMaxVertexCount)
+				return;
+			AddScreenLine({ rect.left , rect.top }, { rect.right , rect.top }, color);
+			AddScreenLine({ rect.left , rect.bottom }, { rect.right , rect.bottom }, color);
+			AddScreenLine({ rect.left , rect.top }, { rect.left , rect.bottom }, color);
+			AddScreenLine({ rect.right , rect.top }, { rect.right , rect.bottom }, color);
 		}
 
 		void AddBox(float width, float length, float height, const Color & color, bool fill)
@@ -90,8 +114,8 @@ namespace
 				AddFace({ -halfLength, halfHeight, -halfWidth }, { -halfLength, -halfHeight, -halfWidth }, { -halfLength, -halfHeight,  halfWidth }, color);
 				AddFace({ -halfLength, halfHeight, -halfWidth }, { -halfLength, -halfHeight,  halfWidth }, { -halfLength,  halfHeight,  halfWidth }, color);
 				//Right
-				AddFace({  halfLength, halfHeight, -halfWidth }, { halfLength, -halfHeight,  halfWidth }, { halfLength, -halfHeight, -halfWidth }, color);
-				AddFace({  halfLength, halfHeight, -halfWidth }, { halfLength,  halfHeight,  halfWidth }, { halfLength, -halfHeight,  halfWidth }, color);
+				AddFace({ halfLength, halfHeight, -halfWidth }, { halfLength, -halfHeight,  halfWidth }, { halfLength, -halfHeight, -halfWidth }, color);
+				AddFace({ halfLength, halfHeight, -halfWidth }, { halfLength,  halfHeight,  halfWidth }, { halfLength, -halfHeight,  halfWidth }, color);
 				//Top
 				AddFace({ -halfLength, halfHeight, -halfWidth }, { -halfLength,  halfHeight,  halfWidth }, { halfLength,  halfHeight,  halfWidth }, color);
 				AddFace({ -halfLength, halfHeight, -halfWidth }, { halfLength,  halfHeight,  halfWidth }, { halfLength,  halfHeight, -halfWidth }, color);
@@ -123,7 +147,7 @@ namespace
 			float phiIncrement = Math::Constants::Pi / slices;
 			std::vector<Math::Vector3> list;
 
-			for (float phi = 0; phi <= Math::Constants::Pi+ phiIncrement; phi += phiIncrement)
+			for (float phi = 0; phi <= Math::Constants::Pi + phiIncrement; phi += phiIncrement)
 			{
 				for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
 				{
@@ -180,7 +204,7 @@ namespace
 				else
 				{
 					AddFace(list[i], { 0.0f , height , 0.0f }, list[i + 1], color);
-					AddFace(list[i], list[i + 1], Math::Vector3::Zero,color);
+					AddFace(list[i], list[i + 1], Math::Vector3::Zero, color);
 				}
 			}
 		}
@@ -273,9 +297,36 @@ void SimpleDraw::AddScreenLine(float x0, float y0, float x1, float y1, const Col
 	sInstance->AddScreenLine({ x0, y0 }, { x1, y1 }, color);
 }
 
-void SimpleDraw::AddScreenCircle(Math::Vector2 center, float radius, const Color & color)
+void SimpleDraw::AddScreenCircle(const Math::Circle & circle, const Color & color)
+{
+	sInstance->AddScreenCircle(circle.center, circle.radius, color);
+}
+
+void SimpleDraw::AddScreenCircle(const Math::Vector2 & center, float radius, const Color & color)
 {
 	sInstance->AddScreenCircle(center, radius, color);
+}
+
+void SimpleDraw::AddScreenCircle(float centerX, float centerY, float radius, const Color & color)
+{
+	sInstance->AddScreenCircle({centerX,centerY}, radius, color);
+}
+
+void SimpleDraw::AddScreenRect(const Math::Rect & rect, const Color & color)
+{
+	sInstance->AddScreenRect(rect, color);
+}
+
+void SimpleDraw::AddScreenRect(const Math::Vector2 & min, const Math::Vector2 & max, const Color & color)
+{
+	Math::Rect rect(min.x, min.y, max.x, max.y);
+	sInstance->AddScreenRect(rect, color);
+}
+
+void SimpleDraw::AddScreenRect(float left, float top, float right, float bottom, const Color & color)
+{
+	Math::Rect rect(left,top, right, bottom);
+	sInstance->AddScreenRect(rect, color);
 }
 
 void SimpleDraw::AddBox(float width, float length, float height, const Color & color, bool fill)

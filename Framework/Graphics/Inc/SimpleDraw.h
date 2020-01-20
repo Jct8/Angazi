@@ -9,13 +9,21 @@ namespace Angazi::Graphics::SimpleDraw {
 	void StaticInitialize(uint32_t maxVertexCount = 10000);
 	void StaticTerminate();
 
+	//3D Simple Draw
 	void AddLine(const Math::Vector3& v0, const Math::Vector3& v1, const Color& color);
-	void AddScreenLine(const Math::Vector2& v0, const Math::Vector2& v1, const Color& color);
-	void AddScreenLine(float x0, float y0, float x1, float y1, const Color& color);
-	void AddScreenCircle(Math::Vector2 center, float radius, const Color& color);
 	void AddBox(float width, float length, float height, const Color & color, bool fill = false);
 	void AddCone(float height, float radius, const Color& color, bool fill = false, int slices = 16);
 	void AddSphere(float radius, const Color& color, bool fill = false, int slices = 16, int rings = 16);
+
+	//2D Simple Draw
+	void AddScreenLine(const Math::Vector2& v0, const Math::Vector2& v1, const Color& color);
+	void AddScreenLine(float x0, float y0, float x1, float y1, const Color& color);
+	void AddScreenCircle(const Math::Circle& circle, const Color& color);
+	void AddScreenCircle(const Math::Vector2& center, float radius, const Color& color);
+	void AddScreenCircle(float centerX, float centerY, float radius, const Color& color);
+	void AddScreenRect(const Math::Rect& rect, const Color& color);
+	void AddScreenRect(const Math::Vector2& min, const Math::Vector2& max, const Color& color);
+	void AddScreenRect(float left, float top, float right, float bottom, const Color& color);
 
 	void Render(const Camera& camera);
 
