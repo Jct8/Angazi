@@ -141,7 +141,7 @@ namespace
 				}
 			}
 		}
-		void AddSphere(float radius, const Color& color, float slices, float rings, bool fill)
+		void AddSphere(const Math::Vector3& center, float radius, const Color& color, float slices, float rings, bool fill)
 		{
 			float thetaIncrement = Math::Constants::TwoPi / rings;
 			float phiIncrement = Math::Constants::Pi / slices;
@@ -154,7 +154,7 @@ namespace
 					float u = theta / Math::Constants::TwoPi;
 					float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
 					float newRadius = radius * sinf(phi);
-					list.push_back(Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) });
+					list.push_back(Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) } + center);
 				}
 			}
 
@@ -339,9 +339,19 @@ void SimpleDraw::AddCone(float height, float radius, const Color& color, bool fi
 	sInstance->AddCone(height, radius, color, slices, fill);
 }
 
-void SimpleDraw::AddSphere(float radius, const Color& color, bool fill, int slices, int rings)
+void SimpleDraw::AddSphere(const Math::Vector3& center, float radius, const Color& color, bool fill, int slices, int rings)
 {
-	sInstance->AddSphere(radius, color, slices, rings, fill);
+	sInstance->AddSphere(center, radius, color, slices, rings, fill);
+}
+
+void SimpleDraw::AddSphere(const Math::Sphere & sphere, const Color & color, bool fill, uint32_t slices, uint32_t rings)
+{
+	sInstance->AddSphere(sphere.center, sphere.radius, color, slices, rings, fill);
+}
+
+void SimpleDraw::AddSphere(float x, float y, float z, float radius, const Color & color,bool fill , uint32_t slices, uint32_t rings)
+{
+	sInstance->AddSphere({x,y,z}, radius, color, slices, rings, fill);
 }
 
 void SimpleDraw::Render(const Camera & camera)

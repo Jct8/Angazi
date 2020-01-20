@@ -57,7 +57,9 @@ void GameState::Update(float deltaTime)
 	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 5.0f,0.0f,0.0f }, Colors::Blue);
 	//SimpleDraw::AddBox(2.0f, 3.0f, 4.0f, Colors::AliceBlue,true);
 	//SimpleDraw::AddCone(2.0f, 1.0f, Colors::MintCream, true);
-	//SimpleDraw::AddSphere(4.0f,Colors::Black,false,32,32);
+	//SimpleDraw::AddSphere({ 5.0f , 5.0f,5.0f }, 4.0f, Colors::Black, false, 32, 32);
+	//SimpleDraw::AddSphere( 5.0f , 5.0f,5.0f , 4.0f, Colors::Black, false, 32, 32);
+	//SimpleDraw::AddSphere(Sphere{ { 5.0f , 5.0f,5.0f } , 4.0f }, Colors::Black, false, 32, 32);
 	SimpleDraw::AddScreenLine({ 0.0f , 0.0f }, { 50.0f,50.0f }, Colors::AliceBlue);
 	SimpleDraw::AddScreenCircle({ 50.0f, 50.0f }, 10.0f, Colors::AliceBlue);
 	SimpleDraw::AddScreenRect({ 50.0f, 50.0f }, { 100.0f, 100.0f }, Colors::AliceBlue);

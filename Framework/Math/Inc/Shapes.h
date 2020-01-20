@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+#include "Vector3.h"
 
 namespace Angazi::Math
 {
@@ -32,5 +33,15 @@ namespace Angazi::Math
 		Circle() : radius(1.0f), center(0.0f, 0.0f) {}
 		Circle(const Vector2& center, float radius) : radius(radius), center(center) {}
 		Circle(float x , float y, float radius) : radius(radius), center(x,y) {}
+	};
+
+	struct Sphere
+	{
+		float radius;
+		Vector3 center;
+
+		Sphere() : center(0.0f, 0.0f, 0.0f), radius(1.0f) {}
+		Sphere(float x, float y, float z, float radius) : center(x, y, z), radius(radius) {}
+		Sphere(const Vector3& center, float radius) : center(center), radius(radius) {}
 	};
 }
