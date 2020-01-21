@@ -1,15 +1,15 @@
-#include "TileMap.h"
-#include "GameState.h"
+#include "GameState.h".
+#include "ImGui/Inc/imgui.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
 using namespace Angazi::Input;
 using namespace Angazi::Math;
 
+
 void GameState::Initialize()
 {
-	GraphicsSystem::Get()->SetClearColor(Colors::LightGray);
-
+	GraphicsSystem::Get()->SetClearColor(Colors::DarkGray);
 	tileMap.Load();
 }
 
@@ -26,4 +26,10 @@ void GameState::Update(float deltaTime)
 void GameState::Render()
 {
 	tileMap.Render();
+	SimpleDraw::Render(mCamera);
+}
+
+void GameState::DebugUI()
+{
+	ImGui::ShowDemoWindow();
 }

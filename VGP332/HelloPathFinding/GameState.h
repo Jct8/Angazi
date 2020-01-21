@@ -1,5 +1,6 @@
 #pragma once
 #include <Angazi/Inc/Angazi.h>
+#include "TileMap.h"
 
 class GameState : public Angazi::AppState
 {
@@ -9,15 +10,10 @@ public:
 
 	void Update(float deltaTime) override;
 	void Render() override;
+	
+	void DebugUI() override;
 
 private:
 	Angazi::Graphics::Camera mCamera;
-
-	Angazi::Graphics::VertexShader mVertexShader;
-	Angazi::Graphics::PixelShader mPixelShader;
-	Angazi::Graphics::ConstantBuffer mConstantBuffer;
-
-	float mRotation = 0.0f;
-
 	TileMap tileMap;
 };

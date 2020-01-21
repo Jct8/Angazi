@@ -75,12 +75,12 @@ namespace
 			std::vector<Math::Vector2> list;
 			for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
 			{
-				list.push_back(Math::Vector2{ radius*cosf(theta),radius* sinf(theta) } + center);
+				list.push_back(Math::Vector2{ radius*cosf(theta),radius* sinf(theta) } +center);
 			}
 
-			for (size_t i = 0; i < list.size() -1; i++)
+			for (size_t i = 0; i < list.size() - 1; i++)
 			{
-				AddScreenLine(list[i],list[i+1],color);
+				AddScreenLine(list[i], list[i + 1], color);
 			}
 
 		}
@@ -94,13 +94,13 @@ namespace
 			AddScreenLine({ rect.right , rect.top }, { rect.right , rect.bottom }, color);
 		}
 
-		void AddBox(const Math::Vector3& center, float width, float length, float height, const Color & color, bool fill)
+		void AddAABB(const Math::Vector3 & center, const Math::Vector3 & extend, const Color & color, bool fill)
 		{
 			if (mVertexCount + 24 >= mMaxVertexCount)
 				return;
-			float halfWidth = width * 0.5f;
-			float halfLength = length * 0.5f;
-			float halfHeight = height * 0.5f;
+			float halfWidth = extend.y;
+			float halfLength = extend.x;
+			float halfHeight = extend.y;
 
 			if (fill)
 			{
@@ -129,7 +129,7 @@ namespace
 			{
 				for (int j = -1; j <= 1; j += 2)
 				{
-					AddLine(Math::Vector3{ -halfLength,i*halfHeight,j*halfWidth } + center, Math::Vector3{ halfLength,i*halfHeight,j*halfWidth }+center, color);
+					AddLine(Math::Vector3{ -halfLength,i*halfHeight,j*halfWidth } +center, Math::Vector3{ halfLength,i*halfHeight,j*halfWidth }+center, color);
 				}
 				for (int j = -1; j <= 1; j += 2)
 				{
@@ -141,7 +141,7 @@ namespace
 				}
 			}
 		}
-		void AddSphere(const Math::Vector3& center, float radius, const Color& color, float slices, float rings, bool fill)
+		void AddSphere(const Math::Vector3& center, float radius, const Color& color, int slices, int rings, bool fill)
 		{
 			float thetaIncrement = Math::Constants::TwoPi / rings;
 			float phiIncrement = Math::Constants::Pi / slices;
@@ -154,7 +154,7 @@ namespace
 					float u = theta / Math::Constants::TwoPi;
 					float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
 					float newRadius = radius * sinf(phi);
-					list.push_back(Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) } + center);
+					list.push_back(Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) } +center);
 				}
 			}
 
@@ -182,8 +182,9 @@ namespace
 				}
 			}
 		}
-		void AddCone(float height, float radius, const Color& color, int slices, bool fill)
+		void AddCone(float height, float radius, const Color& color, bool fill)
 		{
+			int slices = 16;
 			float thetaIncrement = Math::Constants::TwoPi / slices;
 			std::vector<Math::Vector3> list;
 			for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
@@ -208,6 +209,132 @@ namespace
 				}
 			}
 		}
+		void AddCone(const Math::Vector3& base, const Math::Vector3& direction, float height, float radius, const Color& color, bool fill = false)
+		{
+			int slices = 16;
+			float thetaIncrement = Math::Constants::TwoPi / slices;
+			std::vector<Math::Vector3> list;
+
+			Math::Vector3 d = Math::Normalize(direction);
+			float angle = acosf(Math::Dot(Math::Vector3::YAxis, d));
+			Math::Vector3 rotationAxis = Math::Cross(Math::Vector3::YAxis, d);
+			Math::Matrix4 rotationMatrix = Math::Matrix4::RotationAxis(rotationAxis, angle);
+
+			for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
+			{
+				Math::Vector3 vec3 = Math::TransformNormal(Math::Vector3{ radius * cosf(theta), 0.0f , radius * sinf(theta) }, rotationMatrix) + base;
+				list.push_back(vec3);
+			}
+			if (mVertexCount + list.size() - 1 > mMaxVertexCount)
+			{
+				return;
+			}
+			for (int i = 0; i < list.size() - 1; i++)
+			{
+				if (!fill)
+				{
+					AddLine(list[i], list[i + 1], color);
+					Math::Vector3 heightVec = Math::TransformNormal(Math::Vector3{ 0.0f , height , 0.0f }, rotationMatrix) + base;
+					AddLine(list[i], heightVec, color);
+				}
+				else
+				{
+					Math::Vector3 heightVec = Math::TransformNormal(Math::Vector3{ 0.0f , height , 0.0f }, rotationMatrix) + base;
+					AddFace(list[i], heightVec, list[i + 1], color);
+					AddFace(list[i], list[i + 1], heightVec, color);
+				}
+			}
+		}
+		void AddCylinder(const Math::Vector3 & base, const Math::Vector3 & direction, float height, float radius, const Color & color, bool fill)
+		{
+			int slices = 16;
+			int rings = 16;
+			float increment = Math::Constants::TwoPi / static_cast<float>(slices);
+			float ringRatio = 1.0f / rings;
+			std::vector<Math::Vector3> list;
+
+			Math::Vector3 d = Math::Normalize(direction);
+			float angle = acosf(Math::Dot(d, Math::Vector3::YAxis));
+			Math::Vector3 rotationAxis = Math::Cross(Math::Vector3::YAxis, d);
+			Math::Matrix4 rotationMatrix = Math::Matrix4::RotationAxis(rotationAxis, angle);
+
+			for (int y = 0; y <= rings; y++)
+			{
+				for (float theta = 0; theta <= Math::Constants::TwoPi; theta += increment)
+				{
+					Math::Vector3 vec = Math::TransformNormal(
+						Math::Vector3{ sinf(theta) * radius , height * y * ringRatio , cosf(theta) * radius }, rotationMatrix) + base;
+					list.push_back(vec);
+				}
+			}
+			int sectorCount = rings + 1;
+			for (int y = 0; y <= rings; y++)
+			{
+				for (int x = 0; x < slices; x++)
+				{
+					if (!fill)
+					{
+						AddLine(list[y * sectorCount + x], list[y * sectorCount + x + 1], color);
+						if (y + 1 <= rings)
+							AddLine(list[y * sectorCount + x], list[(y + 1) * sectorCount + x], color);
+						if (y == 0 || y == rings)
+						{
+							Math::Vector3 centerVec =
+								Math::TransformNormal(Math::Vector3{ 0.f, height * y * ringRatio , 0.0f }, rotationMatrix) + base;
+							AddLine(list[y * sectorCount + x], centerVec, color);
+						}
+					}
+					else
+					{
+						AddFace(list[(y + 1) * rings + x + 1], list[(y + 1) * rings + x], list[y * rings + x], color);
+						AddFace(list[y * rings + x], list[y * rings + x + 1], list[(y + 1)* rings + x + 1], color);
+						if (y == 0)
+						{
+							Math::Vector3 centerVec =
+								Math::TransformNormal(Math::Vector3{ 0.0f , height * y * ringRatio , 0.0f }, rotationMatrix) + base;
+							AddFace(list[y * sectorCount + x], centerVec, list[y * sectorCount + x + 1], color);
+						}
+						else if (y == rings)
+						{
+							Math::Vector3 centerVec =
+								Math::TransformNormal(Math::Vector3{ 0.0f, height * y * ringRatio , 0.0f }, rotationMatrix) + base;
+							AddFace(list[y * sectorCount + x], list[y * sectorCount + x + 1], centerVec, color);
+						}
+					}
+				}
+			}
+		}
+
+		void AddGroundPlane(float size, bool fill, const Color & color)
+		{
+			std::vector<Math::Vector3> list;
+			for (int y = 0; y <= size; y++)
+			{
+				for (int x = 0; x <= size; x++)
+				{
+						auto vec = Math::Vector3{-0.5f*size + static_cast<float>(x) , 0.0f ,0.5f*size - static_cast<float>(y)};
+						list.push_back(vec);
+				}
+			}
+
+			for (int y = 0; y <= size; y++)
+			{
+				for (int x = 0; x < size; x++)
+				{
+					if (!fill)
+					{
+						AddLine(list[y * size + x], list[y * size + x + 1], color);
+						AddLine(list[(y+1) * size + x], list[y * size + x], color);
+					}
+					else
+					{
+						AddFace(list[(y + 1) * size + x + 1], list[(y + 1) * size + x], list[y * size + x], color);
+						AddFace(list[y * size + x], list[y * size + x + 1], list[(y + 1)* size + x + 1], color);
+					}
+				}
+			}
+		}
+
 		void Render(const Camera& camera)
 		{
 			auto matView = camera.GetViewMatrix();
@@ -287,6 +414,11 @@ void SimpleDraw::AddLine(const Math::Vector3 & v0, const Math::Vector3 & v1, con
 	sInstance->AddLine(v0, v1, color);
 }
 
+void SimpleDraw::AddGroundPlane(float size, bool fill, const Color & color)
+{
+	sInstance->AddGroundPlane(size, fill, color);
+}
+
 void SimpleDraw::AddScreenLine(const Math::Vector2 & v0, const Math::Vector2 & v1, const Color & color)
 {
 	sInstance->AddScreenLine(v0, v1, color);
@@ -309,7 +441,7 @@ void SimpleDraw::AddScreenCircle(const Math::Vector2 & center, float radius, con
 
 void SimpleDraw::AddScreenCircle(float centerX, float centerY, float radius, const Color & color)
 {
-	sInstance->AddScreenCircle({centerX,centerY}, radius, color);
+	sInstance->AddScreenCircle({ centerX,centerY }, radius, color);
 }
 
 void SimpleDraw::AddScreenRect(const Math::Rect & rect, const Color & color)
@@ -325,18 +457,28 @@ void SimpleDraw::AddScreenRect(const Math::Vector2 & min, const Math::Vector2 & 
 
 void SimpleDraw::AddScreenRect(float left, float top, float right, float bottom, const Color & color)
 {
-	Math::Rect rect(left,top, right, bottom);
+	Math::Rect rect(left, top, right, bottom);
 	sInstance->AddScreenRect(rect, color);
 }
 
-void SimpleDraw::AddBox(const Math::Vector3& center, float width, float length, float height, const Color & color, bool fill)
+void SimpleDraw::AddAABB(const Math::Vector3 & center, const Math::Vector3 & extend, const Color & color, bool fill)
 {
-	sInstance->AddBox(center,width, length, height, color, fill);
+	sInstance->AddAABB(center, extend, color, fill);
 }
 
-void SimpleDraw::AddCone(float height, float radius, const Color& color, bool fill, int slices)
+void SimpleDraw::AddCone(float height, float radius, const Color& color, bool fill)
 {
-	sInstance->AddCone(height, radius, color, slices, fill);
+	sInstance->AddCone(height, radius, color, fill);
+}
+
+void SimpleDraw::AddCone(const Math::Vector3 & base, const Math::Vector3 & direction, float height, float radius, const Color & color, bool fill)
+{
+	sInstance->AddCone(base, direction, height, radius, color, fill);
+}
+
+void SimpleDraw::AddCylinder(const Math::Vector3 & base, const Math::Vector3 & direction, float height, float radius, const Color & color, bool fill)
+{
+	sInstance->AddCylinder(base, direction, height, radius, color, fill);
 }
 
 void SimpleDraw::AddSphere(const Math::Vector3& center, float radius, const Color& color, bool fill, int slices, int rings)
@@ -344,14 +486,14 @@ void SimpleDraw::AddSphere(const Math::Vector3& center, float radius, const Colo
 	sInstance->AddSphere(center, radius, color, slices, rings, fill);
 }
 
-void SimpleDraw::AddSphere(const Math::Sphere & sphere, const Color & color, bool fill, uint32_t slices, uint32_t rings)
+void SimpleDraw::AddSphere(const Math::Sphere & sphere, const Color & color, bool fill, int slices, int rings)
 {
 	sInstance->AddSphere(sphere.center, sphere.radius, color, slices, rings, fill);
 }
 
-void SimpleDraw::AddSphere(float x, float y, float z, float radius, const Color & color,bool fill , uint32_t slices, uint32_t rings)
+void SimpleDraw::AddSphere(float x, float y, float z, float radius, const Color & color, bool fill, int slices, int rings)
 {
-	sInstance->AddSphere({x,y,z}, radius, color, slices, rings, fill);
+	sInstance->AddSphere({ x,y,z }, radius, color, slices, rings, fill);
 }
 
 void SimpleDraw::Render(const Camera & camera)

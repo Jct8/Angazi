@@ -11,18 +11,18 @@ namespace Angazi::Graphics::SimpleDraw {
 
 	//3D Simple Draw
 	void AddLine(const Math::Vector3& v0, const Math::Vector3& v1, const Color& color);
-	void AddBox(const Math::Vector3& center, float width, float length, float height, const Color & color, bool fill = false);
-	void AddCone(float height, float radius, const Color& color, bool fill = false, int slices = 16);
-	void AddCone(const Math::Vector3& base, const Math::Vector3& direction, float radius, const Color& color, bool fill = false, int slices = 16);
-	void AddCylinder(const Math::Vector3& base, const Math::Vector3& direction, float radius, const Color& color, bool fill = false, int slices = 16);
-	void AddSphere(const Math::Vector3& center, float radius, const Color& color, bool fill = false, int slices = 16, int rings = 16);
-	void AddSphere(const Math::Sphere& sphere,  const Color& color, bool fill = false, uint32_t slices = 8, uint32_t rings = 4);
-	void AddSphere(float x, float y, float z, float radius, const Color& color, bool fill = false, uint32_t slices = 8, uint32_t rings = 4);
+	void AddAABB(const Math::Vector3& center, const Math::Vector3& extend, const Color & color, bool fill = false);
+	void AddCone(float height, float radius, const Color& color, bool fill = false);
+	void AddCone(const Math::Vector3& base, const Math::Vector3& direction, float height, float radius, const Color& color, bool fill = false);
+	void AddCylinder(const Math::Vector3& base, const Math::Vector3& direction, float height, float radius, const Color& color, bool fill = false);
+	void AddSphere(const Math::Vector3& center, float radius, const Color& color, bool fill = false, int slices = 8, int rings = 16);
+	void AddSphere(const Math::Sphere& sphere,  const Color& color, bool fill = false, int slices = 8, int rings = 16);
+	void AddSphere(float x, float y, float z, float radius, const Color& color, bool fill = false, int slices = 8, int rings = 16);
 
 	void AddTransform(const Math::Matrix4& transform);
 	void AddBone(const Math::Matrix4& transform);
 
-	void AddGroundPlane(float size, const Color& color = Colors::DarkGray);
+	void AddGroundPlane(float size, bool fill = true ,const Color& color = Colors::DarkGray);
 
 	//2D Simple Draw
 	void AddScreenLine(const Math::Vector2& v0, const Math::Vector2& v1, const Color& color);

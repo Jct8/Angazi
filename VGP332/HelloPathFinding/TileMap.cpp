@@ -6,16 +6,18 @@ using namespace Angazi::Graphics;
 
 void TileMap::Load()
 {
-	mTextureIds[0] = Angazi::LoadTexture("grass.png");
-	mTextureIds[1] = Angazi::LoadTexture("flower.png");
-	mTextureIds[2] = Angazi::LoadTexture("tree0.png");
-	mTextureIds[3] = Angazi::LoadTexture("tree1.png");
-	mTextureIds[4] = Angazi::LoadTexture("tree2.png");
-	mTextureIds[5] = Angazi::LoadTexture("tree3.png");
+	//mTextureIds[0] = Angazi::LoadTexture("grass.png");
+	//mTextureIds[1] = Angazi::LoadTexture("flower.png");
+	//mTextureIds[2] = Angazi::LoadTexture("tree0.png");
+	//mTextureIds[3] = Angazi::LoadTexture("tree1.png");
+	//mTextureIds[4] = Angazi::LoadTexture("tree2.png");
+	//mTextureIds[5] = Angazi::LoadTexture("tree3.png");
 
 	mColumns = 10;
 	mRows = 10;
 	mTiles.resize(mColumns*mRows, 0);
+	
+	mGraph.Resize(mColumns, mRows);
 }
 
 void TileMap::Unload()
@@ -37,8 +39,8 @@ void TileMap::Update(float deltaTime)
 		if (row < mRows && column < mColumns)
 		{
 			const int index = GetIndex(column, row);
-			int tileIndex = (mTiles[index] + 1) % (mTextureIds.size());
-			mTiles[index] = tileIndex;
+			//int tileIndex = (mTiles[index] + 1) % (mTextureIds.size());
+			//mTiles[index] = tileIndex;
 		}
 	}
 }
@@ -58,7 +60,7 @@ void TileMap::Render()
 				static_cast<float>(y)*32.0f
 			};
 			//X::DrawSprite(mTextureIds[mTiles[index]], { pos.x , pos.y }, X::Pivot::TopLeft);
-			//X::DrawScreenCircle({ pos.x + offset , pos.y + offset }, circleRadius, X::Colors::AliceBlue);
+			SimpleDraw::AddScreenCircle({ pos.x + offset , pos.y + offset }, circleRadius, Colors::AliceBlue);
 			std::vector<AI::Coord> coords = mGraph.GetNode({ x,y })->neighbors;
 			for (int i = 0; i < coords.size(); i++)
 			{
