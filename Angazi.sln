@@ -45,7 +45,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA
 		Assets\Shaders\GLBasic.glsl = Assets\Shaders\GLBasic.glsl
 		Assets\Shaders\GLCamera.glsl = Assets\Shaders\GLCamera.glsl
 		Assets\Shaders\GLColor.glsl = Assets\Shaders\GLColor.glsl
-		Assets\Shaders\GLLighting.glsl = Assets\Shaders\GLLighting.glsl
+		Assets\Shaders\GLPhongLighting.glsl = Assets\Shaders\GLPhongLighting.glsl
 		Assets\Shaders\GLTexturing.glsl = Assets\Shaders\GLTexturing.glsl
 		Assets\Shaders\SimpleDraw.fx = Assets\Shaders\SimpleDraw.fx
 		Assets\Shaders\SimpleDraw.glsl = Assets\Shaders\SimpleDraw.glsl
@@ -94,6 +94,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AI", "Framework\AI\AI.vcxproj", "{F1BD903B-178C-463B-AF72-101BAA27CCC8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11_HelloLighting", "VGP330\11_HelloLighting\11_HelloLighting.vcxproj", "{ADD70465-DBDB-4F9A-8BC2-2DD257E992D3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_07_Lighting", "OpenGLProjects\OpenGL_07_Lighting\OpenGL_07_Lighting.vcxproj", "{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -571,6 +573,22 @@ Global
 		{ADD70465-DBDB-4F9A-8BC2-2DD257E992D3}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{ADD70465-DBDB-4F9A-8BC2-2DD257E992D3}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{ADD70465-DBDB-4F9A-8BC2-2DD257E992D3}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.Debug|x64.ActiveCfg = Debug|x64
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.Debug|x64.Build.0 = Debug|x64
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.Debug|x86.ActiveCfg = Debug|Win32
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.Debug|x86.Build.0 = Debug|Win32
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.MinSizeRel|x64.Build.0 = Release|x64
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.MinSizeRel|x86.Build.0 = Release|Win32
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.Release|x64.ActiveCfg = Release|x64
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.Release|x64.Build.0 = Release|x64
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.Release|x86.ActiveCfg = Release|Win32
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.Release|x86.Build.0 = Release|Win32
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -606,12 +624,13 @@ Global
 		{5B801706-94DC-47E8-9FAB-B96117F8108D} = {CD843822-043F-4D75-AD52-51A21848EF77}
 		{F1BD903B-178C-463B-AF72-101BAA27CCC8} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 		{ADD70465-DBDB-4F9A-8BC2-2DD257E992D3} = {F8400894-831D-4B54-8637-B23ED468BE24}
+		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 29
+		SccNumberOfProjects = 30
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -727,5 +746,9 @@ Global
 		SccProjectTopLevelParentUniqueName28 = Angazi.sln
 		SccProjectName28 = VGP330/11_HelloLighting
 		SccLocalPath28 = VGP330\\11_HelloLighting
+		SccProjectUniqueName29 = OpenGLProjects\\OpenGL_07_Lighting\\OpenGL_07_Lighting.vcxproj
+		SccProjectTopLevelParentUniqueName29 = Angazi.sln
+		SccProjectName29 = OpenGLProjects/OpenGL_07_Lighting
+		SccLocalPath29 = OpenGLProjects\\OpenGL_07_Lighting
 	EndGlobalSection
 EndGlobal

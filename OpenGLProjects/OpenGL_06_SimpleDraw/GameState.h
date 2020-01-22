@@ -16,9 +16,6 @@ private:
 	Angazi::GraphicsGL::CameraGL mCamera;
 	Angazi::GraphicsGL::Shader mShader;
 
-	Angazi::GraphicsGL::MeshBufferGL mMeshBuffer;
-	Angazi::GraphicsGL::MeshPX mMesh;
-
 	float mRotation = 0.0f;
 
 };

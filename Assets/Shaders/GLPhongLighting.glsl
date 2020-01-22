@@ -8,30 +8,34 @@ out vec3 color;
 
 struct TransformBuffer
 {
-	uniform mat4 WVP;
-	uniform mat4 World;
-	uniform float3 ViewPosition;
-}
+	mat4 WVP;
+	mat4 World;
+	vec3 ViewPosition;
+};
 
 struct LightBuffer 
 {
 	vec3 direction;
-	vec3 ambient;
-	vec3 diffuse;
-	vec3 specular;
+	vec4 ambient;
+	vec4 diffuse;
+	vec4 specular;
 };
 
 struct MaterialBuffer 
 {
-	vec3 ambient;
-	vec3 diffuse;
-	vec3 specular
+	vec4 ambient;
+	vec4 diffuse;
+	vec4 specular
 	float power;
 }; 
 
+uniform MaterialBuffer material;
+uniform LightBuffer light;
+uniform TransformBuffer transform;
+
 void main()
 {
-	vec3 worldPosition = float4(input.position, 1.0f), World);
+	vec3 worldPosition = vec4(aPos, 1.0f), transform.World);
 
 	//ambient
 	vec3 ambient = LightBuffer.ambient + MaterialBuffer.ambient;
@@ -58,9 +62,9 @@ void main()
 #version 330 core
 
 out vec4 FragColor;
-in vec3 ourColor;
+in vec4 ourColor;
 
 void main()
 {
-	FragColor = vec4(ourColor, 1.0f);
+	FragColor = ourColor;
 }

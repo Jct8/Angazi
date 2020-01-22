@@ -55,6 +55,16 @@ void Shader::SetUniform1f(const std::string name, float value)
 	glUniform1f(glGetUniformLocation(mProgram, name.c_str()), value);
 }
 
+void Shader::SetUniform3f(const std::string name, Math::Vector3 vec)
+{
+	glUniform3f(glGetUniformLocation(mProgram, name.c_str()), vec.x, vec.y, vec.z);
+}
+
+void Angazi::GraphicsGL::Shader::SetUniform4f(const std::string name, Math::Vector4 vec)
+{
+	glUniform4f(glGetUniformLocation(mProgram, name.c_str()), vec.x, vec.y, vec.z, vec.w);
+}
+
 void Shader::SetUniform4f(const std::string name, float v0, float v1, float v2, float v3)
 {
 	glUniform4f(glGetUniformLocation(mProgram, name.c_str()), v0, v1, v2, v3);
