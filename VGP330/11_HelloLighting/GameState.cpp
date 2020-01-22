@@ -14,7 +14,7 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 0.0f,-2.0f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
-	mMesh = MeshBuilder::CreateSpherePN(1.0f,30,30);
+	mMesh = MeshBuilder::CreateSpherePN(1.0f,100,16);
 	mMeshBuffer.Initialize(mMesh);
 
 	mTransformBuffer.Initialize();
@@ -26,9 +26,9 @@ void GameState::Initialize()
 	mDirectionalLight.diffuse = { 0.7f };
 	mDirectionalLight.specular = { 0.5f };
 
-	mMaterial.ambient = { 0.3f };
-	mMaterial.diffuse = { 0.7f };
-	mMaterial.specular = { 0.5f };
+	mMaterial.ambient = { 1.0f,0.0f,0.0f ,0.0f };
+	mMaterial.diffuse = { 1.0f,0.0f,0.0f ,0.0f };
+	mMaterial.specular = { 1.0f,0.0f,0.0f ,0.0f };
 	mMaterial.power = 1.0f;
 
 	mVertexShader.Initialize("../../Assets/Shaders/DoPhongLighting.fx", VertexPN::Format);
@@ -123,7 +123,7 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Ambient##Material", &mMaterial.ambient.x);
 		ImGui::ColorEdit4("Diffuse##Material", &mMaterial.diffuse.x);
 		ImGui::ColorEdit4("Specular##Material", &mMaterial.specular.x);
-		ImGui::DragFloat("Power##Material", &mMaterial.power, 1.0f, 1.0f, 100.0f);
+		ImGui::DragFloat("Power##Material", &mMaterial.power, 1.0f, 1.0f, 200.0f);
 	}
 	if (ImGui::CollapsingHeader("Transform"))
 	{
