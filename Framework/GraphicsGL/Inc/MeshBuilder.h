@@ -9,6 +9,7 @@ namespace Angazi::GraphicsGL
 		static MeshPX CreateCylinderPX(int height, int radius, int sectors = 16);
 		static MeshPX CreateSpherePX(float radius, int rings = 16, int slices = 16, bool IsInsideOut = false);
 
+		static MeshPN CreateSpherePN(float radius, int rings = 16, int slices = 16);
 	};
 
 }

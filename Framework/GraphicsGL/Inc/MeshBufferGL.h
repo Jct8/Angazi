@@ -8,7 +8,8 @@ namespace Angazi::GraphicsGL
 		enum class Topology
 		{
 			Lines,
-			Triangles
+			Triangles,
+			TrianglesStrip
 		};
 
 		template<class MeshType>

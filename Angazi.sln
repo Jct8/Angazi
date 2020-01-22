@@ -45,6 +45,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA
 		Assets\Shaders\GLBasic.glsl = Assets\Shaders\GLBasic.glsl
 		Assets\Shaders\GLCamera.glsl = Assets\Shaders\GLCamera.glsl
 		Assets\Shaders\GLColor.glsl = Assets\Shaders\GLColor.glsl
+		Assets\Shaders\GLLighting.glsl = Assets\Shaders\GLLighting.glsl
 		Assets\Shaders\GLTexturing.glsl = Assets\Shaders\GLTexturing.glsl
 		Assets\Shaders\SimpleDraw.fx = Assets\Shaders\SimpleDraw.fx
 		Assets\Shaders\SimpleDraw.glsl = Assets\Shaders\SimpleDraw.glsl

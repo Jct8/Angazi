@@ -6,6 +6,8 @@
 #include "Colors.h"
 #include "DebugUI.h"
 #include "GraphicsSystemGL.h"
+#include "LightTypes.h"
+#include "Material.h"
 #include "Mesh.h"
 #include "MeshBufferGL.h"
 #include "MeshBuilder.h"

@@ -28,4 +28,11 @@ namespace Angazi::GraphicsGL
 		float u, v;
 	};
 
+	struct VertexPN
+	{
+		VERTEX_FORMAT(VE_Position | VE_Normal);
+		Math::Vector3 position;
+		Math::Vector3 normal;
+	};
+
 }//namespace Angazi::GraphicsGL

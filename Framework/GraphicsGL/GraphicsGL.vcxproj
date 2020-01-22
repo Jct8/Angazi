@@ -167,6 +167,8 @@
     <ClInclude Include="Inc\DebugUI.h" />
     <ClInclude Include="Inc\GraphicsGL.h" />
     <ClInclude Include="Inc\GraphicsSystemGL.h" />
+    <ClInclude Include="Inc\LightTypes.h" />
+    <ClInclude Include="Inc\Material.h" />
     <ClInclude Include="Inc\Mesh.h" />
     <ClInclude Include="Inc\MeshBufferGL.h" />
     <ClInclude Include="Inc\MeshBuilder.h" />

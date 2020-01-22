@@ -52,6 +52,8 @@ void MeshBufferGL::SetTopology(Topology topology)
 		mTopology = GL_LINES;
 	if (topology == Topology::Triangles)
 		mTopology = GL_TRIANGLES;
+	if (topology == Topology::TrianglesStrip)
+		mTopology = GL_TRIANGLE_STRIP;
 }
 
 void MeshBufferGL::Update(const void * vertexData, uint32_t numVertices)
