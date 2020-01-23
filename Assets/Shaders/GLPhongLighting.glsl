@@ -3,8 +3,7 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aNormal;
 
-out vec3 position;
-out vec3 color;
+out vec4 outColor;
 
 struct TransformBuffer
 {
@@ -25,7 +24,7 @@ struct MaterialBuffer
 {
 	vec4 ambient;
 	vec4 diffuse;
-	vec4 specular
+	vec4 specular;
 	float power;
 }; 
 
@@ -35,36 +34,37 @@ uniform TransformBuffer transform;
 
 void main()
 {
-	vec3 worldPosition = vec4(aPos, 1.0f), transform.World);
+	vec3 worldPosition = (vec4(aPos, 1.0f)*transform.World).xyz;
+	vec3 worldNormal = aPos * mat3x3(transform.World);
 
 	//ambient
-	vec3 ambient = LightBuffer.ambient + MaterialBuffer.ambient;
+	vec4 ambient = light.ambient + material.ambient;
 
 	//diffuse
-	vec3 dirToLight = -LightBuffer.direction;
-	float diffuseIntensity = max(dot(dirToLight, worldNormal),0.0);
-	vec4 diffuse = diffuseIntensity * LightBuffer.diffuse * MaterialBuffer.diffuse;
+	vec3 dirToLight = -light.direction;
+	float diffuseIntensity = clamp(dot(dirToLight, worldNormal),0.0,1.0);
+	vec4 diffuse = diffuseIntensity * light.diffuse * material.diffuse;
 
 	//specular
-	vec3 dirToView = normalize(ViewPosition -  worldPosition);
+	vec3 dirToView = normalize(transform.ViewPosition -  worldPosition);
 	vec3 halfAngle = normalize(dirToLight + dirToView);
-	float  specularBase = max(dot(halfAngle, worldNormal), 0.0);
-	float  specularIntensity = pow(specularBase, MaterialBuffer.power);
-	vec4 specular = specularIntensity * LightBuffer.specular * MaterialBuffer.specular;
+	float specularBase = clamp(dot(halfAngle, worldNormal), 0.0,1.0);
+	float specularIntensity = pow(specularBase, material.power);
+	vec4 specular = specularIntensity * light.specular * material.specular;
 
 	vec4 color = ambient + diffuse + specular;
 
-	gl_Position = WVP * vec4(aPos, 1.0);
-	ourColor = color;
+	gl_Position = transform.WVP * vec4(aPos, 1.0);
+	outColor = color;
 }
 
 #shader fragment
 #version 330 core
 
 out vec4 FragColor;
-in vec4 ourColor;
+in vec4 outColor;
 
 void main()
 {
-	FragColor = ourColor;
+	FragColor = outColor;
 }
