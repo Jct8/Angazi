@@ -21,12 +21,18 @@
     <ClInclude Include="Inc\Graph.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\BFS.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\Graph.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\BFS.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

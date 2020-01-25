@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Inc\AI.h" />
+    <ClInclude Include="Inc\BFS.h" />
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\Graph.h" />
     <ClInclude Include="Src\Precompiled.h" />
@@ -169,6 +170,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\BFS.cpp" />
     <ClCompile Include="Src\Graph.cpp" />
     <ClCompile Include="Src\Precompiled.cpp" />
   </ItemGroup>
