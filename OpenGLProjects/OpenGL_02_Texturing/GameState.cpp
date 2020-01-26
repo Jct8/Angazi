@@ -8,10 +8,10 @@ using namespace Angazi::Math;
 
 void GameState::Initialize()
 {
-	mMeshPX.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , 1.0f, 1.0f });
-	mMeshPX.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , 1.0f, 0.0f });
-	mMeshPX.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , 0.0f, 0.0f });
-	mMeshPX.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , 0.0f, 1.0f });
+	mMeshPX.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , Vector2{1.0f, 1.0f }});
+	mMeshPX.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , Vector2{1.0f, 0.0f }});
+	mMeshPX.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , Vector2{0.0f, 0.0f }});
+	mMeshPX.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , Vector2{0.0f, 1.0f }});
 
 	mMeshPX.indices.push_back(0);
 	mMeshPX.indices.push_back(1);

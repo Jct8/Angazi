@@ -37,9 +37,6 @@ private:
 	LightBuffer mLightBuffer;
 	MaterialBuffer mMaterialBuffer;
 
-	Angazi::Graphics::VertexShader mGouraudShadingVertexShader;
-	Angazi::Graphics::PixelShader mGouraudShadingPixelShader;
-
 	Angazi::Graphics::VertexShader mPhongShadingVertexShader;
 	Angazi::Graphics::PixelShader mPhongShadingPixelShader;
 

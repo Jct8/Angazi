@@ -70,8 +70,8 @@ void GameState::Render()
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
-	mSampler.Bind();
-	mTexture.Bind();
+	mSampler.BindPS();
+	mTexture.BindPS();
 
 	auto matWVP = Transpose(matWorld * matView * matProj);
 

@@ -25,7 +25,7 @@ namespace Angazi::Graphics
 	{
 		VERTEX_FORMAT(VE_Position | VE_TexCoord);
 		Math::Vector3 position;
-		float u, v;
+		Math::Vector2 texcoord;
 	};
 
 	struct VertexPN
@@ -41,8 +41,7 @@ namespace Angazi::Graphics
 		Math::Vector3 position;
 		Math::Vector3 normal;
 		Math::Vector3 tangent;
-		float u, v;
-		//Math::Vector2 texcoord;
+		Math::Vector2 texcoord;
 	};
 
 }//namespace Angazi::Graphics

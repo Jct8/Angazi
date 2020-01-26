@@ -16,7 +16,7 @@ MeshPX MeshBuilder::CreatePlanePX(int height, int width)
 			float u = static_cast<float>(x) / static_cast<float>(width);
 			float v = static_cast<float>(y) / static_cast<float>(height);
 			retMesh.vertices.push_back({
-				Math::Vector3{-0.5f*width + static_cast<float>(x) ,  0.5f*height - static_cast<float>(y)  , 0.0f } , u , v });
+				Math::Vector3{-0.5f*width + static_cast<float>(x) ,  0.5f*height - static_cast<float>(y)  , 0.0f } , Math::Vector2{u , v} });
 
 			if (x != width)
 			{
@@ -46,7 +46,7 @@ MeshPX MeshBuilder::CreateCylinderPX(int height, int radius, int sectors)
 			float v = static_cast<float>(y) / static_cast<float>(height);
 			retMesh.vertices.push_back(
 				{ Math::Vector3{ cosf(theta) * radius, 0.5f*height - y , sinf(theta) * radius }
-				, u , v });
+				, Math::Vector2{u , v } });
 		}
 	}
 
@@ -71,48 +71,30 @@ MeshPX MeshBuilder::CreateCylinderPX(int height, int radius, int sectors)
 MeshPX MeshBuilder::CreateSpherePX(float radius, int rings, int slices, bool IsInsideOut)
 {
 	MeshPX retMesh;
-	float thetaIncrement = Math::Constants::TwoPi / (rings);
-	float phiIncrement = Math::Constants::Pi / (slices);
-	for (float phi = 0; phi <= Math::Constants::Pi + phiIncrement; phi += phiIncrement)
-	{
-		for (float theta = 0; theta < Math::Constants::TwoPi; theta += thetaIncrement)
-		{
-			float u = theta / Math::Constants::TwoPi;
-			float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
-			float newRadius = radius * sinf(phi);
-			retMesh.vertices.push_back(
-				{ Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) }
-				, u , v });
-		}
-	}
-	/*float phi = 0.0f;
+	float phiIncrement = Math::Constants::Pi / (rings);
+	float thetaIncrement = Math::Constants::TwoPi / (slices);
+	float phi = 0.0f;
 	float theta = 0.0f;
-	for (int i = 0; i < slices; i++)
-	{
-		if (i != 0)
-		{
-			phi += phiIncrement;
-		}
-		theta = 0.0f;
-		for (int j = 0; j <= rings; j++)
-		{
-			theta += thetaIncrement;
-			float u = static_cast<float>(j) / rings;
-			float v = 1.0f + static_cast<float>(i) / slices;
-			float newRadius = radius * sinf(phi);
-			retMesh.vertices.push_back(
-				{ Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) }
-				, u , v });
-		}
-		if (i == 0)
-		{
-			phi += phiIncrement;
-		}
-	}*/
 
-	for (int y = 0; y <= slices; y++)
+	for (int i = 0; i <= rings; i++)
 	{
-		for (int x = 0; x <= rings; x++)
+		float v = static_cast<float>(i) / rings;
+		float theta = 0.0f;
+		for (int j = 0; j <= slices; j++)
+		{
+			float u = static_cast<float>(j) / (slices);
+			float newRadius = radius * sinf(phi);
+			Math::Vector3 vec = Math::Vector3{ newRadius* sinf(theta), radius * cosf(phi) , newRadius * -cosf(theta) };
+			retMesh.vertices.push_back(
+				{ vec , Math::Vector2{u , v } });
+			theta += thetaIncrement;
+		}
+		phi += phiIncrement;
+	}
+
+	for (int y = 0; y <= rings; y++)
+	{
+		for (int x = 0; x <= slices; x++)
 		{
 			if (IsInsideOut)
 			{
@@ -143,39 +125,38 @@ MeshPX MeshBuilder::CreateSpherePX(float radius, int rings, int slices, bool IsI
 MeshPN MeshBuilder::CreateSpherePN(float radius, int rings, int slices)
 {
 	MeshPN retMesh;
-	float thetaIncrement = Math::Constants::TwoPi / rings;
-	float phiIncrement = Math::Constants::Pi / slices;
+	float phiIncrement = Math::Constants::Pi / rings;
+	float thetaIncrement = Math::Constants::TwoPi / slices;
+	float phi = 0.0f;
+	float theta = 0.0f;
 
-	for (float phi = 0; phi <= Math::Constants::Pi; phi += Math::Constants::Pi / slices)
+	for (int i = 0; i <= rings; i++)
 	{
-		for (float theta = 0; theta <= Math::Constants::TwoPi; theta += Math::Constants::TwoPi / rings)
+		float v = static_cast<float>(i) / rings;
+		float theta = 0.0f;
+		for (int j = 0; j <= slices; j++)
 		{
+			float u = static_cast<float>(j) / (slices);
 			float newRadius = radius * sinf(phi);
-			Math::Vector3 vec = Math::Vector3{ radius * sinf(phi) * sinf(theta), radius * cosf(phi) , radius * sinf(phi) * -cosf(theta) };
+			Math::Vector3 vec = Math::Vector3{ newRadius* sinf(theta), radius * cosf(phi) , newRadius * -cosf(theta) };
 			retMesh.vertices.push_back(
 				{ vec, Math::Normalize(vec) });
+			theta += thetaIncrement;
 		}
+		phi += phiIncrement;
 	}
 
-	for (int y = 0; y < slices; y++)
+	for (int y = 0; y <= rings; y++)
 	{
-		for (int x = 0; x < rings; x++)
+		for (int x = 0; x <= slices; x++)
 		{
-			auto base = x + (y*rings+y);
-			retMesh.indices.push_back(base);
-			retMesh.indices.push_back(base+rings+2);
-			retMesh.indices.push_back(base+rings+1);
-
-			retMesh.indices.push_back(base);
-			retMesh.indices.push_back(base + 1);
-			retMesh.indices.push_back(base + rings + 2);
-			/*retMesh.indices.push_back(y * slices + x);
+			retMesh.indices.push_back(y * slices + x);
 			retMesh.indices.push_back((y + 1) * slices + x + 1);
 			retMesh.indices.push_back((y + 1) * slices + x);
 
 			retMesh.indices.push_back(y * slices + x);
 			retMesh.indices.push_back(y * slices + x + 1);
-			retMesh.indices.push_back((y + 1)* slices + x + 1);*/
+			retMesh.indices.push_back((y + 1)* slices + x + 1);
 
 		}
 	}
@@ -186,45 +167,97 @@ MeshPN MeshBuilder::CreateSpherePN(float radius, int rings, int slices)
 Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices)
 {
 	Mesh retMesh;
-	float thetaIncrement = Math::Constants::TwoPi / rings;
-	float phiIncrement = Math::Constants::Pi / slices;
+	float phiIncrement = Math::Constants::Pi / rings;
+	float thetaIncrement = Math::Constants::TwoPi / slices;
+	float phi = 0.0f;
+	float theta = 0.0f;
 
-	for (float phi = 0; phi <= Math::Constants::Pi; phi += Math::Constants::Pi / slices)
+	for (int i = 0; i <= rings; i++)
 	{
-		for (float theta = 0; theta <= Math::Constants::TwoPi; theta += Math::Constants::TwoPi / rings)
+		float v = static_cast<float>(i) / rings;
+		float theta = 0.0f;
+		for (int j = 0; j <= slices; j++)
 		{
-			float u = theta / Math::Constants::TwoPi;
-			float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
+			float u = static_cast<float>(j) / (slices);
 			float newRadius = radius * sinf(phi);
-			Math::Vector3 vec = Math::Vector3{ radius * sinf(phi) * sinf(theta), radius * cosf(phi) , radius * sinf(phi) * -cosf(theta) };
+			Math::Vector3 vec = Math::Vector3{ newRadius* sinf(theta), radius * cosf(phi) , newRadius * -cosf(theta) };
 			retMesh.vertices.push_back
 			(
-				{ vec, Math::Normalize(vec) ,Math::Normalize(vec), u,v }
+				{ vec, Math::Normalize(vec) , vec , Math::Vector2{u,v} }
 			);
+			theta += thetaIncrement;
 		}
+		phi += phiIncrement;
 	}
 
-	for (int y = 0; y < slices; y++)
+	for (int y = 0; y <= rings; y++)
 	{
-		for (int x = 0; x < rings; x++)
+		for (int x = 0; x <= slices; x++)
 		{
-			auto base = x + (y*rings + y);
-			retMesh.indices.push_back(base);
-			retMesh.indices.push_back(base + rings + 2);
-			retMesh.indices.push_back(base + rings + 1);
-
-			retMesh.indices.push_back(base);
-			retMesh.indices.push_back(base + 1);
-			retMesh.indices.push_back(base + rings + 2);
-			/*retMesh.indices.push_back(y * slices + x);
+			retMesh.indices.push_back(y * slices + x);
 			retMesh.indices.push_back((y + 1) * slices + x + 1);
 			retMesh.indices.push_back((y + 1) * slices + x);
 
 			retMesh.indices.push_back(y * slices + x);
 			retMesh.indices.push_back(y * slices + x + 1);
-			retMesh.indices.push_back((y + 1)* slices + x + 1);*/
+			retMesh.indices.push_back((y + 1)* slices + x + 1);
 
 		}
 	}
 	return retMesh;
 }
+
+//Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices)
+//{
+//	Mesh retMesh;
+//	float phiIncrement = Math::Constants::Pi / rings;
+//	float thetaIncrement = Math::Constants::TwoPi / slices;
+//
+//	for (float phi = 0; phi <= Math::Constants::Pi ; phi += phiIncrement)
+//	{
+//		for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
+//		{
+//			float u = theta / Math::Constants::TwoPi;
+//			float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
+//			float newRadius = radius * sinf(phi);
+//			Math::Vector3 vec = Math::Vector3{ newRadius* -sinf(theta), radius * cosf(phi) , newRadius * cosf(theta) };
+//			retMesh.vertices.push_back
+//			(
+//				{ vec, Math::Normalize(vec) ,Math::Normalize(vec), Math::Vector2{u,v} }
+//			);
+//		}
+//	}
+//
+//	for (int y = 0; y <= rings; y++)
+//	{
+//		for (int x = 0; x <= slices; x++)
+//		{
+//			/*auto base = x + (y*rings+y);
+//			retMesh.indices.push_back(base);
+//			retMesh.indices.push_back(base+rings+2);
+//			retMesh.indices.push_back(base+rings+1);
+//
+//			retMesh.indices.push_back(base);
+//			retMesh.indices.push_back(base + 1);
+//			retMesh.indices.push_back(base + rings + 2);*/
+//
+//			/*retMesh.indices.push_back(y * slices + x);
+//			retMesh.indices.push_back((y + 1) * slices + x + 2);
+//			retMesh.indices.push_back((y + 1)  * slices + x + 1);
+//
+//			retMesh.indices.push_back(y * slices + x);
+//			retMesh.indices.push_back(y * slices + x + 1);
+//			retMesh.indices.push_back((y + 1)* slices + x + 2);*/
+//
+//			/*retMesh.indices.push_back(y * slices + x);
+//			retMesh.indices.push_back((y + 1) * slices + x + 1);
+//			retMesh.indices.push_back((y + 1) * slices + x);
+//
+//			retMesh.indices.push_back(y * slices + x);
+//			retMesh.indices.push_back(y * slices + x + 1);
+//			retMesh.indices.push_back((y + 1)* slices + x + 1);*/
+//
+//		}
+//	}
+//	return retMesh;
+//}

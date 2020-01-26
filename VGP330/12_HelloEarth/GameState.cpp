@@ -14,7 +14,7 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 0.0f,-3.0f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
-	mMesh = MeshBuilder::CreateSphere(1.0f,100,100);
+	mMesh = MeshBuilder::CreateSphere(1.0f,256,256);
 	mMeshBuffer.Initialize(mMesh);
 
 	mTransformBuffer.Initialize();
@@ -31,13 +31,10 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,0.5f };
 	mMaterial.power = 80.0f;
 
-	mGouraudShadingVertexShader.Initialize("../../Assets/Shaders/DoGouraudShading.fx", VertexPN::Format);
-	mGouraudShadingPixelShader.Initialize("../../Assets/Shaders/DoGouraudShading.fx");
-
 	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/DoPhongShading.fx", Vertex::Format);
 	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/DoPhongShading.fx");
 
-	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Wrap);
+	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	mTexture.Initialize("earth.jpg");
 	mSpecularTexture.Initialize("earth_spec.jpg");
 	mDisplacementTexture.Initialize("earth_bump.jpg");
@@ -51,8 +48,6 @@ void GameState::Terminate()
 	mSampler.Terminate();
 	mPhongShadingPixelShader.Terminate();
 	mPhongShadingVertexShader.Terminate();
-	mGouraudShadingPixelShader.Terminate();
-	mGouraudShadingVertexShader.Terminate();
 	mMaterialBuffer.Terminate();
 	mLightBuffer.Terminate();
 	mTransformBuffer.Terminate();
@@ -121,8 +116,6 @@ void GameState::Render()
 
 	mPhongShadingVertexShader.Bind();
 	mPhongShadingPixelShader.Bind();
-
-	mMeshBuffer.Draw();
 
 	mMeshBuffer.Draw();
 

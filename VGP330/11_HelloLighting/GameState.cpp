@@ -14,7 +14,7 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 0.0f,-2.0f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
-	mMesh = MeshBuilder::CreateSpherePN(1.0f,8,8);
+	mMesh = MeshBuilder::CreateSpherePN(1.0f,50,100);
 	mMeshBuffer.Initialize(mMesh);
 
 	mTransformBuffer.Initialize();
@@ -34,7 +34,7 @@ void GameState::Initialize()
 	mGouraudShadingVertexShader.Initialize("../../Assets/Shaders/DoGouraudShading.fx", VertexPN::Format);
 	mGouraudShadingPixelShader.Initialize("../../Assets/Shaders/DoGouraudShading.fx");
 
-	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/DoPhongShading.fx", VertexPN::Format);
+	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/DoPhongShading.fx", Vertex::Format);
 	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/DoPhongShading.fx");
 }
 

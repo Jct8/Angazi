@@ -137,19 +137,26 @@ namespace
 		}
 		void AddSphere(const Math::Vector3& center, float radius, const Color& color, int slices, int rings, bool fill)
 		{
-			float thetaIncrement = Math::Constants::TwoPi / rings;
-			float phiIncrement = Math::Constants::Pi / slices;
+			float phiIncrement = Math::Constants::Pi / rings;
+			float thetaIncrement = Math::Constants::TwoPi / slices;
 			std::vector<Math::Vector3> list;
 
-			for (float phi = 0; phi <= Math::Constants::Pi + phiIncrement; phi += phiIncrement)
+			float phi = 0.0f;
+			float theta = 0.0f;
+
+			for (int i = 0; i <= rings; i++)
 			{
-				for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
+				float v = static_cast<float>(i) / rings;
+				float theta = 0.0f;
+				for (int j = 0; j <= slices; j++)
 				{
-					float u = theta / Math::Constants::TwoPi;
-					float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
+					float u = static_cast<float>(j) / (slices);
 					float newRadius = radius * sinf(phi);
-					list.push_back(Math::Vector3{ newRadius * cosf(theta), radius * cosf(phi) , newRadius * sinf(theta) } +center);
+					Math::Vector3 vec = Math::Vector3{ newRadius* sinf(theta), radius * cosf(phi) , newRadius * -cosf(theta) };
+					list.push_back(vec + center);
+					theta += thetaIncrement;
 				}
+				phi += phiIncrement;
 			}
 
 			if (mVertexCount + list.size() - 1 > mMaxVertexCount)
@@ -159,7 +166,7 @@ namespace
 
 			for (int y = 0; y <= slices; y++)
 			{
-				for (int x = 0; x <= rings; x++)
+				for (int x = 0; x < rings; x++)
 				{
 					if (!fill)
 					{

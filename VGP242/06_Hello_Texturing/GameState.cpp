@@ -14,15 +14,15 @@ void GameState::Initialize()
 	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
 	//Front Vertices
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , 0.0f , 0.0f });
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , 1.0f , 0.0f });
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , 1.0f , 1.0f });
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , 0.0f , 1.0f });
+	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , Vector2{0.0f , 0.0f }});
+	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , Vector2{1.0f , 0.0f }});
+	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , Vector2{1.0f , 1.0f }});
+	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , Vector2{0.0f , 1.0f }});
 	//Back
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f }  , 0.0f , 0.0f });
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f }  , 1.0f , 0.0f });
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f }  , 1.0f , 1.0f });
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f }  , 0.0f , 1.0f });
+	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f } , Vector2{0.0f , 0.0f }});
+	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f } , Vector2{1.0f , 0.0f }});
+	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f } , Vector2{1.0f , 1.0f }});
+	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f } , Vector2{0.0f , 1.0f }});
 
 	//Front
 	mMesh.indices.push_back(0);
@@ -136,8 +136,8 @@ void GameState::Render()
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
-	mSampler.Bind();
-	mTexture.Bind();
+	mSampler.BindPS();
+	mTexture.BindPS();
 
 	auto matWVP = Transpose(matWorld * matView * matProj);
 
