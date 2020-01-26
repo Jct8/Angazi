@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Common.h"
 
 namespace Angazi::AI
@@ -32,7 +31,7 @@ namespace Angazi::AI
 
 		void Resize(int columns, int rows);
 
-		Node* GetNode(const Coord &coord);
+		Node* GetNode(const Coord & coord);
 		const Node* GetNode(Coord coord) const;
 
 		int GetColumns() const;
@@ -44,5 +43,4 @@ namespace Angazi::AI
 		int mColumns = 0;
 		int mRows = 0;
 	};
-
 }

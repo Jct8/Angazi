@@ -1,9 +1,9 @@
 #include "Precompiled.h"
-#include "BFS.h"
+#include "DFS.h"
 
 using namespace Angazi::AI;
 
-Path BFS::Search(const Graph & graph, const Coord& start, const Coord& end, std::function<bool(Coord)> isBlocked)
+Path DFS::Search(const Graph & graph, const Coord& start, const Coord& end, std::function<bool(Coord)> isBlocked)
 {
 	openList.clear();
 	closedList.clear();
@@ -40,7 +40,7 @@ Path BFS::Search(const Graph & graph, const Coord& start, const Coord& end, std:
 				int neighborIndex = graph.GetIndex(neighbor);
 				if (!opened[neighborIndex] && !isBlocked(neighbor))
 				{
-					openList.push_back(neighbor);
+					openList.push_front(neighbor);
 					opened[neighborIndex] = true;
 					parent[neighborIndex] = current;
 				}

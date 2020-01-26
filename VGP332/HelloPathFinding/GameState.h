@@ -15,5 +15,7 @@ public:
 
 private:
 	Angazi::Graphics::Camera mCamera;
+	Angazi::AI::Graph mGraph;
+
 	TileMap tileMap;
 };

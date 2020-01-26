@@ -167,6 +167,9 @@
     <ClCompile Include="Src\Precompiled.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Framework\AI\AI.vcxproj">
+      <Project>{f1bd903b-178c-463b-af72-101baa27ccc8}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Core\Core.vcxproj">
       <Project>{5bf63145-a348-4b75-8137-f3bc803343fd}</Project>
     </ProjectReference>

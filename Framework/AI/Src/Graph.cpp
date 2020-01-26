@@ -27,22 +27,23 @@ void Graph::Resize(int columns, int rows)
 
 			if (nodeTL != nullptr)
 				mNodes[GetIndex({ x, y })].neighbors.push_back({ x - 1 , y - 1 });
-			if (nodeTT != nullptr)
-				mNodes[GetIndex({ x, y })].neighbors.push_back({ x    , y - 1 });
 			if (nodeTR != nullptr)
 				mNodes[GetIndex({ x, y })].neighbors.push_back({ x + 1 , y - 1 });
-
-			if (nodeML != nullptr)
-				mNodes[GetIndex({ x  , y })].neighbors.push_back({ x - 1 , y });
-			if (nodeMR != nullptr)
-				mNodes[GetIndex({ x , y })].neighbors.push_back({ x + 1 , y });
-
 			if (nodeBL != nullptr)
 				mNodes[GetIndex({ x  , y })].neighbors.push_back({ x - 1 , y + 1 });
-			if (nodeBM != nullptr)
-				mNodes[GetIndex({ x     , y })].neighbors.push_back({ x    , y + 1 });
 			if (nodeBR != nullptr)
 				mNodes[GetIndex({ x  , y })].neighbors.push_back({ x + 1 , y + 1 });
+
+			if (nodeTT != nullptr)
+				mNodes[GetIndex({ x, y })].neighbors.push_back({ x    , y - 1 });
+			if (nodeMR != nullptr)
+				mNodes[GetIndex({ x , y })].neighbors.push_back({ x + 1 , y });
+			if (nodeBM != nullptr)
+				mNodes[GetIndex({ x  , y })].neighbors.push_back({ x    , y + 1 });
+			if (nodeML != nullptr)
+				mNodes[GetIndex({ x  , y })].neighbors.push_back({ x - 1 , y });
+
+
 		}
 	}
 }
@@ -52,15 +53,16 @@ Graph::Node* Graph::GetNode(const Coord &coord)
 	// Homework: Do bound check , then either return & of node, or nullptr;
 	return const_cast<Node*>(static_cast<const Graph*>(this)->GetNode(coord));
 }
+
 const Graph::Node* Graph::GetNode(Coord coord) const
 {
-	// Homework: Do bound check , then either return & of node, or nullptr;
 	if (coord.x < 0 || coord.x >= mColumns || coord.y < 0 || coord.y >= mRows)
 	{
 		return nullptr;
 	}
 	return &mNodes[GetIndex(coord)];
 }
+
 int Graph::GetColumns() const
 {
 	return mColumns;

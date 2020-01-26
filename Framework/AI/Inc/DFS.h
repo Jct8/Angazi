@@ -3,7 +3,7 @@
 
 namespace Angazi::AI
 {
-	class BFS
+	class DFS
 	{
 	public:
 		Path Search(const Graph & Graph, const Coord& start, const Coord& end, std::function<bool(Coord)> isBlocked);
