@@ -37,8 +37,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{151081
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA6B8E-242B-46B4-8366-0A659EFAE1D1}"
 	ProjectSection(SolutionItems) = preProject
+		Assets\Shaders\DoGouraudShading.fx = Assets\Shaders\DoGouraudShading.fx
 		Assets\Shaders\DoNothing.fx = Assets\Shaders\DoNothing.fx
-		Assets\Shaders\DoPhongLighting.fx = Assets\Shaders\DoPhongLighting.fx
+		Assets\Shaders\DoPhongShading.fx = Assets\Shaders\DoPhongShading.fx
 		Assets\Shaders\DoSomething.fx = Assets\Shaders\DoSomething.fx
 		Assets\Shaders\DoTexturing.fx = Assets\Shaders\DoTexturing.fx
 		Assets\Shaders\DoTransform.fx = Assets\Shaders\DoTransform.fx
@@ -96,6 +97,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11_HelloLighting", "VGP330\11_HelloLighting\11_HelloLighting.vcxproj", "{ADD70465-DBDB-4F9A-8BC2-2DD257E992D3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_07_Lighting", "OpenGLProjects\OpenGL_07_Lighting\OpenGL_07_Lighting.vcxproj", "{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12_HelloEarth", "VGP330\12_HelloEarth\12_HelloEarth.vcxproj", "{8D242697-0E78-487E-8AE2-EADE68600172}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -589,6 +592,22 @@ Global
 		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{8D242697-0E78-487E-8AE2-EADE68600172}.Debug|x64.ActiveCfg = Debug|x64
+		{8D242697-0E78-487E-8AE2-EADE68600172}.Debug|x64.Build.0 = Debug|x64
+		{8D242697-0E78-487E-8AE2-EADE68600172}.Debug|x86.ActiveCfg = Debug|Win32
+		{8D242697-0E78-487E-8AE2-EADE68600172}.Debug|x86.Build.0 = Debug|Win32
+		{8D242697-0E78-487E-8AE2-EADE68600172}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{8D242697-0E78-487E-8AE2-EADE68600172}.MinSizeRel|x64.Build.0 = Release|x64
+		{8D242697-0E78-487E-8AE2-EADE68600172}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{8D242697-0E78-487E-8AE2-EADE68600172}.MinSizeRel|x86.Build.0 = Release|Win32
+		{8D242697-0E78-487E-8AE2-EADE68600172}.Release|x64.ActiveCfg = Release|x64
+		{8D242697-0E78-487E-8AE2-EADE68600172}.Release|x64.Build.0 = Release|x64
+		{8D242697-0E78-487E-8AE2-EADE68600172}.Release|x86.ActiveCfg = Release|Win32
+		{8D242697-0E78-487E-8AE2-EADE68600172}.Release|x86.Build.0 = Release|Win32
+		{8D242697-0E78-487E-8AE2-EADE68600172}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{8D242697-0E78-487E-8AE2-EADE68600172}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{8D242697-0E78-487E-8AE2-EADE68600172}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{8D242697-0E78-487E-8AE2-EADE68600172}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -625,12 +644,13 @@ Global
 		{F1BD903B-178C-463B-AF72-101BAA27CCC8} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 		{ADD70465-DBDB-4F9A-8BC2-2DD257E992D3} = {F8400894-831D-4B54-8637-B23ED468BE24}
 		{2D9AE5C3-55D0-4007-8A81-EFE6078898EF} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
+		{8D242697-0E78-487E-8AE2-EADE68600172} = {F8400894-831D-4B54-8637-B23ED468BE24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 30
+		SccNumberOfProjects = 31
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -750,5 +770,9 @@ Global
 		SccProjectTopLevelParentUniqueName29 = Angazi.sln
 		SccProjectName29 = OpenGLProjects/OpenGL_07_Lighting
 		SccLocalPath29 = OpenGLProjects\\OpenGL_07_Lighting
+		SccProjectUniqueName30 = VGP330\\12_HelloEarth\\12_HelloEarth.vcxproj
+		SccProjectTopLevelParentUniqueName30 = Angazi.sln
+		SccProjectName30 = VGP330/12_HelloEarth
+		SccLocalPath30 = VGP330\\12_HelloEarth
 	EndGlobalSection
 EndGlobal

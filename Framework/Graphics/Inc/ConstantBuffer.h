@@ -9,7 +9,7 @@ namespace Angazi::Graphics
 		void Terminate();
 		void BindVS(uint32_t slot = 0) const;
 		void BindPS(uint32_t slot = 0) const;
-		void Update(void* data);
+		void Update(const void* data) const;
 	private:
 		ID3D11Buffer* mConstantBuffer = nullptr;
 	};
@@ -28,7 +28,7 @@ namespace Angazi::Graphics
 
 		void Set(const DataType& data) const
 		{
-			ConstantBuffer::Set(&data);
+			ConstantBuffer::Update(&data);
 		}
 	};
 }

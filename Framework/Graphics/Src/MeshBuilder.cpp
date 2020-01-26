@@ -150,8 +150,6 @@ MeshPN MeshBuilder::CreateSpherePN(float radius, int rings, int slices)
 	{
 		for (float theta = 0; theta <= Math::Constants::TwoPi; theta += Math::Constants::TwoPi / rings)
 		{
-			float u = theta / Math::Constants::TwoPi;
-			float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
 			float newRadius = radius * sinf(phi);
 			Math::Vector3 vec = Math::Vector3{ radius * sinf(phi) * sinf(theta), radius * cosf(phi) , radius * sinf(phi) * -cosf(theta) };
 			retMesh.vertices.push_back(
@@ -182,5 +180,51 @@ MeshPN MeshBuilder::CreateSpherePN(float radius, int rings, int slices)
 		}
 	}
 
+	return retMesh;
+}
+
+Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices)
+{
+	Mesh retMesh;
+	float thetaIncrement = Math::Constants::TwoPi / rings;
+	float phiIncrement = Math::Constants::Pi / slices;
+
+	for (float phi = 0; phi <= Math::Constants::Pi; phi += Math::Constants::Pi / slices)
+	{
+		for (float theta = 0; theta <= Math::Constants::TwoPi; theta += Math::Constants::TwoPi / rings)
+		{
+			float u = theta / Math::Constants::TwoPi;
+			float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
+			float newRadius = radius * sinf(phi);
+			Math::Vector3 vec = Math::Vector3{ radius * sinf(phi) * sinf(theta), radius * cosf(phi) , radius * sinf(phi) * -cosf(theta) };
+			retMesh.vertices.push_back
+			(
+				{ vec, Math::Normalize(vec) ,Math::Normalize(vec), u,v }
+			);
+		}
+	}
+
+	for (int y = 0; y < slices; y++)
+	{
+		for (int x = 0; x < rings; x++)
+		{
+			auto base = x + (y*rings + y);
+			retMesh.indices.push_back(base);
+			retMesh.indices.push_back(base + rings + 2);
+			retMesh.indices.push_back(base + rings + 1);
+
+			retMesh.indices.push_back(base);
+			retMesh.indices.push_back(base + 1);
+			retMesh.indices.push_back(base + rings + 2);
+			/*retMesh.indices.push_back(y * slices + x);
+			retMesh.indices.push_back((y + 1) * slices + x + 1);
+			retMesh.indices.push_back((y + 1) * slices + x);
+
+			retMesh.indices.push_back(y * slices + x);
+			retMesh.indices.push_back(y * slices + x + 1);
+			retMesh.indices.push_back((y + 1)* slices + x + 1);*/
+
+		}
+	}
 	return retMesh;
 }

@@ -66,7 +66,14 @@ void Sampler::Terminate()
 	SafeRelease(mSampler);
 }
 
-void Sampler::Bind() const
+void Sampler::BindVS(uint32_t slot) const
 {
-	GetContext()->PSSetSamplers(0, 1, &mSampler);
+	GetContext()->VSSetSamplers(slot, 1, &mSampler);
+
+}
+
+void Sampler::BindPS(uint32_t slot) const
+{
+	GetContext()->PSSetSamplers(slot, 1, &mSampler);
+
 }

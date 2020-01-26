@@ -15,7 +15,7 @@ public:
 private:
 	Angazi::Graphics::Camera mCamera;
 
-	Angazi::Graphics::MeshPN mMesh;
+	Angazi::Graphics::Mesh mMesh;
 	Angazi::Graphics::MeshBuffer mMeshBuffer;
 
 	Angazi::Graphics::DirectionalLight mDirectionalLight;
@@ -42,6 +42,11 @@ private:
 
 	Angazi::Graphics::VertexShader mPhongShadingVertexShader;
 	Angazi::Graphics::PixelShader mPhongShadingPixelShader;
+
+	Angazi::Graphics::Sampler mSampler;
+	Angazi::Graphics::Texture mTexture;
+	Angazi::Graphics::Texture mSpecularTexture;
+	Angazi::Graphics::Texture mDisplacementTexture;
 
 	Angazi::Math::Vector3 mRotation = 0.0f;
 };
