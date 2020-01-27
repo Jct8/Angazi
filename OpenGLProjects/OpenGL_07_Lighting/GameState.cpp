@@ -13,7 +13,7 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 0.0f,-2.0f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
-	mMesh = MeshBuilder::CreateSpherePN(1.0f,30,30);
+	mMesh = MeshBuilder::CreateSphere(1.0f,30,30);
 	mMeshBuffer.Initialize(mMesh,VertexPN::Format);
 
 	mDirectionalLight.direction = Normalize({ 1.0f, -1.0f,1.0f });
@@ -26,12 +26,14 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f };
 	mMaterial.power = 1.0f;
 
-	mShader.Initialize("../../Assets/GLShaders/GLPhongLighting.glsl");
+	mGouraudShadingShader.Initialize("../../Assets/GLShaders/GLGouraudShading.glsl");
+	mPhongShadingShader.Initialize("../../Assets/GLShaders/GLPhongShading.glsl");
 }
 
 void GameState::Terminate()
 {
-	mShader.Terminate();
+	mPhongShadingShader.Terminate();
+	mGouraudShadingShader.Terminate();
 	mMeshBuffer.Terminate();
 }
 
@@ -61,7 +63,28 @@ void GameState::Update(float deltaTime)
 void GameState::Render()
 {
 
-	auto matTrans = Matrix4::Translation({0.0f});
+	mGouraudShadingShader.SetUniform4f("material.ambient", mMaterial.ambient);
+	mGouraudShadingShader.SetUniform4f("material.diffuse", mMaterial.diffuse);
+	mGouraudShadingShader.SetUniform4f("material.specular",mMaterial.specular);
+	mGouraudShadingShader.SetUniform1f("material.power",  mMaterial.power);
+
+	mGouraudShadingShader.SetUniform4f("light.ambient", mDirectionalLight.ambient);
+	mGouraudShadingShader.SetUniform4f("light.diffuse", mDirectionalLight.diffuse);
+	mGouraudShadingShader.SetUniform4f("light.specular",mDirectionalLight.specular);
+	mGouraudShadingShader.SetUniform3f("light.direction", mDirectionalLight.direction);
+
+	mPhongShadingShader.SetUniform4f("material.ambient", mMaterial.ambient);
+	mPhongShadingShader.SetUniform4f("material.diffuse", mMaterial.diffuse);
+	mPhongShadingShader.SetUniform4f("material.specular", mMaterial.specular);
+	mPhongShadingShader.SetUniform1f("material.power", mMaterial.power);
+
+	mPhongShadingShader.SetUniform4f("light.ambient", mDirectionalLight.ambient);
+	mPhongShadingShader.SetUniform4f("light.diffuse", mDirectionalLight.diffuse);
+	mPhongShadingShader.SetUniform4f("light.specular", mDirectionalLight.specular);
+	mPhongShadingShader.SetUniform3f("light.direction", mDirectionalLight.direction);
+
+	//ball 1
+	auto matTrans = Matrix4::Translation({ 0.0f });
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y);
 	auto matWorld = matRot * matTrans;
 	auto matView = mCamera.GetViewMatrix();
@@ -72,21 +95,27 @@ void GameState::Render()
 	transformData.wvp = Transpose(matWorld * matView *matProj);
 	transformData.viewPosition = mCamera.GetPosition();
 
-	mShader.SetUniformMat4f("transform.WVP", transformData.wvp);
-	mShader.SetUniformMat4f("transform.World", transformData.world);
-	mShader.SetUniform3f("transform.ViewPosition",transformData.viewPosition);
+	mGouraudShadingShader.SetUniformMat4f("transform.WVP", transformData.wvp);
+	mGouraudShadingShader.SetUniformMat4f("transform.World", transformData.world);
+	mGouraudShadingShader.SetUniform3f("transform.ViewPosition", transformData.viewPosition);
 
-	mShader.SetUniform4f("material.ambient", mMaterial.ambient);
-	mShader.SetUniform4f("material.diffuse", mMaterial.diffuse);
-	mShader.SetUniform4f("material.specular",mMaterial.specular);
-	mShader.SetUniform1f("material.power",  mMaterial.power);
+	//mGouraudShadingShader.Bind();
 
-	mShader.SetUniform4f("light.ambient", mDirectionalLight.ambient);
-	mShader.SetUniform4f("light.diffuse", mDirectionalLight.diffuse);
-	mShader.SetUniform4f("light.specular",mDirectionalLight.specular);
-	mShader.SetUniform3f("light.direction", mDirectionalLight.direction);
+	//mMeshBuffer.Draw();
 
-	mShader.Bind();
+	//ball 2
+	matTrans = Matrix4::Translation({ 3.0f,0.0f,0.0f });
+	matWorld = matRot * matTrans;
+
+	transformData.world = Transpose(matWorld);
+	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.viewPosition = mCamera.GetPosition();
+
+	mPhongShadingShader.SetUniformMat4f("transform.WVP", transformData.wvp);
+	mPhongShadingShader.SetUniformMat4f("transform.World", transformData.world);
+	mPhongShadingShader.SetUniform3f("transform.ViewPosition", transformData.viewPosition);
+
+	mPhongShadingShader.Bind();
 
 	mMeshBuffer.Draw();
 

@@ -17,7 +17,7 @@ namespace
 	public:
 		void Initialize(uint32_t maxVertexCount)
 		{
-			mShader.Initialize("../../Assets/Shaders/SimpleDraw.glsl");
+			mShader.Initialize("../../Assets/GLShaders/SimpleDraw.glsl");
 			mMeshBuffer.Initialize<VertexPC>(nullptr, maxVertexCount, VertexPC::Format,true);
 			mLineVertices = std::make_unique<VertexPC[]>(maxVertexCount);
 			m2DLineVertices = std::make_unique<VertexPC[]>(maxVertexCount);
