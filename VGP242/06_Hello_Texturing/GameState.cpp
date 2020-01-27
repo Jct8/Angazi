@@ -90,7 +90,7 @@ void GameState::Initialize()
 	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx",VertexPX::Format);
 	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Border);
-	mTexture.Initialize("GOAT.jpg");
+	mTexture.Initialize("../../Assets/Images/GOAT.jpg");
 }
 
 void GameState::Terminate()

@@ -11,7 +11,7 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f,0.0f,-5.0f });
 	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
-	mShader.Initialize("../../Assets/Shaders/GLCamera.glsl");
+	mShader.Initialize("../../Assets/GLShaders/GLCamera.glsl");
 }
 
 void GameState::Terminate()

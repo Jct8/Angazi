@@ -19,7 +19,7 @@ void GameState::Initialize()
 	mMeshBufferSphere.Initialize(mMeshSphere,VertexPX::Format);
 	mMeshBufferDome.Initialize(mMeshDomeSphere,VertexPX::Format);
 
-	mShader.Initialize("../../Assets/Shaders/GLCamera.glsl");
+	mShader.Initialize("../../Assets/GLShaders/GLCamera.glsl");
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -32,18 +32,18 @@ void GameState::Initialize()
 		mMoonTextures[i].Initialize("Moon.jpg");
 	}
 
-	mPlanetTextures[0].Initialize("Sun.jpg");
-	mPlanetTextures[1].Initialize("Mercury.jpg");
-	mPlanetTextures[2].Initialize("Venus.jpg");
-	mPlanetTextures[3].Initialize("Earth.jpg");
-	mPlanetTextures[4].Initialize("Mars.jpg");
-	mPlanetTextures[5].Initialize("Jupiter.jpg");
-	mPlanetTextures[6].Initialize("Saturn.jpg");
-	mPlanetTextures[7].Initialize("Uranus.jpg");
-	mPlanetTextures[8].Initialize("Neptune.jpg");
-	mPlanetTextures[9].Initialize("Pluto.jpg");
+	mPlanetTextures[0].Initialize("../../Assets/Images/Sun.jpg");
+	mPlanetTextures[1].Initialize("../../Assets/Images/Mercury.jpg");
+	mPlanetTextures[2].Initialize("../../Assets/Images/Venus.jpg");
+	mPlanetTextures[3].Initialize("../../Assets/Images/Earth.jpg");
+	mPlanetTextures[4].Initialize("../../Assets/Images/Mars.jpg");
+	mPlanetTextures[5].Initialize("../../Assets/Images/Jupiter.jpg");
+	mPlanetTextures[6].Initialize("../../Assets/Images/Saturn.jpg");
+	mPlanetTextures[7].Initialize("../../Assets/Images/Uranus.jpg");
+	mPlanetTextures[8].Initialize("../../Assets/Images/Neptune.jpg");
+	mPlanetTextures[9].Initialize("../../Assets/Images/Pluto.jpg");
 
-	mDomeTexture.Initialize("Stars.jpg");
+	mDomeTexture.Initialize("../../Assets/Images/Stars.jpg");
 
 	mSelfRotationSpeed[0] = 0.0f;
 	mSelfRotationSpeed[1] = 0.2f;

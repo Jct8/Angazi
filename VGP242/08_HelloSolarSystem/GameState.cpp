@@ -33,21 +33,21 @@ void GameState::Initialize()
 		mScale.emplace_back();
 		mTranslation.emplace_back();
 		mMoonTextures.emplace_back();
-		mMoonTextures[i].Initialize("Moon.jpg");
+		mMoonTextures[i].Initialize("../../Assets/Images/Moon.jpg");
 	}
 
-	mPlanetTextures[0].Initialize("Sun.jpg");
-	mPlanetTextures[1].Initialize("Mercury.jpg");
-	mPlanetTextures[2].Initialize("Venus.jpg");
-	mPlanetTextures[3].Initialize("Earth.jpg");
-	mPlanetTextures[4].Initialize("Mars.jpg");
-	mPlanetTextures[5].Initialize("Jupiter.jpg");
-	mPlanetTextures[6].Initialize("Saturn.jpg");
-	mPlanetTextures[7].Initialize("Uranus.jpg");
-	mPlanetTextures[8].Initialize("Neptune.jpg");
-	mPlanetTextures[9].Initialize("Pluto.jpg");
+	mPlanetTextures[0].Initialize("../../Assets/Images/Sun.jpg");
+	mPlanetTextures[1].Initialize("../../Assets/Images/Mercury.jpg");
+	mPlanetTextures[2].Initialize("../../Assets/Images/Venus.jpg");
+	mPlanetTextures[3].Initialize("../../Assets/Images/Earth.jpg");
+	mPlanetTextures[4].Initialize("../../Assets/Images/Mars.jpg");
+	mPlanetTextures[5].Initialize("../../Assets/Images/Jupiter.jpg");
+	mPlanetTextures[6].Initialize("../../Assets/Images/Saturn.jpg");
+	mPlanetTextures[7].Initialize("../../Assets/Images/Uranus.jpg");
+	mPlanetTextures[8].Initialize("../../Assets/Images/Neptune.jpg");
+	mPlanetTextures[9].Initialize("../../Assets/Images/Pluto.jpg");
 
-	mDomeTexture.Initialize("Stars.jpg");
+	mDomeTexture.Initialize("../../Assets/Images/Stars.jpg");
 
 	mSelfRotationSpeed[0] = 0.0f;
 	mSelfRotationSpeed[1] = 0.2f;
@@ -126,7 +126,7 @@ void GameState::Render()
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
-	mSampler.BindPS();
+	mSampler.BindVS();
 
 	for (int i = 0; i <mPlanetTextures.size(); i++)
 	{
@@ -139,6 +139,7 @@ void GameState::Render()
 
 		mConstantBuffer.Update(&matWVP);
 		mPlanetTextures[i].BindVS();
+		mPlanetTextures[i].BindPS();
 		mMeshBufferSphere.Draw();
 
 		//Moon
@@ -149,6 +150,7 @@ void GameState::Render()
 		auto matMoonWVP = Transpose(matMoonScale *matMoonSelfRotation * matMoonTrans * matMoon * matTrans * matWorld * matView * matProj);
 		
 		mMoonTextures[i].BindVS();
+		mMoonTextures[i].BindPS();
 		mConstantBuffer.Update(&matMoonWVP);
 		mMeshBufferSphere.Draw();
 	}
@@ -158,6 +160,7 @@ void GameState::Render()
 	auto matWVP = Transpose(matScale * matWorld * matView * matProj);
 
 	mDomeTexture.BindVS();
+	mDomeTexture.BindPS();
 	mConstantBuffer.Update(&matWVP);
 	mMeshBufferDome.Draw();
 }

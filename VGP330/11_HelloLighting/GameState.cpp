@@ -11,10 +11,10 @@ void GameState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
-	mCamera.SetPosition({ 0.0f, 0.0f,-2.0f });
+	mCamera.SetPosition({ 0.0f, 0.0f,-4.0f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
-	mMesh = MeshBuilder::CreateSpherePN(1.0f,50,100);
+	mMesh = MeshBuilder::CreateSphere(1.0f, 16, 16);
 	mMeshBuffer.Initialize(mMesh);
 
 	mTransformBuffer.Initialize();
@@ -26,9 +26,9 @@ void GameState::Initialize()
 	mDirectionalLight.diffuse = { 0.7f };
 	mDirectionalLight.specular = { 0.5f };
 
-	mMaterial.ambient = { 1.0f,0.0f,0.0f ,0.0f };
-	mMaterial.diffuse = { 1.0f,0.0f,0.0f ,0.0f };
-	mMaterial.specular = { 1.0f,0.0f,0.0f ,0.0f };
+	mMaterial.ambient = { 0.3f };
+	mMaterial.diffuse = { 0.7f };
+	mMaterial.specular = { 0.5f };
 	mMaterial.power = 80.0f;
 
 	mGouraudShadingVertexShader.Initialize("../../Assets/Shaders/DoGouraudShading.fx", VertexPN::Format);
@@ -36,14 +36,33 @@ void GameState::Initialize()
 
 	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/DoPhongShading.fx", Vertex::Format);
 	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/DoPhongShading.fx");
+
+	mPointPhongShadingVertexShader.Initialize("../../Assets/Shaders/DoPhongPointShading.fx", Vertex::Format);
+	mPointPhongShadingPixelShader.Initialize("../../Assets/Shaders/DoPhongPointShading.fx");
+
+	mFlatShadingVertexShader.Initialize("../../Assets/Shaders/DoFlatShading.fx", VertexPN::Format);
+	mFlatShadingPixelShader.Initialize("../../Assets/Shaders/DoFlatShading.fx");
+
+	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
+	mTexture.Initialize("../../Assets/Images/white.jpg");
+	mSpecularTexture.Initialize("../../Assets/Images/white.jpg");
 }
 
 void GameState::Terminate()
 {
+	mSpecularTexture.Terminate();
+	mTexture.Terminate();
+	mSampler.Terminate();
+
+	mFlatShadingPixelShader.Terminate();
+	mFlatShadingVertexShader.Terminate();
+	mPointPhongShadingPixelShader.Terminate();
+	mPointPhongShadingVertexShader.Terminate();
 	mPhongShadingPixelShader.Terminate();
 	mPhongShadingVertexShader.Terminate();
 	mGouraudShadingPixelShader.Terminate();
 	mGouraudShadingVertexShader.Terminate();
+
 	mMaterialBuffer.Terminate();
 	mLightBuffer.Terminate();
 	mTransformBuffer.Terminate();
@@ -68,10 +87,8 @@ void GameState::Update(float deltaTime)
 
 	if (inputSystem->IsKeyDown(KeyCode::A))
 		mCamera.Strafe(-kMoveSpeed * deltaTime);
-	//mRotation += deltaTime;
 	if (inputSystem->IsKeyDown(KeyCode::D))
 		mCamera.Strafe(kMoveSpeed*deltaTime);
-	//mRotation -= deltaTime;
 
 }
 
@@ -79,7 +96,7 @@ void GameState::Render()
 {
 	auto context = GraphicsSystem::Get()->GetContext();
 
-	auto matTrans = Matrix4::Translation({-1.25f,0.0f,0.0f});
+	auto matTrans = Matrix4::Translation({ -1.0f,0.0f,0.0f });
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y);
 	auto matWorld = matRot * matTrans;
 	auto matView = mCamera.GetViewMatrix();
@@ -96,7 +113,7 @@ void GameState::Render()
 	mMaterialBuffer.BindVS(2);
 	mMaterialBuffer.BindPS(2);
 
-	//ball 1
+	//ball 1 - gouroud
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
 	transformData.viewPosition = mCamera.GetPosition();
@@ -107,8 +124,29 @@ void GameState::Render()
 
 	mMeshBuffer.Draw();
 
-	//ball 2
-	matTrans = Matrix4::Translation({ 1.25f,0.0f,0.0f });
+	//ball 2 - flat
+	matTrans = Matrix4::Translation({ -3.0f,0.0f,0.0f });
+	matWorld = matRot * matTrans;
+
+	transformData.world = Transpose(matWorld);
+	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.viewPosition = mCamera.GetPosition();
+	mTransformBuffer.Update(&transformData);
+
+	mFlatShadingVertexShader.Bind();
+	mFlatShadingPixelShader.Bind();
+
+	mMeshBuffer.Draw();
+
+	//ball 3 - phong
+	mSampler.BindVS();
+	mSampler.BindPS();
+	mTexture.BindPS(0);
+	mTexture.BindVS(0);
+	mSpecularTexture.BindPS(1);
+	mSpecularTexture.BindVS(1);
+
+	matTrans = Matrix4::Translation({ 1.5f,0.0f,0.0f });
 	matWorld = matRot * matTrans;
 
 	transformData.world = Transpose(matWorld);
@@ -121,12 +159,27 @@ void GameState::Render()
 
 	mMeshBuffer.Draw();
 
+	//ball 4 - phong point
+
+	matTrans = Matrix4::Translation({ 3.75f,0.0f,0.0f });
+	matWorld = matRot * matTrans;
+
+	transformData.world = Transpose(matWorld);
+	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.viewPosition = mCamera.GetPosition();
+	mTransformBuffer.Update(&transformData);
+
+	mPointPhongShadingVertexShader.Bind();
+	mPointPhongShadingPixelShader.Bind();
+
+	mMeshBuffer.Draw();
+
 }
 
 void GameState::DebugUI()
 {
-	ImGui::Begin("Setting",nullptr,ImGuiWindowFlags_AlwaysAutoResize);
-	if (ImGui::CollapsingHeader("Light",ImGuiTreeNodeFlags_DefaultOpen))
+	ImGui::Begin("Setting", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		bool directionChanged = false;
 		directionChanged |= ImGui::DragFloat("Direction X##Light", &mDirectionalLight.direction.x, 0.01f, -1.0f, 1.0f);

@@ -23,10 +23,10 @@ void GameState::Initialize()
 
 	mMeshBuffer.Initialize(mMeshPX, VertexPX::Format);
 
-	mShader.Initialize("../../Assets/Shaders/GLTexturing.glsl");
+	mShader.Initialize("../../Assets/GLShaders/GLTexturing.glsl");
 	mShader.Bind();
 
-	mTexture.Initialize("Goat.jpg");
+	mTexture.Initialize("../../Assets/Images/Goat.jpg");
 }
 
 void GameState::Terminate()

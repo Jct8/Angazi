@@ -35,9 +35,9 @@ void GameState::Initialize()
 	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/DoPhongShading.fx");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mTexture.Initialize("earth.jpg");
-	mSpecularTexture.Initialize("earth_spec.jpg");
-	mDisplacementTexture.Initialize("earth_bump.jpg");
+	mTexture.Initialize("../../Assets/Images/earth.jpg");
+	mSpecularTexture.Initialize("../../Assets/Images/earth_spec.jpg");
+	mDisplacementTexture.Initialize("../../Assets/Images/earth_bump.jpg");
 }
 
 void GameState::Terminate()

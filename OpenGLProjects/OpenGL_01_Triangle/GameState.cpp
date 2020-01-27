@@ -18,7 +18,7 @@ void GameState::Initialize()
 
 	mMeshBuffer.Initialize(mMeshPC, VertexPC::Format);
 
-	mShader.Initialize("../../Assets/Shaders/GLColor.glsl");
+	mShader.Initialize("../../Assets/GLShaders/GLColor.glsl");
 	mShader.Bind();
 
 }

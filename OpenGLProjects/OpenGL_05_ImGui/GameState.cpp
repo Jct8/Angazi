@@ -78,9 +78,9 @@ void GameState::Initialize()
 
 	mMeshBuffer.Initialize(mMesh, VertexPX::Format);
 
-	mShader.Initialize("../../Assets/Shaders/GLCamera.glsl");
+	mShader.Initialize("../../Assets/GLShaders/GLCamera.glsl");
 
-	mTexture.Initialize("Goat.jpg");
+	mTexture.Initialize("../../Assets/Images/Goat.jpg");
 }
 
 void GameState::Terminate()

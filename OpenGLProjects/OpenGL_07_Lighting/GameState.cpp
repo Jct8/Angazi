@@ -26,7 +26,7 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f };
 	mMaterial.power = 1.0f;
 
-	mShader.Initialize("../../Assets/Shaders/GLPhongLighting.glsl");
+	mShader.Initialize("../../Assets/GLShaders/GLPhongLighting.glsl");
 }
 
 void GameState::Terminate()

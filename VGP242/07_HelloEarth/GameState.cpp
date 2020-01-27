@@ -23,7 +23,7 @@ void GameState::Initialize()
 	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx",VertexPX::Format);
 	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Wrap);
-	mTexture.Initialize("Earth.jpg");
+	mTexture.Initialize("../../Assets/Images/Earth.jpg");
 }
 
 void GameState::Terminate()
