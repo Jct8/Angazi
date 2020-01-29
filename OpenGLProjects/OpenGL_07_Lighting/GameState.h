@@ -16,7 +16,9 @@ private:
 	Angazi::GraphicsGL::CameraGL mCamera;
 
 	Angazi::GraphicsGL::Mesh mMesh;
+	Angazi::GraphicsGL::MeshPN mGMesh;
 	Angazi::GraphicsGL::MeshBufferGL mMeshBuffer;
+	Angazi::GraphicsGL::MeshBufferGL mMeshGBuffer;
 
 	Angazi::GraphicsGL::DirectionalLight mDirectionalLight;
 	Angazi::GraphicsGL::Material mMaterial;
@@ -30,9 +32,9 @@ private:
 	};
 
 	Angazi::GraphicsGL::Shader mGouraudShadingShader;
-
 	Angazi::GraphicsGL::Shader mPhongShadingShader;
 
+	Angazi::GraphicsGL::TextureGL mTexture;
 
 	Angazi::Math::Vector3 mRotation = 0.0f;
 };

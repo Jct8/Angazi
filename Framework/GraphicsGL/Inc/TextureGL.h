@@ -9,6 +9,7 @@ namespace Angazi::GraphicsGL
 		void Terminate();
 
 		void Bind(unsigned int slot = 0) const;
+		void Bind(const std::string &name,unsigned int slot = 0) const;
 	private:
 		unsigned int mTextureID;
 	};

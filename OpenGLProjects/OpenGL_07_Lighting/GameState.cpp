@@ -14,7 +14,10 @@ void GameState::Initialize()
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
 	mMesh = MeshBuilder::CreateSphere(1.0f,30,30);
-	mMeshBuffer.Initialize(mMesh,VertexPN::Format);
+	mMeshBuffer.Initialize(mMesh,Vertex::Format);
+	mGMesh = MeshBuilder::CreateSpherePN(1.0f, 30, 30);
+	mMeshGBuffer.Initialize(mGMesh, VertexPN::Format);
+
 
 	mDirectionalLight.direction = Normalize({ 1.0f, -1.0f,1.0f });
 	mDirectionalLight.ambient = { 0.3f };
@@ -28,13 +31,17 @@ void GameState::Initialize()
 
 	mGouraudShadingShader.Initialize("../../Assets/GLShaders/GLGouraudShading.glsl");
 	mPhongShadingShader.Initialize("../../Assets/GLShaders/GLPhongShading.glsl");
+
+	mTexture.Initialize("../../Assets/Images/white.jpg");
 }
 
 void GameState::Terminate()
 {
+	mTexture.Terminate();
 	mPhongShadingShader.Terminate();
 	mGouraudShadingShader.Terminate();
 	mMeshBuffer.Terminate();
+	mMeshGBuffer.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -83,6 +90,11 @@ void GameState::Render()
 	mPhongShadingShader.SetUniform4f("light.specular", mDirectionalLight.specular);
 	mPhongShadingShader.SetUniform3f("light.direction", mDirectionalLight.direction);
 
+	mPhongShadingShader.SetUniform4f("light2.ambient", mDirectionalLight.ambient);
+	mPhongShadingShader.SetUniform4f("light2.diffuse", mDirectionalLight.diffuse);
+	mPhongShadingShader.SetUniform4f("light2.specular", mDirectionalLight.specular);
+	mPhongShadingShader.SetUniform3f("light2.direction", mDirectionalLight.direction);
+
 	//ball 1
 	auto matTrans = Matrix4::Translation({ 0.0f });
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y);
@@ -100,10 +112,13 @@ void GameState::Render()
 	mGouraudShadingShader.SetUniform3f("transform.ViewPosition", transformData.viewPosition);
 
 	//mGouraudShadingShader.Bind();
-
-	//mMeshBuffer.Draw();
+	//mMeshGBuffer.Draw();
 
 	//ball 2
+	mTexture.Bind("diffuseMap");
+	mTexture.Bind("displacementMap",1);
+	mTexture.Bind("specularMap",2);
+
 	matTrans = Matrix4::Translation({ 3.0f,0.0f,0.0f });
 	matWorld = matRot * matTrans;
 

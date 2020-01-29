@@ -3,7 +3,7 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aNormal;
 layout (location = 2) in vec3 aTangent;
-layout (location = 3) in vec2 aTextureCoords;
+layout (location = 3) in vec2 aTexCoord;
 
 out vec4 outPos;
 out vec3 outNormal;
@@ -32,28 +32,21 @@ uniform LightBuffer light;
 
 void main()
 {
-	float displacement =  texture(displacementMap, aTextureCoords).x;
+	float displacement =  texture(displacementMap, aTexCoord).x;
 	vec3 localPosition = aPos+ (aNormal* displacement * 0.0f);
 	vec3 worldPosition = (vec4(localPosition, 1.0)* transform.World).xyz;
 	vec3 worldNormal = aNormal * mat3x3(transform.World);
 
-	outPos = vec4(localPosition, 1.0)* transform.World;
+	outPos =  transform.WVP * vec4(localPosition, 1.0);
 	outNormal = worldNormal;
 	outDirToLight = light.direction;
 	outDirToView = normalize(transform.ViewPosition - worldPosition);
-	outTexCoord = aTextureCoords;
+	outTexCoord = vec2(aTexCoord.x, aTexCoord.y);;
 	gl_Position = outPos;
 }
 
 #shader fragment
 #version 330 core
-
-struct TransformBuffer
-{
-	mat4 WVP;
-	mat4 World;
-	vec3 ViewPosition;
-};
 
 struct LightBuffer 
 {
@@ -72,8 +65,7 @@ struct MaterialBuffer
 }; 
 
 uniform MaterialBuffer material;
-uniform LightBuffer light;
-uniform TransformBuffer transform;
+uniform LightBuffer light2;
 
 in vec4 outPos;
 in vec3 outNormal;
@@ -93,22 +85,22 @@ void main()
 	vec3 dirToView = normalize(outDirToView);
 
 	//ambient
-	vec4 ambient = light.ambient + material.ambient;
+	vec4 ambient = light2.ambient + material.ambient;
 
 	//diffuse
 	float diffuseIntensity = clamp(dot(dirToLight, worldNormal),0.0,1.0);
-	vec4 diffuse = diffuseIntensity * light.diffuse * material.diffuse;
+	vec4 diffuse = diffuseIntensity * light2.diffuse * material.diffuse;
 
 	//specular
 	vec3 halfAngle = normalize(dirToLight + dirToView);
 	float specularBase = clamp(dot(halfAngle, worldNormal), 0.0,1.0);
 	float specularIntensity = pow(specularBase, material.power);
-	vec4 specular = specularIntensity * light.specular * material.specular;
+	vec4 specular = specularIntensity * light2.specular * material.specular;
 
 	vec4 mainTexture = texture(diffuseMap, outTexCoord);
 	float specularFactor = texture(specularMap, outTexCoord).x;
 
 	vec4 color = (ambient + diffuse) *mainTexture + specular * specularFactor;
 
-	FragColor = vec4(0.0f,0.0f,0.0f,0.0f);
+	FragColor = color; //texture(diffuseMap, outTexCoord);//
 }

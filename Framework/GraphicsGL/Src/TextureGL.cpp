@@ -37,3 +37,9 @@ void TextureGL::Bind(unsigned int slot) const
 	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(GL_TEXTURE_2D, mTextureID);
 }
+
+void TextureGL::Bind(const std::string & name, unsigned int slot) const
+{
+	Bind(slot);
+	glUniform1i(glGetUniformLocation(mTextureID, name.c_str()), slot);
+}
