@@ -20,6 +20,8 @@ private:
 	Angazi::AI::Graph mGraph; 
 	Angazi::AI::BFS mBFS;
 	Angazi::AI::DFS mDFS;
+	Angazi::AI::Dijkstras mDijkstras;
+	Angazi::AI::AStar mAStar;
 	Angazi::AI::Path path;
 
 	std::list<Angazi::AI::Coord> closedList;

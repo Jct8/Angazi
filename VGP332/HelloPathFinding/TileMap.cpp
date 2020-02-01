@@ -14,8 +14,8 @@ void TileMap::Load()
 	//mTextureIds[4] = Angazi::LoadTexture("tree2.png");
 	//mTextureIds[5] = Angazi::LoadTexture("tree3.png");
 
-	mColumns = 10;
-	mRows = 10;
+	mColumns = 25;
+	mRows = 20;
 	mTiles.resize(mColumns*mRows, 0);
 	
 	mGraph.Resize(mColumns, mRows);
@@ -59,17 +59,48 @@ void TileMap::Update(float deltaTime)
 
 	if (mUpdate)
 	{
+		auto isBlocked = [this](AI::Coord coord) {return mTiles[mGraph.GetIndex(coord)] > 1; };
+		auto getCost = [this](AI::Coord to, AI::Coord from) {return (to.x != from.x && to.y != from.y) ? 1.4142 : 1.0f; };
+		auto getHeuristicEuclid = [this](AI::Coord to, AI::Coord from)
+		{
+			return Math::Distance({ static_cast<float>(to.x),static_cast<float>(to.y) }
+			, { static_cast<float>(from.x),static_cast<float>(from.y) });
+		};
+
+		auto getHeuristicDiagonal = [this](AI::Coord to, AI::Coord from)
+		{
+			return abs(static_cast<float>(from.x) - static_cast<float>(to.x))
+				+ abs(static_cast<float>(from.y) - static_cast<float>(to.y));
+		};
+
+		auto getHeuristicManhattan = [this](AI::Coord to, AI::Coord from)
+		{
+			return Math::Max(
+				abs(static_cast<float>(from.x) - static_cast<float>(to.x))
+				, abs(static_cast<float>(from.y) - static_cast<float>(to.y)));
+		};
+
 		switch (mSearchType)
 		{
 		case 0:
-			path = mDFS.Search(mGraph, mStartPosition, mEndPosition, [this](AI::Coord coord) {return mTiles[mGraph.GetIndex(coord)] > 1; });
+			path = mDFS.Search(mGraph, mStartPosition, mEndPosition, isBlocked);
 			closedList = mDFS.GetClosedList();
 			parentList = mDFS.GetParents();
 			break;
 		case 1:
-			path = mBFS.Search(mGraph, mStartPosition, mEndPosition, [this](AI::Coord coord) {return mTiles[mGraph.GetIndex(coord)] > 1; });
+			path = mBFS.Search(mGraph, mStartPosition, mEndPosition, isBlocked);
 			closedList = mBFS.GetClosedList();
 			parentList = mBFS.GetParents();
+			break;
+		case 2:
+			path = mDijkstras.Search(mGraph, mStartPosition, mEndPosition, isBlocked, getCost);
+			closedList = mDijkstras.GetClosedList();
+			parentList = mDijkstras.GetParents();
+			break;
+		case 3:
+			path = mAStar.Search(mGraph, mStartPosition, mEndPosition, isBlocked, getCost, getHeuristicEuclid);
+			closedList = mAStar.GetClosedList();
+			parentList = mAStar.GetParents();
 			break;
 		default:
 			break;
@@ -182,6 +213,16 @@ void TileMap::DebugUI()
 		if (ImGui::RadioButton("BFS:", &mSearchType, 1))
 		{
 			mSearchType = 1;
+			mUpdate = true;
+		}
+		if (ImGui::RadioButton("Dijkstras:", &mSearchType, 2))
+		{
+			mSearchType = 2;
+			mUpdate = true;
+		}
+		if (ImGui::RadioButton("AStar:", &mSearchType, 3))
+		{
+			mSearchType = 3;
 			mUpdate = true;
 		}
 	}

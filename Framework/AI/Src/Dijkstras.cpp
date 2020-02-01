@@ -3,17 +3,20 @@
 
 using namespace Angazi::AI;
 
-Path Dijkstras::Search(const Graph & graph, const Coord& start, const Coord& end, std::function<bool(Coord)> isBlocked)
+Path Dijkstras::Search(const Graph & graph, const Coord& start, const Coord& end, std::function<bool(Coord)> isBlocked, std::function<float(Coord, Coord)> getCost)
 {
 	openList.clear();
 	closedList.clear();
 	parent.clear();
+	g.clear();
 	opened.clear();
 	closed.clear();
 
-	parent.resize(graph.GetColumns() * graph.GetRows());
-	opened.resize(graph.GetColumns() * graph.GetRows());
-	closed.resize(graph.GetColumns() * graph.GetRows());
+	const int nodeCount = graph.GetColumns()*graph.GetRows();
+	parent.resize(nodeCount);
+	g.resize(nodeCount, 0.0f);
+	opened.resize(nodeCount);
+	closed.resize(nodeCount);
 
 	// Add start to the open list
 	openList.push_back(start);
@@ -37,12 +40,53 @@ Path Dijkstras::Search(const Graph & graph, const Coord& start, const Coord& end
 			auto currentNode = graph.GetNode(current);
 			for (auto neighbor : currentNode->neighbors)
 			{
-				int neighborIndex = graph.GetIndex(neighbor);
-				if (!opened[neighborIndex] && !isBlocked(neighbor))
+				//If the neighbour is blocked, skip it
+				const int neighborIndex = graph.GetIndex(neighbor);
+				if (isBlocked(neighbor) || closed[neighborIndex])
+					continue;
+
+				const float cost = g[graph.GetIndex(current)] + getCost(current, neighbor);
+				if (!opened[neighborIndex])
 				{
 					openList.push_back(neighbor);
 					opened[neighborIndex] = true;
 					parent[neighborIndex] = current;
+					g[neighborIndex] = cost;
+
+					//Wrong! Cannot just add to back
+					// openList.push_back(neighbour);
+
+					//for()
+					//	check if cost < g[i]
+					//		insert
+
+					std::list<Coord>::iterator iter = openList.begin();
+					for (; iter != openList.end(); iter++)
+					{
+						if (cost < g[graph.GetIndex(*iter)])
+						{
+							openList.insert(iter, neighbor);
+							break;
+						}
+					}
+				}
+				else if (cost < g[neighborIndex])
+				{
+					// update parent
+					parent[neighborIndex] = current;
+					// update g
+					g[neighborIndex] = cost;
+					// remove and re-insert using new g to sort
+					openList.remove(neighbor);
+					std::list<Coord>::iterator iter = openList.begin();
+					for (; iter != openList.end(); iter++)
+					{
+						if (cost < g[graph.GetIndex(*iter)])
+						{
+							openList.insert(iter, neighbor);
+							break;
+						}
+					}
 				}
 			}
 		}
