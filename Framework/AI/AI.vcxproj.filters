@@ -27,6 +27,12 @@
     <ClInclude Include="Inc\DFS.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Dijkstras.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\AStar.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -39,6 +45,12 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\DFS.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Dijkstras.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\AStar.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
