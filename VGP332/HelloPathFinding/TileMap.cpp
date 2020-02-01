@@ -67,7 +67,7 @@ void TileMap::Update(float deltaTime)
 			parentList = mDFS.GetParents();
 			break;
 		case 1:
-			path = mBFS.Search(mGraph, mStartPosition, mEndPosition, [this](AI::Coord coord) {return mTiles[mGraph.GetIndex(coord)] != 0; });
+			path = mBFS.Search(mGraph, mStartPosition, mEndPosition, [this](AI::Coord coord) {return mTiles[mGraph.GetIndex(coord)] > 1; });
 			closedList = mBFS.GetClosedList();
 			parentList = mBFS.GetParents();
 			break;
