@@ -20,6 +20,7 @@ void GameState::Initialize()
 	mTransformBuffer.Initialize();
 	mLightBuffer.Initialize();
 	mMaterialBuffer.Initialize();
+	mSettingsBuffer.Initialize();
 
 	mDirectionalLight.direction = Normalize({ 1.0f, -1.0f,1.0f });
 	mDirectionalLight.ambient = { 0.3f,0.3f,0.3f ,0.3f };
@@ -31,23 +32,30 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,0.5f };
 	mMaterial.power = 80.0f;
 
-	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/DoPhongShading.fx", Vertex::Format);
-	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/DoPhongShading.fx");
+	mSettings.normalMapWeight = 1.0f;
+	mSettings.specularMapWeight = 1.0f;
+
+	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/Standard.fx", Vertex::Format);
+	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/Standard.fx");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mTexture.Initialize("../../Assets/Images/earth.jpg");
+	//mTexture.Initialize("../../Assets/Images/earth.jpg");
+	mTexture.Initialize("../../Assets/Images/8k_earth.jpg");
 	mSpecularTexture.Initialize("../../Assets/Images/earth_spec.jpg");
 	mDisplacementTexture.Initialize("../../Assets/Images/earth_bump.jpg");
+	mNormalMap.Initialize("../../Assets/Images/earth_normal.jpg");
 }
 
 void GameState::Terminate()
 {
+	mNormalMap.Terminate();
 	mDisplacementTexture.Terminate();
 	mTexture.Terminate();
 	mSpecularTexture.Terminate();
 	mSampler.Terminate();
 	mPhongShadingPixelShader.Terminate();
 	mPhongShadingVertexShader.Terminate();
+	mSettingsBuffer.Terminate();
 	mMaterialBuffer.Terminate();
 	mLightBuffer.Terminate();
 	mTransformBuffer.Terminate();
@@ -91,12 +99,14 @@ void GameState::Render()
 
 	mSampler.BindVS();
 	mSampler.BindPS();
+
 	mTexture.BindPS(0);
-	mTexture.BindVS(0);
-	mSpecularTexture.BindVS(1);
+	//mTexture.BindVS(0);
+	//mSpecularTexture.BindVS(1);
 	mSpecularTexture.BindPS(1);
 	mDisplacementTexture.BindVS(2);
-	mDisplacementTexture.BindPS(2);
+	//mDisplacementTexture.BindPS(2);
+	mNormalMap.BindPS(3);
 
 	TransformData transformData;
 	mTransformBuffer.BindVS(0);
@@ -109,6 +119,10 @@ void GameState::Render()
 	mMaterialBuffer.BindVS(2);
 	mMaterialBuffer.BindPS(2);
 
+	mSettingsBuffer.Update(&mSettings);
+	mSettingsBuffer.BindVS(3);
+	mSettingsBuffer.BindPS(3);
+	
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
 	transformData.viewPosition = mCamera.GetPosition();
@@ -144,6 +158,21 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Diffuse##Material", &mMaterial.diffuse.x);
 		ImGui::ColorEdit4("Specular##Material", &mMaterial.specular.x);
 		ImGui::DragFloat("Power##Material", &mMaterial.power, 1.0f, 1.0f, 100.0f);
+	}
+	if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		static bool normal = true;
+		static bool specular = true;
+		ImGui::SliderFloat("Displacement", &mSettings.bumpMapWeight, 0.0f, 1.0f);
+		if(ImGui::Checkbox("Normal Map", &normal))
+		{
+			mSettings.normalMapWeight = normal ? 1.0f : 0.0f;
+		}
+		if (ImGui::Checkbox("Specular Map", &specular))
+		{
+			mSettings.specularMapWeight = specular? 1.0f : 0.0f;
+		}
+
 	}
 	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{

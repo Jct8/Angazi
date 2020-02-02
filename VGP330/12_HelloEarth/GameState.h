@@ -29,13 +29,25 @@ private:
 		float padding;
 	};
 
+	struct Settings
+	{
+		float specularMapWeight = 1.0f;
+		float bumpMapWeight = 1.0f;
+		float normalMapWeight = 1.0f;
+		float padding;
+	};
+
 	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
 	using LightBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::DirectionalLight>;
 	using MaterialBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::Material>;
+	using SettingsBuffer = Angazi::Graphics::TypedConstantBuffer<Settings>;
 
 	TransformBuffer mTransformBuffer;
 	LightBuffer mLightBuffer;
 	MaterialBuffer mMaterialBuffer;
+	SettingsBuffer mSettingsBuffer;
+
+	Settings mSettings;
 
 	Angazi::Graphics::VertexShader mPhongShadingVertexShader;
 	Angazi::Graphics::PixelShader mPhongShadingPixelShader;
@@ -44,6 +56,7 @@ private:
 	Angazi::Graphics::Texture mTexture;
 	Angazi::Graphics::Texture mSpecularTexture;
 	Angazi::Graphics::Texture mDisplacementTexture;
+	Angazi::Graphics::Texture mNormalMap;
 
 	Angazi::Math::Vector3 mRotation = 0.0f;
 };
