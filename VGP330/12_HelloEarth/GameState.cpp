@@ -38,21 +38,49 @@ void GameState::Initialize()
 	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/Standard.fx", Vertex::Format);
 	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/Standard.fx");
 
+	mCloudShadingVertexShader.Initialize("../../Assets/Shaders/Standard2.fx", Vertex::Format);
+	mCloudShadingPixelShader.Initialize("../../Assets/Shaders/Standard2.fx");
+
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	//mTexture.Initialize("../../Assets/Images/earth.jpg");
 	mTexture.Initialize("../../Assets/Images/8k_earth.jpg");
 	mSpecularTexture.Initialize("../../Assets/Images/earth_spec.jpg");
 	mDisplacementTexture.Initialize("../../Assets/Images/earth_bump.jpg");
 	mNormalMap.Initialize("../../Assets/Images/earth_normal.jpg");
+	mNightMap.Initialize("../../Assets/Images/earth_lights.jpg");
+	//mNightMap.Initialize("../../Assets/Images/8k_earth_nightmap.jpg");
+	mClouds.Initialize("../../Assets/Images/earth_clouds.jpg");
+
+	/*ID3D11BlendState* d3dBlendState;
+	D3D11_BLEND_DESC omDesc;
+	ZeroMemory(&omDesc,
+
+		sizeof(D3D11_BLEND_DESC));
+	omDesc.RenderTarget[0].BlendEnable =
+
+		true;
+	omDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	omDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	omDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	omDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	omDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	omDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	omDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	GraphicsSystem::Get()->GetDevice()->CreateBlendState(&omDesc, &d3dBlendState);
+	GraphicsSystem::Get()->GetContext()->OMSetBlendState(d3dBlendState, 0, 0xffffffff);*/
 }
 
 void GameState::Terminate()
 {
+	mClouds.Terminate();
+	mNightMap.Terminate();
 	mNormalMap.Terminate();
 	mDisplacementTexture.Terminate();
 	mTexture.Terminate();
 	mSpecularTexture.Terminate();
 	mSampler.Terminate();
+	mCloudShadingPixelShader.Terminate();
+	mCloudShadingVertexShader.Terminate();
 	mPhongShadingPixelShader.Terminate();
 	mPhongShadingVertexShader.Terminate();
 	mSettingsBuffer.Terminate();
@@ -64,7 +92,7 @@ void GameState::Terminate()
 
 void GameState::Update(float deltaTime)
 {
-	const float kMoveSpeed = 10.0f;
+	const float kMoveSpeed = 5.0f;
 	const float kTurnSpeed = 1.0f;
 
 	auto inputSystem = InputSystem::Get();
@@ -91,8 +119,8 @@ void GameState::Render()
 {
 	auto context = GraphicsSystem::Get()->GetContext();
 
-	auto matTrans = Matrix4::Translation({-1.25f,0.0f,0.0f});
-	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y);
+	auto matTrans = Matrix4::Translation({-1.0f,0.0f,0.0f});
+	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 	auto matWorld = matRot * matTrans;
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
@@ -101,12 +129,10 @@ void GameState::Render()
 	mSampler.BindPS();
 
 	mTexture.BindPS(0);
-	//mTexture.BindVS(0);
-	//mSpecularTexture.BindVS(1);
 	mSpecularTexture.BindPS(1);
 	mDisplacementTexture.BindVS(2);
-	//mDisplacementTexture.BindPS(2);
 	mNormalMap.BindPS(3);
+	mNightMap.BindPS(4);
 
 	TransformData transformData;
 	mTransformBuffer.BindVS(0);
@@ -133,6 +159,24 @@ void GameState::Render()
 
 	mMeshBuffer.Draw();
 
+	matWorld = Matrix4::Scaling(1.2f) *  matRot * matTrans;
+
+	mCloudShadingVertexShader.Bind();
+	mCloudShadingPixelShader.Bind();
+
+	mSettings.normalMapWeight = 0.0f;
+	mSettingsBuffer.Update(&mSettings);
+	mSettingsBuffer.BindVS(3);
+	mSettingsBuffer.BindPS(3);
+
+	transformData.world = Transpose(matWorld);
+	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.viewPosition = mCamera.GetPosition();
+	mTransformBuffer.Update(&transformData);
+
+	mClouds.BindPS(0);
+	mMeshBuffer.Draw();
+
 }
 
 void GameState::DebugUI()
@@ -141,9 +185,9 @@ void GameState::DebugUI()
 	if (ImGui::CollapsingHeader("Light",ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		bool directionChanged = false;
-		directionChanged |= ImGui::DragFloat("Direction X##Light", &mDirectionalLight.direction.x, 0.01f, -1.0f, 1.0f);
-		directionChanged |= ImGui::DragFloat("Direction Y##Light", &mDirectionalLight.direction.y, 0.01f, -1.0f, 1.0f);
-		directionChanged |= ImGui::DragFloat("Direction Z##Light", &mDirectionalLight.direction.z, 0.01f, -1.0f, 1.0f);
+		directionChanged |= ImGui::DragFloat("Direction X##Light", &mDirectionalLight.direction.x, 0.01f, -2.0f, 2.0f);
+		directionChanged |= ImGui::DragFloat("Direction Y##Light", &mDirectionalLight.direction.y, 0.01f, -2.0f, 2.0f);
+		directionChanged |= ImGui::DragFloat("Direction Z##Light", &mDirectionalLight.direction.z, 0.01f, -2.0f, 2.0f);
 		if (directionChanged)
 		{
 			mDirectionalLight.direction = Normalize(mDirectionalLight.direction);

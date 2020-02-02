@@ -34,7 +34,6 @@ Texture2D diffuseMap : register(t0);
 Texture2D specularMap : register(t1);
 Texture2D displacementMap : register(t2);
 Texture2D normalMap : register(t3);
-Texture2D nightMap : register(t4);
 SamplerState textureSampler : register(s0);
 
 struct VS_INPUT
@@ -60,7 +59,7 @@ VS_OUTPUT VS(VS_INPUT input)
 	VS_OUTPUT output;
 
 	float displacement = displacementMap.SampleLevel(textureSampler, input.texCoord, 0).x;
-	float3 localPosition = input.position + (input.normal * displacement * bumpMapWeight);
+	float3 localPosition = input.position + (input.normal * displacement * 0.0f);
 	float3 worldPosition = mul(float4(localPosition, 1.0f), World).xyz;
 	float3 worldNormal = mul(input.normal, (float3x3)World);
 	float3 worldTangent = mul(input.tangent, (float3x3)World);
@@ -90,17 +89,10 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 dirToView = normalize(input.dirToView);
 
 	float3 normal = worldNormal;
-	if (normalMapWeight != 0.0f)
-	{
-		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal, };
-		float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
-		float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
-		normal = mul(normalSampled, TBNW);
-	}
 
 	float4 ambient = LightAmbient * MaterialAmbient;
 
-	float diffuseIntensity = saturate(dot(dirToLight, normal));
+	float diffuseIntensity = saturate(dot(dirToView, normal));
 	float4 diffuse = diffuseIntensity * LightDiffuse * MaterialDiffuse;
 
 	float3 halfAngle = normalize(dirToLight + dirToView);
@@ -111,9 +103,18 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float4 texColor = diffuseMap.Sample(textureSampler, input.texCoord);
 	float specularFactor = specularMap.Sample(textureSampler, input.texCoord).r;
 
-	float alpha = max(0.0f, dot(dirToLight, normal));
-	float4 texColorNight = lerp(nightMap.Sample(textureSampler, input.texCoord), texColor, alpha);
-	
-	float4 color = (ambient + diffuse) * texColorNight + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
+	float4 color = (ambient + diffuse) * texColor + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
+	color = texColor * texColor.a + color * (1.0f - texColor.a);
 	return color;
+}
+
+
+technique Textured
+{
+	pass Pass0
+	{
+		AlphaBlendEnable = True;
+		SrcBlend = SRC_ALPHA;
+		DestBlend = INV_SRC_ALPHA;
+	}
 }

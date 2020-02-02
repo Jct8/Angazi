@@ -52,11 +52,16 @@ private:
 	Angazi::Graphics::VertexShader mPhongShadingVertexShader;
 	Angazi::Graphics::PixelShader mPhongShadingPixelShader;
 
+	Angazi::Graphics::VertexShader mCloudShadingVertexShader;
+	Angazi::Graphics::PixelShader mCloudShadingPixelShader;
+
 	Angazi::Graphics::Sampler mSampler;
 	Angazi::Graphics::Texture mTexture;
 	Angazi::Graphics::Texture mSpecularTexture;
 	Angazi::Graphics::Texture mDisplacementTexture;
 	Angazi::Graphics::Texture mNormalMap;
+	Angazi::Graphics::Texture mNightMap;
+	Angazi::Graphics::Texture mClouds;
 
 	Angazi::Math::Vector3 mRotation = 0.0f;
 };
