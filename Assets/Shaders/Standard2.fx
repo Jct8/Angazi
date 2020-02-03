@@ -59,7 +59,7 @@ VS_OUTPUT VS(VS_INPUT input)
 	VS_OUTPUT output;
 
 	float displacement = displacementMap.SampleLevel(textureSampler, input.texCoord, 0).x;
-	float3 localPosition = input.position + (input.normal * displacement * 0.0f);
+	float3 localPosition = input.position + (input.normal *bumpMapWeight*0.5f );
 	float3 worldPosition = mul(float4(localPosition, 1.0f), World).xyz;
 	float3 worldNormal = mul(input.normal, (float3x3)World);
 	float3 worldTangent = mul(input.tangent, (float3x3)World);
@@ -104,17 +104,21 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float specularFactor = specularMap.Sample(textureSampler, input.texCoord).r;
 
 	float4 color = (ambient + diffuse) * texColor + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
-	color = texColor * texColor.a + color * (1.0f - texColor.a);
+	//color = texColor * color.a + color * (1.0f - color.a);
 	return color;
 }
 
-
-technique Textured
-{
-	pass Pass0
-	{
-		AlphaBlendEnable = True;
-		SrcBlend = SRC_ALPHA;
-		DestBlend = INV_SRC_ALPHA;
-	}
-}
+//technique11 Textured
+//{
+//	pass Pass1
+//	{
+//		BlendEnable = true;
+//		SrcBlend = D3D11_BLEND_SRC_ALPHA;
+//		DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+//		BlendOp = D3D11_BLEND_OP_ADD;
+//		SrcBlendAlpha = D3D11_BLEND_ONE;
+//		DestBlendAlpha = D3D11_BLEND_ZERO;
+//		BlendOpAlpha = D3D11_BLEND_OP_ADD;
+//		RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+//	}
+//}

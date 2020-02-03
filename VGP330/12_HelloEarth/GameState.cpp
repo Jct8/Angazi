@@ -11,7 +11,7 @@ void GameState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
-	mCamera.SetPosition({ 0.0f, 0.0f,-3.0f });
+	mCamera.SetPosition({ 0.0f, 0.0f,-3.5f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
 	mMesh = MeshBuilder::CreateSphere(1.0f,256,256);
@@ -32,9 +32,6 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,0.5f };
 	mMaterial.power = 80.0f;
 
-	mSettings.normalMapWeight = 1.0f;
-	mSettings.specularMapWeight = 1.0f;
-
 	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/Standard.fx", Vertex::Format);
 	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/Standard.fx");
 
@@ -51,14 +48,9 @@ void GameState::Initialize()
 	//mNightMap.Initialize("../../Assets/Images/8k_earth_nightmap.jpg");
 	mClouds.Initialize("../../Assets/Images/earth_clouds.jpg");
 
-	/*ID3D11BlendState* d3dBlendState;
 	D3D11_BLEND_DESC omDesc;
-	ZeroMemory(&omDesc,
-
-		sizeof(D3D11_BLEND_DESC));
-	omDesc.RenderTarget[0].BlendEnable =
-
-		true;
+	ZeroMemory(&omDesc, sizeof(D3D11_BLEND_DESC));
+	omDesc.RenderTarget[0].BlendEnable = true;
 	omDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 	omDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 	omDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
@@ -66,12 +58,12 @@ void GameState::Initialize()
 	omDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 	omDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 	omDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-	GraphicsSystem::Get()->GetDevice()->CreateBlendState(&omDesc, &d3dBlendState);
-	GraphicsSystem::Get()->GetContext()->OMSetBlendState(d3dBlendState, 0, 0xffffffff);*/
+	GraphicsSystem::Get()->GetDevice()->CreateBlendState(&omDesc, &mD3dBlendState);
 }
 
 void GameState::Terminate()
 {
+	SafeRelease(mD3dBlendState);
 	mClouds.Terminate();
 	mNightMap.Terminate();
 	mNormalMap.Terminate();
@@ -154,17 +146,17 @@ void GameState::Render()
 	transformData.viewPosition = mCamera.GetPosition();
 	mTransformBuffer.Update(&transformData);
 
+	context->OMSetBlendState(nullptr, 0, 0xffffffff);
 	mPhongShadingVertexShader.Bind();
 	mPhongShadingPixelShader.Bind();
 
 	mMeshBuffer.Draw();
 
-	matWorld = Matrix4::Scaling(1.2f) *  matRot * matTrans;
+	matWorld = Matrix4::Scaling(1.1f) *  matRot * matTrans;
 
 	mCloudShadingVertexShader.Bind();
 	mCloudShadingPixelShader.Bind();
 
-	mSettings.normalMapWeight = 0.0f;
 	mSettingsBuffer.Update(&mSettings);
 	mSettingsBuffer.BindVS(3);
 	mSettingsBuffer.BindPS(3);
@@ -174,6 +166,7 @@ void GameState::Render()
 	transformData.viewPosition = mCamera.GetPosition();
 	mTransformBuffer.Update(&transformData);
 
+	context->OMSetBlendState(mD3dBlendState, 0, 0xffffffff);
 	mClouds.BindPS(0);
 	mMeshBuffer.Draw();
 
