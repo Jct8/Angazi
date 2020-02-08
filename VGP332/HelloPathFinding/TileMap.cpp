@@ -80,6 +80,25 @@ void TileMap::Update(float deltaTime)
 				, abs(static_cast<float>(from.y) - static_cast<float>(to.y)));
 		};
 
+		std::function<float(AI::Coord, AI::Coord)> getHeuristic;
+		switch (mHeuristicType)
+		{
+		case 0:
+			getHeuristic = getHeuristicEuclid;
+			break;
+		case 1:
+			getHeuristic = getHeuristicManhattan;
+
+			break;
+		case 2:
+			getHeuristic = getHeuristicDiagonal;
+
+			break;
+		default:
+			getHeuristic = getHeuristicEuclid;
+			break;
+		}
+
 		switch (mSearchType)
 		{
 		case 0:
@@ -98,7 +117,7 @@ void TileMap::Update(float deltaTime)
 			parentList = mDijkstras.GetParents();
 			break;
 		case 3:
-			path = mAStar.Search(mGraph, mStartPosition, mEndPosition, isBlocked, getCost, getHeuristicEuclid);
+			path = mAStar.Search(mGraph, mStartPosition, mEndPosition, isBlocked, getCost, getHeuristic);
 			closedList = mAStar.GetClosedList();
 			parentList = mAStar.GetParents();
 			break;
@@ -161,8 +180,9 @@ void TileMap::Render()
 
 void TileMap::DebugUI()
 {
-	ImGui::SetNextWindowSize({ 300,400 });
-	ImGui::Begin("Options", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::SetNextWindowSize({ 300,500 });
+	ImGui::SetNextWindowPos({ GraphicsSystem::Get()->GetBackBufferWidth() - 300.0f , 0 });
+	ImGui::Begin("Options", nullptr, ImGuiWindowFlags_NoResize);
 	ImGui::BeginGroup();
 	if (ImGui::CollapsingHeader("Map:", ImGuiTreeNodeFlags_DefaultOpen))
 	{
@@ -175,35 +195,40 @@ void TileMap::DebugUI()
 			if (i % 6 != 2)
 				ImGui::SameLine();
 		}*/
-		ImGui::SameLine();
-		/*if (ImGui::Button("Load"))
+		ImGui::NewLine();
+		if (ImGui::Button("Load"))
 		{
 			char filePath[MAX_PATH]{};
 			const char* title = "Open Map";
 			const char* filter = "Text Files (*.txt)\0*.txt";
-			if (X::OpenFileDialog(filePath, title, filter))
+			/*if (X::OpenFileDialog(filePath, title, filter))
 			{
 				LoadMap(filePath);
-			}
-		}*/
+			}*/
+		}
 		ImGui::SameLine();
-		/*if (ImGui::Button("Save"))
+		if (ImGui::Button("Save"))
 		{
 			char filePath[MAX_PATH]{};
 			const char* title = "Save Map";
 			const char* filter = "Text Files (*.txt)\0*.txt";
-			if (X::SaveFileDialog(filePath, title, filter))
+			/*if (X::SaveFileDialog(filePath, title, filter))
 			{
 				std::filesystem::path savePath = filePath;
 				if (savePath.extension().empty())
 					savePath += ".txt";
 				SaveMap(savePath);
-			}
-		}*/
+			}*/
+		}
+		if (ImGui::Checkbox("Show Graph", &check))
+		{
+			mShowGraph = !mShowGraph;
+		}
 	}
 	ImGui::EndGroup();
+
 	ImGui::BeginGroup();
-	if (ImGui::CollapsingHeader("Search Type:", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Search Type:"), ImGuiTreeNodeFlags_DefaultOpen)
 	{
 		if (ImGui::RadioButton("DFS:", &mSearchType, 0))
 		{
@@ -220,9 +245,30 @@ void TileMap::DebugUI()
 			mSearchType = 2;
 			mUpdate = true;
 		}
-		if (ImGui::RadioButton("AStar:", &mSearchType, 3))
+		if (ImGui::RadioButton("A*:", &mSearchType, 3))
 		{
 			mSearchType = 3;
+			mUpdate = true;
+		}
+	}
+	ImGui::EndGroup();
+
+	ImGui::BeginGroup();
+	if (ImGui::CollapsingHeader("A* Heuristics:", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		if (ImGui::RadioButton("Euclidian:", &mHeuristicType, 0))
+		{
+			mHeuristicType = 0;
+			mUpdate = true;
+		}
+		if (ImGui::RadioButton("Manhattan:", &mHeuristicType, 1))
+		{
+			mHeuristicType = 1;
+			mUpdate = true;
+		}
+		if (ImGui::RadioButton("Diagonal:", &mHeuristicType, 2))
+		{
+			mHeuristicType = 2;
 			mUpdate = true;
 		}
 	}

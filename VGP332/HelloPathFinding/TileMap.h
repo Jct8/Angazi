@@ -38,7 +38,10 @@ private:
 	int mCurrentTile = 0;
 
 	int mSearchType = 0;
+	int mHeuristicType = 0;
 	bool mChooseStart = false;
 	bool mChooseEnd = false;
 	bool mUpdate = true;
+	bool mShowGraph = true;
+	bool check = false;
 };
