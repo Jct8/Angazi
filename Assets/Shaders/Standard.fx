@@ -111,8 +111,8 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float4 texColor = diffuseMap.Sample(textureSampler, input.texCoord);
 	float specularFactor = specularMap.Sample(textureSampler, input.texCoord).r;
 
-	float alpha = max(0.0f, dot(dirToLight, normal));
-	float4 texColorNight = lerp(nightMap.Sample(textureSampler, input.texCoord), texColor, alpha);
+	float alpha = max(0.0f, dot(LightDirection, normal));
+	float4 texColorNight = lerp(texColor, nightMap.Sample(textureSampler, input.texCoord), alpha);
 	
 	float4 color = (ambient + diffuse) * texColorNight + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
 	return color;
