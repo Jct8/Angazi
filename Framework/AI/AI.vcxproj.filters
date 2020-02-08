@@ -7,6 +7,18 @@
     <Filter Include="Src">
       <UniqueIdentifier>{d740ccb8-7505-4023-9216-e0ad7113fb6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\FSM">
+      <UniqueIdentifier>{29e846f6-38e3-4a91-9524-4fdcd56d2b0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Pathing">
+      <UniqueIdentifier>{052dff10-8c6f-4d73-af3f-20779521126a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Pch">
+      <UniqueIdentifier>{f6b7e0d6-c908-401b-b7e1-1d2ca7ae5d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Pathing">
+      <UniqueIdentifier>{cd361c19-a648-47fd-97a1-fca8a5bac257}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\AI.h">
@@ -15,43 +27,43 @@
     <ClInclude Include="Inc\Common.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Precompiled.h">
-      <Filter>Src</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Graph.h">
-      <Filter>Inc</Filter>
+    <ClInclude Include="Inc\AStar.h">
+      <Filter>Inc\Pathing</Filter>
     </ClInclude>
     <ClInclude Include="Inc\BFS.h">
-      <Filter>Inc</Filter>
+      <Filter>Inc\Pathing</Filter>
     </ClInclude>
     <ClInclude Include="Inc\DFS.h">
-      <Filter>Inc</Filter>
+      <Filter>Inc\Pathing</Filter>
     </ClInclude>
     <ClInclude Include="Inc\Dijkstras.h">
-      <Filter>Inc</Filter>
+      <Filter>Inc\Pathing</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\AStar.h">
-      <Filter>Inc</Filter>
+    <ClInclude Include="Inc\Graph.h">
+      <Filter>Inc\Pathing</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Precompiled.h">
+      <Filter>Src\Pch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Graph.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\BFS.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\DFS.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Dijkstras.cpp">
-      <Filter>Src</Filter>
+      <Filter>Src\Pch</Filter>
     </ClCompile>
     <ClCompile Include="Src\AStar.cpp">
-      <Filter>Src</Filter>
+      <Filter>Src\Pathing</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\BFS.cpp">
+      <Filter>Src\Pathing</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\DFS.cpp">
+      <Filter>Src\Pathing</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Dijkstras.cpp">
+      <Filter>Src\Pathing</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Graph.cpp">
+      <Filter>Src\Pathing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
