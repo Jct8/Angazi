@@ -23,20 +23,20 @@ void GameState::Initialize()
 	mSettingsBuffer.Initialize();
 
 	mDirectionalLight.direction = Normalize({ 1.0f, -1.0f,1.0f });
-	mDirectionalLight.ambient = { 0.3f,0.3f,0.3f ,0.3f };
-	mDirectionalLight.diffuse = { 0.7f,0.7f,0.7f ,0.7f };
-	mDirectionalLight.specular = { 0.5f,0.5f,0.5f ,0.5f };
+	mDirectionalLight.ambient = { 0.0f,0.0f,0.0f ,1.0f };
+	mDirectionalLight.diffuse = { 0.75f,0.75f,0.75f ,1.0f };
+	mDirectionalLight.specular = { 0.5f,0.5f,0.5f ,1.0f };
 
-	mMaterial.ambient = { 0.3f,0.3f,0.3f ,0.3f };
-	mMaterial.diffuse = { 0.7f,0.7f,0.7f ,0.7f };
-	mMaterial.specular = { 0.5f,0.5f,0.5f ,0.5f };
+	mMaterial.ambient = { 0.0f,0.0f,0.0f ,1.0f };
+	mMaterial.diffuse = { 0.8f,0.8f,0.8f ,1.0f };
+	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
 	mMaterial.power = 80.0f;
 
-	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/Standard.fx", Vertex::Format);
-	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/Standard.fx");
+	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/Earth.fx", Vertex::Format, "VSEarth");
+	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/Earth.fx", "PSEarth");
 
-	mCloudShadingVertexShader.Initialize("../../Assets/Shaders/Standard2.fx", Vertex::Format);
-	mCloudShadingPixelShader.Initialize("../../Assets/Shaders/Standard2.fx");
+	mCloudShadingVertexShader.Initialize("../../Assets/Shaders/Earth.fx", Vertex::Format, "VSCloud");
+	mCloudShadingPixelShader.Initialize("../../Assets/Shaders/Earth.fx", "PSCloud");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	//mTexture.Initialize("../../Assets/Images/earth.jpg");
@@ -44,17 +44,17 @@ void GameState::Initialize()
 	mSpecularTexture.Initialize("../../Assets/Images/earth_spec.jpg");
 	mDisplacementTexture.Initialize("../../Assets/Images/earth_bump.jpg");
 	mNormalMap.Initialize("../../Assets/Images/earth_normal.jpg");
-	mNightMap.Initialize("../../Assets/Images/earth_lights.jpg");
-	//mNightMap.Initialize("../../Assets/Images/8k_earth_nightmap.jpg");
+	//mNightMap.Initialize("../../Assets/Images/earth_lights.jpg");
+	mNightMap.Initialize("../../Assets/Images/8k_earth_nightmap.jpg");
 	mClouds.Initialize("../../Assets/Images/earth_clouds.jpg");
 
-	mAlphaBlending.Initialize();
+	mBlendState.Initialize(BlendState::Mode::Additive);
 	
 }
 
 void GameState::Terminate()
 {
-	mAlphaBlending.Terminate();
+	mBlendState.Terminate();
 	mClouds.Terminate();
 	mNightMap.Terminate();
 	mNormalMap.Terminate();
@@ -96,6 +96,7 @@ void GameState::Update(float deltaTime)
 		mCamera.Strafe(kMoveSpeed*deltaTime);
 	//mRotation -= deltaTime;
 
+	mCloudRotation += deltaTime *0.02f;
 }
 
 void GameState::Render()
@@ -141,12 +142,12 @@ void GameState::Render()
 	mPhongShadingVertexShader.Bind();
 	mPhongShadingPixelShader.Bind();
 
-	mAlphaBlending.UnBind();
-
+	mBlendState.ClearState();
 	mMeshBuffer.Draw();
 
 	//Cloud Sphere
-	matWorld = Matrix4::Scaling(1.1f) *  matRot * matTrans;
+	matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y + mCloudRotation);
+	matWorld = Matrix4::Scaling(1.0f) *  matRot * matTrans;
 
 	mCloudShadingVertexShader.Bind();
 	mCloudShadingPixelShader.Bind();
@@ -160,8 +161,8 @@ void GameState::Render()
 	transformData.viewPosition = mCamera.GetPosition();
 	mTransformBuffer.Update(&transformData);
 
-	mAlphaBlending.Bind();
-	mClouds.BindPS(0);
+	mBlendState.Bind();
+	mClouds.BindPS(5);
 	mMeshBuffer.Draw();
 
 }

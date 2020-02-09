@@ -6,7 +6,7 @@
 using namespace Angazi;
 using namespace Angazi::Graphics;
 
-void Angazi::Graphics::PixelShader::Initialize(const std::filesystem::path& filePath)
+void PixelShader::Initialize(const std::filesystem::path& filePath, const char * shaderName )
 {
 	//CompileAndCreatePixelShader
 	DWORD shaderFlags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
@@ -17,7 +17,7 @@ void Angazi::Graphics::PixelShader::Initialize(const std::filesystem::path& file
 		filePath.wstring().c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		"PS", "ps_5_0",
+		shaderName, "ps_5_0",
 		shaderFlags, 0, &shaderBlob, &errorBlob);
 	if (errorBlob && errorBlob->GetBufferPointer())
 		LOG("%s", static_cast<const char*>(errorBlob->GetBufferPointer()));

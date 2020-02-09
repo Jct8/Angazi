@@ -63,7 +63,8 @@ private:
 	Angazi::Graphics::Texture mNightMap;
 	Angazi::Graphics::Texture mClouds;
 
-	Angazi::Graphics::Blending mAlphaBlending;
+	Angazi::Graphics::BlendState mBlendState;
 
 	Angazi::Math::Vector3 mRotation = 0.0f;
+	float mCloudRotation = 0.0f;
 };

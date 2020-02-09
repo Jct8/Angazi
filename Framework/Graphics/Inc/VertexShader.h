@@ -6,7 +6,7 @@ namespace Angazi::Graphics
 	class VertexShader
 	{
 	public:
-		void Initialize(const std::filesystem::path& filePath, uint32_t vertextFormat);
+		void Initialize(const std::filesystem::path& filePath, uint32_t vertextFormat, const char* shaderName = "VS");
 		void Terminate();
 
 		void Bind();

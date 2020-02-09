@@ -37,7 +37,7 @@ namespace
 	}
 }
 
-void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t vertextFormat)
+void VertexShader::Initialize(const std::filesystem::path & filePath, uint32_t vertextFormat, const char* shaderName)
 {
 	//Compile and create vertex shader
 	DWORD shaderFlags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
@@ -47,7 +47,7 @@ void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t ve
 		filePath.wstring().c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		"VS", "vs_5_0",
+		shaderName, "vs_5_0",
 		shaderFlags, 0, &shaderBlob, &errorBlob);
 	if (errorBlob && errorBlob->GetBufferPointer())
 		LOG("%s", static_cast<const char*>(errorBlob->GetBufferPointer()));
