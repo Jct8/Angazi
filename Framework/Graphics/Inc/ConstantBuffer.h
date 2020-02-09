@@ -5,6 +5,12 @@ namespace Angazi::Graphics
 	class ConstantBuffer
 	{
 	public:
+		ConstantBuffer() = default;
+		~ConstantBuffer();
+
+		ConstantBuffer(const ConstantBuffer&) = delete;
+		ConstantBuffer& operator=(const ConstantBuffer&) = delete;
+
 		void Initialize(int size);
 		void Terminate();
 		void BindVS(uint32_t slot = 0) const;

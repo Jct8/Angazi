@@ -6,6 +6,11 @@
 
 using namespace Angazi::Graphics;
 
+Texture::~Texture()
+{
+	ASSERT(mShaderResourceView == nullptr, "[Texture] Terminate() must be called to clean up!");
+}
+
 void Texture::Initialize(const std::filesystem::path& fileName)
 {
 	HRESULT hr = DirectX::CreateWICTextureFromFile(GetDevice(), GetContext(), fileName.c_str(), nullptr, &mShaderResourceView);

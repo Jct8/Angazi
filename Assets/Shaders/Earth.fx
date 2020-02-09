@@ -117,7 +117,7 @@ float4 PSEarth(VSOutput input) : SV_Target
 	float alpha = saturate(-dot(dirToLight, normal));
 	float4 nightTexColor = nightMap.Sample(textureSampler, input.texCoord);
 	float4 texColorNight = lerp(texColor, nightTexColor, alpha);
-	
+
 	//float4 color = (ambient + diffuse) * texColorNight + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
 	float4 color = (ambient + diffuse) * texColor + nightTexColor * alpha + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
 	return color;
@@ -129,7 +129,7 @@ VSCloudOutput VSCloud(VSInput input)
 
 	//float3 localPosition = input.position + (input.normal *0.2f);
 
-	float3 localPosition = input.position + (input.normal*1.3f *bumpMapWeight*0.5f);
+	float3 localPosition = input.position + (input.normal * (0.1f + bumpMapWeight * 0.5f));
 	float3 worldNormal = mul(input.normal, (float3x3)World);
 
 	output.position = mul(float4(localPosition, 1.0f), WVP);

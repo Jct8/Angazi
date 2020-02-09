@@ -96,7 +96,7 @@ void GameState::Update(float deltaTime)
 		mCamera.Strafe(kMoveSpeed*deltaTime);
 	//mRotation -= deltaTime;
 
-	mCloudRotation += deltaTime *0.02f;
+	mCloudRotation += deltaTime *0.005f;
 }
 
 void GameState::Render()

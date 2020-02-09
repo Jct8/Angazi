@@ -7,6 +7,11 @@ using namespace Angazi;
 using namespace Angazi::Graphics;
 using namespace Angazi::Math;
 
+ConstantBuffer::~ConstantBuffer()
+{
+	ASSERT(mConstantBuffer == nullptr, "[ConstantBuffer] Terminate() must be called to clean up!");
+}
+
 void ConstantBuffer::Initialize(int size)
 {
 	//Create constant buffer

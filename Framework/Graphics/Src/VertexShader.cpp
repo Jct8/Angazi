@@ -37,6 +37,12 @@ namespace
 	}
 }
 
+VertexShader::~VertexShader()
+{
+	ASSERT(mVertexShader == nullptr, "[mVertexShader] Terminate() must be called to clean up!");
+	ASSERT(mInputLayout == nullptr, "[mVertexShader] Terminate() must be called to clean up!");
+}
+
 void VertexShader::Initialize(const std::filesystem::path & filePath, uint32_t vertextFormat, const char* shaderName)
 {
 	//Compile and create vertex shader

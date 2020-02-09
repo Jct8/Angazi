@@ -6,6 +6,12 @@ namespace Angazi::Graphics
 	class VertexShader
 	{
 	public:
+		VertexShader() = default;
+		~VertexShader();
+
+		VertexShader(const VertexShader&) = delete;
+		VertexShader& operator=(const VertexShader&) = delete;
+
 		void Initialize(const std::filesystem::path& filePath, uint32_t vertextFormat, const char* shaderName = "VS");
 		void Terminate();
 

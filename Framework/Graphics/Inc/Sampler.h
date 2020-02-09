@@ -8,6 +8,12 @@ public:
 	enum class Filter { Point, Linear, Anisotropic };
 	enum class AddressMode { Border, Clamp, Mirror, Wrap };
 
+	Sampler() = default;
+	~Sampler();
+
+	Sampler(const Sampler&) = delete;
+	Sampler& operator=(const Sampler&) = delete;
+
 	void Initialize(Filter filter, AddressMode addressMode);
 	void Terminate();
 

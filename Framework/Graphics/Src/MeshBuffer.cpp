@@ -44,6 +44,12 @@ void MeshBuffer::InitializeInternal(const void * vertices, int vertexSize, int v
 	//context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
+MeshBuffer::~MeshBuffer()
+{
+	ASSERT(mVertexBuffer == nullptr, "[MeshBuffer] Terminate() must be called to clean up!");
+	ASSERT(mIndexBuffer == nullptr, "[MeshBuffer] Terminate() must be called to clean up!");
+}
+
 void MeshBuffer::Terminate()
 {
 	SafeRelease(mIndexBuffer);

@@ -38,6 +38,11 @@ namespace
 	}
 }
 
+Sampler::~Sampler()
+{
+	ASSERT(mSampler == nullptr, "[Sampler] Terminate() must be called to clean up!");
+}
+
 void Sampler::Initialize(Filter filter, AddressMode addressMode)
 {
 	auto d3dFilter = GetFilter(filter);

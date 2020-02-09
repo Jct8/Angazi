@@ -12,6 +12,12 @@ namespace Angazi::Graphics
 			TrianglesStrip
 		};
 
+		MeshBuffer() = default;
+		~MeshBuffer();
+
+		MeshBuffer(const MeshBuffer&) = delete;
+		MeshBuffer& operator=(const MeshBuffer&) = delete;
+
 		template <class MeshType>
 		void Initialize(const MeshType& mesh, bool dynamic = false)
 		{

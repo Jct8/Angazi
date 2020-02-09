@@ -37,7 +37,7 @@ void BlendState::ClearState()
 
 BlendState::~BlendState()
 {
-	ASSERT(mBlendState == nullptr, "[BlendState] blendstat");
+	ASSERT(mBlendState == nullptr, "[BlendState] Terminate() must be called to clean up!");
 }
 
 void Angazi::Graphics::BlendState::Initialize(Mode mode)

@@ -34,7 +34,6 @@ Texture2D diffuseMap : register(t0);
 Texture2D specularMap : register(t1);
 Texture2D displacementMap : register(t2);
 Texture2D normalMap : register(t3);
-Texture2D nightMap : register(t4);
 SamplerState textureSampler : register(s0);
 
 struct VS_INPUT
@@ -111,9 +110,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float4 texColor = diffuseMap.Sample(textureSampler, input.texCoord);
 	float specularFactor = specularMap.Sample(textureSampler, input.texCoord).r;
 
-	float alpha = max(0.0f, dot(LightDirection, normal));
-	float4 texColorNight = lerp(texColor, nightMap.Sample(textureSampler, input.texCoord), alpha);
-	
-	float4 color = (ambient + diffuse) * texColorNight + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
+	float4 color = (ambient + diffuse) * texColor + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
 	return color;
 }
