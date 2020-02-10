@@ -162,6 +162,8 @@
     <ClInclude Include="Inc\DFS.h" />
     <ClInclude Include="Inc\Dijkstras.h" />
     <ClInclude Include="Inc\Graph.h" />
+    <ClInclude Include="Inc\State.h" />
+    <ClInclude Include="Inc\StateMachine.h" />
     <ClInclude Include="Src\Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
