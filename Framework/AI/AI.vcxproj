@@ -161,6 +161,7 @@
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\DFS.h" />
     <ClInclude Include="Inc\Dijkstras.h" />
+    <ClInclude Include="Inc\Entity.h" />
     <ClInclude Include="Inc\Graph.h" />
     <ClInclude Include="Inc\State.h" />
     <ClInclude Include="Inc\StateMachine.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Src\BFS.cpp" />
     <ClCompile Include="Src\DFS.cpp" />
     <ClCompile Include="Src\Dijkstras.cpp" />
+    <ClCompile Include="Src\Entity.cpp" />
     <ClCompile Include="Src\Graph.cpp" />
     <ClCompile Include="Src\Precompiled.cpp" />
   </ItemGroup>

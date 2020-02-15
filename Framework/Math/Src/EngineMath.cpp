@@ -31,6 +31,13 @@ const Matrix4 Matrix4::Identity
 	0.0f, 0.0f, 0.0f, 1.0f
 };
 
+const Matrix3 Matrix3::Identity
+{
+	1.0f, 0.0f, 0.0f,
+	0.0f, 1.0f, 0.0f,
+	0.0f, 0.0f, 1.0f
+};
+
 bool Angazi::Math::PointInRect(const Vector2& point, const Rect& rect)
 {
 	return !(point.x < rect.left || point.x > rect.right || point.y < rect.top || point.y > rect.bottom);
