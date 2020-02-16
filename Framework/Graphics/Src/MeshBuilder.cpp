@@ -209,6 +209,35 @@ Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices)
 	return retMesh;
 }
 
+MeshPX MeshBuilder::CreateNDCQuad()
+{
+	MeshPX retMesh;
+	int height = 2;
+	int width = 2;
+	for (int y = 0; y <= height; y++)
+	{
+		for (int x = 0; x <= width; x++)
+		{
+			float u = static_cast<float>(x) / static_cast<float>(width);
+			float v = static_cast<float>(y) / static_cast<float>(height);
+			retMesh.vertices.push_back({
+				Math::Vector3{-0.5f*width + static_cast<float>(x) ,  0.5f*height - static_cast<float>(y)  , 0.0f } , Math::Vector2{u , v} });
+
+			if (x != width)
+			{
+				retMesh.indices.push_back(y * height + x);
+				retMesh.indices.push_back((y + 1) * height + x + 1);
+				retMesh.indices.push_back((y + 1) * height + x);
+
+				retMesh.indices.push_back(y * height + x);
+				retMesh.indices.push_back(y * height + x + 1);
+				retMesh.indices.push_back((y + 1) * height + x + 1);
+			}
+		}
+	}
+	return retMesh;
+}
+
 //Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices)
 //{
 //	Mesh retMesh;

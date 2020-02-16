@@ -9,12 +9,14 @@ using namespace Angazi::Math;
 
 void GameState::Initialize()
 {
+
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
-	mCamera.SetPosition({ 0.0f, 0.0f,-3.5f });
-	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
+	mCamera.SetPosition({ 0.0f,0.0f,-5.0f });
+	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
-	mMesh = MeshBuilder::CreateSphere(1.0f,256,256);
+	////////////
+	mMesh = MeshBuilder::CreateSphere(1.0f, 256, 256);
 	mMeshBuffer.Initialize(mMesh);
 
 	mTransformBuffer.Initialize();
@@ -49,11 +51,28 @@ void GameState::Initialize()
 	mClouds.Initialize("../../Assets/Images/earth_clouds.jpg");
 
 	mBlendState.Initialize(BlendState::Mode::Additive);
-	
+
+	//Quad
+	auto graphicsSystem = GraphicsSystem::Get();
+	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
+	mScreenQuad = MeshBuilder::CreateNDCQuad();
+	mScreenQuadBuffer.Initialize(mScreenQuad);
+
+	mConstantBuffer.Initialize(sizeof(Matrix4));
+
+	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
+	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx");
+
 }
 
 void GameState::Terminate()
 {
+	mPostProcessingPixelShader.Terminate();
+	mPostProcessingVertexShader.Terminate();
+	mConstantBuffer.Terminate();
+	mScreenQuadBuffer.Terminate();
+	mRenderTarget.Terminate();
+	//
 	mBlendState.Terminate();
 	mClouds.Terminate();
 	mNightMap.Terminate();
@@ -70,7 +89,7 @@ void GameState::Terminate()
 	mMaterialBuffer.Terminate();
 	mLightBuffer.Terminate();
 	mTransformBuffer.Terminate();
-	mMeshBuffer.Terminate();
+	mMeshBuffer.Terminate();	
 }
 
 void GameState::Update(float deltaTime)
@@ -95,15 +114,69 @@ void GameState::Update(float deltaTime)
 	if (inputSystem->IsKeyDown(KeyCode::D))
 		mCamera.Strafe(kMoveSpeed*deltaTime);
 	//mRotation -= deltaTime;
-
-	mCloudRotation += deltaTime *0.005f;
 }
 
 void GameState::Render()
 {
-	auto context = GraphicsSystem::Get()->GetContext();
+	mRenderTarget.BeginRender();
+	DrawScene();
+	mRenderTarget.EndRender();
 
-	auto matTrans = Matrix4::Translation({-1.0f,0.0f,0.0f});
+	mRenderTarget.BindPS(0);
+	PostProcess();
+	mRenderTarget.UnbindPS(0);
+}
+
+void GameState::DebugUI()
+{
+	ImGui::Begin("Setting", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		bool directionChanged = false;
+		directionChanged |= ImGui::DragFloat("Direction X##Light", &mDirectionalLight.direction.x, 0.01f, -2.0f, 2.0f);
+		directionChanged |= ImGui::DragFloat("Direction Y##Light", &mDirectionalLight.direction.y, 0.01f, -2.0f, 2.0f);
+		directionChanged |= ImGui::DragFloat("Direction Z##Light", &mDirectionalLight.direction.z, 0.01f, -2.0f, 2.0f);
+		if (directionChanged)
+		{
+			mDirectionalLight.direction = Normalize(mDirectionalLight.direction);
+		}
+		ImGui::ColorEdit4("Ambient##Light", &mDirectionalLight.ambient.x);
+		ImGui::ColorEdit4("Diffuse##Light", &mDirectionalLight.diffuse.x);
+		ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.x);
+	}
+	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::ColorEdit4("Ambient##Material", &mMaterial.ambient.x);
+		ImGui::ColorEdit4("Diffuse##Material", &mMaterial.diffuse.x);
+		ImGui::ColorEdit4("Specular##Material", &mMaterial.specular.x);
+		ImGui::DragFloat("Power##Material", &mMaterial.power, 1.0f, 1.0f, 100.0f);
+	}
+	if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		static bool normal = true;
+		static bool specular = true;
+		ImGui::SliderFloat("Displacement", &mSettings.bumpMapWeight, 0.0f, 1.0f);
+		if (ImGui::Checkbox("Normal Map", &normal))
+		{
+			mSettings.normalMapWeight = normal ? 1.0f : 0.0f;
+		}
+		if (ImGui::Checkbox("Specular Map", &specular))
+		{
+			mSettings.specularMapWeight = specular ? 1.0f : 0.0f;
+		}
+
+	}
+	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::DragFloat3("Rotation##Transform", &mRotation.x, 0.01f);
+	}
+	ImGui::End();
+}
+
+void GameState::DrawScene()
+{
+	//Earth
+	auto matTrans = Matrix4::Translation({ -1.0f,0.0f,0.0f });
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 	auto matWorld = matRot * matTrans;
 	auto matView = mCamera.GetViewMatrix();
@@ -133,7 +206,7 @@ void GameState::Render()
 	mSettingsBuffer.Update(&mSettings);
 	mSettingsBuffer.BindVS(3);
 	mSettingsBuffer.BindPS(3);
-	
+
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
 	transformData.viewPosition = mCamera.GetPosition();
@@ -164,51 +237,12 @@ void GameState::Render()
 	mBlendState.Bind();
 	mClouds.BindPS(5);
 	mMeshBuffer.Draw();
-
 }
 
-void GameState::DebugUI()
+void GameState::PostProcess()
 {
-	ImGui::Begin("Setting",nullptr,ImGuiWindowFlags_AlwaysAutoResize);
-	if (ImGui::CollapsingHeader("Light",ImGuiTreeNodeFlags_DefaultOpen))
-	{
-		bool directionChanged = false;
-		directionChanged |= ImGui::DragFloat("Direction X##Light", &mDirectionalLight.direction.x, 0.01f, -2.0f, 2.0f);
-		directionChanged |= ImGui::DragFloat("Direction Y##Light", &mDirectionalLight.direction.y, 0.01f, -2.0f, 2.0f);
-		directionChanged |= ImGui::DragFloat("Direction Z##Light", &mDirectionalLight.direction.z, 0.01f, -2.0f, 2.0f);
-		if (directionChanged)
-		{
-			mDirectionalLight.direction = Normalize(mDirectionalLight.direction);
-		}
-		ImGui::ColorEdit4("Ambient##Light", &mDirectionalLight.ambient.x);
-		ImGui::ColorEdit4("Diffuse##Light", &mDirectionalLight.diffuse.x);
-		ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.x);
-	}
-	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
-	{
-		ImGui::ColorEdit4("Ambient##Material", &mMaterial.ambient.x);
-		ImGui::ColorEdit4("Diffuse##Material", &mMaterial.diffuse.x);
-		ImGui::ColorEdit4("Specular##Material", &mMaterial.specular.x);
-		ImGui::DragFloat("Power##Material", &mMaterial.power, 1.0f, 1.0f, 100.0f);
-	}
-	if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen))
-	{
-		static bool normal = true;
-		static bool specular = true;
-		ImGui::SliderFloat("Displacement", &mSettings.bumpMapWeight, 0.0f, 1.0f);
-		if(ImGui::Checkbox("Normal Map", &normal))
-		{
-			mSettings.normalMapWeight = normal ? 1.0f : 0.0f;
-		}
-		if (ImGui::Checkbox("Specular Map", &specular))
-		{
-			mSettings.specularMapWeight = specular? 1.0f : 0.0f;
-		}
-
-	}
-	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
-	{
-		ImGui::DragFloat3("Rotation##Transform", &mRotation.x, 0.01f);
-	}
-	ImGui::End();
+	mPostProcessingPixelShader.Bind();
+	mPostProcessingVertexShader.Bind();
+	mSampler.BindPS();
+	mScreenQuadBuffer.Draw();
 }

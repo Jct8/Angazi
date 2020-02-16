@@ -54,20 +54,20 @@ void RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
 	HRESULT hr = device->CreateTexture2D(&desc, nullptr, &texture);
 	ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create render texture");
 
-	HRESULT hr = device->CreateShaderResourceView(&desc, nullptr, &mShaderResourceView);
+	hr = device->CreateShaderResourceView(texture, nullptr, &mShaderResourceView);
 	ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to shader resourece view");
 
-	HRESULT hr = device->CreateRenderTargetView(&desc, nullptr, &mRenderTargetView);
+	hr = device->CreateRenderTargetView(texture, nullptr, &mRenderTargetView);
 	ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create render target view");
 	SafeRelease(texture);
 
 	desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
-	HRESULT hr = device->CreateTexture2D(&desc, nullptr, &texture);
+	hr = device->CreateTexture2D(&desc, nullptr, &texture);
 	ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create depth stencil texture");
 
-	HRESULT hr = device->CreateDepthStencilView(texture, nullptr, &mDepthStencilView);
+	hr = device->CreateDepthStencilView(texture, nullptr, &mDepthStencilView);
 	ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create depth stencil view");
 	SafeRelease(texture);
 
@@ -88,16 +88,28 @@ void RenderTarget::Terminate()
 
 void RenderTarget::BeginRender()
 {
+	float ClearColor[4] = { 0.5f,0.5f ,0.5f ,1.0f };// RGBA
+
+	auto context = GetContext();
+	context->ClearRenderTargetView(mRenderTargetView, ClearColor);
+	context->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH,1.0f,0);
+	context->OMSetRenderTargets(1, &mRenderTargetView, mDepthStencilView);
+	context->RSSetViewports(1, &mViewport);
 }
 
 void RenderTarget::EndRender()
 {
+	GraphicsSystem::Get()->ResetRenderTarget();
+	GraphicsSystem::Get()->ResetViewport();
 }
 
 void RenderTarget::BindPS(uint32_t slot)
 {
+	GetContext()->PSSetShaderResources(slot, 1, &mShaderResourceView);
 }
 
 void RenderTarget::UnbindPS(uint32_t slot)
 {
+	static ID3D11ShaderResourceView* dummy = nullptr;
+	GetContext()->PSSetShaderResources(slot, 1, &dummy);
 }

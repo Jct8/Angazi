@@ -16,6 +16,7 @@
 #include "PixelShader.h"
 #include "Sampler.h"
 #include "SimpleDraw.h"
+#include "RenderTarget.h"
 #include "Texture.h"
 #include "VertexShader.h"
 #include "VertexTypes.h"
