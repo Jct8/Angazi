@@ -26,6 +26,6 @@ VSOutput VS(VSInput input)
 float4 PS(VSOutput input) : SV_Target
 {
 	float4 color = textureMap.Sample(textureSampler,input.texCoord);
-	color *= abs(cos(input.texCoord.y * screenHeight));
+	color *= abs(cos(input.texCoord.y * 720));
 	return float4(0,color.g,0,1);
 }
