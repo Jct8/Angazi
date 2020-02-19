@@ -72,9 +72,6 @@ private:
 	Angazi::Math::Vector3 mRotation = 0.0f;
 	float mCloudRotation = 0.0f;
 
-	//
-	Angazi::Graphics::ConstantBuffer mConstantBuffer;
-
 	//PostProcessing
 	Angazi::Graphics::RenderTarget mRenderTarget;
 	Angazi::Graphics::MeshPX mScreenQuad;

@@ -58,8 +58,6 @@ void GameState::Initialize()
 	mScreenQuad = MeshBuilder::CreateNDCQuad();
 	mScreenQuadBuffer.Initialize(mScreenQuad);
 
-	mConstantBuffer.Initialize(sizeof(Matrix4));
-
 	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
 	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx");
 
@@ -69,7 +67,6 @@ void GameState::Terminate()
 {
 	mPostProcessingPixelShader.Terminate();
 	mPostProcessingVertexShader.Terminate();
-	mConstantBuffer.Terminate();
 	mScreenQuadBuffer.Terminate();
 	mRenderTarget.Terminate();
 	//
