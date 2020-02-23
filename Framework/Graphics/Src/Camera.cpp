@@ -63,6 +63,11 @@ void Camera::SetFov(float fov)
 	mFov = Math::Clamp(fov, kMinFov, kMaxFov);
 }
 
+void Camera::SetAspectRatio(float ratio)
+{
+	mAspectRatio = ratio;
+}
+
 void Camera::SetNearPlane(float nearPlane)
 {
 	mNearPlane = nearPlane;
@@ -95,9 +100,15 @@ Math::Matrix4 Camera::GetViewMatrix() const
 
 Math::Matrix4 Camera::GetPerspectiveMatrix() const
 {
-	const auto width = GraphicsSystem::Get()->GetBackBufferWidth();
-	const auto height = GraphicsSystem::Get()->GetBackBufferHeight();
-	const float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
+
+	float aspectRatio = mAspectRatio;
+	if (aspectRatio == 0.0f)
+	{
+		const auto width = GraphicsSystem::Get()->GetBackBufferWidth();
+		const auto height = GraphicsSystem::Get()->GetBackBufferHeight();
+		aspectRatio = static_cast<float>(width) / height;
+	}
+
 	const float h = 1.0f / tan(mFov*0.5f);
 	const float w = h / aspectRatio;
 	const float zf = mFarPlane;

@@ -46,3 +46,9 @@ float4 PS(VSOutput input) : SV_Target
 	color *= textureMap.Sample(textureSampler, input.texCoord*0.4);
 	return color;
 }
+
+float4 PSNoProcessing(VSOutput input) : SV_Target
+{
+	float4 color = textureMap.Sample(textureSampler, input.texCoord);
+	return color;
+}

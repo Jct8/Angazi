@@ -13,6 +13,7 @@
 #include "Mesh.h"
 #include "MeshBuffer.h"
 #include "MeshBuilder.h"
+#include "ObjLoader.h"
 #include "PixelShader.h"
 #include "Sampler.h"
 #include "SimpleDraw.h"

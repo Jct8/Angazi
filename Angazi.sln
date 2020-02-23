@@ -113,6 +113,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GLShaders", "GLShaders", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "13_HelloPostProcessing", "VGP330\13_HelloPostProcessing\13_HelloPostProcessing.vcxproj", "{18211E6E-4B6E-4175-9438-D7F603F39BAE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "14_HelloShadowMapping", "VGP330\14_HelloShadowMapping\14_HelloShadowMapping.vcxproj", "{651171B7-1A79-4951-91A7-2CBE437B30C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -637,6 +639,22 @@ Global
 		{18211E6E-4B6E-4175-9438-D7F603F39BAE}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{18211E6E-4B6E-4175-9438-D7F603F39BAE}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{18211E6E-4B6E-4175-9438-D7F603F39BAE}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.Debug|x64.ActiveCfg = Debug|x64
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.Debug|x64.Build.0 = Debug|x64
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.Debug|x86.ActiveCfg = Debug|Win32
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.Debug|x86.Build.0 = Debug|Win32
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.MinSizeRel|x64.Build.0 = Release|x64
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.MinSizeRel|x86.Build.0 = Release|Win32
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.Release|x64.ActiveCfg = Release|x64
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.Release|x64.Build.0 = Release|x64
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.Release|x86.ActiveCfg = Release|Win32
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.Release|x86.Build.0 = Release|Win32
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{651171B7-1A79-4951-91A7-2CBE437B30C1}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -676,12 +694,13 @@ Global
 		{8D242697-0E78-487E-8AE2-EADE68600172} = {F8400894-831D-4B54-8637-B23ED468BE24}
 		{656D39BF-13D7-4767-BC6F-2FD4A27FB46A} = {151081E7-6860-49B2-904A-B1EFA6CCB4D5}
 		{18211E6E-4B6E-4175-9438-D7F603F39BAE} = {F8400894-831D-4B54-8637-B23ED468BE24}
+		{651171B7-1A79-4951-91A7-2CBE437B30C1} = {F8400894-831D-4B54-8637-B23ED468BE24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 32
+		SccNumberOfProjects = 33
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -809,5 +828,9 @@ Global
 		SccProjectTopLevelParentUniqueName31 = Angazi.sln
 		SccProjectName31 = VGP330/13_HelloPostProcessing
 		SccLocalPath31 = VGP330\\13_HelloPostProcessing
+		SccProjectUniqueName32 = VGP330\\14_HelloShadowMapping\\14_HelloShadowMapping.vcxproj
+		SccProjectTopLevelParentUniqueName32 = Angazi.sln
+		SccProjectName32 = VGP330/14_HelloShadowMapping
+		SccLocalPath32 = VGP330\\14_HelloShadowMapping
 	EndGlobalSection
 EndGlobal

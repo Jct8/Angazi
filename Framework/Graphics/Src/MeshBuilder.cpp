@@ -209,6 +209,77 @@ Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices)
 	return retMesh;
 }
 
+Mesh Angazi::Graphics::MeshBuilder::CreatePlane(float size, int height, int width)
+{
+	/*Mesh retMesh;
+	float xIncrement = static_cast<float>(size/ (rows-1));
+	float zIncrement = static_cast<float>(size/ (columns-1 ));
+	float x = 0.0f;
+	float z = 0.0f;
+
+	for (int i = 0; i <= rows; i++)
+	{
+		float v = static_cast<float>(i) / rows;
+		float x = 0.0f;
+		for (int j = 0; j <= columns; j++)
+		{
+			float u = static_cast<float>(j) / (columns);
+			Math::Vector3 normal = Math::Vector3::YAxis;
+			Math::Vector3 tangent = Math::Vector3::ZAxis;
+			Math::Vector3 vec = Math::Vector3{ x, 0.0f ,z };
+
+			retMesh.vertices.push_back
+			(
+				{ vec, normal , tangent , Math::Vector2{u,v} }
+			);
+			z += zIncrement;
+		}
+		x += xIncrement;
+	}
+
+	for (int y = 0; y <= rows; y++)
+	{
+		for (int x = 0; x <= columns; x++)
+		{
+			retMesh.indices.push_back(y * columns + x);
+			retMesh.indices.push_back((y + 1) * columns + x + 1);
+			retMesh.indices.push_back((y + 1) * columns + x);
+
+			retMesh.indices.push_back(y * columns + x);
+			retMesh.indices.push_back(y * columns + x + 1);
+			retMesh.indices.push_back((y + 1)* columns + x + 1);
+
+		}
+	}
+	return retMesh;*/
+
+	Mesh retMesh;
+	for (int y = 0; y <= height; y++)
+	{
+		for (int x = 0; x <= width; x++)
+		{
+			float u = static_cast<float>(x) / static_cast<float>(width);
+			float v = static_cast<float>(y) / static_cast<float>(height);
+			Math::Vector3 normal = Math::Vector3::YAxis;
+			Math::Vector3 tangent = Math::Vector3::ZAxis;
+			retMesh.vertices.push_back({
+				Math::Vector3{-0.5f*width + static_cast<float>(x) , 0.0f ,  0.5f*height - static_cast<float>(y)} , normal,tangent , Math::Vector2{u , v} });
+
+			if (x != width)
+			{
+				retMesh.indices.push_back(y * height + x);
+				retMesh.indices.push_back((y + 1) * height + x + 1);
+				retMesh.indices.push_back((y + 1) * height + x);
+
+				retMesh.indices.push_back(y * height + x);
+				retMesh.indices.push_back(y * height + x + 1);
+				retMesh.indices.push_back((y + 1) * height + x + 1);
+			}
+		}
+	}
+	return retMesh;
+}
+
 MeshPX MeshBuilder::CreateNDCQuad()
 {
 	MeshPX retMesh;
