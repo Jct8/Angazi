@@ -19,7 +19,7 @@ void GameState::Initialize()
 	mDefaultCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
 	mLightCamera.SetPosition(Normalize({ 1.0f, -1.0f, 1.0f }));
-	mLightCamera.SetDirection(mTankPosition - mLightCamera.GetDirection() * 100.0f);
+	mLightCamera.SetDirection(mTankPosition - mLightCamera.GetPosition() * 100.0f);
 	mLightCamera.SetNearPlane(1.0f);
 	mLightCamera.SetFarPlane(200.0f);
 	mLightCamera.SetFov(1.0f);
@@ -68,9 +68,9 @@ void GameState::Initialize()
 	mScreenQuadBuffer.Initialize(mScreenQuad);
 
 	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
-	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx","PSNoProcessing");
+	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
 
-	SimpleDraw::AddGroundPlane(200.0f,true,Graphics::Colors::Blue);
+	SimpleDraw::AddGroundPlane(200.0f, true, Graphics::Colors::Blue);
 }
 
 void GameState::Terminate()
@@ -194,17 +194,10 @@ void GameState::DrawScene()
 	auto matWorld = matRot * matTrans;
 	auto matView = mActiveCamera->GetViewMatrix();
 	auto matProj = mActiveCamera->GetPerspectiveMatrix();
+	TransformData transformData;
 
 	mSampler.BindVS();
 	mSampler.BindPS();
-
-	mTexture.BindPS(0);
-	mSpecularTexture.BindPS(1);
-	mDisplacementTexture.BindVS(2);
-	mNormalMap.BindPS(3);
-
-	TransformData transformData;
-	mTransformBuffer.BindVS(0);
 
 	mLightBuffer.Update(&mDirectionalLight);
 	mLightBuffer.BindVS(1);
@@ -218,6 +211,14 @@ void GameState::DrawScene()
 	mSettingsBuffer.BindVS(3);
 	mSettingsBuffer.BindPS(3);
 
+	//Tank
+	mTexture.BindPS(0);
+	mSpecularTexture.BindPS(1);
+	mDisplacementTexture.BindVS(2);
+	mNormalMap.BindPS(3);
+
+	mTransformBuffer.BindVS(0);
+	
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
 	transformData.viewPosition = mActiveCamera->GetPosition();
@@ -229,11 +230,12 @@ void GameState::DrawScene()
 	mBlendState.ClearState();
 	mTankMeshBuffer.Draw();
 
-	//ground
+	//Ground
 	matTrans = Matrix4::Translation({ 0.0f,0.0f,0.0f });
 	matRot = Matrix4::RotationX(mTankPosition.x) * Matrix4::RotationY(mTankPosition.y) * Matrix4::RotationZ(mTankPosition.z);
 	matWorld = matRot * matTrans;
 
+	mTransformBuffer.BindVS(0);
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
 	transformData.viewPosition = mActiveCamera->GetPosition();
@@ -243,6 +245,7 @@ void GameState::DrawScene()
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 	mGroundMeshBuffer.Draw();
+
 
 	SimpleDraw::Render(*mActiveCamera);
 
@@ -254,4 +257,4 @@ void GameState::PostProcess()
 	mPostProcessingVertexShader.Bind();
 	mSampler.BindPS();
 	mScreenQuadBuffer.Draw();
-	}
+}
