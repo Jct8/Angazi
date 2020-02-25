@@ -58,7 +58,7 @@ void GameState::Initialize()
 
 	mBlendState.Initialize(BlendState::Mode::Additive);
 
-	mGroundMesh = MeshBuilder::CreatePlane(20.0f);
+	mGroundMesh = MeshBuilder::CreatePlane(200.0f,100.0f,100.0f);
 	mGroundMeshBuffer.Initialize(mGroundMesh);
 
 	//Quad
@@ -104,20 +104,30 @@ void GameState::Update(float deltaTime)
 
 	auto inputSystem = InputSystem::Get();
 	if (inputSystem->IsKeyDown(KeyCode::W))
+	{
+		mTankPosition.z += kMoveSpeed * deltaTime;
 		mDefaultCamera.Walk(kMoveSpeed*deltaTime);
+	}
 	if (inputSystem->IsKeyDown(KeyCode::S))
+	{
+		mTankPosition.z -= kMoveSpeed * deltaTime;
 		mDefaultCamera.Walk(-kMoveSpeed * deltaTime);
+	}
+	if (inputSystem->IsKeyDown(KeyCode::A))
+	{
+		mTankPosition.x -= kMoveSpeed * deltaTime;
+		mDefaultCamera.Strafe(-kMoveSpeed * deltaTime);
+	}
+	if (inputSystem->IsKeyDown(KeyCode::D))
+	{
+		mTankPosition.x += kMoveSpeed * deltaTime;
+		mDefaultCamera.Strafe(kMoveSpeed*deltaTime);
+	}
 	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
 	{
 		mDefaultCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
 		mDefaultCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
 	}
-
-	if (inputSystem->IsKeyDown(KeyCode::A))
-		mDefaultCamera.Strafe(-kMoveSpeed * deltaTime);
-	//mTankPosition += deltaTime;
-	if (inputSystem->IsKeyDown(KeyCode::D))
-		mDefaultCamera.Strafe(kMoveSpeed*deltaTime);
 	//mTankPosition -= deltaTime;
 }
 
@@ -190,7 +200,7 @@ void GameState::DebugUI()
 void GameState::DrawScene()
 {
 	auto matTrans = Matrix4::Translation({ mTankPosition });
-	auto matRot = Matrix4::RotationX(mTankPosition.x) * Matrix4::RotationY(mTankPosition.y) * Matrix4::RotationZ(mTankPosition.z);
+	auto matRot = Matrix4::Identity;//Matrix4::RotationX(mTankPosition.x) * Matrix4::RotationY(mTankPosition.y) * Matrix4::RotationZ(mTankPosition.z);
 	auto matWorld = matRot * matTrans;
 	auto matView = mActiveCamera->GetViewMatrix();
 	auto matProj = mActiveCamera->GetPerspectiveMatrix();
@@ -218,7 +228,7 @@ void GameState::DrawScene()
 	mNormalMap.BindPS(3);
 
 	mTransformBuffer.BindVS(0);
-	
+
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
 	transformData.viewPosition = mActiveCamera->GetPosition();
@@ -232,7 +242,7 @@ void GameState::DrawScene()
 
 	//Ground
 	matTrans = Matrix4::Translation({ 0.0f,0.0f,0.0f });
-	matRot = Matrix4::RotationX(mTankPosition.x) * Matrix4::RotationY(mTankPosition.y) * Matrix4::RotationZ(mTankPosition.z);
+	matRot = Matrix4::Identity;// Matrix4::RotationX(mTankPosition.x) * Matrix4::RotationY(mTankPosition.y) * Matrix4::RotationZ(mTankPosition.z);
 	matWorld = matRot * matTrans;
 
 	mTransformBuffer.BindVS(0);
