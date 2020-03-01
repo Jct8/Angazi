@@ -14,6 +14,7 @@ public:
 
 private:
 	void DrawScene();
+	void DrawDepthMap();
 	void PostProcess();
 
 private:
@@ -43,13 +44,19 @@ private:
 		float specularMapWeight = 1.0f;
 		float bumpMapWeight = 1.0f;
 		float normalMapWeight = 1.0f;
-		float padding;
+		float aoMapWeight = 1.0f;
+		float brightness = 1.0f;
+		int useShadow = 1;
+		float depthBias = 0.0003f;
+		float padding[1];
 	};
 
 	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
 	using LightBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::DirectionalLight>;
 	using MaterialBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::Material>;
 	using SettingsBuffer = Angazi::Graphics::TypedConstantBuffer<Settings>;
+	using DepthMapConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
+	using ShadowConstantBuffer  = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
 
 	TransformBuffer mTransformBuffer;
 	LightBuffer mLightBuffer;
@@ -57,6 +64,7 @@ private:
 	SettingsBuffer mSettingsBuffer;
 
 	Settings mSettings;
+	Settings mGroundSettings;
 
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader mPixelShader;
@@ -66,6 +74,7 @@ private:
 	Angazi::Graphics::Texture mSpecularTexture;
 	Angazi::Graphics::Texture mDisplacementTexture;
 	Angazi::Graphics::Texture mNormalMap;
+	Angazi::Graphics::Texture mAOMap;
 
 	Angazi::Graphics::Texture mGroundTexture;
 
@@ -75,6 +84,13 @@ private:
 	float mCloudRotation = 0.0f;
 
 	Angazi::Math::Vector3 mTankPosition;
+
+	//Shadow
+	Angazi::Graphics::RenderTarget mDepthMapRenderTarget;
+	Angazi::Graphics::VertexShader mDepthMapVertexShader;
+	Angazi::Graphics::PixelShader mDepthMapPixelShader;
+	DepthMapConstantBuffer mDepthMapConstantBuffer;
+	ShadowConstantBuffer mShadowConstantBuffer;
 
 	//PostProcessing
 	Angazi::Graphics::RenderTarget mRenderTarget;

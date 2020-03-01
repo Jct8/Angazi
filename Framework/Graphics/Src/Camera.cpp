@@ -100,7 +100,6 @@ Math::Matrix4 Camera::GetViewMatrix() const
 
 Math::Matrix4 Camera::GetPerspectiveMatrix() const
 {
-
 	float aspectRatio = mAspectRatio;
 	if (aspectRatio == 0.0f)
 	{
