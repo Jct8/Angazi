@@ -13,7 +13,7 @@ void GameState::Initialize()
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
 	mTankPosition = { 0.0f,3.5f,0.0f };
-
+	mSettings.brightness = 10.0f;
 	mDefaultCamera.SetNearPlane(0.001f);
 	mDefaultCamera.SetPosition({ 0.0f,5.0f,-20.0f });
 	mDefaultCamera.SetDirection({ 0.0f,0.0f, 1.0f });
@@ -254,7 +254,7 @@ void GameState::DebugUI()
 			mSettings.useShadow = useShadow ? 1 : 0;
 		}
 		ImGui::SliderFloat("Brightness", &mSettings.brightness, 1.0f, 10.f);
-		ImGui::SliderFloat("Depth Bias", &mSettings.depthBias, 0.0001f, 0.0009f);
+		ImGui::DragFloat("Depth Bias", &mSettings.depthBias, 0.0003f);
 	}
 	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{
