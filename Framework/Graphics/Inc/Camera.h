@@ -31,6 +31,7 @@ namespace Angazi::Graphics
 		Math::Matrix4 GetViewMatrix() const;
 		Math::Matrix4 GetPerspectiveMatrix() const;
 
+		Math::Matrix4 GetOrthographicMatrix(float width, float height) const;
 
 	private:
 		Math::Vector3 mPosition = Math::Vector3::Zero;

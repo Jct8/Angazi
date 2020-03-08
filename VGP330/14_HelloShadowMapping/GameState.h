@@ -19,8 +19,12 @@ private:
 
 private:
 	Angazi::Graphics::Camera mDefaultCamera;
+	Angazi::Graphics::Camera mDebugCamera;
 	Angazi::Graphics::Camera mLightCamera;
 	Angazi::Graphics::Camera* mActiveCamera = nullptr;
+
+	std::vector<Angazi::Math::Vector3> mViewFrustumVertices;
+	Angazi::Math::Matrix4 mLightProjectionMatrix;
 
 	Angazi::Graphics::Mesh mTankMesh;
 	Angazi::Graphics::MeshBuffer mTankMeshBuffer;
@@ -81,9 +85,8 @@ private:
 	Angazi::Graphics::BlendState mBlendState;
 
 	Angazi::Math::Vector3 mTankRotation = 0.0f;
-	float mCloudRotation = 0.0f;
-
-	Angazi::Math::Vector3 mTankPosition;
+	std::vector<Angazi::Math::Vector3> mTankPositions;
+	float mTankSpacing = 20.0f;
 
 	//Shadow
 	Angazi::Graphics::RenderTarget mDepthMapRenderTarget;

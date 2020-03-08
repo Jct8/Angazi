@@ -123,3 +123,18 @@ Math::Matrix4 Camera::GetPerspectiveMatrix() const
 	};
 
 }
+
+Math::Matrix4 Camera::GetOrthographicMatrix(float width, float height) const
+{
+	const float w = width;
+	const float h = height;
+	const float zf = mFarPlane;
+	const float zn = mNearPlane;
+	return Math::Matrix4
+	{
+		2.0f / w , 0.0f    , 0.0f          , 0.0f,
+		0.0f     , 2.0f / h, 0.0f          , 0.0f,
+		0.0f     , 0.0f    , 1 / (zf - zn) , 0.0f,
+		0.0f     , 0.0f    , zn / (zn - zf), 1.0f
+	};
+}
