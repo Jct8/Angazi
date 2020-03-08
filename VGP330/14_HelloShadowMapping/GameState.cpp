@@ -6,17 +6,33 @@ using namespace Angazi::Graphics;
 using namespace Angazi::Input;
 using namespace Angazi::Math;
 
+namespace
+{
+	void SimpleDrawCamera(const Camera& camera)
+	{
+		auto defaultMatView = camera.GetViewMatrix();
+		Vector3 cameraPosition = camera.GetPosition();
+		Vector3 cameraRight = { defaultMatView._11, defaultMatView._21, defaultMatView._31 };
+		Vector3 cameraUp = { defaultMatView._12, defaultMatView._22, defaultMatView._32 };
+		Vector3 cameraLook = { defaultMatView._13, defaultMatView._23, defaultMatView._33 };
+		SimpleDraw::AddSphere(cameraPosition, 0.1f, Colors::White,false, 6, 8);
+		SimpleDraw::AddLine(cameraPosition, cameraPosition + cameraRight, Colors::Red);
+		SimpleDraw::AddLine(cameraPosition, cameraPosition + cameraUp, Colors::Green);
+		SimpleDraw::AddLine(cameraPosition, cameraPosition + cameraLook, Colors::Blue);
+	}
+}
+
 
 void GameState::Initialize()
 {
 
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
-	
+
 	//mTankPosition = { 0.0f,3.5f,0.0f };
 	mSettings.brightness = 10.0f;
 	mDefaultCamera.SetNearPlane(0.1f);
-	mDefaultCamera.SetFarPlane(200.0f);
+	mDefaultCamera.SetFarPlane(300.0f);
 	mDefaultCamera.SetPosition({ 0.0f, 10.0f, -30.0f });
 	mDefaultCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
@@ -63,8 +79,6 @@ void GameState::Initialize()
 
 	mGroundTexture.Initialize("../../Assets/Images/Sand.jpg");
 
-	mBlendState.Initialize(BlendState::Mode::Additive);
-
 	mGroundMesh = MeshBuilder::CreatePlane(100.0f, 200, 200);
 	mGroundMeshBuffer.Initialize(mGroundMesh);
 
@@ -107,7 +121,6 @@ void GameState::Terminate()
 	//
 	mGroundMeshBuffer.Terminate();
 
-	mBlendState.Terminate();
 	mGroundTexture.Terminate();
 	mAOMap.Terminate();
 	mNormalMap.Terminate();
@@ -125,10 +138,10 @@ void GameState::Terminate()
 
 void GameState::Update(float deltaTime)
 {
-	const float kMoveSpeed = 5.0f;
+	auto inputSystem = InputSystem::Get();
+	const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 100.0f : 10.0f;
 	const float kTurnSpeed = 1.0f;
 
-	auto inputSystem = InputSystem::Get();
 	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
 	{
 		mActiveCamera->Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
@@ -149,34 +162,33 @@ void GameState::Update(float deltaTime)
 		{
 			mActiveCamera->Strafe(kMoveSpeed*deltaTime);
 		}
-		return;
 	}
-	if (inputSystem->IsKeyDown(KeyCode::W))
+	if (inputSystem->IsKeyDown(KeyCode::UP))
 	{
 		for (auto &positions : mTankPositions)
 			positions.z += kMoveSpeed * deltaTime;
 	}
-	if (inputSystem->IsKeyDown(KeyCode::S))
+	if (inputSystem->IsKeyDown(KeyCode::DOWN))
 	{
 		for (auto &positions : mTankPositions)
 			positions.z -= kMoveSpeed * deltaTime;
 	}
-	if (inputSystem->IsKeyDown(KeyCode::A))
+	if (inputSystem->IsKeyDown(KeyCode::LEFT))
 	{
 		for (auto &positions : mTankPositions)
 			positions.x -= kMoveSpeed * deltaTime;
 		mTankRotation.y -= kMoveSpeed * deltaTime;
 	}
-	if (inputSystem->IsKeyDown(KeyCode::D))
+	if (inputSystem->IsKeyDown(KeyCode::RIGHT))
 	{
 		for (auto &positions : mTankPositions)
 			positions.x += kMoveSpeed * deltaTime;
 		mTankRotation.y += kMoveSpeed * deltaTime;
 	}
-	//mLightCamera.SetDirection(mTankPosition - mLightCamera.GetPosition());
 	//mLightCamera.SetDirection(mDirectionalLight.direction);
-
-	//mTankPosition -= deltaTime;
+	//mLightCamera.SetDirection(mTankPosition - mLightCamera.GetPosition());
+	mLightCamera.SetDirection(mDirectionalLight.direction);
+	//mLightCamera.SetPosition(mLightCamera.GetDirection() * -50.0f);
 
 	mTankPositions.clear();
 	const int count = 5;
@@ -191,9 +203,6 @@ void GameState::Update(float deltaTime)
 			mTankPositions.push_back({ posX,3.5f,posZ });
 		}
 	}
-
-	mLightCamera.SetDirection(mDirectionalLight.direction);
-	mLightCamera.SetPosition(mLightCamera.GetDirection() * -50.0f);
 
 	mViewFrustumVertices =
 	{
@@ -240,8 +249,8 @@ void GameState::Update(float deltaTime)
 		lightUp * (minY + maxY) * 0.5f +
 		lightLook * (minZ + maxZ) * 0.5f
 	);
-	mLightCamera.SetNearPlane(minZ - 100.0f);
-	mLightCamera.SetFarPlane(maxZ + 100.0f);
+	mLightCamera.SetNearPlane(minZ - 300.0f);
+	mLightCamera.SetFarPlane(maxZ);
 	mLightProjectionMatrix = mLightCamera.GetOrthographicMatrix(maxX - minX, maxY - minY);
 
 	auto v0 = lightSide * minX + lightUp * minY + lightLook * minZ;
@@ -267,6 +276,9 @@ void GameState::Update(float deltaTime)
 	SimpleDraw::AddLine(v5, v6, Colors::Red);
 	SimpleDraw::AddLine(v6, v7, Colors::Red);
 	SimpleDraw::AddLine(v7, v4, Colors::Red);
+
+	SimpleDrawCamera(mLightCamera);
+
 }
 
 void GameState::Render()
@@ -371,55 +383,49 @@ void GameState::DrawScene()
 	auto matViewLight = mLightCamera.GetViewMatrix();
 	auto matProjLight = mLightProjectionMatrix;// mLightCamera.GetPerspectiveMatrix();
 
+	mSampler.BindVS();
+	mSampler.BindPS();
+
+	mLightBuffer.Update(&mDirectionalLight);
+	mLightBuffer.BindVS(1);
+	mLightBuffer.BindPS(1);
+
+	mMaterialBuffer.Update(&mMaterial);
+	mMaterialBuffer.BindVS(2);
+	mMaterialBuffer.BindPS(2);
+
+	mSettingsBuffer.Update(&mSettings);
+	mSettingsBuffer.BindVS(3);
+	mSettingsBuffer.BindPS(3);
+	//Tank
+	mTexture.BindPS(0);
+	mSpecularTexture.BindPS(1);
+	mDisplacementTexture.BindVS(2);
+	mNormalMap.BindPS(3);
+	mAOMap.BindPS(4);
+	mDepthMapRenderTarget.BindPS(5);
+
+	mVertexShader.Bind();
+	mPixelShader.Bind();
+
+	mTransformBuffer.BindVS(0);
+	mShadowConstantBuffer.BindVS(4);
 	for (auto& positions : mTankPositions)
 	{
 		auto matTrans = Matrix4::Translation({ positions });
 		auto matRot = Matrix4::RotationX(mTankRotation.x) * Matrix4::RotationY(mTankRotation.y) * Matrix4::RotationZ(mTankRotation.z);
 		auto matWorld = matRot * matTrans;
 
-
-		TransformData transformData;
-
-		mSampler.BindVS();
-		mSampler.BindPS();
-
-		mLightBuffer.Update(&mDirectionalLight);
-		mLightBuffer.BindVS(1);
-		mLightBuffer.BindPS(1);
-
-		mMaterialBuffer.Update(&mMaterial);
-		mMaterialBuffer.BindVS(2);
-		mMaterialBuffer.BindPS(2);
-
-		mSettingsBuffer.Update(&mSettings);
-		mSettingsBuffer.BindVS(3);
-		mSettingsBuffer.BindPS(3);
-
 		auto wvpLight = Transpose(matWorld * matViewLight * matProjLight);
 		mShadowConstantBuffer.Update(&wvpLight);
-		mShadowConstantBuffer.BindVS(4);
 
-		//Tank
-		mTexture.BindPS(0);
-		mSpecularTexture.BindPS(1);
-		mDisplacementTexture.BindVS(2);
-		mNormalMap.BindPS(3);
-		mAOMap.BindPS(4);
-		mDepthMapRenderTarget.BindPS(5);
-
-		mTransformBuffer.BindVS(0);
-
+		TransformData transformData;
 		transformData.world = Transpose(matWorld);
 		transformData.wvp = Transpose(matWorld * matView *matProj);
 		transformData.viewPosition = mActiveCamera->GetPosition();
 		mTransformBuffer.Update(&transformData);
 
-		mVertexShader.Bind();
-		mPixelShader.Bind();
-
-		mBlendState.ClearState();
 		mTankMeshBuffer.Draw();
-
 	}
 	//Ground
 	auto matTrans = Matrix4::Translation({ 0.0f,0.0f,0.0f });
@@ -458,54 +464,6 @@ void GameState::DrawScene()
 	mPixelShader.Bind();
 	mGroundMeshBuffer.Draw();
 
-	mViewFrustumVertices =
-	{
-		// Near plane
-		{ -1.0f, -1.0f, 0.0f },
-		{ -1.0f,  1.0f, 0.0f },
-		{  1.0f,  1.0f, 0.0f },
-		{  1.0f, -1.0f, 0.0f },
-
-		// Far plane
-		{ -1.0f, -1.0f, 1.0f },
-		{ -1.0f,  1.0f, 1.0f },
-		{  1.0f,  1.0f, 1.0f },
-		{  1.0f, -1.0f, 1.0f },
-	};
-	auto defaultMatView = mDefaultCamera.GetViewMatrix();
-	auto defaultMatProj = mDefaultCamera.GetPerspectiveMatrix();
-	auto invViewProj = Inverse(defaultMatView * defaultMatProj);
-	for (auto& vertex : mViewFrustumVertices)
-	{
-		vertex = TransformCoord(vertex, invViewProj);
-	}
-
-	auto lightLook = mLightCamera.GetDirection();
-	auto lightSide = Normalize(Cross(Vector3::YAxis, lightLook));
-	auto lightUp = Normalize(Cross(lightLook, lightSide));
-	float minX = FLT_MAX, maxX = -FLT_MAX;
-	float minY = FLT_MAX, maxY = -FLT_MAX;
-	float minZ = FLT_MAX, maxZ = -FLT_MAX;
-	for (auto& vertex : mViewFrustumVertices)
-	{
-		float projectX = Dot(lightSide, vertex);
-		minX = Min(minX, projectX);
-		maxX = Max(maxX, projectX);
-		float projectY = Dot(lightUp, vertex);
-		minY = Min(minY, projectY);
-		maxY = Max(maxY, projectY);
-		float projectZ = Dot(lightLook, vertex);
-		minZ = Min(minZ, projectZ);
-		maxZ = Max(maxZ, projectZ);
-	}
-	mLightCamera.SetPosition(
-		lightSide + (minX + maxX) * 0.5f +
-		lightUp + (minY + maxY) * 0.5f +
-		lightLook + (minZ + maxZ) * 0.5f
-	);
-	mLightCamera.SetNearPlane(minZ);
-	mLightCamera.SetFarPlane(maxZ);
-
 	SimpleDraw::AddLine(mViewFrustumVertices[0], mViewFrustumVertices[1], Colors::AliceBlue);
 	SimpleDraw::AddLine(mViewFrustumVertices[1], mViewFrustumVertices[2], Colors::AliceBlue);
 	SimpleDraw::AddLine(mViewFrustumVertices[2], mViewFrustumVertices[3], Colors::AliceBlue);
@@ -520,6 +478,8 @@ void GameState::DrawScene()
 	SimpleDraw::AddLine(mViewFrustumVertices[5], mViewFrustumVertices[6], Colors::AliceBlue);
 	SimpleDraw::AddLine(mViewFrustumVertices[6], mViewFrustumVertices[7], Colors::AliceBlue);
 	SimpleDraw::AddLine(mViewFrustumVertices[7], mViewFrustumVertices[4], Colors::AliceBlue);
+
+	SimpleDrawCamera(mDefaultCamera);
 
 	SimpleDraw::Render(*mActiveCamera);
 
@@ -539,10 +499,8 @@ void GameState::DrawDepthMap()
 		auto matTrans = Matrix4::Translation({ positions });
 		auto matRot = Matrix4::RotationX(mTankRotation.x) * Matrix4::RotationY(mTankRotation.y);
 		auto matWorld = matRot * matTrans;
-
 		auto wvp = Transpose(matWorld * matViewLight * matProjLight);
 		mDepthMapConstantBuffer.Update(&wvp);
-
 		mTankMeshBuffer.Draw();
 	}
 }

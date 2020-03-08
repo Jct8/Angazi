@@ -82,8 +82,6 @@ private:
 
 	Angazi::Graphics::Texture mGroundTexture;
 
-	Angazi::Graphics::BlendState mBlendState;
-
 	Angazi::Math::Vector3 mTankRotation = 0.0f;
 	std::vector<Angazi::Math::Vector3> mTankPositions;
 	float mTankSpacing = 20.0f;
