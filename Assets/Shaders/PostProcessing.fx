@@ -43,7 +43,7 @@ float4 PS(VSOutput input) : SV_Target
 	//for (int i = 0; i < 20; i++)
 	//	color += textureMap.Sample(textureSampler, input.texCoord );
 	//return color;
-	color *= textureMap.Sample(textureSampler, input.texCoord*0.4);
+	//color *= textureMap.Sample(textureSampler, input.texCoord*0.4);
 	return color;
 }
 
