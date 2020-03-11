@@ -14,6 +14,7 @@ public:
 
 private:
 	void DrawScene();
+	void DrawDepthMap();
 	void PostProcess();
 
 private:
@@ -47,10 +48,21 @@ private:
 		float padding[3];
 	};
 
+	struct Clipping
+	{
+		Angazi::Math::Vector4 plane;
+		float distance;
+		float padding[3];
+	};
+
 	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
 	using LightBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::DirectionalLight>;
 	using MaterialBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::Material>;
 	using SettingsBuffer = Angazi::Graphics::TypedConstantBuffer<Settings>;
+	using DepthMapConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
+	using ShadowConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
+	using ClippingConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Clipping>;
+
 
 	TransformBuffer mTransformBuffer;
 	LightBuffer mLightBuffer;
@@ -72,6 +84,18 @@ private:
 
 	Angazi::Graphics::BlendState mBlendState;
 	Angazi::Math::Vector3 mRotation = 0.0f;
+
+	//Clipping
+	ClippingConstantBuffer mClippingConstantBuffer;
+
+	//Depth
+	Angazi::Graphics::RenderTarget mDepthMapRenderTarget;
+	Angazi::Graphics::VertexShader mDepthMapVertexShader;
+	Angazi::Graphics::PixelShader mDepthMapPixelShader;
+	DepthMapConstantBuffer mDepthMapConstantBuffer;
+	ShadowConstantBuffer mShadowConstantBuffer;
+
+	ID3D11RasterizerState* mRasterState;
 
 	//PostProcessing
 	Angazi::Graphics::RenderTarget mRenderTarget;

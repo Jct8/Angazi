@@ -40,6 +40,12 @@ cbuffer ShadowBuffer : register(b4)
 	matrix WVPLight;
 }
 
+cbuffer ClippingBuffer : register(b4)
+{
+	float4 clippingPlane;
+	float clippingDistance;
+}
+
 Texture2D diffuseMap : register(t0);
 Texture2D specularMap : register(t1);
 Texture2D displacementMap : register(t2);
@@ -55,6 +61,7 @@ struct VS_INPUT
 	float4 normal : NORMAL;
 	float4 tangent : TANGENT;
 	float2 texCoord : TEXCOORD;
+
 };
 
 struct VS_OUTPUT
@@ -66,7 +73,7 @@ struct VS_OUTPUT
 	float3 dirToView : TEXCOORD2;
 	float2 texCoord : TEXCOORD3;
 	float4 positionNDC : TEXCOORD4;
-
+	float clip : SV_ClipDistance0;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
@@ -93,6 +100,7 @@ VS_OUTPUT VS(VS_INPUT input)
 	if (useShadow)
 		output.positionNDC = mul(float4(localPosition, 1.0f), WVPLight);
 
+	//output.clip = dot(output.position, clippingPlane);
 	return output;
 }
 

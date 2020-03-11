@@ -6,17 +6,33 @@ using namespace Angazi::Graphics;
 using namespace Angazi::Input;
 using namespace Angazi::Math;
 
-
 void GameState::Initialize()
 {
 
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
+	D3D11_RASTERIZER_DESC rasterDesc;
+	rasterDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+	rasterDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+	rasterDesc.FrontCounterClockwise = true;
+	rasterDesc.DepthBias = 0;
+	rasterDesc.SlopeScaledDepthBias = 0.0f;
+	rasterDesc.DepthBiasClamp = 0.0f;
+	rasterDesc.DepthClipEnable = true;
+	rasterDesc.ScissorEnable = false;
+	rasterDesc.MultisampleEnable = false;
+	rasterDesc.AntialiasedLineEnable = false;
+
+	HRESULT hr = GraphicsSystem::Get()->GetDevice()->CreateRasterizerState(&rasterDesc, &mRasterState);
+	ASSERT(SUCCEEDED(hr), "[RasterState] Failed to create raster state.");
+
+	GraphicsSystem::Get()->GetContext()->RSSetState(mRasterState);
+
 	mCamera.SetPosition({ 0.0f,3.0f,-5.0f });
 	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
 	////////////
-	mMesh = MeshBuilder::CreatePlane(200.0f,20,20);
+	mMesh = MeshBuilder::CreatePlane(200.0f, 20, 20);
 	mMeshBuffer.Initialize(mMesh);
 
 	mTransformBuffer.Initialize();
@@ -55,10 +71,30 @@ void GameState::Initialize()
 	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
 	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx");
 
+	constexpr uint32_t depthMapSize = 4096;
+	mDepthMapRenderTarget.Initialize(depthMapSize, depthMapSize, RenderTarget::Format::RGBA_U32);
+	mDepthMapVertexShader.Initialize("../../Assets/Shaders/DepthMap.fx", Vertex::Format);
+	mDepthMapPixelShader.Initialize("../../Assets/Shaders/DepthMap.fx");
+	mDepthMapConstantBuffer.Initialize();
+
+	mShadowConstantBuffer.Initialize();
+
+	//Clipping
+	mClippingConstantBuffer.Initialize();
+	
 }
 
 void GameState::Terminate()
 {
+	SafeRelease(mRasterState);
+	mClippingConstantBuffer.Terminate();
+
+	mShadowConstantBuffer.Terminate();
+	mDepthMapRenderTarget.Terminate();
+	mDepthMapVertexShader.Terminate();
+	mDepthMapPixelShader.Terminate();
+	mDepthMapConstantBuffer.Terminate();
+
 	mPostProcessingPixelShader.Terminate();
 	mPostProcessingVertexShader.Terminate();
 	mScreenQuadBuffer.Terminate();
@@ -78,7 +114,7 @@ void GameState::Terminate()
 	mMaterialBuffer.Terminate();
 	mLightBuffer.Terminate();
 	mTransformBuffer.Terminate();
-	mMeshBuffer.Terminate();	
+	mMeshBuffer.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -121,6 +157,17 @@ void GameState::Render()
 void GameState::DebugUI()
 {
 	ImGui::Begin("Setting", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::Image(
+			mRenderTarget.GetShaderResourceView(),
+			{ 150.0f,150.0f },
+			{ 0.0f,0.0f },
+			{ 1.0f,1.0f },
+			{ 1.0f,1.0f ,1.0f,1.0f },
+			{ 1.0f,1.0f ,1.0f,1.0f }
+		);
+	}
 	if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		bool directionChanged = false;
@@ -175,14 +222,40 @@ void GameState::DebugUI()
 	ImGui::End();
 }
 
+void GameState::DrawDepthMap()
+{
+	/*mDepthMapPixelShader.Bind();
+	mDepthMapVertexShader.Bind();
+
+	auto matViewSecond = mCamera.GetViewMatrix();
+	auto matProjSecond = mCamera.GetPerspectiveMatrix();*/
+
+	/*mDepthMapConstantBuffer.BindVS(0);
+	for (auto& positions : mTankPositions)
+	{
+		auto matTrans = Matrix4::Translation({ positions });
+		auto matRot = Matrix4::RotationX(mTankRotation.x) * Matrix4::RotationY(mTankRotation.y);
+		auto matWorld = matRot * matTrans;
+		auto wvp = Transpose(matWorld * matViewLight * matProjLight);
+		mDepthMapConstantBuffer.Update(&wvp);
+		mTankMeshBuffer.Draw();
+	}*/
+}
+
 void GameState::DrawScene()
 {
-	//Earth
+	//Water
 	auto matTrans = Matrix4::Translation({ -1.0f,0.0f,0.0f });
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 	auto matWorld = matRot * matTrans;
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
+	
+	Clipping clipping;
+	clipping.plane = { 0.0f,1.0f,0.0f,0.0f };
+	clipping.distance = 20;
+	mClippingConstantBuffer.Update(&clipping);
+	mClippingConstantBuffer.BindVS(4);
 
 	//water
 	mSampler.BindVS();
