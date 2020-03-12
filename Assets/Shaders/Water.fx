@@ -40,7 +40,7 @@ cbuffer ShadowBuffer : register(b4)
 	matrix WVPLight;
 }
 
-cbuffer ClippingBuffer : register(b4)
+cbuffer ClippingBuffer : register(b5)
 {
 	float4 clippingPlane;
 	float clippingDistance;
@@ -73,7 +73,7 @@ struct VS_OUTPUT
 	float2 texCoord : TEXCOORD3;
 	float4 positionNDC : TEXCOORD4;
 	float4 positionScreen : TEXCOORD5;
-	//float clip : SV_ClipDistance0;
+	float clip : SV_ClipDistance0;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
@@ -102,7 +102,7 @@ VS_OUTPUT VS(VS_INPUT input)
 	if (useShadow)
 		output.positionNDC = mul(float4(localPosition, 1.0f), WVPLight);
 
-	//output.clip = dot(output.position, clippingPlane);
+	output.clip = dot(output.position, clippingPlane);
 	return output;
 }
 
