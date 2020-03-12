@@ -36,9 +36,9 @@ float4 PS(VSOutput input) : SV_Target
 	//return float4(color.rrr, 1);
 	
 	// Blur
-	//color *= 0.6f;
-	//color += textureMap.Sample(textureSampler, input.texCoord + (0.005)) * .2f;
-	//return color;
+	color *= 0.6f;
+	color += textureMap.Sample(textureSampler, input.texCoord + (0.005)) * .2f;
+	return color;
 
 	//for (int i = 0; i < 20; i++)
 	//	color += textureMap.Sample(textureSampler, input.texCoord );

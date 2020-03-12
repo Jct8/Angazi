@@ -11,7 +11,7 @@ void GameState::Initialize()
 
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
-	D3D11_RASTERIZER_DESC rasterDesc;
+	/*D3D11_RASTERIZER_DESC rasterDesc;
 	rasterDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
 	rasterDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
 	rasterDesc.FrontCounterClockwise = true;
@@ -26,7 +26,7 @@ void GameState::Initialize()
 	HRESULT hr = GraphicsSystem::Get()->GetDevice()->CreateRasterizerState(&rasterDesc, &mRasterState);
 	ASSERT(SUCCEEDED(hr), "[RasterState] Failed to create raster state.");
 
-	GraphicsSystem::Get()->GetContext()->RSSetState(mRasterState);
+	GraphicsSystem::Get()->GetContext()->RSSetState(mRasterState);*/
 
 	mCamera.SetPosition({ 0.0f,3.0f,-5.0f });
 	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
@@ -41,11 +41,11 @@ void GameState::Initialize()
 	mSettingsBuffer.Initialize();
 
 	mDirectionalLight.direction = Normalize({ 1.0f, -1.0f,1.0f });
-	mDirectionalLight.ambient = { 0.0f,0.0f,0.0f ,1.0f };
+	mDirectionalLight.ambient = { 0.8f,0.8f,0.8f ,1.0f };
 	mDirectionalLight.diffuse = { 0.75f,0.75f,0.75f ,1.0f };
 	mDirectionalLight.specular = { 0.5f,0.5f,0.5f ,1.0f };
 
-	mMaterial.ambient = { 0.0f,0.0f,0.0f ,1.0f };
+	mMaterial.ambient = { 0.8f,0.8f,0.8f ,1.0f };
 	mMaterial.diffuse = { 0.8f,0.8f,0.8f ,1.0f };
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
 	mMaterial.power = 80.0f;
@@ -54,7 +54,7 @@ void GameState::Initialize()
 	mPixelShader.Initialize("../../Assets/Shaders/Water.fx");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mTexture.Initialize("../../Assets/Images/water.jpg");
+	mTexture.Initialize("../../Assets/Images/waterjpg.jpg");
 	mGroundTexture.Initialize("../../Assets/Images/grass.jpg");
 	mSpecularTexture.Initialize("../../Assets/Images/earth_spec.jpg");
 	mDisplacementTexture.Initialize("../../Assets/Images/dudv.png");
@@ -69,19 +69,17 @@ void GameState::Initialize()
 	mScreenQuadBuffer.Initialize(mScreenQuad);
 
 	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
-	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx");
+	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx","PSNoProcessing");
 
-	constexpr uint32_t depthMapSize = 4096;
-	mDepthMapRenderTarget.Initialize(depthMapSize, depthMapSize, RenderTarget::Format::RGBA_U32);
-	mDepthMapVertexShader.Initialize("../../Assets/Shaders/DepthMap.fx", Vertex::Format);
-	mDepthMapPixelShader.Initialize("../../Assets/Shaders/DepthMap.fx");
-	mDepthMapConstantBuffer.Initialize();
+	mRefractionRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U32);
+	mRefractionVertexShader.Initialize("../../Assets/Shaders/Standard.fx", Vertex::Format);
+	mRefractionPixelShader.Initialize("../../Assets/Shaders/Standard.fx");
+	mRefractionConstantBuffer.Initialize();
 
 	mShadowConstantBuffer.Initialize();
 
 	//Clipping
 	mClippingConstantBuffer.Initialize();
-	
 }
 
 void GameState::Terminate()
@@ -90,10 +88,10 @@ void GameState::Terminate()
 	mClippingConstantBuffer.Terminate();
 
 	mShadowConstantBuffer.Terminate();
-	mDepthMapRenderTarget.Terminate();
-	mDepthMapVertexShader.Terminate();
-	mDepthMapPixelShader.Terminate();
-	mDepthMapConstantBuffer.Terminate();
+	mRefractionRenderTarget.Terminate();
+	mRefractionVertexShader.Terminate();
+	mRefractionPixelShader.Terminate();
+	mRefractionConstantBuffer.Terminate();
 
 	mPostProcessingPixelShader.Terminate();
 	mPostProcessingVertexShader.Terminate();
@@ -145,6 +143,10 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
+	mRefractionRenderTarget.BeginRender();
+	DrawRefraction();
+	mRefractionRenderTarget.EndRender();
+
 	mRenderTarget.BeginRender();
 	DrawScene();
 	mRenderTarget.EndRender();
@@ -160,7 +162,7 @@ void GameState::DebugUI()
 	if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::Image(
-			mRenderTarget.GetShaderResourceView(),
+			mRefractionRenderTarget.GetShaderResourceView(),
 			{ 150.0f,150.0f },
 			{ 0.0f,0.0f },
 			{ 1.0f,1.0f },
@@ -213,7 +215,7 @@ void GameState::DebugUI()
 			mSettings.useShadow = useShadow ? 1 : 0;
 		}
 		ImGui::SliderFloat("Brightness", &mSettings.brightness, 1.0f, 10.f);
-		ImGui::SliderFloat("Movement Speed", &mSettings.movementSpeed, 0.0001, 0.1f);
+		ImGui::SliderFloat("Movement Speed", &mSettings.movementSpeed, 0.0001f, 0.1f);
 	}
 	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{
@@ -222,27 +224,7 @@ void GameState::DebugUI()
 	ImGui::End();
 }
 
-void GameState::DrawDepthMap()
-{
-	/*mDepthMapPixelShader.Bind();
-	mDepthMapVertexShader.Bind();
-
-	auto matViewSecond = mCamera.GetViewMatrix();
-	auto matProjSecond = mCamera.GetPerspectiveMatrix();*/
-
-	/*mDepthMapConstantBuffer.BindVS(0);
-	for (auto& positions : mTankPositions)
-	{
-		auto matTrans = Matrix4::Translation({ positions });
-		auto matRot = Matrix4::RotationX(mTankRotation.x) * Matrix4::RotationY(mTankRotation.y);
-		auto matWorld = matRot * matTrans;
-		auto wvp = Transpose(matWorld * matViewLight * matProjLight);
-		mDepthMapConstantBuffer.Update(&wvp);
-		mTankMeshBuffer.Draw();
-	}*/
-}
-
-void GameState::DrawScene()
+void GameState::DrawRefraction()
 {
 	//Water
 	auto matTrans = Matrix4::Translation({ -1.0f,0.0f,0.0f });
@@ -250,7 +232,7 @@ void GameState::DrawScene()
 	auto matWorld = matRot * matTrans;
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
-	
+
 	Clipping clipping;
 	clipping.plane = { 0.0f,1.0f,0.0f,0.0f };
 	clipping.distance = 20;
@@ -262,6 +244,7 @@ void GameState::DrawScene()
 	mSampler.BindPS();
 
 	mTexture.BindPS(0);
+
 	//mSpecularTexture.BindPS(1);
 	mDisplacementTexture.BindVS(2);
 	mDisplacementTexture.BindPS(2);
@@ -291,11 +274,95 @@ void GameState::DrawScene()
 	mPixelShader.Bind();
 
 
-	mBlendState.Bind();
+	//mBlendState.Bind();
+	//mMeshBuffer.Draw();
+	//mBlendState.ClearState();
+
+	//ground
+	mGroundSettings.bumpMapWeight = 0.0f;
+	mGroundSettings.brightness = 1.0f;
+	mSettingsBuffer.Update(&mGroundSettings);
+	mSettingsBuffer.BindVS(3);
+	mSettingsBuffer.BindPS(3);
+
+	mRefractionPixelShader.Bind();
+	mRefractionVertexShader.Bind();
+	matTrans = Matrix4::Translation({ -1.0f,-2.0f,0.0f });
+	matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
+	matWorld = matRot * matTrans;
+
+	mGroundTexture.BindPS(0);
+
+	transformData.world = Transpose(matWorld);
+	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.viewPosition = mCamera.GetPosition();
+	mTransformBuffer.Update(&transformData);
+
+	mMeshBuffer.Draw();
+}
+
+void GameState::DrawScene()
+{
+	auto matView = mCamera.GetViewMatrix();
+	auto matProj = mCamera.GetPerspectiveMatrix();
+
+	Clipping clipping;
+	clipping.plane = { 0.0f,1.0f,0.0f,0.0f };
+	clipping.distance = 20;
+	mClippingConstantBuffer.Update(&clipping);
+	mClippingConstantBuffer.BindVS(4);
+
+	mSampler.BindVS();
+	mSampler.BindPS();
+
+	TransformData transformData;
+	mTransformBuffer.BindVS(0);
+
+	mLightBuffer.Update(&mDirectionalLight);
+	mLightBuffer.BindVS(1);
+	mLightBuffer.BindPS(1);
+
+	mMaterialBuffer.Update(&mMaterial);
+	mMaterialBuffer.BindVS(2);
+	mMaterialBuffer.BindPS(2);
+
+	mSettingsBuffer.Update(&mSettings);
+	mSettingsBuffer.BindVS(3);
+	mSettingsBuffer.BindPS(3);
+
+	//Water
+	auto matTrans = Matrix4::Translation({ -1.0f,0.0f,0.0f });
+	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
+	auto matWorld = matRot * matTrans;
+
+	//mTexture.BindPS(0);
+	mRefractionRenderTarget.BindPS(0);
+	//mSpecularTexture.BindPS(1);
+	mDisplacementTexture.BindVS(2);
+	mDisplacementTexture.BindPS(2);
+	//mNormalMap.BindPS(3);
+
+	transformData.world = Transpose(matWorld);
+	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.viewPosition = mCamera.GetPosition();
+	mTransformBuffer.Update(&transformData);
+
+	mVertexShader.Bind();
+	mPixelShader.Bind();
+
+	//mBlendState.Bind();
 	mMeshBuffer.Draw();
 	mBlendState.ClearState();
 
 	//ground
+	mGroundSettings.bumpMapWeight = 0.0f;
+	mGroundSettings.brightness = 1.0f;
+	mSettingsBuffer.Update(&mGroundSettings);
+	mSettingsBuffer.BindVS(3);
+	mSettingsBuffer.BindPS(3);
+
+	mRefractionPixelShader.Bind();
+	mRefractionVertexShader.Bind();
 	matTrans = Matrix4::Translation({ -1.0f,-2.0f,0.0f });
 	matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 	matWorld = matRot * matTrans;

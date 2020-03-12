@@ -61,7 +61,6 @@ struct VS_INPUT
 	float4 normal : NORMAL;
 	float4 tangent : TANGENT;
 	float2 texCoord : TEXCOORD;
-
 };
 
 struct VS_OUTPUT
@@ -73,7 +72,8 @@ struct VS_OUTPUT
 	float3 dirToView : TEXCOORD2;
 	float2 texCoord : TEXCOORD3;
 	float4 positionNDC : TEXCOORD4;
-	float clip : SV_ClipDistance0;
+	float4 positionScreen : TEXCOORD5;
+	//float clip : SV_ClipDistance0;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
@@ -89,8 +89,10 @@ VS_OUTPUT VS(VS_INPUT input)
 	float3 worldPosition = mul(float4(localPosition, 1.0f), World).xyz;
 	float3 worldNormal = mul(input.normal, (float3x3) World);
 	float3 worldTangent = mul(input.tangent, (float3x3) World);
-
+	
 	output.position = mul(float4(localPosition, 1.0f), WVP);
+	output.positionScreen = mul(float4(input.position, 1.0f), WVP);
+	
 	output.worldNormal = worldNormal;
 	output.worldTangent = worldTangent;
 	output.dirToLight = -LightDirection;
@@ -139,8 +141,12 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float specularIntensity = pow(specularBase, MaterialPower);
 	float4 specular = specularIntensity * LightSpecular * MaterialSpecular;
 
-	float2 displacement = displacementMap.SampleLevel(textureSampler, input.texCoord, 0).rg * 2.0f - 1.0f;
-	float4 texColor = diffuseMap.Sample(textureSampler, input.texCoord);
+	float2 UV = input.positionScreen.xy / input.positionScreen.w;
+	UV = (UV + 1.0f) * 0.5f;
+	UV.y = 1.0f - UV.y;
+	
+	float4 texColor = diffuseMap.Sample(textureSampler, UV);
+	texColor = lerp(texColor, float4(0.87f,0.88f,1.0f,1.0f), 0.5);
 	float specularFactor = specularMap.Sample(textureSampler, input.texCoord).r;
 
 	float4 color = (ambient + diffuse) * texColor * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);

@@ -14,7 +14,7 @@ public:
 
 private:
 	void DrawScene();
-	void DrawDepthMap();
+	void DrawRefraction();
 	void PostProcess();
 
 private:
@@ -37,10 +37,10 @@ private:
 	struct Settings
 	{
 		float specularMapWeight = 1.0f;
-		float bumpMapWeight = 1.0f;
+		float bumpMapWeight = 0.4f;
 		float normalMapWeight = 1.0f;
 		float aoMapWeight = 1.0f;
-		float brightness = 1.0f;
+		float brightness = 3.0f;
 		int useShadow = 1;
 		float depthBias = 0.0003f;
 		float movement = 0.0f;
@@ -70,6 +70,7 @@ private:
 	SettingsBuffer mSettingsBuffer;
 
 	Settings mSettings;
+	Settings mGroundSettings;
 
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader  mPixelShader;
@@ -89,10 +90,11 @@ private:
 	ClippingConstantBuffer mClippingConstantBuffer;
 
 	//Depth
-	Angazi::Graphics::RenderTarget mDepthMapRenderTarget;
-	Angazi::Graphics::VertexShader mDepthMapVertexShader;
-	Angazi::Graphics::PixelShader mDepthMapPixelShader;
-	DepthMapConstantBuffer mDepthMapConstantBuffer;
+	Angazi::Graphics::RenderTarget mRefractionRenderTarget;
+	Angazi::Graphics::VertexShader mRefractionVertexShader;
+	Angazi::Graphics::PixelShader mRefractionPixelShader;
+	DepthMapConstantBuffer mRefractionConstantBuffer;
+
 	ShadowConstantBuffer mShadowConstantBuffer;
 
 	ID3D11RasterizerState* mRasterState;
