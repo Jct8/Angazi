@@ -146,11 +146,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	UVRefraction = (UVRefraction + 1.0f) * 0.5f;
 	float2 UVReflect = UVRefraction;
 	UVRefraction.y = 1.0f - UVRefraction.y;
-	
-	
-	//UVReflect.y = UV.x;
-	//UVReflect.x = UV.y;
-	
+
 	float4 texColor = diffuseMap.Sample(textureSampler, input.texCoord);
 	float4 texColorRefraction = refractionMap.Sample(textureSampler, UVRefraction);
 	float4 texColorReflection = reflectionMap.Sample(textureSampler, UVReflect);
@@ -166,7 +162,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	//color = lerp(color, texColorReflection, 0.5);
 	
 	float refractiveFactor = saturate(dot(dirToView, normal));
-	float4 waterColor = lerp(texColorReflection, texColorRefraction, 0.5f);
+	float4 waterColor = lerp(texColorReflection, texColorRefraction, refractiveFactor);
 	color = lerp(color, waterColor, 0.8f);
 
 	//if (useShadow)
