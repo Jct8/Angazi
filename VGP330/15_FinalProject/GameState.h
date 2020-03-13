@@ -25,6 +25,7 @@ private:
 
 private:
 	Angazi::Graphics::Camera mCamera;
+	float pitchAngle = 0.0f;
 
 	Angazi::Graphics::Mesh mMesh;
 	Angazi::Graphics::MeshBuffer mMeshBuffer;

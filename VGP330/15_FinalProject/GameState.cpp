@@ -142,7 +142,8 @@ void GameState::Update(float deltaTime)
 	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
 	{
 		mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
-		mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+		pitchAngle = inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime;
+		mCamera.Pitch(pitchAngle);
 	}
 
 	if (inputSystem->IsKeyDown(KeyCode::A))
@@ -162,9 +163,17 @@ void GameState::Render()
 	DrawScene(RenderType::Refraction);
 	mRefractionRenderTarget.EndRender();
 
+	auto cameraPosition = mCamera.GetPosition();
+	float distance =  2 * (cameraPosition.y - 0.0f);
+	mCamera.SetPosition({ cameraPosition.x,cameraPosition.y - distance,cameraPosition.z });
+	mCamera.Pitch(-pitchAngle);
+
 	mReflectionRenderTarget.BeginRender();
 	DrawScene(RenderType::Reflection);
 	mReflectionRenderTarget.EndRender();
+
+	mCamera.SetPosition(cameraPosition);
+	mCamera.Pitch(pitchAngle);
 
 	mRenderTarget.BeginRender();
 	DrawScene(RenderType::Normal);
@@ -256,6 +265,8 @@ void GameState::DebugUI()
 
 void GameState::DrawScene(RenderType rendertype)
 {
+
+
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
 
@@ -305,7 +316,7 @@ void GameState::DrawScene(RenderType rendertype)
 		matWorld = matRot * matTrans;
 
 		mTexture.BindPS(0);
-		mRefractionRenderTarget.BindPS(6);
+		//mRefractionRenderTarget.BindPS(6);
 		mReflectionRenderTarget.BindPS(7);
 		//mTexture.BindPS(6);
 		//mSpecularTexture.BindPS(1);
@@ -347,7 +358,8 @@ void GameState::DrawScene(RenderType rendertype)
 	transformData.viewPosition = mCamera.GetPosition();
 	mTransformBuffer.Update(&transformData);
 
-	mTankMeshBuffer.Draw();
+	//if (rendertype != Normal)
+		mTankMeshBuffer.Draw();
 
 
 

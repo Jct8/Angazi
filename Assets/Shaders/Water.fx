@@ -142,17 +142,17 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float specularIntensity = pow(specularBase, MaterialPower);
 	float4 specular = specularIntensity * LightSpecular * MaterialSpecular;
 
-	float2 UV = input.positionScreen.xy / input.positionScreen.w;
-	UV = (UV + 1.0f) * 0.5f;
-	float2 UVReflect = UV;
+	float2 UVRefraction = input.positionScreen.xy / input.positionScreen.w;
+	UVRefraction = (UVRefraction + 1.0f) * 0.5f;
+	float2 UVReflect = UVRefraction;
+	UVRefraction.y = 1.0f - UVRefraction.y;
 	
-	UV.y = 1.0f - UV.y;
 	
 	//UVReflect.y = UV.x;
 	//UVReflect.x = UV.y;
 	
 	float4 texColor = diffuseMap.Sample(textureSampler, input.texCoord);
-	float4 texColorRefraction = refractionMap.Sample(textureSampler, UV);
+	float4 texColorRefraction = refractionMap.Sample(textureSampler, UVRefraction);
 	float4 texColorReflection = reflectionMap.Sample(textureSampler, UVReflect);
 
 	//texColor = lerp(texColor, float4(0.87f,0.88f,1.0f,1.0f), 0.5);
@@ -162,8 +162,12 @@ float4 PS(VS_OUTPUT input) : SV_Target
 
 	float4 color = (ambient + diffuse) * texColor * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
 	
-	color = lerp(color, texColorRefraction, 0.5);
-	color = lerp(color, texColorReflection, 0.5);
+	//color = lerp(color, texColorRefraction, 0.5);
+	//color = lerp(color, texColorReflection, 0.5);
+	
+	float refractiveFactor = saturate(dot(dirToView, normal));
+	float4 waterColor = lerp(texColorReflection, texColorRefraction, 0.5f);
+	color = lerp(color, waterColor, 0.8f);
 
 	//if (useShadow)
 	//{
