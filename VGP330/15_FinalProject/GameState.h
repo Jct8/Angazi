@@ -4,6 +4,13 @@
 class GameState : public Angazi::AppState
 {
 public:
+	enum  RenderType
+	{
+		Reflection,
+		Refraction,
+		Normal,
+	};
+public:
 	void Initialize() override;
 	void Terminate() override;
 
@@ -13,8 +20,7 @@ public:
 	void DebugUI() override;
 
 private:
-	void DrawScene();
-	void DrawRefraction();
+	void DrawScene(RenderType rendertype);
 	void PostProcess();
 
 private:
@@ -40,7 +46,7 @@ private:
 		float bumpMapWeight = 0.4f;
 		float normalMapWeight = 1.0f;
 		float aoMapWeight = 1.0f;
-		float brightness = 3.0f;
+		float brightness = 1.0f;
 		int useShadow = 1;
 		float depthBias = 0.0003f;
 		float movement = 0.0f;
@@ -51,8 +57,6 @@ private:
 	struct Clipping
 	{
 		Angazi::Math::Vector4 plane;
-		float distance;
-		float padding[3];
 	};
 
 	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
@@ -71,33 +75,47 @@ private:
 
 	Settings mSettings;
 	Settings mGroundSettings;
+	Settings mTankSettings;
 
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader  mPixelShader;
 
+	//Textures
 	Angazi::Graphics::Sampler mSampler;
-	Angazi::Graphics::Texture mTexture;
-	Angazi::Graphics::Texture mGroundTexture;
-
 	Angazi::Graphics::Texture mSpecularTexture;
 	Angazi::Graphics::Texture mDisplacementTexture;
 	Angazi::Graphics::Texture mNormalMap;
+	Angazi::Graphics::Texture mTexture;
+	Angazi::Graphics::Texture mGroundTexture;
 
 	Angazi::Graphics::BlendState mBlendState;
 	Angazi::Math::Vector3 mRotation = 0.0f;
 
 	//Clipping
+	Clipping mClipping;
 	ClippingConstantBuffer mClippingConstantBuffer;
 
-	//Depth
+	//Refractions
 	Angazi::Graphics::RenderTarget mRefractionRenderTarget;
 	Angazi::Graphics::VertexShader mRefractionVertexShader;
 	Angazi::Graphics::PixelShader mRefractionPixelShader;
 	DepthMapConstantBuffer mRefractionConstantBuffer;
 
-	ShadowConstantBuffer mShadowConstantBuffer;
+	//Reflections
+	Angazi::Graphics::RenderTarget mReflectionRenderTarget;
 
-	ID3D11RasterizerState* mRasterState;
+	//Reflections - Tank
+	Angazi::Graphics::Mesh mTankMesh;
+	Angazi::Graphics::MeshBuffer mTankMeshBuffer;
+	Angazi::Math::Vector3 mTankRotation = 0.0f;
+	Angazi::Math::Vector3 mTankPosition;
+	Angazi::Graphics::Texture mTankTexture;
+	Angazi::Graphics::Texture mTankSpecularTexture;
+	Angazi::Graphics::Texture mTankDisplacementTexture;
+	Angazi::Graphics::Texture mTankNormalMap;
+	Angazi::Graphics::Texture mTankAOMap;
+
+	ShadowConstantBuffer mShadowConstantBuffer;
 
 	//PostProcessing
 	Angazi::Graphics::RenderTarget mRenderTarget;
