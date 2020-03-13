@@ -213,7 +213,7 @@ void GameState::DebugUI()
 			{ 1.0f,1.0f ,1.0f,1.0f }
 		);
 	}
-	if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Light"))
 	{
 		bool directionChanged = false;
 		directionChanged |= ImGui::DragFloat("Direction X##Light", &mDirectionalLight.direction.x, 0.01f, -2.0f, 2.0f);
@@ -227,7 +227,7 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Diffuse##Light", &mDirectionalLight.diffuse.x);
 		ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.x);
 	}
-	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Material"))
 	{
 		ImGui::ColorEdit4("Ambient##Material", &mMaterial.ambient.x);
 		ImGui::ColorEdit4("Diffuse##Material", &mMaterial.diffuse.x);
