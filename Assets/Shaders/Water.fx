@@ -122,13 +122,13 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 dirToView = normalize(input.dirToView);
 
 	float3 normal = worldNormal;
-	//if (normalMapWeight != 0.0f)
-	//{
-	//	float3x3 TBNW = { worldTangent, worldBinormal, worldNormal, };
-	//	float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
-	//	float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
-	//	normal = mul(normalSampled, TBNW);
-	//}
+	if (normalMapWeight != 0.0f)
+	{
+		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal, };
+		float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
+		float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
+		normal = mul(normalSampled, TBNW);
+	}
 
 	float4 ambient = LightAmbient * MaterialAmbient;
 	//if (aoWeight == 1.0f)
@@ -152,18 +152,18 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float4 texColorReflection = reflectionMap.Sample(textureSampler, UVReflect);
 
 	//texColor = lerp(texColor, float4(0.87f,0.88f,1.0f,1.0f), 0.5);
-	//texColor = lerp(texColor, texColorRefraction, 0.5);
-	//texColor = lerp(texColor, texColorReflection, 0.5);
+
 	float specularFactor = specularMap.Sample(textureSampler, input.texCoord).r;
+	
+	float refractiveFactor = saturate(dot(dirToView, worldNormal));
+	float4 waterColor = lerp(texColorReflection, texColorRefraction, refractiveFactor);
+	texColor = lerp(texColor, waterColor, 0.8f);
 
 	float4 color = (ambient + diffuse) * texColor * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
-	
-	//color = lerp(color, texColorRefraction, 0.5);
-	//color = lerp(color, texColorReflection, 0.5);
-	
-	float refractiveFactor = saturate(dot(dirToView, normal));
-	float4 waterColor = lerp(texColorReflection, texColorRefraction, refractiveFactor);
-	color = lerp(color, waterColor, 0.8f);
+
+	//float refractiveFactor = saturate(dot(dirToView, normal));
+	//float4 waterColor = lerp(texColorReflection, texColorRefraction, refractiveFactor);
+	//color = lerp(color, waterColor, 0.8f);
 
 	//if (useShadow)
 	//{

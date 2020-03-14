@@ -24,7 +24,8 @@ void GameState::Initialize()
 	mMaterialBuffer.Initialize();
 	mSettingsBuffer.Initialize();
 
-	mDirectionalLight.direction = Normalize({ 1.0f, -1.0f,1.0f });
+	//mDirectionalLight.direction = Normalize({ 1.0f, -1.0f,1.0f });
+	mDirectionalLight.direction = Normalize({ -0.914f, 0.261f, 0.309f });
 	mDirectionalLight.ambient = { 0.8f,0.8f,0.8f ,1.0f };
 	mDirectionalLight.diffuse = { 0.75f,0.75f,0.75f ,1.0f };
 	mDirectionalLight.specular = { 0.5f,0.5f,0.5f ,1.0f };
@@ -40,9 +41,9 @@ void GameState::Initialize()
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	mTexture.Initialize("../../Assets/Images/water2.jpg");
 	mGroundTexture.Initialize("../../Assets/Images/grass.jpg");
-	mSpecularTexture.Initialize("../../Assets/Images/earth_spec.jpg");
-	mDisplacementTexture.Initialize("../../Assets/Images/dudv.png");
-	mNormalMap.Initialize("../../Assets/Images/earth_normal.jpg");
+	mSpecularTexture.Initialize("../../Assets/Images/waterSpec.jpg");
+	mDisplacementTexture.Initialize("../../Assets/Images/dudv2.png");
+	mNormalMap.Initialize("../../Assets/Images/waterNormal.png");
 
 	mBlendState.Initialize(BlendState::Mode::Additive);
 
@@ -85,7 +86,8 @@ void GameState::Initialize()
 	mTankSettings.bumpMapWeight = 0.0f;
 	mTankSettings.brightness = 10.0f;
 	mSettings.brightness = 1.7;
-
+	mSettings.bumpMapWeight = 0.165f;
+	mSettings.movementSpeed = 0.020f;
 }
 
 void GameState::Terminate()
@@ -269,8 +271,6 @@ void GameState::DebugUI()
 
 void GameState::DrawScene(RenderType rendertype)
 {
-
-
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
 
@@ -322,10 +322,10 @@ void GameState::DrawScene(RenderType rendertype)
 		mTexture.BindPS(0);
 		mRefractionRenderTarget.BindPS(6);
 		mReflectionRenderTarget.BindPS(7);
-		//mSpecularTexture.BindPS(1);
+		mSpecularTexture.BindPS(1);
 		mDisplacementTexture.BindVS(2);
 		mDisplacementTexture.BindPS(2);
-		//mNormalMap.BindPS(3);
+		mNormalMap.BindPS(3);
 
 		transformData.world = Transpose(matWorld);
 		transformData.wvp = Transpose(matWorld * matView *matProj);
@@ -335,7 +335,7 @@ void GameState::DrawScene(RenderType rendertype)
 		mVertexShader.Bind();
 		mPixelShader.Bind();
 
-		//BlendState.Bind();
+		//mBlendState.Bind();
 		mMeshBuffer.Draw();
 		mBlendState.ClearState();
 	}
