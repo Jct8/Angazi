@@ -24,8 +24,8 @@ void GameState::Initialize()
 	mMaterialBuffer.Initialize();
 	mSettingsBuffer.Initialize();
 
-	//mDirectionalLight.direction = Normalize({ 1.0f, -1.0f,1.0f });
 	mDirectionalLight.direction = Normalize({ -0.914f, 0.261f, 0.309f });
+	mDirectionalLight.direction = Normalize({ 0.985f,- 0.069f, 0.156f });
 	mDirectionalLight.ambient = { 0.8f,0.8f,0.8f ,1.0f };
 	mDirectionalLight.diffuse = { 0.75f,0.75f,0.75f ,1.0f };
 	mDirectionalLight.specular = { 0.5f,0.5f,0.5f ,1.0f };
@@ -47,7 +47,7 @@ void GameState::Initialize()
 
 	mBlendState.Initialize(BlendState::Mode::Additive);
 
-	//Post Processing
+	// Post Processing
 	auto graphicsSystem = GraphicsSystem::Get();
 	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
 	mScreenQuad = MeshBuilder::CreateNDCQuad();
@@ -56,7 +56,7 @@ void GameState::Initialize()
 	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
 	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
 
-	//Refraction
+	// Refraction
 	mRefractionRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U32);
 	mRefractionVertexShader.Initialize("../../Assets/Shaders/StandardClipping.fx", Vertex::Format);
 	mRefractionPixelShader.Initialize("../../Assets/Shaders/StandardClipping.fx");
@@ -64,10 +64,10 @@ void GameState::Initialize()
 
 	mShadowConstantBuffer.Initialize();
 
-	//Clipping
+	// Clipping
 	mClippingConstantBuffer.Initialize();
 
-	//Tank
+	// Tank
 	mTankPosition = { 0.0f,3.5f,0.0f };
 	ObjLoader::Load("../../Assets/Models/Tank/tank.obj", 0.001f, mTankMesh);
 	mTankMeshBuffer.Initialize(mTankMesh);
@@ -76,10 +76,15 @@ void GameState::Initialize()
 	mTankNormalMap.Initialize("../../Assets/Models/Tank/tank_normal.jpg");
 	mTankAOMap.Initialize("../../Assets/Models/Tank/tank_ao.jpg");
 
-	//Reflections
+	// Reflections
 	mReflectionRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U32);
 
-	//Settings
+	// Terrain
+	mTerrain.Initialize(200, 200, 1.0f);
+	mTerrain.SetHeightScale(30.0f);
+	mTerrain.LoadHeightmap("../../Assets/Heightmaps/heightmap_200x200.raw");
+	
+	// Settings
 	mGroundSettings.bumpMapWeight = 0.0f;
 	mGroundSettings.brightness = 1.0f;
 	mGroundSettings.normalMapWeight = 0.0f;
@@ -88,10 +93,16 @@ void GameState::Initialize()
 	mSettings.brightness = 1.7;
 	mSettings.bumpMapWeight = 0.165f;
 	mSettings.movementSpeed = 0.020f;
+
+	mTranslation = { 21.3f,2.1f,43.5f };
+	mTankPosition = { 18.0f,3.8f,40.2f };
+
 }
 
 void GameState::Terminate()
 {
+	mTerrain.Terminate();
+
 	mReflectionRenderTarget.Terminate();
 
 	//Tank
@@ -133,10 +144,11 @@ void GameState::Terminate()
 
 void GameState::Update(float deltaTime)
 {
-	const float kMoveSpeed = 5.0f;
+	auto inputSystem = InputSystem::Get();
+
+	const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 100.0f : 10.0f;
 	const float kTurnSpeed = 1.0f;
 
-	auto inputSystem = InputSystem::Get();
 	if (inputSystem->IsKeyDown(KeyCode::W))
 		mCamera.Walk(kMoveSpeed*deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::S))
@@ -169,7 +181,7 @@ void GameState::Render()
 	/////Reflection///////
 	auto cameraPosition = mCamera.GetPosition();
 	auto cameradirection = mCamera.GetDirection();
-	float distance = 2 * (cameraPosition.y - 0.0f);
+	float distance = 2 * (cameraPosition.y - mTranslation.y);
 	mCamera.SetPosition({ cameraPosition.x,cameraPosition.y - distance,cameraPosition.z });
 	mCamera.SetDirection({ cameradirection.x,-cameradirection.y,cameradirection.z });
 
@@ -259,12 +271,15 @@ void GameState::DebugUI()
 		{
 			mSettings.useShadow = useShadow ? 1 : 0;
 		}
-		ImGui::SliderFloat("Brightness", &mSettings.brightness, 1.0f, 10.f);
+		ImGui::SliderFloat("Brightness", &mSettings.brightness, 0.0f, 10.f);
 		ImGui::SliderFloat("Movement Speed", &mSettings.movementSpeed, 0.0001f, 0.1f);
 	}
 	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::DragFloat3("Rotation##Transform", &mRotation.x, 0.01f);
+		ImGui::DragFloat3("WaterTranslation##Transform", &mTranslation.x, 0.3f);
+		ImGui::DragFloat3("TankTranslation##Transform", &mTankPosition.x, 0.3f);
+		ImGui::DragFloat3("GroundTranslation##Transform", &mGrounddTranslation.x, 0.3f);
 	}
 	ImGui::End();
 }
@@ -280,15 +295,16 @@ void GameState::DrawScene(RenderType rendertype)
 	switch (rendertype)
 	{
 	case GameState::Reflection:
-		mClipping.plane = { 0.0f, 1.0f,0.0f,0.0f }; // Cull Down
+		mClipping.plane = { 0.0f, 1.0f,0.0f, -mTranslation.y }; // Cull Down
 		break;
 	case GameState::Refraction:
-		mClipping.plane = { 0.0f, -1.0f,0.0f,0.0f }; // Cull Up
+		mClipping.plane = { 0.0f, -1.0f,0.0f, mTranslation.y }; // Cull Up
 		break;
 	default:
 		mClipping.plane = { 0.0f, 0.0f,0.0f,0.0f }; // No Cull
 		break;
 	}
+	mTerrain.SetClippingPlane(mClipping.plane);
 	mClippingConstantBuffer.Update(&mClipping);
 	mClippingConstantBuffer.BindVS(5);
 
@@ -306,7 +322,7 @@ void GameState::DrawScene(RenderType rendertype)
 	mSettingsBuffer.BindVS(3);
 	mSettingsBuffer.BindPS(3);
 
-	auto matTrans = Matrix4::Translation({ -1.0f,0.0f,0.0f });
+	auto matTrans = Matrix4::Translation(mTranslation);
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 	auto matWorld = matRot * matTrans;
 
@@ -315,7 +331,7 @@ void GameState::DrawScene(RenderType rendertype)
 	{
 		mSettingsBuffer.Update(&mSettings);
 
-		matTrans = Matrix4::Translation({ -1.0f,0.0f,0.0f });
+		matTrans = Matrix4::Translation({ mTranslation });
 		matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 		matWorld = matRot * matTrans;
 
@@ -354,7 +370,7 @@ void GameState::DrawScene(RenderType rendertype)
 
 	matTrans = Matrix4::Translation({ mTankPosition });
 	matRot = Matrix4::RotationX(mTankRotation.x) * Matrix4::RotationY(mTankRotation.y) * Matrix4::RotationZ(mTankRotation.z);
-	matWorld = matRot * matTrans;
+	matWorld = Matrix4::Scaling(0.5f)* matRot * matTrans;
 
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
@@ -374,9 +390,9 @@ void GameState::DrawScene(RenderType rendertype)
 
 	mRefractionPixelShader.Bind();
 	mRefractionVertexShader.Bind();
-	matTrans = Matrix4::Translation({ -1.0f,-2.0f,0.0f });
+	matTrans = Matrix4::Translation({ mGrounddTranslation });
 	matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
-	matWorld = matRot * matTrans;
+	matWorld =  matRot * matTrans;
 
 	mGroundTexture.BindPS(0);
 
@@ -385,8 +401,10 @@ void GameState::DrawScene(RenderType rendertype)
 	transformData.viewPosition = mCamera.GetPosition();
 	mTransformBuffer.Update(&transformData);
 
-
 	mMeshBuffer.Draw();
+
+	mTerrain.SetDirectionalLight(mDirectionalLight);
+	mTerrain.Render(mCamera);
 }
 
 void GameState::PostProcess()

@@ -83,9 +83,15 @@ void Terrain::SetDirectionalLight(const Graphics::DirectionalLight & light)
 	mConstantData.directionalLight = light;
 }
 
+void Terrain::SetClippingPlane(const Math::Vector4 & plane)
+{
+	mConstantData.clippingPlane = plane;
+}
+
 void Terrain::Render(const Graphics::Camera & camera)
 {
-	auto world = Math::Matrix4::Identity;
+	auto world = Math::Matrix4::Scaling(0.3f);
+	//auto world = Math::Matrix4::Identity;
 	auto view = camera.GetViewMatrix();
 	auto projection = camera.GetPerspectiveMatrix();
 

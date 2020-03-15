@@ -9,6 +9,7 @@ cbuffer TransformBuffer : register(b0)
 	float4 LightAmbient;
 	float4 LightDiffuse;
 	float4 LightSpecular;
+	float4 clippingPlane;
 }
 
 Texture2D diffuseMap : register(t0);
@@ -29,7 +30,7 @@ struct VS_OUTPUT
 	float3 worldTangent :TEXCOORD0;
 	float3 dirToView : TEXCOORD1;
 	float2 texCoord	: TEXCOORD2;
-
+	float clip : SV_ClipDistance0;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
@@ -40,6 +41,7 @@ VS_OUTPUT VS(VS_INPUT input)
 	output.worldTangent = mul(input.tangent, (float3x3) World);
 	output.dirToView = ViewPosition - mul(input.position.xyz, (float3x3) World);
 	output.texCoord = input.texCoord * 10.0f;
+	output.clip = dot(mul(float4(input.position, 1.0f), World), clippingPlane);
 	return output;
 }
 

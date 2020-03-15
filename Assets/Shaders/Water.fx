@@ -74,7 +74,6 @@ struct VS_OUTPUT
 	float2 texCoord : TEXCOORD3;
 	float4 positionNDC : TEXCOORD4;
 	float4 positionScreen : TEXCOORD5;
-	//float clip : SV_ClipDistance0;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
@@ -85,8 +84,8 @@ VS_OUTPUT VS(VS_INPUT input)
 	float xCoord = input.texCoord.x + movement;
 	if (xCoord > 1.0f)
 		xCoord -= 1.0f;
-	float2 displacement = displacementMap.SampleLevel(textureSampler, float2(xCoord, input.texCoord.y), 1).rg * 2.0f - 1.0f;
-	float3 localPosition = input.position + (input.normal * float3(displacement, 1.0f) * bumpMapWeight);
+	float displacement = displacementMap.SampleLevel(textureSampler, float2(xCoord, input.texCoord.y), 1).rg * 2.0f - 1.0f;
+	float3 localPosition = input.position + (input.normal * displacement * bumpMapWeight);
 	float3 worldPosition = mul(float4(localPosition, 1.0f), World).xyz;
 	float3 worldNormal = mul(input.normal, (float3x3) World);
 	float3 worldTangent = mul(input.tangent, (float3x3) World);
@@ -102,8 +101,6 @@ VS_OUTPUT VS(VS_INPUT input)
 
 	//if (useShadow)
 	//	output.positionNDC = mul(float4(localPosition, 1.0f), WVPLight);
-
-	//output.clip = dot(output.positionScreen, clippingPlane);
 	return output;
 }
 
@@ -157,7 +154,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	
 	float refractiveFactor = saturate(dot(dirToView, worldNormal));
 	float4 waterColor = lerp(texColorReflection, texColorRefraction, refractiveFactor);
-	texColor = lerp(texColor, waterColor, 0.8f);
+	texColor = lerp(texColor, waterColor, 0.77f);
 
 	float4 color = (ambient + diffuse) * texColor * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
 

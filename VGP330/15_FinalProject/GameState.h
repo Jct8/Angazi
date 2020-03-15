@@ -80,6 +80,9 @@ private:
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader  mPixelShader;
 
+	//Terrain
+	Angazi::Terrain mTerrain;
+
 	//Textures
 	Angazi::Graphics::Sampler mSampler;
 	Angazi::Graphics::Texture mSpecularTexture;
@@ -90,6 +93,8 @@ private:
 
 	Angazi::Graphics::BlendState mBlendState;
 	Angazi::Math::Vector3 mRotation = 0.0f;
+	Angazi::Math::Vector3 mTranslation = 0.0f;
+	Angazi::Math::Vector3 mGrounddTranslation = { -1.0f,-2.0f,0.0f };
 
 	//Clipping
 	Clipping mClipping;

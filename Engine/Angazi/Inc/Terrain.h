@@ -12,6 +12,7 @@ namespace Angazi
 		void SetHeightScale(float scale);
 
 		void SetDirectionalLight(const Graphics::DirectionalLight& light);
+		void SetClippingPlane(const Math::Vector4& plane);
 		void Render(const Graphics::Camera& camera);
 
 		void DrawEditorUI();
@@ -27,6 +28,7 @@ namespace Angazi
 			Math::Vector3 viewPosition;
 			float padding;
 			Graphics::DirectionalLight directionalLight;
+			Angazi::Math::Vector4 clippingPlane;
 		};
 		Graphics::TypedConstantBuffer<ConstantData> mConstantBuffer;
 		Graphics::VertexShader mTerrainVertexShader;
