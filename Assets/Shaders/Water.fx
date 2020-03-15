@@ -80,7 +80,6 @@ VS_OUTPUT VS(VS_INPUT input)
 {
 	VS_OUTPUT output;
 
-	//float displacement = displacementMap.SampleLevel(textureSampler, input.texCoord, 0).x;
 	float xCoord = input.texCoord.x + movement;
 	if (xCoord > 1.0f)
 		xCoord -= 1.0f;
@@ -117,12 +116,22 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 worldBinormal = normalize(cross(worldNormal, worldTangent));
 	float3 dirToLight = normalize(input.dirToLight);
 	float3 dirToView = normalize(input.dirToView);
+	
+	float xCoord = input.texCoord.x + movement;
+	if (xCoord > 1.0f)
+		xCoord -= 1.0f;
+	float yCoord = input.texCoord.y + movement;
+	if (yCoord > 1.0f)
+		yCoord -= 1.0f;
+
+	float2 displacementCoords = (displacementMap.SampleLevel(textureSampler, float2(xCoord, input.texCoord.y), 1).rg * 2.0f - 1.0f) * movementSpeed;
+	displacementCoords += (displacementMap.SampleLevel(textureSampler, float2(xCoord, yCoord), 1).rg * 2.0f - 1.0f) * movementSpeed;
 
 	float3 normal = worldNormal;
 	if (normalMapWeight != 0.0f)
 	{
 		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal, };
-		float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
+		float4 normalColor = normalMap.Sample(textureSampler, displacementCoords+0.09);
 		float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
 		normal = mul(normalSampled, TBNW);
 	}
@@ -144,11 +153,15 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float2 UVReflect = UVRefraction;
 	UVRefraction.y = 1.0f - UVRefraction.y;
 
-	float4 texColor = diffuseMap.Sample(textureSampler, input.texCoord);
+	
+	
+	UVRefraction = saturate(UVRefraction + displacementCoords);
+
+	UVReflect = saturate(UVReflect+ displacementCoords);
+
+	float4 texColor = diffuseMap.Sample(textureSampler, displacementCoords);
 	float4 texColorRefraction = refractionMap.Sample(textureSampler, UVRefraction);
 	float4 texColorReflection = reflectionMap.Sample(textureSampler, UVReflect);
-
-	//texColor = lerp(texColor, float4(0.87f,0.88f,1.0f,1.0f), 0.5);
 
 	float specularFactor = specularMap.Sample(textureSampler, input.texCoord).r;
 	
@@ -157,10 +170,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	texColor = lerp(texColor, waterColor, 0.77f);
 
 	float4 color = (ambient + diffuse) * texColor * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
-
-	//float refractiveFactor = saturate(dot(dirToView, normal));
-	//float4 waterColor = lerp(texColorReflection, texColorRefraction, refractiveFactor);
-	//color = lerp(color, waterColor, 0.8f);
 
 	//if (useShadow)
 	//{

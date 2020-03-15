@@ -42,7 +42,7 @@ void GameState::Initialize()
 	mTexture.Initialize("../../Assets/Images/water2.jpg");
 	mGroundTexture.Initialize("../../Assets/Images/grass.jpg");
 	mSpecularTexture.Initialize("../../Assets/Images/waterSpec.jpg");
-	mDisplacementTexture.Initialize("../../Assets/Images/dudv2.png");
+	mDisplacementTexture.Initialize("../../Assets/Images/waterdudv.png");
 	mNormalMap.Initialize("../../Assets/Images/waterNormal.png");
 
 	mBlendState.Initialize(BlendState::Mode::Additive);
@@ -57,7 +57,7 @@ void GameState::Initialize()
 	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
 
 	// Refraction
-	mRefractionRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U32);
+	mRefractionRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
 	mRefractionVertexShader.Initialize("../../Assets/Shaders/StandardClipping.fx", Vertex::Format);
 	mRefractionPixelShader.Initialize("../../Assets/Shaders/StandardClipping.fx");
 	mRefractionConstantBuffer.Initialize();
@@ -77,7 +77,7 @@ void GameState::Initialize()
 	mTankAOMap.Initialize("../../Assets/Models/Tank/tank_ao.jpg");
 
 	// Reflections
-	mReflectionRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U32);
+	mReflectionRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
 
 	// Terrain
 	mTerrain.Initialize(200, 200, 1.0f);
