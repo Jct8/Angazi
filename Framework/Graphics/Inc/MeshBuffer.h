@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Mesh.h"
 namespace Angazi::Graphics
 {
 	class MeshBuffer
@@ -40,6 +40,8 @@ namespace Angazi::Graphics
 		
 		void SetTopology(Topology topology);
 		void Update(const void* vertexData, uint32_t numVertices);
+
+		static void ComputeNormals(Mesh &mesh);
 
 		void Draw();
 	private:

@@ -14,9 +14,9 @@ void Terrain::Initialize(uint32_t numRows, uint32_t numCols, float cellSize)
 
 	mNumRows = numRows;
 	mNumCols = numCols;
-	mNumCellsInCol = mNumRows -1;
-	mNumCellsInRow = mNumCols -1;
-	mNumCells = mNumCellsInCol* mNumCellsInRow;
+	mNumCellsInCol = mNumRows - 1;
+	mNumCellsInRow = mNumCols - 1;
+	mNumCells = mNumCellsInCol * mNumCellsInRow;
 	mCellSize = cellSize;
 
 	mConstantBuffer.Initialize();
@@ -54,17 +54,17 @@ void Terrain::LoadHeightmap(const std::filesystem::path & filePath)
 	uint32_t dimension = (uint32_t)sqrtf((float)fileSize);
 	fseek(file, 0L, SEEK_SET);
 
-	for (uint32_t z = 0; z < mNumRows && z< dimension; ++z)
+	for (uint32_t z = 0; z < mNumRows && z < dimension; ++z)
 	{
 		for (uint32_t x = 0; x < mNumCols && x < dimension; ++x)
 		{
 			float height = fgetc(file) / 255.0f * mHeightScale;
-			mMesh.vertices[x + (( mNumCols - z - 1) * mNumCols)].position.y = height;
+			mMesh.vertices[x + ((mNumCols - z - 1) * mNumCols)].position.y = height;
 		}
 	}
 	fclose(file);
 
-	//Graphics::MeshBuffer::ComputeNormals(mMesh);
+	Graphics::MeshBuffer::ComputeNormals(mMesh);
 	mMeshBuffer.Update(mMesh.vertices.data(), static_cast<uint32_t>(mMesh.vertices.size()));
 }
 // get 3 indices
@@ -104,6 +104,13 @@ void Terrain::Render(const Graphics::Camera & camera)
 	mTerrainPixelShader.Bind();
 
 	mMeshBuffer.Draw();
+
+	/*for (int i = 0; i < mMesh.vertices.size(); i++)
+	{
+		Angazi::Graphics::SimpleDraw::AddLine(mMesh.vertices[i].position, mMesh.vertices[i].position + mMesh.vertices[i].normal, Graphics::Colors::AliceBlue);
+	}*/
+
+
 }
 
 void Terrain::DrawEditorUI()
@@ -120,10 +127,10 @@ void Terrain::GenerateVertices()
 		for (uint32_t x = 0; x < mNumCols; x++)
 		{
 			auto& vertex = mMesh.vertices.emplace_back();
-			vertex.position ={ x *mCellSize, 0.0f, z * mCellSize};
+			vertex.position = { x *mCellSize, 0.0f, z * mCellSize };
 			vertex.normal = { 0.0f, 1.0f, 0.0f };
 			vertex.tangent = { 1.0f, 0.0f, 0.0f };
-			vertex.texcoord = { (float) x / mNumCellsInCol , 1.0f - ((float) z / mNumCellsInRow)};
+			vertex.texcoord = { (float)x / mNumCellsInCol , 1.0f - ((float)z / mNumCellsInRow) };
 		}
 	}
 }
@@ -131,7 +138,7 @@ void Terrain::GenerateVertices()
 void Terrain::GenerateIndices()
 {
 	mMesh.indices.clear();
-	mMesh.indices.reserve(mNumCells*6);
+	mMesh.indices.reserve(mNumCells * 6);
 
 	for (uint32_t z = 0; z < mNumCellsInRow; z++)
 	{
@@ -143,10 +150,10 @@ void Terrain::GenerateIndices()
 			// |     \ |
 			// lb --- rb
 
-			uint32_t lb = x +		( z		 *	mNumCols);
-			uint32_t lt = x +		((z + 1) *	mNumCols);
-			uint32_t rb =(x + 1) +	( z		 *	mNumCols);
-			uint32_t rt =(x + 1) +	((z+1)	 *	mNumCols);
+			uint32_t lb = x + (z		 *	mNumCols);
+			uint32_t lt = x + ((z + 1) *	mNumCols);
+			uint32_t rb = (x + 1) + (z		 *	mNumCols);
+			uint32_t rt = (x + 1) + ((z + 1)	 *	mNumCols);
 
 			mMesh.indices.push_back(lb);
 			mMesh.indices.push_back(lt);

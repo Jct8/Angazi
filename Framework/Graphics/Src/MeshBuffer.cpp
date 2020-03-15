@@ -1,4 +1,5 @@
 #include "Precompiled.h"
+#include "Mesh.h"
 #include "MeshBuffer.h"
 
 #include "D3DUtil.h"
@@ -37,7 +38,7 @@ void MeshBuffer::InitializeInternal(const void * vertices, int vertexSize, int v
 		bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		initData.pSysMem = indices;
 
-		hr = device->CreateBuffer(&bufferDesc, &initData , &mIndexBuffer);
+		hr = device->CreateBuffer(&bufferDesc, &initData, &mIndexBuffer);
 		ASSERT(SUCCEEDED(hr), "Failed to create index buffer.");
 	}
 	//auto context = GetContext();
@@ -60,9 +61,9 @@ void MeshBuffer::SetTopology(Topology topology)
 {
 	if (topology == Topology::Lines)
 		mTopology = D3D11_PRIMITIVE_TOPOLOGY_LINELIST;
-	else if(topology == Topology::Triangles)
+	else if (topology == Topology::Triangles)
 		mTopology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	else if(topology == Topology::TrianglesStrip)
+	else if (topology == Topology::TrianglesStrip)
 		mTopology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP;
 }
 
@@ -76,6 +77,33 @@ void MeshBuffer::Update(const void * vertexData, uint32_t numVertices)
 	context->Map(mVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &resource);
 	memcpy(resource.pData, vertexData, numVertices*mVertexSize);
 	context->Unmap(mVertexBuffer, 0);
+}
+
+void MeshBuffer::ComputeNormals(Mesh &mesh)
+{
+	// get 3 indices
+	// get verties, get 2 vectors, cross product to get normal
+	// create normal array of size vertices
+	// add calculated normal to normal array slot
+	// once complete normalize all noramls in array then add back to slot
+
+	std::vector<Angazi::Math::Vector3> newNormals;
+	newNormals.reserve(mesh.vertices.size());
+	for (int i = 0; i < mesh.vertices.size(); ++i)
+		newNormals.push_back({ 0.0f, 0.0f ,0.0f });
+	for (int i = 0; i < mesh.indices.size(); i += 3)
+	{
+		auto vector1 = mesh.vertices[mesh.indices[i]].position - mesh.vertices[mesh.indices[i + 1]].position;
+		auto vector2 = mesh.vertices[mesh.indices[i]].position - mesh.vertices[mesh.indices[i + 2]].position;
+
+		Angazi::Math::Vector3 normal = Angazi::Math::Cross(vector1, vector2);
+		newNormals[mesh.indices[i]] += normal;
+		newNormals[mesh.indices[i+1]] += normal;
+		newNormals[mesh.indices[i+2]] += normal;
+	}
+	for (int i = 0; i < newNormals.size(); ++i)
+		mesh.vertices[i].normal = Angazi::Math::Normalize(newNormals[i]);
+
 }
 
 void MeshBuffer::Draw()
