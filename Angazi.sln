@@ -52,6 +52,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA
 		Assets\Shaders\Standard.fx = Assets\Shaders\Standard.fx
 		Assets\Shaders\Standard2.fx = Assets\Shaders\Standard2.fx
 		Assets\Shaders\StandardClipping.fx = Assets\Shaders\StandardClipping.fx
+		Assets\Shaders\Terrain.fx = Assets\Shaders\Terrain.fx
 		Assets\Shaders\Water.fx = Assets\Shaders\Water.fx
 	EndProjectSection
 EndProject
@@ -119,6 +120,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "14_HelloShadowMapping", "VGP330\14_HelloShadowMapping\14_HelloShadowMapping.vcxproj", "{651171B7-1A79-4951-91A7-2CBE437B30C1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "15_FinalProject", "VGP330\15_FinalProject\15_FinalProject.vcxproj", "{F819D8D0-2991-41A1-BF85-4D2A9358B8E0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "16_HelloTerrain", "VGP330\16_HelloTerrain\16_HelloTerrain.vcxproj", "{9FBCA4F2-7769-4025-946E-8B6DDB363C41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -676,6 +679,22 @@ Global
 		{F819D8D0-2991-41A1-BF85-4D2A9358B8E0}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{F819D8D0-2991-41A1-BF85-4D2A9358B8E0}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{F819D8D0-2991-41A1-BF85-4D2A9358B8E0}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.Debug|x64.ActiveCfg = Debug|x64
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.Debug|x64.Build.0 = Debug|x64
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.Debug|x86.ActiveCfg = Debug|Win32
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.Debug|x86.Build.0 = Debug|Win32
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.MinSizeRel|x64.Build.0 = Release|x64
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.MinSizeRel|x86.Build.0 = Release|Win32
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.Release|x64.ActiveCfg = Release|x64
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.Release|x64.Build.0 = Release|x64
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.Release|x86.ActiveCfg = Release|Win32
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.Release|x86.Build.0 = Release|Win32
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -717,12 +736,13 @@ Global
 		{18211E6E-4B6E-4175-9438-D7F603F39BAE} = {F8400894-831D-4B54-8637-B23ED468BE24}
 		{651171B7-1A79-4951-91A7-2CBE437B30C1} = {F8400894-831D-4B54-8637-B23ED468BE24}
 		{F819D8D0-2991-41A1-BF85-4D2A9358B8E0} = {F8400894-831D-4B54-8637-B23ED468BE24}
+		{9FBCA4F2-7769-4025-946E-8B6DDB363C41} = {F8400894-831D-4B54-8637-B23ED468BE24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 34
+		SccNumberOfProjects = 35
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -858,5 +878,9 @@ Global
 		SccProjectTopLevelParentUniqueName33 = Angazi.sln
 		SccProjectName33 = VGP330/15_FinalProject
 		SccLocalPath33 = VGP330\\15_FinalProject
+		SccProjectUniqueName34 = VGP330\\16_HelloTerrain\\16_HelloTerrain.vcxproj
+		SccProjectTopLevelParentUniqueName34 = Angazi.sln
+		SccProjectName34 = VGP330/16_HelloTerrain
+		SccLocalPath34 = VGP330\\16_HelloTerrain
 	EndGlobalSection
 EndGlobal

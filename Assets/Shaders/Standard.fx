@@ -84,8 +84,8 @@ VS_OUTPUT VS(VS_INPUT input)
 	output.dirToView = normalize(ViewPosition - worldPosition);
 	output.texCoord = input.texCoord;
 
-	//if(useShadow)
-	//	output.positionNDC = mul(float4(localPosition, 1.0f), WVPLight);
+	if(useShadow)
+		output.positionNDC = mul(float4(localPosition, 1.0f), WVPLight);
 
 	return output;
 }
@@ -114,8 +114,8 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	}
 
 	float4 ambient = LightAmbient * MaterialAmbient;
-	//if(aoWeight == 1.0f)
-	//	ambient = aoMap.Sample(textureSampler, input.texCoord);
+	if(aoWeight == 1.0f)
+		ambient = aoMap.Sample(textureSampler, input.texCoord);
 
 	float diffuseIntensity = saturate(dot(dirToLight, normal));
 	float4 diffuse = diffuseIntensity * LightDiffuse * MaterialDiffuse;
@@ -130,20 +130,20 @@ float4 PS(VS_OUTPUT input) : SV_Target
 
 	float4 color = (ambient + diffuse) * texColor * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
 
-	//if (useShadow)
-	//{
-	//	float actualDepth = 1.0f - input.positionNDC.z / input.positionNDC.w;
-	//	float2 shadowUV = input.positionNDC.xy / input.positionNDC.w;
-	//	shadowUV = (shadowUV + 1.0f) *0.5f;
-	//	shadowUV.y = 1.0f - shadowUV.y;
-	//	if (saturate(shadowUV.x) == shadowUV.x && saturate(shadowUV.y) == shadowUV.y)
-	//	{
-	//		float savedDepth = depthMap.Sample(textureSampler, shadowUV).r;
-	//		if (savedDepth > actualDepth + depthBias)
-	//		{
-	//			color = ambient * texColor;
-	//		}
-	//	}
-	//}
+	if (useShadow)
+	{
+		float actualDepth = 1.0f - input.positionNDC.z / input.positionNDC.w;
+		float2 shadowUV = input.positionNDC.xy / input.positionNDC.w;
+		shadowUV = (shadowUV + 1.0f) *0.5f;
+		shadowUV.y = 1.0f - shadowUV.y;
+		if (saturate(shadowUV.x) == shadowUV.x && saturate(shadowUV.y) == shadowUV.y)
+		{
+			float savedDepth = depthMap.Sample(textureSampler, shadowUV).r;
+			if (savedDepth > actualDepth + depthBias)
+			{
+				color = ambient * texColor;
+			}
+		}
+	}
 	return color;
 }
