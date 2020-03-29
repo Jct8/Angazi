@@ -7,12 +7,13 @@ using namespace Angazi::Graphics;
 
 void TileMap::Load()
 {
-	//mTextureIds[0] = Angazi::LoadTexture("grass.png");
-	//mTextureIds[1] = Angazi::LoadTexture("flower.png");
-	//mTextureIds[2] = Angazi::LoadTexture("tree0.png");
-	//mTextureIds[3] = Angazi::LoadTexture("tree1.png");
-	//mTextureIds[4] = Angazi::LoadTexture("tree2.png");
-	//mTextureIds[5] = Angazi::LoadTexture("tree3.png");
+	std::string path = "../../Assets/Images/XEngine/";
+	mTextureIds[0].Initialize(path+ "grass.png");
+	mTextureIds[1].Initialize(path+ "flower.png");
+	mTextureIds[2].Initialize(path+ "tree0.png");
+	mTextureIds[3].Initialize(path+ "tree1.png");
+	mTextureIds[4].Initialize(path+ "tree2.png");
+	mTextureIds[5].Initialize(path+ "tree3.png");
 
 	mColumns = 25;
 	mRows = 20;
@@ -23,6 +24,10 @@ void TileMap::Load()
 
 void TileMap::Unload()
 {
+	for (auto& item : mTextureIds)
+	{
+		item.Terminate();
+	}
 }
 
 void TileMap::Update(float deltaTime)
@@ -52,7 +57,7 @@ void TileMap::Update(float deltaTime)
 		else if (row < mRows && column < mColumns)
 		{
 			const int index = GetIndex(column, row);
-			//int tileIndex = (mTiles[index] + 1) % (mTextureIds.size());
+			int tileIndex = (mTiles[index] + 1) % (mTextureIds.size());
 			mTiles[index] = mCurrentTile;
 		}
 	}
@@ -60,7 +65,17 @@ void TileMap::Update(float deltaTime)
 	if (mUpdate)
 	{
 		auto isBlocked = [this](AI::Coord coord) {return mTiles[mGraph.GetIndex(coord)] > 1; };
-		auto getCost = [this](AI::Coord to, AI::Coord from) {return (to.x != from.x && to.y != from.y) ? 1.4142 : 1.0f; };
+		auto getCost = [this](AI::Coord to, AI::Coord from)
+		{
+			float cost = 1.0f;
+			if (to.x != from.x && to.y != from.y)
+				cost = 1.4142f;
+			if (mTiles[GetIndex(to.x, to.y)] == 1)
+				cost += 0.2f;
+			if (mTiles[GetIndex(to.x, to.y)] > 1)
+				cost += 0.5f;
+			return cost;
+		};
 		auto getHeuristicEuclid = [this](AI::Coord to, AI::Coord from)
 		{
 			return Math::Distance({ static_cast<float>(to.x),static_cast<float>(to.y) }
@@ -92,7 +107,6 @@ void TileMap::Update(float deltaTime)
 			break;
 		case 2:
 			getHeuristic = getHeuristicDiagonal;
-
 			break;
 		default:
 			getHeuristic = getHeuristicEuclid;
@@ -142,12 +156,15 @@ void TileMap::Render()
 				static_cast<float>(x)*32.0f,
 				static_cast<float>(y)*32.0f
 			};
-			//X::DrawSprite(mTextureIds[mTiles[index]], { pos.x , pos.y }, X::Pivot::TopLeft);
-			//SimpleDraw::AddScreenCircle({ pos.x + offset , pos.y + offset }, circleRadius, Colors::AliceBlue);
-			std::vector<AI::Coord> coords = mGraph.GetNode({ x,y })->neighbors;
-			for (int i = 0; i < coords.size(); i++)
+			SpriteRenderer::Get()->Draw(mTextureIds[mTiles[index]], { pos.x , pos.y },0.0f, Pivot::TopLeft);
+			if (mShowGraph)
 			{
-				//SimpleDraw::AddScreenLine(pos.x + offset, pos.y + offset, coords[i].x*mTileSize + offset, coords[i].y*mTileSize + offset, Colors::AliceBlue);
+				SimpleDraw::AddScreenCircle({ pos.x + offset , pos.y + offset }, circleRadius, Colors::DarkGray);
+				std::vector<AI::Coord> coords = mGraph.GetNode({ x,y })->neighbors;
+				for (int i = 0; i < coords.size(); i++)
+				{
+					SimpleDraw::AddScreenLine(pos.x + offset, pos.y + offset, coords[i].x*mTileSize + offset, coords[i].y*mTileSize + offset, Colors::DarkGray);
+				}
 			}
 		}
 	}
@@ -180,31 +197,31 @@ void TileMap::Render()
 
 void TileMap::DebugUI()
 {
-	ImGui::SetNextWindowSize({ 300,500 });
-	ImGui::SetNextWindowPos({ GraphicsSystem::Get()->GetBackBufferWidth() - 300.0f , 0 });
+	//ImGui::SetNextWindowSize({ 300,500 });
+	//ImGui::SetNextWindowPos({ GraphicsSystem::Get()->GetBackBufferWidth() - 300.0f , 0 });
 	ImGui::Begin("Options", nullptr, ImGuiWindowFlags_NoResize);
 	ImGui::BeginGroup();
 	if (ImGui::CollapsingHeader("Map:", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		/*for (int i = 0; i < (int)mTextureIds.size(); ++i)
+		for (int i = 0; i < (int)mTextureIds.size(); ++i)
 		{
-			if (ImGui::ImageButton(X::GetSprite(mTextureIds[i]), { 32.0f,32.0f }))
+			if (ImGui::ImageButton(mTextureIds[i].GetShaderResourceView(), { 32.0f,32.0f }))
 			{
 				mCurrentTile = i;
 			}
 			if (i % 6 != 2)
 				ImGui::SameLine();
-		}*/
+		}
 		ImGui::NewLine();
 		if (ImGui::Button("Load"))
 		{
 			char filePath[MAX_PATH]{};
 			const char* title = "Open Map";
 			const char* filter = "Text Files (*.txt)\0*.txt";
-			/*if (X::OpenFileDialog(filePath, title, filter))
+			if (Angazi::MainApp().OpenFileDialog(filePath, title, filter))
 			{
 				LoadMap(filePath);
-			}*/
+			}
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Save"))
@@ -212,13 +229,13 @@ void TileMap::DebugUI()
 			char filePath[MAX_PATH]{};
 			const char* title = "Save Map";
 			const char* filter = "Text Files (*.txt)\0*.txt";
-			/*if (X::SaveFileDialog(filePath, title, filter))
+			if (Angazi::MainApp().SaveFileDialog(filePath, title, filter))
 			{
 				std::filesystem::path savePath = filePath;
 				if (savePath.extension().empty())
 					savePath += ".txt";
 				SaveMap(savePath);
-			}*/
+			}
 		}
 		if (ImGui::Checkbox("Show Graph", &check))
 		{

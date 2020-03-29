@@ -80,9 +80,9 @@ void Angazi::App::Run(AppConfig appConfig)
 			auto graphicsSystem = GraphicsSystem::Get();
 			graphicsSystem->BeginRender();
 
-			Graphics::SpriteRenderer::Get()->BeginRender();
+			//Graphics::SpriteRenderer::Get()->BeginRender();
 			mCurrentState->Render();
-			Graphics::SpriteRenderer::Get()->EndRender();
+			//Graphics::SpriteRenderer::Get()->EndRender();
 
 			DebugUI::BeginRender();
 			mCurrentState->DebugUI();
@@ -129,4 +129,28 @@ void Angazi::App::Run(AppConfig appConfig)
 
 	//Terminate window
 	mWindow.Terminate();
+}
+
+bool Angazi::App::OpenFileDialog(char fileName[MAX_PATH], const char * title, const char * filter)
+{
+	OPENFILENAMEA ofn = {};
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = mWindow.GetWindowHandle();
+	ofn.lpstrFilter = filter;
+	ofn.lpstrFile = fileName;
+	ofn.nMaxFile = MAX_PATH;
+	ofn.lpstrTitle = title;
+	return GetOpenFileNameA(&ofn);
+}
+
+bool Angazi::App::SaveFileDialog(char fileName[MAX_PATH], const char * title, const char * filter)
+{
+	OPENFILENAMEA ofn = {};
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = mWindow.GetWindowHandle();
+	ofn.lpstrFilter = filter;
+	ofn.lpstrFile = fileName;
+	ofn.nMaxFile = MAX_PATH;
+	ofn.lpstrTitle = title;
+	return GetSaveFileNameA(&ofn);
 }

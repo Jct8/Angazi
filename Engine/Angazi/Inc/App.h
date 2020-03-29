@@ -32,6 +32,9 @@ namespace Angazi
 		void Run(AppConfig appConfig);
 		void Quit() { mRunning = false; };
 
+		bool OpenFileDialog(char fileName[MAX_PATH], const char* title, const char* filter);
+		bool SaveFileDialog(char fileName[MAX_PATH], const char* title, const char* filter);
+
 	private:
 		AppConfig mAppConfig;
 		Core::Window mWindow;
