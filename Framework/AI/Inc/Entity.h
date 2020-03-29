@@ -3,24 +3,33 @@
 namespace Angazi::AI
 {
 	class AIWorld;
+	class Entity;
+
+	using EntityList = std::vector<Entity*>;
 
 	class Entity
 	{
 	public:
-		Entity(AIWorld& world, int typeId);
+		Entity(AIWorld& world, uint32_t typeId);
 		virtual ~Entity();
 
-		Angazi::Math::Matrix3 LocalToWorld() const;
+		Entity(const Entity&) = delete;
+		Entity& operator=(const Entity&) = delete;
+		Entity(const Entity&&) = delete;
+		Entity& operator=(const Entity&&) = delete;
+
+		Math::Matrix3 LocalToWorld() const;
+
+		const uint32_t GetTypeId() const { return mUniqueId >> 32; }
+		const uint64_t  GetUniqueId() const { return mUniqueId; }
 
 		AIWorld& world;
-		Angazi::Math::Vector2 position = Angazi::Math::Vector2::Zero;
-		Angazi::Math::Vector2 heading =  Angazi::Math::Vector2::YAxis;
+		Math::Vector2 position = Math::Vector2::Zero;
+		Math::Vector2 heading = Math::Vector2::YAxis;
 
-		const int id = 0;
 		float radius = 1.0f;
 
+	private:
+		const uint64_t mUniqueId = 0;
 	};
-
-	using Entities = std::vector<Entity*>;
-
 }

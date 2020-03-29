@@ -155,34 +155,77 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\Agent.h" />
     <ClInclude Include="Inc\AI.h" />
+    <ClInclude Include="Inc\AIWorld.h" />
+    <ClInclude Include="Inc\AlignmentBehavior.h" />
+    <ClInclude Include="Inc\ArriveBehavior.h" />
     <ClInclude Include="Inc\AStar.h" />
     <ClInclude Include="Inc\BFS.h" />
+    <ClInclude Include="Inc\CohesionBehavior.h" />
     <ClInclude Include="Inc\Common.h" />
+    <ClInclude Include="Inc\DecisionModule.h" />
     <ClInclude Include="Inc\DFS.h" />
     <ClInclude Include="Inc\Dijkstras.h" />
     <ClInclude Include="Inc\Entity.h" />
+    <ClInclude Include="Inc\EvadeBehavior.h" />
+    <ClInclude Include="Inc\FleeingBehavior.h" />
+    <ClInclude Include="Inc\Goal.h" />
+    <ClInclude Include="Inc\GoalComposite.h" />
     <ClInclude Include="Inc\Graph.h" />
+    <ClInclude Include="Inc\HidingBehavior.h" />
+    <ClInclude Include="Inc\MemoryRecord.h" />
+    <ClInclude Include="Inc\ObstacleAvoidanceBehavior.h" />
+    <ClInclude Include="Inc\PartitionGrid.h" />
+    <ClInclude Include="Inc\PerceptionModule.h" />
+    <ClInclude Include="Inc\PursuitBehavior.h" />
+    <ClInclude Include="Inc\SeekingBehavior.h" />
+    <ClInclude Include="Inc\Sensor.h" />
+    <ClInclude Include="Inc\SeperationBehavior.h" />
     <ClInclude Include="Inc\State.h" />
     <ClInclude Include="Inc\StateMachine.h" />
+    <ClInclude Include="Inc\SteeringBehavior.h" />
+    <ClInclude Include="Inc\SteeringModule.h" />
+    <ClInclude Include="Inc\Strategy.h" />
+    <ClInclude Include="Inc\VisualSensor.h" />
+    <ClInclude Include="Inc\WanderBehavior.h" />
     <ClInclude Include="Src\Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.vcxproj">
       <Project>{5bf63145-a348-4b75-8137-f3bc803343fd}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Graphics\Graphics.vcxproj">
+      <Project>{06e6abde-cf57-4616-a611-454834e8c04a}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Math\Math.vcxproj">
       <Project>{8683af56-c8c7-4387-91b1-468616ffb20b}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Agent.cpp" />
+    <ClCompile Include="Src\AIWorld.cpp" />
+    <ClCompile Include="Src\AlignmentBehavior.cpp" />
+    <ClCompile Include="Src\ArriveBehavior.cpp" />
     <ClCompile Include="Src\AStar.cpp" />
     <ClCompile Include="Src\BFS.cpp" />
+    <ClCompile Include="Src\CohesionBehavior.cpp" />
     <ClCompile Include="Src\DFS.cpp" />
     <ClCompile Include="Src\Dijkstras.cpp" />
     <ClCompile Include="Src\Entity.cpp" />
+    <ClCompile Include="Src\EvadeBehavior.cpp" />
+    <ClCompile Include="Src\FleeingBehavior.cpp" />
     <ClCompile Include="Src\Graph.cpp" />
+    <ClCompile Include="Src\HidingBehavior.cpp" />
+    <ClCompile Include="Src\ObstacleAvoidanceBehavior.cpp" />
+    <ClCompile Include="Src\PerceptionModule.cpp" />
     <ClCompile Include="Src\Precompiled.cpp" />
+    <ClCompile Include="Src\PursuitBehavior.cpp" />
+    <ClCompile Include="Src\SeekingBehavior.cpp" />
+    <ClCompile Include="Src\SeperationBehavior.cpp" />
+    <ClCompile Include="Src\SteeringModule.cpp" />
+    <ClCompile Include="Src\VisualSensor.cpp" />
+    <ClCompile Include="Src\WanderBehavior.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

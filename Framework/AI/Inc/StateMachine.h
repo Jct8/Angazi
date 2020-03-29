@@ -25,16 +25,16 @@ namespace Angazi::AI
 
 		void Update(float deltaTime)
 		{
-			mCurrentState->Update(&mAgent, deltaTime);
+			mCurrentState->Update(mAgent, deltaTime);
 		}
 		void ChangeState(std::string stateName)
 		{
 			auto iter = mStates.find(stateName);
 			if (iter == mStates.end())
 				return;
-			mCurrentState->Exit(&mAgent);
+			mCurrentState->Exit(mAgent);
 			mCurrentState = iter->second.get();
-			mCurrentState->Enter(&mAgent);
+			mCurrentState->Enter(mAgent);
 		}
 	private:
 		using StateMap = std::unordered_map<std::string, std::unique_ptr<StateType>>;

@@ -23,6 +23,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Src\Timer.cpp" />
     <ClCompile Include="Src\Window.cpp" />
     <ClCompile Include="Src\WindowsMessageHandler.cpp" />
   </ItemGroup>
@@ -30,6 +31,7 @@
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\Core.h" />
     <ClInclude Include="Inc\Debug.h" />
+    <ClInclude Include="Inc\Timer.h" />
     <ClInclude Include="Inc\WindowsMessageHandler.h" />
     <ClInclude Include="Src\Precompiled.h" />
     <ClInclude Include="Inc\Window.h" />

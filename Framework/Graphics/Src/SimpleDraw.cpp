@@ -408,6 +408,7 @@ void SimpleDraw::StaticInitialize(uint32_t maxVertexCount)
 {
 	ASSERT(sInstance == nullptr, "[SimpleDraw] SimpleDraw already initialized!");
 	sInstance = std::make_unique<SimpleDrawImpl>();
+	sInstance->Initialize(maxVertexCount);
 }
 
 void SimpleDraw::StaticTerminate()

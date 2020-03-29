@@ -30,6 +30,22 @@ namespace Angazi::Math
 	inline Vector3 Normalize(const Vector3 & v)							{ return v / Magnitude(v); }
 	inline Vector2 Normalize(const Vector2 & v)							{ return v / Magnitude(v); }
 
+	inline Vector2 PerpendicularLH(const Vector2& v) { return Vector2(-v.y, v.x); }
+	inline Vector2 PerpendicularRH(const Vector2& v) { return Vector2(v.y, -v.x); }
+
+	inline float RandomFloat() 
+	{
+		std::random_device myRandomDevice{};
+		std::mt19937 myRandomEngine{ myRandomDevice() };
+		return std::uniform_real_distribution<float>{ 0, 1.0f }(myRandomEngine);
+	}
+	inline float RandomFloat(float min, float max) 
+	{
+		std::random_device myRandomDevice{};
+		std::mt19937 myRandomEngine{ myRandomDevice() };
+		return std::uniform_real_distribution<float>{ min, max }(myRandomEngine);
+	}
+
 	constexpr float DistanceSqr(const Vector2 &v1, const Vector2 &v2)	{ return MagnitudeSqr(v1 - v2); }
 	constexpr float DistanceSqr(const Vector3 &v1, const Vector3 &v2)	{ return MagnitudeSqr(v1 - v2); }
 	inline float Distance(const Vector3 &v1, const Vector3 &v2)			{ return Magnitude(v1 - v2); }
@@ -41,6 +57,14 @@ namespace Angazi::Math
 	inline Vector2 Lerp(const Vector2& v1, const Vector2& v2, float t)	{ v1 + ((v2 - v1)*t); }
 	inline Vector2 Lerp(const Vector3& v1, const Vector3& v2, float t)	{ v1 + ((v2 - v1)*t); }
 
+	constexpr float Determinant(const Matrix3& m)
+	{
+		float det = 0.0f;
+		det = (m._11 * (m._22 * m._33 - m._23 * m._32));
+		det -= (m._12 * (m._21 * m._33 - m._23 * m._31));
+		det += (m._13 * (m._21 * m._32 - m._22 * m._31));
+		return det;
+	}
 	constexpr float Determinant(const Matrix4 &m)
 	{
 		return
@@ -49,6 +73,24 @@ namespace Angazi::Math
 			- (m._12 * (m._21 * (m._33 * m._44 - (m._43 * m._34)) - m._23 * (m._31 * m._44 - (m._41 * m._34)) + m._24 * (m._31 * m._43 - (m._41 * m._33))))
 			+ (m._13 * (m._21 * (m._32 * m._44 - (m._42 * m._34)) - m._22 * (m._31 * m._44 - (m._41 * m._34)) + m._24 * (m._31 * m._42 - (m._41 * m._32))))
 			- (m._14 * (m._21 * (m._32 * m._43 - (m._42 * m._33)) - m._22 * (m._31 * m._43 - (m._41 * m._33)) + m._23 * (m._31 * m._42 - (m._41 * m._32))))
+		};
+	}
+
+	constexpr Matrix3 Adjoint(const Matrix3& m)
+	{
+		return Matrix3
+		{
+			(m._22 * m._33 - m._23 * m._32),
+			-(m._12 * m._33 - m._13 * m._32),
+			(m._12 * m._23 - m._13 * m._22),
+
+			-(m._21 * m._33 - m._23 * m._31),
+			(m._11 * m._33 - m._13 * m._31),
+			-(m._11 * m._23 - m._13 * m._21),
+
+			(m._21 * m._32 - m._22 * m._31),
+			-(m._11 * m._32 - m._12 * m._31),
+			(m._11 * m._22 - m._12 * m._21)
 		};
 	}
 	constexpr Matrix4 Adjoint(const Matrix4& m)
@@ -78,11 +120,27 @@ namespace Angazi::Math
 		return adjointMatrix;
 	}
 
+	constexpr Matrix3 Inverse(const Matrix3& m)
+	{
+		const float determinant = Determinant(m);
+		const float invDet = 1.0f / determinant;
+		return Adjoint(m) * invDet;
+	}
 	constexpr Matrix4 Inverse(const Matrix4 &m)
 	{
 		float determinant = Determinant(m);
 		float inverseDet = 1.0f / determinant;
 		return Adjoint(m) * inverseDet;
+	}
+
+	constexpr Matrix3 Transpose(const Matrix3& m)
+	{
+		return Matrix3
+		{
+			m._11, m._21, m._31,
+			m._12, m._22, m._32,
+			m._13, m._23, m._33
+		};
 	}
 	constexpr Matrix4 Transpose(const Matrix4 &m)
 	{
@@ -95,6 +153,14 @@ namespace Angazi::Math
 		};
 	}
 
+	constexpr Vector2 TransformCoord(const Vector2& v, const Matrix3& m)
+	{
+		return Vector2
+		(
+			v.x * m._11 + v.y * m._21 + m._31,
+			v.x * m._12 + v.y * m._22 + m._32
+		);
+	}
 	constexpr Vector3 TransformCoord(const Vector3& v , const Matrix4 &m)
 	{
 		const float w = (v.x * m._14) + (v.y * m._24) + (v.z * m._34) + m._44;
@@ -104,6 +170,15 @@ namespace Angazi::Math
 			((v.x * m._12) + (v.y * m._22) + (v.z * m._32) + m._42)/w ,
 			((v.x * m._13) + (v.y * m._23) + (v.z * m._33) + m._43)/w 
 		};
+	}
+
+	constexpr Vector2 TransformNormal(const Vector2& v, const Matrix3& m)
+	{
+		return Vector2
+		(
+			v.x * m._11 + v.y * m._21,
+			v.x * m._12 + v.y * m._22
+		);
 	}
 	constexpr Vector3 TransformNormal(const Vector3& v, const Matrix4 &m)
 	{
