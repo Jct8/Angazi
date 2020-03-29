@@ -6,10 +6,8 @@ using namespace Angazi::Graphics;
 using namespace Angazi::Input;
 using namespace Angazi::Math;
 
-
 void GameState::Initialize()
 {
-
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
 	mCamera.SetPosition({ 0.0f,3.0f,-5.0f });
@@ -90,7 +88,7 @@ void GameState::Initialize()
 	mGroundSettings.normalMapWeight = 0.0f;
 	mTankSettings.bumpMapWeight = 0.0f;
 	mTankSettings.brightness = 10.0f;
-	mSettings.brightness = 1.7;
+	mSettings.brightness = 1.7f;
 	mSettings.bumpMapWeight = 0.165f;
 	mSettings.movementSpeed = 0.020f;
 

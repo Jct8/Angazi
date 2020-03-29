@@ -312,7 +312,7 @@ namespace
 			}
 		}
 
-		void AddGroundPlane(float size, bool fill, const Color & color)
+		void AddGroundPlane(int size, bool fill, const Color & color)
 		{
 			std::vector<Math::Vector3> list;
 			for (int y = 0; y <= size; y++)
@@ -406,8 +406,8 @@ namespace
 
 void SimpleDraw::StaticInitialize(uint32_t maxVertexCount)
 {
+	ASSERT(sInstance == nullptr, "[SimpleDraw] SimpleDraw already initialized!");
 	sInstance = std::make_unique<SimpleDrawImpl>();
-	sInstance->Initialize(maxVertexCount);
 }
 
 void SimpleDraw::StaticTerminate()
@@ -421,7 +421,7 @@ void SimpleDraw::AddLine(const Math::Vector3 & v0, const Math::Vector3 & v1, con
 	sInstance->AddLine(v0, v1, color);
 }
 
-void SimpleDraw::AddGroundPlane(float size, bool fill, const Color & color)
+void SimpleDraw::AddGroundPlane(int size, bool fill, const Color & color)
 {
 	sInstance->AddGroundPlane(size, fill, color);
 }

@@ -22,7 +22,7 @@ namespace Angazi::Graphics::SimpleDraw {
 	void AddTransform(const Math::Matrix4& transform);
 	void AddBone(const Math::Matrix4& transform);
 
-	void AddGroundPlane(float size, bool fill = true ,const Color& color = Colors::DarkGray);
+	void AddGroundPlane(int size, bool fill = true ,const Color& color = Colors::DarkGray);
 
 	//2D Simple Draw
 	void AddScreenLine(const Math::Vector2& v0, const Math::Vector2& v1, const Color& color);

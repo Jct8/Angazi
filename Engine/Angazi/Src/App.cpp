@@ -31,7 +31,8 @@ void Angazi::App::Run(AppConfig appConfig)
 	{
 		GraphicsSystem::StaticInitialize(handle, false);
 		DebugUI::StaticInitialize(handle, false, true);
-		Graphics::SimpleDraw::StaticInitialize();
+		Graphics::SimpleDraw::StaticInitialize(1024 * 1024);
+		Graphics::SpriteRenderer::StaticInitialize();
 	}
 	else if (appConfig.api == GraphicsAPI::OpenGL)
 	{
@@ -74,13 +75,14 @@ void Angazi::App::Run(AppConfig appConfig)
 		float deltaTime = 1.0f / 60.0f;
 		mCurrentState->Update(deltaTime);
 
-
 		if (appConfig.api == GraphicsAPI::DirectX)
 		{
 			auto graphicsSystem = GraphicsSystem::Get();
 			graphicsSystem->BeginRender();
 
+			Graphics::SpriteRenderer::Get()->BeginRender();
 			mCurrentState->Render();
+			Graphics::SpriteRenderer::Get()->EndRender();
 
 			DebugUI::BeginRender();
 			mCurrentState->DebugUI();
@@ -112,6 +114,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	//Terminate engine systems
 	if (appConfig.api == GraphicsAPI::DirectX)
 	{
+		Graphics::SpriteRenderer::StaticTerminate();
 		Graphics::SimpleDraw::StaticTerminate();
 		DebugUI::StaticTerminate();
 		GraphicsSystem::StaticTerminate();

@@ -78,6 +78,15 @@
     <ClInclude Include="Inc\ObjLoader.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\TextureManager.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\SpriteRenderer.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\SpriteTypes.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\GraphicsSystem.cpp">
@@ -126,6 +135,12 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\ObjLoader.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TextureManager.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SpriteRenderer.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
