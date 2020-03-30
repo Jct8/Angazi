@@ -1,0 +1,15 @@
+Total:7
+Offset:3,0
+Speed:2000
+Damage:20
+Projectiles:1
+Bow.png
+AdventurerBow_0.png
+AdventurerBow_1.png
+AdventurerBow_2.png
+AdventurerBow_3.png
+AdventurerBow_4.png
+AdventurerBow_5.png
+AdventurerBow_6.png
+AdventurerBow_7.png
+AdventurerBow_8.png

@@ -1,0 +1,27 @@
+Total:5
+Width:15
+Height:50
+FollowRange:250
+StoppingRange:200
+Ranged
+AdventurerRangedWeapon.txt
+Idle 4 0.5
+AdventurerIdle_0.png
+AdventurerIdle_1.png
+AdventurerIdle_2.png
+AdventurerIdle_3.png
+Running 6 0.5
+AdventurerRun_0.png
+AdventurerRun_1.png
+AdventurerRun_2.png
+AdventurerRun_3.png
+AdventurerRun_4.png
+AdventurerRun_5.png
+Death 6 0.5
+AdventurerDie_0.png
+AdventurerDie_1.png
+AdventurerDie_2.png
+AdventurerDie_3.png
+AdventurerDie_4.png
+AdventurerDie_5.png
+Attacking 0 0.5

@@ -1,0 +1,5 @@
+Total:4
+Weapon1 Melee PlayerWeapon.txt
+Weapon2 Ranged PlayerRangedWeapon.txt
+Weapon3 Ranged PlayerRangedWeapon2.txt
+Weapon4 Melee PlayerWeapon2.txt

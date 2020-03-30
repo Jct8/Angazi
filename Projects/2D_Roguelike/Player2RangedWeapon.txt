@@ -1,0 +1,13 @@
+Total:7
+Offset:3,-15
+Speed:2000
+Damage:50
+Projectiles:1
+Bow.png
+RangedL0.png
+RangedL1.png
+RangedL2.png
+RangedL3.png
+RangedL4.png
+RangedL5.png
+RangedL6.png

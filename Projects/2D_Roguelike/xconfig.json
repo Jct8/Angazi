@@ -1,0 +1,7 @@
+{
+  "AppName": "Jimmy's Dungeon",
+  "WinWidth": 1080,
+  "WinHeight": 720,
+  "FullScreen": false,
+  "TexturePath": "../Assets/Images/Final"
+}

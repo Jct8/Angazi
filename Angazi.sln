@@ -129,6 +129,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloSteering", "VGP332\Hel
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloPerception", "VGP332\HelloPerception\HelloPerception.vcxproj", "{6168CD46-A968-44C7-AE64-8A92D7C5ED7A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{3D46D955-E7DD-4B87-A175-A830A2684EE2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "2D_Roguelike", "Projects\2D_Roguelike\2D_Roguelike.vcxproj", "{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -749,6 +753,22 @@ Global
 		{6168CD46-A968-44C7-AE64-8A92D7C5ED7A}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{6168CD46-A968-44C7-AE64-8A92D7C5ED7A}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{6168CD46-A968-44C7-AE64-8A92D7C5ED7A}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.Debug|x64.ActiveCfg = Debug|x64
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.Debug|x64.Build.0 = Debug|x64
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.Debug|x86.ActiveCfg = Debug|Win32
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.Debug|x86.Build.0 = Debug|Win32
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.MinSizeRel|x64.Build.0 = Release|x64
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.MinSizeRel|x86.Build.0 = Release|Win32
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.Release|x64.ActiveCfg = Release|x64
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.Release|x64.Build.0 = Release|x64
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.Release|x86.ActiveCfg = Release|Win32
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.Release|x86.Build.0 = Release|Win32
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -794,12 +814,13 @@ Global
 		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD} = {CD843822-043F-4D75-AD52-51A21848EF77}
 		{F57912CD-862B-41D2-BA0A-B709D76F0571} = {CD843822-043F-4D75-AD52-51A21848EF77}
 		{6168CD46-A968-44C7-AE64-8A92D7C5ED7A} = {CD843822-043F-4D75-AD52-51A21848EF77}
+		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 38
+		SccNumberOfProjects = 39
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -951,5 +972,9 @@ Global
 		SccProjectTopLevelParentUniqueName37 = Angazi.sln
 		SccProjectName37 = VGP332/HelloPerception
 		SccLocalPath37 = VGP332\\HelloPerception
+		SccProjectUniqueName38 = Projects\\2D_Roguelike\\2D_Roguelike.vcxproj
+		SccProjectTopLevelParentUniqueName38 = Angazi.sln
+		SccProjectName38 = Projects/2D_Roguelike
+		SccLocalPath38 = Projects\\2D_Roguelike
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,39 @@
+Total:8
+Width:17
+Height:50
+Speed:350
+Idle 4 0.5
+AdventurerIdle_0.png
+AdventurerIdle_1.png
+AdventurerIdle_2.png
+AdventurerIdle_3.png
+Running 6 0.6
+AdventurerRun_0.png
+AdventurerRun_1.png
+AdventurerRun_2.png
+AdventurerRun_3.png
+AdventurerRun_4.png
+AdventurerRun_5.png
+Jumping 1 0.4
+AdventurerJump_2.png
+Death 6 0.5
+AdventurerDie_0.png
+AdventurerDie_1.png
+AdventurerDie_2.png
+AdventurerDie_3.png
+AdventurerDie_4.png
+AdventurerDie_5.png
+Climbing 2 0.5
+ClaimL1.png
+ClaimL2.png
+Roll 7 0.5
+AdventurerRoll_0.png
+AdventurerRoll_1.png
+AdventurerRoll_2.png
+AdventurerRoll_3.png
+AdventurerRoll_4.png
+AdventurerRoll_5.png
+AdventurerRoll_6.png
+Fall 1 0.5
+AdventurerFall_0.png
+Attacking 0 0.35

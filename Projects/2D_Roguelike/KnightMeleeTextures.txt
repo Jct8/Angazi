@@ -1,0 +1,35 @@
+Total:5
+Width:17
+Height:60
+FollowRange:200
+StoppingRange:50
+Melee
+KnightMeleeWeapon.txt
+Idle 5 0.5
+IdleL0.png
+IdleL1.png
+IdleL2.png
+IdleL3.png
+IdleL4.png
+Running 18 0.5
+WalkL00.png
+WalkL01.png
+WalkL02.png
+WalkL03.png
+WalkL04.png
+WalkL05.png
+WalkL06.png
+WalkL07.png
+WalkL08.png
+WalkL09.png
+WalkL10.png
+WalkL11.png
+WalkL12.png
+WalkL13.png
+WalkL14.png
+WalkL15.png
+WalkL16.png
+WalkL17.png
+Death 1 0.5
+DeadL.png
+Attacking 0 0.5

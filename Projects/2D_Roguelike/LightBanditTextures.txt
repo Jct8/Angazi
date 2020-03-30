@@ -1,0 +1,27 @@
+Total:5
+Width:20
+Height:60
+FollowRange:200
+StoppingRange:50
+Melee
+LightBanditWeapon.txt
+Idle 4 0.5
+LightBandit_00.png
+LightBandit_01.png
+LightBandit_02.png
+LightBandit_03.png
+Running 9 0.5
+LightBandit_07.png
+LightBandit_08.png
+LightBandit_09.png
+LightBandit_10.png
+LightBandit_11.png
+LightBandit_12.png
+LightBandit_13.png
+LightBandit_14.png
+LightBandit_15.png
+Jumping 1 0.5
+LightBandit_37.png
+Death 1 0.5
+LightBandit_38.png
+Attacking 0 0.5

@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{f9d6d7d4-37be-4ab5-9c6c-92c0f4b1e78a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{d97d5de5-5da9-4d8d-bdb4-bfc846d8a390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{bc168854-d18d-4a4e-8888-18258ae210bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Weapons">
+      <UniqueIdentifier>{b9a3f885-1144-48b8-a155-eb613efb4965}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{04df79ed-3017-4ac0-9fa1-8e6a4f52aee5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Melee.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Ranged.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileManager.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleManager.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponManager.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveState.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="FightState.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="SightSensor.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera2D.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Melee.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationDefintion.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranged.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileManager.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleManager.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponManager.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveState.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="FightState.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="SightSensor.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera2D.h">
+      <Filter>World</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="xconfig.json">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="level_01.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="tileset_01.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="PlayerTextures.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="LightBanditTextures.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="PlayerWeapon.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="PlayerRangedWeapon.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="AdventurerTextures.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="AdventurerRangedWeapon.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="LightBanditWeapon.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="WeaponList.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="tileset_02.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="EnemyList.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="KnightRangedWeapon.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Player2RangedWeapon.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Player2Textures.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Player2Weapon.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="PlayerRangedWeapon2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="PlayerWeapon2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="WeaponList2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="KnightRangedTextures.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="KnightMeleeTextures.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="KnightMeleeWeapon.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Player2RangedWeapon2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Player2Weapon2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="path.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
