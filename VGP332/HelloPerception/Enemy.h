@@ -1,13 +1,13 @@
 #pragma once
+
 #include <Angazi/Inc/Angazi.h>
 
 class Enemy :public Angazi::AI::Agent
 {
 public:
 	Enemy(const Enemy&) = delete;
-	Enemy(Angazi::AI::AIWorld& world);
 
-	void SetWanderBehavior(bool set) { mSteeringModule->GetBehavior<Angazi::AI::WanderBehavior>("Wander")->SetActive(set); }
+	void SetWanderBehavior(bool set) { mSteeringModule->GetBehavior <Angazi::AI::WanderBehavior >("Wander")->SetActive(set); }
 	void SetSeekingBehavior(bool set) { mSteeringModule->GetBehavior<Angazi::AI::SeekingBehavior>("Seek")->SetActive(set); }
 	void SetFleeingBehavior(bool set) { mSteeringModule->GetBehavior<Angazi::AI::FleeingBehavior>("Flee")->SetActive(set); }
 	void SetHidingBehavior(bool set) { mSteeringModule->GetBehavior<Angazi::AI::HidingBehavior>("Hide")->SetActive(set); }
@@ -16,6 +16,7 @@ public:
 	void SetAlignmentBehavior(bool set) { mSteeringModule->GetBehavior<Angazi::AI::AlignmentBehavior>("Alighment")->SetActive(set); }
 	void SetSeperationBehavior(bool set) { mSteeringModule->GetBehavior<Angazi::AI::SeperationBehavior>("Seperation")->SetActive(set); }
 
+	Enemy(Angazi::AI::AIWorld& world);
 	void Load();
 	void Update(float deltaTime);
 	void Render() const;
