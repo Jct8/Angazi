@@ -1,6 +1,6 @@
 #include "EnemyManager.h"
 #include "Survivor.h"
-#include "GameState.h".
+#include "GameState.h"
 #include "ImGui/Inc/imgui.h"
 
 using namespace Angazi;

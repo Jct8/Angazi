@@ -46,6 +46,15 @@ namespace Angazi::Math
 		return std::uniform_real_distribution<float>{ min, max }(myRandomEngine);
 	}
 
+	inline Vector2 RandomVector2(const Vector2& min, const Vector2& max)
+	{
+		return Math::Vector2
+		(
+			RandomFloat(min.x, max.x),
+			RandomFloat(min.y, max.y)
+		);
+	}
+
 	inline Vector2 Rotate(const Vector2& v, float rad)
 	{
 		const float kCosAngle = cos(rad);
