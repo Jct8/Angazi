@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Survivor.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Handgun.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Rifle.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Shotgun.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="FollowState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="RunState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Survivor.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Handgun.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Rifle.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Shotgun.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="FollowState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="RunState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{202a221d-b15b-4341-b62c-031a62df6897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{21bb3836-b7af-4c59-9ebf-caeb78205380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{15b9a3e9-533a-4a45-afae-b75462870ade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapons">
+      <UniqueIdentifier>{d0c4b7ab-1efd-4e4d-972b-b25c0167441f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

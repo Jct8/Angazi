@@ -34,6 +34,7 @@ namespace Angazi
 
 		bool OpenFileDialog(char fileName[MAX_PATH], const char* title, const char* filter);
 		bool SaveFileDialog(char fileName[MAX_PATH], const char* title, const char* filter);
+		float GetTime();
 
 	private:
 		AppConfig mAppConfig;

@@ -123,6 +123,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "15_FinalProject", "VGP330\1
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "16_HelloTerrain", "VGP330\16_HelloTerrain\16_HelloTerrain.vcxproj", "{9FBCA4F2-7769-4025-946E-8B6DDB363C41}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloFSM", "VGP332\HelloFSM\HelloFSM.vcxproj", "{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloSteering", "VGP332\HelloSteering\HelloSteering.vcxproj", "{F57912CD-862B-41D2-BA0A-B709D76F0571}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -695,6 +699,38 @@ Global
 		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{9FBCA4F2-7769-4025-946E-8B6DDB363C41}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.Debug|x64.ActiveCfg = Debug|x64
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.Debug|x64.Build.0 = Debug|x64
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.Debug|x86.ActiveCfg = Debug|Win32
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.Debug|x86.Build.0 = Debug|Win32
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.MinSizeRel|x64.Build.0 = Release|x64
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.MinSizeRel|x86.Build.0 = Release|Win32
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.Release|x64.ActiveCfg = Release|x64
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.Release|x64.Build.0 = Release|x64
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.Release|x86.ActiveCfg = Release|Win32
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.Release|x86.Build.0 = Release|Win32
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.Debug|x64.ActiveCfg = Debug|x64
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.Debug|x64.Build.0 = Debug|x64
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.Debug|x86.ActiveCfg = Debug|Win32
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.Debug|x86.Build.0 = Debug|Win32
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.MinSizeRel|x64.Build.0 = Release|x64
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.MinSizeRel|x86.Build.0 = Release|Win32
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.Release|x64.ActiveCfg = Release|x64
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.Release|x64.Build.0 = Release|x64
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.Release|x86.ActiveCfg = Release|Win32
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.Release|x86.Build.0 = Release|Win32
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{F57912CD-862B-41D2-BA0A-B709D76F0571}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -737,12 +773,14 @@ Global
 		{651171B7-1A79-4951-91A7-2CBE437B30C1} = {F8400894-831D-4B54-8637-B23ED468BE24}
 		{F819D8D0-2991-41A1-BF85-4D2A9358B8E0} = {F8400894-831D-4B54-8637-B23ED468BE24}
 		{9FBCA4F2-7769-4025-946E-8B6DDB363C41} = {F8400894-831D-4B54-8637-B23ED468BE24}
+		{8D0FA2DB-C86D-470A-A490-046EFC30BDCD} = {CD843822-043F-4D75-AD52-51A21848EF77}
+		{F57912CD-862B-41D2-BA0A-B709D76F0571} = {CD843822-043F-4D75-AD52-51A21848EF77}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 35
+		SccNumberOfProjects = 37
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -882,5 +920,13 @@ Global
 		SccProjectTopLevelParentUniqueName34 = Angazi.sln
 		SccProjectName34 = VGP330/16_HelloTerrain
 		SccLocalPath34 = VGP330\\16_HelloTerrain
+		SccProjectUniqueName35 = VGP332\\HelloFSM\\HelloFSM.vcxproj
+		SccProjectTopLevelParentUniqueName35 = Angazi.sln
+		SccProjectName35 = VGP332/HelloFSM
+		SccLocalPath35 = VGP332\\HelloFSM
+		SccProjectUniqueName36 = VGP332\\HelloSteering\\HelloSteering.vcxproj
+		SccProjectTopLevelParentUniqueName36 = Angazi.sln
+		SccProjectName36 = VGP332/HelloSteering
+		SccLocalPath36 = VGP332\\HelloSteering
 	EndGlobalSection
 EndGlobal

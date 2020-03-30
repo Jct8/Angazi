@@ -1,7 +1,34 @@
 #include "Precompiled.h"
 #include "Timer.h"
+#include "Debug.h"
 
 using namespace Angazi::Core;
+
+namespace
+{
+	std::unique_ptr<Timer> sTimer;
+}
+
+void Timer::StaticInitialize()
+{
+	ASSERT(sTimer == nullptr, "[SpriteRenderer] System already initialized!");
+	sTimer = std::make_unique<Timer>();
+	sTimer->Initialize();
+}
+
+void Timer::StaticTerminate()
+{
+	if (sTimer != nullptr)
+	{
+		sTimer.reset();
+	}
+}
+
+Timer * Timer::Get()
+{
+	ASSERT(sTimer != nullptr, "[Timer] No instance registered.");
+	return sTimer.get();
+}
 
 Timer::Timer()
 	: mElapsedTime(0.0f)

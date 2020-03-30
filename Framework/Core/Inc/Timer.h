@@ -5,6 +5,10 @@ namespace Angazi::Core
 	class Timer
 	{
 	public:
+		static void StaticInitialize();
+		static void StaticTerminate();
+		static Timer* Get();
+	public:
 		Timer();
 
 		void Initialize();

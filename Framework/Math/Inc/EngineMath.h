@@ -46,6 +46,17 @@ namespace Angazi::Math
 		return std::uniform_real_distribution<float>{ min, max }(myRandomEngine);
 	}
 
+	inline Vector2 Rotate(const Vector2& v, float rad)
+	{
+		const float kCosAngle = cos(rad);
+		const float kSinAngle = sin(rad);
+		return Vector2
+		(
+			v.x * kCosAngle - v.y * kSinAngle,
+			v.y * kCosAngle + v.x * kSinAngle
+		);
+	}
+
 	constexpr float DistanceSqr(const Vector2 &v1, const Vector2 &v2)	{ return MagnitudeSqr(v1 - v2); }
 	constexpr float DistanceSqr(const Vector3 &v1, const Vector3 &v2)	{ return MagnitudeSqr(v1 - v2); }
 	inline float Distance(const Vector3 &v1, const Vector3 &v2)			{ return Magnitude(v1 - v2); }

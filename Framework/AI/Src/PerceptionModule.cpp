@@ -18,7 +18,7 @@ void PerceptionModule::Update(float deltaTime)
 	// Remove any records older than memory span
 	for (auto iter = mMemory.begin(); iter != mMemory.end(); )
 	{
-		if (iter->lastRecordTime + mMemorySpan < 0.0f)//X::GetTime())
+		if (iter->lastRecordTime + mMemorySpan < Core::Timer::Get()->GetTotalTime())
 			iter = mMemory.erase(iter);
 		else
 			++iter;
