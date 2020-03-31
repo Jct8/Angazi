@@ -1,12 +1,11 @@
 #pragma once
-#include <AI.h>
-#include <XEngine.h>
 #include "Character.h"
+#include <Angazi/Inc/Angazi.h>
 
-class Enemy : public Character, public AI::Agent
+class Enemy : public Character, public Angazi::AI::Agent
 {
 public:
-	Enemy(AI::AIWorld& world, uint32_t typeId);
+	Enemy(Angazi::AI::AIWorld& world, uint32_t typeId);
 	void Load(std::filesystem::path fileName, bool facingLeft) override;
 	void Unload() override;
 	void Update(float deltaTime) override;
@@ -17,7 +16,7 @@ public:
 	void TakeDamage(int damage) override;
 	void Attack() override;
 
-	X::Math::Rect GetBoundingBox() override;
+	Angazi::Math::Rect GetBoundingBox() override;
 
 	//
 	bool IsAlive() { return isAlive; };
@@ -26,7 +25,7 @@ public:
 	bool mShowDebug = false;
 
 protected:
-	X::Math::Vector2 mHeading;
+	Angazi::Math::Vector2 mHeading;
 	std::string weaponType;
 
 	float mDetectRange = 200.0f;

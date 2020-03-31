@@ -1,5 +1,7 @@
 #include "IdleState.h"
 
+using namespace Angazi;
+
 void IdleState::Enter(Player & agent)
 {
 	agent.ChangeAnimation(Idle);

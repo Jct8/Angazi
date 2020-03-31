@@ -1,40 +1,47 @@
 #include "Projectile.h"
 #include "ProjectileManager.h"
 
+using namespace Angazi;
+using namespace Angazi::Graphics;
+
 namespace
 {
-	ProjectileManager* sInstance = nullptr;
+	std::unique_ptr<ProjectileManager> sInstance = nullptr;
 }
 
 void ProjectileManager::StaticInitialize()
 {
-	XASSERT(sInstance == nullptr, "ProjectileManager already initialized");
-	sInstance = new ProjectileManager();
+	ASSERT(sInstance == nullptr, "ProjectileManager already initialized");
+	sInstance = std::make_unique<ProjectileManager>();
 }
 
 void ProjectileManager::StaticTerminate()
 {
-	delete sInstance;
-	sInstance = nullptr;
+	sInstance->Unload();
+	sInstance.reset();
 }
 
 ProjectileManager & ProjectileManager::Get()
 {
-	XASSERT(sInstance != nullptr, "No ProjectileManager created!");
+	ASSERT(sInstance != nullptr, "No ProjectileManager created!");
 	return *sInstance;
 }
 
 void ProjectileManager::Load()
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < mMaxProjectiles; i++)
 	{
-		mProjectiles.push_back(Projectile());
+		mProjectiles.emplace_back();
 		mProjectiles[i].Load("Projectile.png");
 	}
 }
 
 void ProjectileManager::Unload()
 {
+	for (int i = 0; i < mMaxProjectiles; i++)
+	{
+		mProjectiles[i].Unload();
+	}
 }
 
 void ProjectileManager::Update(float deltaTime)
@@ -59,7 +66,7 @@ void ProjectileManager::Render()
 	}
 }
 
-void ProjectileManager::Fire(bool isPlayer,float speed,int damage, X::Math::Vector2 startingPos ,X::Math::Vector2 targetPos)
+void ProjectileManager::Fire(bool isPlayer,float speed,int damage, Math::Vector2 startingPos , Math::Vector2 targetPos)
 {
 	for (int i = 0; i < mProjectiles.size(); i++)
 	{

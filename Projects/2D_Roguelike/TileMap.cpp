@@ -93,7 +93,7 @@ void TileMap::LoadTexture(std::filesystem::path fileName)
 	{
 		char buffer[256];
 		fscanf_s(file, "%s\n", buffer, static_cast<int>(std::size(buffer)));
-		mTiles[i].Initialize("../../Assets/Images/Rougelike" + std::string(buffer));
+		mTiles[i].Initialize("../../Assets/Images/Rougelike/" + std::string(buffer));
 	}
 
 	fclose(file);
@@ -138,7 +138,7 @@ void TileMap::ShowEditor()
 		return;
 	}
 
-	ImGui::Begin("Settings Editor", nullptr, ImGuiWindowFlags_NoResize);
+	ImGui::Begin("Settings Editor", nullptr);
 
 	ImGui::BeginGroup();
 	if (ImGui::CollapsingHeader("Map:"))
@@ -300,7 +300,7 @@ void TileMap::Update(float deltaTime)
 		Math::Vector2 mousePos = { static_cast<float> (input->GetMouseScreenX()), static_cast<float>(input->GetMouseScreenY()) };
 
 
-		Math::Vector2 worldPos = Camera::Get().ConvertToWorldPosition(mousePos);
+		Math::Vector2 worldPos = Camera2D::Get().ConvertToWorldPosition(mousePos);
 		int x = static_cast<int>(worldPos.x / 32.0f);
 		int y = static_cast<int>(worldPos.y / 32.0f);
 

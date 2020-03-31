@@ -9,9 +9,9 @@ public:
 	void Update(float deltaTime);
 	void Render();
 
-	void Start(const Math::Vector2 &pos);
+	void Start(const Angazi::Math::Vector2 &pos);
 	bool IsActive() { return isActive; }
-	void SetPivot(Pivot pivot) { mPivot = pivot; }
+	void SetPivot(Angazi::Graphics::Pivot pivot) { mPivot = pivot; }
 
 	int GetTextureWidth() { return mTexture.GetWidth(); }
 

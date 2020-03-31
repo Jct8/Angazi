@@ -1,9 +1,8 @@
 #pragma once
-#include <AI.h>
 #include "Player.h"
-#include<XEngine.h>
+#include <Angazi/Inc/Angazi.h>
 
-class IdleState : public AI::State<Player>
+class IdleState : public Angazi::AI::State<Player>
 {
 	void Enter(Player& agent) override;
 	void Update(Player& agent, float deltaTime) override;

@@ -1,10 +1,12 @@
 #include "Melee.h"
-#include "Camera.h"
+#include "Camera2D.h"
 #include "EnemyManager.h"
 #include "ParticleManager.h"
 #include "Player.h"
 
 extern Player player;
+using namespace Angazi;
+using namespace Angazi::Graphics;
 
 void MeleeWeapon::Load(std::filesystem::path fileName)
 {
@@ -20,7 +22,7 @@ void MeleeWeapon::Load(std::filesystem::path fileName)
 	fscanf_s(file, "HitSize:%f,%f\n", &mHitWidth, &mHitHeight);
 	fscanf_s(file, "Damage:%d\n", &mDamage);
 	fscanf_s(file, "%s\n", name, maxsize);
-	mSprite = X::LoadTexture(name);
+	mSprite.Initialize("../../Assets/Images/Rougelike/" + std::string(name));
 	fscanf_s(file, "Particle:%s\n", name, maxsize);
 	mParticleName = name;
 
@@ -30,7 +32,8 @@ void MeleeWeapon::Load(std::filesystem::path fileName)
 		for (int j = 0; j < subTotal; j++)
 		{
 			fscanf_s(file, "%s\n", name, maxsize);
-			mAnimationsMap[i].push_back(X::LoadTexture(name));
+			mAnimationsMap[i].emplace_back();
+			mAnimationsMap[i][j].Initialize("../../Assets/Images/Rougelike/" + std::string(name));
 			fscanf_s(file, "%f,%f\n", &x, &y);
 			mAnimationDamageMap[i].push_back({ x , y });
 		}
@@ -41,24 +44,31 @@ void MeleeWeapon::Load(std::filesystem::path fileName)
 
 void MeleeWeapon::Unload()
 {
+	for (auto& animationType : mAnimationsMap)
+		for (auto& animation : animationType.second)
+			animation.Terminate();
+
+	mSprite.Terminate();
+	for (auto& animations : mAnimations)
+		animations.Terminate();
 }
 
-void MeleeWeapon::Render(int mFrame, X::Math::Vector2 screenPos, bool isFacingLeft)
+void MeleeWeapon::Render(int mFrame, Math::Vector2 screenPos, bool isFacingLeft)
 {
 	//to fix bug - need to remove
 	if (mFrame > mAnimationsMap[mCurrentAttack].size() - 1)
 		mFrame = static_cast<int>(mAnimationsMap[mCurrentAttack].size()) - 1;
 
 	if (isFacingLeft)
-		X::DrawSprite(mAnimationsMap[mCurrentAttack][mFrame], screenPos);
+		SpriteRenderer::Get()->Draw(mAnimationsMap[mCurrentAttack][mFrame], screenPos);
 	else
-		X::DrawSprite(mAnimationsMap[mCurrentAttack][mFrame], screenPos, X::Pivot::Center, X::Flip::Horizontal);
+		SpriteRenderer::Get()->Draw(mAnimationsMap[mCurrentAttack][mFrame], screenPos, 0.0f, Pivot::Center, Flip::Horizontal);
 
 	if (mFrame == mAnimationsMap[mCurrentAttack].size() - 1)
 		mCurrentAttack = (mCurrentAttack + 1) % mAnimationsMap.size();
 }
 
-void MeleeWeapon::Attack(int mFrame, X::Math::Vector2 position, bool isFacingLeft, bool isPlayer)
+void MeleeWeapon::Attack(int mFrame, Math::Vector2 position, bool isFacingLeft, bool isPlayer)
 {
 	//to fix bug - need to remove
 	if (mFrame > mAnimationsMap[mCurrentAttack].size() - 1)
@@ -68,8 +78,8 @@ void MeleeWeapon::Attack(int mFrame, X::Math::Vector2 position, bool isFacingLef
 	float height = mHitHeight;
 	float damageOffsetX = mAnimationDamageMap[mCurrentAttack][mFrame].x;
 	float damageOffsetY = mAnimationDamageMap[mCurrentAttack][mFrame].y;
-	X::Math::Rect rect;
-	X::Math::Vector2 particlePos = position;
+	Math::Rect rect;
+	Math::Vector2 particlePos = position;
 
 	if (isFacingLeft)
 	{
@@ -94,28 +104,28 @@ void MeleeWeapon::Attack(int mFrame, X::Math::Vector2 position, bool isFacingLef
 	//if (X::Math::Magnitude(mAnimationDamageMap[mCurrentAttack][mFrame]) != 0)
 	//	X::DrawScreenRect(rect2, X::Colors::Red);
 
-	if (X::Math::Magnitude(mAnimationDamageMap[mCurrentAttack][mFrame]) == 0 || dealtDamage)
+	if (Math::Magnitude(mAnimationDamageMap[mCurrentAttack][mFrame]) == 0 || dealtDamage)
 		return;
 
 	if (isPlayer)
 	{
-		X::Math::Vector2 pos = EnemyManager::Get().CheckCollision(rect, mDamage,position);
-		if (X::Math::Magnitude(pos) != 0)
+		Math::Vector2 pos = EnemyManager::Get().CheckCollision(rect, mDamage,position);
+		if (Math::Magnitude(pos) != 0)
 		{
-			ParticleManager::Get().StartParticle(pos,"BloodMelee",X::Pivot::Center);
+			ParticleManager::Get().StartParticle(pos,"BloodMelee", Pivot::Center);
 			dealtDamage = true;
 		}
 		if (mParticleName != "None")
 		{
 			if (isFacingLeft)
 				particlePos.x = position.x - ParticleManager::Get().GetParticleWidth(mParticleName);
-			ParticleManager::Get().StartParticle(particlePos, mParticleName, X::Pivot::Left);
+			ParticleManager::Get().StartParticle(particlePos, mParticleName, Pivot::Left);
 		}
 	}
-	else if (X::Math::Intersect( rect,player.GetBoundingBox() ))
+	else if (Math::Intersect( rect ,player.GetBoundingBox() ))
 	{
 		player.TakeDamage(mDamage);
-		ParticleManager::Get().StartParticle(player.GetPosition(),"BloodMelee", X::Pivot::Center);
+		ParticleManager::Get().StartParticle(player.GetPosition(),"BloodMelee", Pivot::Center);
 		dealtDamage = true;
 	}
 }

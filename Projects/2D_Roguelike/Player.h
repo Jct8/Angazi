@@ -1,9 +1,6 @@
-#ifndef INCLUDED_Player_H
-#define INCLUDED_Player_H
-
-#include <AI.h>
-#include <XEngine.h>
+#pragma once
 #include "Character.h"
+#include "Angazi/Inc/Angazi.h"
 
 class TileMap;
 
@@ -14,10 +11,10 @@ enum JumpState
 	DoubleJump
 };
 
-class Player : public Character, public AI::Agent
+class Player : public Character, public Angazi::AI::Agent
 {
 public:
-	Player(AI::AIWorld& world, uint32_t typeId);
+	Player(Angazi::AI::AIWorld& world, uint32_t typeId);
 	void Load(std::filesystem::path fileName, bool facingLeft) override;
 	void Unload() override;
 	void Update(float deltaTime) override;
@@ -31,18 +28,18 @@ public:
 	void TakeDamage(int damage) override;
 	void Attack() override;
 
-	X::Math::Rect GetBoundingBox() override;
+	Angazi::Math::Rect GetBoundingBox() override;
 	float GetHealthPercent() { return static_cast<float>(mHealth) / mMaxHealth; }
-	X::TextureId GetPrimaryWeaponSprite() { return mWeapon->GetSprite(); }
-	X::TextureId GetSecondaryWeaponSprite() { return mSecondaryWeapon->GetSprite(); }
+	Angazi::Graphics::Texture* GetPrimaryWeaponSprite() { return mWeapon->GetSprite(); }
+	Angazi::Graphics::Texture* GetSecondaryWeaponSprite() { return mSecondaryWeapon->GetSprite(); }
 	void Reset();
 
-	void SetDestination(X::Math::Vector2 dest) { mDestination = dest; };
-	void SetPosition(const X::Math::Vector2 & pos)override { mPosition = pos; position = { pos.x  , pos.y + mHeight }; };
+	void SetDestination(Angazi::Math::Vector2 dest) { mDestination = dest; };
+	void SetPosition(const Angazi::Math::Vector2 & pos)override { mPosition = pos; position = { pos.x  , pos.y + mHeight }; };
 	void SetCurrentWeapon(int weapon) { mCurrentWeapon = weapon; }
 
-	X::Math::Vector2 GetDestination() { return mDestination; };
-	X::Math::Vector2 GetEnemyDestination() { return enemyDestination; };
+	Angazi::Math::Vector2 GetDestination() { return mDestination; };
+	Angazi::Math::Vector2 GetEnemyDestination() { return enemyDestination; };
 	Animation GetCurrentAnimation() { return mCurrentAnimation; }
 	float GetShootingRange() { return mShootingRange; }
 	float GetMeleeRange() { return mMeleeRange; }
@@ -50,12 +47,12 @@ public:
 
 	void DebugUI();
 
-	AI::Path path;
-	X::Math::Vector2 displacement;
+	Angazi::AI::Path path;
+	Angazi::Math::Vector2 displacement;
 	int currentPath = 0;
 
 private:
-	void CalculatePath(X::Math::Vector2 destination);
+	void CalculatePath(Angazi::Math::Vector2 destination);
 
 	int mCurrentWeapon = 0;
 
@@ -65,11 +62,11 @@ private:
 	JumpState mJumpState = Grounded;
 
 	//AI
-	X::Math::Vector2 mDestination;
-	X::Math::Vector2 enemyDestination;
-	std::unique_ptr<AI::SteeringModule> mSteeringModule;
-	std::unique_ptr<AI::StateMachine<Player>> mStateMachine;
-	std::unique_ptr<AI::PerceptionModule> mPerceptionModule;
+	Angazi::Math::Vector2 mDestination;
+	Angazi::Math::Vector2 enemyDestination;
+	std::unique_ptr<Angazi::AI::SteeringModule> mSteeringModule;
+	std::unique_ptr<Angazi::AI::StateMachine<Player>> mStateMachine;
+	std::unique_ptr<Angazi::AI::PerceptionModule> mPerceptionModule;
 
 	const float jumpSpeed = 500.0f;
 	const float rollSpeed = 500.0f;
@@ -83,10 +80,7 @@ private:
 
 	bool mCalculatedFinalDestination = false;
 	bool freeMovement = false;
-	bool isUsingAi = true;
+	bool isUsingAi = false;
 	bool usingDebug = true;
 	bool mChooseDestination = false;
 };
-
-
-#endif // !INCLUDED_Player_H

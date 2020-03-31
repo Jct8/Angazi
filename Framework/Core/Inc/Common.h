@@ -13,6 +13,7 @@
 #include <chrono>
 #include <cstdio>
 #include <cstdint>
+#include <deque>
 #include <filesystem>
 #include <functional>
 #include <list>

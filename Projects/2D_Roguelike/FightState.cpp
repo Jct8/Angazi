@@ -1,5 +1,7 @@
 #include "FightState.h"
 
+using namespace Angazi;
+
 void FightState::Enter(Player & agent)
 {
 
@@ -14,7 +16,7 @@ void FightState::Update(Player & agent, float deltaTime)
 		agent.SetFacingLeft(true);
 	if (agent.GetCurrentAnimation() != Attacking)
 		weaponType = None;
-	if (X::Math::Distance(agent.position, agent.GetEnemyDestination()) < agent.GetMeleeRange())
+	if (Math::Distance(agent.position, agent.GetEnemyDestination()) < agent.GetMeleeRange())
 	{
 		agent.SetCurrentWeapon(1);
 		if (weaponType != Melee)

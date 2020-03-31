@@ -18,6 +18,6 @@ public:
 	void StartParticle(Angazi::Math::Vector2 pos, std::string key, Angazi::Graphics::Pivot pivot);
 
 private:
-	std::map<std::string,std::vector<Particle>> mParticles;
+	std::map<std::string,std::deque<Particle>> mParticles;
 };
 

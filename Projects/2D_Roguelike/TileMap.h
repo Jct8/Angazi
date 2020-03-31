@@ -55,5 +55,5 @@ private:
 	bool mShowEditor = false;
 	bool mEditTile = false;
 	
-	std::vector<Angazi::Graphics::Texture> mTiles;
+	std::deque<Angazi::Graphics::Texture> mTiles;
 };

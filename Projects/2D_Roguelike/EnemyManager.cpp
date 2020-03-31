@@ -1,34 +1,36 @@
 #include "EnemyManager.h"
 #include "Player.h"
 #include "TileMap.h"
-#include "GameState.h"
+#include "Game.h"
 #include "ImGui/Inc/imgui.h"
 
 extern Player player;
-extern GameState gameState;
+extern Game gameState;
+
+using namespace Angazi;
+using namespace Angazi::Graphics;
 
 namespace
 {
-	EnemyManager* sInstance = nullptr;
+	std::unique_ptr<EnemyManager> sInstance = nullptr;
 	const int maxsize = 100;
-
 }
 
 void EnemyManager::StaticInitialize()
 {
-	XASSERT(sInstance == nullptr, "EnemyManger already initialized");
-	sInstance = new EnemyManager();
+	ASSERT(sInstance == nullptr, "EnemyManger already initialized");
+	sInstance = std::make_unique<EnemyManager>();
 }
 
 void EnemyManager::StaticTerminate()
 {
-	delete sInstance;
-	sInstance = nullptr;
+	sInstance->Unload();
+	sInstance.reset();
 }
 
 EnemyManager & EnemyManager::Get()
 {
-	XASSERT(sInstance != nullptr, "No EnemyManger created!");
+	ASSERT(sInstance != nullptr, "No EnemyManger created!");
 	return *sInstance;
 }
 
@@ -48,7 +50,7 @@ void EnemyManager::Load(AI::AIWorld & world)
 	{
 		fscanf_s(file, "%c %s\n", &type, 1, &fileName, maxsize);
 		std::string strFileName(fileName);
-		std::vector<X::Math::Vector2> locations = TileMap::Get().GetSpawnLocation(type);
+		std::vector<Math::Vector2> locations = TileMap::Get().GetSpawnLocation(type);
 		for (int j = 0; j < locations.size(); j++)
 		{
 			mEnemies.emplace_back(world, 1);
@@ -70,6 +72,10 @@ void EnemyManager::Load(AI::AIWorld & world)
 
 void EnemyManager::Unload()
 {
+	for (int i = 0; i < mEnemies.size(); i++)
+	{
+		mEnemies[i].Unload();
+	}
 	mEnemies.clear();
 	mTotalDeaths = 0;
 }
@@ -97,18 +103,18 @@ void EnemyManager::Render()
 	}
 }
 
-X::Math::Vector2 EnemyManager::CheckCollision(X::Math::Rect rect, int damage, X::Math::Vector2 pos)
+Math::Vector2 EnemyManager::CheckCollision(Math::Rect rect, int damage, Math::Vector2 pos)
 {
 	int closestEnemy = -1;
 	float closestDistance = std::numeric_limits<float>::max();
 	for (int i = 0; i < mEnemies.size(); i++)
 	{
-		if (mEnemies[i].IsAlive() && X::Math::Intersect(rect, mEnemies[i].GetBoundingBox()))
+		if (mEnemies[i].IsAlive() && Math::Intersect(rect, mEnemies[i].GetBoundingBox()))
 		{
-			if (closestDistance > X::Math::Distance(pos, mEnemies[i].GetPosition()))
+			if (closestDistance > Math::Distance(pos, mEnemies[i].GetPosition()))
 			{
 				closestEnemy = i;
-				closestDistance = X::Math::Distance(pos, mEnemies[i].GetPosition());
+				closestDistance = Math::Distance(pos, mEnemies[i].GetPosition());
 			}
 		}
 	}
@@ -118,14 +124,14 @@ X::Math::Vector2 EnemyManager::CheckCollision(X::Math::Rect rect, int damage, X:
 		mEnemies[closestEnemy].TakeDamage(damage);
 		return mEnemies[closestEnemy].GetPosition();
 	}
-	return X::Math::Vector2::Zero();
+	return Math::Vector2::Zero;
 }
 
-bool EnemyManager::CheckProjectileCollision(X::Math::Vector2 point, int damage)
+bool EnemyManager::CheckProjectileCollision(Math::Vector2 point, int damage)
 {
 	for (int i = 0; i < mEnemies.size(); i++)
 	{
-		if (mEnemies[i].IsAlive() && X::Math::PointInRect(point, mEnemies[i].GetBoundingBox()))
+		if (mEnemies[i].IsAlive() && Math::PointInRect(point, mEnemies[i].GetBoundingBox()))
 		{
 			mEnemies[i].TakeDamage(damage);
 			return true;
@@ -136,7 +142,7 @@ bool EnemyManager::CheckProjectileCollision(X::Math::Vector2 point, int damage)
 
 void EnemyManager::DebugUI()
 {
-	ImGui::Begin("Settings Editor", nullptr, ImGuiWindowFlags_NoResize);
+	ImGui::Begin("Settings Editor", nullptr);
 	ImGui::BeginGroup();
 	if (ImGui::CollapsingHeader("Enemy:"))
 	{

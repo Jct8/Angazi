@@ -1,6 +1,6 @@
 #pragma once
 #include "Weapon.h"
-#include <XEngine.h>
+#include <Angazi/Inc/Angazi.h>
 
 class WeaponManager
 {

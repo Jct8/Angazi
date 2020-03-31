@@ -1,10 +1,12 @@
 #include "ProjectileManager.h"
-#include "Camera.h"
+#include "Camera2D.h"
 #include "EnemyManager.h"
 #include "Player.h"
 #include "Ranged.h"
 
 extern Player player;
+using namespace Angazi;
+using namespace Angazi::Graphics;
 
 void RangedWeapon::Load(std::filesystem::path fileName)
 {
@@ -21,12 +23,15 @@ void RangedWeapon::Load(std::filesystem::path fileName)
 	fscanf_s(file, "Damage:%d\n", &mDamage);
 	fscanf_s(file, "Projectiles:%d\n", &mTotalProjectiles);
 	fscanf_s(file, "%s\n", name, maxsize);
-	mSprite = X::LoadTexture(name);
+	mSprite.Initialize("../../Assets/Images/Rougelike/" + std::string(name));
 
 	for (int i = 0; i < total; i++)
 	{
 		fscanf_s(file, "%s\n", name, maxsize);
-		mAnimations.push_back(X::LoadTexture(name));
+		//Angazi::Graphics::Texture tex;
+		//tex.Initialize(name);
+		mAnimations.emplace_back();
+		mAnimations.back().Initialize("../../Assets/Images/Rougelike/" + std::string(name));
 	}
 	fclose(file);
 	mAttackDelay = 1.0f;
@@ -34,28 +39,31 @@ void RangedWeapon::Load(std::filesystem::path fileName)
 
 void RangedWeapon::Unload()
 {
+	mSprite.Terminate();
+	for (auto& animations : mAnimations)
+		animations.Terminate();
 }
 
-void RangedWeapon::Render(int mFrame, X::Math::Vector2 screenPos, bool isFacingLeft)
+void RangedWeapon::Render(int mFrame, Math::Vector2 screenPos, bool isFacingLeft)
 {
 	if (isFacingLeft)
-		X::DrawSprite(mAnimations[mFrame], screenPos);
+		SpriteRenderer::Get()->Draw(mAnimations[mFrame], screenPos);
 	else
-		X::DrawSprite(mAnimations[mFrame], screenPos, X::Pivot::Center, X::Flip::Horizontal);
+		SpriteRenderer::Get()->Draw(mAnimations[mFrame], screenPos, 0.0f , Pivot::Center, Flip::Horizontal);
 }
 
-void RangedWeapon::Attack(int mFrame, X::Math::Vector2 screenPos, bool isFacingLeft, bool isPlayer)
+void RangedWeapon::Attack(int mFrame, Math::Vector2 screenPos, bool isFacingLeft, bool isPlayer)
 {
 	if (dealtDamage)
 		return;
-	X::Math::Vector2 offset = mOffset;
-	X::Math::Vector2 targetPos;
+	Math::Vector2 offset = mOffset;
+	Math::Vector2 targetPos;
 	if (isFacingLeft)
 	{
-		targetPos = screenPos + offset + X::Math::Vector2{ -1.0f, 0 };
+		targetPos = screenPos + offset + Math::Vector2{ -1.0f, 0 };
 	}
 	else
-		targetPos = screenPos + offset + X::Math::Vector2{ 1.0f, 0 };
+		targetPos = screenPos + offset + Math::Vector2{ 1.0f, 0 };
 
 	if (mFrame != 6 && isPlayer)
 	{

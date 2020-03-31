@@ -4,25 +4,25 @@
 
 namespace
 {
-	WeaponManager* sInstance = nullptr;
+	std::unique_ptr<WeaponManager> sInstance = nullptr;
 	const int maxsize = 100;
 }
 
 void WeaponManager::StaticInitialize()
 {
-	XASSERT(sInstance == nullptr, "WeaponManager already initialized");
-	sInstance = new WeaponManager();
+	ASSERT(sInstance == nullptr, "WeaponManager already initialized");
+	sInstance = std::make_unique<WeaponManager>();
 }
 
 void WeaponManager::StaticTerminate()
 {
-	delete sInstance;
-	sInstance = nullptr;
+	sInstance->Unload();
+	sInstance.reset();
 }
 
 WeaponManager & WeaponManager::Get()
 {
-	XASSERT(sInstance != nullptr, "No WeaponManager created!");
+	ASSERT(sInstance != nullptr, "No WeaponManager created!");
 	return *sInstance;
 }
 
@@ -56,6 +56,11 @@ void WeaponManager::Load()
 
 void WeaponManager::Unload()
 {
+	std::map<std::string, std::unique_ptr<Weapon>>::iterator iter = mWeapons.begin();
+	for ( ; iter != mWeapons.end() ; ++iter)
+	{
+		iter->second->Unload();
+	}
 	mWeapons.clear();
 }
 

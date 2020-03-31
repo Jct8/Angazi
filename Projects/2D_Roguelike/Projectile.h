@@ -1,6 +1,5 @@
 #pragma once
-
-#include <XEngine.h>
+#include <Angazi/Inc/Angazi.h>
 
 class Projectile
 {
@@ -10,15 +9,15 @@ public:
 	void Update(float deltaTime);
 	void Render();
 
-	void Fire(bool isPlayer,float speed, int damage, X::Math::Vector2 targetPos, X::Math::Vector2 startingPos);
+	void Fire(bool isPlayer,float speed, int damage, Angazi::Math::Vector2 targetPos, Angazi::Math::Vector2 startingPos);
 
 	bool IsActive() { return isActive; }
 private:
-	X::Math::Vector2 mPosition;
-	X::Math::Vector2 mStartingPosition;
-	X::Math::Vector2 mDirection;
-	X::TextureId mTexture;
-	X::TextureId mBloodTexture = 0;
+	Angazi::Math::Vector2 mPosition;
+	Angazi::Math::Vector2 mStartingPosition;
+	Angazi::Math::Vector2 mDirection;
+	Angazi::Graphics::Texture mTexture;
+	Angazi::Graphics::Texture mBloodTexture;
 
 	int mFrame = 0;
 	int mFrameCount = 0;
@@ -33,7 +32,5 @@ private:
 	bool isActive = false;
 	bool isPlayingAnimation = false;
 	bool mIsPlayer = false;
-
-
 };
 

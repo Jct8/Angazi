@@ -1,6 +1,8 @@
 #include "MoveState.h"
 #include "TileMap.h"
 
+using namespace Angazi;
+
 void MoveState::Enter(Player& agent)
 {
 }
@@ -12,12 +14,12 @@ void MoveState::Update(Player& agent, float deltaTime)
 		agent.destination = 
 		{agent.path[agent.currentPath].x*tilesize ,agent.path[agent.currentPath].y*tilesize + tilesize };
 
-	agent.heading = X::Math::Normalize(agent.destination - agent.position);
-	agent.displacement += agent.heading * agent.GetJumpSpeed() *deltaTime;
+	agent.heading = Math::Normalize(agent.destination - agent.position);
+	agent.displacement += agent.heading * agent.maxSpeed *deltaTime;
 	if (agent.displacement.y > 0.0f)
-		agent.displacement.y = agent.maxSpeed * deltaTime;
+		agent.displacement.y = agent.GetJumpSpeed() * deltaTime;
 
-	if (X::Math::Distance(agent.position, agent.destination) < 5.0f)
+	if (Math::Distance(agent.position, agent.destination) < 5.0f)
 	{
 		agent.currentPath++;
 		agent.heading = 0.0f;

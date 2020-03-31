@@ -1,6 +1,6 @@
 #pragma once
 #include "Projectile.h"
-#include <XEngine.h>
+#include <Angazi/Inc/Angazi.h>
 
 class ProjectileManager
 {
@@ -14,10 +14,10 @@ public:
 	void Update(float deltaTime);
 	void Render();
 
-	void Fire(bool isPlayer,float speed, int damage, X::Math::Vector2 startingPos,X::Math::Vector2 targetPos);
+	void Fire(bool isPlayer,float speed, int damage, Angazi::Math::Vector2 startingPos, Angazi::Math::Vector2 targetPos);
 
 private:
-	std::vector<Projectile> mProjectiles;
-
+	std::deque<Projectile> mProjectiles;
+	int mMaxProjectiles = 100;
 };
 

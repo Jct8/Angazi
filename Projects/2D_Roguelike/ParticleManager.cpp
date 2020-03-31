@@ -31,17 +31,17 @@ void ParticleManager::Load()
 {
 	for (int i = 0; i < defaultSize; i++)
 	{
-		mParticles["BloodMelee"].push_back(Particle());
+		mParticles["BloodMelee"].emplace_back();
 		mParticles["BloodMelee"][i].Load("../../Assets/Images/Rougelike/bloodSplat.png", 3, 3);
 	}
 	for (int i = 0; i < defaultSize; i++)
 	{
-		mParticles["LightningSheet"].push_back(Particle());
+		mParticles["LightningSheet"].emplace_back();
 		mParticles["LightningSheet"][i].Load("../../Assets/Images/Rougelike/LightningSheet.png", 1, 8);
 	}
 	for (int i = 0; i < defaultSize; i++)
 	{
-		mParticles["particleSheet"].push_back(Particle());
+		mParticles["particleSheet"].emplace_back();
 		mParticles["particleSheet"][i].Load("../../Assets/Images/Rougelike/particleSheet.png", 8, 5);
 	}
 
@@ -57,7 +57,7 @@ void ParticleManager::Unload()
 
 void ParticleManager::Update(float deltaTime)
 {
-	std::map<std::string, std::vector<Particle>>::iterator iter = mParticles.begin();
+	std::map<std::string, std::deque<Particle>>::iterator iter = mParticles.begin();
 	for (; iter != mParticles.end(); iter++)
 	{
 		for (int i = 0; i < iter->second.size(); i++)
@@ -73,7 +73,7 @@ void ParticleManager::Update(float deltaTime)
 
 void ParticleManager::Render()
 {
-	std::map<std::string, std::vector<Particle>>::iterator iter = mParticles.begin();
+	std::map<std::string, std::deque<Particle>>::iterator iter = mParticles.begin();
 	for (; iter != mParticles.end(); iter++)
 	{
 		for (int i = 0; i < iter->second.size(); i++)
@@ -93,7 +93,7 @@ void ParticleManager::StartParticle(Math::Vector2 pos, std::string key, Pivot pi
 		if (!mParticles[key][i].IsActive())
 		{
 			mParticles[key][i].Start(pos);
-			mParticles[key][i].setPivot(pivot);
+			mParticles[key][i].SetPivot(pivot);
 			break;
 		}
 	}

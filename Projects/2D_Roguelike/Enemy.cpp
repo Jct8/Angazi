@@ -5,13 +5,15 @@
 #include "ParticleManager.h"
 
 extern Player player;
+using namespace Angazi;
+using namespace Angazi::Graphics;
 
 namespace
 {
 	const int maxsize = 100;
 	Animation ConvertToEnum(std::string name)
 	{
-		if (name == "Idle")return Idle;
+		if (name == "Idle")     return Idle;
 		if (name == "Attacking")return Attacking;
 		if (name == "Running")  return Running;
 		if (name == "Jumping")  return Jumping;
@@ -23,6 +25,7 @@ namespace
 Enemy::Enemy(AI::AIWorld & world, uint32_t typeId)
 	:Agent(world, typeId)
 {
+
 }
 
 void Enemy::Load(std::filesystem::path fileName, bool facingLeft)
@@ -56,7 +59,10 @@ void Enemy::Load(std::filesystem::path fileName, bool facingLeft)
 		for (int j = 0; j < subTotal; j++)
 		{
 			fscanf_s(file, "%s\n", name, maxsize);
-			mAnimations[anim].push_back(X::LoadTexture(name));
+			//Angazi::Graphics::Texture tex;
+			//tex.Initialize("../../Assets/Images/Rougelike/" + std::string(name));
+			mAnimations[anim].emplace_back();
+			mAnimations[anim].back().Initialize("../../Assets/Images/Rougelike/" + std::string(name));
 		}
 	}
 	fclose(file);
@@ -79,14 +85,18 @@ void Enemy::Load(std::filesystem::path fileName, bool facingLeft)
 
 void Enemy::Unload()
 {
-
+	for (auto& animationType : mAnimations)
+		for(auto& animation : animationType.second)
+			animation.Terminate();
+	mWeapon->Unload();
+	mWeapon.reset();
 }
 
 void Enemy::Update(float deltaTime)
 {
 	if (!isAlive)
 	{
-		if (mDeathDelay < X::GetTime())
+		if (mDeathDelay < MainApp().GetTime())
 		{
 			return;
 		}
@@ -99,26 +109,26 @@ void Enemy::Update(float deltaTime)
 		return;
 	}
 
-	X::Math::Vector2 displacement;
+	Math::Vector2 displacement;
 	displacement.y = mSpeed * deltaTime;
 
 	//Movement
-	X::Math::LineSegment visionLine{ mPosition.x - mDetectRange, mPosition.y,mPosition.x + mDetectRange, mPosition.y };
-	X::Math::LineSegment line = Camera::Get().ConvertToScreenPosition(visionLine);
-	X::DrawScreenLine(line.from, line.to, X::Colors::AliceBlue);
+	Math::LineSegment visionLine{ mPosition.x - mDetectRange, mPosition.y,mPosition.x + mDetectRange, mPosition.y };
+	Math::LineSegment line = Camera2D::Get().ConvertToScreenPosition(visionLine);
+	SimpleDraw::AddScreenLine(line.from, line.to, Colors::AliceBlue);
 
-	X::Math::Rect playerBox = player.GetBoundingBox();
+	Math::Rect playerBox = player.GetBoundingBox();
 	if (visionLine.to.y > playerBox.top && visionLine.to.y < playerBox.bottom
 		&& (visionLine.from.x < playerBox.right && visionLine.to.x > playerBox.left))
 	{
-		mHeading = X::Math::Normalize(player.GetPosition() - mPosition);
+		mHeading = Math::Normalize(player.GetPosition() - mPosition);
 		displacement.x += mHeading.x * mSpeed *deltaTime;
 		if (mHeading.x < 0.0f)
 			isFacingLeft = true;
 		else if (mHeading.x > 0.0f)
 			isFacingLeft = false;
 	}
-	if (X::Math::Abs(player.GetPosition().x - mPosition.x) < mStoppingRange
+	if (Math::Abs(player.GetPosition().x - mPosition.x) < mStoppingRange
 		&& visionLine.to.y > playerBox.top && visionLine.to.y < playerBox.bottom)
 	{
 		displacement.x = 0.0f;
@@ -128,18 +138,17 @@ void Enemy::Update(float deltaTime)
 		{
 			mAttackDelay = X::GetTime() + 3.0f;
 		}*/
-
 	}
 
 	//Collisions
 	auto currentBox = GetBoundingBox();
 	if (displacement.y > 0.0f)
 	{
-		X::Math::LineSegment BottomEdge{
-			currentBox.min.x,
-			currentBox.max.y + displacement.y,
-			currentBox.max.x,
-			currentBox.max.y + displacement.y,
+		Math::LineSegment BottomEdge{
+			currentBox.left,
+			currentBox.bottom + displacement.y,
+			currentBox.right,
+			currentBox.bottom + displacement.y,
 		};
 		if (TileMap::Get().CheckCollision(BottomEdge))
 		{
@@ -148,13 +157,13 @@ void Enemy::Update(float deltaTime)
 	}
 	if (displacement.x < 0.0f)
 	{
-		X::Math::LineSegment leftEdge{
-			currentBox.min.x + displacement.x,	currentBox.min.y,
-			currentBox.min.x + displacement.x,	currentBox.max.y,
+		Math::LineSegment leftEdge{
+			currentBox.left + displacement.x,	currentBox.top,
+			currentBox.left + displacement.x,	currentBox.bottom,
 		};
-		X::Math::LineSegment groundEdge{
-			currentBox.min.x + displacement.x,	currentBox.max.y - 16.0f,
-			currentBox.min.x + displacement.x,	currentBox.max.y + 16.0f,
+		Math::LineSegment groundEdge{
+			currentBox.left + displacement.x,	currentBox.bottom - 16.0f,
+			currentBox.left + displacement.x,	currentBox.bottom + 16.0f,
 		};
 		if (TileMap::Get().CheckCollision(leftEdge) || !TileMap::Get().CheckCollision(groundEdge))
 		{
@@ -163,15 +172,15 @@ void Enemy::Update(float deltaTime)
 	}
 	if (displacement.x > 0.0f)
 	{
-		X::Math::LineSegment rightEdge{
-			currentBox.max.x + displacement.x,
-			currentBox.min.y,
-			currentBox.max.x + displacement.x,
-			currentBox.max.y,
+		Math::LineSegment rightEdge{
+			currentBox.right + displacement.x,
+			currentBox.top,
+			currentBox.right + displacement.x,
+			currentBox.bottom,
 		};
-		X::Math::LineSegment groundEdge{
-			currentBox.max.x + displacement.x,	currentBox.max.y - 16.0f,
-			currentBox.max.x + displacement.x,	currentBox.max.y + 16.0f,
+		Math::LineSegment groundEdge{
+			currentBox.right + displacement.x,	currentBox.bottom - 16.0f,
+			currentBox.right + displacement.x,	currentBox.bottom + 16.0f,
 		};
 		if (TileMap::Get().CheckCollision(rightEdge) || !TileMap::Get().CheckCollision(groundEdge))
 		{
@@ -198,14 +207,14 @@ void Enemy::Update(float deltaTime)
 
 void Enemy::Render()
 {
-	X::Math::Vector2 screenPos = Camera::Get().ConvertToScreenPosition(mPosition);
+	Math::Vector2 screenPos = Camera2D::Get().ConvertToScreenPosition(mPosition);
 
 	if (mCurrentAnimation == Attacking)
 		mWeapon->Render(mFrame, screenPos, isFacingLeft);
 	else if (isFacingLeft)
-		X::DrawSprite(mAnimations[mCurrentAnimation][mFrame], screenPos);
+		SpriteRenderer::Get()->Draw(mAnimations[mCurrentAnimation][mFrame], screenPos);
 	else
-		X::DrawSprite(mAnimations[mCurrentAnimation][mFrame], screenPos, X::Pivot::Center, X::Flip::Horizontal);
+		SpriteRenderer::Get()->Draw(mAnimations[mCurrentAnimation][mFrame], screenPos, 0.0f , Pivot::Center, Flip::Horizontal);
 
 	if (mFrame == mFrameCount - 1 && isAlive)
 	{
@@ -215,9 +224,9 @@ void Enemy::Render()
 
 	if (mShowDebug)
 	{
-		X::Math::Vector2 screenPos2 = Camera::Get().ConvertToScreenPosition(X::Math::Vector2{ position.x ,position.y });
+		Math::Vector2 screenPos2 = Camera2D::Get().ConvertToScreenPosition(Math::Vector2{ position.x ,position.y });
 		float offset = 32.0f * 0.5f;
-		X::DrawScreenCircle({ screenPos2.x, screenPos2.y - offset }, 10.0f, X::Colors::AliceBlue);
+		SimpleDraw::AddScreenCircle({ screenPos2.x, screenPos2.y - offset }, 10.0f, Colors::AliceBlue);
 
 		//Hitbox
 		//X::Math::Rect rect = Camera::Get().ConvertToScreenPosition(GetBoundingBox());
@@ -230,12 +239,12 @@ void Enemy::TakeDamage(int damage)
 	mHealth -= damage;
 	if (mHealth <= 0 && isAlive)
 	{
-		ParticleManager::Get().StartParticle(mPosition, "BloodMelee", X::Pivot::Center);
-		ParticleManager::Get().StartParticle(mPosition, "particleSheet", X::Pivot::Center);
+		ParticleManager::Get().StartParticle(mPosition, "BloodMelee", Pivot::Center);
+		ParticleManager::Get().StartParticle(mPosition, "particleSheet", Pivot::Center);
 		mHealth = 0;
 		isAlive = false;
 		EnemyManager::Get().IncreaseDeathCount();
-		mDeathDelay = X::GetTime() + 0.5f;
+		mDeathDelay = MainApp().GetTime() + 0.5f;
 		ChangeAnimation(Death);
 	}
 }
@@ -258,7 +267,7 @@ void Enemy::Attack()
 	mWeapon->Attack(mFrame, mPosition, isFacingLeft, false);
 }
 
-X::Math::Rect Enemy::GetBoundingBox()
+Math::Rect Enemy::GetBoundingBox()
 {
 	return
 	{

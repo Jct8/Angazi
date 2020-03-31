@@ -18,13 +18,12 @@ public:
 	virtual void Attack() = 0;
 
 	//Setters
-	virtual void SetPosition(const X::Math::Vector2 & position) { mPosition = position; }
+	virtual void SetPosition(const Angazi::Math::Vector2 & position) { mPosition = position; }
 	void SetFacingLeft(bool facing) { isFacingLeft = facing; }
 
-
 	//Getters
-	const X::Math::Vector2& GetPosition() const { return mPosition; }
-	virtual X::Math::Rect GetBoundingBox() = 0;
+	const Angazi::Math::Vector2& GetPosition() const { return mPosition; }
+	virtual Angazi::Math::Rect GetBoundingBox() = 0;
 	bool IsFacingLeft() { return isFacingLeft; }
 	float GetHeight() { return mHeight; };
 	float GetWidth() { return mWidth; };
@@ -51,10 +50,10 @@ protected:
 	float mAttackDelay = 0.0f;
 
 	Animation mCurrentAnimation;
-	std::map<Animation, std::vector<X::TextureId>> mAnimations;
+	std::map<Animation, std::deque<Angazi::Graphics::Texture>> mAnimations;
 	std::map<Animation, float> mAnimationsDuration;
 
-	X::Math::Vector2 mPosition;
+	Angazi::Math::Vector2 mPosition;
 	std::unique_ptr<Weapon> mWeapon;
 
 };

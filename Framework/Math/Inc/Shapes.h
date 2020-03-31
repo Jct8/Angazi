@@ -6,12 +6,12 @@ namespace Angazi::Math
 {
 	struct LineSegment
 	{
-		Vector2 to;
 		Vector2 from;
+		Vector2 to;
 
-		constexpr LineSegment() :to(), from() {}
-		constexpr LineSegment(float x0, float y0, float x1, float y1) :to(), from() {}
-		constexpr LineSegment(Vector2 v0, Vector2 v1):to(v0) , from(v1) {}
+		constexpr LineSegment() : from() , to() {}
+		constexpr LineSegment(float x0, float y0, float x1, float y1) :from(x0,y0), to(x1,y1) {}
+		constexpr LineSegment(Vector2 v0, Vector2 v1):from(v0) , to(v1) {}
 	};
 
 	struct Rect

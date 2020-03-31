@@ -1,21 +1,24 @@
 #include "Projectile.h"
-#include "Camera.h"
+#include "Camera2D.h"
 #include "TileMap.h"
 #include "EnemyManager.h"
 #include "Player.h"
 
 extern Player player;
+using namespace Angazi;
+using namespace Angazi::Graphics;
 
 void Projectile::Load(std::string fileName)
 {
-	mTexture = X::LoadTexture(fileName.c_str());
-	mBloodTexture = X::LoadTexture("blood.png");
+	mTexture.Initialize("../../Assets/Images/Rougelike/" + fileName);
+	mBloodTexture.Initialize("../../Assets/Images/Rougelike/blood.png");
 	isActive = false;
 }
 
 void Projectile::Unload()
 {
-	mTexture = 0;
+	mTexture.Terminate();
+	mBloodTexture.Terminate();
 }
 
 void Projectile::Update(float deltaTime)
@@ -32,13 +35,13 @@ void Projectile::Update(float deltaTime)
 	}
 
 	mPosition += mDirection * deltaTime * mSpeed;
-	if (X::Math::Distance(mPosition,mStartingPosition) >= mProjectileFallDist)
+	if (Math::Distance(mPosition,mStartingPosition) >= mProjectileFallDist)
 	{
 		mPosition.y += deltaTime * mGravity;
 	}
 
 	//World Collision
-	X::Math::LineSegment line{
+	Math::LineSegment line{
 			mPosition.x, mPosition.y,
 			mPosition.x, mPosition.y,
 	};
@@ -53,39 +56,38 @@ void Projectile::Update(float deltaTime)
 	}
 
 	//PlayerCollisions
-	if (!mIsPlayer && X::Math::PointInRect(mPosition, player.GetBoundingBox()))
+	if (!mIsPlayer && Math::PointInRect(mPosition, player.GetBoundingBox()))
 	{
 		player.TakeDamage(mDamage);
 		isPlayingAnimation = true;
 		return;
 	}
-
 }
 
 void Projectile::Render()
 {
 	if (isPlayingAnimation)
 	{
-		float spriteWidth = static_cast<float>(X::GetSpriteWidth(mBloodTexture)) / 4.0f;
-		float spriteHeight = static_cast<float>(X::GetSpriteHeight(mBloodTexture)) / 4.0f;
+		float spriteWidth = static_cast<float>(mBloodTexture.GetWidth() / 4.0f);
+		float spriteHeight = static_cast<float>(mBloodTexture.GetHeight() / 4.0f);
 		int row = static_cast<int>(static_cast<float>(mFrame) / 4.0f);
 		int column = mFrame % 4;
-		X::Math::Rect rect
+		Math::Rect rect
 		{
 			 spriteWidth*column , spriteHeight*row,
 			 spriteWidth*column + spriteWidth, spriteHeight *row + spriteHeight
 		};
-		auto screenPos = Camera::Get().ConvertToScreenPosition(mPosition);
-		X::DrawSprite(mBloodTexture, rect, screenPos/*, X::Pivot::Center, X::Flip::None*/);
+		auto screenPos = Camera2D::Get().ConvertToScreenPosition(mPosition);
+		SpriteRenderer::Get()->Draw(mBloodTexture, rect, screenPos, 0.0f , Pivot::Center, Flip::None);
 		if (mFrame == mFrameCount - 1)
 			isActive = false;
 		return;
 	}
-	auto screenPos = Camera::Get().ConvertToScreenPosition(mPosition);
-	X::DrawSprite(mTexture, screenPos);
+	auto screenPos = Camera2D::Get().ConvertToScreenPosition(mPosition);
+	SpriteRenderer::Get()->Draw(mTexture, screenPos);
 }
 
-void Projectile::Fire(bool isPlayer, float speed,int damage, X::Math::Vector2 targetPos, X::Math::Vector2 startingPos)
+void Projectile::Fire(bool isPlayer, float speed,int damage, Math::Vector2 targetPos, Math::Vector2 startingPos)
 {
 	mDuration = 0.2f;
 	mFrame = 0;
@@ -98,6 +100,6 @@ void Projectile::Fire(bool isPlayer, float speed,int damage, X::Math::Vector2 ta
 	isActive = true;
 	mPosition = startingPos;
 	mStartingPosition = startingPos;
-	mDirection = X::Math::Normalize(targetPos - mPosition);
+	mDirection = Math::Normalize(targetPos - mPosition);
 	mSpeed = speed;
 }

@@ -110,9 +110,6 @@ void GameState::RunGameStart()
 	auto x = GraphicsSystem::Get()->GetBackBufferWidth()*0.5f;
 	auto y = GraphicsSystem::Get()->GetBackBufferHeight()*0.5f;
 
-	SpriteRenderer::Get()->Draw(backgroundTex, { x , y });
-	SpriteRenderer::Get()->Draw(characterTex, { x - 350.0f,y + 150.0f });
-	SpriteRenderer::Get()->Draw(character2Tex, { x + 350.0f,y - 150.0f });
 	//X::DrawScreenText("Jimmy's Dungeon", x - 250.0f, y - 120.0f, 60.0f, X::Colors::Red);
 	//X::DrawScreenText("Press Space to Start", x - 200.0f, y - 50.0f, 30.0f, X::Colors::Red);
 	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::SPACE))
@@ -152,9 +149,7 @@ void GameState::RunGameEnd()
 {
 	auto x = GraphicsSystem::Get()->GetBackBufferWidth()*0.5f;
 	auto y = GraphicsSystem::Get()->GetBackBufferHeight()*0.5f;
-	SpriteRenderer::Get()->Draw(backgroundTex, { x , y });
-	SpriteRenderer::Get()->Draw(characterTex, { x - 350.0f,y + 150.0f });
-	SpriteRenderer::Get()->Draw(character2Tex, { x + 350.0f,y - 150.0f });
+
 	//if (gameState == GameWin)
 	//	X::DrawScreenText("You Win!\nPress Space to Restart", x - 200.0f, y - 50.0f, 30.0f, X::Colors::AliceBlue);
 	//else if (gameState == GameLose)
@@ -171,16 +166,28 @@ void GameState::RunGameEnd()
 
 void GameState::Render()
 {
+	auto x = GraphicsSystem::Get()->GetBackBufferWidth()*0.5f;
+	auto y = GraphicsSystem::Get()->GetBackBufferHeight()*0.5f;
+
 	SpriteRenderer::Get()->BeginRender();
 
-	TileMap::Get().Render();
-	EnemyManager::Get().Render();
-	player.Render();
+	switch (gameState)
+	{
+	case GamePlay:
+		TileMap::Get().Render();
+		EnemyManager::Get().Render();
+		player.Render();
 
-	ProjectileManager::Get().Render();
-	ParticleManager::Get().Render();
-	UIManager::Get().Render();
-
+		ProjectileManager::Get().Render();
+		ParticleManager::Get().Render();
+		UIManager::Get().Render();
+		break;
+	default:
+		SpriteRenderer::Get()->Draw(backgroundTex, { x , y });
+		SpriteRenderer::Get()->Draw(characterTex, { x - 350.0f,y + 150.0f });
+		SpriteRenderer::Get()->Draw(character2Tex, { x + 350.0f,y - 150.0f });
+		break;
+	}
 	SpriteRenderer::Get()->EndRender();
 
 	SimpleDraw::Render(mCamera);

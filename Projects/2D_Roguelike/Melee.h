@@ -7,9 +7,9 @@ public:
 	~MeleeWeapon() = default;
 	void Load(std::filesystem::path fileName)   override;
 	void Unload() override;
-	void Render(int mFrame, X::Math::Vector2 screenPos, bool isFacingLeft) override;
+	void Render(int mFrame, Angazi::Math::Vector2 screenPos, bool isFacingLeft) override;
 
-	void Attack(int mFrame, X::Math::Vector2 position, bool isFacingLeft, bool isPlayer) override;
+	void Attack(int mFrame, Angazi::Math::Vector2 position, bool isFacingLeft, bool isPlayer) override;
 	bool IsMelee() const override { return true; }
 
 	int GetFrameCount() override;
@@ -20,7 +20,7 @@ private:
 	int mCurrentAttack = 0;
 	std::string mParticleName;
 
-	std::map<int,std::vector<X::TextureId>> mAnimationsMap;
-	std::map<int, std::vector<X::Math::Vector2>> mAnimationDamageMap;
+	std::map<int,std::deque<Angazi::Graphics::Texture>> mAnimationsMap;
+	std::map<int, std::vector<Angazi::Math::Vector2>> mAnimationDamageMap;
 };
 
