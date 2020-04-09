@@ -180,9 +180,11 @@ Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices)
 			float u = static_cast<float>(j) / (slices);
 			float newRadius = radius * sinf(phi);
 			Math::Vector3 vec = Math::Vector3{ newRadius* sinf(theta), radius * cosf(phi) , newRadius * -cosf(theta) };
+			Math::Vector3 normalized = Math::Normalize(vec);
+
 			retMesh.vertices.push_back
 			(
-				{ vec, Math::Normalize(vec) , vec , Math::Vector2{u,v} }
+				{ vec, normalized , Math::Vector3{-normalized.z , 0.0f , normalized.x} , Math::Vector2{u,v} }
 			);
 			theta += thetaIncrement;
 		}

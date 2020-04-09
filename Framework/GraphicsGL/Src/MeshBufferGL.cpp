@@ -32,9 +32,11 @@ namespace
 		if (vertexFormat & VE_Position)
 			vertexLayout.push_back({ GL_FLOAT,3,GL_FALSE });
 
-		//if (vertexFormat & VE_Normal)
+		if (vertexFormat & VE_Normal)
+			vertexLayout.push_back({ GL_FLOAT,3,GL_FALSE });
 
-		//if (vertexFormat & VE_Tangent)
+		if (vertexFormat & VE_Tangent)
+			vertexLayout.push_back({ GL_FLOAT,3,GL_FALSE });
 
 		if (vertexFormat & VE_Color)
 			vertexLayout.push_back({ GL_FLOAT,4,GL_FALSE });

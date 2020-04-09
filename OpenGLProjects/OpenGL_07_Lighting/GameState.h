@@ -16,9 +16,7 @@ private:
 	Angazi::GraphicsGL::CameraGL mCamera;
 
 	Angazi::GraphicsGL::Mesh mMesh;
-	Angazi::GraphicsGL::MeshPN mGMesh;
 	Angazi::GraphicsGL::MeshBufferGL mMeshBuffer;
-	Angazi::GraphicsGL::MeshBufferGL mMeshGBuffer;
 
 	Angazi::GraphicsGL::DirectionalLight mDirectionalLight;
 	Angazi::GraphicsGL::Material mMaterial;

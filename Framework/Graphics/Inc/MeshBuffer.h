@@ -35,14 +35,13 @@ namespace Angazi::Graphics
 		{
 			InitializeInternal(vertices,sizeof(VertexType), vertexCount, indices,indexCount, dynamic);
 		}
-		void Terminate();
 
-		
 		void SetTopology(Topology topology);
 		void Update(const void* vertexData, uint32_t numVertices);
 
 		static void ComputeNormals(Mesh &mesh);
 
+		void Terminate();
 		void Draw();
 	private:
 		ID3D11Buffer* mVertexBuffer = nullptr;

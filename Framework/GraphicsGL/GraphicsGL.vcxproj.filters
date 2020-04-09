@@ -63,6 +63,9 @@
     <ClInclude Include="Inc\LightTypes.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\UniformBuffer.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -93,6 +96,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\SimpleDraw.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UniformBuffer.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
