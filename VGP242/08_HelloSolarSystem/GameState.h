@@ -24,8 +24,8 @@ private:
 	Angazi::Graphics::ConstantBuffer mConstantBuffer;
 
 	Angazi::Graphics::Sampler mSampler;
-	std::vector<Angazi::Graphics::Texture> mPlanetTextures;
-	std::vector<Angazi::Graphics::Texture> mMoonTextures;
+	std::deque<Angazi::Graphics::Texture> mPlanetTextures;
+	std::deque<Angazi::Graphics::Texture> mMoonTextures;
 	Angazi::Graphics::Texture mDomeTexture;
 
 	std::vector<float> mRotationSpeed;

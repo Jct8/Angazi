@@ -26,8 +26,6 @@ void Angazi::App::Run(AppConfig appConfig)
 	auto handle = mWindow.GetWindowHandle();
 	InputSystem::StaticInitialize(handle);
 
-	Angazi::Core::Timer::StaticInitialize();
-
 	//Initialize the graphics systems
 	if (appConfig.api == GraphicsAPI::DirectX)
 	{
@@ -66,7 +64,7 @@ void Angazi::App::Run(AppConfig appConfig)
 		auto inputSystem = InputSystem::Get();
 		inputSystem->Update();
 
-		Core::Timer::Get()->Update();
+		Core::TimeUtil::Update();
 
 		if (inputSystem->IsKeyPressed(KeyCode::ESCAPE))
 		{
@@ -124,7 +122,6 @@ void Angazi::App::Run(AppConfig appConfig)
 		GraphicsSystemGL::StaticTerminate(handle);
 		DebugUIGL::StaticTerminate();
 	}
-	Angazi::Core::Timer::StaticTerminate();
 
 	InputSystem::StaticTerminate();
 
@@ -158,5 +155,5 @@ bool Angazi::App::SaveFileDialog(char fileName[MAX_PATH], const char * title, co
 
 float App::GetTime()
 {
-	return Core::Timer::Get()->GetTotalTime();
+	return Core::TimeUtil::GetTime();
 }

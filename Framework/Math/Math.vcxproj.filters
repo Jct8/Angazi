@@ -39,6 +39,9 @@
     <ClInclude Include="Inc\Matrix3.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Quaternion.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\EngineMath.cpp">

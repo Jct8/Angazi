@@ -21,6 +21,6 @@ void VisualSensor::Update(Agent & agent, MemoryRecords & memory, float deltaTime
 		MemoryRecord& record = FindOrCreate(memory, neighbor->GetUniqueId());
 		record.properties["lastSeenPosition"] = neighbor->position;
 		//std::get<X::Math::Vector2>(record.properties["lastSeenPosition"]) = neighbor->position;
-		record.lastRecordTime = Core::Timer::Get()->GetTotalTime();
+		record.lastRecordTime = Core::TimeUtil::GetTime();
 	}
 }

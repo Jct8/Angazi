@@ -11,17 +11,17 @@ const Vector2 Vector2::YAxis{ 0.0f , 1.0f };
 
 const Vector3 Vector3::Zero{ 0.0f };
 const Vector3 Vector3::One{ 1.0f };
-const Vector3 Vector3::XAxis{ 1.0f , 0.0f, 0.0f};
-const Vector3 Vector3::YAxis{ 0.0f , 1.0f, 0.0f};
-const Vector3 Vector3::ZAxis{ 0.0f , 0.0f, 1.0f};
+const Vector3 Vector3::XAxis{ 1.0f , 0.0f, 0.0f };
+const Vector3 Vector3::YAxis{ 0.0f , 1.0f, 0.0f };
+const Vector3 Vector3::ZAxis{ 0.0f , 0.0f, 1.0f };
 
 //Declaration
 const Vector4 Vector4::Zero{ 0.0f };
 const Vector4 Vector4::One{ 1.0f };
-const Vector4 Vector4::XAxis{ 1.0f , 0.0f, 0.0f, 0.0f};
-const Vector4 Vector4::YAxis{ 0.0f , 1.0f, 0.0f, 0.0f};
+const Vector4 Vector4::XAxis{ 1.0f , 0.0f, 0.0f, 0.0f };
+const Vector4 Vector4::YAxis{ 0.0f , 1.0f, 0.0f, 0.0f };
 const Vector4 Vector4::ZAxis{ 0.0f , 0.0f, 1.0f, 0.0f };
-const Vector4 Vector4::WAxis{ 0.0f , 0.0f, 0.0f, 1.0f};
+const Vector4 Vector4::WAxis{ 0.0f , 0.0f, 0.0f, 1.0f };
 
 const Matrix4 Matrix4::Identity
 {
@@ -36,6 +36,11 @@ const Matrix3 Matrix3::Identity
 	1.0f, 0.0f, 0.0f,
 	0.0f, 1.0f, 0.0f,
 	0.0f, 0.0f, 1.0f
+};
+
+const Quaternion Quaternion::Identity
+{
+	0.0f,0.0f,0.0f,1.0f
 };
 
 bool Angazi::Math::PointInRect(const Vector2& point, const Rect& rect)

@@ -16,6 +16,8 @@ void GameState::Initialize()
 	mMesh = MeshBuilder::CreateSphere(1.0f, 16, 16);
 	mMeshBuffer.Initialize(mMesh,Vertex::Format);
 
+	mTransformBuffer.Initialize();
+
 	mDirectionalLight.direction = Normalize({ 1.0f, -1.0f,1.0f });
 	mDirectionalLight.ambient = { 0.3f };
 	mDirectionalLight.diffuse = { 0.7f };
@@ -37,6 +39,7 @@ void GameState::Terminate()
 	mTexture.Terminate();
 	mPhongShadingShader.Terminate();
 	mGouraudShadingShader.Terminate();
+	mTransformBuffer.Terminate();
 	mMeshBuffer.Terminate();
 }
 
@@ -65,6 +68,8 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
+	mTransformBuffer.Bind(4);
+
 	mGouraudShadingShader.SetUniform4f("material.ambient", mMaterial.ambient);
 	mGouraudShadingShader.SetUniform4f("material.diffuse", mMaterial.diffuse);
 	mGouraudShadingShader.SetUniform4f("material.specular",mMaterial.specular);
@@ -100,6 +105,8 @@ void GameState::Render()
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
 	transformData.viewPosition = mCamera.GetPosition();
+
+	mTransformBuffer.Update(&transformData);
 
 	mGouraudShadingShader.SetUniformMat4f("transform.WVP", transformData.wvp);
 	mGouraudShadingShader.SetUniformMat4f("transform.World", transformData.world);

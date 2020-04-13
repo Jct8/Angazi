@@ -14,4 +14,5 @@
 #include "Shader.h"
 #include "SimpleDraw.h"
 #include "TextureGL.h"
+#include "UniformBuffer.h"
 #include "VertexTypes.h"

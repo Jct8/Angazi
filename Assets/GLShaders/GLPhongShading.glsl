@@ -1,9 +1,16 @@
 #shader vertex
-#version 330 core
+#version 400 core
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aNormal;
 layout (location = 2) in vec3 aTangent;
 layout (location = 3) in vec2 aTexCoord;
+
+layout(std140) uniform Transforms
+{
+    mat4 World;
+	mat4 WVP; // world view projection - all three matricies combined . local - camera 
+	vec3 ViewPosition;
+};
 
 out vec4 outPos;
 out vec3 outNormal;
@@ -46,7 +53,7 @@ void main()
 }
 
 #shader fragment
-#version 330 core
+#version 400 core
 
 struct LightBuffer 
 {

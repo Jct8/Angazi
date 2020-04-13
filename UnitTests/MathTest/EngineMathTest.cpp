@@ -137,9 +137,9 @@ namespace MathTest
 
 			Vector3 vec = TransformCoord(b,a);
 
-			Assert::AreEqual(vec.x, 7.0f);
-			Assert::AreEqual(vec.y, 7.0f);
-			Assert::AreEqual(vec.z, 7.0f);
+			Assert::AreEqual(vec.x, 1.0f);
+			Assert::AreEqual(vec.y, 1.0f);
+			Assert::AreEqual(vec.z, 1.0f);
 		}
 
 		TEST_METHOD(TransformNormalTest)

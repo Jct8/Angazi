@@ -29,6 +29,10 @@ private:
 		float padding;
 	};
 
+	using TransformBuffer = Angazi::GraphicsGL::TypedUniformBuffer<TransformData>;
+
+	TransformBuffer mTransformBuffer;
+
 	Angazi::GraphicsGL::Shader mGouraudShadingShader;
 	Angazi::GraphicsGL::Shader mPhongShadingShader;
 

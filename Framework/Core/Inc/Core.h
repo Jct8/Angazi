@@ -3,6 +3,6 @@
 #include "Common.h"
 
 #include "Debug.h"
-#include "Timer.h"
+#include "TimeUtil.h"
 #include "Window.h"
 #include "WindowsMessageHandler.h"
