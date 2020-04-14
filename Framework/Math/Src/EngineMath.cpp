@@ -3,25 +3,30 @@
 
 using namespace Angazi::Math;
 
-//Definition
+// Vector2 Definition
 const Vector2 Vector2::Zero{ 0.0f };
 const Vector2 Vector2::One{ 1.0f };
 const Vector2 Vector2::XAxis{ 1.0f , 0.0f };
 const Vector2 Vector2::YAxis{ 0.0f , 1.0f };
 
+// Vector3 Definition
 const Vector3 Vector3::Zero{ 0.0f };
 const Vector3 Vector3::One{ 1.0f };
 const Vector3 Vector3::XAxis{ 1.0f , 0.0f, 0.0f };
 const Vector3 Vector3::YAxis{ 0.0f , 1.0f, 0.0f };
 const Vector3 Vector3::ZAxis{ 0.0f , 0.0f, 1.0f };
 
-//Declaration
+// Vector4 Definition
 const Vector4 Vector4::Zero{ 0.0f };
 const Vector4 Vector4::One{ 1.0f };
 const Vector4 Vector4::XAxis{ 1.0f , 0.0f, 0.0f, 0.0f };
 const Vector4 Vector4::YAxis{ 0.0f , 1.0f, 0.0f, 0.0f };
 const Vector4 Vector4::ZAxis{ 0.0f , 0.0f, 1.0f, 0.0f };
 const Vector4 Vector4::WAxis{ 0.0f , 0.0f, 0.0f, 1.0f };
+
+// Quaternion Definition
+const Quaternion Quaternion::Zero	 { 0.0f , 0.0f , 0.0f , 0.0f};
+const Quaternion Quaternion::Identity{ 0.0f , 0.0f , 0.0f , 1.0f};
 
 const Matrix4 Matrix4::Identity
 {
@@ -38,10 +43,8 @@ const Matrix3 Matrix3::Identity
 	0.0f, 0.0f, 1.0f
 };
 
-const Quaternion Quaternion::Identity
-{
-	0.0f,0.0f,0.0f,1.0f
-};
+
+
 
 bool Angazi::Math::PointInRect(const Vector2& point, const Rect& rect)
 {
@@ -144,4 +147,110 @@ bool Angazi::Math::Intersect(const Rect& r, const Circle& c)
 
 	const float distance = Distance(closestPoint, c.center);
 	return !(distance > c.radius);
+}
+
+Quaternion Angazi::Math::Slerp( Quaternion q1, Quaternion q2, float t)
+{
+	float dot = Dot(q1, q2);
+	// Determine the direction of the rotation.
+	if (dot < 0.0f)
+	{
+		dot = -dot;
+		q2 = -q2;
+	}
+	else if (dot > 0.999f)
+		return Normalize(Lerp(q1, q2, t));
+	float theta = acosf(dot);
+	float c1 = sinf(theta*(1.0f - t)) / sinf(theta);
+	float c2 = sinf(theta*t) / sinf(theta);
+	return q1*c1 + q2*c2;
+}
+Quaternion Quaternion::RotationAxis(const Vector3& axis, float radian)
+{
+	const Vector3 a = Normalize(axis);
+	return Quaternion
+	(
+		a.x* sinf(radian / 2.0f),
+		a.y* sinf(radian / 2.0f),
+		a.z* sinf(radian / 2.0f),
+		cosf(radian / 2.0f)
+	);
+}
+Quaternion Quaternion::RotationMatrix(const Matrix4& m)
+{
+	float qw = 0.5f * Sqrt(1.0f + m._11 + m._22 + m._33);
+	float w = (4.0f * qw);
+	float qx = (m._23 - m._32) / w;
+	float qy = (m._31 - m._13) / w;
+	float qz = (m._12 - m._21) / w;
+	return Quaternion(qx, qy, qz, qw);
+}
+Quaternion Quaternion::RotationFromTo(const Vector3& from, const Vector3& to)
+{
+	Vector3 a = Cross(from, to);
+	float w = Sqrt(Magnitude(from)* Magnitude(from)
+		* Magnitude(to) * Magnitude(to)) + Dot(from, to);
+	return Normalize(Quaternion(a.x, a.y, a.z, w));
+}
+Quaternion Quaternion::RotationLook(const Vector3& look, const Vector3& up)
+{
+	Vector3 z = Normalize(look);
+	Vector3 x = Normalize(Cross(up, z));
+	Vector3 y = Normalize(Cross(z, x));
+	Matrix4 mat
+	{
+		x.x , x.y , x.z , 0.0f,
+		y.x , y.y , y.z , 0.0f,
+		z.x , z.y , z.z , 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	};
+	return RotationMatrix(mat);
+}
+
+Matrix4 Matrix4::RotationQuaternion(const Quaternion& q)
+{
+	return Matrix4
+	{
+		1.0f - 2.0f*q.y*q.y - 2.0f *q.z * q.z,
+		2.0f * q.x * q.y - 2.0f * q.w * q.z,
+		2.0f * q.x * q.z + 2.0f * q.w * q.y,
+		0.0f,
+
+		2.0f * q.x * q.y + 2.0f * q.w * q.z,
+		1.0f - 2.0f*q.x*q.x - 2.0f *q.z * q.z,
+		2.0f * q.y * q.z + 2.0f * q.w * q.x,
+		0.0f,
+
+		2.0f * q.x * q.z + 2.0f * q.w * q.y,
+		2.0f * q.y * q.z + 2.0f * q.w * q.x,
+		1.0f - 2.0f*q.x*q.x - 2.0f *q.y * q.y,
+		0.0f,
+
+		0.0f,
+		0.0f,
+		0.0f,
+		1.0f
+	};
+}
+Matrix4 Matrix4::RotationAxis(const Vector3 & axis, float radian)
+{
+	float cos = cosf(radian);
+	float sin = sinf(radian);
+	Vector3 normalized = Normalize(axis);
+	float wx = normalized.x;
+	float wy = normalized.y;
+	float wz = normalized.z;
+
+	return
+	{
+		/*cos+wx*wx*(1- cos)    , wx*wy*(1-cos) - wz*sin, wy*sin + wx*wz*(1 - cos), 0.0f,
+		wz*sin + wx*wy*(1-cos), cos+wy*wy*(1-cos)     , -wx*sin+wy*wz*(1-cos)   , 0.0f,
+		-wy*sin + wx*wz*(1-cos) , wx*sin+wy*wz*(1-cos)  , cos+wz*wz*(1-cos)       , 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f*/
+		//Transpose
+		cos + wx * wx*(1.0f - cos)   , wz*sin + wx * wy*(1.0f - cos)  , -wy * sin + wx*wz*(1.0f - cos) , 0.0f,
+		wx*wy*(1.0f - cos) - wz * sin, cos + wy * wy*(1.0f - cos)     , wx*sin + wy * wz*(1.0f - cos)  , 0.0f,
+		wy*sin + wx * wz*(1.0f - cos),-wx * sin + wy * wz*(1.0f - cos), cos + wz * wz*(1.0f - cos)     , 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	};
 }

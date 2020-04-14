@@ -148,27 +148,7 @@ namespace Angazi::Math
 				0.0f, 0.0f, 0.0f, 1.0f
 			};
 		}
-		static Matrix4 RotationAxis(const Vector3 & axis, float radian)
-		{
-			float cos = cosf(radian);
-			float sin = sinf(radian);
-			float wx = axis.x;
-			float wy = axis.y;
-			float wz = axis.z;
-
-			return
-			{
-				/*cos+wx*wx*(1- cos)    , wx*wy*(1-cos) - wz*sin, wy*sin + wx*wz*(1 - cos), 0.0f,
-				wz*sin + wx*wy*(1-cos), cos+wy*wy*(1-cos)     , -wx*sin+wy*wz*(1-cos)   , 0.0f,
-				-wy*sin*wx*wz*(1-cos) , wx*sin+wy*wz*(1-cos)  , cos+wz*wz*(1-cos)       , 0.0f,
-				0.0f, 0.0f, 0.0f, 1.0f*/
-				//Transpose
-				cos + wx * wx*(1 - cos)   , wz*sin + wx * wy*(1 - cos)  , -wy * sin*wx*wz*(1 - cos) , 0.0f,
-				wx*wy*(1 - cos) - wz * sin, cos + wy * wy*(1 - cos)     , wx*sin + wy * wz*(1 - cos), 0.0f,
-				wy*sin + wx * wz*(1 - cos),-wx * sin + wy * wz*(1 - cos), cos + wz * wz*(1 - cos)   , 0.0f,
-				0.0f, 0.0f, 0.0f, 1.0f
-			};
-		}
+		static Matrix4 RotationAxis(const Vector3 & axis, float radian);
 
 		static Matrix4 Scaling(float scale)
 		{
@@ -180,6 +160,8 @@ namespace Angazi::Math
 				0.0f , 0.0f , 0.0f , 1.0f
 			};
 		}
+
+		static Matrix4 RotationQuaternion(const Quaternion& q);
 
 	};
 	 

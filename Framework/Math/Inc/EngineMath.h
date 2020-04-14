@@ -7,9 +7,9 @@
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
+#include "Quaternion.h"
 #include "Matrix3.h"
 #include "Matrix4.h"
-#include "Quaternion.h"
 
 namespace Angazi::Math
 {
@@ -25,14 +25,16 @@ namespace Angazi::Math
 
 	constexpr float MagnitudeSqr(const Vector2& v)						{ return (v.x*v.x) + (v.y*v.y); }
 	constexpr float MagnitudeSqr(const Vector3& v)						{ return (v.x*v.x) + (v.y*v.y) + (v.z*v.z); }
-	inline float Magnitude(const Vector2& v)							{ return sqrt(MagnitudeSqr(v)); }
-	inline float Magnitude(const Vector3& v)							{ return sqrt(MagnitudeSqr(v)); }
+	inline float Magnitude(const Vector2& v)							{ return Sqrt(MagnitudeSqr(v)); }
+	inline float Magnitude(const Vector3& v)							{ return Sqrt(MagnitudeSqr(v)); }
+	inline float Magnitude(const Quaternion& q)							{ return Sqrt((q.x * q.x) + (q.y * q.y) + (q.z * q.z) + (q.w * q.w)); }
 
 	inline Vector3 Normalize(const Vector3 & v)							{ return v / Magnitude(v); }
 	inline Vector2 Normalize(const Vector2 & v)							{ return v / Magnitude(v); }
+	inline Quaternion Normalize(const Quaternion & q)					{ return q / Magnitude(q); }
 
-	inline Vector2 PerpendicularLH(const Vector2& v) { return Vector2(-v.y, v.x); }
-	inline Vector2 PerpendicularRH(const Vector2& v) { return Vector2(v.y, -v.x); }
+	inline Vector2 PerpendicularLH(const Vector2& v)					{ return Vector2(-v.y, v.x); }
+	inline Vector2 PerpendicularRH(const Vector2& v)					{ return Vector2(v.y, -v.x); }
 
 	inline float RandomFloat() 
 	{
@@ -73,10 +75,13 @@ namespace Angazi::Math
 	inline float Distance(const Vector2 &v1, const Vector2 &v2)			{ return Magnitude(v1 - v2); }
 	constexpr float Dot(const Vector2& a, const Vector2& b)				{ return (a.x*b.x) + (a.y*b.y); }
 	constexpr float Dot(const Vector3& a, const Vector3& b)				{ return (a.x*b.x) + (a.y*b.y) + (a.z*b.z); }
+	constexpr float Dot(const Quaternion& q0, const Quaternion& q1)		{ return (q0.x * q1.x) + (q0.y * q1.y) + (q0.z * q1.z) + (q0.w * q1.w); }
 	constexpr Vector3 Cross(const Vector3 &a, const Vector3 &b)			{ return { (a.y*b.z) - (b.y*a.z), -(a.x*b.z) + (b.x*a.z) , (a.x*b.y) - (b.x *a.y) }; }
 
-	inline Vector2 Lerp(const Vector2& v1, const Vector2& v2, float t)	{ v1 + ((v2 - v1)*t); }
-	inline Vector2 Lerp(const Vector3& v1, const Vector3& v2, float t)	{ v1 + ((v2 - v1)*t); }
+	inline Vector2 Lerp(const Vector2& v1, const Vector2& v2, float t)			{ return v1 + ((v2 - v1)*t); }
+	inline Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t)			{ return v1 + ((v2 - v1)*t); }
+	inline Quaternion Lerp(const Quaternion& q1, const Quaternion& q2, float t)	{ return q1 * (1.0f - t) + (q2 *t); }
+	Quaternion Slerp( Quaternion q1, Quaternion q2, float t);
 
 	constexpr float Determinant(const Matrix3& m)
 	{
