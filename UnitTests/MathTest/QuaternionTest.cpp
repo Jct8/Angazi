@@ -162,13 +162,8 @@ namespace MathTest
 			Matrix4 m0 = Matrix4::RotationQuaternion(Quaternion::RotationAxis(axis, angle));
 			Matrix4 m1 = Matrix4::RotationAxis(axis, angle);
 
-			//for (size_t i = 0; i < std::size(m0.v); ++i)
-			//	Assert::AreEqual(m0.v[i], m1.v[i], 0.000001f);
-
-			Assert::AreEqual(m0._11, m1._11, 0.000001f);
-			Assert::AreEqual(m0._22, m1._22, 0.000001f);
-			Assert::AreEqual(m0._33, m1._33, 0.000001f);
-			Assert::AreEqual(m0._44, m1._44, 0.000001f);
+			for (size_t i = 0; i < std::size(m0.v); ++i)
+				Assert::AreEqual(m0.v[i], m1.v[i], 0.000001f);
 		}
 
 		TEST_METHOD(TestMagitude)
