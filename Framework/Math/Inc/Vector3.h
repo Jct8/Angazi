@@ -4,7 +4,11 @@ namespace Angazi::Math
 {
 	struct Vector3
 	{
-		float x, y, z;
+		union
+		{
+			struct { float x, y, z; };
+			std::array<float, 3> v;
+		};
 
 		constexpr Vector3() noexcept : Vector3{ 0.0f, } {} 
 		constexpr Vector3(float f) noexcept : Vector3{ f,f,f } {}

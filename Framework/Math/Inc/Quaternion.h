@@ -6,7 +6,11 @@ namespace Angazi::Math
 
 	struct Quaternion
 	{
-		float x, y, z, w;
+		union
+		{
+			struct { float x, y, z, w; };
+			std::array<float, 4> v;
+		};
 
 		Quaternion() :x(0.0f), y(0.0f), z(0.0f), w(0.0f) {}
 		Quaternion(float x, float y, float z, float w) :

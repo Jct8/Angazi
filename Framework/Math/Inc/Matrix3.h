@@ -4,9 +4,17 @@ namespace Angazi::Math
 {
 	struct Matrix3
 	{
-		float _11, _12, _13;
-		float _21, _22, _23;
-		float _31, _32, _33;
+		union
+		{
+			struct 
+			{
+				float _11, _12, _13;
+				float _21, _22, _23;
+				float _31, _32, _33;
+			};
+			std::array<float, 9> v;
+
+		};
 
 		const static Matrix3 Identity;
 
