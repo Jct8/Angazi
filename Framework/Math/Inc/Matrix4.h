@@ -167,6 +167,16 @@ namespace Angazi::Math
 				0.0f , 0.0f , 0.0f , 1.0f
 			};
 		}
+		static Matrix4 Scaling(const Vector3 &scale)
+		{
+			return
+			{
+				scale.x, 0.0f   , 0.0f   , 0.0f,
+				0.0f   , scale.y, 0.0f   , 0.0f,
+				0.0f   , 0.0f   , scale.z, 0.0f,
+				0.0f   , 0.0f   , 0.0f   , 1.0f
+			};
+		}
 
 		static Matrix4 RotationQuaternion(const Quaternion& q);
 
