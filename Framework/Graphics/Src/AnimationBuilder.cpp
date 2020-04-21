@@ -59,7 +59,18 @@ AnimationBuilder& AnimationBuilder::AddKey(Math::Vector3 position, Math::Quatern
 	return *this;
 }
 
-Animation AnimationBuilder::Build()
+AnimationBuilder &AnimationBuilder::AddKey(Math::Vector3 position, Math::Quaternion rotation, Math::Vector3 scale, float time)
 {
+	mPositionKeyframes.push_back({ position, time });
+	mRotationKeyframes.push_back({ rotation, time });
+	mScaleKeyframes.push_back({ scale ,time });
+	return *this;
+}
+
+Animation AnimationBuilder::Build()
+{ 
+	ASSERT(!mPositionKeyframes.empty(), "[AnimationBuilder] There are no Position Keyframes");
+	ASSERT(!mRotationKeyframes.empty(), "[AnimationBuilder] There are no Rotation Keyframes");
+	ASSERT(!mScaleKeyframes.empty(), "[AnimationBuilder] There are no Scale Keyframes");
 	return Animation(mPositionKeyframes,mRotationKeyframes,mScaleKeyframes,mLooping);
 }

@@ -19,9 +19,6 @@ private:
 private:
 	Angazi::Graphics::Camera mCamera;
 
-	Angazi::Graphics::Mesh mMesh;
-	Angazi::Graphics::MeshBuffer mMeshBuffer;
-
 	Angazi::Graphics::DirectionalLight mDirectionalLight;
 	Angazi::Graphics::Material mMaterial;
 
@@ -40,11 +37,9 @@ private:
 		float normalMapWeight = 1.0f;
 		float aoMapWeight = 1.0f;
 		float brightness = 1.0f;
-		int useShadow = 1;
+		int useShadow = 0;
 		float depthBias = 0.0003f;
-		float movement = 0.0f;
-		float movementSpeed = 0.005f;
-		float padding[3];
+		float padding[1];
 	};
 
 	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
@@ -58,29 +53,23 @@ private:
 	SettingsBuffer mSettingsBuffer;
 
 	Settings mSettings;
-	Settings mGroundSettings;
-	Settings mTankSettings;
 
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader  mPixelShader;
 
-	// Ground Textures
 	Angazi::Graphics::Sampler mSampler;
-	Angazi::Graphics::Texture mGroundTexture;
 	Angazi::Graphics::BlendState mBlendState;
-	Angazi::Math::Vector3 mGrounddTranslation = { -1.0f,-2.0f,0.0f };
-	Angazi::Math::Vector3 mRotation = 0.0f;
 
-	//Tank
-	Angazi::Graphics::Mesh mTankMesh;
-	Angazi::Graphics::MeshBuffer mTankMeshBuffer;
-	Angazi::Math::Vector3 mTankRotation = 0.0f;
-	Angazi::Math::Vector3 mTankPosition;
-	Angazi::Graphics::Texture mTankTexture;
-	Angazi::Graphics::Texture mTankSpecularTexture;
-	Angazi::Graphics::Texture mTankDisplacementTexture;
-	Angazi::Graphics::Texture mTankNormalMap;
-	Angazi::Graphics::Texture mTankAOMap;
+	//Jet
+	Angazi::Graphics::Mesh mJetMesh;
+	Angazi::Graphics::MeshBuffer mJetMeshBuffer;
+	Angazi::Math::Vector3 mJetRotation = 0.0f;
+	Angazi::Math::Vector3 mJetPosition;
+	Angazi::Graphics::Texture mJetTexture;
+	Angazi::Graphics::Texture mJetSpecularTexture;
+	Angazi::Graphics::Texture mJetDisplacementTexture;
+	Angazi::Graphics::Texture mJetNormalMap;
+	Angazi::Graphics::Texture mJetAOMap;
 
 	//Animation
 	Angazi::Graphics::Animation mAnimation;

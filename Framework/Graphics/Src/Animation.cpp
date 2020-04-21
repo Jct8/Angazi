@@ -7,11 +7,15 @@ using namespace Angazi::Graphics;
 
 Math::Vector3 Animation::GetPosition(float time) const
 {
-	if (mPositionKeyframes[mPositionKeyframes.size() - 1].time < time)
-		if(mLooping)
-			time -= GetDuration();
+	if (mPositionKeyframes.back().time < time)
+		if (mLooping)
+			time = (std::fmodf(time ,GetDuration()));
 		else
-			return mPositionKeyframes[mPositionKeyframes.size() - 1].key;
+			return mPositionKeyframes.back().key;
+	if (mPositionKeyframes.size() == 1)
+		return mPositionKeyframes.back().key;
+
+	//Calculation
 	int i = 0;
 	for (; i < mPositionKeyframes.size(); ++i)
 	{
@@ -21,54 +25,55 @@ Math::Vector3 Animation::GetPosition(float time) const
 	float timeFrameDuration = time - mPositionKeyframes[i - 1].time;
 	float totalFrameDuration = mPositionKeyframes[i].time - mPositionKeyframes[i - 1].time;
 	float t = timeFrameDuration / totalFrameDuration;
-	Vector3 position = Lerp(mPositionKeyframes[i - 1].key, mPositionKeyframes[i].key, t);
-	return position;
+	return Lerp(mPositionKeyframes[i - 1].key, mPositionKeyframes[i].key, t);
 }
 
 Math::Quaternion Animation::GetRotation(float time) const
 {
-	if (mPositionKeyframes[mPositionKeyframes.size() - 1].time < time)
+	//Bound Checks
+	if (mPositionKeyframes.back().time < time)
 		if (mLooping)
-			time -= GetDuration();
+			time = (std::fmodf(time, GetDuration())) ;
 		else
-			return mRotationKeyframes[mRotationKeyframes.size() - 1].key;
+			return mRotationKeyframes.back().key;
+	if (mRotationKeyframes.size() == 1)
+		return mRotationKeyframes.back().key;
 
+	//Calculation
 	int i = 0;
 	for (; i < mRotationKeyframes.size(); ++i)
 	{
 		if (time < mRotationKeyframes[i].time)
 			break;
-		//if (!mLooping && i == mRotationKeyframes.size() - 1)
-		//	return mRotationKeyframes[mRotationKeyframes.size() - 1].key;
 	}
 	float timeFrameDuration = time - mRotationKeyframes[i - 1].time;
 	float totalFrameDuration = mRotationKeyframes[i].time - mRotationKeyframes[i - 1].time;
 	float t = timeFrameDuration / totalFrameDuration;
-	Quaternion rotation = Slerp(mRotationKeyframes[i - 1].key, mRotationKeyframes[i].key, t);
-	return rotation;
+	return Slerp(mRotationKeyframes[i - 1].key, mRotationKeyframes[i].key, t);
 }
 
 Math::Vector3 Animation::GetScale(float time) const
 {
-	if (mPositionKeyframes[mPositionKeyframes.size() - 1].time < time)
+	//Bound Checks
+	if (mPositionKeyframes.back().time < time)
 		if (mLooping)
-			time -= GetDuration();
+			time = (std::fmodf(time, GetDuration()));
 		else
-			return mScaleKeyframes[mScaleKeyframes.size() - 1].key;
+			return mScaleKeyframes.back().key;
+	if (mScaleKeyframes.size() == 1)
+		return mScaleKeyframes.back().key;
 
+	//Calculation
 	int i = 0;
 	for (; i < mScaleKeyframes.size(); ++i)
 	{
 		if (time < mScaleKeyframes[i].time)
 			break;
-		if (i == mScaleKeyframes.size() - 1)
-			return mScaleKeyframes[mScaleKeyframes.size() - 1].key;
 	}
 	float timeFrameDuration = time - mScaleKeyframes[i - 1].time;
 	float totalFrameDuration = mScaleKeyframes[i].time - mScaleKeyframes[i - 1].time;
 	float t = timeFrameDuration / totalFrameDuration;
-	Vector3 scale = Lerp(mScaleKeyframes[i - 1].key, mScaleKeyframes[i].key, t);
-	return scale;
+	return Lerp(mScaleKeyframes[i - 1].key, mScaleKeyframes[i].key, t);
 }
 
 Math::Matrix4 Animation::GetTransform(float time) const

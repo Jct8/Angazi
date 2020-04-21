@@ -10,12 +10,8 @@ void GameState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
-	mCamera.SetPosition({ 0.0f,10.0f,-20.0f });
-	mCamera.SetDirection({ 0.0f,-1.0f, 1.0f });
-
-	////////////
-	mMesh = MeshBuilder::CreatePlane(200.0f, 20, 20);
-	mMeshBuffer.Initialize(mMesh);
+	mCamera.SetPosition({ 0.0f,0.0f,-40.0f });
+	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
 	mTransformBuffer.Initialize();
 	mLightBuffer.Initialize();
@@ -37,8 +33,6 @@ void GameState::Initialize()
 	mPixelShader.Initialize("../../Assets/Shaders/Standard.fx");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mGroundTexture.Initialize("../../Assets/Images/grass.jpg");
-
 	mBlendState.Initialize(BlendState::Mode::Additive);
 
 	// Post Processing
@@ -46,45 +40,38 @@ void GameState::Initialize()
 	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
 	mScreenQuad = MeshBuilder::CreateNDCQuad();
 	mScreenQuadBuffer.Initialize(mScreenQuad);
-
 	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
 	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
 
-	// Tank
-	mTankPosition = { 0.0f,0.0f,0.0f };
-	ObjLoader::Load("../../Assets/Models/Tank/tank.obj", 0.001f, mTankMesh);
-	mTankMeshBuffer.Initialize(mTankMesh);
-	mTankTexture.Initialize("../../Assets/Models/Tank/tank_diffuse.jpg");
-	mTankSpecularTexture.Initialize("../../Assets/Models/Tank/tank_specular.jpg");
-	mTankNormalMap.Initialize("../../Assets/Models/Tank/tank_normal.jpg");
-	mTankAOMap.Initialize("../../Assets/Models/Tank/tank_ao.jpg");
+	// Jet
+	mJetPosition = { 0.0f,0.0f,0.0f };
+	ObjLoader::Load("../../Assets/Models/Jet/F 15.obj", 1.0f, mJetMesh);
+	mJetMeshBuffer.Initialize(mJetMesh);
+	mJetTexture.Initialize("../../Assets/Models/Jet/F 15E.jpg");
+	mJetSpecularTexture.Initialize("../../Assets/Models/Jet/F 15 Specular.jpg");
+	mJetNormalMap.Initialize("../../Assets/Models/Jet/F-15C normal.jpg");
+	mJetAOMap.Initialize("../../Assets/Models/Jet/F-15CAO.jpg");
 
 	// Settings
-	mGroundSettings.bumpMapWeight = 0.0f;
-	mGroundSettings.brightness = 1.0f;
-	mGroundSettings.normalMapWeight = 0.0f;
-	mTankSettings.bumpMapWeight = 0.0f;
-	mTankSettings.brightness = 10.0f;
-	mSettings.brightness = 1.7f;
+	mSettings.brightness = 0.825f;
 	mSettings.bumpMapWeight = 0.165f;
-	mSettings.movementSpeed = 0.020f;
 
 	mAnimation = Graphics::AnimationBuilder()
 		.SetTime(0.0f)
-			.AddPositionKey(Math::Vector3(-50.0f,0.0f,0.0f))
+			.AddPositionKey(Math::Vector3(-20.0f,0.0f,0.0f))
 			.AddRotationKey(Math::Quaternion())
 			.AddScaleKey(Math::Vector3::One)
 		.SetTime(5.0f)
-			.AddPositionKey(Math::Vector3(0.0f, 20.0f, 30.0f))
+			.AddPositionKey(Math::Vector3(0.0f, 20.0f, 20.0f))
 			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f,1.0f,-1.0f), Math::Constants::DegToRad * 40.0f))
 		.SetTime(10.0f)
-			.AddPositionKey(Math::Vector3(50.0f, 0.0f, 0.0f))
-			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(0.0f, 1.0f, 0.0f), Math::Constants::DegToRad * 90.0f))
+			.AddPositionKey(Math::Vector3(20.0f, 0.0f, 0.0f))
+			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(0.0f, 1.0f, 0.0f), Math::Constants::DegToRad * 180.0f))
 		.SetTime(15.0f)
-			.AddPositionKey(Math::Vector3(0.0f, -20.0f, -30.0f))
-			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f, 1.0f, -1.0f), Math::Constants::DegToRad * 120.0f))
+			.AddPositionKey(Math::Vector3(0.0f, -20.0f, -20.0f))
+			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f, 1.0f, -1.0f), Math::Constants::DegToRad * 270.0f))
 		.SetTime(20.0f)
-			.AddPositionKey(Math::Vector3(-50.0f, 0.0f, 0.0f))
+			.AddPositionKey(Math::Vector3(-20.0f, 0.0f, 0.0f))
 			.AddRotationKey(Math::Quaternion())
 		.SetLooping(true)
 		.Build();
@@ -92,12 +79,12 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
-	//Tank
-	mTankAOMap.Terminate();
-	mTankNormalMap.Terminate();
-	mTankDisplacementTexture.Terminate();
-	mTankTexture.Terminate();
-	mTankMeshBuffer.Terminate();
+	//Jet
+	mJetAOMap.Terminate();
+	mJetNormalMap.Terminate();
+	mJetDisplacementTexture.Terminate();
+	mJetTexture.Terminate();
+	mJetMeshBuffer.Terminate();
 
 	mPostProcessingPixelShader.Terminate();
 	mPostProcessingVertexShader.Terminate();
@@ -105,7 +92,6 @@ void GameState::Terminate()
 	mRenderTarget.Terminate();
 	//
 	mBlendState.Terminate();
-	mGroundTexture.Terminate();
 	mSampler.Terminate();
 
 	mPixelShader.Terminate();
@@ -114,7 +100,6 @@ void GameState::Terminate()
 	mMaterialBuffer.Terminate();
 	mLightBuffer.Terminate();
 	mTransformBuffer.Terminate();
-	mMeshBuffer.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -139,23 +124,18 @@ void GameState::Update(float deltaTime)
 	if (inputSystem->IsKeyDown(KeyCode::D))
 		mCamera.Strafe(kMoveSpeed*deltaTime);
 
-	mSettings.movement += mSettings.movementSpeed * deltaTime;
-	if (mSettings.movement >= 1.0f)
-		mSettings.movement -= 1.0f;
-
 	dt += deltaTime;
 }
 
 void GameState::Render()
 {
-	/////Normal///////
-	mRenderTarget.BeginRender();
+	//mRenderTarget.BeginRender();
 	DrawScene();
-	mRenderTarget.EndRender();
+	//mRenderTarget.EndRender();
 
-	mRenderTarget.BindPS(0);
-	PostProcess();
-	mRenderTarget.UnbindPS(0);
+	//mRenderTarget.BindPS(0);
+	//PostProcess();
+	//mRenderTarget.UnbindPS(0);
 }
 
 void GameState::DebugUI()
@@ -201,17 +181,11 @@ void GameState::DebugUI()
 		{
 			mSettings.aoMapWeight = aoMap ? 1.0f : 0.0f;
 		}
-		if (ImGui::Checkbox("Use Shadow", &useShadow))
-		{
-			mSettings.useShadow = useShadow ? 1 : 0;
-		}
 		ImGui::SliderFloat("Brightness", &mSettings.brightness, 0.0f, 10.f);
-		ImGui::SliderFloat("Movement Speed", &mSettings.movementSpeed, 0.0001f, 0.1f);
 	}
 	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::DragFloat3("TankTranslation##Transform", &mTankPosition.x, 0.3f);
-		ImGui::DragFloat3("GroundTranslation##Transform", &mGrounddTranslation.x, 0.3f);
+		ImGui::DragFloat3("JetTranslation##Transform", &mJetPosition.x, 0.3f);
 	}
 	ImGui::End();
 }
@@ -238,20 +212,20 @@ void GameState::DrawScene()
 	mSettingsBuffer.BindVS(3);
 	mSettingsBuffer.BindPS(3);
 
-	//Tank
-	mSettingsBuffer.Update(&mTankSettings);
+	//Jet
+	mSettingsBuffer.Update(&mSettings);
 
-	mTankTexture.BindPS(0);
-	mTankSpecularTexture.BindPS(1);
-	mTankDisplacementTexture.BindVS(2);
-	mTankNormalMap.BindPS(3);
-	mTankAOMap.BindPS(4);
+	mJetTexture.BindPS(0);
+	mJetSpecularTexture.BindPS(1);
+	mJetDisplacementTexture.BindVS(2);
+	mJetNormalMap.BindPS(3);
+	mJetAOMap.BindPS(4);
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 
-	auto matTrans = Matrix4::Translation({ mTankPosition });
-	auto matRot = Matrix4::RotationX(mTankRotation.x) * Matrix4::RotationY(mTankRotation.y) * Matrix4::RotationZ(mTankRotation.z);
+	auto matTrans = Matrix4::Translation({ mJetPosition });
+	auto matRot = Matrix4::RotationX(mJetRotation.x) * Matrix4::RotationY(mJetRotation.y) * Matrix4::RotationZ(mJetRotation.z);
 	auto matWorld = Matrix4::Scaling(0.5f)* matRot * matTrans;
 
 	matWorld = mAnimation.GetTransform(dt);
@@ -261,32 +235,7 @@ void GameState::DrawScene()
 	transformData.viewPosition = mCamera.GetPosition();
 	mTransformBuffer.Update(&transformData);
 
-	mTankMeshBuffer.Draw();
-
-	//ground
-	mGroundSettings.bumpMapWeight = 0.0f;
-	mGroundSettings.brightness = 1.0f;
-	mGroundSettings.aoMapWeight = 0.0f;
-	mSettingsBuffer.Update(&mGroundSettings);
-	mSettingsBuffer.BindVS(3);
-	mSettingsBuffer.BindPS(3);
-
-	mVertexShader.Bind();
-	mPixelShader.Bind();
-
-	matTrans = Matrix4::Translation({ mGrounddTranslation });
-	matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
-	matWorld = matRot * matTrans;
-
-	mGroundTexture.BindPS(0);
-
-	transformData.world = Transpose(matWorld);
-	transformData.wvp = Transpose(matWorld * matView *matProj);
-	transformData.viewPosition = mCamera.GetPosition();
-	mTransformBuffer.Update(&transformData);
-
-	mMeshBuffer.Draw();
-
+	mJetMeshBuffer.Draw();
 }
 
 void GameState::PostProcess()

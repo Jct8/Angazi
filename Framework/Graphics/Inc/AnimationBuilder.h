@@ -19,6 +19,7 @@ namespace Angazi::Graphics
 		AnimationBuilder& AddScaleKey(const Math::Vector3& scale, float time);
 
 		AnimationBuilder& AddKey(Math::Vector3 position, Math::Quaternion rotation, float time);
+		AnimationBuilder& AddKey(Math::Vector3 position, Math::Quaternion rotation, Math::Vector3 scale, float time);
 
 		Animation Build();
 	private:
