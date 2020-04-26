@@ -23,7 +23,7 @@ public:
 	void InitializeAI();
 	void AIControl(float deltaTime);
 	void PlayerControl(float deltaTime);
-	void ChangeAnimation(Animation animation, bool overrideChange = false) override;
+	void ChangeAnimation(Animation2D animation, bool overrideChange = false) override;
 
 	void TakeDamage(int damage) override;
 	void Attack() override;
@@ -40,7 +40,7 @@ public:
 
 	Angazi::Math::Vector2 GetDestination() { return mDestination; };
 	Angazi::Math::Vector2 GetEnemyDestination() { return enemyDestination; };
-	Animation GetCurrentAnimation() { return mCurrentAnimation; }
+	Animation2D GetCurrentAnimation() { return mCurrentAnimation; }
 	float GetShootingRange() { return mShootingRange; }
 	float GetMeleeRange() { return mMeleeRange; }
 	float GetJumpSpeed() { return jumpSpeed; }

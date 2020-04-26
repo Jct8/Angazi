@@ -12,7 +12,7 @@ public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void Render() = 0;
 
-	virtual void ChangeAnimation(Animation animation, bool overrideChange = false) = 0;
+	virtual void ChangeAnimation(Animation2D animation, bool overrideChange = false) = 0;
 
 	virtual void TakeDamage(int damage) = 0;
 	virtual void Attack() = 0;
@@ -49,9 +49,9 @@ protected:
 	float mJumpDelay = 0.0f;
 	float mAttackDelay = 0.0f;
 
-	Animation mCurrentAnimation;
-	std::map<Animation, std::deque<Angazi::Graphics::Texture>> mAnimations;
-	std::map<Animation, float> mAnimationsDuration;
+	Animation2D mCurrentAnimation;
+	std::map<Animation2D, std::deque<Angazi::Graphics::Texture>> mAnimations;
+	std::map<Animation2D, float> mAnimationsDuration;
 
 	Angazi::Math::Vector2 mPosition;
 	std::unique_ptr<Weapon> mWeapon;

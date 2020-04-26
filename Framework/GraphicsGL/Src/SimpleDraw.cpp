@@ -196,7 +196,7 @@ namespace
 			{
 				return;
 			}
-			for (int i = 0; i < list.size() - 1; i++)
+			for (size_t i = 0; i < list.size() - 1; i++)
 			{
 				if (!fill)
 				{
@@ -230,7 +230,7 @@ namespace
 			{
 				return;
 			}
-			for (int i = 0; i < list.size() - 1; i++)
+			for (size_t i = 0; i < list.size() - 1; i++)
 			{
 				if (!fill)
 				{
@@ -317,20 +317,20 @@ namespace
 					list.push_back(vec);
 				}
 			}
-
-			for (int y = 0; y <= size; y++)
+			int iSize = static_cast<int>(size);
+			for (int y = 0; y <= iSize; y++)
 			{
-				for (int x = 0; x < size; x++)
+				for (int x = 0; x < iSize; x++)
 				{
 					if (!fill)
 					{
-						AddLine(list[y * size + x], list[y * size + x + 1], color);
-						AddLine(list[(y + 1) * size + x], list[y * size + x], color);
+						AddLine(list[y * iSize + x], list[y * iSize + x + 1], color);
+						AddLine(list[(y + 1) * iSize + x], list[y * iSize + x], color);
 					}
 					else
 					{
-						AddFace(list[(y + 1) * size + x + 1], list[(y + 1) * size + x], list[y * size + x], color);
-						AddFace(list[y * size + x], list[y * size + x + 1], list[(y + 1)* size + x + 1], color);
+						AddFace(list[(y + 1) * iSize + x + 1], list[(y + 1) * iSize + x], list[y * iSize + x], color);
+						AddFace(list[y * iSize + x], list[y * iSize + x + 1], list[(y + 1)* iSize + x + 1], color);
 					}
 				}
 			}

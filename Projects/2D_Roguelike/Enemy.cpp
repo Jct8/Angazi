@@ -11,7 +11,7 @@ using namespace Angazi::Graphics;
 namespace
 {
 	const int maxsize = 100;
-	Animation ConvertToEnum(std::string name)
+	Animation2D ConvertToEnum(std::string name)
 	{
 		if (name == "Idle")     return Idle;
 		if (name == "Attacking")return Attacking;
@@ -53,7 +53,7 @@ void Enemy::Load(std::filesystem::path fileName, bool facingLeft)
 	{
 		fscanf_s(file, "%s %d %f\n", animString, maxsize, &subTotal, &duration);
 		std::string animS(animString);
-		Animation anim = ConvertToEnum(animS);
+		Animation2D anim = ConvertToEnum(animS);
 		mAnimationsDuration[anim] = duration;
 
 		for (int j = 0; j < subTotal; j++)
@@ -249,7 +249,7 @@ void Enemy::TakeDamage(int damage)
 	}
 }
 
-void Enemy::ChangeAnimation(Animation animation, bool overrideChange)
+void Enemy::ChangeAnimation(Animation2D animation, bool overrideChange)
 {
 	if (animation == mCurrentAnimation)
 		return;

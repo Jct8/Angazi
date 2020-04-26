@@ -224,11 +224,11 @@ void GameState::DrawScene()
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 
-	auto matTrans = Matrix4::Translation({ mJetPosition });
-	auto matRot = Matrix4::RotationX(mJetRotation.x) * Matrix4::RotationY(mJetRotation.y) * Matrix4::RotationZ(mJetRotation.z);
-	auto matWorld = Matrix4::Scaling(0.5f)* matRot * matTrans;
+	//auto matTrans = Matrix4::Translation({ mJetPosition });
+	//auto matRot = Matrix4::RotationX(mJetRotation.x) * Matrix4::RotationY(mJetRotation.y) * Matrix4::RotationZ(mJetRotation.z);
+	//auto matWorld = Matrix4::Scaling(0.5f)* matRot * matTrans;
 
-	matWorld = mAnimation.GetTransform(dt);
+	auto matWorld = mAnimation.GetTransform(dt);
 
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);

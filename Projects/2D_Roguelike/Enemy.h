@@ -11,7 +11,7 @@ public:
 	void Update(float deltaTime) override;
 	void Render() override;
 
-	void ChangeAnimation(Animation animation, bool overrideChange = false) override;
+	void ChangeAnimation(Animation2D animation, bool overrideChange = false) override;
 
 	void TakeDamage(int damage) override;
 	void Attack() override;

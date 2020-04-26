@@ -42,7 +42,7 @@ namespace Angazi::Graphics
 		static void ComputeNormals(Mesh &mesh);
 
 		void Terminate();
-		void Draw();
+		void Draw() const;
 	private:
 		ID3D11Buffer* mVertexBuffer = nullptr;
 		ID3D11Buffer* mIndexBuffer = nullptr;

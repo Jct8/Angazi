@@ -147,6 +147,12 @@
     <ClInclude Include="Inc\SpriteTypes.h">
       <Filter>Inc\Material</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Model.h">
+      <Filter>Inc\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\MeshIO.h">
+      <Filter>Inc\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\GraphicsSystem.cpp">
@@ -208,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="Src\AnimationBuilder.cpp">
       <Filter>Src\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Model.cpp">
+      <Filter>Src\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

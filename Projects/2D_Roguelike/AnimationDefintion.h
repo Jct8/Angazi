@@ -1,5 +1,5 @@
 #pragma once
-enum Animation
+enum Animation2D
 {
 	Idle,
 	Attacking,

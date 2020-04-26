@@ -171,6 +171,8 @@
     <ClInclude Include="Inc\Mesh.h" />
     <ClInclude Include="Inc\MeshBuffer.h" />
     <ClInclude Include="Inc\MeshBuilder.h" />
+    <ClInclude Include="Inc\MeshIO.h" />
+    <ClInclude Include="Inc\Model.h" />
     <ClInclude Include="Inc\ObjLoader.h" />
     <ClInclude Include="Inc\PixelShader.h" />
     <ClInclude Include="Inc\RenderTarget.h" />
@@ -196,6 +198,7 @@
     <ClCompile Include="Src\GraphicsSystem.cpp" />
     <ClCompile Include="Src\MeshBuffer.cpp" />
     <ClCompile Include="Src\MeshBuilder.cpp" />
+    <ClCompile Include="Src\Model.cpp" />
     <ClCompile Include="Src\ObjLoader.cpp" />
     <ClCompile Include="Src\PixelShader.cpp" />
     <ClCompile Include="Src\Precompiled.cpp" />

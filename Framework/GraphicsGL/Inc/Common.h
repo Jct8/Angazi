@@ -1,4 +1,7 @@
 #pragma once
+#ifndef GLEW_STATIC
+	#define GLEW_STATIC
+#endif
 
 // Engine headers
 #include <Core/Inc/Core.h>

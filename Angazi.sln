@@ -137,6 +137,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VGP334", "VGP334", "{5DEF80
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "17_HelloAnimation", "VGP334\17_HelloAnimation\17_HelloAnimation.vcxproj", "{F1C78AC6-8065-4D32-B57A-A50011D0F08E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{4D8D18C4-6D7F-434F-A635-40E2BB79835F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModelImporter", "Tools\ModelImporter\ModelImporter.vcxproj", "{4EDF16FC-4D34-478A-9201-B523C219FD5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -789,6 +793,22 @@ Global
 		{F1C78AC6-8065-4D32-B57A-A50011D0F08E}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{F1C78AC6-8065-4D32-B57A-A50011D0F08E}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{F1C78AC6-8065-4D32-B57A-A50011D0F08E}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.Debug|x64.ActiveCfg = Debug|x64
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.Debug|x64.Build.0 = Debug|x64
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.Debug|x86.ActiveCfg = Debug|Win32
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.Debug|x86.Build.0 = Debug|Win32
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.MinSizeRel|x64.Build.0 = Release|x64
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.MinSizeRel|x86.Build.0 = Release|Win32
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.Release|x64.ActiveCfg = Release|x64
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.Release|x64.Build.0 = Release|x64
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.Release|x86.ActiveCfg = Release|Win32
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.Release|x86.Build.0 = Release|Win32
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -836,12 +856,13 @@ Global
 		{6168CD46-A968-44C7-AE64-8A92D7C5ED7A} = {CD843822-043F-4D75-AD52-51A21848EF77}
 		{7BDEB5A7-C31E-485F-990C-1DC3881EEC67} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 		{F1C78AC6-8065-4D32-B57A-A50011D0F08E} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
+		{4EDF16FC-4D34-478A-9201-B523C219FD5C} = {4D8D18C4-6D7F-434F-A635-40E2BB79835F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 40
+		SccNumberOfProjects = 41
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1001,5 +1022,9 @@ Global
 		SccProjectTopLevelParentUniqueName39 = Angazi.sln
 		SccProjectName39 = VGP334/17_HelloAnimation
 		SccLocalPath39 = VGP334\\17_HelloAnimation
+		SccProjectUniqueName40 = Tools\\ModelImporter\\ModelImporter.vcxproj
+		SccProjectTopLevelParentUniqueName40 = Angazi.sln
+		SccProjectName40 = Tools/ModelImporter
+		SccLocalPath40 = Tools\\ModelImporter
 	EndGlobalSection
 EndGlobal

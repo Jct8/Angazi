@@ -106,7 +106,7 @@ void MeshBuffer::ComputeNormals(Mesh &mesh)
 
 }
 
-void MeshBuffer::Draw()
+void MeshBuffer::Draw() const
 {
 	auto context = GetContext();
 
