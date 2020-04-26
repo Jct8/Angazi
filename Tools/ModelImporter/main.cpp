@@ -1,9 +1,9 @@
 #include <Graphics/Inc/Graphics.h>
 #include <Math/Inc/EngineMath.h>
 
-#include <assimp/Importer.hpp>	// c++ importer interface
-#include <assimp/scene.h>		// Output data structure
-#include <assimp/postprocess.h>	// Post processing flags
+#include <assimp/Importer.hpp>		// C++ importer interface
+#include <assimp/scene.h>			// Output data structure
+#include <assimp/postprocess.h>		// Post processing flags
 #include <cstdio>
 
 using namespace Angazi;

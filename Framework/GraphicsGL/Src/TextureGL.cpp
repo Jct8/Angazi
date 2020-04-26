@@ -1,6 +1,6 @@
 #include "Precompiled.h"
 #include "TextureGL.h"
-#include "GraphicsGL/stb_image/stb_image.h"
+#include "stb_image.h"
 
 using namespace Angazi;
 using namespace Angazi::GraphicsGL;
