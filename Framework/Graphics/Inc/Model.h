@@ -20,7 +20,6 @@ namespace Angazi::Graphics
 		void Terminate();
 
 		void Draw() const;
-	
 	public:
 		struct MeshData
 		{

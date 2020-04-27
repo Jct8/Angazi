@@ -194,6 +194,7 @@
     <ClCompile Include="Src\GraphicsSystem.cpp" />
     <ClCompile Include="Src\MeshBuffer.cpp" />
     <ClCompile Include="Src\MeshBuilder.cpp" />
+    <ClCompile Include="Src\MeshIO.cpp" />
     <ClCompile Include="Src\Model.cpp" />
     <ClCompile Include="Src\ObjLoader.cpp" />
     <ClCompile Include="Src\PixelShader.cpp" />

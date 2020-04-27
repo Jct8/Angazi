@@ -18,6 +18,9 @@ namespace Angazi::Graphics
 		MeshBuffer(const MeshBuffer&) = delete;
 		MeshBuffer& operator=(const MeshBuffer&) = delete;
 
+		MeshBuffer(MeshBuffer &&) = default;
+		MeshBuffer& operator=(MeshBuffer &&) = default;
+
 		template <class MeshType>
 		void Initialize(const MeshType& mesh, bool dynamic = false)
 		{

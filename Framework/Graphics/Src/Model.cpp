@@ -1,6 +1,5 @@
 #include "Precompiled.h"
 #include "Model.h"
-
 #include "MeshIO.h"
 
 using namespace Angazi;
@@ -8,7 +7,7 @@ using namespace Angazi::Graphics;
 
 void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)
 {
-	/*fileName.replace_extension("model");
+	fileName.replace_extension("model");
 
 	FILE* file = nullptr;
 	fopen_s(&file, fileName.u8string().c_str(), "r");
@@ -25,7 +24,7 @@ void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)
 	fclose(file);
 
 	for (auto& data : model.meshData)
-		data.meshBuffer.Initialize(data.mesh);*/
+		data.meshBuffer.Initialize(data.mesh);
 }
 
 
