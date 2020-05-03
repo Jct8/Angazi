@@ -2,6 +2,8 @@
 
 #include "Mesh.h"
 #include "MeshBuffer.h"
+#include "Material.h"
+#include "Texture.h"
 
 namespace Angazi::Graphics
 {
@@ -28,6 +30,14 @@ namespace Angazi::Graphics
 			MeshBuffer meshBuffer;
 		};
 
+		struct MaterialData
+		{
+			Material material;
+			std::string diffuseMapName;
+			std::unique_ptr<Texture> diffuseMap;
+		};
+
 		std::vector<MeshData> meshData;
+		std::vector<MaterialData> materialData;
 	};
 }

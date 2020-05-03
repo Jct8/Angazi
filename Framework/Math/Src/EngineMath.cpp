@@ -149,21 +149,23 @@ bool Angazi::Math::Intersect(const Rect& r, const Circle& c)
 	return !(distance > c.radius);
 }
 
-Quaternion Angazi::Math::Slerp( Quaternion q1, Quaternion q2, float t)
+Quaternion Angazi::Math::Slerp(const Quaternion& q1, const Quaternion& q2, float t)
 {
 	float dot = Dot(q1, q2);
+	Quaternion newQ2 = q2;
+	
 	// Determine the direction of the rotation.
 	if (dot < 0.0f)
 	{
 		dot = -dot;
-		q2 = -q2;
+		newQ2 = -q2;
 	}
 	else if (dot > 0.999f)
-		return Normalize(Lerp(q1, q2, t));
+		return Normalize(Lerp(q1, newQ2, t));
 	float theta = acosf(dot);
 	float c1 = sinf(theta*(1.0f - t)) / sinf(theta);
 	float c2 = sinf(theta*t) / sinf(theta);
-	return q1*c1 + q2*c2;
+	return q1*c1 + newQ2 *c2;
 }
 Quaternion Quaternion::RotationAxis(const Vector3& axis, float radian)
 {

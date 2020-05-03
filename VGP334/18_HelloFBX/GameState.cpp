@@ -56,6 +56,13 @@ void GameState::Initialize()
 	mSettings.brightness = 0.825f;
 	mSettings.bumpMapWeight = 0.165f;
 
+	mModelsettings.specularMapWeight = 0.0f;
+	mModelsettings.bumpMapWeight = 0.0f;
+	mModelsettings.normalMapWeight = 0.0f;
+	mModelsettings.aoMapWeight = 0.0f;
+	mModelsettings.specularMapWeight = 0.0f;
+	mModelsettings.useShadow = 0;
+
 	mAnimation = Graphics::AnimationBuilder()
 		.SetTime(0.0f)
 			.AddPositionKey(Math::Vector3(-20.0f,0.0f,0.0f))
@@ -239,13 +246,14 @@ void GameState::DrawScene()
 	mJetMeshBuffer.Draw();
 
 	auto matRot = Matrix4::RotationY(Constants::Pi);
-	matWorld = Matrix4::Scaling(0.1f) * matRot * matWorld;
+	matWorld = Matrix4::Scaling(0.1f) * matRot;// *matWorld;
 
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
 	transformData.viewPosition = mCamera.GetPosition();
 	mTransformBuffer.Update(&transformData);
 
+	mSettingsBuffer.Update(&mModelsettings);
 	model.Draw();
 }
 

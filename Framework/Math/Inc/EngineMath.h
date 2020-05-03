@@ -81,7 +81,7 @@ namespace Angazi::Math
 	inline Vector2 Lerp(const Vector2& v1, const Vector2& v2, float t)			{ return v1 + ((v2 - v1)*t); }
 	inline Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t)			{ return v1 + ((v2 - v1)*t); }
 	inline Quaternion Lerp(const Quaternion& q1, const Quaternion& q2, float t)	{ return q1 * (1.0f - t) + (q2 *t); }
-	Quaternion Slerp( Quaternion q1, Quaternion q2, float t);
+	Quaternion Slerp( const Quaternion& q1, const Quaternion& q2, float t);
 
 	constexpr float Determinant(const Matrix3& m)
 	{

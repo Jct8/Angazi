@@ -6,47 +6,49 @@ using namespace Angazi::Graphics;
 void MeshIO::Write(FILE * file, const Mesh & mesh)
 {
 	// Vertices
-	int numVertices = mesh.vertices.size();
+	uint32_t numVertices = static_cast<uint32_t>(mesh.vertices.size());
 	fprintf_s(file, "VertexCount: %d\n", numVertices);
-	for (int i = 0; i < numVertices; ++i)
+	for (uint32_t i = 0; i < numVertices; ++i)
 	{
 		fprintf_s(file, "p %f %f %f ", mesh.vertices[i].position.x, mesh.vertices[i].position.y, mesh.vertices[i].position.z);
 		fprintf_s(file, "n %f %f %f ", mesh.vertices[i].normal.x, mesh.vertices[i].normal.y, mesh.vertices[i].normal.z);
 		fprintf_s(file, "t %f %f %f ", mesh.vertices[i].tangent.x, mesh.vertices[i].tangent.y, mesh.vertices[i].tangent.z);
-		fprintf_s(file, "tx %f %f\n", mesh.vertices[i].normal.x , mesh.vertices[i].normal.y);
+		fprintf_s(file, "tx %f %f\n", mesh.vertices[i].texcoord.x , mesh.vertices[i].texcoord.y);
 	}
 
 	// Indices
-	int numIndices = mesh.indices.size();
-	fprintf_s(file, "IndicesCount: %d\n", numIndices);
-	for (int i = 0; i < numIndices; ++i)
+	uint32_t numIndices = static_cast<uint32_t>(mesh.indices.size());
+	fprintf_s(file, "IndexCount: %d\n", numIndices);
+	for (uint32_t i = 0; i < numIndices; i += 3)
 	{
-		fprintf_s(file, "%d ", mesh.indices[i]);
+		fprintf_s(file, "%i %i %i\n", mesh.indices[i], mesh.indices[i + 1], mesh.indices[i + 2]);
 	}
-	fprintf_s(file, "\n");
 }
 
 void MeshIO::Read(FILE * file, Mesh & mesh)
 {
 	// Vertices
-	int numVertices = 0;
+	uint32_t numVertices = 0;
 	fscanf_s(file, "VertexCount: %d\n", &numVertices);
-	for (int i = 0; i < numVertices; ++i)
+	mesh.vertices.resize(numVertices);
+	for (uint32_t i = 0; i < numVertices; ++i)
 	{
-		mesh.vertices.emplace_back();
 		fscanf_s(file, "p %f %f %f ", &mesh.vertices[i].position.x, &mesh.vertices[i].position.y, &mesh.vertices[i].position.z);
 		fscanf_s(file, "n %f %f %f ", &mesh.vertices[i].normal.x,   &mesh.vertices[i].normal.y,   &mesh.vertices[i].normal.z);
 		fscanf_s(file, "t %f %f %f ", &mesh.vertices[i].tangent.x,  &mesh.vertices[i].tangent.y,  &mesh.vertices[i].tangent.z);
-		fscanf_s(file, "tx %f %f\n"  , &mesh.vertices[i].normal.x,   &mesh.vertices[i].normal.y);
+		fscanf_s(file, "tx %f %f\n"  , &mesh.vertices[i].texcoord.x,   &mesh.vertices[i].texcoord.y);
 	}
 
 	// Indices
-	int numIndices = 0;
-	fscanf_s(file, "IndicesCount: %d\n", &numIndices);
-	for (int i = 0; i < numIndices; ++i)
+	uint32_t numIndices = 0;
+	fscanf_s(file, "IndexCount: %d\n", &numIndices);
+	mesh.indices.resize(numIndices);
+	for (uint32_t i = 0; i < numIndices; i += 3)
 	{
-		mesh.indices.emplace_back();
-		fscanf_s(file, "%d ", &mesh.indices[i]);
+		uint32_t a, b, c;
+		fscanf_s(file, "%i %i %i\n", &a, &b , &c);
+		mesh.indices[i] = a;
+		mesh.indices[i + 1] = b;
+		mesh.indices[i + 2] = c;
 	}
-	fscanf_s(file, "\n");
 }

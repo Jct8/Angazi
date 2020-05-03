@@ -53,6 +53,8 @@ private:
 	SettingsBuffer mSettingsBuffer;
 
 	Settings mSettings;
+	Settings mModelsettings;
+
 
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader  mPixelShader;
