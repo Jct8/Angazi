@@ -2,12 +2,12 @@
 
 #include "Mesh.h"
 #include "MeshBuffer.h"
-#include "Material.h"
-#include "Texture.h"
 
 namespace Angazi::Graphics
 {
 	class Model;
+	struct Material;
+	class Texture;
 
 	class ModelLoader
 	{

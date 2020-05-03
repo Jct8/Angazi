@@ -246,7 +246,7 @@ void GameState::DrawScene()
 	mJetMeshBuffer.Draw();
 
 	auto matRot = Matrix4::RotationY(Constants::Pi);
-	matWorld = Matrix4::Scaling(0.1f) * matRot;// *matWorld;
+	matWorld = Matrix4::Scaling(0.1f) * matRot *matWorld;
 
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
