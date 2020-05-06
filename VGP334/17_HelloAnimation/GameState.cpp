@@ -59,7 +59,7 @@ void GameState::Initialize()
 	mAnimation = Graphics::AnimationBuilder()
 		.SetTime(0.0f)
 			.AddPositionKey(Math::Vector3(-20.0f,0.0f,0.0f))
-			.AddRotationKey(Math::Quaternion())
+			.AddRotationKey(Math::Quaternion::Identity)
 			.AddScaleKey(Math::Vector3::One)
 		.SetTime(5.0f)
 			.AddPositionKey(Math::Vector3(0.0f, 20.0f, 20.0f))
@@ -72,7 +72,7 @@ void GameState::Initialize()
 			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f, 1.0f, -1.0f), Math::Constants::DegToRad * 270.0f))
 		.SetTime(20.0f)
 			.AddPositionKey(Math::Vector3(-20.0f, 0.0f, 0.0f))
-			.AddRotationKey(Math::Quaternion())
+			.AddRotationKey(Math::Quaternion::Identity)
 
 		.SetLooping(true)
 		.Build();
@@ -80,7 +80,7 @@ void GameState::Initialize()
 //	mAnimation = AnimationBuilder()
 //		.SetLooping(true)
 //		.AddPositionKey(Vector3(-20.0f, 3.0f, 0.0f), 0.0f)
-//		.AddRotationKey(Quaternion(), 0.0f)
+//		.AddRotationKey(Quaternion::Identity, 0.0f)
 //		.AddScaleKey(Vector3::One, 0.0f)
 //
 //		.AddPositionKey(Vector3(0.0f, 3.0f, 20.0f), 3.0f)
@@ -94,7 +94,7 @@ void GameState::Initialize()
 //		.AddRotationKey(Quaternion::RotationAxis(Vector3::YAxis, Constants::DegToRad * 270.0f), 9.0f)
 //
 //		.AddPositionKey(Vector3(-20.0f, 3.0f, 0.0f), 12.0f)
-//		.AddRotationKey(Quaternion(), 12.0f)
+//		.AddRotationKey(Quaternion::Identity, 12.0f)
 //		.Build();
 }
 
