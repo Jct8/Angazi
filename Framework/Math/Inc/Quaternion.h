@@ -12,8 +12,8 @@ namespace Angazi::Math
 			std::array<float, 4> v;
 		};
 
-		Quaternion() :x(0.0f), y(0.0f), z(0.0f), w(0.0f) {}
-		Quaternion(float x, float y, float z, float w) :
+		constexpr Quaternion() noexcept : x(0.0f), y(0.0f), z(0.0f), w(1.0f) {}
+		constexpr Quaternion(float x, float y, float z, float w) :
 			x(x), y(y), z(z), w(w) {}
 
 		static const Quaternion Identity;
@@ -39,7 +39,7 @@ namespace Angazi::Math
 
 		static Quaternion Inverse(const Quaternion& q) { return Quaternion(-q.x, -q.y, -q.z, q.w); }
 		static Quaternion RotationAxis(const Vector3& axis, float radian);
-		static Quaternion RotationMatrix(const Matrix4& m);
+		static Quaternion RotationMatrix(const Matrix4& input);
 		static Quaternion RotationLook(const Vector3& look, const Vector3& up = Vector3::YAxis);
 		static Quaternion RotationFromTo(const Vector3& from, const Vector3& to);
 	};

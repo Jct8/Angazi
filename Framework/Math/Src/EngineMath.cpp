@@ -178,13 +178,45 @@ Quaternion Quaternion::RotationAxis(const Vector3& axis, float radian)
 		cosf(radian / 2.0f)
 	);
 }
-Quaternion Quaternion::RotationMatrix(const Matrix4& m)
+Quaternion Quaternion::RotationMatrix(const Matrix4& input)
 {
-	float qw = 0.5f * Sqrt(1.0f + m._11 + m._22 + m._33);
-	float w = (4.0f * qw);
-	float qx = (m._23 - m._32) / w;
-	float qy = (m._31 - m._13) / w;
-	float qz = (m._12 - m._21) / w;
+	Matrix4 m = Transpose(input);
+	float qw, qx, qy, qz;
+
+	float tr = m._11 + m._22 + m._33;
+
+	if (tr > 0) 
+	{
+		float w = sqrt(tr + 1.0) * 2; 
+		qw = 0.25 * w;
+		qx = (m._32 - m._23) / w;
+		qy = (m._13 - m._31) / w;
+		qz = (m._21 - m._12) / w;
+	}
+	else if ((m._11 > m._22)&(m._11 > m._33)) 
+	{
+		float w = sqrt(1.0 + m._11 - m._22 - m._33) * 2;
+		qw = (m._32 - m._23) / w;
+		qx = 0.25 * w;
+		qy = (m._12 + m._21) / w;
+		qz = (m._13 + m._31) / w;
+	}
+	else if (m._22 > m._33) 
+	{
+		float w = sqrt(1.0 + m._22 - m._11 - m._33) * 2;
+		qw = (m._13 - m._31) / w;
+		qx = (m._12 + m._21) / w;
+		qy = 0.25 * w;
+		qz = (m._23 + m._32) / w;
+	}
+	else 
+	{
+		float w = sqrt(1.0 + m._33 - m._11 - m._22) * 2;
+		qw = (m._21 - m._12) / w;
+		qx = (m._13 + m._31) / w;
+		qy = (m._23 + m._32) / w;
+		qz = 0.25 * w;
+	}
 	return Quaternion(qx, qy, qz, qw);
 }
 Quaternion Quaternion::RotationFromTo(const Vector3& from, const Vector3& to)
@@ -245,11 +277,6 @@ Matrix4 Matrix4::RotationAxis(const Vector3 & axis, float radian)
 
 	return
 	{
-		/*cos+wx*wx*(1- cos)    , wx*wy*(1-cos) - wz*sin, wy*sin + wx*wz*(1 - cos), 0.0f,
-		wz*sin + wx*wy*(1-cos), cos+wy*wy*(1-cos)     , -wx*sin+wy*wz*(1-cos)   , 0.0f,
-		-wy*sin + wx*wz*(1-cos) , wx*sin+wy*wz*(1-cos)  , cos+wz*wz*(1-cos)       , 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f*/
-		//Transpose
 		cos + wx * wx*(1.0f - cos)   , wz*sin + wx * wy*(1.0f - cos)  , -wy * sin + wx*wz*(1.0f - cos) , 0.0f,
 		wx*wy*(1.0f - cos) - wz * sin, cos + wy * wy*(1.0f - cos)     , wx*sin + wy * wz*(1.0f - cos)  , 0.0f,
 		wy*sin + wx * wz*(1.0f - cos),-wx * sin + wy * wz*(1.0f - cos), cos + wz * wz*(1.0f - cos)     , 0.0f,
