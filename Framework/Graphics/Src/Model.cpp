@@ -3,9 +3,18 @@
 #include "Material.h"
 #include "Model.h"
 #include "MeshIO.h"
+#include "SkeletonIO.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
+
+void ModelLoader::LoadSkeleton(std::filesystem::path fileName, Skeleton& model)
+{
+	fileName.replace_extension("skeleton");
+	// Homework:
+	// Do loading
+	// Resolve link here
+}
 
 void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)
 {
@@ -63,6 +72,7 @@ void Model::Initialize(const std::filesystem::path& fileName)
 {
 	ASSERT(std::filesystem::exists(fileName), "File does not exist");
 	ModelLoader::LoadModel(fileName, *this);
+	ModelLoader::LoadSkeleton(fileName, skeleton);
 }
 
 void Model::Terminate()

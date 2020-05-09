@@ -15,5 +15,5 @@ namespace Angazi::Graphics
 	using MeshPX = MeshBase<VertexPX>;
 	using MeshPN = MeshBase<VertexPN>;
 	using Mesh = MeshBase<Vertex>;
-
-}//namespace Angazi::Graphics
+	using SkinnedMesh = MeshBase<BoneVertex>;
+}

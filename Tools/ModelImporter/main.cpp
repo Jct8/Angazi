@@ -11,6 +11,8 @@ using namespace Angazi;
 using namespace Angazi::Graphics;
 using namespace Angazi::Math;
 
+using BoneIndexLookup = std::map<std::string, int>; // Used to lookup bone by name
+
 struct Arguments
 {
 	const char *inputFileName = nullptr;
@@ -98,6 +100,22 @@ void SaveModel(const Arguments& args, const Model& model)
 	fclose(file);
 }
 
+void SaveSkeleton(const Arguments& args, const Skeleton& skeleton)
+{
+	std::filesystem::path path = args.outputFileName;
+	path.replace_extension("skeleton");
+
+	printf("Saving skeleton: %s...\n", path.u8string().c_str());
+
+	FILE* file = nullptr;
+	fopen_s(&file, path.u8string().c_str(), "w");
+
+	SkeletonIO::Write(file, skeleton);
+
+	fclose(file);
+}
+
+
 inline Color Convert(const aiColor3D& c)
 {
 	return { c.r , c.g, c.b, 1.0f };
@@ -173,6 +191,70 @@ std::string FindTexture(const aiScene& scene, const aiMaterial& inputMaterial, a
 	return textureName.u8string().c_str();
 }
 
+// Check if inputBone exists in skeleton, if so just return the index.
+// Otherwise, add it to the skeleton. The aiBone must have a name!
+int TryAddBone(const aiBone* inputBone, Skeleton& skeleton, BoneIndexLookup& boneIndexLookup)
+{
+	std::string name = inputBone->mName.C_Str();
+	ASSERT(!name.empty(), "Error: inputBone has no name!");
+
+	auto iter = boneIndexLookup.find(name);
+	if (iter != boneIndexLookup.end())
+		return iter->second;
+
+	// Add a new bone in the skeleton for this
+	auto& newBone = skeleton.bones.emplace_back(std::make_unique<Bone>());
+	newBone->name = std::move(name);
+	newBone->index = static_cast<int>(skeleton.bones.size()) - 1;
+	newBone->offsetTransform = Convert(inputBone->mOffsetMatrix);
+
+	// Cache the bone index
+	boneIndexLookup.emplace(newBone->name, newBone->index);
+	return newBone->index;
+}
+
+// Recursively walk the aiScene tree and add/link bones to our skeleton as we find them.
+Bone* BuildSkeleton(const aiNode& sceneNode, Bone* parent, Skeleton& skeleton, BoneIndexLookup& boneIndexLookup)
+{
+	Bone* bone = nullptr;
+
+	std::string name = sceneNode.mName.C_Str();
+	auto iter = boneIndexLookup.find(name);
+	if (iter != boneIndexLookup.end())
+	{
+		// Bone already exists
+		bone = skeleton.bones[iter->second].get();
+	}
+	else
+	{
+		// Add a new bone in the skeleton for this (possible need to generate a name for it)
+		bone = skeleton.bones.emplace_back(std::make_unique<Bone>()).get();
+		bone->index = static_cast<int>(skeleton.bones.size()) - 1;
+		bone->offsetTransform = Matrix4::Identity;
+		if (name.empty())
+			bone->name = "NoName" + std::to_string(bone->index);
+		else
+			bone->name = std::move(name);
+
+		// Cache the bone index
+		boneIndexLookup.emplace(bone->name, bone->index);
+	}
+
+	// Link to your parent
+	bone->parent = parent;
+	bone->toParentTransform = Convert(sceneNode.mTransformation);
+
+	// Recurse through your children
+	bone->children.reserve(sceneNode.mNumChildren);
+	for (uint32_t i = 0; i < sceneNode.mNumChildren; ++i)
+	{
+		Bone* child = BuildSkeleton(*sceneNode.mChildren[i], bone, skeleton, boneIndexLookup);
+		bone->children.push_back(child);
+	}
+	return bone;
+}
+
+
 int main(int argc, char* argv[])
 {
 	const auto argsOpt = ParseArgs(argc, argv);
@@ -212,6 +294,7 @@ int main(int argc, char* argv[])
 	//     ...
 
 	Model model;
+	BoneIndexLookup boneIndexLookup;
 
 	if (scene->HasMeshes())
 	{
@@ -232,7 +315,7 @@ int main(int argc, char* argv[])
 
 			printf("Reading vertices...\n");
 
-			std::vector<Vertex> vertices;
+			std::vector<BoneVertex> vertices;
 			vertices.reserve(numVertices);
 
 			const aiVector3D* positions = inputMesh->mVertices;
@@ -242,7 +325,7 @@ int main(int argc, char* argv[])
 
 			for (uint32_t i = 0; i < numVertices; i++)
 			{
-				Vertex vertex;
+				BoneVertex vertex;
 				vertex.position = Convert(positions[i]) * args.scale;
 				vertex.normal   = Convert(normals[i]); 
 				vertex.tangent  = tangents ? Convert(tangents[i]) : 0.0f;
@@ -263,7 +346,17 @@ int main(int argc, char* argv[])
 				indices.push_back(faces[i].mIndices[2]);
 			}
 
-			Mesh mesh;
+
+			if (inputMesh->HasBones())
+			{
+				for (uint32_t meshBoneIndex = 0; meshBoneIndex < inputMesh->mNumBones; ++meshBoneIndex)
+				{
+					aiBone* inputBone = inputMesh->mBones[meshBoneIndex];
+					int boneIndex = TryAddBone(inputBone, model.skeleton, boneIndexLookup);
+				}
+			}
+
+			SkinnedMesh mesh;
 			mesh.vertices = std::move(vertices);
 			mesh.indices = std::move(indices);
 			model.meshData[meshIndex].mesh = std::move(mesh);
@@ -301,7 +394,16 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	// Check if we have skeleton information.
+	if (!model.skeleton.bones.empty())
+	{
+		printf("Building skeleton...\n");
+		BuildSkeleton(*scene->mRootNode, nullptr, model.skeleton, boneIndexLookup);
+	}
+
 	SaveModel(args, model);	// ../../Assets/Models/<name>.model
+	SaveSkeleton(args, model.skeleton);	// ../../Assets/Models/<name>.skeleton
+
 	for (auto& data : model.meshData)
 		data.meshBuffer.Terminate();
 

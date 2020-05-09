@@ -2,17 +2,19 @@
 
 #include "Mesh.h"
 #include "MeshBuffer.h"
+#include "Skeleton.h"
 
 namespace Angazi::Graphics
 {
-	class Model;
 	struct Material;
+	class Model;
 	class Texture;
 
 	class ModelLoader
 	{
 	public:
 		static void LoadModel(std::filesystem::path fileName, Model & model);
+		static void LoadSkeleton(std::filesystem::path fileName, Skeleton & model);
 	};
 
 	class Model
@@ -25,7 +27,7 @@ namespace Angazi::Graphics
 	public:
 		struct MeshData
 		{
-			Mesh mesh;
+			SkinnedMesh mesh;
 			uint32_t materialIndex = 0;
 			MeshBuffer meshBuffer;
 		};
@@ -39,5 +41,6 @@ namespace Angazi::Graphics
 
 		std::vector<MeshData> meshData;
 		std::vector<MaterialData> materialData;
+		Skeleton skeleton;
 	};
 }

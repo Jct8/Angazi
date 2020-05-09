@@ -3,7 +3,7 @@
 
 using namespace Angazi::Graphics;
 
-void MeshIO::Write(FILE * file, const Mesh & mesh)
+void MeshIO::Write(FILE * file, const SkinnedMesh & mesh)
 {
 	// Vertices
 	uint32_t numVertices = static_cast<uint32_t>(mesh.vertices.size());
@@ -25,7 +25,7 @@ void MeshIO::Write(FILE * file, const Mesh & mesh)
 	}
 }
 
-void MeshIO::Read(FILE * file, Mesh & mesh)
+void MeshIO::Read(FILE * file, SkinnedMesh & mesh)
 {
 	// Vertices
 	uint32_t numVertices = 0;

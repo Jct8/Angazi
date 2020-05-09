@@ -113,7 +113,16 @@ void GameState::Terminate()
 
 void GameState::Update(float deltatTime)
 {
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::SPACE))
+	{
+		GraphicsSystem::Get()->SetClearColor(Colors::AliceBlue);
 
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::E))
+	{
+		GraphicsSystem::Get()->SetClearColor(Colors::Red);
+
+	}
 }
 
 void GameState::Render()

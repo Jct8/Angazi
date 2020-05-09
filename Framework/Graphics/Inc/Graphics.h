@@ -22,6 +22,8 @@
 #include "PixelShader.h"
 #include "Sampler.h"
 #include "SimpleDraw.h"
+#include "Skeleton.h"
+#include "SkeletonIO.h"
 #include "SpriteRenderer.h"
 #include "SpriteTypes.h"
 #include "RenderTarget.h"
