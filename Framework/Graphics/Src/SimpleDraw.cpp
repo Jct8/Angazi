@@ -342,11 +342,11 @@ namespace
 			}
 		}
 
-		void Render(const Camera& camera)
+		void Render(const Camera& camera, const Math::Matrix4& matWorld)
 		{
 			auto matView = camera.GetViewMatrix();
 			auto matProj = camera.GetPerspectiveMatrix();
-			auto transform = Math::Transpose(matView* matProj);
+			auto transform = Math::Transpose(matWorld * matView* matProj);
 			mConstantBuffer.Update(&transform);
 			mConstantBuffer.BindVS();
 
@@ -504,7 +504,7 @@ void SimpleDraw::AddSphere(float x, float y, float z, float radius, const Color 
 	sInstance->AddSphere({ x,y,z }, radius, color, slices, rings, fill);
 }
 
-void SimpleDraw::Render(const Camera & camera)
+void SimpleDraw::Render(const Camera & camera, const Math::Matrix4& matWorld)
 {
-	sInstance->Render(camera);
+	sInstance->Render(camera, matWorld);
 }

@@ -87,4 +87,9 @@ private:
 	Angazi::Graphics::PixelShader mPostProcessingPixelShader;
 
 	float dt = 0.0f;
+
+	// Skeleton
+	bool mShowSkeleton = false;
+	std::vector<Angazi::Math::Matrix4> mBoneMatrices;
+
 };

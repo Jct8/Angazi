@@ -11,6 +11,5 @@ namespace Angazi::Graphics
 	};
 
 	void DrawSkeleton(const Skeleton& skeleton, const std::vector<Math::Matrix4>& boneMatrices);
+	void ComputeBoneMatrices(Bone* parent, std::vector<Math::Matrix4>& matrices);
 }
-
-

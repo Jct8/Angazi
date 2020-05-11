@@ -7,6 +7,7 @@
 namespace Angazi::Graphics
 {
 	struct Material;
+
 	class Model;
 	class Texture;
 
@@ -14,7 +15,7 @@ namespace Angazi::Graphics
 	{
 	public:
 		static void LoadModel(std::filesystem::path fileName, Model & model);
-		static void LoadSkeleton(std::filesystem::path fileName, Skeleton & model);
+		static void LoadSkeleton(std::filesystem::path fileName, Skeleton & skeleton);
 	};
 
 	class Model

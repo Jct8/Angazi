@@ -16,7 +16,7 @@ Math::Vector3 Animation::GetPosition(float time) const
 		return mPositionKeyframes.back().key;
 
 	//Calculation
-	int i = 0;
+	size_t i = 0;
 	for (; i < mPositionKeyframes.size(); ++i)
 	{
 		if (time < mPositionKeyframes[i].time)
@@ -42,7 +42,7 @@ Math::Quaternion Animation::GetRotation(float time) const
 		return mRotationKeyframes.back().key;
 
 	//Calculation
-	int i = 0;
+	size_t i = 0;
 	for (; i < mRotationKeyframes.size(); ++i)
 	{
 		if (time < mRotationKeyframes[i].time)
@@ -68,7 +68,7 @@ Math::Vector3 Animation::GetScale(float time) const
 		return mScaleKeyframes.back().key;
 
 	//Calculation
-	int i = 0;
+	size_t i = 0;
 	for (; i < mScaleKeyframes.size(); ++i)
 	{
 		if (time < mScaleKeyframes[i].time)

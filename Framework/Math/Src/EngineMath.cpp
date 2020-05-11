@@ -187,35 +187,35 @@ Quaternion Quaternion::RotationMatrix(const Matrix4& input)
 
 	if (tr > 0) 
 	{
-		float w = sqrt(tr + 1.0) * 2; 
-		qw = 0.25 * w;
+		float w = sqrt(tr + 1.0f) * 2.0f; 
+		qw = 0.25f * w;
 		qx = (m._32 - m._23) / w;
 		qy = (m._13 - m._31) / w;
 		qz = (m._21 - m._12) / w;
 	}
 	else if ((m._11 > m._22)&(m._11 > m._33)) 
 	{
-		float w = sqrt(1.0 + m._11 - m._22 - m._33) * 2;
+		float w = sqrt(1.0f + m._11 - m._22 - m._33) * 2.0f;
 		qw = (m._32 - m._23) / w;
-		qx = 0.25 * w;
+		qx = 0.25f * w;
 		qy = (m._12 + m._21) / w;
 		qz = (m._13 + m._31) / w;
 	}
 	else if (m._22 > m._33) 
 	{
-		float w = sqrt(1.0 + m._22 - m._11 - m._33) * 2;
+		float w = sqrt(1.0f + m._22 - m._11 - m._33) * 2.0f;
 		qw = (m._13 - m._31) / w;
 		qx = (m._12 + m._21) / w;
-		qy = 0.25 * w;
+		qy = 0.25f * w;
 		qz = (m._23 + m._32) / w;
 	}
 	else 
 	{
-		float w = sqrt(1.0 + m._33 - m._11 - m._22) * 2;
+		float w = sqrt(1.0f + m._33 - m._11 - m._22) * 2.0f;
 		qw = (m._21 - m._12) / w;
 		qx = (m._13 + m._31) / w;
 		qy = (m._23 + m._32) / w;
-		qz = 0.25 * w;
+		qz = 0.25f * w;
 	}
 	return Quaternion(qx, qy, qz, qw);
 }

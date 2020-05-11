@@ -34,6 +34,6 @@ namespace Angazi::Graphics::SimpleDraw {
 	void AddScreenRect(const Math::Vector2& min, const Math::Vector2& max, const Color& color);
 	void AddScreenRect(float left, float top, float right, float bottom, const Color& color);
 
-	void Render(const Camera& camera);
+	void Render(const Camera& camera, const Math::Matrix4& matWorld = Math::Matrix4::Identity);
 
 } // namespace Angazi::Graphics::SimpleDraw 

@@ -154,13 +154,13 @@
       <Filter>Inc\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Inc\Bone.h">
-      <Filter>Inc\Mesh</Filter>
+      <Filter>Inc\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Inc\Skeleton.h">
-      <Filter>Inc\Mesh</Filter>
+      <Filter>Inc\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Inc\SkeletonIO.h">
-      <Filter>Inc\Mesh</Filter>
+      <Filter>Inc\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -230,11 +230,11 @@
     <ClCompile Include="Src\MeshIO.cpp">
       <Filter>Src\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Skeleton.cpp">
-      <Filter>Src\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Src\SkeletonIO.cpp">
-      <Filter>Src\Mesh</Filter>
+      <Filter>Src\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Skeleton.cpp">
+      <Filter>Src\Animation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

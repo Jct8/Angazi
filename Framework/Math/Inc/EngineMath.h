@@ -216,6 +216,8 @@ namespace Angazi::Math
 		};
 	}
 
+	constexpr Vector3 GetTranslation(const Matrix4& m) { return { m._41 , m._42, m._43 }; };
+
 	bool PointInRect(const Vector2& point, const Rect& rect);
 	bool PointInCircle(const Vector2& point, const Circle& circle);
 

@@ -8,12 +8,29 @@
 using namespace Angazi;
 using namespace Angazi::Graphics;
 
-void ModelLoader::LoadSkeleton(std::filesystem::path fileName, Skeleton& model)
+void ModelLoader::LoadSkeleton(std::filesystem::path fileName, Skeleton& skeleton)
 {
 	fileName.replace_extension("skeleton");
 	// Homework:
 	// Do loading
 	// Resolve link here
+	FILE* file = nullptr;
+	fopen_s(&file, fileName.u8string().c_str(), "r");
+	SkeletonIO::Read(file, skeleton);
+	fclose(file);
+
+	for (size_t i = 0; i < skeleton.bones.size(); ++i)
+	{
+		Bone* bone = skeleton.bones[i].get();
+		if (bone->parentIndex == -1)
+			skeleton.root = bone;
+		else
+			bone->parent = skeleton.bones[bone->parentIndex].get();
+
+		for (size_t j = 0; j < bone->childIndices.size(); j++)
+			bone->children.push_back(skeleton.bones[bone->childIndices[j]].get());
+	}
+
 }
 
 void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)

@@ -65,25 +65,27 @@ void GameState::Initialize()
 
 	mAnimation = Graphics::AnimationBuilder()
 		.SetTime(0.0f)
-			.AddPositionKey(Math::Vector3(-20.0f,0.0f,0.0f))
-			.AddRotationKey(Math::Quaternion::Identity)
-			.AddScaleKey(Math::Vector3::One)
+		.AddPositionKey(Math::Vector3(-20.0f, 0.0f, 0.0f))
+		.AddRotationKey(Math::Quaternion::Identity)
+		.AddScaleKey(Math::Vector3::One)
 		.SetTime(5.0f)
-			.AddPositionKey(Math::Vector3(0.0f, 20.0f, 20.0f))
-			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f,1.0f,-1.0f), Math::Constants::DegToRad * 40.0f))
+		.AddPositionKey(Math::Vector3(0.0f, 20.0f, 20.0f))
+		.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f, 1.0f, -1.0f), Math::Constants::DegToRad * 40.0f))
 		.SetTime(10.0f)
-			.AddPositionKey(Math::Vector3(20.0f, 0.0f, 0.0f))
-			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(0.0f, 1.0f, 0.0f), Math::Constants::DegToRad * 180.0f))
+		.AddPositionKey(Math::Vector3(20.0f, 0.0f, 0.0f))
+		.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(0.0f, 1.0f, 0.0f), Math::Constants::DegToRad * 180.0f))
 		.SetTime(15.0f)
-			.AddPositionKey(Math::Vector3(0.0f, -20.0f, -20.0f))
-			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f, 1.0f, -1.0f), Math::Constants::DegToRad * 270.0f))
+		.AddPositionKey(Math::Vector3(0.0f, -20.0f, -20.0f))
+		.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f, 1.0f, -1.0f), Math::Constants::DegToRad * 270.0f))
 		.SetTime(20.0f)
-			.AddPositionKey(Math::Vector3(-20.0f, 0.0f, 0.0f))
-			.AddRotationKey(Math::Quaternion::Identity)
+		.AddPositionKey(Math::Vector3(-20.0f, 0.0f, 0.0f))
+		.AddRotationKey(Math::Quaternion::Identity)
 		.SetLooping(true)
 		.Build();
 
 	model.Initialize("../../Assets/Models/character.model");
+	mBoneMatrices.resize(model.skeleton.bones.size());
+	ComputeBoneMatrices(model.skeleton.root, mBoneMatrices);
 }
 
 void GameState::Terminate()
@@ -199,6 +201,10 @@ void GameState::DebugUI()
 	{
 		ImGui::DragFloat3("JetTranslation##Transform", &mJetPosition.x, 0.3f);
 	}
+	if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::Checkbox("Show Skeleton", &mShowSkeleton);
+	}
 	ImGui::End();
 }
 
@@ -246,7 +252,7 @@ void GameState::DrawScene()
 	mJetMeshBuffer.Draw();
 
 	auto matRot = Matrix4::RotationY(Constants::Pi);
-	matWorld = Matrix4::Scaling(0.1f) * matRot *matWorld;
+	matWorld = Matrix4::Scaling(0.1f) * matRot * matWorld;
 
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
@@ -254,7 +260,16 @@ void GameState::DrawScene()
 	mTransformBuffer.Update(&transformData);
 
 	mSettingsBuffer.Update(&mModelsettings);
-	model.Draw();
+
+	if (mShowSkeleton)
+	{
+		DrawSkeleton(model.skeleton, mBoneMatrices);
+	}
+	else
+	{
+		model.Draw();
+	}
+	SimpleDraw::Render(mCamera, matWorld);
 }
 
 void GameState::PostProcess()

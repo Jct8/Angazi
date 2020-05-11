@@ -105,7 +105,7 @@ void SaveSkeleton(const Arguments& args, const Skeleton& skeleton)
 	std::filesystem::path path = args.outputFileName;
 	path.replace_extension("skeleton");
 
-	printf("Saving skeleton: %s...\n", path.u8string().c_str());
+	printf("Saving Skeleton: %s...\n", path.u8string().c_str());
 
 	FILE* file = nullptr;
 	fopen_s(&file, path.u8string().c_str(), "w");
@@ -389,7 +389,7 @@ int main(int argc, char* argv[])
 			material.material.diffuse = Convert(diffuseColor);
 			material.material.specular = Convert(specularColor);
 			material.material.power = specularPower;
-			std::string suffix = "_diffuse" + std::to_string(i);
+			std::string suffix = "_diffuse_" + std::to_string(i);
 			material.diffuseMapName = FindTexture( *scene, *inputMaterial, aiTextureType_DIFFUSE, args, suffix.c_str());
 		}
 	}
