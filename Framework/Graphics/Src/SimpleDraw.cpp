@@ -202,7 +202,7 @@ namespace
 			{
 				return;
 			}
-			for (int i = 0; i < list.size() - 1; i++)
+			for (size_t i = 0; i < list.size() - 1; i++)
 			{
 				if (!fill)
 				{
@@ -236,7 +236,7 @@ namespace
 			{
 				return;
 			}
-			for (int i = 0; i < list.size() - 1; i++)
+			for (size_t i = 0; i < list.size() - 1; i++)
 			{
 				if (!fill)
 				{

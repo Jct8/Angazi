@@ -60,7 +60,7 @@ void ParticleManager::Update(float deltaTime)
 	std::map<std::string, std::deque<Particle>>::iterator iter = mParticles.begin();
 	for (; iter != mParticles.end(); iter++)
 	{
-		for (int i = 0; i < iter->second.size(); i++)
+		for (size_t i = 0; i < iter->second.size(); i++)
 		{
 			if (iter->second[i].IsActive())
 			{
@@ -76,7 +76,7 @@ void ParticleManager::Render()
 	std::map<std::string, std::deque<Particle>>::iterator iter = mParticles.begin();
 	for (; iter != mParticles.end(); iter++)
 	{
-		for (int i = 0; i < iter->second.size(); i++)
+		for (size_t i = 0; i < iter->second.size(); i++)
 		{
 			if (iter->second[i].IsActive())
 			{
@@ -88,7 +88,7 @@ void ParticleManager::Render()
 
 void ParticleManager::StartParticle(Math::Vector2 pos, std::string key, Pivot pivot)
 {
-	for (int i = 0; i < mParticles[key].size(); i++)
+	for (size_t i = 0; i < mParticles[key].size(); i++)
 	{
 		if (!mParticles[key][i].IsActive())
 		{

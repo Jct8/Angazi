@@ -56,7 +56,7 @@ void MeleeWeapon::Unload()
 void MeleeWeapon::Render(int mFrame, Math::Vector2 screenPos, bool isFacingLeft)
 {
 	//to fix bug - need to remove
-	if (mFrame > mAnimationsMap[mCurrentAttack].size() - 1)
+	if (static_cast<size_t>(mFrame) > mAnimationsMap[mCurrentAttack].size() - 1)
 		mFrame = static_cast<int>(mAnimationsMap[mCurrentAttack].size()) - 1;
 
 	if (isFacingLeft)
@@ -71,7 +71,7 @@ void MeleeWeapon::Render(int mFrame, Math::Vector2 screenPos, bool isFacingLeft)
 void MeleeWeapon::Attack(int mFrame, Math::Vector2 position, bool isFacingLeft, bool isPlayer)
 {
 	//to fix bug - need to remove
-	if (mFrame > mAnimationsMap[mCurrentAttack].size() - 1)
+	if (static_cast<size_t>(mFrame) > mAnimationsMap[mCurrentAttack].size() - 1)
 		mFrame = static_cast<int>(mAnimationsMap[mCurrentAttack].size()) - 1;
 
 	float width = mHitWidth;

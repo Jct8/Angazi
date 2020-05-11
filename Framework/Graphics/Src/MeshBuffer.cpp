@@ -89,9 +89,9 @@ void MeshBuffer::ComputeNormals(Mesh &mesh)
 
 	std::vector<Angazi::Math::Vector3> newNormals;
 	newNormals.reserve(mesh.vertices.size());
-	for (int i = 0; i < mesh.vertices.size(); ++i)
+	for (size_t i = 0; i < mesh.vertices.size(); ++i)
 		newNormals.push_back({ 0.0f, 0.0f ,0.0f });
-	for (int i = 0; i < mesh.indices.size(); i += 3)
+	for (size_t i = 0; i < mesh.indices.size(); i += 3)
 	{
 		auto vector1 = mesh.vertices[mesh.indices[i]].position - mesh.vertices[mesh.indices[i + 1]].position;
 		auto vector2 = mesh.vertices[mesh.indices[i]].position - mesh.vertices[mesh.indices[i + 2]].position;
@@ -101,7 +101,7 @@ void MeshBuffer::ComputeNormals(Mesh &mesh)
 		newNormals[mesh.indices[i+1]] += normal;
 		newNormals[mesh.indices[i+2]] += normal;
 	}
-	for (int i = 0; i < newNormals.size(); ++i)
+	for (size_t i = 0; i < newNormals.size(); ++i)
 		mesh.vertices[i].normal = Angazi::Math::Normalize(newNormals[i]);
 
 }

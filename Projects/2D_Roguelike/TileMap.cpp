@@ -119,7 +119,7 @@ void TileMap::NewMap()
 
 void TileMap::Unload()
 {
-	for (int i = 0; i < mTiles.size(); i++)
+	for (size_t i = 0; i < mTiles.size(); i++)
 	{
 		mTiles[i].Terminate();
 	}

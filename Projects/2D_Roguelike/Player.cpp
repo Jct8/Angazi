@@ -178,7 +178,7 @@ void Player::Render()
 
 		if (!path.empty())
 		{
-			for (int i = 0; i < path.size() - 1; i++)
+			for (size_t i = 0; i < path.size() - 1; i++)
 			{
 				Math::Vector2 screenPos = Camera2D::Get().ConvertToScreenPosition(Math::Vector2{ static_cast<float>(path[i].x)*32.0f , static_cast<float>(path[i].y*32.0f) });
 				Math::Vector2 screenPos2 = Camera2D::Get().ConvertToScreenPosition(Math::Vector2{ static_cast<float>(path[i + 1].x)*32.0f , static_cast<float>(path[i + 1].y)*32.0f });

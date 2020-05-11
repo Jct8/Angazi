@@ -51,7 +51,7 @@ void EnemyManager::Load(AI::AIWorld & world)
 		fscanf_s(file, "%c %s\n", &type, 1, &fileName, maxsize);
 		std::string strFileName(fileName);
 		std::vector<Math::Vector2> locations = TileMap::Get().GetSpawnLocation(type);
-		for (int j = 0; j < locations.size(); j++)
+		for (size_t j = 0; j < locations.size(); j++)
 		{
 			mEnemies.emplace_back(world, 1);
 			mEnemies[count].Load(strFileName, true);
@@ -64,7 +64,7 @@ void EnemyManager::Load(AI::AIWorld & world)
 	fclose(file);
 	mTotalDeaths = 0;
 
-	for (int i = 0; i < mEnemies.size(); i++)
+	for (size_t i = 0; i < mEnemies.size(); i++)
 	{
 		mEnemies[i].mShowDebug = mShowDebug;
 	}
@@ -72,7 +72,7 @@ void EnemyManager::Load(AI::AIWorld & world)
 
 void EnemyManager::Unload()
 {
-	for (int i = 0; i < mEnemies.size(); i++)
+	for (size_t i = 0; i < mEnemies.size(); i++)
 	{
 		mEnemies[i].Unload();
 	}
@@ -82,13 +82,13 @@ void EnemyManager::Unload()
 
 void EnemyManager::Update(float deltaTime)
 {
-	if (mTotalDeaths >= mEnemies.size())
+	if (static_cast<size_t>(mTotalDeaths) >= mEnemies.size())
 	{
 		gameState = GameWin;
 		return;
 	}
 
-	for (int i = 0; i < mEnemies.size(); i++)
+	for (size_t i = 0; i < mEnemies.size(); i++)
 	{
 		mEnemies[i].Update(deltaTime);
 	}
@@ -97,7 +97,7 @@ void EnemyManager::Update(float deltaTime)
 
 void EnemyManager::Render()
 {
-	for (int i = 0; i < mEnemies.size(); i++)
+	for (size_t i = 0; i < mEnemies.size(); i++)
 	{
 		mEnemies[i].Render();
 	}
@@ -107,7 +107,7 @@ Math::Vector2 EnemyManager::CheckCollision(Math::Rect rect, int damage, Math::Ve
 {
 	int closestEnemy = -1;
 	float closestDistance = std::numeric_limits<float>::max();
-	for (int i = 0; i < mEnemies.size(); i++)
+	for (size_t i = 0; i < mEnemies.size(); i++)
 	{
 		if (mEnemies[i].IsAlive() && Math::Intersect(rect, mEnemies[i].GetBoundingBox()))
 		{
@@ -129,7 +129,7 @@ Math::Vector2 EnemyManager::CheckCollision(Math::Rect rect, int damage, Math::Ve
 
 bool EnemyManager::CheckProjectileCollision(Math::Vector2 point, int damage)
 {
-	for (int i = 0; i < mEnemies.size(); i++)
+	for (size_t i = 0; i < mEnemies.size(); i++)
 	{
 		if (mEnemies[i].IsAlive() && Math::PointInRect(point, mEnemies[i].GetBoundingBox()))
 		{
@@ -148,7 +148,7 @@ void EnemyManager::DebugUI()
 	{
 		if (ImGui::Checkbox("Show Debug lines", &mShowDebug))
 		{
-			for (int i = 0; i < mEnemies.size(); i++)
+			for (size_t i = 0; i < mEnemies.size(); i++)
 			{
 				mEnemies[i].mShowDebug = mShowDebug;
 			}
