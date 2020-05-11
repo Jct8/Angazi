@@ -58,6 +58,10 @@ void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)
 		fscanf_s(file, "DiffuseMapName: %s\n", buffer, std::size(buffer));
 		if (buffer != "<none>")
 			model.materialData[i].diffuseMapName = buffer;
+		fscanf_s(file, "NormalMapName: %s\n", buffer, std::size(buffer));
+		if (buffer != "<none>")
+			model.materialData[i].normalMapName = buffer;
+
 		fscanf_s(file, "MaterialAmbient: %f %f %f\n"
 			, &model.materialData[i].material.ambient.x, &model.materialData[i].material.ambient.y, &model.materialData[i].material.ambient.z);
 		fscanf_s(file, "MaterialDiffuse: %f %f %f\n"
@@ -81,6 +85,11 @@ void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)
 			data.diffuseMap = std::make_unique<Texture>();
 			data.diffuseMap->Initialize(data.diffuseMapName);
 		}
+		if (!data.normalMapName.empty())
+		{
+			data.normalMap = std::make_unique<Texture>();
+			data.normalMap->Initialize(data.normalMapName);
+		}
 	}
 }
 
@@ -98,6 +107,8 @@ void Model::Terminate()
 		data.meshBuffer.Terminate();
 	for (auto& data : materialData)
 		data.diffuseMap->Terminate();
+	for (auto& data : materialData)
+		data.normalMap->Terminate();
 }
 
 void Model::Draw() const
@@ -107,6 +118,7 @@ void Model::Draw() const
 		auto& data = meshData[i];
 
 		materialData[data.materialIndex].diffuseMap->BindPS(0);
+		materialData[data.materialIndex].normalMap->BindPS(3);
 		data.meshBuffer.Draw();
 	}
 }

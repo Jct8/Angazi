@@ -37,7 +37,9 @@ namespace Angazi::Graphics
 		{
 			Material material;
 			std::string diffuseMapName;
+			std::string normalMapName;
 			std::unique_ptr<Texture> diffuseMap;
+			std::unique_ptr<Texture> normalMap;
 		};
 
 		std::vector<MeshData> meshData;

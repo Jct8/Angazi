@@ -58,7 +58,7 @@ void GameState::Initialize()
 
 	mModelsettings.specularMapWeight = 0.0f;
 	mModelsettings.bumpMapWeight = 0.0f;
-	mModelsettings.normalMapWeight = 0.0f;
+	mModelsettings.normalMapWeight = 1.0f;
 	mModelsettings.aoMapWeight = 0.0f;
 	mModelsettings.specularMapWeight = 0.0f;
 	mModelsettings.useShadow = 0;
@@ -83,7 +83,7 @@ void GameState::Initialize()
 		.SetLooping(true)
 		.Build();
 
-	model.Initialize("../../Assets/Models/character.model");
+	model.Initialize("../../Assets/Models/Chad/Chad.model");
 	mBoneMatrices.resize(model.skeleton.bones.size());
 	ComputeBoneMatrices(model.skeleton.root, mBoneMatrices);
 }
@@ -201,10 +201,8 @@ void GameState::DebugUI()
 	{
 		ImGui::DragFloat3("JetTranslation##Transform", &mJetPosition.x, 0.3f);
 	}
-	if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_DefaultOpen))
-	{
-		ImGui::Checkbox("Show Skeleton", &mShowSkeleton);
-	}
+	ImGui::Checkbox("Show Skeleton", &mShowSkeleton);
+
 	ImGui::End();
 }
 
@@ -262,13 +260,9 @@ void GameState::DrawScene()
 	mSettingsBuffer.Update(&mModelsettings);
 
 	if (mShowSkeleton)
-	{
 		DrawSkeleton(model.skeleton, mBoneMatrices);
-	}
 	else
-	{
 		model.Draw();
-	}
 	SimpleDraw::Render(mCamera, matWorld);
 }
 

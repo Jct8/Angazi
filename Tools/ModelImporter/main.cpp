@@ -87,6 +87,11 @@ void SaveModel(const Arguments& args, const Model& model)
 			fprintf_s(file, "DiffuseMapName: %s\n", model.materialData[i].diffuseMapName.c_str());
 		else
 			fprintf_s(file, "DiffuseMapName: <none>");
+		if (!model.materialData[i].normalMapName.empty())
+			fprintf_s(file, "NormalMapName: %s\n", model.materialData[i].normalMapName.c_str());
+		else
+			fprintf_s(file, "NormalMapName: <none>");
+
 		fprintf_s(file, "MaterialAmbient: %f %f %f\n"
 			, model.materialData[i].material.ambient.x, model.materialData[i].material.ambient.y, model.materialData[i].material.ambient.z);
 		fprintf_s(file, "MaterialDiffuse: %f %f %f\n"
@@ -115,7 +120,6 @@ void SaveSkeleton(const Arguments& args, const Skeleton& skeleton)
 	fclose(file);
 }
 
-
 inline Color Convert(const aiColor3D& c)
 {
 	return { c.r , c.g, c.b, 1.0f };
@@ -142,8 +146,8 @@ void ExportEmbeddedTexture(const aiTexture& texture, const Arguments& args, cons
 	printf("Extracting Embedded Texture ...\n");
 
 	std::string fullFileName = args.outputFileName;
-	fullFileName = fullFileName.substr(0, fullFileName.rfind('/') + 1);
-	fullFileName += fileName;
+	//fullFileName = fullFileName.substr(0, fullFileName.rfind('/') + 1);
+	fullFileName = fileName;
 
 	FILE* file = nullptr;
 	fopen_s(&file, fullFileName.c_str(), "wb");
@@ -152,7 +156,7 @@ void ExportEmbeddedTexture(const aiTexture& texture, const Arguments& args, cons
 	fclose(file);
 }
 
-std::string FindTexture(const aiScene& scene, const aiMaterial& inputMaterial, aiTextureType textureType, const Arguments& args, const char* suffix)
+std::string FindTexture(const aiScene& scene, const aiMaterial& inputMaterial, aiTextureType textureType, const Arguments& args, std::string suffix)
 {
 	std::filesystem::path textureName;
 
@@ -389,8 +393,8 @@ int main(int argc, char* argv[])
 			material.material.diffuse = Convert(diffuseColor);
 			material.material.specular = Convert(specularColor);
 			material.material.power = specularPower;
-			std::string suffix = "_diffuse_" + std::to_string(i);
-			material.diffuseMapName = FindTexture( *scene, *inputMaterial, aiTextureType_DIFFUSE, args, suffix.c_str());
+			material.diffuseMapName = FindTexture(*scene, *inputMaterial, aiTextureType_DIFFUSE, args, "_diffuse_" + std::to_string(i));
+			material.normalMapName = FindTexture( *scene, *inputMaterial, aiTextureType_NORMALS, args, "_normal_" + std::to_string(i));
 		}
 	}
 
