@@ -36,13 +36,20 @@ void ModelLoader::LoadSkeleton(std::filesystem::path fileName, Skeleton& skeleto
 
 void ModelLoader::LoadAnimationSet(std::filesystem::path fileName, AnimationSet & animationSet)
 {
+	// Homework
 	fileName.replace_extension("animset");
 
 	FILE* file = nullptr;
 	fopen_s(&file, fileName.u8string().c_str(), "r");
-
-	// Homework
-
+	uint32_t clipCount;
+	fscanf_s(file, "ClipCount: %d\n", &clipCount);
+	
+	animationSet.clips.resize(clipCount);
+	for (uint32_t i = 0; i < clipCount; i++)
+	{
+		animationSet.clips[i] = std::make_unique<AnimationClip>();
+		AnimationIO::Read(file, *animationSet.clips[i]);
+	}
 	fclose(file);
 }
 
@@ -106,12 +113,12 @@ void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)
 	}
 }
 
-
 void Model::Initialize(const std::filesystem::path& fileName)
 {
 	ASSERT(std::filesystem::exists(fileName), "File does not exist");
 	ModelLoader::LoadModel(fileName, *this);
 	ModelLoader::LoadSkeleton(fileName, skeleton);
+	ModelLoader::LoadAnimationSet(fileName,animationSet);
 }
 
 void Model::Terminate()

@@ -131,7 +131,7 @@ void SaveAnimationSet(const Arguments& args, const AnimationSet& animationSet)
 	fopen_s(&file, path.u8string().c_str(), "w");
 
 	const uint32_t clipCount = static_cast<uint32_t>(animationSet.clips.size());
-	fprintf_s(file, "ClipCount:%d\n", clipCount);
+	fprintf_s(file, "ClipCount: %d\n", clipCount);
 	for (auto& animationClip : animationSet.clips)
 	{
 		AnimationIO::Write(file, *animationClip);
@@ -161,14 +161,14 @@ inline Matrix4 Convert(const aiMatrix4x4& m)
 	return Transpose(mat);
 }
 
-void ExportEmbeddedTexture(const aiTexture& texture, const Arguments& args, const std::string& fileName)
+void ExportEmbeddedTexture(const aiTexture& texture, const Arguments& args, const std::filesystem::path& filePath)
 {
 	printf("Extracting Embedded Texture ...\n");
 
 	std::string fullFileName = args.outputFileName;
-	//fullFileName = fullFileName.substr(0, fullFileName.rfind('/') + 1);
-	//fullFileName += filePath.filename().u8string().c_str() ;
-	fullFileName = fileName;
+	fullFileName = fullFileName.substr(0, fullFileName.rfind('/') + 1);
+	fullFileName += filePath.filename().u8string().c_str();
+	//fullFileName = fileName;
 
 	FILE* file = nullptr;
 	fopen_s(&file, fullFileName.c_str(), "wb");

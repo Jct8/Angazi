@@ -22,6 +22,7 @@ namespace Angazi::Graphics
 		bool IsLooping() const { return mLooping; }
 
 	private:
+		friend class AnimationIO;
 		PositionKeys mPositionKeyframes;
 		RotationKeys mRotationKeyframes;
 		ScaleKeys mScaleKeyframes;
