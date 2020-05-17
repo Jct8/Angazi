@@ -78,6 +78,13 @@ void Camera::SetFarPlane(float farPlane)
 	mFarPlane = farPlane;
 }
 
+void Camera::Zoom(float amount)
+{
+	constexpr float minZoom = 170.0f * Math::Constants::DegToRad;
+	constexpr float maxZoom = 10.0f * Math::Constants::DegToRad;
+	mFov = Math::Clamp(mFov - amount, maxZoom, minZoom);
+}
+
 Math::Matrix4 Camera::GetViewMatrix() const
 {
 	const Math::Vector3 l = mDirection;

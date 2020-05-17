@@ -41,3 +41,34 @@ void Angazi::Graphics::ComputeBoneMatrices(Bone* bone, std::vector<Math::Matrix4
 	for (size_t i = 0; i < bone->children.size(); i++)
 		ComputeBoneMatrices(bone->children[i], boneMatrices);
 }
+
+//Tips for getting the bone matrices :
+//---------------------------------- -
+//
+//			R
+//			|
+//			V
+//		   [U]
+//       [U]  [U]
+//    [U]        [U]
+//
+//GetTransform returns
+//bone->toParentTransform if we are using the bind pose(default from the skeleton)
+//clip.boneAnim[bone->index] if we are using a animation pose(at time t)
+//
+//void UpdateBoneRecursive(std::vector<Matrix>& boneMatrices, const Bone* bone)
+//{
+//	if (bone->parent)
+//		boneMatrices[bone->index] = GetTransform(bone) * boneMatrices[bone->parent->index]
+//	else
+//		boneMatrices[bone->index] = GetTransform(bone)
+//
+//		for (auto& child : bone->children)
+//			UpdateBoneRecursive(boneMatrices, child)
+//}
+//
+//
+//std::vector<Matrix> boneMatrices;
+//UpdateBoneRecursive(boneMatrices, skeleton.root)
+//
+

@@ -16,6 +16,8 @@ namespace Angazi::Graphics
 
 		void BindVS(uint32_t slot = 0) const;
 		void BindPS(uint32_t slot = 0) const;
+		void UnbindVS(uint32_t slot = 0) const;
+		void UnbindPS(uint32_t slot = 0) const;
 
 		ID3D11ShaderResourceView* GetShaderResourceView() { return mShaderResourceView; }
 

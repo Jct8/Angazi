@@ -74,11 +74,9 @@ void Sampler::Terminate()
 void Sampler::BindVS(uint32_t slot) const
 {
 	GetContext()->VSSetSamplers(slot, 1, &mSampler);
-
 }
 
 void Sampler::BindPS(uint32_t slot) const
 {
 	GetContext()->PSSetSamplers(slot, 1, &mSampler);
-
 }

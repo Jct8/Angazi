@@ -4,6 +4,7 @@
 #include "Model.h"
 #include "MeshIO.h"
 #include "SkeletonIO.h"
+#include "AnimationIO.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
@@ -31,6 +32,18 @@ void ModelLoader::LoadSkeleton(std::filesystem::path fileName, Skeleton& skeleto
 			bone->children.push_back(skeleton.bones[bone->childIndices[j]].get());
 	}
 
+}
+
+void ModelLoader::LoadAnimationSet(std::filesystem::path fileName, AnimationSet & animationSet)
+{
+	fileName.replace_extension("animset");
+
+	FILE* file = nullptr;
+	fopen_s(&file, fileName.u8string().c_str(), "r");
+
+	// Homework
+
+	fclose(file);
 }
 
 void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)

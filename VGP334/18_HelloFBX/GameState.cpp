@@ -13,10 +13,10 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f,0.0f,-40.0f });
 	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
-	mTransformBuffer.Initialize();
-	mLightBuffer.Initialize();
-	mMaterialBuffer.Initialize();
-	mSettingsBuffer.Initialize();
+	mCamera.SetNearPlane(0.1f);
+	mCamera.SetFarPlane(300.0f);
+	/*mCamera.SetPosition({ 0.0f, 10.0f, -30.0f });
+	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });*/
 
 	mDirectionalLight.direction = Normalize({ -0.914f, 0.261f, 0.309f });
 	mDirectionalLight.direction = Normalize({ 0.985f,-0.069f, 0.156f });
@@ -28,12 +28,6 @@ void GameState::Initialize()
 	mMaterial.diffuse = { 0.8f,0.8f,0.8f ,1.0f };
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
 	mMaterial.power = 80.0f;
-
-	mVertexShader.Initialize("../../Assets/Shaders/Standard.fx", Vertex::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/Standard.fx");
-
-	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mBlendState.Initialize(BlendState::Mode::Additive);
 
 	// Post Processing
 	auto graphicsSystem = GraphicsSystem::Get();
@@ -47,73 +41,67 @@ void GameState::Initialize()
 	mJetPosition = { 0.0f,0.0f,0.0f };
 	ObjLoader::Load("../../Assets/Models/Jet/F 15.obj", 1.0f, mJetMesh);
 	mJetMeshBuffer.Initialize(mJetMesh);
-	mJetTexture.Initialize("../../Assets/Models/Jet/F 15E.jpg");
-	mJetSpecularTexture.Initialize("../../Assets/Models/Jet/F 15 Specular.jpg");
-	mJetNormalMap.Initialize("../../Assets/Models/Jet/F-15C normal.jpg");
-	mJetAOMap.Initialize("../../Assets/Models/Jet/F-15CAO.jpg");
-
-	// Settings
-	mSettings.brightness = 0.825f;
-	mSettings.bumpMapWeight = 0.165f;
-
-	mModelsettings.specularMapWeight = 0.0f;
-	mModelsettings.bumpMapWeight = 0.0f;
-	mModelsettings.normalMapWeight = 1.0f;
-	mModelsettings.aoMapWeight = 0.0f;
-	mModelsettings.specularMapWeight = 0.0f;
-	mModelsettings.useShadow = 0;
 
 	mAnimation = Graphics::AnimationBuilder()
 		.SetTime(0.0f)
-		.AddPositionKey(Math::Vector3(-20.0f, 0.0f, 0.0f))
-		.AddRotationKey(Math::Quaternion::Identity)
-		.AddScaleKey(Math::Vector3::One)
+			.AddPositionKey(Math::Vector3(-20.0f, 0.0f, 0.0f))
+			.AddRotationKey(Math::Quaternion::Identity)
+			.AddScaleKey(Math::Vector3::One)
 		.SetTime(5.0f)
-		.AddPositionKey(Math::Vector3(0.0f, 20.0f, 20.0f))
-		.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f, 1.0f, -1.0f), Math::Constants::DegToRad * 40.0f))
+			.AddPositionKey(Math::Vector3(0.0f, 20.0f, 20.0f))
+			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f, 1.0f, -1.0f), Math::Constants::DegToRad * 40.0f))
 		.SetTime(10.0f)
-		.AddPositionKey(Math::Vector3(20.0f, 0.0f, 0.0f))
-		.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(0.0f, 1.0f, 0.0f), Math::Constants::DegToRad * 180.0f))
+			.AddPositionKey(Math::Vector3(20.0f, 0.0f, 0.0f))
+			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(0.0f, 1.0f, 0.0f), Math::Constants::DegToRad * 180.0f))
 		.SetTime(15.0f)
-		.AddPositionKey(Math::Vector3(0.0f, -20.0f, -20.0f))
-		.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f, 1.0f, -1.0f), Math::Constants::DegToRad * 270.0f))
+			.AddPositionKey(Math::Vector3(0.0f, -20.0f, -20.0f))
+			.AddRotationKey(Math::Quaternion::RotationAxis(Math::Vector3(-1.0f, 1.0f, -1.0f), Math::Constants::DegToRad * 270.0f))
 		.SetTime(20.0f)
-		.AddPositionKey(Math::Vector3(-20.0f, 0.0f, 0.0f))
-		.AddRotationKey(Math::Quaternion::Identity)
+			.AddPositionKey(Math::Vector3(-20.0f, 0.0f, 0.0f))
+			.AddRotationKey(Math::Quaternion::Identity)
 		.SetLooping(true)
 		.Build();
 
 	model.Initialize("../../Assets/Models/Chad/Chad.model");
 	mBoneMatrices.resize(model.skeleton.bones.size());
 	ComputeBoneMatrices(model.skeleton.root, mBoneMatrices);
+
+	// Effects
+	mJetStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
+	mJetStandardEffect.SetDiffuseTexture("../../Assets/Models/Jet/F 15E.jpg");
+	mJetStandardEffect.SetSpecularTexture("../../Assets/Models/Jet/F 15 Specular.jpg");
+	mJetStandardEffect.SetNormalTexture("../../Assets/Models/Jet/F-15C normal.jpg");
+	mJetStandardEffect.SetAOTexture("../../Assets/Models/Jet/F-15CAO.jpg");
+	mJetStandardEffect.UseShadow(true);
+
+	mModelStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
+	mModelStandardEffect.UseShadow(true);
+
+	mGroundStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
+	mGroundStandardEffect.SetDiffuseTexture("../../Assets/Images/Sand.jpg");
+	mGroundStandardEffect.UseShadow(true);
+
+	mGroundMesh = MeshBuilder::CreatePlane(100.0f, 200, 200);
+	mGroundMeshBuffer.Initialize(mGroundMesh);
+
+	//mShadowEffect.Initialize("../../Assets/Shaders/DepthMap.fx");
 }
 
 void GameState::Terminate()
 {
+	mShadowEffect.Terminate();
+	mGroundStandardEffect.Terminate();
+	mModelStandardEffect.Terminate();
+	mJetStandardEffect.Terminate();
+
 	// Model
 	model.Terminate();
-
-	//Jet
-	mJetAOMap.Terminate();
-	mJetNormalMap.Terminate();
-	mJetDisplacementTexture.Terminate();
-	mJetTexture.Terminate();
 	mJetMeshBuffer.Terminate();
 
 	mPostProcessingPixelShader.Terminate();
 	mPostProcessingVertexShader.Terminate();
 	mScreenQuadBuffer.Terminate();
 	mRenderTarget.Terminate();
-	//
-	mBlendState.Terminate();
-	mSampler.Terminate();
-
-	mPixelShader.Terminate();
-	mVertexShader.Terminate();
-	mSettingsBuffer.Terminate();
-	mMaterialBuffer.Terminate();
-	mLightBuffer.Terminate();
-	mTransformBuffer.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -139,10 +127,14 @@ void GameState::Update(float deltaTime)
 		mCamera.Strafe(kMoveSpeed*deltaTime);
 
 	dt += deltaTime;
+	//mShadowEffect.SetLightDirection(mDirectionalLight.direction, mCamera);
 }
 
 void GameState::Render()
 {
+	//mShadowEffect.Begin();
+	//DrawDepthMap();
+	//mShadowEffect.End();
 	//mRenderTarget.BeginRender();
 	DrawScene();
 	//mRenderTarget.EndRender();
@@ -155,6 +147,14 @@ void GameState::Render()
 void GameState::DebugUI()
 {
 	ImGui::Begin("Setting", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	//ImGui::Image(
+	//	mShadowEffect.GetRenderTarget()->GetShaderResourceView(),
+	//	{ 150.0f,150.0f },
+	//	{ 0.0f,0.0f },
+	//	{ 1.0f,1.0f },
+	//	{ 1.0f,1.0f ,1.0f,1.0f },
+	//	{ 1.0f,1.0f ,1.0f,1.0f }
+	//);
 	if (ImGui::CollapsingHeader("Light"))
 	{
 		bool directionChanged = false;
@@ -181,21 +181,20 @@ void GameState::DebugUI()
 		static bool normal = true;
 		static bool specular = true;
 		static bool aoMap = true;
-		static bool useShadow = mSettings.useShadow == 1;
-		ImGui::SliderFloat("Displacement", &mSettings.bumpMapWeight, 0.0f, 1.0f);
+		//static bool useShadow = mSettings.useShadow == 1;
 		if (ImGui::Checkbox("Normal Map", &normal))
 		{
-			mSettings.normalMapWeight = normal ? 1.0f : 0.0f;
+			float normalMapWeight = normal ? 1.0f : 0.0f;
 		}
 		if (ImGui::Checkbox("Specular Map", &specular))
 		{
-			mSettings.specularMapWeight = specular ? 1.0f : 0.0f;
+			float specularMapWeight = specular ? 1.0f : 0.0f;
 		}
 		if (ImGui::Checkbox("Ambient occlusion", &aoMap))
 		{
-			mSettings.aoMapWeight = aoMap ? 1.0f : 0.0f;
+			float aoMapWeight = aoMap ? 1.0f : 0.0f;
 		}
-		ImGui::SliderFloat("Brightness", &mSettings.brightness, 0.0f, 10.f);
+		//ImGui::SliderFloat("Brightness", &mSettings.brightness, 0.0f, 10.f);
 	}
 	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{
@@ -208,62 +207,62 @@ void GameState::DebugUI()
 
 void GameState::DrawScene()
 {
+	//auto lightVP = mShadowEffect.GetVPMatrix();
+	//RenderTarget* target = mShadowEffect.GetRenderTarget();
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
 
-	mSampler.BindVS();
-	mSampler.BindPS();
-
-	TransformData transformData;
-	mTransformBuffer.BindVS(0);
-
-	mLightBuffer.Update(&mDirectionalLight);
-	mLightBuffer.BindVS(1);
-	mLightBuffer.BindPS(1);
-
-	mMaterialBuffer.Update(&mMaterial);
-	mMaterialBuffer.BindVS(2);
-	mMaterialBuffer.BindPS(2);
-
-	mSettingsBuffer.BindVS(3);
-	mSettingsBuffer.BindPS(3);
-
 	// Jet
-	mSettingsBuffer.Update(&mSettings);
-
-	mJetTexture.BindPS(0);
-	mJetSpecularTexture.BindPS(1);
-	mJetDisplacementTexture.BindVS(2);
-	mJetNormalMap.BindPS(3);
-	mJetAOMap.BindPS(4);
-
-	mVertexShader.Bind();
-	mPixelShader.Bind();
-
 	auto matWorld = mAnimation.GetTransform(dt);
-
-	transformData.world = Transpose(matWorld);
-	transformData.wvp = Transpose(matWorld * matView *matProj);
-	transformData.viewPosition = mCamera.GetPosition();
-	mTransformBuffer.Update(&transformData);
+	mJetStandardEffect.Begin();
+	mJetStandardEffect.SetMaterial(mMaterial);
+	mJetStandardEffect.SetDirectionalLight(mDirectionalLight);
+	mJetStandardEffect.SetViewProjection(mCamera.GetPosition());
+	mJetStandardEffect.SetWorldMatrix(matWorld);
+	mJetStandardEffect.SetWVPMatrix(matWorld,matView,matProj);
+	mJetStandardEffect.UpdateSettings();
 
 	mJetMeshBuffer.Draw();
+	mJetStandardEffect.End();
 
+	// Model
 	auto matRot = Matrix4::RotationY(Constants::Pi);
 	matWorld = Matrix4::Scaling(0.1f) * matRot * matWorld;
-
-	transformData.world = Transpose(matWorld);
-	transformData.wvp = Transpose(matWorld * matView *matProj);
-	transformData.viewPosition = mCamera.GetPosition();
-	mTransformBuffer.Update(&transformData);
-
-	mSettingsBuffer.Update(&mModelsettings);
+	mModelStandardEffect.Begin();
+	mModelStandardEffect.SetMaterial(mMaterial);
+	mModelStandardEffect.SetDirectionalLight(mDirectionalLight);
+	mModelStandardEffect.SetViewProjection(mCamera.GetPosition());
+	mModelStandardEffect.SetWorldMatrix(matWorld);
+	mModelStandardEffect.SetWVPMatrix(matWorld, matView, matProj);
+	//mModelStandardEffect.SetDepthTexture(target);
+	mModelStandardEffect.UpdateSettings();
 
 	if (mShowSkeleton)
 		DrawSkeleton(model.skeleton, mBoneMatrices);
 	else
 		model.Draw();
+
+	mModelStandardEffect.End();
+
 	SimpleDraw::Render(mCamera, matWorld);
+
+	// Ground
+	matWorld = Matrix4::Translation({ 0.0f,-20.0f,0.0f });;
+	mGroundStandardEffect.Begin();
+	mGroundStandardEffect.SetMaterial(mMaterial);
+	mGroundStandardEffect.SetDirectionalLight(mDirectionalLight);
+	mGroundStandardEffect.SetViewProjection(mCamera.GetPosition());
+	mGroundStandardEffect.SetWorldMatrix(matWorld);
+	mGroundStandardEffect.SetWVPMatrix(matWorld, matView, matProj);
+	//mGroundStandardEffect.SetDepthTexture(target);
+	//auto wvpLight = Transpose(matWorld * lightVP);
+	//mGroundStandardEffect.UpdateShadowBuffer(wvpLight);
+
+	mGroundStandardEffect.UpdateSettings();
+
+	//mGroundMeshBuffer.Draw();
+	mGroundStandardEffect.End();
+
 }
 
 void GameState::PostProcess()
@@ -272,4 +271,22 @@ void GameState::PostProcess()
 	mPostProcessingVertexShader.Bind();
 	mSampler.BindPS();
 	mScreenQuadBuffer.Draw();
+}
+
+void GameState::DrawDepthMap()
+{
+	// Jet
+	auto matWorld = mAnimation.GetTransform(dt);
+	mShadowEffect.SetWorldMatrix(matWorld);
+	mJetMeshBuffer.Draw();
+
+	// Model
+	auto matRot = Matrix4::RotationY(Constants::Pi);
+	matWorld = Matrix4::Scaling(0.1f) * matRot * matWorld;
+	mShadowEffect.SetWorldMatrix(matWorld);
+
+	if (mShowSkeleton)
+		DrawSkeleton(model.skeleton, mBoneMatrices);
+	else
+		model.Draw();
 }

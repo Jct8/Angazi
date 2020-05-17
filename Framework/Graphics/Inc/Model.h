@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "MeshBuffer.h"
 #include "Skeleton.h"
+#include "AnimationSet.h"
 
 namespace Angazi::Graphics
 {
@@ -16,6 +17,7 @@ namespace Angazi::Graphics
 	public:
 		static void LoadModel(std::filesystem::path fileName, Model & model);
 		static void LoadSkeleton(std::filesystem::path fileName, Skeleton & skeleton);
+		static void LoadAnimationSet(std::filesystem::path fileName, AnimationSet & animationSet);
 	};
 
 	class Model
@@ -45,5 +47,6 @@ namespace Angazi::Graphics
 		std::vector<MeshData> meshData;
 		std::vector<MaterialData> materialData;
 		Skeleton skeleton;
+		AnimationSet animationSet;
 	};
 }

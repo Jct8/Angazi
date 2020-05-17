@@ -40,6 +40,18 @@ void ConstantBuffer::BindPS(uint32_t slot) const
 	GetContext()->PSSetConstantBuffers(slot, 1, &mConstantBuffer);
 }
 
+void ConstantBuffer::UnbindVS(uint32_t slot) const
+{
+	static ID3D11Buffer* dummy = nullptr;
+	GetContext()->VSSetConstantBuffers(slot, 1, &dummy);
+}
+
+void ConstantBuffer::UnbindPS(uint32_t slot) const
+{
+	static ID3D11Buffer* dummy = nullptr;
+	GetContext()->PSSetConstantBuffers(slot, 1, &dummy);
+}
+
 void ConstantBuffer::Update(const void * data) const
 {
 	GetContext()->UpdateSubresource(mConstantBuffer, 0, nullptr, data, 0, 0);

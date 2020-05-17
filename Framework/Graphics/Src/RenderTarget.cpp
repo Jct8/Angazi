@@ -103,7 +103,7 @@ void RenderTarget::EndRender()
 	GraphicsSystem::Get()->ResetViewport();
 }
 
-void RenderTarget::BindPS(uint32_t slot)
+void RenderTarget::BindPS(uint32_t slot) const
 {
 	GetContext()->PSSetShaderResources(slot, 1, &mShaderResourceView);
 }

@@ -42,3 +42,15 @@ void Texture::BindPS(uint32_t slot) const
 {
 	GetContext()->PSSetShaderResources(slot, 1, &mShaderResourceView);
 }
+
+void Texture::UnbindVS(uint32_t slot) const
+{
+	static ID3D11ShaderResourceView* dummy = nullptr;
+	GetContext()->VSSetShaderResources(slot, 1, &dummy);
+}
+
+void Texture::UnbindPS(uint32_t slot) const
+{
+	static ID3D11ShaderResourceView* dummy = nullptr;
+	GetContext()->PSSetShaderResources(slot, 1, &dummy);
+}

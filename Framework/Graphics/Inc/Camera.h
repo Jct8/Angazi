@@ -25,6 +25,9 @@ namespace Angazi::Graphics
 		void SetNearPlane(float nearPlane);
 		void SetFarPlane(float farPlane);
 
+		// 1 degree of freedom for field of view
+		void Zoom(float amount);
+
 		const Math::Vector3 &GetPosition() const { return mPosition; }
 		const Math::Vector3 &GetDirection() const { return mDirection; }
 

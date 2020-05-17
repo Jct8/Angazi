@@ -45,7 +45,6 @@ void PixelShader::Initialize(const std::filesystem::path& filePath, const char *
 void Angazi::Graphics::PixelShader::Terminate()
 {
 	SafeRelease(mPixelShader);
-
 }
 
 void Angazi::Graphics::PixelShader::Bind()

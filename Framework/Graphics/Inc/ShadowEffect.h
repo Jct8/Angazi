@@ -1,0 +1,49 @@
+#pragma once
+
+#include "ConstantBuffer.h"
+#include "Texture.h"
+#include "VertexShader.h"
+#include "PixelShader.h"
+#include "RenderTarget.h"
+#include "Camera.h"
+
+namespace Angazi::Graphics
+{
+	class ShadowEffect
+	{
+	public:
+		ShadowEffect() = default;
+		ShadowEffect(const ShadowEffect&) = delete;
+		ShadowEffect& operator=(const ShadowEffect&) = delete;
+
+		void Initialize(const std::filesystem::path& fileName);
+		void Terminate();
+
+		void Begin();
+		void End();
+	public:
+
+		void SetLightDirection(const Math::Vector3& direction, const Angazi::Graphics::Camera& mCurrentCamera);
+		void SetWorldMatrix(const Math::Matrix4& world);
+
+		Angazi::Graphics::Texture* GetDepthTexture() { return &mDepthTexture; };
+		Angazi::Graphics::RenderTarget* GetRenderTarget() { return &mDepthMapRenderTarget; };
+		Angazi::Math::Matrix4 GetVPMatrix() { return  mLightCamera.GetViewMatrix() *mLightProjectionMatrix; };
+
+	private:
+		using DepthMapConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
+		using ShadowConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
+
+		//Shadow
+		Angazi::Graphics::RenderTarget mDepthMapRenderTarget;
+		Angazi::Graphics::VertexShader mDepthMapVertexShader;
+		Angazi::Graphics::PixelShader mDepthMapPixelShader;
+		DepthMapConstantBuffer mDepthMapConstantBuffer;
+		ShadowConstantBuffer mShadowConstantBuffer;
+
+		std::vector<Angazi::Math::Vector3> mViewFrustumVertices;
+		Angazi::Graphics::Camera mLightCamera;
+		Angazi::Math::Matrix4 mLightProjectionMatrix;
+		Angazi::Graphics::Texture mDepthTexture;
+	};
+}

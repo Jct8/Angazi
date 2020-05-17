@@ -15,6 +15,9 @@ namespace Angazi::Graphics
 		void Terminate();
 		void BindVS(uint32_t slot = 0) const;
 		void BindPS(uint32_t slot = 0) const;
+		void UnbindVS(uint32_t slot = 0) const;
+		void UnbindPS(uint32_t slot = 0) const;
+
 		void Update(const void* data) const;
 	private:
 		ID3D11Buffer* mConstantBuffer = nullptr;
