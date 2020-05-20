@@ -12,6 +12,7 @@
 #include "Colors.h"
 #include "ConstantBuffer.h"
 #include "DebugUI.h"
+#include "Effect.h"
 #include "GraphicsSystem.h"
 #include "Keyframe.h"
 #include "LightTypes.h"

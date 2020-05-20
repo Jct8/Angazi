@@ -177,6 +177,9 @@
     <ClInclude Include="Inc\AnimationIO.h">
       <Filter>Inc\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Effect.h">
+      <Filter>Inc\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\GraphicsSystem.cpp">

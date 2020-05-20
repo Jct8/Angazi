@@ -7,21 +7,26 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "RenderTarget.h"
+#include "Sampler.h"
+#include "BlendState.h"
+#include "Effect.h"
 
 namespace Angazi::Graphics
 {
-	class StandardEffect
+	class StandardEffect : public Effect
 	{
 	public:
-		StandardEffect() = default;
+		StandardEffect() :Effect(StandardType) {};
+		~StandardEffect() = default;
 		StandardEffect(const StandardEffect&) = delete;
 		StandardEffect& operator=(const StandardEffect&) = delete;
 
-		void Initialize(const std::filesystem::path& fileName);
-		void Terminate();
+		void Initialize(const std::filesystem::path& fileName) override;
+		void Terminate() override;
 
-		void Begin();
-		void End();
+		void Begin() override;
+		void End() override;
+
 	public:
 
 		void SetWorldMatrix(const Math::Matrix4& world);
@@ -38,8 +43,14 @@ namespace Angazi::Graphics
 		void SetSpecularTexture(const std::filesystem::path& fileName);
 		void SetDisplacementTexture(const std::filesystem::path& fileName);
 		void SetAOTexture(const std::filesystem::path& fileName);
-		void SetDepthTexture(const Texture* depthTexture);
 		void SetDepthTexture(const RenderTarget* target);
+
+		void SetDiffuseTexture(const Texture* diffuseTexture);
+		void SetNormalTexture(const Texture* normalTexture);
+		void SetSpecularTexture(const Texture* specularTexture);
+		void SetDisplacementTexture(const Texture* displacementTexture);
+		void SetAOTexture(const Texture* aoTexture);
+		void SetDepthTexture(const Texture* depthTexture);
 
 		void SetSpecularMapWeight(float weight) { mSettings.specularMapWeight = weight; }
 		void SetBumpMapWeight(float weight) { mSettings.bumpMapWeight = weight; }
@@ -85,7 +96,6 @@ namespace Angazi::Graphics
 		using LightBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::DirectionalLight>;
 		using MaterialBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::Material>;
 		using SettingsBuffer = Angazi::Graphics::TypedConstantBuffer<Settings>;
-		//using DepthMapConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
 		using ShadowConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
 		using BoneTransformBuffer = Angazi::Graphics::TypedConstantBuffer<BoneTransform>;
 

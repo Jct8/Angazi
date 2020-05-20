@@ -6,21 +6,23 @@
 #include "PixelShader.h"
 #include "RenderTarget.h"
 #include "Camera.h"
+#include "Effect.h"
 
 namespace Angazi::Graphics
 {
-	class ShadowEffect
+	class ShadowEffect : public Effect
 	{
 	public:
-		ShadowEffect() = default;
+		ShadowEffect():Effect(ShadowType) {};
+		~ShadowEffect() = default;
 		ShadowEffect(const ShadowEffect&) = delete;
 		ShadowEffect& operator=(const ShadowEffect&) = delete;
 
-		void Initialize(const std::filesystem::path& fileName);
-		void Terminate();
+		void Initialize(const std::filesystem::path& fileName) override;
+		void Terminate() override;
 
-		void Begin();
-		void End();
+		void Begin() override;
+		void End() override;
 	public:
 		void SetLightDirection(const Math::Vector3& direction, const Angazi::Graphics::Camera& mCurrentCamera);
 		void SetWorldMatrix(const Math::Matrix4& world);

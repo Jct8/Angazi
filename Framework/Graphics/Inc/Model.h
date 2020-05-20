@@ -11,6 +11,7 @@ namespace Angazi::Graphics
 
 	class Model;
 	class Texture;
+	class Effect;
 
 	class ModelLoader
 	{
@@ -26,7 +27,7 @@ namespace Angazi::Graphics
 		void Initialize(const std::filesystem::path & fileName);
 		void Terminate();
 
-		void Draw() const;
+		void Draw(Effect* effect ) const;
 	public:
 		struct MeshData
 		{

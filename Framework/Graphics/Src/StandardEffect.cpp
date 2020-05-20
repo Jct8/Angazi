@@ -64,7 +64,7 @@ void StandardEffect::Begin()
 	mTransformBuffer.BindVS(0);
 	mLightBuffer.BindVS(1);
 	mLightBuffer.BindPS(1);
-	mMaterialBuffer.BindVS(2);
+	//mMaterialBuffer.BindVS(2);
 	mMaterialBuffer.BindPS(2);
 	mSettingsBuffer.BindVS(3);
 	mSettingsBuffer.BindPS(3);
@@ -87,7 +87,7 @@ void StandardEffect::End()
 	mTransformBuffer.UnbindVS(0);
 	mLightBuffer.UnbindVS(1);
 	mLightBuffer.UnbindPS(1);
-	mMaterialBuffer.UnbindVS(2);
+	//mMaterialBuffer.UnbindVS(2);
 	mMaterialBuffer.UnbindPS(2);
 	mSettingsBuffer.UnbindVS(3);
 	mSettingsBuffer.UnbindPS(3);
@@ -160,13 +160,32 @@ void StandardEffect::SetAOTexture(const std::filesystem::path & fileName)
 	mSettings.aoMapWeight = 1.0f;
 	mAmbientOcclusionMap.Initialize(fileName);
 }
-
-void StandardEffect::SetDepthTexture(const Texture * depthTexture)
-{
-	depthTexture->BindPS(5);
-}
-
 void StandardEffect::SetDepthTexture(const RenderTarget * target)
 {
 	target->BindPS(5);
+}
+
+void StandardEffect::SetDiffuseTexture(const Texture * diffuseTexture)
+{
+	diffuseTexture->BindPS(0);
+}
+void StandardEffect::SetNormalTexture(const Texture * normalTexture)
+{
+	normalTexture->BindPS(3);
+}
+void StandardEffect::SetSpecularTexture(const Texture * specularTexture)
+{
+	specularTexture->BindPS(1);
+}
+void StandardEffect::SetDisplacementTexture(const Texture * displacementTexture)
+{
+	displacementTexture->BindVS(2);
+}
+void StandardEffect::SetAOTexture(const Texture * aoTexture)
+{
+	aoTexture->BindPS(4);
+}
+void StandardEffect::SetDepthTexture(const Texture * depthTexture)
+{
+	depthTexture->BindPS(5);
 }

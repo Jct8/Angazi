@@ -5,6 +5,7 @@
 #include "MeshIO.h"
 #include "SkeletonIO.h"
 #include "AnimationIO.h"
+#include "StandardEffect.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
@@ -132,14 +133,20 @@ void Model::Terminate()
 		data.normalMap->Terminate();
 }
 
-void Model::Draw() const
+void Model::Draw(Effect *effect) const
 {
 	for (size_t i = 0; i < meshData.size(); ++i)
 	{
 		auto& data = meshData[i];
-
-		materialData[data.materialIndex].diffuseMap->BindPS(0);
-		materialData[data.materialIndex].normalMap->BindPS(3);
+		//materialData[data.materialIndex].diffuseMap->BindPS(0);
+		//materialData[data.materialIndex].normalMap->BindPS(3);
+		if (effect->GetEffectType() == Effect::EffectType::StandardType)
+		{
+			StandardEffect* standardEffect = static_cast<StandardEffect*>(effect);
+			standardEffect->SetDiffuseTexture(materialData[data.materialIndex].diffuseMap.get());
+			standardEffect->SetNormalTexture(materialData[data.materialIndex].normalMap.get());
+			//standardEffect->SetMaterial(materialData[data.materialIndex].material);
+		}
 		data.meshBuffer.Draw();
 	}
 }

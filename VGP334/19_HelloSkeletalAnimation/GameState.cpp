@@ -58,6 +58,7 @@ void GameState::Initialize()
 	mGroundStandardEffect.SetAOTexture("../../Assets/Images/Floor/Stone_Tiles_004_ao.jpg");
 	mGroundStandardEffect.SetDisplacementTexture("../../Assets/Images/Floor/Stone_Tiles_004_height.png");
 	mGroundStandardEffect.UseShadow(true);
+	mGroundStandardEffect.SetBumpMapWeight(6.0f);
 
 	mGroundMesh = MeshBuilder::CreatePlane(100.0f, 100, 100);
 	mGroundMeshBuffer.Initialize(mGroundMesh);
@@ -67,6 +68,7 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
+	// Effects
 	mShadowEffect.Terminate();
 	mGroundStandardEffect.Terminate();
 	mModelStandardEffect.Terminate();
@@ -74,6 +76,7 @@ void GameState::Terminate()
 	// Model
 	model.Terminate();
 
+	// Post Processing
 	mPostProcessingPixelShader.Terminate();
 	mPostProcessingVertexShader.Terminate();
 	mScreenQuadBuffer.Terminate();
@@ -207,12 +210,12 @@ void GameState::DrawScene()
 	if (mShowSkeleton)
 		DrawSkeleton(model.skeleton, mBoneMatrices);
 	else
-		model.Draw();
+		model.Draw(&mModelStandardEffect);
 	mModelStandardEffect.End();
 	SimpleDraw::Render(mCamera, matWorld);
 
 	// Ground
-	matWorld = Matrix4::Translation({ 0.0f,0.0f,0.0f });;
+	matWorld = Matrix4::Translation({ 0.0f,-3.0f,0.0f });;
 	mGroundStandardEffect.Begin();
 	mGroundStandardEffect.SetMaterial(mMaterial);
 	mGroundStandardEffect.SetDirectionalLight(mDirectionalLight);
@@ -248,5 +251,5 @@ void GameState::DrawDepthMap()
 	mShadowEffect.SetSkinnedMesh(true);
 	mShadowEffect.UpdateSettings();
 	if (!mShowSkeleton)
-		model.Draw();
+		model.Draw(&mShadowEffect);
 }
