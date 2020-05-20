@@ -1,4 +1,4 @@
-//Description: Simple shader that does applies transformation and lighting
+//Description: Standard shader for Angazi Engine
 
 cbuffer TransformBuffer : register(b0)
 {
@@ -32,14 +32,17 @@ cbuffer SettingsBuffer : register(b3)
 	float brightness : packoffset(c1.x);
 	bool useShadow : packoffset(c1.y);
 	float depthBias : packoffset(c1.z);
+	bool isSkinnedMesh : packoffset(c1.w);
 }
+
 cbuffer ShadowBuffer : register(b4)
 {
 	matrix WVPLight;
 }
-cbuffer BoneTrasformBuffer : register(b5)
+
+cbuffer BoneTransformBuffer : register(b5)
 {
-	matrix boneTransforms[128];
+	matrix boneTransforms[256];
 }
 
 Texture2D diffuseMap : register(t0);
@@ -61,7 +64,7 @@ static matrix Identity =
 
 matrix GetBoneTransform(int4 indices, float4 weights)
 {
-	if (length(weights) <= 0.0f)
+	if (length(weights) <= 0.0f || isSkinnedMesh == 0.0f)
 		return Identity;
 
 	matrix transform;
@@ -78,7 +81,7 @@ struct VS_INPUT
 	float4 normal : NORMAL;
 	float4 tangent : TANGENT;
 	float2 texCoord	: TEXCOORD;
-	int4 blendIndices 	: BLENDINDICES;
+	int4 blendIndices : BLENDINDICES;
 	float4 blendWeights : BLENDWEIGHT;
 };
 
@@ -91,7 +94,6 @@ struct VS_OUTPUT
 	float3 dirToView : TEXCOORD2;
 	float2 texCoord	: TEXCOORD3;
 	float4 positionNDC : TEXCOORD4;
-
 };
 
 VS_OUTPUT VS(VS_INPUT input)

@@ -76,10 +76,10 @@ void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)
 	{
 		char buffer[128];
 		fscanf_s(file, "DiffuseMapName: %s\n", buffer, std::size(buffer));
-		if (buffer != "<none>")
+		if (std::string(buffer) != "<none>")
 			model.materialData[i].diffuseMapName = buffer;
 		fscanf_s(file, "NormalMapName: %s\n", buffer, std::size(buffer));
-		if (buffer != "<none>")
+		if (std::string(buffer) != "<none>")
 			model.materialData[i].normalMapName = buffer;
 
 		fscanf_s(file, "MaterialAmbient: %f %f %f\n"
@@ -98,17 +98,18 @@ void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)
 
 	for (auto& data : model.meshData)
 		data.meshBuffer.Initialize(data.mesh);
+	//std::filesystem::path path = fileName.remove_filename();
 	for (auto& data : model.materialData)
 	{
 		if (!data.diffuseMapName.empty())
 		{
 			data.diffuseMap = std::make_unique<Texture>();
-			data.diffuseMap->Initialize(data.diffuseMapName);
+			data.diffuseMap->Initialize(fileName.replace_filename(data.diffuseMapName));
 		}
 		if (!data.normalMapName.empty())
 		{
 			data.normalMap = std::make_unique<Texture>();
-			data.normalMap->Initialize(data.normalMapName);
+			data.normalMap->Initialize(fileName.replace_filename(data.normalMapName));
 		}
 	}
 }

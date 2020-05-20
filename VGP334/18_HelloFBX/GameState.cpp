@@ -64,7 +64,7 @@ void GameState::Initialize()
 
 	model.Initialize("../../Assets/Models/Chad/Chad.model");
 	mBoneMatrices.resize(model.skeleton.bones.size());
-	ComputeBoneMatrices(model.skeleton.root, mBoneMatrices);
+	UpdateBoneMatrices(model.skeleton.root, mBoneMatrices);
 
 	// Effects
 	mJetStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");

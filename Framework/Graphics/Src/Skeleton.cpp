@@ -28,18 +28,25 @@ void Angazi::Graphics::DrawSkeleton(const Skeleton& skeleton, const std::vector<
 	// Use skeleton so you know what the parent child order is
 	// But, use boneMatrices (Which is the multiplied out matrices) to get the position
 	// Draw line to connect the bones
-	DrawBone(skeleton.root,boneMatrices);
+	DrawBone(skeleton.root, boneMatrices);
 }
 
-void Angazi::Graphics::ComputeBoneMatrices(Bone* bone, std::vector<Math::Matrix4>& boneMatrices)
+void Angazi::Graphics::UpdateBoneMatrices(Bone* bone, std::vector<Math::Matrix4>& boneMatrices, bool applyOffset, const AnimationClip& clip, float time)
 {
+	Math::Matrix4 transform = bone->toParentTransform;
+	if (!clip.boneAnimations.empty())
+		clip.GetTransform(time, bone->index, transform);
+
 	if (bone->parent)
-		boneMatrices[bone->index] = bone->toParentTransform * boneMatrices[bone->parent->index];
+		boneMatrices[bone->index] = transform * boneMatrices[bone->parent->index];
 	else
-		boneMatrices[bone->index] = Math::Matrix4::Identity;
+		boneMatrices[bone->index] = transform;
 
 	for (size_t i = 0; i < bone->children.size(); i++)
-		ComputeBoneMatrices(bone->children[i], boneMatrices);
+		UpdateBoneMatrices(bone->children[i], boneMatrices, applyOffset , clip , time);
+
+	if(applyOffset)
+		boneMatrices[bone->index] = Math::Transpose(bone->offsetTransform * boneMatrices[bone->index]);
 }
 
 //Tips for getting the bone matrices :

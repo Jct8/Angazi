@@ -19,9 +19,10 @@ void StandardEffect::Initialize(const std::filesystem::path & fileName)
 	mMaterialBuffer.Initialize();
 	mSettingsBuffer.Initialize();
 	mShadowConstantBuffer.Initialize();
+	mBoneTransformBuffer.Initialize();
 
 	// Shaders
-	mVertexShader.Initialize(fileName, Vertex::Format);
+	mVertexShader.Initialize(fileName, BoneVertex::Format);
 	mPixelShader.Initialize(fileName);
 
 	// 
@@ -39,6 +40,7 @@ void StandardEffect::Terminate()
 	mVertexShader.Terminate();
 
 	// Constant Buffers
+	mBoneTransformBuffer.Terminate();
 	mShadowConstantBuffer.Terminate();
 	mSettingsBuffer.Terminate();
 	mMaterialBuffer.Terminate();
@@ -66,6 +68,8 @@ void StandardEffect::Begin()
 	mMaterialBuffer.BindPS(2);
 	mSettingsBuffer.BindVS(3);
 	mSettingsBuffer.BindPS(3);
+	mShadowConstantBuffer.BindVS(4);
+	mBoneTransformBuffer.BindVS(5);
 
 	// Maps
 	mDiffuseMap.BindPS(0);
@@ -87,6 +91,8 @@ void StandardEffect::End()
 	mMaterialBuffer.UnbindPS(2);
 	mSettingsBuffer.UnbindVS(3);
 	mSettingsBuffer.UnbindPS(3);
+	mShadowConstantBuffer.UnbindVS(4);
+	mBoneTransformBuffer.UnbindVS(5);
 
 	// Textures
 	mDiffuseMap.UnbindPS(0);
@@ -121,6 +127,15 @@ void StandardEffect::SetMaterial(const Material & material)
 	mMaterialBuffer.Update(&material);
 }
 
+void StandardEffect::SetBoneTransforms(const std::vector<Math::Matrix4>& boneTransforms)
+{
+	for (size_t i = 0; i < boneTransforms.size(); i++)
+	{
+		mBoneTransform.boneTransforms[i] = boneTransforms[i];
+	}
+	mBoneTransformBuffer.Update(&mBoneTransform);
+}
+
 void StandardEffect::SetDiffuseTexture(const std::filesystem::path & fileName)
 {
 	mDiffuseMap.Initialize(fileName);
@@ -137,6 +152,7 @@ void StandardEffect::SetSpecularTexture(const std::filesystem::path & fileName)
 }
 void StandardEffect::SetDisplacementTexture(const std::filesystem::path & fileName)
 {
+	mSettings.bumpMapWeight = 1.0f;
 	mDisplacementMap.Initialize(fileName);
 }
 void StandardEffect::SetAOTexture(const std::filesystem::path & fileName)

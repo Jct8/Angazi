@@ -9,7 +9,7 @@ Math::Vector3 Animation::GetPosition(float time) const
 {
 	if (mPositionKeyframes.back().time < time)
 		if (mLooping)
-			time = (std::fmodf(time ,GetDuration()));
+			time = (std::fmodf(time , mPositionKeyframes.back().time - mPositionKeyframes.front().time));
 		else
 			return mPositionKeyframes.back().key;
 	if (mPositionKeyframes.size() == 1)
@@ -33,9 +33,9 @@ Math::Vector3 Animation::GetPosition(float time) const
 Math::Quaternion Animation::GetRotation(float time) const
 {
 	//Bound Checks
-	if (mPositionKeyframes.back().time < time)
+	if (mRotationKeyframes.back().time < time)
 		if (mLooping)
-			time = (std::fmodf(time, GetDuration())) ;
+			time = (std::fmodf(time, mRotationKeyframes.back().time - mScaleKeyframes.front().time)) ;
 		else
 			return mRotationKeyframes.back().key;
 	if (mRotationKeyframes.size() == 1)
@@ -53,15 +53,15 @@ Math::Quaternion Animation::GetRotation(float time) const
 	float timeFrameDuration = time - mRotationKeyframes[i - 1].time;
 	float totalFrameDuration = mRotationKeyframes[i].time - mRotationKeyframes[i - 1].time;
 	float t = timeFrameDuration / totalFrameDuration;
-	return Slerp(mRotationKeyframes[i - 1].key, mRotationKeyframes[i].key, t);
+	return Normalize(Slerp(mRotationKeyframes[i - 1].key, mRotationKeyframes[i].key, t));
 }
 
 Math::Vector3 Animation::GetScale(float time) const
 {
 	//Bound Checks
-	if (mPositionKeyframes.back().time < time)
+	if (mScaleKeyframes.back().time < time)
 		if (mLooping)
-			time = (std::fmodf(time, GetDuration()));
+			time = (std::fmodf(time, mScaleKeyframes.back().time - mScaleKeyframes.front().time));
 		else
 			return mScaleKeyframes.back().key;
 	if (mScaleKeyframes.size() == 1)

@@ -10,8 +10,8 @@ namespace Angazi::Graphics
 	constexpr uint32_t VE_Tangent =		 0x1 << 2;// 0000 0100
 	constexpr uint32_t VE_Color =		 0x1 << 3;// 0000 1000
 	constexpr uint32_t VE_TexCoord	=	 0x1 << 4;// 0001 0000
-	constexpr uint32_t VE_BlendIndex =	 0x1 << 4;// 0010 0000
-	constexpr uint32_t VE_BlendWeight =	 0x1 << 4;// 0100 0000
+	constexpr uint32_t VE_BlendIndex =	 0x1 << 5;// 0010 0000
+	constexpr uint32_t VE_BlendWeight =	 0x1 << 6;// 0100 0000
 
 #define VERTEX_FORMAT(fmt)\
 	static constexpr uint32_t Format = fmt;

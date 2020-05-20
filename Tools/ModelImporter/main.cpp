@@ -86,11 +86,11 @@ void SaveModel(const Arguments& args, const Model& model)
 		if (!model.materialData[i].diffuseMapName.empty())
 			fprintf_s(file, "DiffuseMapName: %s\n", model.materialData[i].diffuseMapName.c_str());
 		else
-			fprintf_s(file, "DiffuseMapName: <none>");
+			fprintf_s(file, "DiffuseMapName: <none>\n");
 		if (!model.materialData[i].normalMapName.empty())
 			fprintf_s(file, "NormalMapName: %s\n", model.materialData[i].normalMapName.c_str());
 		else
-			fprintf_s(file, "NormalMapName: <none>");
+			fprintf_s(file, "NormalMapName: <none>\n");
 
 		fprintf_s(file, "MaterialAmbient: %f %f %f\n"
 			, model.materialData[i].material.ambient.x, model.materialData[i].material.ambient.y, model.materialData[i].material.ambient.z);
@@ -212,8 +212,8 @@ std::string FindTexture(const aiScene& scene, const aiMaterial& inputMaterial, a
 		}
 	}
 
-	//return textureName.filename().u8string().c_str();
-	return textureName.u8string().c_str();
+	return textureName.filename().u8string().c_str();
+	//return textureName.u8string().c_str();
 }
 
 // Check if inputBone exists in skeleton, if so just return the index.

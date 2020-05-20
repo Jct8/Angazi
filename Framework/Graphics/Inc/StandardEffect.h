@@ -31,6 +31,8 @@ namespace Angazi::Graphics
 		void SetDirectionalLight(const DirectionalLight& light);
 		void SetMaterial(const Material& material);
 
+		void SetBoneTransforms(const std::vector<Math::Matrix4>& boneTransforms);
+
 		void SetDiffuseTexture(const std::filesystem::path& fileName);
 		void SetNormalTexture(const std::filesystem::path& fileName);
 		void SetSpecularTexture(const std::filesystem::path& fileName);
@@ -46,7 +48,8 @@ namespace Angazi::Graphics
 		void SetBrightness(float brightness) { mSettings.brightness = 0.0f; };
 		void SetDepthBias(float bias) { mSettings.depthBias = bias; };
 
-		void UseShadow(bool use) { mSettings.useShadow = use == true ?  1 : 0; };
+		void UseShadow(bool use) { mSettings.useShadow = use == true ? 1 : 0; };
+		void SetSkinnedMesh(bool isSkinnedMesh) { mSettings.isSkinnedMesh = isSkinnedMesh == true ?  1.0f : 0.0f; };
 
 		void UpdateShadowBuffer(const Math::Matrix4& mat) { mShadowConstantBuffer.Update(&mat); };
 		void UpdateSettings() { mSettingsBuffer.Update(&mSettings); };
@@ -69,23 +72,32 @@ namespace Angazi::Graphics
 			float brightness = 1.0f;
 			int useShadow = 0;
 			float depthBias = 0.0003f;
-			float padding[1];
+			float isSkinnedMesh = 0.0f;
+			//float padding[3];
+		};
+
+		struct BoneTransform
+		{
+			Math::Matrix4 boneTransforms[256];
 		};
 
 		using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
 		using LightBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::DirectionalLight>;
 		using MaterialBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::Material>;
 		using SettingsBuffer = Angazi::Graphics::TypedConstantBuffer<Settings>;
-		using DepthMapConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
+		//using DepthMapConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
 		using ShadowConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
+		using BoneTransformBuffer = Angazi::Graphics::TypedConstantBuffer<BoneTransform>;
 
 		TransformBuffer mTransformBuffer;
 		LightBuffer mLightBuffer;
 		MaterialBuffer mMaterialBuffer;
 		SettingsBuffer mSettingsBuffer;
-		
+		BoneTransformBuffer mBoneTransformBuffer;
+
 		Settings mSettings;
 		TransformData transformData;
+		BoneTransform mBoneTransform;
 
 		Angazi::Graphics::VertexShader mVertexShader;
 		Angazi::Graphics::PixelShader  mPixelShader;

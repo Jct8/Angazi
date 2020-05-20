@@ -1,6 +1,7 @@
 #include "Precompiled.h"
 #include "ShadowEffect.h"
 #include "VertexTypes.h"
+#include "GraphicsSystem.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
@@ -13,15 +14,23 @@ void ShadowEffect::Initialize(const std::filesystem::path & fileName)
 	mLightCamera.SetFov(1.0f);
 	mLightCamera.SetAspectRatio(1.0f);
 
-	constexpr uint32_t depthMapSize = 4096;
+	constexpr uint32_t depthMapSize = 8000;//4096;
+	auto graphicsSystem = GraphicsSystem::Get();
+	//mDepthMapRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
 	mDepthMapRenderTarget.Initialize(depthMapSize, depthMapSize, RenderTarget::Format::RGBA_U32);
-	mDepthMapVertexShader.Initialize(fileName, Vertex::Format);
+	mDepthMapVertexShader.Initialize(fileName, BoneVertex::Format);
 	mDepthMapPixelShader.Initialize(fileName);
 	mDepthMapConstantBuffer.Initialize();
+
+	mBoneTransformBuffer.Initialize();
+	mSettingsBuffer.Initialize();
 }
 
 void ShadowEffect::Terminate()
 {
+	mSettingsBuffer.Terminate();
+	mBoneTransformBuffer.Terminate();
+
 	mDepthMapConstantBuffer.Terminate();
 	mDepthMapPixelShader.Terminate();
 	mDepthMapVertexShader.Terminate();
@@ -35,10 +44,17 @@ void ShadowEffect::Begin()
 	mDepthMapPixelShader.Bind();
 	mDepthMapVertexShader.Bind();
 	mDepthMapConstantBuffer.BindVS(0);
+
+	mBoneTransformBuffer.BindVS(1);
+	mSettingsBuffer.BindVS(2);
 }
 
 void ShadowEffect::End()
 {
+	mDepthMapConstantBuffer.UnbindVS(0);
+	mBoneTransformBuffer.UnbindVS(1);
+	mSettingsBuffer.UnbindVS(2);
+
 	mDepthMapRenderTarget.EndRender();
 }
 
@@ -102,4 +118,13 @@ void ShadowEffect::SetWorldMatrix(const Math::Matrix4 & world)
 
 	auto wvp = Math::Transpose(world * matViewLight * matProjLight);
 	mDepthMapConstantBuffer.Update(&wvp);
+}
+
+void ShadowEffect::SetBoneTransforms(const std::vector<Math::Matrix4>& boneTransforms)
+{
+	for (size_t i = 0; i < boneTransforms.size(); i++)
+	{
+		mBoneTransform.boneTransforms[i] = boneTransforms[i];
+	}
+	mBoneTransformBuffer.Update(&mBoneTransform);
 }

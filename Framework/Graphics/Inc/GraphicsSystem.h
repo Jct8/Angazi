@@ -35,7 +35,7 @@ public:
 	uint32_t GetBackBufferWidth() const;
 	uint32_t GetBackBufferHeight() const;
 
-	//TODO - Remove these evenetually
+	//TODO - Remove these eventually
 	ID3D11Device* GetDevice() const { return mD3DDevice; };
 	ID3D11DeviceContext* GetContext() const { return mImmediateContext; };
 

@@ -68,7 +68,7 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
 	mMaterial.power = 80.0f;
 
-	mVertexShader.Initialize("../../Assets/Shaders/Standard.fx", Vertex::Format);
+	mVertexShader.Initialize("../../Assets/Shaders/Standard.fx", BoneVertex::Format);
 	mPixelShader.Initialize("../../Assets/Shaders/Standard.fx");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);

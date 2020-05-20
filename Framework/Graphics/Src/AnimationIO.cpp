@@ -9,19 +9,19 @@ void AnimationIO::Write(FILE * file, const Animation & animation)
 	uint32_t totalPositionKeys = static_cast<uint32_t>(animation.mPositionKeyframes.size());
 	fprintf_s(file, "PositionKeys: %d\n", totalPositionKeys);
 	for (uint32_t i = 0; i < totalPositionKeys; i++)
-		fprintf_s(file, "%d. %f %f %f\n", i , animation.mPositionKeyframes[i].key.x 
+		fprintf_s(file, "%f %f %f %f\n", animation.mPositionKeyframes[i].time , animation.mPositionKeyframes[i].key.x 
 			, animation.mPositionKeyframes[i].key.y, animation.mPositionKeyframes[i].key.z);
 
 	uint32_t totalRotationKeys = static_cast<uint32_t>(animation.mRotationKeyframes.size());
 	fprintf_s(file, "RotationKeys: %d\n", totalRotationKeys);
 	for (uint32_t i = 0; i < totalRotationKeys; ++i)
-		fprintf_s(file, "%d. %f %f %f %f\n", i, animation.mRotationKeyframes[i].key.x
+		fprintf_s(file, "%f %f %f %f %f\n", animation.mRotationKeyframes[i].time, animation.mRotationKeyframes[i].key.x
 			, animation.mRotationKeyframes[i].key.y, animation.mRotationKeyframes[i].key.z, animation.mRotationKeyframes[i].key.w);
 
 	uint32_t totalScaleKeys = static_cast<uint32_t>(animation.mScaleKeyframes.size());
 	fprintf_s(file, "ScaleKeys: %d\n", totalScaleKeys);
 	for (uint32_t i = 0; i < totalScaleKeys; i++)
-		fprintf_s(file, "%d. %f %f %f\n", i, animation.mScaleKeyframes[i].key.x
+		fprintf_s(file, "%f %f %f %f\n", animation.mScaleKeyframes[i].time, animation.mScaleKeyframes[i].key.x
 			, animation.mScaleKeyframes[i].key.y, animation.mScaleKeyframes[i].key.z);
 
 	fprintf_s(file, "Looping: %d\n", animation.IsLooping() ? 1 : 0);
@@ -29,31 +29,30 @@ void AnimationIO::Write(FILE * file, const Animation & animation)
 
 void AnimationIO::Read(FILE * file, Animation & animation)
 {
-	uint32_t dummy;
 	uint32_t totalPositionKeys;
 	fscanf_s(file, "PositionKeys: %d\n", &totalPositionKeys);
 	animation.mPositionKeyframes.resize(totalPositionKeys);
 	for (uint32_t i = 0; i < totalPositionKeys; i++)
-		fscanf_s(file, "%d. %f %f %f\n", &dummy, &animation.mPositionKeyframes[i].key.x
+		fscanf_s(file, "%f %f %f %f\n", &animation.mPositionKeyframes[i].time, &animation.mPositionKeyframes[i].key.x
 			, &animation.mPositionKeyframes[i].key.y, &animation.mPositionKeyframes[i].key.z);
 
 	uint32_t totalRotationKeys;
 	fscanf_s(file, "RotationKeys: %d\n", &totalRotationKeys);
 	animation.mRotationKeyframes.resize(totalRotationKeys);
 	for (uint32_t i = 0; i < totalRotationKeys; ++i)
-		fscanf_s(file, "%d. %f %f %f %f\n", &dummy, &animation.mRotationKeyframes[i].key.x
+		fscanf_s(file, "%f %f %f %f %f\n", &animation.mRotationKeyframes[i].time, &animation.mRotationKeyframes[i].key.x
 			, &animation.mRotationKeyframes[i].key.y, &animation.mRotationKeyframes[i].key.z, &animation.mRotationKeyframes[i].key.w);
 
 	uint32_t totalScaleKeys;
 	fscanf_s(file, "ScaleKeys: %d\n", &totalScaleKeys);
 	animation.mScaleKeyframes.resize(totalScaleKeys);
 	for (uint32_t i = 0; i < totalScaleKeys; i++)
-		fscanf_s(file, "%d. %f %f %f\n", &dummy, &animation.mScaleKeyframes[i].key.x
+		fscanf_s(file, "%f %f %f %f\n", &animation.mScaleKeyframes[i].time, &animation.mScaleKeyframes[i].key.x
 			, &animation.mScaleKeyframes[i].key.y, &animation.mScaleKeyframes[i].key.z);
 
 	uint32_t isLooping;
 	fscanf_s(file, "Looping: %d\n", &isLooping);
-	animation.mLooping = isLooping ? true : false;
+	animation.mLooping = isLooping == 1 ? true : false;
 }
 
 void AnimationIO::Write(FILE * file, const AnimationClip & animationClip)

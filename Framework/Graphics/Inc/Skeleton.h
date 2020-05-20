@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Bone.h"
+#include "AnimationClip.h"
 
 namespace Angazi::Graphics
 {
@@ -11,5 +12,5 @@ namespace Angazi::Graphics
 	};
 
 	void DrawSkeleton(const Skeleton& skeleton, const std::vector<Math::Matrix4>& boneMatrices);
-	void ComputeBoneMatrices(Bone* parent, std::vector<Math::Matrix4>& matrices);
+	void UpdateBoneMatrices(Bone* bone, std::vector<Math::Matrix4>& boneMatrices, bool applyOffset = false, const AnimationClip& clip = AnimationClip(), float time = 0.0f);
 }

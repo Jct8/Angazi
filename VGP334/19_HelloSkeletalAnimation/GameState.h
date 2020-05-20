@@ -25,22 +25,12 @@ private:
 
 	Angazi::Graphics::Sampler mSampler;
 
-	// Jet
-	Angazi::Graphics::Mesh mJetMesh;
-	Angazi::Graphics::MeshBuffer mJetMeshBuffer;
-	Angazi::Math::Vector3 mJetRotation = 0.0f;
-	Angazi::Math::Vector3 mJetPosition;
-
 	// Standard Effects
-	Angazi::Graphics::StandardEffect mJetStandardEffect;
 	Angazi::Graphics::StandardEffect mModelStandardEffect;
 	Angazi::Graphics::StandardEffect mGroundStandardEffect;
 
 	// Model
 	Angazi::Graphics::Model model;
-
-	// Animation
-	Angazi::Graphics::Animation mAnimation;
 
 	//Ground
 	Angazi::Graphics::Mesh mGroundMesh;
@@ -57,6 +47,7 @@ private:
 	Angazi::Graphics::PixelShader mPostProcessingPixelShader;
 
 	float dt = 0.0f;
+	float animationSpeed = 10.0f;
 
 	// Skeleton
 	bool mShowSkeleton = false;
