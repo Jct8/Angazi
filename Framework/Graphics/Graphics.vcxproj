@@ -156,6 +156,7 @@
     <ClInclude Include="Inc\AnimationClip.h" />
     <ClInclude Include="Inc\AnimationIO.h" />
     <ClInclude Include="Inc\AnimationSet.h" />
+    <ClInclude Include="Inc\Animator.h" />
     <ClInclude Include="Inc\BlendState.h" />
     <ClInclude Include="Inc\Bone.h" />
     <ClInclude Include="Inc\Camera.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Src\Precompiled.h" />
     <ClCompile Include="Src\AnimationClip.cpp" />
     <ClCompile Include="Src\AnimationIO.cpp" />
+    <ClCompile Include="Src\Animator.cpp" />
     <ClCompile Include="Src\ShadowEffect.cpp" />
   </ItemGroup>
   <ItemGroup>

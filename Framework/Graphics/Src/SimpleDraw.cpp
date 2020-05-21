@@ -159,7 +159,7 @@ namespace
 					float u = static_cast<float>(j) / (slices);
 					float newRadius = radius * sinf(phi);
 					Math::Vector3 vec = Math::Vector3{ newRadius* sinf(theta), radius * cosf(phi) , newRadius * -cosf(theta) };
-					list.push_back(vec +center);
+					list.push_back(vec + center);
 					theta += thetaIncrement;
 				}
 				phi += phiIncrement;
@@ -312,6 +312,71 @@ namespace
 			}
 		}
 
+		void AddTransform(const Math::Matrix4& transform)
+		{
+			auto r = Math::GetRight(transform);
+			auto u = Math::GetUp(transform);
+			auto l = Math::GetLook(transform);
+			auto p = Math::GetTranslation(transform);
+			AddLine(p, p + r, Colors::Red);
+			AddLine(p, p + u, Colors::Green);
+			AddLine(p, p + l, Colors::Blue);
+		}
+		void AddBone(const Math::Matrix4& transform, const Color& color, bool fill)
+		{
+			auto r = Math::GetRight(transform);
+			auto u = Math::GetUp(transform);
+			auto l = Math::GetLook(transform);
+			auto p = Math::GetTranslation(transform);
+
+			auto base = p;
+			auto direction = r - p;
+			constexpr int sectors = 4;
+			auto side = Math::Normalize(Math::Cross(p, direction)) * 1.0f;
+			auto angle = 0.0f;
+			auto angleStep = Math::Constants::TwoPi / sectors;
+
+			for (int i = 0; i < sectors; ++i)
+			{
+				auto matRot0 = Math::Matrix4::RotationAxis(direction, angle);
+				auto matRot1 = Math::Matrix4::RotationAxis(direction, angle + angleStep);
+				auto v0 = Math::TransformNormal(side, matRot0);
+				auto v1 = Math::TransformNormal(side, matRot1);
+				AddLine(base + v0, base + direction, color);
+				AddLine(base + v0, base + v1, color);
+				angle += angleStep;
+			}
+		}
+		void AddBone(const Math::Vector3 & base, const Math::Vector3 & direction, float radius, const Color& color, bool fill)
+		{
+			constexpr int sectors = 4;
+			auto side = Math::Normalize(Math::Cross(base, direction)) * radius;
+			auto angle = 0.0f;
+			auto angleStep = Math::Constants::TwoPi / sectors;
+
+			auto oppDirection = -Normalize(direction) * radius;
+
+			for (int i = 0; i < sectors; ++i)
+			{
+				auto matRot0 = Math::Matrix4::RotationAxis(direction, angle);
+				auto matRot1 = Math::Matrix4::RotationAxis(direction, angle + angleStep);
+				auto v0 = Math::TransformNormal(side, matRot0);
+				auto v1 = Math::TransformNormal(side, matRot1);
+				if (!fill)
+				{
+					AddLine(base + v0, base + direction, color);
+					AddLine(base + v0, base + oppDirection, color);
+					AddLine(base + v0, base + v1, color);
+				}
+				else
+				{
+					AddFace(base + v0, base + v1, base + direction, color);
+					AddFace(base + v0, base + oppDirection, base + v1, color);
+				}
+				angle += angleStep;
+			}
+		}
+
 		void AddGroundPlane(int size, bool fill, const Color & color)
 		{
 			std::vector<Math::Vector3> list;
@@ -319,8 +384,8 @@ namespace
 			{
 				for (int x = 0; x <= size; x++)
 				{
-						auto vec = Math::Vector3{-0.5f*size + static_cast<float>(x) , 0.0f ,0.5f*size - static_cast<float>(y)};
-						list.push_back(vec);
+					auto vec = Math::Vector3{ -0.5f*size + static_cast<float>(x) , 0.0f ,0.5f*size - static_cast<float>(y) };
+					list.push_back(vec);
 				}
 			}
 
@@ -331,7 +396,7 @@ namespace
 					if (!fill)
 					{
 						AddLine(list[y * size + x], list[y * size + x + 1], color);
-						AddLine(list[(y+1) * size + x], list[y * size + x], color);
+						AddLine(list[(y + 1) * size + x], list[y * size + x], color);
 					}
 					else
 					{
@@ -502,6 +567,22 @@ void SimpleDraw::AddSphere(const Math::Sphere & sphere, const Color & color, boo
 void SimpleDraw::AddSphere(float x, float y, float z, float radius, const Color & color, bool fill, int slices, int rings)
 {
 	sInstance->AddSphere({ x,y,z }, radius, color, slices, rings, fill);
+}
+
+void SimpleDraw::AddTransform(const Math::Matrix4 & transform)
+{
+	sInstance->AddTransform(transform);
+}
+
+void SimpleDraw::AddBone(const Math::Matrix4 & transform, const Color& color, bool fill)
+{
+	ASSERT(false, "Implementation is incorrect.");
+	sInstance->AddBone(transform, color, fill);
+}
+
+void SimpleDraw::AddBone(const Math::Vector3 & position, const Math::Vector3 & direction, const Color & color, float radius, bool fill)
+{
+	sInstance->AddBone(position, direction, radius, color, fill);
 }
 
 void SimpleDraw::Render(const Camera & camera, const Math::Matrix4& matWorld)

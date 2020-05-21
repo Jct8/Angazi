@@ -2,13 +2,12 @@
 
 #include "Mesh.h"
 #include "MeshBuffer.h"
+#include "Material.h"
 #include "Skeleton.h"
 #include "AnimationSet.h"
 
 namespace Angazi::Graphics
 {
-	struct Material;
-
 	class Model;
 	class Texture;
 	class Effect;

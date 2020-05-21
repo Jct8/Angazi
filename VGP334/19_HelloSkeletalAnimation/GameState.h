@@ -31,6 +31,7 @@ private:
 
 	// Model
 	Angazi::Graphics::Model model;
+	Angazi::Graphics::Animator animator;
 
 	//Ground
 	Angazi::Graphics::Mesh mGroundMesh;
@@ -46,11 +47,8 @@ private:
 	Angazi::Graphics::VertexShader mPostProcessingVertexShader;
 	Angazi::Graphics::PixelShader mPostProcessingPixelShader;
 
-	float dt = 0.0f;
+
+	// Skeleton - Animation
 	float animationSpeed = 10.0f;
-
-	// Skeleton
 	bool mShowSkeleton = false;
-	std::vector<Angazi::Math::Matrix4> mBoneMatrices;
-
 };

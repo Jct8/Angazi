@@ -35,16 +35,8 @@ void GameState::Initialize()
 
 	// Model
 	model.Initialize("../../Assets/Models/James/James.model");
-	for (size_t i = 0; i < model.animationSet.clips[0]->boneAnimations.size(); i++)
-	{
-		if (model.animationSet.clips[0]->boneAnimations[i])
-		{
-			model.animationSet.clips[0]->boneAnimations[i]->SetLooping(true);
-		}
-	}
-	
-	mBoneMatrices.resize(model.skeleton.bones.size());
-	UpdateBoneMatrices(model.skeleton.root, mBoneMatrices);
+	animator.Initialize(model);
+	animator.SetClipLooping(0 , true);
 
 	// Effects
 	mModelStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
@@ -74,6 +66,7 @@ void GameState::Terminate()
 	mModelStandardEffect.Terminate();
 
 	// Model
+	animator.Terminate();
 	model.Terminate();
 
 	// Post Processing
@@ -104,15 +97,12 @@ void GameState::Update(float deltaTime)
 		mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
 	}
 
-	dt += animationSpeed * deltaTime;
 	mShadowEffect.SetLightDirection(mDirectionalLight.direction, mCamera);
 	if (mShowSkeleton)
-	{
-		//UpdateBoneMatrices(model.skeleton.root, mBoneMatrices, false);
-		UpdateBoneMatrices(model.skeleton.root, mBoneMatrices, false, *(model.animationSet.clips[0]), dt);
-	}
+		animator.PlaySkeletalAnimation(0);
 	else
-		UpdateBoneMatrices(model.skeleton.root, mBoneMatrices, true, *(model.animationSet.clips[0]), dt);
+		animator.PlayAnimation(0);
+	animator.Update(deltaTime);
 }
 
 void GameState::Render()
@@ -181,7 +171,10 @@ void GameState::DebugUI()
 			float aoMapWeight = aoMap ? 1.0f : 0.0f;
 		}
 	}
-	ImGui::SliderFloat("Animation Speed", &animationSpeed, 0.0f, 50.f);
+	if (ImGui::SliderFloat("Animation Speed", &animationSpeed, 0.0f, 50.f))
+	{
+		animator.SetAnimationSpeed(animationSpeed);
+	}
 	ImGui::Checkbox("Show Skeleton", &mShowSkeleton);
 
 	ImGui::End();
@@ -205,10 +198,10 @@ void GameState::DrawScene()
 	mModelStandardEffect.SetWVPMatrix(matWorld, matView, matProj);
 	mModelStandardEffect.SetDepthTexture(target);
 	mModelStandardEffect.UpdateSettings();
-	mModelStandardEffect.SetBoneTransforms(mBoneMatrices);
+	mModelStandardEffect.SetBoneTransforms(animator.GetBoneMatrices());
 
 	if (mShowSkeleton)
-		DrawSkeleton(model.skeleton, mBoneMatrices);
+		DrawSkeleton(model.skeleton, animator.GetBoneMatrices());
 	else
 		model.Draw(&mModelStandardEffect);
 	mModelStandardEffect.End();
@@ -247,7 +240,7 @@ void GameState::DrawDepthMap()
 	// Model
 	matWorld = Matrix4::Scaling(0.1f) * matWorld;
 	mShadowEffect.SetWorldMatrix(matWorld);
-	mShadowEffect.SetBoneTransforms(mBoneMatrices);
+	mShadowEffect.SetBoneTransforms(animator.GetBoneMatrices());
 	mShadowEffect.SetSkinnedMesh(true);
 	mShadowEffect.UpdateSettings();
 	if (!mShowSkeleton)

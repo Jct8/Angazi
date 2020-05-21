@@ -14,9 +14,10 @@ namespace
 		for (size_t i = 0; i < bone->children.size(); i++)
 		{
 			Math::Vector3 childPositiion = GetTranslation(boneMatrices[bone->children[i]->index]);
-			//SimpleDraw::AddLine(bonePositiion, childPositiion, Colors::AliceBlue);
 			auto direction = childPositiion - bonePositiion;
-			SimpleDraw::AddCone(bonePositiion, Normalize(direction), Magnitude(direction), 1.0f, Colors::AliceBlue);
+			//SimpleDraw::AddLine(bonePositiion, childPositiion, Colors::AliceBlue);
+			//SimpleDraw::AddCone(bonePositiion, Normalize(direction), Magnitude(direction), 1.0f, Colors::AliceBlue);
+			SimpleDraw::AddBone(bonePositiion, direction ,Colors::AliceBlue, 2.0f , true);
 			DrawBone(bone->children[i], boneMatrices);
 		}
 	}
