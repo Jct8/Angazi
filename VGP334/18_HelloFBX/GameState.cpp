@@ -240,7 +240,7 @@ void GameState::DrawScene()
 	if (mShowSkeleton)
 		DrawSkeleton(model.skeleton, mBoneMatrices);
 	else
-		model.Draw();
+		model.Draw(&mModelStandardEffect);
 
 	mModelStandardEffect.End();
 
@@ -288,5 +288,5 @@ void GameState::DrawDepthMap()
 	if (mShowSkeleton)
 		DrawSkeleton(model.skeleton, mBoneMatrices);
 	else
-		model.Draw();
+		model.Draw(&mModelStandardEffect);
 }

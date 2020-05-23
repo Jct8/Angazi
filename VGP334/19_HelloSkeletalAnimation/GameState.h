@@ -27,10 +27,12 @@ private:
 
 	// Standard Effects
 	Angazi::Graphics::StandardEffect mModelStandardEffect;
+	Angazi::Graphics::StandardEffect mArenaStandardEffect;
 	Angazi::Graphics::StandardEffect mGroundStandardEffect;
 
 	// Model
 	Angazi::Graphics::Model model;
+	//Angazi::Graphics::Model modelArena;
 	Angazi::Graphics::Animator animator;
 
 	//Ground
