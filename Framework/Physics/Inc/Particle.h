@@ -10,7 +10,7 @@ namespace Angazi::Physics
 		Math::Vector3 acceleration = Math::Vector3::Zero;
 		float radius = 1.0f;
 		float invMass = 1.0f;
-		float bounce = 1.0f;
+		float bounce = 0.0f;
 
 		constexpr void SetPosition(const Math::Vector3& pos)
 		{

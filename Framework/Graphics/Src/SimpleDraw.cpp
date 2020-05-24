@@ -379,30 +379,34 @@ namespace
 
 		void AddGroundPlane(int size, bool fill, const Color & color)
 		{
+			const float halfSize = size * 0.5f;
+
+			if (!fill)
+			{
+				for (float i = -halfSize; i <= halfSize; i += 1.0f)
+				{
+					AddLine({ i, 0.0f, -halfSize }, { i, 0.0f, halfSize }, color);
+					AddLine({ -halfSize, 0.0f, i }, { halfSize, 0.0f, i }, color);
+				}
+				return;
+			}
+
+			//Filled
 			std::vector<Math::Vector3> list;
 			for (int y = 0; y <= size; y++)
 			{
 				for (int x = 0; x <= size; x++)
 				{
-					auto vec = Math::Vector3{ -0.5f*size + static_cast<float>(x) , 0.0f ,0.5f*size - static_cast<float>(y) };
+					auto vec = Math::Vector3{ -halfSize + static_cast<float>(x) , 0.0f ,halfSize - static_cast<float>(y)};
 					list.push_back(vec);
 				}
 			}
-
 			for (int y = 0; y <= size; y++)
 			{
 				for (int x = 0; x < size; x++)
 				{
-					if (!fill)
-					{
-						AddLine(list[y * size + x], list[y * size + x + 1], color);
-						AddLine(list[(y + 1) * size + x], list[y * size + x], color);
-					}
-					else
-					{
-						AddFace(list[(y + 1) * size + x + 1], list[(y + 1) * size + x], list[y * size + x], color);
-						AddFace(list[y * size + x], list[y * size + x + 1], list[(y + 1)* size + x + 1], color);
-					}
+					AddFace(list[(y + 1) * size + x + 1], list[(y + 1) * size + x], list[y * size + x], color);
+					AddFace(list[y * size + x], list[y * size + x + 1], list[(y + 1)* size + x + 1], color);
 				}
 			}
 		}

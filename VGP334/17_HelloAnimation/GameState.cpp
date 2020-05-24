@@ -161,7 +161,8 @@ void GameState::Render()
 
 void GameState::DebugUI()
 {
-	ImGui::Begin("Setting", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Text("FPS: %.2f", Angazi::Core::TimeUtil::GetFramesPerSecond());
 	if (ImGui::CollapsingHeader("Light"))
 	{
 		bool directionChanged = false;
@@ -183,7 +184,7 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Specular##Material", &mMaterial.specular.x);
 		ImGui::DragFloat("Power##Material", &mMaterial.power, 1.0f, 1.0f, 100.0f);
 	}
-	if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Settings"))
 	{
 		static bool normal = true;
 		static bool specular = true;
@@ -204,7 +205,7 @@ void GameState::DebugUI()
 		}
 		ImGui::SliderFloat("Brightness", &mSettings.brightness, 0.0f, 10.f);
 	}
-	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Transform"))
 	{
 		ImGui::DragFloat3("JetTranslation##Transform", &mJetPosition.x, 0.3f);
 	}

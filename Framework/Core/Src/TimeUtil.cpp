@@ -53,7 +53,7 @@ float Angazi::Core::TimeUtil::GetDeltaTime()
 	return deltaTime;
 }
 
-float  Angazi::Core::TimeUtil::GetFramesPerSecond()
+float Angazi::Core::TimeUtil::GetFramesPerSecond()
 {
 	return mFramesPerSecond;
 }

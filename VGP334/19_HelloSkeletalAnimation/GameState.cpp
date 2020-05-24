@@ -32,6 +32,7 @@ void GameState::Initialize()
 	mScreenQuadBuffer.Initialize(mScreenQuad);
 	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
 	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
+	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 
 	// Model
 	model.Initialize("../../Assets/Models/James/James.model");
@@ -70,6 +71,7 @@ void GameState::Terminate()
 	model.Terminate();
 
 	// Post Processing
+	mSampler.Terminate();
 	mPostProcessingPixelShader.Terminate();
 	mPostProcessingVertexShader.Terminate();
 	mScreenQuadBuffer.Terminate();
@@ -123,6 +125,7 @@ void GameState::Render()
 void GameState::DebugUI()
 {
 	ImGui::Begin("Setting", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Text("FPS: %.2f", Angazi::Core::TimeUtil::GetFramesPerSecond());
 	/*ImGui::Image(
 		mShadowEffect.GetRenderTarget()->GetShaderResourceView(),
 		{ 150.0f,150.0f },
@@ -152,7 +155,7 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Specular##Material", &mMaterial.specular.x);
 		ImGui::DragFloat("Power##Material", &mMaterial.power, 1.0f, 1.0f, 100.0f);
 	}
-	if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Settings"))
 	{
 		static bool normal = true;
 		static bool specular = true;

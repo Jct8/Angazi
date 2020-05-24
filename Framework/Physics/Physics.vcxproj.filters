@@ -15,21 +15,21 @@
     <ClInclude Include="Inc\Common.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Precompiled.h">
-      <Filter>Src</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\Particle.h">
       <Filter>Inc</Filter>
     </ClInclude>
     <ClInclude Include="Inc\PhysicsWorld.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Precompiled.h">
+      <Filter>Src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Precompiled.cpp">
+    <ClCompile Include="Src\PhysicsWorld.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\PhysicsWorld.cpp">
+    <ClCompile Include="Src\Precompiled.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

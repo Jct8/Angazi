@@ -66,7 +66,6 @@ void Animator::BlendTo(int index, float duration)
 	mBlendDuration = duration;
 	mBlendIndex = index;
 }
-
 void Animator::Update(float deltaTime)
 {
 	mTimer += mAnimationSpeed * deltaTime; // mModel->animationSet.clips[mClipIndex]->tickPerSecond * deltaTime;
@@ -76,8 +75,9 @@ void Animator::Update(float deltaTime)
 	if (mBlendDuration > 0.0f)
 	{
 		auto& blendClip = mModel->animationSet.clips[mBlendIndex];
-		mBlendTime += deltaTime * mAnimationSpeed;
+		mBlendTimer += deltaTime * mAnimationSpeed;
 
+		mBlendTime += deltaTime;
 		if (mBlendTime > mBlendDuration)
 		{
 			mClipIndex = mBlendIndex;

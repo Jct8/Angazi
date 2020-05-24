@@ -36,6 +36,7 @@ void GameState::Initialize()
 	mScreenQuadBuffer.Initialize(mScreenQuad);
 	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
 	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
+	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 
 	// Jet
 	mJetPosition = { 0.0f,0.0f,0.0f };
@@ -98,6 +99,7 @@ void GameState::Terminate()
 	model.Terminate();
 	mJetMeshBuffer.Terminate();
 
+	mSampler.Terminate();
 	mPostProcessingPixelShader.Terminate();
 	mPostProcessingVertexShader.Terminate();
 	mScreenQuadBuffer.Terminate();
@@ -146,7 +148,7 @@ void GameState::Render()
 
 void GameState::DebugUI()
 {
-	ImGui::Begin("Setting", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	//ImGui::Image(
 	//	mShadowEffect.GetRenderTarget()->GetShaderResourceView(),
 	//	{ 150.0f,150.0f },
@@ -155,6 +157,7 @@ void GameState::DebugUI()
 	//	{ 1.0f,1.0f ,1.0f,1.0f },
 	//	{ 1.0f,1.0f ,1.0f,1.0f }
 	//);
+	ImGui::Text("FPS: %.2f", Angazi::Core::TimeUtil::GetFramesPerSecond());
 	if (ImGui::CollapsingHeader("Light"))
 	{
 		bool directionChanged = false;
@@ -176,7 +179,7 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Specular##Material", &mMaterial.specular.x);
 		ImGui::DragFloat("Power##Material", &mMaterial.power, 1.0f, 1.0f, 100.0f);
 	}
-	if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Settings"))
 	{
 		static bool normal = true;
 		static bool specular = true;
@@ -196,7 +199,7 @@ void GameState::DebugUI()
 		}
 		//ImGui::SliderFloat("Brightness", &mSettings.brightness, 0.0f, 10.f);
 	}
-	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Transform"))
 	{
 		ImGui::DragFloat3("JetTranslation##Transform", &mJetPosition.x, 0.3f);
 	}
