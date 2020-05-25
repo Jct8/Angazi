@@ -16,6 +16,7 @@ namespace Angazi::Graphics
 		{
 			StandardType,
 			ShadowType,
+			PostProcessingType,
 			NoEffect
 		};
 	public:

@@ -26,13 +26,7 @@ void GameState::Initialize()
 	mMaterial.power = 80.0f;
 
 	// Post Processing
-	auto graphicsSystem = GraphicsSystem::Get();
-	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
-	mScreenQuad = MeshBuilder::CreateNDCQuad();
-	mScreenQuadBuffer.Initialize(mScreenQuad);
-	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
-	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
-	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
+	mPostProcessingEffect.Initialize("../../Assets/Shaders/PostProcessing.fx", "VS", "PSNoProcessing");
 
 	// Model
 	model.Initialize("../../Assets/Models/James/James.model");
@@ -71,11 +65,7 @@ void GameState::Terminate()
 	model.Terminate();
 
 	// Post Processing
-	mSampler.Terminate();
-	mPostProcessingPixelShader.Terminate();
-	mPostProcessingVertexShader.Terminate();
-	mScreenQuadBuffer.Terminate();
-	mRenderTarget.Terminate();
+	mPostProcessingEffect.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -113,13 +103,11 @@ void GameState::Render()
 	DrawDepthMap();
 	mShadowEffect.End();
 
-	mRenderTarget.BeginRender();
+	mPostProcessingEffect.BeginRender();
 	DrawScene();
-	mRenderTarget.EndRender();
+	mPostProcessingEffect.EndRender();
 
-	mRenderTarget.BindPS(0);
-	PostProcess();
-	mRenderTarget.UnbindPS(0);
+	mPostProcessingEffect.PostProcess();
 }
 
 void GameState::DebugUI()
@@ -225,14 +213,6 @@ void GameState::DrawScene()
 
 	mGroundMeshBuffer.Draw();
 	mGroundStandardEffect.End();
-}
-
-void GameState::PostProcess()
-{
-	mPostProcessingPixelShader.Bind();
-	mPostProcessingVertexShader.Bind();
-	mSampler.BindPS();
-	mScreenQuadBuffer.Draw();
 }
 
 void GameState::DrawDepthMap()

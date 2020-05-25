@@ -145,7 +145,7 @@ namespace
 		{
 			float phiIncrement = Math::Constants::Pi / rings;
 			float thetaIncrement = Math::Constants::TwoPi / slices;
-			std::vector<Math::Vector3> list;
+			std::vector<Math::Vector3> vertices;
 
 			float phi = 0.0f;
 			float theta = 0.0f;
@@ -159,15 +159,10 @@ namespace
 					float u = static_cast<float>(j) / (slices);
 					float newRadius = radius * sinf(phi);
 					Math::Vector3 vec = Math::Vector3{ newRadius* sinf(theta), radius * cosf(phi) , newRadius * -cosf(theta) };
-					list.push_back(vec + center);
+					vertices.push_back(vec + center);
 					theta += thetaIncrement;
 				}
 				phi += phiIncrement;
-			}
-
-			if (mVertexCount + list.size() - 1 > mMaxVertexCount)
-			{
-				return;
 			}
 
 			for (int y = 0; y <= rings; y++)
@@ -176,15 +171,15 @@ namespace
 				{
 					if (!fill)
 					{
-						AddLine(list[(y + 1) * slices + x + 1], list[(y + 1) * slices + x], color);
-						AddLine(list[y * slices + x], list[y * slices + x + 1], color);
-						AddLine(list[(y + 1)* slices + x + 1], list[y * slices + x], color);
+						AddLine(vertices[(y + 1) * slices + x + 1], vertices[(y + 1) * slices + x], color);
+						AddLine(vertices[y * slices + x], vertices[y * slices + x + 1], color);
+						AddLine(vertices[(y + 1)* slices + x + 1], vertices[y * slices + x], color);
 					}
 					else
 					{
 
-						AddFace(list[(y + 1) * slices + x + 1], list[(y + 1) * slices + x], list[y * slices + x], color);
-						AddFace(list[y * slices + x + 1], list[(y + 1)* slices + x + 1], list[y * slices + x], color);
+						AddFace(vertices[(y + 1) * slices + x + 1], vertices[(y + 1) * slices + x], vertices[y * slices + x], color);
+						AddFace(vertices[y * slices + x + 1], vertices[(y + 1)* slices + x + 1], vertices[y * slices + x], color);
 					}
 				}
 			}

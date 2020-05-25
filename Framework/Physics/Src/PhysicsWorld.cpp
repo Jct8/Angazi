@@ -25,7 +25,7 @@ void PhysicsWorld::Update(float deltaTime)
 void PhysicsWorld::DebugDraw() const
 {
 	for (auto p : mParticles)
-		Graphics::SimpleDraw::AddSphere(p->position, p->radius, Graphics::Colors::AliceBlue, 2, 4);
+		Graphics::SimpleDraw::AddSphere(p->position, p->radius, Graphics::Colors::AliceBlue, false, 4, 4);
 }
 
 void PhysicsWorld::AddParticles(Particle * p)

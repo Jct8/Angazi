@@ -25,28 +25,12 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
 	mMaterial.power = 80.0f;
 
-	// Post Processing
-	auto graphicsSystem = GraphicsSystem::Get();
-	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
-	mScreenQuad = MeshBuilder::CreateNDCQuad();
-	mScreenQuadBuffer.Initialize(mScreenQuad);
-	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
-	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
-	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Wrap);
-
 	mPhysicsWorld.Initialize(Physics::PhysicsWorld::Settings());
 }
 
 void GameState::Terminate()
 {
 	mPhysicsWorld.Clear();
-
-	// Post Processing
-	mSampler.Terminate();
-	mPostProcessingPixelShader.Terminate();
-	mPostProcessingVertexShader.Terminate();
-	mScreenQuadBuffer.Terminate();
-	mRenderTarget.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -91,13 +75,7 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-	//mRenderTarget.BeginRender();
 	DrawScene();
-	//mRenderTarget.EndRender();
-
-	//mRenderTarget.BindPS(0);
-	//PostProcess();
-	//mRenderTarget.UnbindPS(0);
 }
 
 void GameState::DebugUI()
@@ -136,12 +114,4 @@ void GameState::DrawScene()
 	mPhysicsWorld.DebugDraw();
 
 	SimpleDraw::Render(mCamera);
-}
-
-void GameState::PostProcess()
-{
-	mPostProcessingPixelShader.Bind();
-	mPostProcessingVertexShader.Bind();
-	mSampler.BindPS();
-	mScreenQuadBuffer.Draw();
 }

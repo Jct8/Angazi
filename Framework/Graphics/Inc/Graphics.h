@@ -25,6 +25,7 @@
 #include "Model.h"
 #include "ObjLoader.h"
 #include "PixelShader.h"
+#include "PostProcessingEffect.h"
 #include "Sampler.h"
 #include "ShadowEffect.h"
 #include "SimpleDraw.h"

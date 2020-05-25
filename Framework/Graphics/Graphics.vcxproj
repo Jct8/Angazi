@@ -177,6 +177,7 @@
     <ClInclude Include="Inc\Model.h" />
     <ClInclude Include="Inc\ObjLoader.h" />
     <ClInclude Include="Inc\PixelShader.h" />
+    <ClInclude Include="Inc\PostProcessingEffect.h" />
     <ClInclude Include="Inc\RenderTarget.h" />
     <ClInclude Include="Inc\Sampler.h" />
     <ClInclude Include="Inc\ShadowEffect.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="Src\AnimationClip.cpp" />
     <ClCompile Include="Src\AnimationIO.cpp" />
     <ClCompile Include="Src\Animator.cpp" />
+    <ClCompile Include="Src\PostProcessingEffect.cpp" />
     <ClCompile Include="Src\ShadowEffect.cpp" />
   </ItemGroup>
   <ItemGroup>

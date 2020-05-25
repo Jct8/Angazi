@@ -183,6 +183,9 @@
     <ClInclude Include="Inc\Animator.h">
       <Filter>Inc\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\PostProcessingEffect.h">
+      <Filter>Inc\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\GraphicsSystem.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="Src\Animator.cpp">
       <Filter>Src\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PostProcessingEffect.cpp">
+      <Filter>Src\Shader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

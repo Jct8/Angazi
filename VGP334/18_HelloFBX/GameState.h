@@ -15,7 +15,6 @@ public:
 private:
 	void DrawScene();
 	void DrawDepthMap();
-	void PostProcess();
 
 private:
 	Angazi::Graphics::Camera mCamera;
@@ -50,11 +49,7 @@ private:
 	Angazi::Graphics::ShadowEffect mShadowEffect;
 
 	// PostProcessing
-	Angazi::Graphics::RenderTarget mRenderTarget;
-	Angazi::Graphics::MeshPX mScreenQuad;
-	Angazi::Graphics::MeshBuffer mScreenQuadBuffer;
-	Angazi::Graphics::VertexShader mPostProcessingVertexShader;
-	Angazi::Graphics::PixelShader mPostProcessingPixelShader;
+	Angazi::Graphics::PostProcessingEffect mPostProcessingEffect;
 
 	float dt = 0.0f;
 
