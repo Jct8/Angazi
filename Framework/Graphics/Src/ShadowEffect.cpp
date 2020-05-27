@@ -2,9 +2,26 @@
 #include "ShadowEffect.h"
 #include "VertexTypes.h"
 #include "GraphicsSystem.h"
+#include "SimpleDraw.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
+
+namespace
+{
+	void SimpleDrawCamera(const Camera& camera)
+	{
+		auto defaultMatView = camera.GetViewMatrix();
+		Math::Vector3 cameraPosition = camera.GetPosition();
+		Math::Vector3 cameraRight = { defaultMatView._11, defaultMatView._21, defaultMatView._31 };
+		Math::Vector3 cameraUp = { defaultMatView._12, defaultMatView._22, defaultMatView._32 };
+		Math::Vector3 cameraLook = { defaultMatView._13, defaultMatView._23, defaultMatView._33 };
+		SimpleDraw::AddSphere(cameraPosition, 0.1f, Colors::White, false, 6, 8);
+		SimpleDraw::AddLine(cameraPosition, cameraPosition + cameraRight, Colors::Red);
+		SimpleDraw::AddLine(cameraPosition, cameraPosition + cameraUp, Colors::Green);
+		SimpleDraw::AddLine(cameraPosition, cameraPosition + cameraLook, Colors::Blue);
+	}
+}
 
 void ShadowEffect::Initialize(const std::filesystem::path & fileName)
 {
@@ -106,8 +123,8 @@ void ShadowEffect::SetLightDirection(const Math::Vector3 & direction, const Came
 		lightUp * (minY + maxY) * 0.5f +
 		lightLook * (minZ + maxZ) * 0.5f
 	);
-	mLightCamera.SetNearPlane(minZ - 300.0f);
-	mLightCamera.SetFarPlane(maxZ);
+	mLightCamera.SetNearPlane(minZ - mCurrentCamera.GetFarPlane());
+	mLightCamera.SetFarPlane(maxZ + mCurrentCamera.GetFarPlane());
 	mLightProjectionMatrix = mLightCamera.GetOrthographicMatrix(maxX - minX, maxY - minY);
 }
 

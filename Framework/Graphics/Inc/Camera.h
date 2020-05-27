@@ -30,6 +30,7 @@ namespace Angazi::Graphics
 
 		const Math::Vector3 &GetPosition() const { return mPosition; }
 		const Math::Vector3 &GetDirection() const { return mDirection; }
+		float GetFarPlane() const { return mFarPlane; }
 
 		Math::Matrix4 GetViewMatrix() const;
 		Math::Matrix4 GetPerspectiveMatrix() const;

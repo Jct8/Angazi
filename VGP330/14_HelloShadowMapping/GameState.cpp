@@ -87,7 +87,7 @@ void GameState::Initialize()
 
 	constexpr uint32_t depthMapSize = 4096;
 	mDepthMapRenderTarget.Initialize(depthMapSize, depthMapSize, RenderTarget::Format::RGBA_U32);
-	mDepthMapVertexShader.Initialize("../../Assets/Shaders/DepthMap.fx", Vertex::Format);
+	mDepthMapVertexShader.Initialize("../../Assets/Shaders/DepthMap.fx", BoneVertex::Format);
 	mDepthMapPixelShader.Initialize("../../Assets/Shaders/DepthMap.fx");
 	mDepthMapConstantBuffer.Initialize();
 
@@ -101,11 +101,12 @@ void GameState::Initialize()
 	SimpleDraw::AddGroundPlane(200.0f, true, Graphics::Colors::Blue);
 
 	mShadowConstantBuffer.Initialize();
-
+	mDepthSettingsBuffer.Initialize();
 }
 
 void GameState::Terminate()
 {
+	mDepthSettingsBuffer.Terminate();
 	mShadowConstantBuffer.Terminate();
 
 	mPostProcessingPixelShader.Terminate();
@@ -250,7 +251,7 @@ void GameState::Update(float deltaTime)
 		lightLook * (minZ + maxZ) * 0.5f
 	);
 	mLightCamera.SetNearPlane(minZ - 300.0f);
-	mLightCamera.SetFarPlane(maxZ);
+	mLightCamera.SetFarPlane(maxZ + 300.0f);
 	mLightProjectionMatrix = mLightCamera.GetOrthographicMatrix(maxX - minX, maxY - minY);
 
 	auto v0 = lightSide * minX + lightUp * minY + lightLook * minZ;
@@ -397,6 +398,7 @@ void GameState::DrawScene()
 	mSettingsBuffer.Update(&mSettings);
 	mSettingsBuffer.BindVS(3);
 	mSettingsBuffer.BindPS(3);
+
 	//Tank
 	mTexture.BindPS(0);
 	mSpecularTexture.BindPS(1);
@@ -494,6 +496,8 @@ void GameState::DrawDepthMap()
 	auto matProjLight = mLightProjectionMatrix;// mLightCamera.GetPerspectiveMatrix();
 
 	mDepthMapConstantBuffer.BindVS(0);
+	mDepthSettingsBuffer.BindVS(2);
+
 	for (auto& positions : mTankPositions)
 	{
 		auto matTrans = Matrix4::Translation({ positions });

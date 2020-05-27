@@ -69,5 +69,7 @@ namespace Angazi::Graphics
 		Angazi::Graphics::Camera mLightCamera;
 		Angazi::Math::Matrix4 mLightProjectionMatrix;
 		Angazi::Graphics::Texture mDepthTexture;
+
+		bool showDebugLines = false;
 	};
 }
