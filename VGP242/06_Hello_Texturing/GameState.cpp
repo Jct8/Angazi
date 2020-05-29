@@ -13,71 +13,71 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f,0.0f,-5.0f });
 	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
-	//Front Vertices
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , Vector2{0.0f , 0.0f }});
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , Vector2{1.0f , 0.0f }});
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , Vector2{1.0f , 1.0f }});
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , Vector2{0.0f , 1.0f }});
-	//Back
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f } , Vector2{0.0f , 0.0f }});
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f } , Vector2{1.0f , 0.0f }});
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f } , Vector2{1.0f , 1.0f }});
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f } , Vector2{0.0f , 1.0f }});
+	////Front Vertices
+	//mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , Vector2{0.0f , 0.0f }});
+	//mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , Vector2{1.0f , 0.0f }});
+	//mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , Vector2{1.0f , 1.0f }});
+	//mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , Vector2{0.0f , 1.0f }});
+	////Back
+	//mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f } , Vector2{0.0f , 0.0f }});
+	//mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f } , Vector2{1.0f , 0.0f }});
+	//mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f } , Vector2{1.0f , 1.0f }});
+	//mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f } , Vector2{0.0f , 1.0f }});
 
-	//Front
-	mMesh.indices.push_back(0);
-	mMesh.indices.push_back(1);
-	mMesh.indices.push_back(2);
+	////Front
+	//mMesh.indices.push_back(0);
+	//mMesh.indices.push_back(1);
+	//mMesh.indices.push_back(2);
 
-	mMesh.indices.push_back(0);
-	mMesh.indices.push_back(2);
-	mMesh.indices.push_back(3);
+	//mMesh.indices.push_back(0);
+	//mMesh.indices.push_back(2);
+	//mMesh.indices.push_back(3);
 
-	//Back
-	mMesh.indices.push_back(4);
-	mMesh.indices.push_back(6);
-	mMesh.indices.push_back(5);
+	////Back
+	//mMesh.indices.push_back(4);
+	//mMesh.indices.push_back(6);
+	//mMesh.indices.push_back(5);
 
-	mMesh.indices.push_back(4);
-	mMesh.indices.push_back(7);
-	mMesh.indices.push_back(6);
+	//mMesh.indices.push_back(4);
+	//mMesh.indices.push_back(7);
+	//mMesh.indices.push_back(6);
 
-	//Left
-	mMesh.indices.push_back(4);
-	mMesh.indices.push_back(0);
-	mMesh.indices.push_back(3);
+	////Left
+	//mMesh.indices.push_back(4);
+	//mMesh.indices.push_back(0);
+	//mMesh.indices.push_back(3);
 
-	mMesh.indices.push_back(4);
-	mMesh.indices.push_back(3);
-	mMesh.indices.push_back(7);
+	//mMesh.indices.push_back(4);
+	//mMesh.indices.push_back(3);
+	//mMesh.indices.push_back(7);
 
-	//Right
-	mMesh.indices.push_back(1);
-	mMesh.indices.push_back(5);
-	mMesh.indices.push_back(6);
+	////Right
+	//mMesh.indices.push_back(1);
+	//mMesh.indices.push_back(5);
+	//mMesh.indices.push_back(6);
 
-	mMesh.indices.push_back(1);
-	mMesh.indices.push_back(6);
-	mMesh.indices.push_back(2);
+	//mMesh.indices.push_back(1);
+	//mMesh.indices.push_back(6);
+	//mMesh.indices.push_back(2);
 
-	//Top
-	mMesh.indices.push_back(4);
-	mMesh.indices.push_back(5);
-	mMesh.indices.push_back(1);
+	////Top
+	//mMesh.indices.push_back(4);
+	//mMesh.indices.push_back(5);
+	//mMesh.indices.push_back(1);
 
-	mMesh.indices.push_back(4);
-	mMesh.indices.push_back(1);
-	mMesh.indices.push_back(0);
+	//mMesh.indices.push_back(4);
+	//mMesh.indices.push_back(1);
+	//mMesh.indices.push_back(0);
 
-	//Bottom
-	mMesh.indices.push_back(3);
-	mMesh.indices.push_back(2);
-	mMesh.indices.push_back(6);
+	////Bottom
+	//mMesh.indices.push_back(3);
+	//mMesh.indices.push_back(2);
+	//mMesh.indices.push_back(6);
 
-	mMesh.indices.push_back(3);
-	mMesh.indices.push_back(6);
-	mMesh.indices.push_back(7);
-
+	//mMesh.indices.push_back(3);
+	//mMesh.indices.push_back(6);
+	//mMesh.indices.push_back(7);
+	mMesh = MeshBuilder::CreateCubePX();
 	mMeshPlane = MeshBuilder::CreatePlanePX(20, 20);
 	mMeshCylinder = MeshBuilder::CreateCylinderPX(3, 2 , 16);
 	mMeshSphere =  MeshBuilder::CreateSpherePX(5);

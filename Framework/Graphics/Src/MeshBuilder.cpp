@@ -5,6 +5,98 @@
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
+using namespace Angazi::Math;
+
+MeshPX Angazi::Graphics::MeshBuilder::CreateCubePX()
+{
+	MeshPX mMesh;
+	//Front Vertices
+	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , {0.0f,0.0f} });// 0
+	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , {1.0f,0.0f} });// 1
+	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , {1.0f,1.0f} });// 2
+	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , {0.0f,1.0f} });// 3
+	//Back Vertices
+	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f } , {1.0f,0.0f} });// 4
+	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f } , {0.0f,0.0f} });// 5
+	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f } , {0.0f,1.0f} });// 6
+	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f } , {1.0f,1.0f} });// 7
+	//Left Vertices
+	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f } , {0.0f,0.0f} });// 8
+	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , {1.0f,0.0f} });// 9
+	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , {1.0f,1.0f} });// 10
+	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f } , {0.0f,1.0f} });// 11
+	//Right Vertices
+	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , {0.0f,0.0f} });// 12
+	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f } , {1.0f,0.0f} });// 13
+	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f } , {1.0f,1.0f} });// 14
+	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , {0.0f,1.0f} });// 15
+	// Top Vertices
+	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f } , {0.0f,0.0f} });// 16
+	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f } , {1.0f,0.0f} });// 17
+	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , {1.0f,1.0f} });// 18
+	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , {0.0f,1.0f} });// 19
+	// Bottom Vertices
+	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , {0.0f,0.0f} });// 20
+	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , {1.0f,0.0f} });// 21
+	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f } , {1.0f,1.0f} });// 22
+	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f } , {0.0f,1.0f} });// 23
+
+	// Front Indices
+	mMesh.indices.push_back(0);
+	mMesh.indices.push_back(1);
+	mMesh.indices.push_back(2);
+
+	mMesh.indices.push_back(0);
+	mMesh.indices.push_back(2);
+	mMesh.indices.push_back(3);
+
+	// Back Indices
+	mMesh.indices.push_back(5);
+	mMesh.indices.push_back(4);
+	mMesh.indices.push_back(7);
+
+	mMesh.indices.push_back(5);
+	mMesh.indices.push_back(7);
+	mMesh.indices.push_back(6);
+
+	// Right Indices
+	mMesh.indices.push_back(12);
+	mMesh.indices.push_back(13);
+	mMesh.indices.push_back(14);
+
+	mMesh.indices.push_back(12);
+	mMesh.indices.push_back(14);
+	mMesh.indices.push_back(15);
+
+	// Left Indices
+	mMesh.indices.push_back(8);
+	mMesh.indices.push_back(9);
+	mMesh.indices.push_back(10);
+
+	mMesh.indices.push_back(8);
+	mMesh.indices.push_back(10);
+	mMesh.indices.push_back(11);
+
+	// Top Indices
+	mMesh.indices.push_back(16);
+	mMesh.indices.push_back(17);
+	mMesh.indices.push_back(18);
+
+	mMesh.indices.push_back(16);
+	mMesh.indices.push_back(18);
+	mMesh.indices.push_back(19);
+
+	// Bottom Indices
+	mMesh.indices.push_back(20);
+	mMesh.indices.push_back(21);
+	mMesh.indices.push_back(23);
+
+	mMesh.indices.push_back(21);
+	mMesh.indices.push_back(22);
+	mMesh.indices.push_back(23);
+
+	return mMesh;
+}
 
 MeshPX MeshBuilder::CreatePlanePX(int height, int width)
 {
