@@ -61,6 +61,8 @@ void Animator::BlendTo(int index, float duration)
 {
 	ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
 	ASSERT(index < static_cast<int>(mModel->animationSet.clips.size()), "[Animator] - Model does not have clip index.");
+	if (mBlendIndex == index)
+		return;
 	mBlendWeight = 0.0f;
 	mBlendTime = 0.0f;
 	mBlendDuration = duration;
@@ -68,9 +70,10 @@ void Animator::BlendTo(int index, float duration)
 }
 void Animator::Update(float deltaTime)
 {
-	mTimer += mAnimationSpeed * deltaTime; // mModel->animationSet.clips[mClipIndex]->tickPerSecond * deltaTime;
 	ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
-	UpdateBoneMatrices(mModel->skeleton.root, mBoneMatrices, !isSkeletalAnimation, *(mModel->animationSet.clips[mClipIndex]), mTimer);
+	AnimationClip* clip = mModel->animationSet.clips[mClipIndex].get();
+	mTimer += mAnimationSpeed * clip->ticksPerSecond *0.5f * deltaTime;
+	UpdateBoneMatrices(mModel->skeleton.root, mBoneMatrices, !isSkeletalAnimation, *clip, mTimer);
 
 	if (mBlendDuration > 0.0f)
 	{

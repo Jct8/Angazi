@@ -23,7 +23,7 @@ namespace Angazi::Graphics
 	private:
 		const Model* mModel;
 		float mTimer = 0.0f;
-		float mAnimationSpeed = 10.0f;
+		float mAnimationSpeed = 1.0f;
 		int mClipIndex = 0;
 		bool isSkeletalAnimation = false;
 

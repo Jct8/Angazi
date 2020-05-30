@@ -149,6 +149,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics", "Framework\Physic
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "20_HelloPhysics", "VGP334\20_HelloPhysics\20_HelloPhysics.vcxproj", "{2CE84F4D-094D-405C-A373-DF32A59709AE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "21_HelloBlending", "VGP334\21_HelloBlending\21_HelloBlending.vcxproj", "{94A02A05-C230-4215-A859-938943EA444E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -881,6 +883,22 @@ Global
 		{2CE84F4D-094D-405C-A373-DF32A59709AE}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{2CE84F4D-094D-405C-A373-DF32A59709AE}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{2CE84F4D-094D-405C-A373-DF32A59709AE}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{94A02A05-C230-4215-A859-938943EA444E}.Debug|x64.ActiveCfg = Debug|x64
+		{94A02A05-C230-4215-A859-938943EA444E}.Debug|x64.Build.0 = Debug|x64
+		{94A02A05-C230-4215-A859-938943EA444E}.Debug|x86.ActiveCfg = Debug|Win32
+		{94A02A05-C230-4215-A859-938943EA444E}.Debug|x86.Build.0 = Debug|Win32
+		{94A02A05-C230-4215-A859-938943EA444E}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{94A02A05-C230-4215-A859-938943EA444E}.MinSizeRel|x64.Build.0 = Release|x64
+		{94A02A05-C230-4215-A859-938943EA444E}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{94A02A05-C230-4215-A859-938943EA444E}.MinSizeRel|x86.Build.0 = Release|Win32
+		{94A02A05-C230-4215-A859-938943EA444E}.Release|x64.ActiveCfg = Release|x64
+		{94A02A05-C230-4215-A859-938943EA444E}.Release|x64.Build.0 = Release|x64
+		{94A02A05-C230-4215-A859-938943EA444E}.Release|x86.ActiveCfg = Release|Win32
+		{94A02A05-C230-4215-A859-938943EA444E}.Release|x86.Build.0 = Release|Win32
+		{94A02A05-C230-4215-A859-938943EA444E}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{94A02A05-C230-4215-A859-938943EA444E}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{94A02A05-C230-4215-A859-938943EA444E}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{94A02A05-C230-4215-A859-938943EA444E}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -933,12 +951,13 @@ Global
 		{6C430294-937F-46A1-956F-91454D923FDF} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
 		{C7A4A173-4EA4-4DDF-A684-CD434D5C0C16} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 		{2CE84F4D-094D-405C-A373-DF32A59709AE} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
+		{94A02A05-C230-4215-A859-938943EA444E} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 45
+		SccNumberOfProjects = 46
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1118,5 +1137,9 @@ Global
 		SccProjectTopLevelParentUniqueName44 = Angazi.sln
 		SccProjectName44 = VGP334/20_HelloPhysics
 		SccLocalPath44 = VGP334\\20_HelloPhysics
+		SccProjectUniqueName45 = VGP334\\21_HelloBlending\\21_HelloBlending.vcxproj
+		SccProjectTopLevelParentUniqueName45 = Angazi.sln
+		SccProjectName45 = VGP334/21_HelloBlending
+		SccLocalPath45 = VGP334\\21_HelloBlending
 	EndGlobalSection
 EndGlobal

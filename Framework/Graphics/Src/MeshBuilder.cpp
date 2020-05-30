@@ -7,7 +7,7 @@ using namespace Angazi;
 using namespace Angazi::Graphics;
 using namespace Angazi::Math;
 
-MeshPX Angazi::Graphics::MeshBuilder::CreateCubePX()
+MeshPX MeshBuilder::CreateCubePX()
 {
 	MeshPX mMesh;
 	//Front Vertices

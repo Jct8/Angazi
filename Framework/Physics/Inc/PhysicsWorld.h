@@ -1,5 +1,6 @@
 #pragma once
 #include "Particle.h"
+#include "Constraints.h"
 
 namespace Angazi::Physics
 {
@@ -20,7 +21,9 @@ namespace Angazi::Physics
 		void DebugDraw() const;
 
 		void AddParticles(Particle* p);
-		void Clear();
+		void AddConstraint(Constraint* c);
+		void AddPlane(const Math::Plane& plane);
+		void Clear(bool onlyDynamic = false);
 
 	private:
 		void AccumulateForces();
@@ -28,6 +31,8 @@ namespace Angazi::Physics
 		void SatisfyConstraints();
 
 		std::vector<Particle*> mParticles;
+		std::vector<Constraint*> mConstraints;
+		std::vector<Math::Plane> mPlanes;
 
 		Settings mSettings;
 		float mTimer = 0.0f;

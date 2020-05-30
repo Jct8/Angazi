@@ -144,17 +144,14 @@ inline Color Convert(const aiColor3D& c)
 {
 	return { c.r , c.g, c.b, 1.0f };
 }
-
 inline Vector3 Convert(const aiVector3D& v)
 {
 	return { v.x , v.y, v.z };
 }
-
 inline Quaternion Convert(const aiQuaternion& q)
 {
 	return { q.x , q.y, q.z , q.w };
 }
-
 inline Matrix4 Convert(const aiMatrix4x4& m)
 {
 	Matrix4 mat = *(reinterpret_cast<const Matrix4*>(&m));
@@ -447,57 +444,65 @@ int main(int argc, char* argv[])
 	}
 
 	// Look for animations data.
-	if (scene->HasAnimations())
+	std::filesystem::path path = args.inputFileName;
+	for (const auto & entry : std::filesystem::directory_iterator(path.parent_path()))
 	{
-		printf("Reading animations... \n");
-
-		for (uint32_t animIndex = 0; animIndex < scene->mNumAnimations; ++animIndex)
+		const aiScene* sceneAnim = importer.ReadFile(entry.path().u8string().c_str(),
+			aiProcessPreset_TargetRealtime_Quality | aiProcess_ConvertToLeftHanded);
+		if (sceneAnim == nullptr)
+			continue;
+		if (sceneAnim->HasAnimations())
 		{
-			const aiAnimation* inputAnim = scene->mAnimations[animIndex];
-			auto animClip = std::make_unique<AnimationClip>();
+			printf("Reading animations... \n");
 
-			if (inputAnim->mName.length > 0)
-				animClip->name = inputAnim->mName.C_Str();
-			else
-				animClip->name = "Anim" + std::to_string(animIndex);
-
-			animClip->duration = static_cast<float>(inputAnim->mDuration);
-			animClip->ticksPerSecond = static_cast<float>(inputAnim->mTicksPerSecond);
-
-			printf("Reading bone animations for %s ...\n", animClip->name.c_str());
-
-			// Make sure we have the same number of slots for animationClip as the bone in the
-			// skeleton. This allows us to index the animationClip using the bone index directly.
-			animClip->boneAnimations.resize(model.skeleton.bones.size());
-
-			for (uint32_t boneAnimIndex = 0; boneAnimIndex < inputAnim->mNumChannels ; boneAnimIndex++)
+			for (uint32_t animIndex = 0; animIndex < sceneAnim->mNumAnimations; ++animIndex)
 			{
-				const aiNodeAnim* inputBoneAnim = inputAnim->mChannels[boneAnimIndex];
-				int slotIndex = boneIndexLookup[inputBoneAnim->mNodeName.C_Str()];
-				auto& boneAnim = animClip->boneAnimations[slotIndex];
-				boneAnim = std::make_unique<Animation>();
+				const aiAnimation* inputAnim = sceneAnim->mAnimations[animIndex];
+				auto animClip = std::make_unique<AnimationClip>();
 
-				AnimationBuilder builder;
-				for (uint32_t keyIndex = 0; keyIndex < inputBoneAnim->mNumPositionKeys; ++keyIndex)
+				if (inputAnim->mName.length > 0)
+					animClip->name = inputAnim->mName.C_Str();
+				else
+					animClip->name = "Anim" + std::to_string(animIndex);
+
+				animClip->duration = static_cast<float>(inputAnim->mDuration);
+				animClip->ticksPerSecond = static_cast<float>(inputAnim->mTicksPerSecond);
+
+				printf("Reading bone animations for %s ...\n", animClip->name.c_str());
+
+				// Make sure we have the same number of slots for animationClip as the bone in the
+				// skeleton. This allows us to index the animationClip using the bone index directly.
+				animClip->boneAnimations.resize(model.skeleton.bones.size());
+
+				for (uint32_t boneAnimIndex = 0; boneAnimIndex < inputAnim->mNumChannels; boneAnimIndex++)
 				{
-					auto& key = inputBoneAnim->mPositionKeys[keyIndex];
-					builder.AddPositionKey(Convert(key.mValue) * args.scale, static_cast<float>(key.mTime));
+					const aiNodeAnim* inputBoneAnim = inputAnim->mChannels[boneAnimIndex];
+					int slotIndex = boneIndexLookup[inputBoneAnim->mNodeName.C_Str()];
+					auto& boneAnim = animClip->boneAnimations[slotIndex];
+					boneAnim = std::make_unique<Animation>();
+
+					AnimationBuilder builder;
+					for (uint32_t keyIndex = 0; keyIndex < inputBoneAnim->mNumPositionKeys; ++keyIndex)
+					{
+						auto& key = inputBoneAnim->mPositionKeys[keyIndex];
+						builder.AddPositionKey(Convert(key.mValue) * args.scale, static_cast<float>(key.mTime));
+					}
+					for (uint32_t keyIndex = 0; keyIndex < inputBoneAnim->mNumRotationKeys; ++keyIndex)
+					{
+						auto& key = inputBoneAnim->mRotationKeys[keyIndex];
+						builder.AddRotationKey(Convert(key.mValue), static_cast<float>(key.mTime));
+					}
+					for (uint32_t keyIndex = 0; keyIndex < inputBoneAnim->mNumScalingKeys; ++keyIndex)
+					{
+						auto& key = inputBoneAnim->mScalingKeys[keyIndex];
+						builder.AddScaleKey(Convert(key.mValue), static_cast<float>(key.mTime));
+					}
+					*boneAnim = builder.Build();
 				}
-				for (uint32_t keyIndex = 0; keyIndex < inputBoneAnim->mNumRotationKeys; ++keyIndex)
-				{
-					auto& key = inputBoneAnim->mRotationKeys[keyIndex];
-					builder.AddRotationKey(Convert(key.mValue) , static_cast<float>(key.mTime));
-				}
-				for (uint32_t keyIndex = 0; keyIndex < inputBoneAnim->mNumScalingKeys; ++keyIndex)
-				{
-					auto& key = inputBoneAnim->mScalingKeys[keyIndex];
-					builder.AddScaleKey(Convert(key.mValue), static_cast<float>(key.mTime));
-				}
-				*boneAnim = builder.Build();
+
+				// Add the new clip to our animation set
+				model.animationSet.clips.emplace_back(std::move(animClip));
 			}
-
-			// Add the new clip to our animation set
-			model.animationSet.clips.emplace_back(std::move(animClip));
 		}
 	}
 

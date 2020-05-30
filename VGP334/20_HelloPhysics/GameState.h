@@ -18,10 +18,7 @@ private:
 
 private:
 	Angazi::Graphics::Camera mCamera;
-	Angazi::Graphics::DirectionalLight mDirectionalLight;
-	Angazi::Graphics::Material mMaterial;
 
 	// Physics
 	Angazi::Physics::PhysicsWorld mPhysicsWorld;
-
 };

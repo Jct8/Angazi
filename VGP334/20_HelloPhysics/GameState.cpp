@@ -15,17 +15,10 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 23.0f, -33.0f });
 	mCamera.SetDirection({ 0.0f,-0.36f, 0.92f });
 
-	mDirectionalLight.direction = Normalize({ 0.327f,-0.382f, 0.864f });
-	mDirectionalLight.ambient = { 0.8f,0.8f,0.8f ,1.0f };
-	mDirectionalLight.diffuse = { 0.75f,0.75f,0.75f ,1.0f };
-	mDirectionalLight.specular = { 0.5f,0.5f,0.5f ,1.0f };
-
-	mMaterial.ambient = { 0.8f,0.8f,0.8f ,1.0f };
-	mMaterial.diffuse = { 0.8f,0.8f,0.8f ,1.0f };
-	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
-	mMaterial.power = 80.0f;
-
-	mPhysicsWorld.Initialize(Physics::PhysicsWorld::Settings());
+	Physics::PhysicsWorld::Settings settings;
+	settings.drag = 0.3f;
+	mPhysicsWorld.Initialize(settings);
+	mPhysicsWorld.AddPlane({Vector3::YAxis,0.0f});
 }
 
 void GameState::Terminate()
@@ -56,17 +49,7 @@ void GameState::Update(float deltaTime)
 
 	if (inputSystem->IsKeyPressed(Input::KeyCode::SPACE))
 	{
-		mPhysicsWorld.Clear();
-		for (int i = 0; i < 100; i++)
-		{
-			auto p = new Physics::Particle;
-			p->SetPosition({ RandomFloat(-3.0f,-1.0f) , 10.0f , RandomFloat(-2.0f,2.0f) });
-			p->SetVelocity({ RandomFloat(-0.01f,0.01f) ,RandomFloat(-0.1f,0.5f),RandomFloat(-0.01f,0.01f) });
-			p->radius = 0.1f;
-			p->invMass = 0.01f;
-			p->bounce = 0.2f;
-			mPhysicsWorld.AddParticles(p);
-		}
+		
 	}
 
 	mPhysicsWorld.Update(deltaTime);
@@ -80,28 +63,43 @@ void GameState::Render()
 
 void GameState::DebugUI()
 {
-	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin("Physics", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Text("FPS: %.2f", Angazi::Core::TimeUtil::GetFramesPerSecond());
-	if (ImGui::CollapsingHeader("Light"))
+	if (ImGui::Button("Particles"))
 	{
-		bool directionChanged = false;
-		directionChanged |= ImGui::DragFloat("Direction X##Light", &mDirectionalLight.direction.x, 0.01f, -2.0f, 2.0f);
-		directionChanged |= ImGui::DragFloat("Direction Y##Light", &mDirectionalLight.direction.y, 0.01f, -2.0f, 2.0f);
-		directionChanged |= ImGui::DragFloat("Direction Z##Light", &mDirectionalLight.direction.z, 0.01f, -2.0f, 2.0f);
-		if (directionChanged)
+		mPhysicsWorld.Clear(true);
+		for (int i = 0; i < 100; i++)
 		{
-			mDirectionalLight.direction = Normalize(mDirectionalLight.direction);
+			auto p = new Physics::Particle;
+			p->SetPosition({ RandomFloat(-3.0f,3.0f) , 10.0f , RandomFloat(-3.0f,3.0f) });
+			p->SetVelocity({ RandomFloat(-0.05f,0.01f) ,RandomFloat(-0.1f,0.5f),RandomFloat(-0.05f,0.05f) });
+			p->radius = 0.1f;
+			p->invMass = 0.01f;
+			p->bounce = 0.7f;
+			mPhysicsWorld.AddParticles(p);
 		}
-		ImGui::ColorEdit4("Ambient##Light", &mDirectionalLight.ambient.x);
-		ImGui::ColorEdit4("Diffuse##Light", &mDirectionalLight.diffuse.x);
-		ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.x);
 	}
-	if (ImGui::CollapsingHeader("Material"))
+	if (ImGui::Button("Sticks"))
 	{
-		ImGui::ColorEdit4("Ambient##Material", &mMaterial.ambient.x);
-		ImGui::ColorEdit4("Diffuse##Material", &mMaterial.diffuse.x);
-		ImGui::ColorEdit4("Specular##Material", &mMaterial.specular.x);
-		ImGui::DragFloat("Power##Material", &mMaterial.power, 1.0f, 1.0f, 100.0f);
+		mPhysicsWorld.Clear(true);
+		for (int i = 0; i < 50; i++)
+		{
+			auto p1 = new Physics::Particle();
+			auto p2 = new Physics::Particle();
+			p1->SetPosition({ RandomFloat(-3.0f,3.0f) , 10.0f , RandomFloat(-3.0f,3.0f) });
+			p1->SetVelocity({ RandomFloat(-0.05f,0.01f) ,RandomFloat(-0.1f,0.5f),RandomFloat(-0.05f,0.05f) });
+			p1->radius = 0.1f;
+			p1->bounce = 0.3f;
+
+			p2->SetPosition({ RandomFloat(-3.0f,3.0f) , 10.0f , RandomFloat(-3.0f,3.0f) });
+			p2->SetVelocity({ RandomFloat(-0.05f,0.01f) ,RandomFloat(-0.1f,0.5f),RandomFloat(-0.05f,0.05f) });
+			p2->radius = 0.1f;
+			p2->bounce = 0.3f;
+			mPhysicsWorld.AddParticles(p1);
+			mPhysicsWorld.AddParticles(p2);
+			auto c = new Physics::Spring(p1,p2);
+			mPhysicsWorld.AddConstraint(c);
+		}
 	}
 	ImGui::End();
 }
@@ -115,3 +113,13 @@ void GameState::DrawScene()
 
 	SimpleDraw::Render(mCamera);
 }
+
+
+// For Homework:
+// Add the following
+// - Tetrahedron
+// - Cubes (how many constraints do you need)
+// - Ball and Chain
+// - Cloth
+// - And if you are up for the challenge, build a figure (may need more constraints)
+// - Build whatever you want

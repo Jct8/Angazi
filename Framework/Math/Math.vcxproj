@@ -156,6 +156,7 @@
     <ClInclude Include="Inc\EngineMath.h" />
     <ClInclude Include="Inc\Matrix3.h" />
     <ClInclude Include="Inc\Matrix4.h" />
+    <ClInclude Include="Inc\Plane.h" />
     <ClInclude Include="Inc\Quaternion.h" />
     <ClInclude Include="Inc\Shapes.h" />
     <ClInclude Include="Inc\Vector2.h" />
