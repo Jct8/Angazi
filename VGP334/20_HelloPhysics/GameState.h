@@ -21,4 +21,18 @@ private:
 
 	// Physics
 	Angazi::Physics::PhysicsWorld mPhysicsWorld;
+	std::vector<Angazi::Physics::Particle*> mParticles;
+
+	// Texture Cloth 
+	Angazi::Graphics::Sampler mSampler;
+	Angazi::Graphics::Texture mTexture;
+	Angazi::Graphics::MeshPX mMesh;
+	Angazi::Graphics::MeshBuffer mMeshBuffer;
+	Angazi::Graphics::PixelShader mPixelShader;
+	Angazi::Graphics::VertexShader mVertexShader;
+	Angazi::Graphics::ConstantBuffer mConstantBuffer;
+
+	bool usingClothTexture = false;
+	int height = 20;
+	int width = 15;
 };

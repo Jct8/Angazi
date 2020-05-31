@@ -23,5 +23,10 @@ namespace Angazi::Physics
 		{
 			lastPosition = position - vel;
 		}
+
+		void DebugDraw()
+		{
+			Graphics::SimpleDraw::AddSphere(position, radius, Graphics::Colors::AliceBlue, false, 4, 4);
+		}
 	};
 }

@@ -25,7 +25,7 @@ void PhysicsWorld::Update(float deltaTime)
 void PhysicsWorld::DebugDraw() const
 {
 	for (auto p : mParticles)
-		Graphics::SimpleDraw::AddSphere(p->position, p->radius, Graphics::Colors::AliceBlue, false, 4, 4);
+		p->DebugDraw();
 	for (auto c : mConstraints)
 		c->DebugDraw();
 }
@@ -50,6 +50,7 @@ void PhysicsWorld::Clear(bool onlyDynamic)
 	for (auto particle : mParticles)
 		delete particle;
 	mParticles.clear();
+
 	for (auto constraint : mConstraints)
 		delete constraint;
 	mConstraints.clear();
