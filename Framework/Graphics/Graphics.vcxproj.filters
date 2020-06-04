@@ -186,6 +186,9 @@
     <ClInclude Include="Inc\PostProcessingEffect.h">
       <Filter>Inc\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Skybox.h">
+      <Filter>Inc\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\GraphicsSystem.cpp">
@@ -277,6 +280,9 @@
     </ClCompile>
     <ClCompile Include="Src\PostProcessingEffect.cpp">
       <Filter>Src\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Skybox.cpp">
+      <Filter>Src\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

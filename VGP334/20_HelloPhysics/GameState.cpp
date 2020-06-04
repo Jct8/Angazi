@@ -290,7 +290,7 @@ void GameState::DebugUI()
 		auto c3 = new Physics::Spring(mParticles[stringLength - 1], mParticles[stringLength], 1.0f);
 		mPhysicsWorld.AddConstraint(c3);
 
-		for (int i = 0; i < mParticles.size(); i++)
+		for (size_t i = 0; i < mParticles.size(); i++)
 		{
 			mPhysicsWorld.AddParticles(mParticles[i]);
 		}
@@ -381,6 +381,12 @@ void GameState::DebugUI()
 	if (ImGui::Button("Clear"))
 	{
 		mPhysicsWorld.Clear(true);
+	}
+
+	static bool showParticles = true;
+	if(ImGui::Checkbox("Show Particles", &showParticles))
+	{
+		mPhysicsWorld.ShowParticles(showParticles);
 	}
 	ImGui::End();
 }

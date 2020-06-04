@@ -7,6 +7,76 @@ using namespace Angazi;
 using namespace Angazi::Graphics;
 using namespace Angazi::Math;
 
+MeshP MeshBuilder::CreateInnerCubeP()
+{
+	MeshP mesh;
+	// Front Vertices
+	mesh.vertices.push_back({ Vector3{ -1.0f,  1.0f, -1.0f } });// 0
+	mesh.vertices.push_back({ Vector3{  1.0f,  1.0f, -1.0f } });// 1
+	mesh.vertices.push_back({ Vector3{  1.0f, -1.0f, -1.0f } });// 2
+	mesh.vertices.push_back({ Vector3{ -1.0f, -1.0f, -1.0f } });// 3
+	// Back
+	mesh.vertices.push_back({ Vector3{ -1.0f,  1.0f, 1.0f } });	// 4
+	mesh.vertices.push_back({ Vector3{  1.0f,  1.0f, 1.0f } });	// 5
+	mesh.vertices.push_back({ Vector3{  1.0f, -1.0f, 1.0f } });	// 6
+	mesh.vertices.push_back({ Vector3{ -1.0f, -1.0f, 1.0f } });	// 7
+
+	// Front
+	mesh.indices.push_back(0);
+	mesh.indices.push_back(2);
+	mesh.indices.push_back(1);
+
+	mesh.indices.push_back(0);
+	mesh.indices.push_back(3);
+	mesh.indices.push_back(2);
+
+	// Back
+	mesh.indices.push_back(4);
+	mesh.indices.push_back(5);
+	mesh.indices.push_back(6);
+
+	mesh.indices.push_back(4);
+	mesh.indices.push_back(6);
+	mesh.indices.push_back(7);
+
+	// Right
+	mesh.indices.push_back(1);
+	mesh.indices.push_back(2);
+	mesh.indices.push_back(5);
+
+	mesh.indices.push_back(5);
+	mesh.indices.push_back(2);
+	mesh.indices.push_back(6);
+
+	// Left
+	mesh.indices.push_back(4);
+	mesh.indices.push_back(7);
+	mesh.indices.push_back(0);
+
+	mesh.indices.push_back(0);
+	mesh.indices.push_back(7);
+	mesh.indices.push_back(3);
+
+	// Top
+	mesh.indices.push_back(4);
+	mesh.indices.push_back(0);
+	mesh.indices.push_back(1);
+
+	mesh.indices.push_back(4);
+	mesh.indices.push_back(1);
+	mesh.indices.push_back(5);
+
+	// Bottom
+	mesh.indices.push_back(7);
+	mesh.indices.push_back(6);
+	mesh.indices.push_back(3);
+
+	mesh.indices.push_back(6);
+	mesh.indices.push_back(2);
+	mesh.indices.push_back(3);
+	return mesh;
+}
+
 MeshPX MeshBuilder::CreateCubePX()
 {
 	MeshPX mMesh;

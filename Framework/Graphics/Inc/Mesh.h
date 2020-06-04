@@ -11,6 +11,7 @@ namespace Angazi::Graphics
 		std::vector<uint32_t> indices;
 	};
 
+	using MeshP = MeshBase<VertexP>;
 	using MeshPC = MeshBase<VertexPC>;
 	using MeshPX = MeshBase<VertexPX>;
 	using MeshPN = MeshBase<VertexPN>;

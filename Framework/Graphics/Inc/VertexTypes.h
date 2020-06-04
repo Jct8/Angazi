@@ -16,6 +16,12 @@ namespace Angazi::Graphics
 #define VERTEX_FORMAT(fmt)\
 	static constexpr uint32_t Format = fmt;
 
+	struct VertexP
+	{
+		VERTEX_FORMAT(VE_Position | VE_Position);
+		Math::Vector3 position;
+	};
+
 	struct VertexPC
 	{
 		VERTEX_FORMAT(VE_Position | VE_Color);

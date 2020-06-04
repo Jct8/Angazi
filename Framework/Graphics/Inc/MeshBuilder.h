@@ -5,6 +5,8 @@ namespace Angazi::Graphics
 	class MeshBuilder
 	{
 	public:
+		static MeshP CreateInnerCubeP();
+
 		static MeshPC CreateCubePC();
 		static MeshPC CreateCylinderPC();
 
@@ -21,5 +23,4 @@ namespace Angazi::Graphics
 		static Mesh CreatePlane(float size, int rings = 16, int slices = 16);
 
 	};
-
 }

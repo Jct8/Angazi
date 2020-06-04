@@ -31,6 +31,7 @@
 #include "SimpleDraw.h"
 #include "Skeleton.h"
 #include "SkeletonIO.h"
+#include "Skybox.h"
 #include "SpriteRenderer.h"
 #include "SpriteTypes.h"
 #include "StandardEffect.h"

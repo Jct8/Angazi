@@ -25,6 +25,7 @@ namespace Angazi::Physics
 		void AddPlane(const Math::Plane& plane);
 		void Clear(bool onlyDynamic = false);
 
+		void ShowParticles(bool show) { mShowParticles = show; }
 	private:
 		void AccumulateForces();
 		void Integrate();
@@ -36,5 +37,6 @@ namespace Angazi::Physics
 
 		Settings mSettings;
 		float mTimer = 0.0f;
+		bool mShowParticles = true;
 	};
 }

@@ -31,6 +31,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	{
 		GraphicsSystem::StaticInitialize(handle, false);
 		DebugUI::StaticInitialize(handle, false, true);
+		DebugUI::SetTheme(DebugUI::Theme::Dark);
 		Graphics::SimpleDraw::StaticInitialize(1024 * 1024);
 		Graphics::SpriteRenderer::StaticInitialize();
 	}

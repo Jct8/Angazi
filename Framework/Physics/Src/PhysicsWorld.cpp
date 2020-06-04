@@ -24,8 +24,9 @@ void PhysicsWorld::Update(float deltaTime)
 
 void PhysicsWorld::DebugDraw() const
 {
-	for (auto p : mParticles)
-		p->DebugDraw();
+	if (mShowParticles)
+		for (auto p : mParticles)
+			p->DebugDraw();
 	for (auto c : mConstraints)
 		c->DebugDraw();
 }
@@ -88,7 +89,7 @@ void PhysicsWorld::SatisfyConstraints()
 	{
 		for (auto p : mParticles)
 		{
-			if (Math::Dot(p->position,plane.n) <= plane.d && Math::Dot(p->lastPosition,plane.n) > plane.d)
+			if (Math::Dot(p->position, plane.n) <= plane.d && Math::Dot(p->lastPosition, plane.n) > plane.d)
 			{
 				auto velocity = p->position - p->lastPosition;
 				auto velocityPerpendicular = plane.n *Math::Dot(velocity, plane.n);

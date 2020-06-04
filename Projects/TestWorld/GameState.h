@@ -44,6 +44,9 @@ private:
 	// PostProcessing
 	Angazi::Graphics::PostProcessingEffect mPostProcessingEffect;
 
+	Angazi::Graphics::Skybox mSkybox;
+
+
 	// Skeleton - Animation
 	float animationSpeed = 10.0f;
 	bool mShowSkeleton = false;

@@ -49,6 +49,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA
 		Assets\Shaders\Earth.fx = Assets\Shaders\Earth.fx
 		Assets\Shaders\PostProcessing.fx = Assets\Shaders\PostProcessing.fx
 		Assets\Shaders\SimpleDraw.fx = Assets\Shaders\SimpleDraw.fx
+		Assets\Shaders\Skybox.fx = Assets\Shaders\Skybox.fx
 		Assets\Shaders\Standard.fx = Assets\Shaders\Standard.fx
 		Assets\Shaders\Standard2.fx = Assets\Shaders\Standard2.fx
 		Assets\Shaders\StandardClipping.fx = Assets\Shaders\StandardClipping.fx
@@ -150,6 +151,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "20_HelloPhysics", "VGP334\20_HelloPhysics\20_HelloPhysics.vcxproj", "{2CE84F4D-094D-405C-A373-DF32A59709AE}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "21_HelloBlending", "VGP334\21_HelloBlending\21_HelloBlending.vcxproj", "{94A02A05-C230-4215-A859-938943EA444E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestWorld", "Projects\TestWorld\TestWorld.vcxproj", "{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -899,6 +902,22 @@ Global
 		{94A02A05-C230-4215-A859-938943EA444E}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{94A02A05-C230-4215-A859-938943EA444E}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{94A02A05-C230-4215-A859-938943EA444E}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.Debug|x64.ActiveCfg = Debug|x64
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.Debug|x64.Build.0 = Debug|x64
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.Debug|x86.ActiveCfg = Debug|Win32
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.Debug|x86.Build.0 = Debug|Win32
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.MinSizeRel|x64.Build.0 = Release|x64
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.MinSizeRel|x86.Build.0 = Release|Win32
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.Release|x64.ActiveCfg = Release|x64
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.Release|x64.Build.0 = Release|x64
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.Release|x86.ActiveCfg = Release|Win32
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.Release|x86.Build.0 = Release|Win32
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -952,12 +971,13 @@ Global
 		{C7A4A173-4EA4-4DDF-A684-CD434D5C0C16} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 		{2CE84F4D-094D-405C-A373-DF32A59709AE} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
 		{94A02A05-C230-4215-A859-938943EA444E} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
+		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 46
+		SccNumberOfProjects = 47
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1141,5 +1161,9 @@ Global
 		SccProjectTopLevelParentUniqueName45 = Angazi.sln
 		SccProjectName45 = VGP334/21_HelloBlending
 		SccLocalPath45 = VGP334\\21_HelloBlending
+		SccProjectUniqueName46 = Projects\\TestWorld\\TestWorld.vcxproj
+		SccProjectTopLevelParentUniqueName46 = Angazi.sln
+		SccProjectName46 = Projects/TestWorld
+		SccLocalPath46 = Projects\\TestWorld
 	EndGlobalSection
 EndGlobal
