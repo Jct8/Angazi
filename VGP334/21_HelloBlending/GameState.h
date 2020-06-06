@@ -33,7 +33,7 @@ private:
 	Angazi::Graphics::Model model;
 	Angazi::Math::Vector3 mModelPosition = 0.0f;
 	Angazi::Graphics::Animator animator;
-	float mMovementSpeed = 10.0f;
+	float mMovementSpeed = 2.0f;
 
 	//Camera
 	Angazi::Math::Vector3 mCameraOffset;

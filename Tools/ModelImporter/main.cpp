@@ -215,7 +215,7 @@ std::string FindTexture(const aiScene& scene, const aiMaterial& inputMaterial, a
 
 // Check if inputBone exists in skeleton, if so just return the index.
 // Otherwise, add it to the skeleton. The aiBone must have a name!
-int TryAddBone(const aiBone* inputBone, Skeleton& skeleton, BoneIndexLookup& boneIndexLookup)
+int TryAddBone(const aiBone* inputBone, Skeleton& skeleton, BoneIndexLookup& boneIndexLookup, const Arguments& args)
 {
 	std::string name = inputBone->mName.C_Str();
 	ASSERT(!name.empty(), "Error: inputBone has no name!");
@@ -229,6 +229,9 @@ int TryAddBone(const aiBone* inputBone, Skeleton& skeleton, BoneIndexLookup& bon
 	newBone->name = std::move(name);
 	newBone->index = static_cast<int>(skeleton.bones.size()) - 1;
 	newBone->offsetTransform = Convert(inputBone->mOffsetMatrix);
+	newBone->offsetTransform._41 *= args.scale;
+	newBone->offsetTransform._42 *= args.scale;
+	newBone->offsetTransform._43 *= args.scale;
 
 	// Cache the bone index
 	boneIndexLookup.emplace(newBone->name, newBone->index);
@@ -236,7 +239,7 @@ int TryAddBone(const aiBone* inputBone, Skeleton& skeleton, BoneIndexLookup& bon
 }
 
 // Recursively walk the aiScene tree and add/link bones to our skeleton as we find them.
-Bone* BuildSkeleton(const aiNode& sceneNode, Bone* parent, Skeleton& skeleton, BoneIndexLookup& boneIndexLookup)
+Bone* BuildSkeleton(const aiNode& sceneNode, Bone* parent, Skeleton& skeleton, BoneIndexLookup& boneIndexLookup, const Arguments& args)
 {
 	Bone* bone = nullptr;
 
@@ -253,6 +256,9 @@ Bone* BuildSkeleton(const aiNode& sceneNode, Bone* parent, Skeleton& skeleton, B
 		bone = skeleton.bones.emplace_back(std::make_unique<Bone>()).get();
 		bone->index = static_cast<int>(skeleton.bones.size()) - 1;
 		bone->offsetTransform = Matrix4::Identity;
+		bone->offsetTransform._41 *= args.scale;
+		bone->offsetTransform._42 *= args.scale;
+		bone->offsetTransform._43 *= args.scale;
 		if (name.empty())
 			bone->name = "NoName" + std::to_string(bone->index);
 		else
@@ -265,12 +271,14 @@ Bone* BuildSkeleton(const aiNode& sceneNode, Bone* parent, Skeleton& skeleton, B
 	// Link to your parent
 	bone->parent = parent;
 	bone->toParentTransform = Convert(sceneNode.mTransformation);
-
+	bone->toParentTransform._41 *= args.scale;
+	bone->toParentTransform._42 *= args.scale;
+	bone->toParentTransform._43 *=args.scale;
 	// Recurse through your children
 	bone->children.reserve(sceneNode.mNumChildren);
 	for (uint32_t i = 0; i < sceneNode.mNumChildren; ++i)
 	{
-		Bone* child = BuildSkeleton(*sceneNode.mChildren[i], bone, skeleton, boneIndexLookup);
+		Bone* child = BuildSkeleton(*sceneNode.mChildren[i], bone, skeleton, boneIndexLookup, args);
 		bone->children.push_back(child);
 	}
 	return bone;
@@ -379,7 +387,7 @@ int main(int argc, char* argv[])
 				for (uint32_t meshBoneIndex = 0; meshBoneIndex < inputMesh->mNumBones; ++meshBoneIndex)
 				{
 					aiBone* inputBone = inputMesh->mBones[meshBoneIndex];
-					int boneIndex = TryAddBone(inputBone, model.skeleton, boneIndexLookup);
+					int boneIndex = TryAddBone(inputBone, model.skeleton, boneIndexLookup,args);
 
 					for (uint32_t weightIndex = 0; weightIndex < inputBone->mNumWeights; ++weightIndex)
 					{
@@ -440,7 +448,7 @@ int main(int argc, char* argv[])
 	if (!model.skeleton.bones.empty())
 	{
 		printf("Building skeleton...\n");
-		BuildSkeleton(*scene->mRootNode, nullptr, model.skeleton, boneIndexLookup);
+		BuildSkeleton(*scene->mRootNode, nullptr, model.skeleton, boneIndexLookup,args);
 	}
 
 	// Look for animations data.

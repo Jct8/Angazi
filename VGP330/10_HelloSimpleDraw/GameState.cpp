@@ -68,7 +68,7 @@ void GameState::Update(float deltaTime)
 	//SimpleDraw::AddCone(2.0f, 1.0f, Colors::MintCream, true);
 	SimpleDraw::AddCone({ 0.0f,0.0f,0.0f }, {-6.0f,-2.0f,-5.0f}, 2.0f, 1.0f, Colors::MintCream, false);
 	SimpleDraw::AddCylinder({ 1.0f,0.0f,0.0f }, {25.0f, -10.0f, 20.0f}, 2.0f, 0.2f, Colors::Green, true);
-	//SimpleDraw::AddSphere({ 5.0f , 5.0f,5.0f }, 4.0f, Colors::Black, false, 32, 32);
+	SimpleDraw::AddSphere({ 5.0f , 5.0f,5.0f }, 4.0f, Colors::Black, false, 16, 8);
 	//SimpleDraw::AddSphere( 5.0f , 5.0f,5.0f , 4.0f, Colors::Black, false, 32, 32);
 	//SimpleDraw::AddSphere(Sphere{ { 5.0f , 5.0f,5.0f } , 4.0f }, Colors::Black, false, 32, 32);
 	//SimpleDraw::AddGroundPlane(20.0f);

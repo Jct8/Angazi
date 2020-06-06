@@ -8,7 +8,7 @@ using namespace Angazi::Graphics;
 
 namespace
 {
-	void DrawBone(Bone* bone, const std::vector<Math::Matrix4>& boneMatrices)
+	void DrawBone(Bone* bone, const std::vector<Math::Matrix4>& boneMatrices, float scale)
 	{
 		Math::Vector3 bonePositiion = GetTranslation(boneMatrices[bone->index]);
 		for (size_t i = 0; i < bone->children.size(); i++)
@@ -17,19 +17,19 @@ namespace
 			auto direction = childPositiion - bonePositiion;
 			//SimpleDraw::AddLine(bonePositiion, childPositiion, Colors::AliceBlue);
 			//SimpleDraw::AddCone(bonePositiion, Normalize(direction), Magnitude(direction), 1.0f, Colors::AliceBlue);
-			SimpleDraw::AddBone(bonePositiion, direction ,Colors::AliceBlue, 2.0f , true);
-			DrawBone(bone->children[i], boneMatrices);
+			SimpleDraw::AddBone(bonePositiion, direction, Colors::AliceBlue, scale *0.01f, true);
+			DrawBone(bone->children[i], boneMatrices,scale);
 		}
 	}
 }
 
-void Angazi::Graphics::DrawSkeleton(const Skeleton& skeleton, const std::vector<Math::Matrix4>& boneMatrices)
+void Angazi::Graphics::DrawSkeleton(const Skeleton& skeleton, const std::vector<Math::Matrix4>& boneMatrices, float scale)
 {
 	// Homework
 	// Use skeleton so you know what the parent child order is
 	// But, use boneMatrices (Which is the multiplied out matrices) to get the position
 	// Draw line to connect the bones
-	DrawBone(skeleton.root, boneMatrices);
+	DrawBone(skeleton.root, boneMatrices,scale);
 }
 
 void Angazi::Graphics::UpdateBoneMatrices(Bone* bone, std::vector<Math::Matrix4>& boneMatrices, bool applyOffset, const AnimationClip& clip, float time)

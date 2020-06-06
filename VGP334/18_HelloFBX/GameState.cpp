@@ -218,7 +218,7 @@ void GameState::DrawScene()
 
 	// Model
 	auto matRot = Matrix4::RotationY(Constants::Pi);
-	matWorld = Matrix4::Scaling(0.1f) * matRot * matWorld;
+	matWorld = Matrix4::Scaling(10.0f) * matRot * matWorld;
 	mModelStandardEffect.Begin();
 	mModelStandardEffect.SetMaterial(mMaterial);
 	mModelStandardEffect.SetDirectionalLight(mDirectionalLight);
@@ -265,7 +265,7 @@ void GameState::DrawDepthMap()
 
 	// Model
 	auto matRot = Matrix4::RotationY(Constants::Pi);
-	matWorld = Matrix4::Scaling(0.1f) * matRot * matWorld;
+	matWorld = Matrix4::Scaling(10.0f) * matRot * matWorld;
 	mShadowEffect.SetWorldMatrix(matWorld);
 
 	if (mShowSkeleton)

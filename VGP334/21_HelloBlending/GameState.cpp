@@ -11,8 +11,8 @@ void GameState::Initialize()
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
 	mCamera.SetNearPlane(0.1f);
-	mCamera.SetFarPlane(300.0f);
-	mCamera.SetPosition({ 0.57f, 22.0f,20.0f });
+	mCamera.SetFarPlane(100.0f);
+	mCamera.SetPosition({ 0.057f, 2.20f,3.0f });
 	mCamera.SetDirection({ -0.01f,-0.44f, -0.894f });
 
 	mCameraOffset = mCamera.GetPosition() - mModelPosition;
@@ -54,7 +54,7 @@ void GameState::Initialize()
 	mGroundStandardEffect.UseShadow(true);
 	mGroundStandardEffect.SetBumpMapWeight(6.0f);
 
-	mGroundMesh = MeshBuilder::CreatePlane(100.0f, 100, 100);
+	mGroundMesh = MeshBuilder::CreatePlane(100.0f, 50, 50);
 	mGroundMeshBuffer.Initialize(mGroundMesh);
 
 	mShadowEffect.Initialize("../../Assets/Shaders/DepthMap.fx");
@@ -244,7 +244,7 @@ void GameState::DrawScene()
 	auto matProj = mCamera.GetPerspectiveMatrix();
 
 	// Model
-	auto matWorld = Matrix4::Scaling(0.1f) * Matrix4::Translation(mModelPosition);
+	auto matWorld = Matrix4::Translation(mModelPosition);
 	mModelStandardEffect.Begin();
 	mModelStandardEffect.SetMaterial(mMaterial);
 	mModelStandardEffect.SetDirectionalLight(mDirectionalLight);
@@ -263,7 +263,7 @@ void GameState::DrawScene()
 	SimpleDraw::Render(mCamera, matWorld);
 
 	// Ground
-	matWorld = Matrix4::Translation({ 0.0f,-3.0f,0.0f });;
+	matWorld = Matrix4::Translation({ 0.0f,-2.5,0.0f });;
 	mGroundStandardEffect.Begin();
 	mGroundStandardEffect.SetMaterial(mMaterial);
 	mGroundStandardEffect.SetDirectionalLight(mDirectionalLight);
@@ -288,7 +288,6 @@ void GameState::DrawDepthMap()
 	mShadowEffect.SetWorldMatrix(matWorld);
 
 	// Model
-	matWorld = Matrix4::Scaling(0.1f) * matWorld;
 	mShadowEffect.SetWorldMatrix(matWorld);
 	mShadowEffect.SetBoneTransforms(animator.GetBoneMatrices());
 	mShadowEffect.SetSkinnedMesh(true);

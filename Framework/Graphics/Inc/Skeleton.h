@@ -11,6 +11,6 @@ namespace Angazi::Graphics
 		std::vector<std::unique_ptr<Bone>> bones;
 	};
 
-	void DrawSkeleton(const Skeleton& skeleton, const std::vector<Math::Matrix4>& boneMatrices);
+	void DrawSkeleton(const Skeleton& skeleton, const std::vector<Math::Matrix4>& boneMatrices, float scale = 1.0f);
 	void UpdateBoneMatrices(Bone* bone, std::vector<Math::Matrix4>& boneMatrices, bool applyOffset = false, const AnimationClip& clip = AnimationClip(), float time = 0.0f);
 }
