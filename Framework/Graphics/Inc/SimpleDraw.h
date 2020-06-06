@@ -18,12 +18,13 @@ namespace Angazi::Graphics::SimpleDraw {
 	void AddSphere(const Math::Vector3& center, float radius, const Color& color, bool fill = false, int slices = 8, int rings = 16);
 	void AddSphere(const Math::Sphere& sphere,  const Color& color, bool fill = false, int slices = 8, int rings = 16);
 	void AddSphere(float x, float y, float z, float radius, const Color& color, bool fill = false, int slices = 8, int rings = 16);
+	void AddOBB(const Math::OBB &obb, const Color& color);
 
 	void AddTransform(const Math::Matrix4& transform);
 	void AddBone(const Math::Matrix4& transform, const Color& color, bool fill = false);
 	void AddBone(const Math::Vector3& position, const Math::Vector3& direction, const Color& color, float radius = 1.0f, bool fill = false);
 
-	void AddGroundPlane(int size, bool fill = false ,const Color& color = Colors::DarkGray);
+	void AddGroundPlane(int size, bool fill = false ,const Color& color = Colors::LightGray);
 
 	//2D Simple Draw
 	void AddScreenLine(const Math::Vector2& v0, const Math::Vector2& v1, const Color& color);

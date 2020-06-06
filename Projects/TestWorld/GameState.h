@@ -48,6 +48,6 @@ private:
 
 
 	// Skeleton - Animation
-	float animationSpeed = 10.0f;
+	float animationSpeed = 1.0f;
 	bool mShowSkeleton = false;
 };

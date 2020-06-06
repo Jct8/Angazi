@@ -7,43 +7,61 @@
     <Filter Include="Src">
       <UniqueIdentifier>{d4673a50-d723-4797-be33-a1df83d79120}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\LinearAlgebra">
+      <UniqueIdentifier>{b3b49934-6cea-4b0d-b4cf-b15660f6453e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Geometry">
+      <UniqueIdentifier>{0cbe746b-326c-483e-897c-67d6c5beabe8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Common.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Matrix4.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\EngineMath.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Vector3.h">
       <Filter>Inc</Filter>
     </ClInclude>
     <ClInclude Include="Src\Precompiled.h">
       <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Vector4.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\Constants.h">
       <Filter>Inc</Filter>
     </ClInclude>
     <ClInclude Include="Inc\Vector2.h">
-      <Filter>Inc</Filter>
+      <Filter>Inc\LinearAlgebra</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Shapes.h">
-      <Filter>Inc</Filter>
+    <ClInclude Include="Inc\Vector3.h">
+      <Filter>Inc\LinearAlgebra</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Matrix3.h">
-      <Filter>Inc</Filter>
+    <ClInclude Include="Inc\Vector4.h">
+      <Filter>Inc\LinearAlgebra</Filter>
     </ClInclude>
     <ClInclude Include="Inc\Quaternion.h">
-      <Filter>Inc</Filter>
+      <Filter>Inc\LinearAlgebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Matrix3.h">
+      <Filter>Inc\LinearAlgebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Matrix4.h">
+      <Filter>Inc\LinearAlgebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Sphere.h">
+      <Filter>Inc\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\OBB.h">
+      <Filter>Inc\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Inc\Plane.h">
-      <Filter>Inc</Filter>
+      <Filter>Inc\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Ray.h">
+      <Filter>Inc\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\AABB.h">
+      <Filter>Inc\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\2DShapes.h">
+      <Filter>Inc\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

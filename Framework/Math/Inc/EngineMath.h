@@ -3,7 +3,6 @@
 #include "Common.h"
 
 #include "Constants.h"
-#include "Shapes.h"
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
@@ -11,7 +10,12 @@
 #include "Matrix3.h"
 #include "Matrix4.h"
 
+#include "2DShapes.h"
+#include "AABB.h"
+#include "OBB.h"
 #include "Plane.h"
+#include "Sphere.h"
+#include "Ray.h"
 
 namespace Angazi::Math
 {

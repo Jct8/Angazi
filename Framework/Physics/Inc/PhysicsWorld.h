@@ -23,6 +23,7 @@ namespace Angazi::Physics
 		void AddParticles(Particle* p);
 		void AddConstraint(Constraint* c);
 		void AddPlane(const Math::Plane& plane);
+		void AddOBB(const Math::OBB& obb);
 		void Clear(bool onlyDynamic = false);
 
 		void ShowParticles(bool show) { mShowParticles = show; }
@@ -34,6 +35,7 @@ namespace Angazi::Physics
 		std::vector<Particle*> mParticles;
 		std::vector<Constraint*> mConstraints;
 		std::vector<Math::Plane> mPlanes;
+		std::vector<Math::OBB> mOBBs;
 
 		Settings mSettings;
 		float mTimer = 0.0f;

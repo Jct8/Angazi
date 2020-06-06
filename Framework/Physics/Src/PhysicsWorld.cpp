@@ -29,6 +29,8 @@ void PhysicsWorld::DebugDraw() const
 			p->DebugDraw();
 	for (auto c : mConstraints)
 		c->DebugDraw();
+	for (auto& obb : mOBBs)
+		Graphics::SimpleDraw::AddOBB(obb, Graphics::Colors::Blue);
 }
 
 void PhysicsWorld::AddParticles(Particle * p)
@@ -44,6 +46,11 @@ void PhysicsWorld::AddConstraint(Constraint * c)
 void PhysicsWorld::AddPlane(const Math::Plane & plane)
 {
 	mPlanes.push_back(plane);
+}
+
+void PhysicsWorld::AddOBB(const Math::OBB & obb)
+{
+	mOBBs.push_back(obb);
 }
 
 void PhysicsWorld::Clear(bool onlyDynamic)

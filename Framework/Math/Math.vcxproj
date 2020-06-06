@@ -151,14 +151,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Inc\AABB.h" />
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\Constants.h" />
     <ClInclude Include="Inc\EngineMath.h" />
     <ClInclude Include="Inc\Matrix3.h" />
     <ClInclude Include="Inc\Matrix4.h" />
+    <ClInclude Include="Inc\OBB.h" />
     <ClInclude Include="Inc\Plane.h" />
     <ClInclude Include="Inc\Quaternion.h" />
-    <ClInclude Include="Inc\Shapes.h" />
+    <ClInclude Include="Inc\Ray.h" />
+    <ClInclude Include="Inc\2DShapes.h" />
+    <ClInclude Include="Inc\Sphere.h" />
     <ClInclude Include="Inc\Vector2.h" />
     <ClInclude Include="Inc\Vector3.h" />
     <ClInclude Include="Inc\Vector4.h" />

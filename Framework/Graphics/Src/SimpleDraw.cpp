@@ -306,6 +306,45 @@ namespace
 				}
 			}
 		}
+		void AddOBB(const Math::OBB& obb, const Color& color)
+		{
+			Math::Matrix4 matTrans = Math::Matrix4::Translation(obb.center);
+			Math::Matrix4 matScale = Math::Matrix4::Scaling(obb.extend);
+			Math::Matrix4 matRotation = Math::Matrix4::RotationQuaternion(obb.rot);
+			Math::Matrix4 toWorld = matScale * matRotation * matTrans;
+
+			Math::Vector3 points[] =
+			{
+				// Front Quad
+				Math::Vector3(-1.0f, -1.0f, -1.0f),
+				Math::Vector3(-1.0f, +1.0f, -1.0f),
+				Math::Vector3(+1.0f, +1.0f, -1.0f),
+				Math::Vector3(+1.0f, -1.0f, -1.0f),
+
+				// Back Quad
+				Math::Vector3(-1.0f, -1.0f, +1.0f),
+				Math::Vector3(-1.0f, +1.0f, +1.0f),
+				Math::Vector3(+1.0f, +1.0f, +1.0f),
+				Math::Vector3(+1.0f, -1.0f, +1.0f),
+			};
+			for (auto& p : points)
+				p = Math::TransformCoord(p, toWorld);
+
+			AddLine(points[0], points[1], color);
+			AddLine(points[1], points[2], color);
+			AddLine(points[2], points[3], color);
+			AddLine(points[3], points[0], color);
+
+			AddLine(points[0], points[4], color);
+			AddLine(points[1], points[5], color);
+			AddLine(points[2], points[6], color);
+			AddLine(points[3], points[7], color);
+
+			AddLine(points[4], points[5], color);
+			AddLine(points[5], points[6], color);
+			AddLine(points[6], points[7], color);
+			AddLine(points[7], points[4], color);
+		}
 
 		void AddTransform(const Math::Matrix4& transform)
 		{
@@ -566,6 +605,11 @@ void SimpleDraw::AddSphere(const Math::Sphere & sphere, const Color & color, boo
 void SimpleDraw::AddSphere(float x, float y, float z, float radius, const Color & color, bool fill, int slices, int rings)
 {
 	sInstance->AddSphere({ x,y,z }, radius, color, slices, rings, fill);
+}
+
+void SimpleDraw::AddOBB(const Math::OBB &obb, const Color& color)
+{
+	sInstance->AddOBB(obb,color);
 }
 
 void SimpleDraw::AddTransform(const Math::Matrix4 & transform)
