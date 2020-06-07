@@ -64,10 +64,14 @@ void GameState::Initialize()
 	mGroundMeshBuffer.Initialize(mGroundMesh);
 
 	mShadowEffect.Initialize("../../Assets/Shaders/DepthMap.fx");
+
+	mSkybox.CreateSkybox();
 }
 
 void GameState::Terminate()
 {
+	mSkybox.Terminate();
+
 	// Effects
 	mShadowEffect.Terminate();
 	mGroundStandardEffect.Terminate();
@@ -300,8 +304,13 @@ void GameState::DrawScene()
 	mGroundMeshBuffer.Draw();
 	mGroundStandardEffect.End();
 
-	//SimpleDraw::AddGroundPlane(50, false);
-	//SimpleDraw::Render(mCamera);
+	matView._41 = 0.0f;
+	matView._42 = 0.0f;
+	matView._43 = 0.0f;
+	SimpleDraw::AddGroundPlane(100);
+	SimpleDraw::Render(mCamera);
+
+	mSkybox.Draw(Transpose(matView * matProj));
 }
 
 void GameState::DrawDepthMap()
