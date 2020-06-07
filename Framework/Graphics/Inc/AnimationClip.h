@@ -8,6 +8,7 @@ namespace Angazi::Graphics
 	{
 	public:
 		bool GetTransform(float time, uint32_t boneIndex, Math::Matrix4& transform) const;
+		bool GetTransformTuple(float time, uint32_t boneIndex, std::tuple<Math::Vector3, Math::Quaternion, Math::Vector3>& transform) const;
 
 		std::string name;
 		float duration = 0.0f;

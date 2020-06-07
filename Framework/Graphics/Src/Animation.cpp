@@ -95,6 +95,14 @@ Math::Matrix4 Animation::GetTransform(float time) const
 	return matWorld;
 }
 
+std::tuple<Math::Vector3, Math::Quaternion, Math::Vector3> Animation::GetTransformTuple(float time) const
+{
+	Vector3 position = GetPosition(time);
+	Quaternion rotation = GetRotation(time);
+	Vector3 scale = GetScale(time);
+	return { position , rotation , scale };
+}
+
 float Animation::GetDuration() const
 {
 	return mPositionKeyframes.back().time - mPositionKeyframes.front().time;

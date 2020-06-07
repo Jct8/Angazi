@@ -35,9 +35,7 @@ void Animator::SetClipLooping(int index, bool looping)
 	for (size_t i = 0; i < mModel->animationSet.clips[index]->boneAnimations.size(); i++)
 	{
 		if (mModel->animationSet.clips[index]->boneAnimations[i])
-		{
 			mModel->animationSet.clips[index]->boneAnimations[i]->SetLooping(looping);
-		}
 	}
 }
 void Animator::PlayAnimation(int index)
@@ -73,7 +71,6 @@ void Animator::Update(float deltaTime)
 	ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
 	AnimationClip* clip = mModel->animationSet.clips[mClipIndex].get();
 	mTimer += mAnimationSpeed * clip->ticksPerSecond *0.5f * deltaTime;
-	UpdateBoneMatrices(mModel->skeleton.root, mBoneMatrices, !isSkeletalAnimation, *clip, mTimer);
 
 	if (mBlendDuration > 0.0f)
 	{
@@ -92,15 +89,66 @@ void Animator::Update(float deltaTime)
 		{
 			mBlendWeight = mBlendTime / mBlendDuration;
 		}
-
-		std::vector<Angazi::Math::Matrix4> targetMatrices(mBoneMatrices.size());
-
-		UpdateBoneMatrices(mModel->skeleton.root, targetMatrices, !isSkeletalAnimation, *blendClip, mBlendTimer);
-
-		for (size_t i = 0; i < mBoneMatrices.size(); i++)
+		UpdateBoneMatrices(mModel->skeleton.root, mBoneMatrices, *clip, *blendClip, mBlendWeight, !isSkeletalAnimation, mBlendTimer);
+		//std::vector<Angazi::Math::Matrix4> targetMatrices(mBoneMatrices.size());
+		/*for (size_t i = 0; i < mBoneMatrices.size(); i++)
 		{
 			mBoneMatrices[i] = mBoneMatrices[i] * (1.0f - mBlendWeight) + targetMatrices[i] * mBlendWeight;
-		}
-
+		}*/
+		if (mBlendWeight == 1.0f)
+			mBlendWeight = 0.0f;
 	}
+	else if (mBlendWeight > 0)
+	{
+		auto& blendClip = mModel->animationSet.clips[mBlendIndex];
+		UpdateBoneMatrices(mModel->skeleton.root, mBoneMatrices, *clip, *blendClip , mBlendWeight, !isSkeletalAnimation, mTimer);
+	}
+	else
+	{
+		UpdateBoneMatrices(mModel->skeleton.root, mBoneMatrices, !isSkeletalAnimation, *clip, mTimer);
+	}
+}
+
+void Animator::SetBlendVelocity(Math::Vector2 velocity)
+{
+	ASSERT(blendTree.size() > 2, "Animator - Blend tree must be larger than two.");
+	float angle = atan2(velocity.y, velocity.x);
+
+	if (velocity.y < 0.0f)
+		angle += Math::Constants::TwoPi;
+	std::map<float, int>::iterator currentAngle = blendTree.begin();
+	for (; currentAngle != blendTree.end(); ++currentAngle)
+	{
+		if (angle < currentAngle->first)
+		{
+			auto prevAngle = currentAngle == blendTree.begin() ? --blendTree.end() : std::prev(currentAngle);
+			mBlendWeight = (angle - prevAngle->first) / (currentAngle->first - prevAngle->first);
+			mClipIndex = prevAngle->second;
+			mBlendIndex = currentAngle->second;
+			return;
+		}
+		if (angle == currentAngle->first)
+		{
+			//BlendTo(currentAngle->second,0.3f);
+			mClipIndex = currentAngle->second;
+			mBlendWeight = 0.0f;
+			mBlendTime = 0.0f;
+			mBlendDuration = 0.0f;
+			mBlendIndex = 0;
+			return;
+		}
+	}
+	auto prevAngle =  --blendTree.end();
+	currentAngle = blendTree.begin();
+	mBlendWeight = (angle - prevAngle->first) / (Math::Constants::TwoPi- prevAngle->first);
+	mClipIndex = prevAngle->second;
+	mBlendIndex = currentAngle->second;
+}
+
+void Animator::AddBlendAnimation(Math::Vector2 blendDirection, int clipNumber)
+{
+	float angle = atan2(blendDirection.y,blendDirection.x);
+	if (blendDirection.y < 0.0f)
+		angle += Math::Constants::TwoPi;
+	blendTree[angle] = clipNumber;
 }

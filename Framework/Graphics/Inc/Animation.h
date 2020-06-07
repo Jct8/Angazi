@@ -15,6 +15,7 @@ namespace Angazi::Graphics
 		Math::Quaternion GetRotation(float time) const;
 		Math::Vector3 GetScale(float time) const;
 		Math::Matrix4 GetTransform(float time) const;
+		std::tuple<Math::Vector3, Math::Quaternion, Math::Vector3> GetTransformTuple(float time) const;
 
 		float GetDuration() const;
 

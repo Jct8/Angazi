@@ -14,9 +14,13 @@ namespace Angazi::Graphics
 		void PlayAnimation(int index);
 		void PlaySkeletalAnimation(int index);
 		void BlendTo(int index, float duration);
-
 		void Update(float deltaTime);
+		void AddBlendAnimation(Math::Vector2 blendDirection, int clipNumber);
+
+
 		void SetAnimationSpeed(float speed) { mAnimationSpeed = speed; };
+		void SetBlendVelocity(Math::Vector2 velocity);
+		void SetShowSkeleton(float show) { isSkeletalAnimation = show; };
 
 		auto& GetBoneMatrices() const { return mBoneMatrices; }
 
@@ -32,6 +36,9 @@ namespace Angazi::Graphics
 		float mBlendTime = 0.0f;
 		float mBlendDuration = 0.0f;
 		int mBlendIndex = 0;
+
+		// <Angle, clipNumber>
+		std::map<float, int> blendTree;
 
 		std::vector<Angazi::Math::Matrix4> mBoneMatrices;
 	};

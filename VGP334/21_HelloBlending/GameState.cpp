@@ -31,14 +31,28 @@ void GameState::Initialize()
 	mPostProcessingEffect.Initialize("../../Assets/Shaders/PostProcessing.fx", "VS", "PSNoProcessing");
 
 	// Model
-	model.Initialize("../../Assets/Models/Swat/Swat.model");
+	model.Initialize("../../Assets/Models/SwatRun/SwatRun.model");
 	animator.Initialize(model);
-	animator.SetClipLooping(0, true); // left
-	animator.SetClipLooping(1, true); // right
-	animator.SetClipLooping(2, true); // idle
-	animator.SetClipLooping(3, true); // backwards
-	animator.SetClipLooping(4 ,true); // forwards
-	animator.PlayAnimation(2);
+	animator.SetClipLooping(0, true); // backwards left
+	animator.SetClipLooping(1, true); // backwards right
+	animator.SetClipLooping(2, true); // backwards
+	animator.SetClipLooping(3, true); // forwards left
+	animator.SetClipLooping(4 ,true); // forwards right
+	animator.SetClipLooping(5, true); // forwards
+	animator.SetClipLooping(6, true); // left
+	animator.SetClipLooping(7, true); // right
+	animator.SetClipLooping(8, true); // idle
+	animator.PlayAnimation(8);
+
+	animator.AddBlendAnimation({ -1,-1 }, 0);
+	animator.AddBlendAnimation({ +1,-1 }, 1);
+	animator.AddBlendAnimation({  0,-1 }, 2);
+	animator.AddBlendAnimation({ -1, 1 }, 3);
+	animator.AddBlendAnimation({ +1, 1 }, 4);
+	animator.AddBlendAnimation({  0, 1 }, 5);
+	animator.AddBlendAnimation({ -1, 0 }, 6);
+	animator.AddBlendAnimation({ +1, 0 }, 7);
+	//animator.AddBlendAnimation({  0,-1 }, 8);
 
 	// Effects
 	mModelStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
@@ -85,56 +99,39 @@ void GameState::Update(float deltaTime)
 	if ((inputSystem->IsKeyDown(KeyCode::W) || inputSystem->IsKeyDown(KeyCode::S)))
 	{
 		if (inputSystem->IsKeyDown(KeyCode::W))
-		{
-			animator.BlendTo(4, 0.3f);
 			mInputAxis.y += deltaTime;
-		}
 		if (inputSystem->IsKeyDown(KeyCode::S))
-		{
-			animator.BlendTo(3, 0.3f);
 			mInputAxis.y -= deltaTime;
-		}
 	}
 	else
 	{
-		mInputAxis.y = 0.0f;
-		/*if (fabs(mInputAxis.y) < 0.001f)
+		if (fabs(mInputAxis.y) < 0.001f)
 			mInputAxis.y = 0.0f;
 		else if (mInputAxis.y > 0.0f)
 			mInputAxis.y -= deltaTime;
 		else if(mInputAxis.y < 0.0f)
-			mInputAxis.y += deltaTime;*/
-		
+			mInputAxis.y += deltaTime;
 	}
 	if ((inputSystem->IsKeyDown(KeyCode::A) || inputSystem->IsKeyDown(KeyCode::D)))
 	{
 		if (inputSystem->IsKeyDown(KeyCode::A))
-		{
-			animator.BlendTo(0, 0.3f);
 			mInputAxis.x -= deltaTime;
-		}
 		if (inputSystem->IsKeyDown(KeyCode::D))
-		{
-			animator.BlendTo(1, 0.3f);
 			mInputAxis.x += deltaTime;
-		}
 	}
 	else
 	{
-		mInputAxis.x = 0.0f;
-		//if (fabs(mInputAxis.x) < 0.001f)
-		//	mInputAxis.x = 0.0f;
-		//else if (mInputAxis.x > 0.0f)
-		//	mInputAxis.x -= deltaTime;
-		//else if (mInputAxis.x < 0.0f)
-		//	mInputAxis.x += deltaTime;
-
-		
+		if (fabs(mInputAxis.x) < 0.001f)
+			mInputAxis.x = 0.0f;
+		else if (mInputAxis.x > 0.0f)
+			mInputAxis.x -= deltaTime;
+		else if (mInputAxis.x < 0.0f)
+			mInputAxis.x += deltaTime;
 	}
-
-	if(!(inputSystem->IsKeyDown(KeyCode::A) || inputSystem->IsKeyDown(KeyCode::D) 
-		|| inputSystem->IsKeyDown(KeyCode::W) || inputSystem->IsKeyDown(KeyCode::S)))
-		animator.BlendTo(2, 0.7f);
+	if (mInputAxis.x == 0.0f && mInputAxis.y == 0.0f)
+		animator.BlendTo(8, 0.5f);
+	else
+		animator.SetBlendVelocity(mInputAxis);
 
 	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
 	{
@@ -151,20 +148,6 @@ void GameState::Update(float deltaTime)
 
 	mCamera.SetPosition(mModelPosition + mCameraOffset);
 	mShadowEffect.SetLightDirection(mDirectionalLight.direction, mCamera);
-	//if (mShowSkeleton)
-	//	animator.PlaySkeletalAnimation(4);
-	//else
-	//	animator.PlayAnimation(2);
-
-	//if (mInputAxis.x > 0.0f && mInputAxis.y > 0.0f)
-	//else if (mInputAxis.x > 0.0f && mInputAxis.x > 0.0f)
-	//else if (mInputAxis.x > 0.0f && mInputAxis.x > 0.0f)
-	//else if (mInputAxis.x > 0.0f && mInputAxis.x > 0.0f)
-
-	//if (inputSystem->IsKeyPressed(KeyCode::SPACE))
-	//	animator.BlendTo(4,2.0f);
-	//if(inputSystem->IsKeyPressed(KeyCode::B))
-	//	animator.BlendTo(2, 2.0f);
 
 	animator.Update(deltaTime);
 }
@@ -186,14 +169,6 @@ void GameState::DebugUI()
 {
 	ImGui::Begin("Setting", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Text("FPS: %.2f", Angazi::Core::TimeUtil::GetFramesPerSecond());
-	/*ImGui::Image(
-		mShadowEffect.GetRenderTarget()->GetShaderResourceView(),
-		{ 150.0f,150.0f },
-		{ 0.0f,0.0f },
-		{ 1.0f,1.0f },
-		{ 1.0f,1.0f ,1.0f,1.0f },
-		{ 1.0f,1.0f ,1.0f,1.0f }
-	);*/
 	if (ImGui::CollapsingHeader("Light"))
 	{
 		bool directionChanged = false;
@@ -234,12 +209,13 @@ void GameState::DebugUI()
 			float aoMapWeight = aoMap ? 1.0f : 0.0f;
 		}
 	}
-	if (ImGui::SliderFloat("Animation Speed", &animationSpeed, 0.0f, 10.f))
-	{
+	if (ImGui::SliderFloat("Animation Speed", &animationSpeed, 0.0f, 3.0f))
 		animator.SetAnimationSpeed(animationSpeed);
-	}
-	ImGui::SliderFloat("Movement Speed", &mMovementSpeed, 0.0f, 50.f);
-	ImGui::Checkbox("Show Skeleton", &mShowSkeleton);
+	ImGui::SliderFloat("Movement Speed", &mMovementSpeed, 0.0f, 4.0f);
+	ImGui::DragFloat("X axis", &mInputAxis.x, 0.1f, -1.0f, 1.0f);
+	ImGui::DragFloat("Y axis", &mInputAxis.y, 0.1f, -1.0f, 1.0f);
+	if (ImGui::Checkbox("Show Skeleton", &mShowSkeleton))
+		animator.SetShowSkeleton(mShowSkeleton);
 
 	ImGui::End();
 }
@@ -287,8 +263,8 @@ void GameState::DrawScene()
 	mGroundMeshBuffer.Draw();
 	mGroundStandardEffect.End();
 
-	//SimpleDraw::AddGroundPlane(50, false);
-	//SimpleDraw::Render(mCamera);
+	SimpleDraw::AddGroundPlane(100, false);
+	SimpleDraw::Render(mCamera);
 }
 
 void GameState::DrawDepthMap()

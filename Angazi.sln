@@ -154,6 +154,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "21_HelloBlending", "VGP334\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestWorld", "Projects\TestWorld\TestWorld.vcxproj", "{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Animation_Blending", "Projects\Animation_Blending\Animation_Blending.vcxproj", "{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -918,6 +920,22 @@ Global
 		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.Debug|x64.ActiveCfg = Debug|x64
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.Debug|x64.Build.0 = Debug|x64
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.Debug|x86.ActiveCfg = Debug|Win32
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.Debug|x86.Build.0 = Debug|Win32
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.MinSizeRel|x64.Build.0 = Release|x64
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.MinSizeRel|x86.Build.0 = Release|Win32
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.Release|x64.ActiveCfg = Release|x64
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.Release|x64.Build.0 = Release|x64
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.Release|x86.ActiveCfg = Release|Win32
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.Release|x86.Build.0 = Release|Win32
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -972,12 +990,13 @@ Global
 		{2CE84F4D-094D-405C-A373-DF32A59709AE} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
 		{94A02A05-C230-4215-A859-938943EA444E} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
 		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
+		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 47
+		SccNumberOfProjects = 48
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1165,5 +1184,9 @@ Global
 		SccProjectTopLevelParentUniqueName46 = Angazi.sln
 		SccProjectName46 = Projects/TestWorld
 		SccLocalPath46 = Projects\\TestWorld
+		SccProjectUniqueName47 = Projects\\Animation_Blending\\Animation_Blending.vcxproj
+		SccProjectTopLevelParentUniqueName47 = Angazi.sln
+		SccProjectName47 = Projects/Animation_Blending
+		SccLocalPath47 = Projects\\Animation_Blending
 	EndGlobalSection
 EndGlobal
