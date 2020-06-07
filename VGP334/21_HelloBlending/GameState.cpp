@@ -97,10 +97,14 @@ void GameState::Update(float deltaTime)
 	}
 	else
 	{
-		if (mInputAxis.y > 0.0f)
+		mInputAxis.y = 0.0f;
+		/*if (fabs(mInputAxis.y) < 0.001f)
+			mInputAxis.y = 0.0f;
+		else if (mInputAxis.y > 0.0f)
 			mInputAxis.y -= deltaTime;
-		else
-			mInputAxis.y += deltaTime;
+		else if(mInputAxis.y < 0.0f)
+			mInputAxis.y += deltaTime;*/
+		
 	}
 	if ((inputSystem->IsKeyDown(KeyCode::A) || inputSystem->IsKeyDown(KeyCode::D)))
 	{
@@ -117,10 +121,15 @@ void GameState::Update(float deltaTime)
 	}
 	else
 	{
-		if (mInputAxis.x > 0.0f)
-			mInputAxis.x -= deltaTime;
-		else
-			mInputAxis.x += deltaTime;
+		mInputAxis.x = 0.0f;
+		//if (fabs(mInputAxis.x) < 0.001f)
+		//	mInputAxis.x = 0.0f;
+		//else if (mInputAxis.x > 0.0f)
+		//	mInputAxis.x -= deltaTime;
+		//else if (mInputAxis.x < 0.0f)
+		//	mInputAxis.x += deltaTime;
+
+		
 	}
 
 	if(!(inputSystem->IsKeyDown(KeyCode::A) || inputSystem->IsKeyDown(KeyCode::D) 
@@ -145,7 +154,7 @@ void GameState::Update(float deltaTime)
 	//if (mShowSkeleton)
 	//	animator.PlaySkeletalAnimation(4);
 	//else
-	//animator.PlayAnimation(2);
+	//	animator.PlayAnimation(2);
 
 	//if (mInputAxis.x > 0.0f && mInputAxis.y > 0.0f)
 	//else if (mInputAxis.x > 0.0f && mInputAxis.x > 0.0f)

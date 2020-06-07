@@ -187,10 +187,11 @@ namespace Angazi::Math
 
 	constexpr Vector2 TransformCoord(const Vector2& v, const Matrix3& m)
 	{
+		const float w = (v.x * m._13) + (v.y * m._23)  + m._33;
 		return Vector2
 		(
-			v.x * m._11 + v.y * m._21 + m._31,
-			v.x * m._12 + v.y * m._22 + m._32
+			v.x * m._11 + v.y * m._21 + m._31/w,
+			v.x * m._12 + v.y * m._22 + m._32/w
 		);
 	}
 	constexpr Vector3 TransformCoord(const Vector3& v , const Matrix4 &m)
@@ -227,6 +228,15 @@ namespace Angazi::Math
 	constexpr Vector3 GetUp(const Matrix4& m) 			{ return { m._21 , m._22, m._23 }; }
 	constexpr Vector3 GetLook(const Matrix4& m)			{ return { m._31 , m._32, m._33 }; }
 
+	// 3D Collision Checks
+	bool Intersect(const Ray& ray, const Plane& plane, float& distance);
+
+	bool IsContained(const Vector3& point, const AABB& aabb);
+	bool IsContained(const Vector3& point, const OBB& obb);
+
+	bool GetContactPoint(const Ray& ray, const OBB& obb, Vector3& point, Vector3& normal);
+
+	// 2D Collision Checks
 	bool PointInRect(const Vector2& point, const Rect& rect);
 	bool PointInCircle(const Vector2& point, const Circle& circle);
 

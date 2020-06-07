@@ -27,7 +27,8 @@ void GameState::Initialize()
 	Physics::PhysicsWorld::Settings settings;
 	settings.drag = 0.3f;
 	mPhysicsWorld.Initialize(settings);
-	mPhysicsWorld.AddPlane({ Vector3::YAxis,0.0f });
+	mPhysicsWorld.AddStaticPlane({ Vector3::YAxis,0.0f });
+	mPhysicsWorld.AddStaticOBB({ { 0.0f,2.0f,0.0f }, {4.0f,0.5f,5.0f} , Quaternion::RotationAxis(Vector3::ZAxis,10.0f * Constants::DegToRad) });
 
 	mMesh = MeshBuilder::CreatePlanePX(height, width);
 	mMeshBuffer.Initialize(mMesh,true);
@@ -80,7 +81,7 @@ void GameState::Update(float deltaTime)
 		}
 	}
 
-	SimpleDraw::AddGroundPlane(50, false);
+	SimpleDraw::AddGroundPlane(50);
 }
 
 void GameState::Render()

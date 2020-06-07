@@ -189,6 +189,12 @@
     <ClInclude Include="Inc\Skybox.h">
       <Filter>Inc\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\RasterizerState.h">
+      <Filter>Inc\RenderState</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\DepthStencilState.h">
+      <Filter>Inc\RenderState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\GraphicsSystem.cpp">
@@ -283,6 +289,12 @@
     </ClCompile>
     <ClCompile Include="Src\Skybox.cpp">
       <Filter>Src\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RasterizerState.cpp">
+      <Filter>Src\RenderState</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\DepthStencilState.cpp">
+      <Filter>Src\RenderState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

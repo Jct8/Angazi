@@ -6,7 +6,8 @@ namespace Angazi::Graphics::DebugUI {
 	{
 		Classic,
 		Dark,
-		Light
+		Light,
+		Custom
 	};
 
 	void StaticInitialize(HWND window, bool docking = false, bool multiViewport = false);
@@ -16,5 +17,7 @@ namespace Angazi::Graphics::DebugUI {
 
 	void BeginRender();
 	void EndRender();
+
+
 
 } // namespace Angazi::Graphics::DebugUI

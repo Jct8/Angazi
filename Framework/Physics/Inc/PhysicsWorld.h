@@ -20,10 +20,14 @@ namespace Angazi::Physics
 		void Update(float deltaTime);
 		void DebugDraw() const;
 
+		// For simulation
 		void AddParticles(Particle* p);
 		void AddConstraint(Constraint* c);
-		void AddPlane(const Math::Plane& plane);
-		void AddOBB(const Math::OBB& obb);
+
+		// For Environment
+		void AddStaticPlane(const Math::Plane& plane);
+		void AddStaticOBB(const Math::OBB& obb);
+		
 		void Clear(bool onlyDynamic = false);
 
 		void ShowParticles(bool show) { mShowParticles = show; }

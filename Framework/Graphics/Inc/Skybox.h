@@ -6,6 +6,8 @@
 #include "Sampler.h"
 #include "VertexShader.h"
 #include "VertexTypes.h"
+#include "RasterizerState.h"
+#include "DepthStencilState.h"
 
 namespace Angazi::Graphics
 {
@@ -38,8 +40,9 @@ namespace Angazi::Graphics
 		};
 		using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
 
-		ID3D11DepthStencilState* mDepthStencilState;
-		ID3D11RasterizerState* mRasterizerState;
+		DepthStencilState mDepthStencilState;
+		RasterizerState mRasterizerState;
+
 		ID3D11ShaderResourceView *mShaderResourceView = nullptr;
 		std::map<Side, std::filesystem::path> cubeSides;
 

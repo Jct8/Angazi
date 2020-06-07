@@ -164,6 +164,7 @@
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\ConstantBuffer.h" />
     <ClInclude Include="Inc\DebugUI.h" />
+    <ClInclude Include="Inc\DepthStencilState.h" />
     <ClInclude Include="Inc\Effect.h" />
     <ClInclude Include="Inc\Graphics.h" />
     <ClInclude Include="Inc\GraphicsSystem.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Inc\ObjLoader.h" />
     <ClInclude Include="Inc\PixelShader.h" />
     <ClInclude Include="Inc\PostProcessingEffect.h" />
+    <ClInclude Include="Inc\RasterizerState.h" />
     <ClInclude Include="Inc\RenderTarget.h" />
     <ClInclude Include="Inc\Sampler.h" />
     <ClInclude Include="Inc\ShadowEffect.h" />
@@ -197,7 +199,9 @@
     <ClCompile Include="Src\AnimationClip.cpp" />
     <ClCompile Include="Src\AnimationIO.cpp" />
     <ClCompile Include="Src\Animator.cpp" />
+    <ClCompile Include="Src\DepthStencilState.cpp" />
     <ClCompile Include="Src\PostProcessingEffect.cpp" />
+    <ClCompile Include="Src\RasterizerState.cpp" />
     <ClCompile Include="Src\ShadowEffect.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -30,7 +30,7 @@ void PhysicsWorld::DebugDraw() const
 	for (auto c : mConstraints)
 		c->DebugDraw();
 	for (auto& obb : mOBBs)
-		Graphics::SimpleDraw::AddOBB(obb, Graphics::Colors::Blue);
+		Graphics::SimpleDraw::AddOBB(obb, Graphics::Colors::LightBlue);
 }
 
 void PhysicsWorld::AddParticles(Particle * p)
@@ -43,12 +43,12 @@ void PhysicsWorld::AddConstraint(Constraint * c)
 	mConstraints.push_back(c);
 }
 
-void PhysicsWorld::AddPlane(const Math::Plane & plane)
+void PhysicsWorld::AddStaticPlane(const Math::Plane & plane)
 {
 	mPlanes.push_back(plane);
 }
 
-void PhysicsWorld::AddOBB(const Math::OBB & obb)
+void PhysicsWorld::AddStaticOBB(const Math::OBB & obb)
 {
 	mOBBs.push_back(obb);
 }
@@ -64,7 +64,10 @@ void PhysicsWorld::Clear(bool onlyDynamic)
 	mConstraints.clear();
 
 	if (!onlyDynamic)
+	{
 		mPlanes.clear();
+		mOBBs.clear();
+	}
 }
 
 void PhysicsWorld::AccumulateForces()
@@ -100,6 +103,28 @@ void PhysicsWorld::SatisfyConstraints()
 			{
 				auto velocity = p->position - p->lastPosition;
 				auto velocityPerpendicular = plane.n *Math::Dot(velocity, plane.n);
+				auto velocityParallel = velocity - velocityPerpendicular;
+				auto newVelocity = (velocityParallel * (1.0f - mSettings.drag)) - (velocityPerpendicular * p->bounce);
+				p->SetPosition(p->position - velocityPerpendicular);
+				p->SetVelocity(newVelocity);
+			}
+		}
+	}
+
+	for (auto obb : mOBBs)
+	{
+		for (auto p : mParticles)
+		{
+			if (IsContained(p->position, obb))
+			{
+				auto velocity = p->position - p->lastPosition;
+				auto direction = Normalize(velocity);
+
+				Math::Ray ray{p->lastPosition,direction};
+				Math::Vector3 point, normal;
+				GetContactPoint(ray,obb,point,normal);
+
+				auto velocityPerpendicular = normal *Math::Dot(velocity, normal);
 				auto velocityParallel = velocity - velocityPerpendicular;
 				auto newVelocity = (velocityParallel * (1.0f - mSettings.drag)) - (velocityPerpendicular * p->bounce);
 				p->SetPosition(p->position - velocityPerpendicular);

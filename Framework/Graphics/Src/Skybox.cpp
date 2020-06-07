@@ -3,6 +3,7 @@
 
 #include "D3DUtil.h"
 #include <DirectXTK/Inc/WICTextureLoader.h>
+#include "RasterizerState.h"
 
 #include "MeshBuilder.h"
 
@@ -98,18 +99,8 @@ void Skybox::CreateSkybox()
 	ASSERT(SUCCEEDED(hr),"[Skybox] Failed to create cube texture");
 
 	// Render States
-	/*D3D11_RASTERIZER_DESC rastdesc{};
-	rastdesc.CullMode = D3D11_CULL_NONE;
-	hr = GetDevice()->CreateRasterizerState(&rastdesc, &mRasterizerState);
-	ASSERT(SUCCEEDED(hr), "[Skybox] Failed to create Rasterizer state");*/
-
-	D3D11_DEPTH_STENCIL_DESC dssDesc{};
-	dssDesc.DepthEnable = true;
-	dssDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	dssDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
-
-	hr = GetDevice()->CreateDepthStencilState(&dssDesc, &mDepthStencilState);
-	ASSERT(SUCCEEDED(hr), "[Skybox] Failed to create depth stencil state");
+	mRasterizerState.Initialize(RasterizerState::CullMode::None, RasterizerState::FillMode::Solid);
+	mDepthStencilState.Initialize(true);
 
 	//MeshBuffer
 	mBoxBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
@@ -132,8 +123,9 @@ void Skybox::Terminate()
 	mVertexShader.Terminate();
 
 	mBoxBuffer.Terminate();
-	SafeRelease(mDepthStencilState);
-	SafeRelease(mRasterizerState);
+	mDepthStencilState.Clear();
+	mRasterizerState.Terminate();
+
 	SafeRelease(mShaderResourceView);
 }
 
@@ -148,11 +140,12 @@ void Skybox::Draw(Math::Matrix4 wvp)
 	mTransformBuffer.Set(mTransformData);
 	mTransformBuffer.BindVS(0);
 
-	GetContext()->OMSetDepthStencilState(mDepthStencilState, 0);
-	//GetContext()->RSSetState(mRasterizerState);
+	mDepthStencilState.Set();
+	mRasterizerState.Set();
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 
 	mBoxBuffer.Draw();
+	mRasterizerState.Clear();
 }
