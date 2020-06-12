@@ -81,7 +81,7 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
-	for (int i = 0; i < mPlanetTextures.size(); i++)
+	for (size_t i = 0; i < mPlanetTextures.size(); i++)
 	{
 		mPlanetTextures[i].Terminate();
 		mMoonTextures[i].Terminate();
@@ -116,7 +116,7 @@ void GameState::Render()
 
 	mShader.Bind();
 
-	for (int i = 0; i <mPlanetTextures.size(); i++)
+	for (size_t i = 0; i <mPlanetTextures.size(); i++)
 	{
 		//Planets
 		auto matWorld = Matrix4::RotationY(mRotation*mRotationSpeed[i]);

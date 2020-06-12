@@ -34,6 +34,8 @@ void Enemy::Load()
 	mSteeringModule->AddBehavior<AI::SeperationBehavior>("Seperation")->SetActive(false);
 }
 
+
+
 void Enemy::Update(float deltaTime)
 {
 	auto input = Input::InputSystem::Get();
@@ -41,7 +43,7 @@ void Enemy::Update(float deltaTime)
 
 	//Update neightbors (exclude self)
 	neighbors = world.GetNeighborhood({ position,100.0f }, static_cast<std::underlying_type_t<TypeId>>(TypeId::Enemy));
-	std::remove_if(neighbors.begin(), neighbors.end(), [this](auto neighbor) {return this == neighbor; });
+	auto endIter = std::remove_if(neighbors.begin(), neighbors.end(), [this](AI::Agent *neighbor) {return this == neighbor; });
 
 	float xPos = static_cast<float>(input->GetMouseScreenX());
 	float yPos = static_cast<float>(input->GetMouseScreenY());

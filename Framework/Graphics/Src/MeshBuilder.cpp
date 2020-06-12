@@ -3,7 +3,7 @@
 
 #include "MeshBuilder.h"
 
-using namespace Angazi;
+//using namespace Angazi;
 using namespace Angazi::Graphics;
 using namespace Angazi::Math;
 

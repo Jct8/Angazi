@@ -256,10 +256,8 @@ void GameState::Initialize()
 void GameState::Terminate()
 {
 	SafeRelease(mVertexBuffer);
-	for (int i = 0; i < mVertexBufferList.size(); i++)
-	{
+	for (size_t i = 0; i < mVertexBufferList.size(); i++)
 		SafeRelease(mVertexBufferList[i]);
-	}
 	SafeRelease(mVertexShader);
 	SafeRelease(mInputLayout);
 	SafeRelease(mPixelShader);

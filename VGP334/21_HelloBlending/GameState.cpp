@@ -17,7 +17,7 @@ void GameState::Initialize()
 
 	mCameraOffset = mCamera.GetPosition() - mModelPosition;
 
-	mDirectionalLight.direction = Normalize({ 0.327f,-0.382f, 0.864f });
+	mDirectionalLight.direction = Normalize({ -0.391f,-0.353f, -0.850f });
 	mDirectionalLight.ambient = { 0.8f,0.8f,0.8f ,1.0f };
 	mDirectionalLight.diffuse = { 0.75f,0.75f,0.75f ,1.0f };
 	mDirectionalLight.specular = { 0.5f,0.5f,0.5f ,1.0f };
@@ -241,7 +241,7 @@ void GameState::DrawScene()
 	mModelStandardEffect.SetBoneTransforms(animator.GetBoneMatrices());
 
 	if (mShowSkeleton)
-		DrawSkeleton(model.skeleton, animator.GetBoneMatrices());
+		DrawSkeleton(model.skeleton, animator.GetBoneMatrices(),3.0f);
 	else
 		model.Draw(&mModelStandardEffect);
 	mModelStandardEffect.End();

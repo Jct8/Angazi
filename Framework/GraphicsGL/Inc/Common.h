@@ -8,6 +8,7 @@
 #include <sstream>
 
 // OpenGL headers
+#define GLEW_STATIC
 #include <Glew/include/GL/glew.h>
 //#include <glatter/include/glatter/glatter.h>
 

@@ -98,7 +98,7 @@ void GameState::Initialize()
 	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
 	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
 
-	SimpleDraw::AddGroundPlane(200.0f, true, Graphics::Colors::Blue);
+	SimpleDraw::AddGroundPlane(200, true, Graphics::Colors::Blue);
 
 	mShadowConstantBuffer.Initialize();
 

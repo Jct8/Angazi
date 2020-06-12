@@ -41,17 +41,14 @@ void Enemy::Update(float deltaTime)
 
 	//Update neightbors (exclude self)
 	neighbors = world.GetNeighborhood({ position,100.0f }, static_cast<std::underlying_type_t<TypeId>>(TypeId::Enemy));
-	std::remove_if(neighbors.begin(), neighbors.end(), [this](auto neighbor){return this == neighbor;});
+	auto endIter = std::remove_if(neighbors.begin(), neighbors.end(), [this](auto neighbor){return this == neighbor;});
 
 	float xPos = static_cast<float>(input->GetMouseScreenX());
 	float yPos = static_cast<float>(input->GetMouseScreenY());
 	destination = threat->position;
 
 	if (input->IsMousePressed(Input::MouseButton::RBUTTON))
-	{
-
 		position = Math::Vector2{ xPos,yPos };
-	}
 
 	Math::Vector2 force = mSteeringModule->Calculate();
 	if (isDebug)

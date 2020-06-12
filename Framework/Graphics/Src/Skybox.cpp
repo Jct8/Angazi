@@ -3,9 +3,9 @@
 
 #include "D3DUtil.h"
 #include <DirectXTK/Inc/WICTextureLoader.h>
-#include "RasterizerState.h"
-
+//#include "RasterizerState.h"
 #include "MeshBuilder.h"
+
 
 using namespace Angazi;
 using namespace Angazi::Graphics;

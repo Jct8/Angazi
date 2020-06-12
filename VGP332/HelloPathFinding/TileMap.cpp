@@ -161,7 +161,7 @@ void TileMap::Render()
 			{
 				SimpleDraw::AddScreenCircle({ pos.x + offset , pos.y + offset }, circleRadius, Colors::DarkGray);
 				std::vector<AI::Coord> coords = mGraph.GetNode({ x,y })->neighbors;
-				for (int i = 0; i < coords.size(); i++)
+				for (size_t i = 0; i < coords.size(); i++)
 				{
 					SimpleDraw::AddScreenLine(pos.x + offset, pos.y + offset, coords[i].x*mTileSize + offset, coords[i].y*mTileSize + offset, Colors::DarkGray);
 				}
@@ -187,7 +187,7 @@ void TileMap::Render()
 
 	if (!path.empty())
 	{
-		for (int i = 0; i < path.size() - 1; i++)
+		for (size_t i = 0; i < path.size() - 1; i++)
 		{
 			SimpleDraw::AddScreenLine(path[i].x*mTileSize + offset, path[i].y*mTileSize + offset
 				, path[i + 1].x*mTileSize + offset, path[i + 1].y*mTileSize + offset, Colors::DarkRed);

@@ -5,7 +5,7 @@
 #include "PixelShader.h"
 #include "Sampler.h"
 #include "VertexShader.h"
-#include "VertexTypes.h"
+//#include "VertexTypes.h"
 #include "RasterizerState.h"
 #include "DepthStencilState.h"
 

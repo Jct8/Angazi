@@ -5,7 +5,7 @@ namespace Angazi::AI
 {
 	class Agent;
 
-	using AgentList = std::vector < Agent*>;
+	using AgentList = std::vector<Agent*>;
 
 	class Agent : public Entity
 	{
