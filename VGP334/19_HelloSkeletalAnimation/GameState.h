@@ -34,16 +34,18 @@ private:
 	//Angazi::Graphics::Model modelArena;
 	Angazi::Graphics::Animator animator;
 
-	//Ground
+	// Ground
 	Angazi::Graphics::Mesh mGroundMesh;
 	Angazi::Graphics::MeshBuffer mGroundMeshBuffer;
 
-	//Shadow
+	// Shadow
 	Angazi::Graphics::ShadowEffect mShadowEffect;
 
 	// PostProcessing
 	Angazi::Graphics::PostProcessingEffect mPostProcessingEffect;
 
+	// Skybox
+	Angazi::Graphics::Skybox mSkybox;
 	// Skeleton - Animation
 	float animationSpeed = 10.0f;
 	bool mShowSkeleton = false;

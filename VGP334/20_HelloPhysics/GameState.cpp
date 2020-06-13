@@ -25,10 +25,11 @@ void GameState::Initialize()
 	mCamera.SetDirection({ 0.0f,-0.36f, 0.92f });
 
 	Physics::PhysicsWorld::Settings settings;
-	settings.drag = 0.3f;
+	settings.drag = 0.1f;
 	mPhysicsWorld.Initialize(settings);
 	mPhysicsWorld.AddStaticPlane({ Vector3::YAxis,0.0f });
-	mPhysicsWorld.AddStaticOBB({ { 0.0f,5.0f,0.0f }, {4.0f,0.5f,5.0f} , Quaternion::RotationAxis(Vector3::ZAxis,10.0f * Constants::DegToRad) });
+	mPhysicsWorld.AddStaticOBB({ { 2.0f,2.0f,0.0f }, {4.0f,0.2f,5.0f} , Quaternion::RotationAxis(Vector3::ZAxis, 10.0f * Constants::DegToRad) });
+	mPhysicsWorld.AddStaticOBB({ {-3.0f,4.5f,0.0f }, {4.0f,0.2f,5.0f} , Quaternion::RotationAxis(Vector3::ZAxis,-15.0f * Constants::DegToRad) });
 
 	mMesh = MeshBuilder::CreatePlanePX(height, width);
 	mMeshBuffer.Initialize(mMesh,true);
@@ -104,7 +105,7 @@ void GameState::DebugUI()
 			p->SetVelocity({ RandomFloat(-0.05f,0.05f) ,RandomFloat(-0.1f,0.5f),RandomFloat(-0.05f,0.05f) });
 			p->radius = 0.1f;
 			p->invMass = 0.01f;
-			p->bounce = 0.7f;
+			p->bounce = 0.4f;
 			mPhysicsWorld.AddParticles(p);
 		}
 	}

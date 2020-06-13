@@ -51,10 +51,12 @@ void GameState::Initialize()
 	mGroundMeshBuffer.Initialize(mGroundMesh);
 
 	mShadowEffect.Initialize("../../Assets/Shaders/DepthMap.fx");
+	mSkybox.CreateSkybox();
 }
 
 void GameState::Terminate()
 {
+	mSkybox.Terminate();
 	// Effects
 	mShadowEffect.Terminate();
 	mGroundStandardEffect.Terminate();
@@ -213,6 +215,8 @@ void GameState::DrawScene()
 
 	mGroundMeshBuffer.Draw();
 	mGroundStandardEffect.End();
+
+	mSkybox.Draw(mCamera);
 }
 
 void GameState::DrawDepthMap()

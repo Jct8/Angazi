@@ -156,6 +156,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestWorld", "Projects\TestW
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Animation_Blending", "Projects\Animation_Blending\Animation_Blending.vcxproj", "{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "22_HelloFABRIK", "VGP334\22_HelloFABRIK\22_HelloFABRIK.vcxproj", "{7EF1E16D-6238-4305-88DF-3A1732AA033C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "23_HelloRagDoll", "VGP334\23_HelloRagDoll\23_HelloRagDoll.vcxproj", "{84D7ABC6-C039-419A-8525-0A1E43B87874}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -936,6 +940,38 @@ Global
 		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.Debug|x64.ActiveCfg = Debug|x64
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.Debug|x64.Build.0 = Debug|x64
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.Debug|x86.ActiveCfg = Debug|Win32
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.Debug|x86.Build.0 = Debug|Win32
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.MinSizeRel|x64.Build.0 = Release|x64
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.MinSizeRel|x86.Build.0 = Release|Win32
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.Release|x64.ActiveCfg = Release|x64
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.Release|x64.Build.0 = Release|x64
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.Release|x86.ActiveCfg = Release|Win32
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.Release|x86.Build.0 = Release|Win32
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.Debug|x64.ActiveCfg = Debug|x64
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.Debug|x64.Build.0 = Debug|x64
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.Debug|x86.ActiveCfg = Debug|Win32
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.Debug|x86.Build.0 = Debug|Win32
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.MinSizeRel|x64.Build.0 = Release|x64
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.MinSizeRel|x86.Build.0 = Release|Win32
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.Release|x64.ActiveCfg = Release|x64
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.Release|x64.Build.0 = Release|x64
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.Release|x86.ActiveCfg = Release|Win32
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.Release|x86.Build.0 = Release|Win32
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{84D7ABC6-C039-419A-8525-0A1E43B87874}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -991,12 +1027,14 @@ Global
 		{94A02A05-C230-4215-A859-938943EA444E} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
 		{9B8A6B49-B2E6-45D1-B44A-EA6507C03CEA} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
+		{7EF1E16D-6238-4305-88DF-3A1732AA033C} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
+		{84D7ABC6-C039-419A-8525-0A1E43B87874} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 48
+		SccNumberOfProjects = 50
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1188,5 +1226,13 @@ Global
 		SccProjectTopLevelParentUniqueName47 = Angazi.sln
 		SccProjectName47 = Projects/Animation_Blending
 		SccLocalPath47 = Projects\\Animation_Blending
+		SccProjectUniqueName48 = VGP334\\22_HelloFABRIK\\22_HelloFABRIK.vcxproj
+		SccProjectTopLevelParentUniqueName48 = Angazi.sln
+		SccProjectName48 = VGP334/22_HelloFABRIK
+		SccLocalPath48 = VGP334\\22_HelloFABRIK
+		SccProjectUniqueName49 = VGP334\\23_HelloRagDoll\\23_HelloRagDoll.vcxproj
+		SccProjectTopLevelParentUniqueName49 = Angazi.sln
+		SccProjectName49 = VGP334/23_HelloRagDoll
+		SccLocalPath49 = VGP334\\23_HelloRagDoll
 	EndGlobalSection
 EndGlobal

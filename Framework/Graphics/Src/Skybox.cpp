@@ -5,7 +5,7 @@
 #include <DirectXTK/Inc/WICTextureLoader.h>
 //#include "RasterizerState.h"
 #include "MeshBuilder.h"
-
+#include "Camera.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
@@ -129,14 +129,20 @@ void Skybox::Terminate()
 	SafeRelease(mShaderResourceView);
 }
 
-void Skybox::Draw(Math::Matrix4 wvp)
+void Skybox::Draw(const Angazi::Graphics::Camera & camera)
 {
 	// Sampler
 	mSampler.BindPS();
 	// Bind Texture
 	GetContext()->PSSetShaderResources(0, 1, &mShaderResourceView);
 
-	mTransformData.wvp = wvp;
+	auto matView = camera.GetViewMatrix();
+	auto matProj = camera.GetPerspectiveMatrix();
+	matView._41 = 0.0f;
+	matView._42 = 0.0f;
+	matView._43 = 0.0f;
+
+	mTransformData.wvp = Transpose(matView * matProj);
 	mTransformBuffer.Set(mTransformData);
 	mTransformBuffer.BindVS(0);
 

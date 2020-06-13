@@ -218,13 +218,10 @@ void GameState::DrawScene()
 	mGroundMeshBuffer.Draw();
 	mGroundStandardEffect.End();
 
-	matView._41 = 0.0f;
-	matView._42 = 0.0f;
-	matView._43 = 0.0f;
 	SimpleDraw::AddGroundPlane(100,false,Colors::LightGray);
 	SimpleDraw::Render(mCamera);
 
-	mSkybox.Draw(Transpose( matView * matProj));
+	mSkybox.Draw(mCamera);
 }
 
 void GameState::DrawDepthMap()

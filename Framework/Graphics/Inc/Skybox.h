@@ -5,12 +5,12 @@
 #include "PixelShader.h"
 #include "Sampler.h"
 #include "VertexShader.h"
-//#include "VertexTypes.h"
 #include "RasterizerState.h"
 #include "DepthStencilState.h"
 
 namespace Angazi::Graphics
 {
+	class Camera;
 	class Skybox
 	{
 	public:
@@ -31,7 +31,7 @@ namespace Angazi::Graphics
 		void CreateSkybox();
 		void Terminate();
 
-		void Draw(Math::Matrix4 wvp);
+		void Draw(const Angazi::Graphics::Camera& camera);
 
 	private:
 		struct TransformData
