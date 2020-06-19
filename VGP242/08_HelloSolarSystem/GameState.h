@@ -33,5 +33,7 @@ private:
 	std::vector<float> mScale;
 	std::vector<float> mTranslation;
 
+	Angazi::Graphics::Skybox mSkybox;
+
 	float mRotation = 0.0f;
 };

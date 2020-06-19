@@ -8,18 +8,29 @@ using namespace Angazi::Graphics;
 
 namespace
 {
+	int j = 1;
 	void DrawBone(Bone* bone, const std::vector<Math::Matrix4>& boneMatrices, float scale)
 	{
-		Math::Vector3 bonePositiion = GetTranslation(boneMatrices[bone->index]);
+		Math::Vector3 bonePosition = GetTranslation(boneMatrices[bone->index]);
 		for (size_t i = 0; i < bone->children.size(); i++)
 		{
-			Math::Vector3 childPositiion = GetTranslation(boneMatrices[bone->children[i]->index]);
-			auto direction = childPositiion - bonePositiion;
-			//SimpleDraw::AddLine(bonePositiion, childPositiion, Colors::AliceBlue);
-			//SimpleDraw::AddCone(bonePositiion, Normalize(direction), Magnitude(direction), 1.0f, Colors::AliceBlue);
-			SimpleDraw::AddBone(bonePositiion, direction, Colors::AliceBlue, scale *0.01f, true);
+			Math::Vector3 childPosition = GetTranslation(boneMatrices[bone->children[i]->index]);
+			auto direction = childPosition - bonePosition;
+			//SimpleDraw::AddLine(bonePosition, childPosition, Colors::AliceBlue);
+			//SimpleDraw::AddCone(bonePosition, Normalize(direction), Magnitude(direction), 1.0f, Colors::AliceBlue);
+			//SimpleDraw::AddBone(bonePosition, direction, Colors::AliceBlue, scale *0.01f, true);
+			//SimpleDraw::AddTransform(boneMatrices[bone->index]);
 			DrawBone(bone->children[i], boneMatrices, scale);
 		}
+		if (j == 14)
+		{
+			SimpleDraw::AddTransform(boneMatrices[bone->index]);
+			//Math::Vector3 childPosition = GetTranslation(boneMatrices[bone->children[0]->index]);
+			//auto direction =  bonePosition - childPosition;
+			//SimpleDraw::AddBone(bonePosition, direction, Colors::AliceBlue, scale *0.01f, true);
+			//SimpleDraw::AddTransform(boneMatrices[bone->children[0]->index]);
+		}
+		j++;
 	}
 }
 
@@ -29,6 +40,7 @@ void Angazi::Graphics::DrawSkeleton(const Skeleton& skeleton, const std::vector<
 	// Use skeleton so you know what the parent child order is
 	// But, use boneMatrices (Which is the multiplied out matrices) to get the position
 	// Draw line to connect the bones
+	j = 0;
 	DrawBone(skeleton.root, boneMatrices, scale);
 }
 
@@ -58,7 +70,7 @@ void Angazi::Graphics::UpdateBoneMatrices(Bone* bone, std::vector<Math::Matrix4>
 	std::tuple<Math::Vector3, Math::Quaternion, Math::Vector3> tupleTo;
 	if (clipFrom.GetTransformTuple(time, bone->index, tupleFrom) && (clipTo.GetTransformTuple(time, bone->index, tupleTo)))
 	{
-		Math::Vector3 position = Lerp(std::get<0>(tupleFrom), std::get<0>(tupleTo),blendWeight);
+		Math::Vector3 position = Lerp(std::get<0>(tupleFrom), std::get<0>(tupleTo), blendWeight);
 		Math::Quaternion rotation = Slerp(std::get<1>(tupleFrom), std::get<1>(tupleTo), blendWeight);
 		Math::Vector3 scale = Lerp(std::get<2>(tupleFrom), std::get<2>(tupleTo), blendWeight);
 		auto matTrans = Math::Matrix4::Translation({ position });
@@ -73,7 +85,7 @@ void Angazi::Graphics::UpdateBoneMatrices(Bone* bone, std::vector<Math::Matrix4>
 		boneMatrices[bone->index] = transform;
 
 	for (size_t i = 0; i < bone->children.size(); i++)
-		UpdateBoneMatrices(bone->children[i], boneMatrices, clipFrom,clipTo,blendWeight, applyOffset, time);
+		UpdateBoneMatrices(bone->children[i], boneMatrices, clipFrom, clipTo, blendWeight, applyOffset, time);
 
 	if (applyOffset)
 		boneMatrices[bone->index] = Math::Transpose(bone->offsetTransform * boneMatrices[bone->index]);

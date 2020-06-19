@@ -26,7 +26,7 @@ void Animator::Terminate()
 void Animator::ComputeBindPose()
 {
 	ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
-	UpdateBoneMatrices(mModel->skeleton.root, mBoneMatrices);
+	UpdateBoneMatrices(mModel->skeleton.root, mBoneMatrices,isSkeletalAnimation);
 }
 void Animator::SetClipLooping(int index, bool looping)
 {

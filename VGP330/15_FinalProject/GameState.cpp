@@ -95,12 +95,14 @@ void GameState::Initialize()
 	mTranslation = { 21.3f,2.1f,43.5f };
 	mTankPosition = { 18.0f,3.8f,40.2f };
 
+	mSkybox.CreateSkybox();
 }
 
 void GameState::Terminate()
 {
-	mTerrain.Terminate();
+	mSkybox.Terminate();
 
+	mTerrain.Terminate();
 	mReflectionRenderTarget.Terminate();
 
 	//Tank
@@ -286,6 +288,8 @@ void GameState::DrawScene(RenderType rendertype)
 {
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
+
+	mSkybox.Draw(mCamera);
 
 	mSampler.BindVS();
 	mSampler.BindPS();

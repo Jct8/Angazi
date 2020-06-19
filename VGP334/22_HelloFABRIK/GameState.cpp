@@ -57,7 +57,7 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 3.0f, -10.0f });
 	mCamera.SetDirection({ 0.0f, 0.0f, 1.0f });
 
-	const int numBones = 5;
+	const int numBones = 10;
 	const float boneLength = 1.0f;
 
 	mPoints.reserve(numBones + 1);
@@ -114,8 +114,8 @@ void GameState::Render()
 {
 	for (size_t i = 0; i + 1 < mPoints.size(); ++i)
 	{
-		//SimpleDraw::AddBone(mPoints[i], mPoints[i + 1] - mPoints[i], Colors::Green, 0.01f, true);
-		SimpleDraw::AddLine(mPoints[i], mPoints[i + 1], Colors::Green);
+		SimpleDraw::AddBone(mPoints[i], mPoints[i + 1] - mPoints[i], Colors::Green, 0.1f, true);
+		//SimpleDraw::AddLine(mPoints[i], mPoints[i + 1], Colors::Green);
 		SimpleDraw::AddSphere(mPoints[i], 0.1f, Colors::Cyan, false, 4, 8);
 	}
 	SimpleDraw::AddAABB(mTarget, { 0.2f,0.2f ,0.2f }, Colors::Red);

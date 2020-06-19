@@ -218,9 +218,9 @@ void GameState::DrawScene()
 	mGroundMeshBuffer.Draw();
 	mGroundStandardEffect.End();
 
-	SimpleDraw::AddGroundPlane(100,false,Colors::LightGray);
-	SimpleDraw::Render(mCamera);
+	SimpleDraw::AddGroundPlane(200,false,Colors::LightGray);
 
+	SimpleDraw::Render(mCamera);
 	mSkybox.Draw(mCamera);
 }
 

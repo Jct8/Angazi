@@ -1,6 +1,7 @@
 #pragma once
 
-namespace Angazi::Graphics::DebugUI {
+namespace Angazi::Graphics::DebugUI 
+{
 
 	enum class Theme
 	{
@@ -17,7 +18,4 @@ namespace Angazi::Graphics::DebugUI {
 
 	void BeginRender();
 	void EndRender();
-
-
-
-} // namespace Angazi::Graphics::DebugUI
+}

@@ -323,7 +323,7 @@ Quaternion Quaternion::RotationMatrix(const Matrix4& input)
 		qy = (m._23 + m._32) / w;
 		qz = 0.25f * w;
 	}
-	return Quaternion(qx, qy, qz, qw);
+	return Normalize(Quaternion(qx, qy, qz, qw));
 }
 Quaternion Quaternion::RotationFromTo(const Vector3& from, const Vector3& to)
 {
@@ -332,7 +332,7 @@ Quaternion Quaternion::RotationFromTo(const Vector3& from, const Vector3& to)
 		* Magnitude(to) * Magnitude(to)) + Dot(from, to);
 	return Normalize(Quaternion(a.x, a.y, a.z, w));
 }
-Quaternion Quaternion::RotationLook(const Vector3& look, const Vector3& up)
+Quaternion Quaternion::RotationLookAt(const Vector3& look, const Vector3& up)
 {
 	Vector3 z = Normalize(look);
 	Vector3 x = Normalize(Cross(up, z));

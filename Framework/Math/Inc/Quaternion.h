@@ -40,7 +40,7 @@ namespace Angazi::Math
 		static Quaternion Inverse(const Quaternion& q) { return Quaternion(-q.x, -q.y, -q.z, q.w); }
 		static Quaternion RotationAxis(const Vector3& axis, float radian);
 		static Quaternion RotationMatrix(const Matrix4& input);
-		static Quaternion RotationLook(const Vector3& look, const Vector3& up = Vector3::YAxis);
+		static Quaternion RotationLookAt(const Vector3& look, const Vector3& up = Vector3::YAxis);
 		static Quaternion RotationFromTo(const Vector3& from, const Vector3& to);
 	};
 }

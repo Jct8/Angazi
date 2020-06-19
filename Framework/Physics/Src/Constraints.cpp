@@ -15,14 +15,14 @@ void Spring::Apply() const
 {
 	Math::Vector3 delta = mParticleB->position - mParticleA->position;
 	float dist = Math::Magnitude(delta);
-	float diff = (dist - mRestLength) / (dist * (mParticleA->invMass + mParticleB->invMass));
+	float diff = dist != 0.0f ? ((dist - mRestLength) / (dist * (mParticleA->invMass + mParticleB->invMass))) : dist - mRestLength;
 	mParticleA->position += delta * diff * mParticleA->invMass;
 	mParticleB->position -= delta * diff * mParticleB->invMass;
 }
 
 void Spring::DebugDraw() const
 {
-	Graphics::SimpleDraw::AddLine(mParticleA->position, mParticleB->position, Graphics::Colors::Green);
+	Graphics::SimpleDraw::AddLine(mParticleA->position, mParticleB->position, Graphics::Colors::AliceBlue);
 }
 
 Fixed::Fixed(Particle* p)

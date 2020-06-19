@@ -21,6 +21,6 @@ namespace Angazi::Graphics
 		void Clear();
 
 	private:
-		ID3D11RasterizerState* mRasterizerState{ nullptr };
+		ID3D11RasterizerState* mRasterizerState = nullptr;
 	};
 }

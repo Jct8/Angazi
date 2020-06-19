@@ -35,9 +35,9 @@ namespace Angazi::Math
 	inline float Magnitude(const Vector3& v)							{ return Sqrt(MagnitudeSqr(v)); }
 	inline float Magnitude(const Quaternion& q)							{ return Sqrt((q.x * q.x) + (q.y * q.y) + (q.z * q.z) + (q.w * q.w)); }
 
-	inline Vector3 Normalize(const Vector3 & v)							{ return v / Magnitude(v); }
-	inline Vector2 Normalize(const Vector2 & v)							{ return v / Magnitude(v); }
-	inline Quaternion Normalize(const Quaternion & q)					{ return q / Magnitude(q); }
+	inline Vector3 Normalize(const Vector3 & v)							{ float mag = Magnitude(v); return mag > 0.0f ? v / mag : v; }
+	inline Vector2 Normalize(const Vector2 & v)							{ float mag = Magnitude(v); return mag > 0.0f ? v / mag : v; }
+	inline Quaternion Normalize(const Quaternion & q)					{ float mag = Magnitude(q); return mag > 0.0f ? q / Magnitude(q) : Quaternion::Identity; }
 
 	inline Vector2 PerpendicularLH(const Vector2& v)					{ return Vector2(-v.y, v.x); }
 	inline Vector2 PerpendicularRH(const Vector2& v)					{ return Vector2(v.y, -v.x); }
@@ -227,6 +227,25 @@ namespace Angazi::Math
 	constexpr Vector3 GetRight(const Matrix4& m)		{ return { m._11 , m._12, m._13 }; }
 	constexpr Vector3 GetUp(const Matrix4& m) 			{ return { m._21 , m._22, m._23 }; }
 	constexpr Vector3 GetLook(const Matrix4& m)			{ return { m._31 , m._32, m._33 }; }
+
+	inline Vector3 GetScale(const Matrix4& m) 
+	{
+		float sx = Magnitude({ m._11,m._12, m._13 });
+		float sy = Magnitude({ m._21,m._22, m._23 });
+		float sz = Magnitude({ m._31,m._32, m._33 });
+		return { sx,sy,sz };
+	}
+	inline Matrix4 GetRotation(const Matrix4& m)
+	{
+		Vector3 scale = GetScale(m);
+		return
+		{
+			m._11 / scale.x, m._12 / scale.x, m._13 / scale.x, 0.0f,
+			m._21 / scale.y, m._22 / scale.y, m._23 / scale.y, 0.0f,
+			m._31 / scale.z, m._32 / scale.z, m._33 / scale.z, 0.0f,
+			0.0f   , 0.0f   , 0.0f   , 1.0f
+		};
+	}
 
 	// 3D Collision Checks
 	bool Intersect(const Ray& ray, const Plane& plane, float& distance);

@@ -81,10 +81,19 @@ void GameState::Initialize()
 	mScale[7] = 1.0f;
 	mScale[8] = 1.0f;
 	mScale[9] = 0.3f;
+
+	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Back);
+	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Front);
+	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Left);
+	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Right);
+	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Top);
+	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Bottom);
+	mSkybox.CreateSkybox();
 }
 
 void GameState::Terminate()
 {
+	mSkybox.Terminate();
 	for (size_t i = 0; i < mPlanetTextures.size(); i++)
 	{
 		mPlanetTextures[i].Terminate();
@@ -102,22 +111,75 @@ void GameState::Terminate()
 
 void GameState::Update(float deltaTime)
 {
-	const float kMoveSpeed = 10.0f;
-	const float kTurnSpeed = 1.0f;
-
 	auto inputSystem = InputSystem::Get();
+	const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 100.0f : 10.0f;
+	const float kTurnSpeed = 10.0f * Constants::DegToRad;
+
 	if (inputSystem->IsKeyDown(KeyCode::W))
 		mCamera.Walk(kMoveSpeed*deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::S))
 		mCamera.Walk(-kMoveSpeed * deltaTime);
-	mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
-	mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::A))
+		mCamera.Strafe(-kMoveSpeed * deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::D))
+		mCamera.Strafe(kMoveSpeed*deltaTime);
+	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
+	{
+		mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
+		mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+	}
 
 	mRotation -= deltaTime;
+
+	//const float shipTurnSpeed = 0.1f;
+	//mShipRotation += inputSystem->GetMouseMoveX() * shipTurnSpeed * deltaTime;
+	//mShipElevation += inputSystem->GetMouseMoveY() * shipTurnSpeed * deltaTime;
+
+	//mShipDirection = Vector3::ZAxis;
+	//auto yawRotation = Math::Matrix4::RotationY(mShipRotation);
+	//mShipDirection = Math::TransformNormal(mShipDirection, yawRotation);
+
+	//const Math::Vector3 right = Math::Normalize(Cross(Math::Vector3::YAxis, mShipDirection));
+	//const Math::Matrix4 pitchRotation = Math::Matrix4::RotationAxis(right, mShipElevation);
+	//mShipDirection = Math::TransformNormal(mShipDirection, pitchRotation);
+
+	//const float shipMoveSpeed = 1.0f;
+	//if (inputSystem->IsKeyDown(KeyCode::W))
+	//	mShipPosition += mShipDirection * shipMoveSpeed;
+	//if (inputSystem->IsKeyDown(KeyCode::S))
+	//	mShipPosition -= mShipDirection * shipMoveSpeed;
+	//if (inputSystem->IsKeyDown(KeyCode::D))
+	//{
+	//	auto right = Cross(Vector3::YAxis, mShipDirection);
+	//	mShipPosition += right * shipMoveSpeed;
+	//}
+	//if (inputSystem->IsKeyDown(KeyCode::A))
+	//{
+	//	auto right = Cross(Vector3::YAxis, mShipDirection);
+	//	mShipPosition -= right * shipMoveSpeed;
+	//}
+
+	//auto cameraPosition = mShipPosition - (mShipDirection * 40.0f) + (Vector3::YAxis * 5.0f);
+	//mCamera.SetPosition(cameraPosition);
+	//mCamera.SetDirection(mShipDirection);
+
 }
 
 void GameState::Render()
 {
+	//const Math::Vector3 l = mShipDirection;
+	//const Math::Vector3 r = Math::Normalize(Math::Cross(Math::Vector3::YAxis, l));
+	//const Math::Vector3 u = Math::Normalize(Math::Cross(l, r));
+	//const Math::Vector3 p = mShipPosition;
+
+	//auto matWorld = Matrix4{
+	//	r.x, r.y, r.z, 0.0f,
+	//	u.x, u.y, u.z, 0.0f,
+	//	l.x, l.y, l.z, 0.0f,
+	//	p.x, p.y, p.z, 1.0f
+	//};
+
+
 	auto context = GraphicsSystem::Get()->GetContext();
 
 	auto matView = mCamera.GetViewMatrix();
@@ -155,12 +217,13 @@ void GameState::Render()
 		mMeshBufferSphere.Draw();
 	}
 
-	auto matWorld = Matrix4::RotationY(0.0f);
-	auto matScale = Matrix4::Scaling(1.0f);
-	auto matWVP = Transpose(matScale * matWorld * matView * matProj);
-
-	mDomeTexture.BindVS();
-	mDomeTexture.BindPS();
-	mConstantBuffer.Update(&matWVP);
-	mMeshBufferDome.Draw();
+	//auto matWorld = Matrix4::RotationY(0.0f);
+	//auto matScale = Matrix4::Scaling(1.0f);
+	//auto matWVP = Transpose(matScale * matWorld * matView * matProj);
+	//
+	//mDomeTexture.BindVS();
+	//mDomeTexture.BindPS();
+	//mConstantBuffer.Update(&matWVP);
+	//mMeshBufferDome.Draw();
+	mSkybox.Draw(mCamera);
 }

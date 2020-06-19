@@ -5,12 +5,13 @@
 #include "PixelShader.h"
 #include "Sampler.h"
 #include "VertexShader.h"
-#include "RasterizerState.h"
 #include "DepthStencilState.h"
+#include "RasterizerState.h"
 
 namespace Angazi::Graphics
 {
 	class Camera;
+
 	class Skybox
 	{
 	public:
@@ -40,8 +41,8 @@ namespace Angazi::Graphics
 		};
 		using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
 
-		DepthStencilState mDepthStencilState;
-		RasterizerState mRasterizerState;
+		Angazi::Graphics::DepthStencilState mDepthStencilState;
+		Angazi::Graphics::RasterizerState mRasterizerState;
 
 		ID3D11ShaderResourceView *mShaderResourceView = nullptr;
 		std::map<Side, std::filesystem::path> cubeSides;

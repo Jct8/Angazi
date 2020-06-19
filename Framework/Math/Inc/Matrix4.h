@@ -25,7 +25,7 @@ namespace Angazi::Math
 				-_11 , -_12 , -_13 , -_14 ,
 				-_21 , -_22 , -_23 , -_24 ,
 				-_31 , -_32 , -_33 , -_34 ,
-				-_41 , -_42 , -_43 , -_44 
+				-_41 , -_42 , -_43 , -_44
 			};
 		}
 		constexpr Matrix4 operator+(const Matrix4& rhs) const
@@ -92,7 +92,7 @@ namespace Angazi::Math
 				_11 / s, _12 / s, _13 / s, _14 / s,
 				_21 / s, _22 / s, _23 / s, _24 / s,
 				_31 / s, _32 / s, _33 / s, _34 / s,
-				_41 / s, _42 / s, _43 / s, _44 / s 
+				_41 / s, _42 / s, _43 / s, _44 / s
 			};
 		}
 		constexpr Matrix4 operator+=(const Matrix4& rhs)
@@ -179,7 +179,6 @@ namespace Angazi::Math
 		}
 
 		static Matrix4 RotationQuaternion(const Quaternion& q);
-
 	};
-	 
+
 }

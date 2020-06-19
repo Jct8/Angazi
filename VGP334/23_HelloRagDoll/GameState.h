@@ -25,8 +25,7 @@ private:
 
 	// Physics
 	Angazi::Physics::PhysicsWorld mPhysicsWorld;
-	std::vector<Angazi::Physics::Particle*> mParticles;
-
+	
 
 	// Model
 	Angazi::Graphics::Model mModel;
@@ -34,5 +33,6 @@ private:
 	Angazi::Graphics::StandardEffect mModelStandardEffect;
 
 	bool mShowSkeleton = false;
+	bool mApplyPhysics = false;
 
 };

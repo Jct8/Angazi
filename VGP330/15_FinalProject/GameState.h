@@ -129,4 +129,6 @@ private:
 	Angazi::Graphics::VertexShader mPostProcessingVertexShader;
 	Angazi::Graphics::PixelShader mPostProcessingPixelShader;
 
+	Angazi::Graphics::Skybox mSkybox;
+
 };

@@ -31,6 +31,8 @@ namespace Angazi::Physics
 		void Clear(bool onlyDynamic = false);
 
 		void ShowParticles(bool show) { mShowParticles = show; }
+
+		Math::Vector3 GetParticlePosition(int index)  const { return mParticles[index]->position; }
 	private:
 		void AccumulateForces();
 		void Integrate();

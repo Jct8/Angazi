@@ -137,7 +137,7 @@ namespace MathTest
 
 		TEST_METHOD(TestFromLook)
 		{
-			Quaternion q0 = Quaternion::RotationLook({ 1.0f, 1.0f, 1.0f });
+			Quaternion q0 = Quaternion::RotationLookAt({ 1.0f, 1.0f, 1.0f });
 
 			Assert::AreEqual(q0.x, -0.279848129f, 0.000001f);
 			Assert::AreEqual(q0.y, 0.364705175f, 0.000001f);

@@ -348,9 +348,9 @@ namespace
 
 		void AddTransform(const Math::Matrix4& transform)
 		{
-			auto r = Math::GetRight(transform);
-			auto u = Math::GetUp(transform);
-			auto l = Math::GetLook(transform);
+			auto r = GetRight(transform);
+			auto u = GetUp(transform);
+			auto l = GetLook(transform);
 			auto p = Math::GetTranslation(transform);
 			AddLine(p, p + r, Colors::Red);
 			AddLine(p, p + u, Colors::Green);

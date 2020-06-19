@@ -58,7 +58,7 @@ namespace
 		/// 1 = MORE "3D" LOOK
 		int is3D = 1;
 
-		colors[ImGuiCol_Text] = ImVec4(0.50f, 1.00f, 0.00f, 1.00f);
+		colors[ImGuiCol_Text] = ImVec4(0.53f, 0.81f, 0.94f, 1.00f);
 		colors[ImGuiCol_TextDisabled] = ImVec4(0.40f, 0.40f, 0.40f, 1.00f);
 		colors[ImGuiCol_ChildBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
 		colors[ImGuiCol_WindowBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
@@ -115,7 +115,7 @@ namespace
 		style.PopupBorderSize = 1;
 		style.FrameBorderSize = static_cast<float>(is3D);
 
-		style.WindowRounding = 3;
+		style.WindowRounding = 5.0f;
 		style.ChildRounding = 3;
 		style.FrameRounding = 3;
 		style.ScrollbarRounding = 2;
@@ -135,7 +135,7 @@ namespace
 
 		if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
-			style.WindowRounding = 0.0f;
+			style.WindowRounding = 5.0f;
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 #endif
