@@ -30,6 +30,7 @@ void GameState::Initialize()
 
 	// Model
 	model.Initialize("../../Assets/Models/James/James.model");
+	modelArena.Initialize("../../Assets/Models/Arena/Arena.model");
 	animator.Initialize(model);
 	animator.SetClipLooping(0 , true);
 
@@ -38,6 +39,11 @@ void GameState::Initialize()
 	mModelStandardEffect.UseShadow(true);
 	mModelStandardEffect.SetNormalMapWeight(1.0f);
 	mModelStandardEffect.SetSkinnedMesh(1.0f);
+
+	//mArenaStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
+	//mArenaStandardEffect.UseShadow(true);
+	//mArenaStandardEffect.SetNormalMapWeight(0.0f);
+	//mArenaStandardEffect.SetSkinnedMesh(0.0f);
 
 	mGroundStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
 	mGroundStandardEffect.SetDiffuseTexture("../../Assets/Images/Floor/Stone_Tiles_004_diffuse.jpg");
@@ -60,6 +66,7 @@ void GameState::Terminate()
 	// Effects
 	mShadowEffect.Terminate();
 	mGroundStandardEffect.Terminate();
+	//mArenaStandardEffect.Terminate();
 	mModelStandardEffect.Terminate();
 
 	// Model
@@ -215,6 +222,22 @@ void GameState::DrawScene()
 
 	mGroundMeshBuffer.Draw();
 	mGroundStandardEffect.End();
+
+	// Arena
+	//matWorld = Matrix4::Translation({ 0.0f,0.0f,0.0f });;
+	//mArenaStandardEffect.Begin();
+	//mArenaStandardEffect.SetMaterial(mMaterial);
+	//mArenaStandardEffect.SetDirectionalLight(mDirectionalLight);
+	//mArenaStandardEffect.SetViewProjection(mCamera.GetPosition());
+	//mArenaStandardEffect.SetWorldMatrix(matWorld);
+	//mArenaStandardEffect.SetWVPMatrix(matWorld, matView, matProj);
+	//mArenaStandardEffect.SetDepthTexture(target);
+	//wvpLight = Transpose(matWorld * lightVP);
+	//mArenaStandardEffect.UpdateShadowBuffer(wvpLight);
+	//mArenaStandardEffect.UpdateSettings();
+
+	//modelArena.Draw(&mArenaStandardEffect);
+	//mArenaStandardEffect.End();
 
 	mSkybox.Draw(mCamera);
 }

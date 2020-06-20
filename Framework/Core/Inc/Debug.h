@@ -25,5 +25,5 @@
 
 #else
 #define LOG(format,...)
-#define ASSERT(condition, format, ...)
+#define ASSERT(condition, format, ...)do {(void)(sizeof(condition));}while(false)
 #endif
