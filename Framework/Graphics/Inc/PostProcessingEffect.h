@@ -1,12 +1,7 @@
 #pragma once
 
 #include "Mesh.h"
-#include "VertexShader.h"
-#include "PixelShader.h"
-#include "RenderTarget.h"
-#include "Sampler.h"
 #include "Effect.h"
-#include "MeshBuffer.h"
 
 namespace Angazi::Graphics
 {

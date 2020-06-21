@@ -2,7 +2,6 @@
 
 namespace Angazi::Graphics::DebugUI 
 {
-
 	enum class Theme
 	{
 		Classic,

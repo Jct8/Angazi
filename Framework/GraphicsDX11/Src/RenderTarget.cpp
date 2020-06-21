@@ -2,7 +2,7 @@
 #include "RenderTarget.h"
 
 #include "D3DUtil.h"
-#include "GraphicsSystem.h"
+#include "GraphicsSystemDX11.h"
 
 using namespace Angazi::Graphics;
 

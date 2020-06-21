@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Mesh.h"
-#include "MeshBuffer.h"
 #include "Material.h"
 #include "Skeleton.h"
 #include "AnimationSet.h"

@@ -1,13 +1,5 @@
 #pragma once
 
-#include "MeshBuffer.h"
-#include "ConstantBuffer.h"
-#include "PixelShader.h"
-#include "Sampler.h"
-#include "VertexShader.h"
-#include "DepthStencilState.h"
-#include "RasterizerState.h"
-
 namespace Angazi::Graphics
 {
 	class Camera;
@@ -40,20 +32,19 @@ namespace Angazi::Graphics
 			Angazi::Math::Matrix4 wvp;
 		};
 		using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
+		TransformBuffer mTransformBuffer;
+		TransformData mTransformData;
 
 		Angazi::Graphics::DepthStencilState mDepthStencilState;
 		Angazi::Graphics::RasterizerState mRasterizerState;
 
-		ID3D11ShaderResourceView *mShaderResourceView = nullptr;
-		std::map<Side, std::filesystem::path> cubeSides;
+		Angazi::Graphics::MeshBuffer mBoxBuffer;
 
 		Angazi::Graphics::VertexShader mVertexShader;
 		Angazi::Graphics::PixelShader  mPixelShader;
 		Angazi::Graphics::Sampler mSampler;
+		Angazi::Graphics::Texture mTexture;
 
-		TransformBuffer mTransformBuffer;
-		TransformData mTransformData;
-
-		MeshBuffer mBoxBuffer;
+		std::map<Side,std::filesystem::path> cubeSides;
 	};
 }

@@ -2,7 +2,6 @@
 
 namespace Angazi::Graphics 
 {
-
 	class VertexShader
 	{
 	public:

@@ -2,11 +2,7 @@
 #include "SimpleDraw.h"
 
 #include "Camera.h"
-#include "ConstantBuffer.h"
 #include "GraphicsSystem.h"
-#include "MeshBuffer.h"
-#include "PixelShader.h"
-#include "VertexShader.h"
 #include "VertexTypes.h"
 
 using namespace Angazi;

@@ -1,14 +1,7 @@
 #pragma once
 
-#include "ConstantBuffer.h"
 #include "LightTypes.h"
 #include "Material.h"
-#include "Texture.h"
-#include "VertexShader.h"
-#include "PixelShader.h"
-#include "RenderTarget.h"
-#include "Sampler.h"
-#include "BlendState.h"
 #include "Effect.h"
 
 namespace Angazi::Graphics

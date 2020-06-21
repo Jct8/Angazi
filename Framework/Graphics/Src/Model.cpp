@@ -1,5 +1,4 @@
 #include "Precompiled.h"
-#include "Texture.h"
 #include "Material.h"
 #include "Model.h"
 #include "MeshIO.h"

@@ -1,5 +1,4 @@
 #include "Precompiled.h"
-#include "Texture.h"
 #include "TextureManager.h"
 
 using namespace Angazi::Graphics;

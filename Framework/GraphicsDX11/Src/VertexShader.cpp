@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "VertexShader.h"
-#include "VertexTypes.h"
 
+#include "Graphics/Inc/VertexTypes.h"
 #include "D3DUtil.h"
 
 using namespace Angazi;

@@ -1,6 +1,6 @@
 #pragma once
+#define ENABLE_DIRECTX11
 #include <Angazi/Inc/Angazi.h>
-
 class GameState : public Angazi::AppState
 {
 public:

@@ -2,7 +2,8 @@
 #include "DepthStencilState.h"
 #include "RasterizerState.h"
 
-#include "GraphicsSystem.h"
+#include "GraphicsSystemDX11.h"
+//#include "GraphicsSystem.h"
 
 using namespace Angazi::Graphics;
 

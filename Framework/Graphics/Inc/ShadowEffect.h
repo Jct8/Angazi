@@ -1,10 +1,5 @@
 #pragma once
 
-#include "ConstantBuffer.h"
-#include "Texture.h"
-#include "VertexShader.h"
-#include "PixelShader.h"
-#include "RenderTarget.h"
 #include "Camera.h"
 #include "Effect.h"
 

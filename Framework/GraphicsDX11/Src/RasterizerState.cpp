@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "RasterizerState.h"
 
-#include "GraphicsSystem.h"
+#include "GraphicsSystemDX11.h"
 
 using namespace Angazi::Graphics;
 

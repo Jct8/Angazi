@@ -54,6 +54,11 @@ private:
 		float depthBias = 0.0003f;
 		float padding[1];
 	};
+	struct DepthSettings
+	{
+		float isSkinnedMesh = 0.0f;
+		float padding[3];
+	};
 
 	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
 	using LightBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::DirectionalLight>;
@@ -61,14 +66,17 @@ private:
 	using SettingsBuffer = Angazi::Graphics::TypedConstantBuffer<Settings>;
 	using DepthMapConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
 	using ShadowConstantBuffer  = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
+	using DepthConstantBuffer = Angazi::Graphics::TypedConstantBuffer<DepthSettings>;
 
 	TransformBuffer mTransformBuffer;
 	LightBuffer mLightBuffer;
 	MaterialBuffer mMaterialBuffer;
 	SettingsBuffer mSettingsBuffer;
+	DepthConstantBuffer mDepthSettingsBuffer;
 
 	Settings mSettings;
 	Settings mGroundSettings;
+	DepthSettings mDepthSettings;
 
 	Angazi::Terrain mTerrain;
 

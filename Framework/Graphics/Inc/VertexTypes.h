@@ -1,7 +1,7 @@
 #pragma once
-
 #include "Common.h"
-#include "Colors.h"
+
+//#include "Colors.h"
 
 namespace Angazi::Graphics
 {

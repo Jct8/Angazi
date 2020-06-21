@@ -12,6 +12,7 @@ namespace Angazi::Graphics
 		Texture& operator=(const Texture&) = delete;
 
 		void Initialize(const std::filesystem::path& fileName);
+		void Initialize(const std::vector<std::filesystem::path>& cubeSides);
 		void Terminate();
 
 		void BindVS(uint32_t slot = 0) const;

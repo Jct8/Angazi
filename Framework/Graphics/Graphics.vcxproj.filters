@@ -69,19 +69,10 @@
     <ClInclude Include="Inc\Graphics.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\DebugUI.h">
-      <Filter>Inc\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\SpriteRenderer.h">
-      <Filter>Inc\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\SimpleDraw.h">
       <Filter>Inc\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Inc\Mesh.h">
-      <Filter>Inc\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\MeshBuffer.h">
       <Filter>Inc\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Inc\MeshBuilder.h">
@@ -99,38 +90,14 @@
     <ClInclude Include="Inc\Material.h">
       <Filter>Inc\Material</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Sampler.h">
-      <Filter>Inc\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Texture.h">
-      <Filter>Inc\Material</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\TextureManager.h">
       <Filter>Inc\Material</Filter>
     </ClInclude>
     <ClInclude Include="Inc\Camera.h">
       <Filter>Inc\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\VertexShader.h">
-      <Filter>Inc\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\PixelShader.h">
-      <Filter>Inc\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\BlendState.h">
-      <Filter>Inc\RenderState</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\ObjLoader.h">
       <Filter>Inc\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\ConstantBuffer.h">
-      <Filter>Inc\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\RenderTarget.h">
-      <Filter>Inc\RenderState</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\D3DUtil.h">
-      <Filter>Src\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Src\Precompiled.h">
       <Filter>Src\Pch</Filter>
@@ -189,12 +156,6 @@
     <ClInclude Include="Inc\Skybox.h">
       <Filter>Inc\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\RasterizerState.h">
-      <Filter>Inc\RenderState</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\DepthStencilState.h">
-      <Filter>Inc\RenderState</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\GraphicsSystem.cpp">
@@ -203,53 +164,20 @@
     <ClCompile Include="Src\Camera.cpp">
       <Filter>Src\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Src\MeshBuffer.cpp">
-      <Filter>Src\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Src\MeshBuilder.cpp">
       <Filter>Src\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Src\ObjLoader.cpp">
       <Filter>Src\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Texture.cpp">
-      <Filter>Src\Material</Filter>
-    </ClCompile>
     <ClCompile Include="Src\TextureManager.cpp">
       <Filter>Src\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\VertexShader.cpp">
-      <Filter>Src\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\PixelShader.cpp">
-      <Filter>Src\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\DebugUI.cpp">
-      <Filter>Src\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\D3DUtil.cpp">
-      <Filter>Src\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\BlendState.cpp">
-      <Filter>Src\RenderState</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\ConstantBuffer.cpp">
-      <Filter>Src\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Src\Precompiled.cpp">
       <Filter>Src\Pch</Filter>
     </ClCompile>
-    <ClCompile Include="Src\RenderTarget.cpp">
-      <Filter>Src\RenderState</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\SpriteRenderer.cpp">
-      <Filter>Src\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Src\SimpleDraw.cpp">
       <Filter>Src\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Sampler.cpp">
-      <Filter>Src\Material</Filter>
     </ClCompile>
     <ClCompile Include="Src\Animation.cpp">
       <Filter>Src\Animation</Filter>
@@ -289,12 +217,6 @@
     </ClCompile>
     <ClCompile Include="Src\Skybox.cpp">
       <Filter>Src\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\RasterizerState.cpp">
-      <Filter>Src\RenderState</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\DepthStencilState.cpp">
-      <Filter>Src\RenderState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #pragma once
-#include "SpriteTypes.h"
 
+#include "Graphics/Inc/SpriteTypes.h"
 namespace DirectX { class CommonStates; class SpriteBatch; }
 
 namespace Angazi::Graphics

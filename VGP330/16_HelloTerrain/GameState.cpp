@@ -68,7 +68,7 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
 	mMaterial.power = 80.0f;
 
-	mVertexShader.Initialize("../../Assets/Shaders/Standard.fx", Vertex::Format);
+	mVertexShader.Initialize("../../Assets/Shaders/Standard.fx", BoneVertex::Format);
 	mPixelShader.Initialize("../../Assets/Shaders/Standard.fx");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
@@ -87,7 +87,7 @@ void GameState::Initialize()
 
 	constexpr uint32_t depthMapSize = 4096;
 	mDepthMapRenderTarget.Initialize(depthMapSize, depthMapSize, RenderTarget::Format::RGBA_U32);
-	mDepthMapVertexShader.Initialize("../../Assets/Shaders/DepthMap.fx", Vertex::Format);
+	mDepthMapVertexShader.Initialize("../../Assets/Shaders/DepthMap.fx", BoneVertex::Format);
 	mDepthMapPixelShader.Initialize("../../Assets/Shaders/DepthMap.fx");
 	mDepthMapConstantBuffer.Initialize();
 
@@ -105,10 +105,14 @@ void GameState::Initialize()
 	mTerrain.Initialize(200, 200, 1.0f);
 	mTerrain.SetHeightScale(30.0f);
 	mTerrain.LoadHeightmap("../../Assets/Heightmaps/heightmap_200x200.raw");
+	mDepthSettingsBuffer.Initialize();
+
 }
 
 void GameState::Terminate()
 {
+	mDepthSettingsBuffer.Terminate();
+
 	mTerrain.Terminate();
 
 	mShadowConstantBuffer.Terminate();
@@ -502,6 +506,8 @@ void GameState::DrawDepthMap()
 	auto matProjLight = mLightProjectionMatrix;// mLightCamera.GetPerspectiveMatrix();
 
 	mDepthMapConstantBuffer.BindVS(0);
+	mDepthSettingsBuffer.BindVS(2);
+
 	for (auto& positions : mTankPositions)
 	{
 		auto matTrans = Matrix4::Translation({ positions });

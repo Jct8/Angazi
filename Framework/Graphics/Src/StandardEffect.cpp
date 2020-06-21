@@ -1,10 +1,6 @@
 #include "Precompiled.h"
 
 #include "VertexTypes.h"
-#include "Sampler.h"
-#include "BlendState.h"
-#include "VertexShader.h"
-#include "PixelShader.h"
 
 #include "StandardEffect.h"
 

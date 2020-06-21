@@ -1,8 +1,9 @@
 #include "Precompiled.h"
 #include "ShadowEffect.h"
+
+#include "SimpleDraw.h"
 #include "VertexTypes.h"
 #include "GraphicsSystem.h"
-#include "SimpleDraw.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;

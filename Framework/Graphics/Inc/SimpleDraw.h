@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Colors.h"
-
 namespace Angazi::Graphics { class Camera; } // forward declare
 
 namespace Angazi::Graphics::SimpleDraw {

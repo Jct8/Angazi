@@ -64,7 +64,7 @@ void Terrain::LoadHeightmap(const std::filesystem::path & filePath)
 	}
 	fclose(file);
 
-	Graphics::MeshBuffer::ComputeNormals(mMesh);
+	Graphics::MeshBuilder::ComputeNormals(mMesh);
 	mMeshBuffer.Update(mMesh.vertices.data(), static_cast<uint32_t>(mMesh.vertices.size()));
 }
 // get 3 indices

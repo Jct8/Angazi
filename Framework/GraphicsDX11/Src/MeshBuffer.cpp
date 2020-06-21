@@ -1,7 +1,7 @@
 #include "Precompiled.h"
-#include "Mesh.h"
 #include "MeshBuffer.h"
 
+#include "Graphics/Inc/Mesh.h"
 #include "D3DUtil.h"
 
 using namespace Angazi;
@@ -77,33 +77,6 @@ void MeshBuffer::Update(const void * vertexData, uint32_t numVertices)
 	context->Map(mVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &resource);
 	memcpy(resource.pData, vertexData, numVertices*mVertexSize);
 	context->Unmap(mVertexBuffer, 0);
-}
-
-void MeshBuffer::ComputeNormals(Mesh &mesh)
-{
-	// get 3 indices
-	// get verties, get 2 vectors, cross product to get normal
-	// create normal array of size vertices
-	// add calculated normal to normal array slot
-	// once complete normalize all noramls in array then add back to slot
-
-	std::vector<Angazi::Math::Vector3> newNormals;
-	newNormals.reserve(mesh.vertices.size());
-	for (size_t i = 0; i < mesh.vertices.size(); ++i)
-		newNormals.push_back({ 0.0f, 0.0f ,0.0f });
-	for (size_t i = 0; i < mesh.indices.size(); i += 3)
-	{
-		auto vector1 = mesh.vertices[mesh.indices[i]].position - mesh.vertices[mesh.indices[i + 1]].position;
-		auto vector2 = mesh.vertices[mesh.indices[i]].position - mesh.vertices[mesh.indices[i + 2]].position;
-
-		Angazi::Math::Vector3 normal = Angazi::Math::Cross(vector1, vector2);
-		newNormals[mesh.indices[i]] += normal;
-		newNormals[mesh.indices[i+1]] += normal;
-		newNormals[mesh.indices[i+2]] += normal;
-	}
-	for (size_t i = 0; i < newNormals.size(); ++i)
-		mesh.vertices[i].normal = Angazi::Math::Normalize(newNormals[i]);
-
 }
 
 void MeshBuffer::Draw() const

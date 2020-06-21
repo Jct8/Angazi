@@ -160,6 +160,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "22_HelloFABRIK", "VGP334\22
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "23_HelloRagDoll", "VGP334\23_HelloRagDoll\23_HelloRagDoll.vcxproj", "{84D7ABC6-C039-419A-8525-0A1E43B87874}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphicsDX11", "Framework\GraphicsDX11\GraphicsDX11.vcxproj", "{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -972,6 +974,22 @@ Global
 		{84D7ABC6-C039-419A-8525-0A1E43B87874}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{84D7ABC6-C039-419A-8525-0A1E43B87874}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{84D7ABC6-C039-419A-8525-0A1E43B87874}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.Debug|x64.ActiveCfg = Debug|x64
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.Debug|x64.Build.0 = Debug|x64
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.Debug|x86.ActiveCfg = Debug|Win32
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.Debug|x86.Build.0 = Debug|Win32
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.MinSizeRel|x64.Build.0 = Release|x64
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.MinSizeRel|x86.Build.0 = Release|Win32
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.Release|x64.ActiveCfg = Release|x64
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.Release|x64.Build.0 = Release|x64
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.Release|x86.ActiveCfg = Release|Win32
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.Release|x86.Build.0 = Release|Win32
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1029,12 +1047,13 @@ Global
 		{CDFEA636-6AFA-4A3E-B4F6-C5A0C1090668} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 		{7EF1E16D-6238-4305-88DF-3A1732AA033C} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
 		{84D7ABC6-C039-419A-8525-0A1E43B87874} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
+		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 50
+		SccNumberOfProjects = 51
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1234,5 +1253,9 @@ Global
 		SccProjectTopLevelParentUniqueName49 = Angazi.sln
 		SccProjectName49 = VGP334/23_HelloRagDoll
 		SccLocalPath49 = VGP334\\23_HelloRagDoll
+		SccProjectUniqueName50 = Framework\\GraphicsDX11\\GraphicsDX11.vcxproj
+		SccProjectTopLevelParentUniqueName50 = Angazi.sln
+		SccProjectName50 = Framework/GraphicsDX11
+		SccLocalPath50 = Framework\\GraphicsDX11
 	EndGlobalSection
 EndGlobal
