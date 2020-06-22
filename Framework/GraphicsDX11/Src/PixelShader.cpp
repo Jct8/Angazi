@@ -1,4 +1,6 @@
 #include "Precompiled.h"
+#ifdef ENABLE_DIRECTX11
+
 #include "PixelShader.h"
 
 #include "D3DUtil.h"
@@ -52,3 +54,5 @@ void Angazi::Graphics::PixelShader::Bind()
 	auto context = GetContext();
 	context->PSSetShader(mPixelShader, nullptr, 0);
 }
+
+#endif

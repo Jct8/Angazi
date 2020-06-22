@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "DebugUI.h"
+#ifdef ENABLE_OPENGL
 
 #include <ImGui/Inc/imgui.h>
 #include <ImGui/Inc/imgui_impl_opengl3.h>
@@ -130,3 +131,5 @@ void DebugUIGL::EndRender()
 	}
 
 }
+
+#endif

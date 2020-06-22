@@ -63,9 +63,6 @@
     <ClInclude Include="Inc\Common.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\GraphicsSystem.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\Graphics.h">
       <Filter>Inc</Filter>
     </ClInclude>
@@ -158,9 +155,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\GraphicsSystem.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Camera.cpp">
       <Filter>Src\Camera</Filter>
     </ClCompile>

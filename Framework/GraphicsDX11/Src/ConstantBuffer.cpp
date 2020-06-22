@@ -1,4 +1,6 @@
 #include "Precompiled.h"
+#ifdef ENABLE_DIRECTX11
+
 #include "ConstantBuffer.h"
 
 #include "D3DUtil.h"
@@ -56,3 +58,5 @@ void ConstantBuffer::Update(const void * data) const
 {
 	GetContext()->UpdateSubresource(mConstantBuffer, 0, nullptr, data, 0, 0);
 }
+
+#endif

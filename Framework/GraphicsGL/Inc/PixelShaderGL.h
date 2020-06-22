@@ -1,7 +1,7 @@
 #pragma once
-#ifdef ENABLE_DIRECTX11
+#ifdef ENABLE_OPENGL
 
-namespace Angazi::Graphics 
+namespace Angazi::Graphics
 {
 	class PixelShader
 	{
@@ -15,9 +15,10 @@ namespace Angazi::Graphics
 		void Initialize(const std::filesystem::path& filePath, const char * shaderName = "PS");
 		void Terminate();
 		void Bind();
+		uint32_t GetId() { return mPixelShader; }
 
 	private:
-		ID3D11PixelShader *mPixelShader = nullptr;
+		uint32_t mPixelShader = 0;
 	};
 
 

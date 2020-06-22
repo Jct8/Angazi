@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef ENABLE_DIRECTX11
+
 #include "Graphics/Inc/SpriteTypes.h"
 namespace DirectX { class CommonStates; class SpriteBatch; }
 
@@ -38,3 +40,4 @@ namespace Angazi::Graphics
 		Math::Matrix4 mTransform;
 	};
 }
+#endif

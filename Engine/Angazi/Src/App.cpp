@@ -3,7 +3,6 @@
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
-using namespace Angazi::GraphicsGL;
 using namespace Angazi::Input;
 
 void Angazi::App::ChangeState(const std::string& name)
@@ -27,20 +26,13 @@ void Angazi::App::Run(AppConfig appConfig)
 	InputSystem::StaticInitialize(handle);
 
 	//Initialize the graphics systems
-	if (appConfig.api == GraphicsAPI::DirectX)
-	{
-		GraphicsSystem::StaticInitialize(handle, false);
-		DebugUI::StaticInitialize(handle, false, true);
-		DebugUI::SetTheme(DebugUI::Theme::Custom);
-		Graphics::SimpleDraw::StaticInitialize(1024 * 1024);
-		Graphics::SpriteRenderer::StaticInitialize();
-	}
-	else if (appConfig.api == GraphicsAPI::OpenGL)
-	{
-		GraphicsSystemGL::StaticInitialize(handle, false);
-		DebugUIGL::StaticInitialize(handle, false);
-		GraphicsGL::SimpleDraw::StaticInitialize();
-	}
+
+	GraphicsSystem::StaticInitialize(handle, false);
+	//DebugUI::StaticInitialize(handle, false, true);
+	//DebugUI::SetTheme(DebugUI::Theme::Custom);
+	//Graphics::SimpleDraw::StaticInitialize(1024 * 1024);
+	//Graphics::SpriteRenderer::StaticInitialize();
+
 
 	//Initialize the starting state
 	mCurrentState = mAppStates.begin()->second.get();
@@ -76,53 +68,31 @@ void Angazi::App::Run(AppConfig appConfig)
 		float deltaTime = 1.0f / 60.0f;
 		mCurrentState->Update(deltaTime);
 
-		if (appConfig.api == GraphicsAPI::DirectX)
-		{
-			auto graphicsSystem = GraphicsSystem::Get();
-			graphicsSystem->BeginRender();
 
-			//Graphics::SpriteRenderer::Get()->BeginRender();
-			mCurrentState->Render();
-			//Graphics::SpriteRenderer::Get()->EndRender();
+		auto graphicsSystem = GraphicsSystem::Get();
+		graphicsSystem->BeginRender();
 
-			DebugUI::BeginRender();
-			mCurrentState->DebugUI();
-			DebugUI::EndRender();
+		//Graphics::SpriteRenderer::Get()->BeginRender();
+		mCurrentState->Render();
+		//Graphics::SpriteRenderer::Get()->EndRender();
 
-			graphicsSystem->EndRender();
-		}
-		else if (appConfig.api == GraphicsAPI::OpenGL)
-		{
-			auto graphicsSystem = GraphicsSystemGL::Get();
-			graphicsSystem->BeginRender();
+		//DebugUI::BeginRender();
+		//mCurrentState->DebugUI();
+		//DebugUI::EndRender();
 
-			mCurrentState->Render();
-
-			DebugUIGL::BeginRender();
-			mCurrentState->DebugUI();
-			DebugUIGL::EndRender();
+		graphicsSystem->EndRender();
 
 
-			graphicsSystem->EndRender();
-		}
 	}
 
 	mCurrentState->Terminate();
 
 	//Terminate engine systems
-	if (appConfig.api == GraphicsAPI::DirectX)
-	{
-		Graphics::SpriteRenderer::StaticTerminate();
-		Graphics::SimpleDraw::StaticTerminate();
-		DebugUI::StaticTerminate();
-		GraphicsSystem::StaticTerminate();
-	}
-	else if (appConfig.api == GraphicsAPI::OpenGL)
-	{
-		GraphicsGL::SimpleDraw::StaticTerminate();
-		GraphicsSystemGL::StaticTerminate(handle);
-		DebugUIGL::StaticTerminate();
-	}
+	//Graphics::SpriteRenderer::StaticTerminate();
+	//Graphics::SimpleDraw::StaticTerminate();
+	//DebugUI::StaticTerminate();
+	GraphicsSystem::StaticTerminate();
+
 
 	InputSystem::StaticTerminate();
 

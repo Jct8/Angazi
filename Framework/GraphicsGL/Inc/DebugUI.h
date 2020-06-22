@@ -1,4 +1,5 @@
 #pragma once
+#ifdef ENABLE_OPENGL
 
 namespace Angazi::GraphicsGL::DebugUIGL {
 
@@ -18,3 +19,5 @@ namespace Angazi::GraphicsGL::DebugUIGL {
 	void EndRender();
 
 } // namespace Angazi::GraphicsGL::DebugUIGL
+
+#endif

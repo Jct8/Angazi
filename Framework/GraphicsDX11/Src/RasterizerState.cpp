@@ -1,4 +1,5 @@
 #include "Precompiled.h"
+#ifdef ENABLE_DIRECTX11
 #include "RasterizerState.h"
 
 #include "GraphicsSystemDX11.h"
@@ -68,3 +69,5 @@ void RasterizerState::Clear()
 	auto context = GraphicsSystem::Get()->GetContext();
 	context->RSSetState(nullptr);
 }
+
+#endif

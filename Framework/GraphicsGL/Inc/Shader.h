@@ -1,6 +1,7 @@
 #pragma once
+#ifdef ENABLE_OPENGL
 
-namespace Angazi::GraphicsGL
+namespace Angazi::Graphics
 {
 	class Shader
 	{
@@ -23,3 +24,4 @@ namespace Angazi::GraphicsGL
 		unsigned int mProgram;
 	};
 }
+#endif

@@ -1,6 +1,6 @@
 #pragma once
-#ifdef ENABLE_DIRECTX11
-namespace Angazi::Graphics 
+#ifdef ENABLE_OPENGL
+namespace Angazi::Graphics
 {
 	class BlendState
 	{
@@ -27,7 +27,7 @@ namespace Angazi::Graphics
 		void Bind() const;
 
 	private:
-		ID3D11BlendState* mBlendState = nullptr;
+		//ID3D11BlendState* mBlendState = nullptr;
 
 	};
 }

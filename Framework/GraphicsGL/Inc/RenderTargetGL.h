@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef ENABLE_DIRECTX11
+#ifdef ENABLE_OPENGL
 
 namespace Angazi::Graphics
 {
@@ -31,14 +31,14 @@ namespace Angazi::Graphics
 		void BindPS(uint32_t slot) const;
 		void UnbindPS(uint32_t slot);
 
-		void* GetShaderResourceView() const { return mShaderResourceView; }
+		void* GetShaderResourceView() const { /*return mShaderResourceView;*/ }
 
 	private:
-		ID3D11ShaderResourceView* mShaderResourceView = nullptr;
-		ID3D11RenderTargetView* mRenderTargetView = nullptr;
-		ID3D11DepthStencilView* mDepthStencilView = nullptr;
-		D3D11_VIEWPORT mViewport;
-		D3D11_MAPPED_SUBRESOURCE mSubresource;
+		//ID3D11ShaderResourceView* mShaderResourceView = nullptr;
+		//ID3D11RenderTargetView* mRenderTargetView = nullptr;
+		//ID3D11DepthStencilView* mDepthStencilView = nullptr;
+		//D3D11_VIEWPORT mViewport;
+		//D3D11_MAPPED_SUBRESOURCE mSubresource;
 	};
 }
 

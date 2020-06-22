@@ -1,6 +1,5 @@
 #include "Precompiled.h"
 #include "PostProcessingEffect.h"
-#include "GraphicsSystem.h"
 #include "MeshBuilder.h"
 
 using namespace Angazi;

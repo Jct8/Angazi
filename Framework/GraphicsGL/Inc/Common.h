@@ -4,9 +4,6 @@
 #include <Core/Inc/Core.h>
 #include <Math/Inc/EngineMath.h>
 
-#include <fstream>
-#include <sstream>
-
 // OpenGL headers
 #define GLEW_STATIC
 #include <Glew/include/GL/glew.h>

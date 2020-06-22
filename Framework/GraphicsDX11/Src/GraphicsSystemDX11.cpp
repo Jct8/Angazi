@@ -1,4 +1,6 @@
 #include "Precompiled.h"
+
+#ifdef ENABLE_DIRECTX11
 #include "GraphicsSystemDX11.h"
 
 using namespace Angazi;
@@ -232,3 +234,5 @@ uint32_t GraphicsSystem::GetBackBufferHeight() const
 {
 	return mSwapChainDesc.BufferDesc.Height;
 }
+
+#endif

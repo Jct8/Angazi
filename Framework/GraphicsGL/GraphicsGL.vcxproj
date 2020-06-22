@@ -157,31 +157,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Inc\CameraGL.h" />
-    <ClInclude Include="Inc\Colors.h" />
+    <ClInclude Include="Inc\BlendStateGL.h" />
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\DebugUI.h" />
+    <ClInclude Include="Inc\DepthStencilStateGL.h" />
     <ClInclude Include="Inc\GraphicsGL.h" />
     <ClInclude Include="Inc\GraphicsSystemGL.h" />
-    <ClInclude Include="Inc\LightTypes.h" />
-    <ClInclude Include="Inc\Material.h" />
-    <ClInclude Include="Inc\Mesh.h" />
     <ClInclude Include="Inc\MeshBufferGL.h" />
-    <ClInclude Include="Inc\MeshBuilder.h" />
+    <ClInclude Include="Inc\PixelShaderGL.h" />
+    <ClInclude Include="Inc\RasterizerStateGL.h" />
+    <ClInclude Include="Inc\RenderTargetGL.h" />
+    <ClInclude Include="Inc\SamplerGL.h" />
     <ClInclude Include="Inc\Shader.h" />
-    <ClInclude Include="Inc\SimpleDraw.h" />
     <ClInclude Include="Inc\stb_image.h" />
     <ClInclude Include="Inc\TextureGL.h" />
     <ClInclude Include="Inc\UniformBuffer.h" />
-    <ClInclude Include="Inc\VertexTypes.h" />
+    <ClInclude Include="Inc\VertexShaderGL.h" />
     <ClInclude Include="Src\Precompiled.h" />
+    <ClCompile Include="Src\BlendStateGL.cpp" />
+    <ClCompile Include="Src\DepthStencilStateGL.cpp" />
+    <ClCompile Include="Src\RasterizerStateGL.cpp" />
+    <ClCompile Include="Src\RenderTargetGL.cpp" />
+    <ClCompile Include="Src\SamplerGL.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\CameraGL.cpp" />
     <ClCompile Include="Src\DebugUI.cpp" />
     <ClCompile Include="Src\GraphicsSystemGL.cpp" />
     <ClCompile Include="Src\MeshBufferGL.cpp" />
-    <ClCompile Include="Src\MeshBuilder.cpp" />
+    <ClCompile Include="Src\PixelShaderGL.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -189,10 +192,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Src\Shader.cpp" />
-    <ClCompile Include="Src\SimpleDraw.cpp" />
     <ClCompile Include="Src\stb_image.cpp" />
     <ClCompile Include="Src\TextureGL.cpp" />
     <ClCompile Include="Src\UniformBuffer.cpp" />
+    <ClCompile Include="Src\VertexShaderGL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\External\Glew\build\vc15\glew_static.vcxproj">

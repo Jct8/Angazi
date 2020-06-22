@@ -1,17 +1,19 @@
 #include "Precompiled.h"
 #include "GraphicsSystemGL.h"
 
+#ifdef ENABLE_OPENGL
+
 using namespace Angazi;
-using namespace Angazi::GraphicsGL;
+using namespace Angazi::Graphics;
 
 namespace
 {
-	std::unique_ptr<GraphicsSystemGL> sGraphicsSystem;
+	std::unique_ptr<GraphicsSystem> sGraphicsSystem;
 	Core::WindowMessageHandler sWindowMessageHandler;
 }
 
  //if window resize, update back buffer
-LRESULT CALLBACK GraphicsGL::GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK Graphics::GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (sGraphicsSystem)
 	{
@@ -29,35 +31,36 @@ LRESULT CALLBACK GraphicsGL::GraphicsSystemMessageHandler(HWND window, UINT mess
 	return sWindowMessageHandler.ForwardMessage(window, message, wParam, lParam);
 }
 
-void GraphicsSystemGL::StaticInitialize(HWND window, bool fullscreen)
+void GraphicsSystem::StaticInitialize(HWND window, bool fullscreen)
 {
 	ASSERT(sGraphicsSystem == nullptr, "[GraphicsSystemGL] System already initialized!");
-	sGraphicsSystem = std::make_unique<GraphicsSystemGL>();
+	sGraphicsSystem = std::make_unique<GraphicsSystem>();
 	sGraphicsSystem->Initialize(window, fullscreen);
 }
 
-void GraphicsSystemGL::StaticTerminate(HWND window)
+void GraphicsSystem::StaticTerminate()
 {
 	if (sGraphicsSystem != nullptr)
 	{
-		sGraphicsSystem->Terminate(window);
+		sGraphicsSystem->Terminate();
 		sGraphicsSystem.reset();
 	}
 }
 
-GraphicsSystemGL* GraphicsSystemGL::Get()
+GraphicsSystem* GraphicsSystem::Get()
 {
 	ASSERT(sGraphicsSystem != nullptr, "[GraphicsSystemGL] No system registered.");
 	return sGraphicsSystem.get();
 }
 
-GraphicsSystemGL::~GraphicsSystemGL()
+GraphicsSystem::~GraphicsSystem()
 {
 	
 }
 
-void GraphicsSystemGL::Initialize(HWND window, bool fullscreen)
+void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 {
+	myWindow = window;
 	int pixelFormat;
 	PIXELFORMATDESCRIPTOR pfd;
 	RECT rect;
@@ -92,28 +95,28 @@ void GraphicsSystemGL::Initialize(HWND window, bool fullscreen)
 	pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
 	pfd.nVersion = 1;
 
-	//create a GDI device context
+	// Create a GDI device context
 	hDeviceContext = GetDC(window);
 	ASSERT(hDeviceContext != NULL, "[GraphicsSystemGL] Can't get device context for window.");
 
-	//pick a pixel format
+	// Pick a pixel format
 	pixelFormat = ChoosePixelFormat(hDeviceContext,&pfd);
 	ASSERT(pixelFormat != NULL, "[GraphicsSystemGL] Can't choose pixel format.");
 
-	//set a pixel format
+	// Set a pixel format
 	pixelFormat = SetPixelFormat(hDeviceContext, pixelFormat, &pfd);
 	ASSERT(pixelFormat != NULL, "[GraphicsSystemGL] Can't set pixel format.");
 
-	//create OpenGL context 
+	// Create OpenGL context 
 	glRenderingContext = wglCreateContext(hDeviceContext);
 	ASSERT(glRenderingContext != NULL, "[GraphicsSystemGL] Can't create GL context");
 
-	//make the context active
+	// Make the context active
 	ASSERT(wglMakeCurrent(hDeviceContext, glRenderingContext), "[GraphicsSystemGL] Can't make current GL context");
 
-	//Init Glew
+	// Init Glew
 	ASSERT(glewInit() == GLEW_OK, "Glew Init Failed");
-	//Link OpenGL Extension functions
+	// Link OpenGL Extension functions
 	ASSERT(glGetString(GL_EXTENSIONS),"Glew extentions failed");
 
 	Resize(width, height);
@@ -122,19 +125,27 @@ void GraphicsSystemGL::Initialize(HWND window, bool fullscreen)
 	//glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
+
+	glGenProgramPipelines(1, &pipeline);
+
+	LOG("OpenGL version supported by this platform: (%s)", glGetString(GL_VERSION));
+	LOG("Vendor: (%s)", glGetString(GL_VENDOR));
+	LOG("Renderor: (%s)", glGetString(GL_RENDERER));
 }
 
-void GraphicsSystemGL::Terminate(HWND window)
+void GraphicsSystem::Terminate()
 {
-	ASSERT(wglMakeCurrent(NULL, NULL), "[GraphicsSystemGL] Release of DC and RC failed");
-	ASSERT(wglDeleteContext(glRenderingContext), "[GraphicsSystemGL] Release of rendering context failed");
-	ASSERT(ReleaseDC(window,hDeviceContext), "[GraphicsSystemGL] Release of Device context failed");
-
+	glDeleteProgramPipelines(1,&pipeline);
 	// Restore original window's procedure
 	sWindowMessageHandler.Unhook();
+
+	ASSERT(wglMakeCurrent(NULL, NULL), "[GraphicsSystemGL] Release of DC and RC failed");
+	ASSERT(wglDeleteContext(glRenderingContext), "[GraphicsSystemGL] Release of rendering context failed");
+	ASSERT(ReleaseDC(myWindow,hDeviceContext), "[GraphicsSystemGL] Release of Device context failed");
+
 }
 
-void GraphicsSystemGL::BeginRender()
+void GraphicsSystem::BeginRender()
 {
 	wglMakeCurrent(hDeviceContext, glRenderingContext);
 	glClearColor(mClearColor.x, mClearColor.y, mClearColor.z, mClearColor.w);
@@ -142,26 +153,20 @@ void GraphicsSystemGL::BeginRender()
 	glLoadIdentity();
 }
 
-void GraphicsSystemGL::EndRender()
+void GraphicsSystem::EndRender()
 {
 	SwapBuffers(hDeviceContext);
 }
 
-uint32_t Angazi::GraphicsGL::GraphicsSystemGL::GetBackBufferWidth() const
+void GraphicsSystem::ToggleFullscreen()
 {
-	RECT rcCli;
-	GetClientRect(WindowFromDC(hDeviceContext), &rcCli);
-	return rcCli.right - rcCli.left;
+	ASSERT(false, "Not Implemented Yet!");
+	//BOOL fullscreen;
+	//mSwapChain->GetFullscreenState(&fullscreen, nullptr);
+	//mSwapChain->SetFullscreenState(!fullscreen, nullptr);
 }
 
-uint32_t Angazi::GraphicsGL::GraphicsSystemGL::GetBackBufferHeight() const
-{
-	RECT rcCli;
-	GetClientRect(WindowFromDC(hDeviceContext), &rcCli);
-	return rcCli.bottom - rcCli.top;
-}
-
-void GraphicsSystemGL::Resize(uint32_t width, uint32_t height)
+void GraphicsSystem::Resize(uint32_t width, uint32_t height)
 {
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
@@ -170,3 +175,31 @@ void GraphicsSystemGL::Resize(uint32_t width, uint32_t height)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
+
+void GraphicsSystem::ResetRenderTarget()
+{
+	ASSERT(false, "Not Implemented Yet!");
+	//mImmediateContext->OMSetRenderTargets(1, &mRenderTargetView, mDepthStencilView);
+}
+
+void GraphicsSystem::ResetViewport()
+{
+	ASSERT(false, "Not Implemented Yet!");
+	//mImmediateContext->RSSetViewports(1, &mViewport);
+}
+
+uint32_t GraphicsSystem::GetBackBufferWidth() const
+{
+	RECT rcCli;
+	GetClientRect(WindowFromDC(hDeviceContext), &rcCli);
+	return rcCli.right - rcCli.left;
+}
+
+uint32_t GraphicsSystem::GetBackBufferHeight() const
+{
+	RECT rcCli;
+	GetClientRect(WindowFromDC(hDeviceContext), &rcCli);
+	return rcCli.bottom - rcCli.top;
+}
+
+#endif

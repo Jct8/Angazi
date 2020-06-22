@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef ENABLE_DIRECTX11
+
 namespace Angazi::Graphics::DebugUI 
 {
 	enum class Theme
@@ -18,3 +20,5 @@ namespace Angazi::Graphics::DebugUI
 	void BeginRender();
 	void EndRender();
 }
+
+#endif

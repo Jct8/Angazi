@@ -11,12 +11,13 @@ public:
 	void Render() override;
 
 private:
-	Angazi::GraphicsGL::CameraGL mCamera;
-	Angazi::GraphicsGL::Shader mShader;
-	Angazi::GraphicsGL::TextureGL mTexture;
+	Angazi::Graphics::Camera mCamera;
+	Angazi::Graphics::VertexShader mVertexShader;
+	Angazi::Graphics::PixelShader mPixelShader;
+	Angazi::Graphics::Texture mTexture;
 
-	Angazi::GraphicsGL::MeshBufferGL mMeshBuffer;
-	Angazi::GraphicsGL::MeshPX mMesh;
+	Angazi::Graphics::MeshBuffer mMeshBuffer;
+	Angazi::Graphics::MeshPX mMesh;
 
 	float mRotation = 0.0f;
 

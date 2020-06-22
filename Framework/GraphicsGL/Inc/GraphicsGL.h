@@ -1,18 +1,21 @@
 #pragma once
 
+#ifdef ENABLE_OPENGL
+
 #include "Common.h"
 
-#include "CameraGL.h"
-#include "Colors.h"
+#include "BlendStateGL.h"
 #include "DebugUI.h"
+#include "DepthStencilStateGL.h"
 #include "GraphicsSystemGL.h"
-#include "LightTypes.h"
-#include "Material.h"
-#include "Mesh.h"
 #include "MeshBufferGL.h"
-#include "MeshBuilder.h"
+#include "PixelShaderGL.h"
+#include "RasterizerStateGL.h"
+#include "RenderTargetGL.h"
+#include "SamplerGL.h"
 #include "Shader.h"
-#include "SimpleDraw.h"
 #include "TextureGL.h"
+#include "VertexShaderGL.h"
 #include "UniformBuffer.h"
-#include "VertexTypes.h"
+
+#endif

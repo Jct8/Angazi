@@ -1,4 +1,6 @@
 #include "Precompiled.h"
+#ifdef ENABLE_DIRECTX11
+
 #include "SpriteRenderer.h"
 
 #include "Texture.h"
@@ -162,3 +164,5 @@ void SpriteRenderer::Draw(const Texture & texture, const Math::Rect & sourceRect
 	DirectX::SpriteEffects effects = GetSpriteEffects(flip);
 	mSpriteBatch->Draw(texture.mShaderResourceView, ToXMFLOAT2(pos), &rect, DirectX::Colors::White, rotation, origin, 1.0f, effects);
 }
+
+#endif

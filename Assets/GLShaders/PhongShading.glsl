@@ -1,4 +1,4 @@
-#shader vertex
+#shader VS
 #version 400 core
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aNormal;
@@ -52,7 +52,7 @@ void main()
 	gl_Position = outPos;
 }
 
-#shader fragment
+#shader PS
 #version 400 core
 
 struct LightBuffer 

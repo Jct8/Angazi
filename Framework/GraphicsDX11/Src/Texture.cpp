@@ -1,4 +1,5 @@
 #include "Precompiled.h"
+#ifdef ENABLE_DIRECTX11
 #include "Texture.h"
 
 #include "D3DUtil.h"
@@ -123,3 +124,5 @@ void Texture::UnbindPS(uint32_t slot) const
 	static ID3D11ShaderResourceView* dummy = nullptr;
 	GetContext()->PSSetShaderResources(slot, 1, &dummy);
 }
+
+#endif

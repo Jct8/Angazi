@@ -1,34 +1,40 @@
 #include "Precompiled.h"
 #include "UniformBuffer.h"
 
-using namespace Angazi;
-using namespace Angazi::GraphicsGL;
+#ifdef ENABLE_OPENGL
 
-UniformBuffer::~UniformBuffer()
+
+using namespace Angazi;
+using namespace Angazi::Graphics;
+
+ConstantBuffer::~ConstantBuffer()
 {
 }
 
-void UniformBuffer::Initialize(int size)
+void ConstantBuffer::Initialize(int size)
 {
-	glGenBuffers(1, &mUniformBuffer);
-	glBindBuffer(GL_UNIFORM_BUFFER, mUniformBuffer);
+	glGenBuffers(1, &mConstantBuffer);
+	glBindBuffer(GL_UNIFORM_BUFFER, mConstantBuffer);
 	glBufferData(GL_UNIFORM_BUFFER, size, nullptr, GL_STATIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	mSize = size;
 }
 
-void UniformBuffer::Terminate()
+void ConstantBuffer::Terminate()
 {
-	glDeleteBuffers(GL_UNIFORM_BUFFER, &mUniformBuffer);
+	glDeleteBuffers(GL_UNIFORM_BUFFER, &mConstantBuffer);
 }
 
-void UniformBuffer::Bind(uint32_t slot) const
+void ConstantBuffer::Bind(uint32_t slot) const
 {
-	glBindBuffer(GL_UNIFORM_BUFFER, mUniformBuffer);
+	glBindBuffer(GL_UNIFORM_BUFFER, mConstantBuffer);
 }
 
-void UniformBuffer::Update(const void * data) const
+void ConstantBuffer::Update(const void * data) const
 {
-	glBindBuffer(GL_UNIFORM_BUFFER, mUniformBuffer);
+	glBindBuffer(GL_UNIFORM_BUFFER, mConstantBuffer);
 	glBufferSubData(GL_UNIFORM_BUFFER, 0, mSize, data);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
+
+#endif //  ENABLE_OPENGL

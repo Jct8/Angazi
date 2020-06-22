@@ -1,8 +1,9 @@
 #include "Precompiled.h"
 #include "Shader.h"
+#ifdef ENABLE_OPENGL
 
 using namespace Angazi;
-using namespace Angazi::GraphicsGL;
+using namespace Angazi::Graphics;
 
 namespace
 {
@@ -60,7 +61,7 @@ void Shader::SetUniform3f(const std::string name, Math::Vector3 vec)
 	glUniform3f(glGetUniformLocation(mProgram, name.c_str()), vec.x, vec.y, vec.z);
 }
 
-void Angazi::GraphicsGL::Shader::SetUniform4f(const std::string name, Math::Vector4 vec)
+void Shader::SetUniform4f(const std::string name, Math::Vector4 vec)
 {
 	glUniform4f(glGetUniformLocation(mProgram, name.c_str()), vec.x, vec.y, vec.z, vec.w);
 }
@@ -139,3 +140,5 @@ std::vector<std::string> Shader::ParseShader(const std::filesystem::path & filep
 	
 	return retVec;
 }
+
+#endif

@@ -1,4 +1,5 @@
 #include "Precompiled.h"
+#ifdef ENABLE_DIRECTX11
 #include "RenderTarget.h"
 
 #include "D3DUtil.h"
@@ -113,3 +114,5 @@ void RenderTarget::UnbindPS(uint32_t slot)
 	static ID3D11ShaderResourceView* dummy = nullptr;
 	GetContext()->PSSetShaderResources(slot, 1, &dummy);
 }
+
+#endif

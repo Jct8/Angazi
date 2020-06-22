@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef ENABLE_DIRECTX11
+
 namespace Angazi::Graphics {
 
 class Sampler
@@ -25,3 +27,5 @@ private:
 };
 
 } // namespace PCEngine::Graphics
+
+#endif

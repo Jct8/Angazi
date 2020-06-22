@@ -3,7 +3,6 @@
 
 #include "SimpleDraw.h"
 #include "VertexTypes.h"
-#include "GraphicsSystem.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;

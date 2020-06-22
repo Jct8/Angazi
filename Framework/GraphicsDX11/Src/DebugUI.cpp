@@ -1,4 +1,6 @@
 #include "Precompiled.h"
+
+#ifdef ENABLE_DIRECTX11
 #include "DebugUI.h"
 
 #include "D3DUtil.h"
@@ -225,3 +227,5 @@ void DebugUI::EndRender()
 	}
 
 }
+
+#endif

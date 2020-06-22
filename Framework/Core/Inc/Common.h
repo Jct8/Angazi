@@ -3,6 +3,9 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 
+//#define ENABLE_DIRECTX11
+#define ENABLE_OPENGL
+
 //Win32 headers
 #include <objbase.h>
 #include <Windows.h>
@@ -17,11 +20,13 @@
 #include <cstdint>
 #include <deque>
 #include <filesystem>
+#include <fstream>
 #include <functional>
 #include <list>
 #include <map>
 #include <memory>
 #include <optional>
+#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <variant>

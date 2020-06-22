@@ -1,11 +1,14 @@
 #include "Precompiled.h"
 #include "TextureGL.h"
+
+#ifdef ENABLE_OPENGL
+
 #include "stb_image.h"
 
 using namespace Angazi;
-using namespace Angazi::GraphicsGL;
+using namespace Angazi::Graphics;
 
-void TextureGL::Initialize(const std::filesystem::path filePath, bool flip)
+void Texture::Initialize(const std::filesystem::path& filePath)
 {
 	glGenTextures(1, &mTextureID);
 	glBindTexture(GL_TEXTURE_2D, mTextureID);
@@ -16,7 +19,7 @@ void TextureGL::Initialize(const std::filesystem::path filePath, bool flip)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	int width, height, bytesPerPixel;
-	stbi_set_flip_vertically_on_load(flip);
+	stbi_set_flip_vertically_on_load(true);
 	unsigned char* imageData = stbi_load(filePath.u8string().c_str(), &width, &height, &bytesPerPixel,0);
 
 	if (imageData)
@@ -27,19 +30,41 @@ void TextureGL::Initialize(const std::filesystem::path filePath, bool flip)
 	}
 }
 
-void TextureGL::Terminate()
+Texture::~Texture()
+{
+
+}
+
+void Texture::Terminate()
 {
 	glDeleteTextures(1, &mTextureID);
 }
 
-void TextureGL::Bind(unsigned int slot) const
+void Texture::BindVS(uint32_t slot) const
 {
 	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(GL_TEXTURE_2D, mTextureID);
 }
 
-void TextureGL::Bind(const std::string & name, unsigned int slot) const
+void Texture::BindPS(uint32_t slot) const
 {
-	Bind(slot);
-	glUniform1i(glGetUniformLocation(mTextureID, name.c_str()), slot);
+	glActiveTexture(GL_TEXTURE0 + slot);
+	glBindTexture(GL_TEXTURE_2D, mTextureID);
 }
+void Texture::UnbindVS(uint32_t slot) const
+{
+
+}
+void Texture::UnbindPS(uint32_t slot) const
+{
+
+}
+
+//void TextureGL::Bind(const std::string & name, unsigned int slot) const
+//{
+//	Bind(slot);
+//	glUniform1i(glGetUniformLocation(mTextureID, name.c_str()), slot);
+//}
+
+
+#endif

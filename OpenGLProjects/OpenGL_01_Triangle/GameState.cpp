@@ -1,7 +1,7 @@
 #include "GameState.h"
 
 using namespace Angazi;
-using namespace Angazi::GraphicsGL;
+using namespace Angazi::Graphics;
 using namespace Angazi::Input;
 using namespace Angazi::Math;
 
@@ -16,16 +16,16 @@ void GameState::Initialize()
 	mMeshPC.indices.push_back(1);
 	mMeshPC.indices.push_back(2);
 
-	mMeshBuffer.Initialize(mMeshPC, VertexPC::Format);
+	mMeshBuffer.Initialize(mMeshPC);
 
-	mShader.Initialize("../../Assets/GLShaders/GLColor.glsl");
-	mShader.Bind();
-
+	mVertexShader.Initialize("../../Assets/GLShaders/Color.glsl", VertexPC::Format);
+	mPixelShader.Initialize("../../Assets/GLShaders/Color.glsl");
 }
 
 void GameState::Terminate()
 {
-	mShader.Terminate();
+	mPixelShader.Terminate();
+	mVertexShader.Terminate();
 	mMeshBuffer.Terminate();
 }
 
@@ -36,6 +36,7 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-	mShader.Bind();
+	mVertexShader.Bind();
+	mPixelShader.Bind();
 	mMeshBuffer.Draw();
 }

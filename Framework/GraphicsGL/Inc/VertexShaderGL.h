@@ -1,7 +1,7 @@
 #pragma once
-#ifdef ENABLE_DIRECTX11
+#ifdef ENABLE_OPENGL
 
-namespace Angazi::Graphics 
+namespace Angazi::Graphics
 {
 	class VertexShader
 	{
@@ -12,14 +12,14 @@ namespace Angazi::Graphics
 		VertexShader(const VertexShader&) = delete;
 		VertexShader& operator=(const VertexShader&) = delete;
 
-		void Initialize(const std::filesystem::path& filePath, uint32_t vertextFormat, const char* shaderName = "VS");
+		void Initialize(const std::filesystem::path& filePath, uint32_t vertextFormat, const char * shaderName = "VS");
 		void Terminate();
-
 		void Bind();
-	
+
+		uint32_t GetId() { return mVertexShader; }
+
 	private:
-		ID3D11VertexShader *mVertexShader = nullptr;
-		ID3D11InputLayout *mInputLayout = nullptr;
+		uint32_t mVertexShader = 0;
 	};
 
 

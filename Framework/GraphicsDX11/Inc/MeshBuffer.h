@@ -1,4 +1,5 @@
 #pragma once
+#ifdef ENABLE_DIRECTX11
 
 namespace Angazi::Graphics
 {
@@ -56,3 +57,5 @@ namespace Angazi::Graphics
 	};
 
 }
+
+#endif

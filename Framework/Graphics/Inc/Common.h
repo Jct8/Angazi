@@ -4,13 +4,12 @@
 #include <Core/Inc/Core.h>
 #include <Math/Inc/EngineMath.h>
 
-#define ENABLE_DIRECTX11
-//#define ENABLE_OPENGL
-
 #ifdef ENABLE_DIRECTX11
 #include <GraphicsDX11/Inc/GraphicsDX11.h>
-#elif ENABLE_OPENGL
-#include <GraphicsGL/Inc/GraphicsSystemGL.h>
+#endif
+
+#ifdef ENABLE_OPENGL
+#include <GraphicsGL/Inc/GraphicsGL.h>
 #endif
 
 //// DirectX headers
@@ -22,11 +21,5 @@
 //#pragma comment(lib, "d3d11.lib")
 //#pragma comment(lib, "d3dcompiler.lib")
 
-//// OpenGL headers
-//#include<GL/gl.h>
-//#include<GL/glu.h>
-//
-//// OpenGL libraries
-//#pragma comment(lib, "opengl32.lib")  
-//#pragma comment(lib, "glu32.lib") 
+
 

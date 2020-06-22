@@ -1,4 +1,5 @@
 #include "Precompiled.h"
+#ifdef ENABLE_DIRECTX11
 #include "Sampler.h"
 
 #include "D3DUtil.h"
@@ -80,3 +81,5 @@ void Sampler::BindPS(uint32_t slot) const
 {
 	GetContext()->PSSetSamplers(slot, 1, &mSampler);
 }
+
+#endif

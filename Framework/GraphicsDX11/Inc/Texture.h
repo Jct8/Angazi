@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef ENABLE_DIRECTX11
+
 namespace Angazi::Graphics
 {
 	class Texture
@@ -34,3 +36,5 @@ namespace Angazi::Graphics
 	};
 
 } // namespace Angazi::Graphics
+
+#endif

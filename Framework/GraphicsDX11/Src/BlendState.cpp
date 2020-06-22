@@ -1,4 +1,7 @@
 #include "Precompiled.h"
+
+#ifdef ENABLE_DIRECTX11
+
 #include "BlendState.h"
 
 #include "D3DUtil.h"
@@ -64,3 +67,5 @@ void BlendState::Bind() const
 {
 	GetContext()->OMSetBlendState(mBlendState, nullptr, UINT_MAX);
 }
+
+#endif

@@ -1,6 +1,7 @@
 #include "Precompiled.h"
 #include "DepthStencilState.h"
-#include "RasterizerState.h"
+
+#ifdef ENABLE_DIRECTX11
 
 #include "GraphicsSystemDX11.h"
 //#include "GraphicsSystem.h"
@@ -40,3 +41,5 @@ void DepthStencilState::Clear()
 	auto context = GraphicsSystem::Get()->GetContext();
 	context->OMSetDepthStencilState(nullptr,0);
 }
+
+#endif

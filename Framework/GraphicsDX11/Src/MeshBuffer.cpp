@@ -1,4 +1,6 @@
 #include "Precompiled.h"
+#ifdef ENABLE_DIRECTX11
+
 #include "MeshBuffer.h"
 
 #include "Graphics/Inc/Mesh.h"
@@ -100,3 +102,5 @@ void MeshBuffer::Draw() const
 	}
 
 }
+
+#endif

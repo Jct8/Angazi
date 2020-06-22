@@ -1,4 +1,7 @@
 #include "Precompiled.h"
+
+#ifdef ENABLE_DIRECTX11
+
 #include "VertexShader.h"
 
 #include "Graphics/Inc/VertexTypes.h"
@@ -101,3 +104,5 @@ void VertexShader::Bind()
 	context->IASetInputLayout(mInputLayout);
 	context->VSSetShader(mVertexShader, nullptr, 0);
 }
+
+#endif

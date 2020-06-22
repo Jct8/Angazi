@@ -30,37 +30,34 @@
     <ClInclude Include="Inc\TextureGL.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Colors.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Mesh.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\VertexTypes.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\CameraGL.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\MeshBuilder.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\DebugUI.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\SimpleDraw.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Material.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\LightTypes.h">
       <Filter>Inc</Filter>
     </ClInclude>
     <ClInclude Include="Inc\UniformBuffer.h">
       <Filter>Inc</Filter>
     </ClInclude>
     <ClInclude Include="Inc\stb_image.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\PixelShaderGL.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\VertexShaderGL.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\SamplerGL.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\RenderTargetGL.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\RasterizerStateGL.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\DepthStencilStateGL.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\BlendStateGL.h">
       <Filter>Inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -80,22 +77,34 @@
     <ClCompile Include="Src\TextureGL.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\CameraGL.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\MeshBuilder.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
     <ClCompile Include="Src\DebugUI.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\SimpleDraw.cpp">
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\UniformBuffer.cpp">
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\stb_image.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PixelShaderGL.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\VertexShaderGL.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SamplerGL.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderTargetGL.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RasterizerStateGL.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\DepthStencilStateGL.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\BlendStateGL.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

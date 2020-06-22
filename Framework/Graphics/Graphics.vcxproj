@@ -163,7 +163,6 @@
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\Effect.h" />
     <ClInclude Include="Inc\Graphics.h" />
-    <ClInclude Include="Inc\GraphicsSystem.h" />
     <ClInclude Include="Inc\Keyframe.h" />
     <ClInclude Include="Inc\LightTypes.h" />
     <ClInclude Include="Inc\Material.h" />
@@ -193,7 +192,6 @@
     <ClCompile Include="Src\Animation.cpp" />
     <ClCompile Include="Src\AnimationBuilder.cpp" />
     <ClCompile Include="Src\Camera.cpp" />
-    <ClCompile Include="Src\GraphicsSystem.cpp" />
     <ClCompile Include="Src\MeshBuilder.cpp" />
     <ClCompile Include="Src\MeshIO.cpp" />
     <ClCompile Include="Src\Model.cpp" />

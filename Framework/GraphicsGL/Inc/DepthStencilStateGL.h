@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef ENABLE_DIRECTX11
+#ifdef ENABLE_OPENGL
 
 namespace Angazi::Graphics
 {
@@ -20,7 +20,7 @@ namespace Angazi::Graphics
 		void Clear();
 
 	private:
-		ID3D11DepthStencilState* mDepthStencilState =  nullptr;
+		//ID3D11DepthStencilState* mDepthStencilState = nullptr;
 	};
 }
 

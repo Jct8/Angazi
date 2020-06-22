@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef ENABLE_DIRECTX11
+
 namespace Angazi::Graphics
 {
 	class ConstantBuffer
@@ -41,3 +43,5 @@ namespace Angazi::Graphics
 		}
 	};
 }
+
+#endif

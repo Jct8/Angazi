@@ -1,9 +1,11 @@
 #include "Precompiled.h"
 #include "MeshBufferGL.h"
-#include "VertexTypes.h"
+#ifdef ENABLE_OPENGL
+
+#include "Graphics/Inc/VertexTypes.h"
 
 using namespace Angazi;
-using namespace Angazi::GraphicsGL;
+using namespace Angazi::Graphics;
 
 namespace
 {
@@ -44,11 +46,23 @@ namespace
 		if (vertexFormat & VE_TexCoord)
 			vertexLayout.push_back({ GL_FLOAT,2,GL_FALSE });
 
+		if (vertexFormat & VE_BlendIndex)
+			vertexLayout.push_back({ GL_INT,4,GL_FALSE });
+
+		if (vertexFormat & VE_BlendWeight)
+			vertexLayout.push_back({ GL_FLOAT,4,GL_FALSE });
+
+
 		return vertexLayout;
 	}
 }
 
-void MeshBufferGL::SetTopology(Topology topology)
+MeshBuffer::~MeshBuffer()
+{
+
+}
+
+void MeshBuffer::SetTopology(Topology topology)
 {
 	if (topology == Topology::Lines)
 		mTopology = GL_LINES;
@@ -58,7 +72,7 @@ void MeshBufferGL::SetTopology(Topology topology)
 		mTopology = GL_TRIANGLE_STRIP;
 }
 
-void MeshBufferGL::Update(const void * vertexData, uint32_t numVertices)
+void MeshBuffer::Update(const void * vertexData, uint32_t numVertices)
 {
 	mVertexCount = numVertices;
 
@@ -68,7 +82,7 @@ void MeshBufferGL::Update(const void * vertexData, uint32_t numVertices)
 	glUnmapBuffer(GL_ARRAY_BUFFER);
 }
 
-void MeshBufferGL::Terminate()
+void MeshBuffer::Terminate()
 {
 	mIndexCount = 0;
 	mVertexSize = 0;
@@ -77,7 +91,7 @@ void MeshBufferGL::Terminate()
 	glDeleteVertexArrays(1, &mVertexArray);
 }
 
-void MeshBufferGL::Draw()
+void MeshBuffer::Draw() const
 {
 	if (mIndexCount > 0)
 	{
@@ -92,7 +106,7 @@ void MeshBufferGL::Draw()
 	}
 }
 
-void MeshBufferGL::InitializeInternal(const void * vertices, int vertexSize, int vertexCount, const uint32_t * indices, int indexCount, uint32_t vertexFormat, bool dynamic)
+void MeshBuffer::InitializeInternal(const void * vertices, int vertexSize, int vertexCount, const uint32_t * indices, int indexCount, uint32_t vertexFormat, bool dynamic)
 {
 	mVertexSize = vertexSize;
 	mVertexCount = vertexCount;
@@ -125,3 +139,5 @@ void MeshBufferGL::InitializeInternal(const void * vertices, int vertexSize, int
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 	}
 }
+
+#endif

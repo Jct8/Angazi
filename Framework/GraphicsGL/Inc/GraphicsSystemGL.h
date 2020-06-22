@@ -1,41 +1,56 @@
 #pragma once
-#include "Colors.h"
 
-namespace Angazi::GraphicsGL {
+#ifdef ENABLE_OPENGL
 
-class GraphicsSystemGL
+#include "Graphics/Inc/Colors.h"
+
+namespace Angazi::Graphics
 {
-public:
-	static void StaticInitialize(HWND window, bool fullscreen);
-	static void StaticTerminate(HWND window);
-	static GraphicsSystemGL* Get();
+	class GraphicsSystem
+	{
+	public:
+		static void StaticInitialize(HWND window, bool fullscreen);
+		static void StaticTerminate();
+		static GraphicsSystem* Get();
+	public:
+		GraphicsSystem() = default;
+		~GraphicsSystem();
 
-public:
-	GraphicsSystemGL() = default;
-	~GraphicsSystemGL();
+		GraphicsSystem(const GraphicsSystem&) = delete;
+		GraphicsSystem& operator=(const GraphicsSystem&) = delete;
 
-	GraphicsSystemGL(const GraphicsSystemGL&) = delete;
-	GraphicsSystemGL& operator=(const GraphicsSystemGL&) = delete;
+		void Initialize(HWND window, bool fullscreen);
+		void Terminate();
 
-	void Initialize(HWND window, bool fullscreen);
-	void Terminate(HWND window);
+		void BeginRender();
+		void EndRender();
 
-	void BeginRender();
-	void EndRender();
+		void ToggleFullscreen();
+		void Resize(uint32_t width, uint32_t height);
 
-	void SetClearColor(Color clearColor) { mClearColor = clearColor; }
+		void ResetRenderTarget();
+		void ResetViewport();
 
-	uint32_t GetBackBufferWidth() const;
-	uint32_t GetBackBufferHeight() const;
+		void SetClearColor(Color clearColor) { mClearColor = clearColor; }
+		void SetVSync(bool vSync) { mVSync = vSync ? 1 : 0; }
 
-private:
-	friend LRESULT CALLBACK GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
-	void Resize(uint32_t width, uint32_t height);
+		uint32_t GetBackBufferWidth() const;
+		uint32_t GetBackBufferHeight() const;
 
-	Color mClearColor = Colors::LightGray;
-	UINT mVSync = 1;
-	HDC hDeviceContext = NULL;
-	HGLRC glRenderingContext = NULL ;
-};
+		uint32_t pipeline;
 
-} // namespace Angazi::GraphicsGL
+	private:
+		friend LRESULT CALLBACK GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
+
+		HDC hDeviceContext = NULL;
+		HGLRC glRenderingContext = NULL;
+
+		HWND myWindow;
+
+		Color mClearColor = Colors::White;
+		UINT mVSync = 1;
+	};
+
+}
+
+#endif

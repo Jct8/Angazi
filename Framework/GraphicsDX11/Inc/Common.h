@@ -4,6 +4,8 @@
 #include <Core/Inc/Core.h>
 #include <Math/Inc/EngineMath.h>
 
+#ifdef ENABLE_DIRECTX11
+
 // DirectX headers
 #include <d3d11_1.h>
 #include <d3dcompiler.h>
@@ -23,3 +25,4 @@ void SafeRelease(T*& ptr) //*& otherwise copy of the pointer is passed
 		ptr = nullptr;
 	}
 }
+#endif

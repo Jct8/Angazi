@@ -1,5 +1,7 @@
 #pragma once
+#ifdef ENABLE_DIRECTX11
 #include "Graphics/Inc/Colors.h"
+
 
 namespace Angazi::Graphics 
 {
@@ -63,3 +65,5 @@ namespace Angazi::Graphics
 	};
 
 } // namespace Angazi::Graphics
+
+#endif
