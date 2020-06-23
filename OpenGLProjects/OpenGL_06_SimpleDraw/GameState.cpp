@@ -1,46 +1,44 @@
 #include "GameState.h"
+#include "ImGui/Inc/imgui.h"
 
 using namespace Angazi;
-using namespace Angazi::GraphicsGL;
+using namespace Angazi::Graphics;
 using namespace Angazi::Input;
 using namespace Angazi::Math;
 
 
 void GameState::Initialize()
 {
+	GraphicsSystem::Get()->SetClearColor(Colors::LightGray);
+
 	mCamera.SetPosition({ 0.0f,0.0f,-5.0f });
 	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
-
-	mShader.Initialize("../../Assets/GLShaders/GLCamera.glsl");
 }
 
 void GameState::Terminate()
 {
-	mShader.Terminate();
 }
 
 void GameState::Update(float deltaTime)
 {
-	const float kMoveSpeed = 10.0f;
-	const float kTurnSpeed = 1.0f;
-
 	auto inputSystem = InputSystem::Get();
+
+	const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 10.0f : 1.0f;
+	const float kTurnSpeed = 10.0f * Constants::DegToRad;
+
 	if (inputSystem->IsKeyDown(KeyCode::W))
 		mCamera.Walk(kMoveSpeed*deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::S))
 		mCamera.Walk(-kMoveSpeed * deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::A))
+		mCamera.Strafe(-kMoveSpeed * deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::D))
+		mCamera.Strafe(kMoveSpeed*deltaTime);
 	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
 	{
 		mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
 		mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
 	}
-
-	if (inputSystem->IsKeyDown(KeyCode::A))
-		mCamera.Strafe(-kMoveSpeed*deltaTime);
-		//mRotation += deltaTime;
-	if (inputSystem->IsKeyDown(KeyCode::D))
-		mCamera.Strafe(kMoveSpeed*deltaTime);
-		//mRotation -= deltaTime;
 
 	SimpleDraw::AddLine(Math::Vector3{ 0.0f,0.0f,0.0f }, Math::Vector3{ 0.0f,0.0f,5.0f }, Colors::Red);
 	SimpleDraw::AddCylinder({ 0.0f,0.0f,0.0f }, { 0.0f, 0.0f, 1.0f }, 5.0f, 0.05f, Colors::Red, true);
@@ -74,16 +72,9 @@ void GameState::Render()
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
 
-	mShader.Bind();
-
-	auto matWVP = Transpose(matWorld * matView * matProj);
-	mShader.SetUniformMat4f("WVP", matWVP);
-
 	SimpleDraw::Render(mCamera);
-
 }
 
-#include "ImGui/Inc/imgui.h"
 void GameState::DebugUI()
 {
 	ImGui::ShowDemoWindow();

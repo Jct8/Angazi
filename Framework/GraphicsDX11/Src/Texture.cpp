@@ -1,6 +1,7 @@
 #include "Precompiled.h"
-#ifdef ENABLE_DIRECTX11
 #include "Texture.h"
+
+#ifdef ENABLE_DIRECTX11
 
 #include "D3DUtil.h"
 #include <DirectXTK/Inc/WICTextureLoader.h>

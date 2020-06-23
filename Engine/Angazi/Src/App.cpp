@@ -26,13 +26,12 @@ void Angazi::App::Run(AppConfig appConfig)
 	InputSystem::StaticInitialize(handle);
 
 	//Initialize the graphics systems
-
 	GraphicsSystem::StaticInitialize(handle, false);
-	//DebugUI::StaticInitialize(handle, false, true);
-	//DebugUI::SetTheme(DebugUI::Theme::Custom);
-	//Graphics::SimpleDraw::StaticInitialize(1024 * 1024);
-	//Graphics::SpriteRenderer::StaticInitialize();
-
+	DebugUI::StaticInitialize(handle, false, true);
+	SimpleDraw::StaticInitialize(1024 * 1024);
+#ifdef ENABLE_DIRECTX11
+	Graphics::SpriteRenderer::StaticInitialize();
+#endif
 
 	//Initialize the starting state
 	mCurrentState = mAppStates.begin()->second.get();
@@ -65,9 +64,9 @@ void Angazi::App::Run(AppConfig appConfig)
 			continue;
 		}
 
+		//float deltaTime = Math::Min(1.0f / 60.0f,Core::TimeUtil::GetDeltaTime());
 		float deltaTime = 1.0f / 60.0f;
 		mCurrentState->Update(deltaTime);
-
 
 		auto graphicsSystem = GraphicsSystem::Get();
 		graphicsSystem->BeginRender();
@@ -76,23 +75,22 @@ void Angazi::App::Run(AppConfig appConfig)
 		mCurrentState->Render();
 		//Graphics::SpriteRenderer::Get()->EndRender();
 
-		//DebugUI::BeginRender();
-		//mCurrentState->DebugUI();
-		//DebugUI::EndRender();
+		DebugUI::BeginRender();
+		mCurrentState->DebugUI();
+		DebugUI::EndRender();
 
 		graphicsSystem->EndRender();
-
-
 	}
 
 	mCurrentState->Terminate();
 
 	//Terminate engine systems
-	//Graphics::SpriteRenderer::StaticTerminate();
-	//Graphics::SimpleDraw::StaticTerminate();
-	//DebugUI::StaticTerminate();
+#ifdef ENABLE_DIRECTX11
+	Graphics::SpriteRenderer::StaticTerminate();
+#endif
+	SimpleDraw::StaticTerminate();
+	DebugUI::StaticTerminate();
 	GraphicsSystem::StaticTerminate();
-
 
 	InputSystem::StaticTerminate();
 

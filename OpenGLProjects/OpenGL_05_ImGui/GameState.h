@@ -13,12 +13,21 @@ public:
 	void DebugUI() override;
 
 private:
-	Angazi::GraphicsGL::CameraGL mCamera;
-	Angazi::GraphicsGL::Shader mShader;
-	Angazi::GraphicsGL::TextureGL mTexture;
+	struct TransformData
+	{
+		Angazi::Math::Matrix4 wvp;
+	};
+	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
+	TransformData data;
+	TransformBuffer mTransformBuffer;
 
-	Angazi::GraphicsGL::MeshBufferGL mMeshBuffer;
-	Angazi::GraphicsGL::MeshPX mMesh;
+	Angazi::Graphics::Camera mCamera;
+	Angazi::Graphics::VertexShader mVertexShader;
+	Angazi::Graphics::PixelShader mPixelShader;
+	Angazi::Graphics::Texture mTexture;
+
+	Angazi::Graphics::MeshBuffer mMeshBuffer;
+	Angazi::Graphics::MeshPX mMesh;
 
 	float mRotation = 0.0f;
 

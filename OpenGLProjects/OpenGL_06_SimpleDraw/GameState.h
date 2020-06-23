@@ -13,8 +13,7 @@ public:
 	void DebugUI() override;
 
 private:
-	Angazi::GraphicsGL::CameraGL mCamera;
-	Angazi::GraphicsGL::Shader mShader;
+	Angazi::Graphics::Camera mCamera;
 
 	float mRotation = 0.0f;
 

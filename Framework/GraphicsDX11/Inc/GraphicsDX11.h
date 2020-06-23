@@ -1,6 +1,8 @@
 #pragma once
 #include "Common.h"
 
+#ifdef ENABLE_DIRECTX11
+
 #include "BlendState.h"
 #include "ConstantBuffer.h"
 #include "DebugUI.h"
@@ -14,3 +16,5 @@
 #include "RenderTarget.h"
 #include "Texture.h"
 #include "VertexShader.h"
+
+#endif // ENABLE_DIRECTX11

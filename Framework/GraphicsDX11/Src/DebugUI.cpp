@@ -177,6 +177,7 @@ void DebugUI::StaticInitialize(HWND window, bool docking, bool multiViewport)
 
 	sWindowMessageHandler.Hook(window, DebugUIMessageHandler);
 
+	DebugUI::SetTheme(DebugUI::Theme::Custom);
 }
 
 void DebugUI::StaticTerminate()

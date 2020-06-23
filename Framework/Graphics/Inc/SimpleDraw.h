@@ -1,9 +1,9 @@
 #pragma once
 
-namespace Angazi::Graphics { class Camera; } // forward declare
+namespace Angazi::Graphics { class Camera; }
 
-namespace Angazi::Graphics::SimpleDraw {
-
+namespace Angazi::Graphics::SimpleDraw 
+{
 	void StaticInitialize(uint32_t maxVertexCount = 10000);
 	void StaticTerminate();
 
@@ -36,4 +36,4 @@ namespace Angazi::Graphics::SimpleDraw {
 
 	void Render(const Camera& camera, const Math::Matrix4& matWorld = Math::Matrix4::Identity);
 
-} // namespace Angazi::Graphics::SimpleDraw 
+}

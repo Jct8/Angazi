@@ -1,8 +1,8 @@
 #pragma once
 
-#ifdef ENABLE_OPENGL
-
 #include "Common.h"
+
+#ifdef ENABLE_OPENGL
 
 #include "BlendStateGL.h"
 #include "DebugUIGL.h"
