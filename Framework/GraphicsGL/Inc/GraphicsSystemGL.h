@@ -37,10 +37,11 @@ namespace Angazi::Graphics
 		uint32_t GetBackBufferWidth() const;
 		uint32_t GetBackBufferHeight() const;
 
-		uint32_t pipeline;
-
+		uint32_t GetCurrentPipeline() const { return pipeline; }
 	private:
 		friend LRESULT CALLBACK GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
+
+		uint32_t pipeline;
 
 		HDC hDeviceContext = NULL;
 		HGLRC glRenderingContext = NULL;

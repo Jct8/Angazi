@@ -16,6 +16,9 @@ void GameState::Initialize()
 	mMesh = MeshBuilder::CreateSphere(1.0f, 16, 16);
 	mMeshBuffer.Initialize(mMesh);
 
+	ObjLoader::Load("../../Assets/Models/Teapot/utah-teapot.obj", 0.1f, mMeshTeapot);
+	mMeshBufferTeaPot.Initialize(mMeshTeapot);
+
 	mTransformBuffer.Initialize();
 	mLightBuffer.Initialize();
 	mMaterialBuffer.Initialize();
@@ -65,6 +68,7 @@ void GameState::Terminate()
 	mMaterialBuffer.Terminate();
 	mLightBuffer.Terminate();
 	mTransformBuffer.Terminate();
+	mMeshBufferTeaPot.Terminate();
 	mMeshBuffer.Terminate();
 }
 
@@ -93,8 +97,6 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-	auto context = GraphicsSystem::Get()->GetContext();
-
 	auto matTrans = Matrix4::Translation({ -1.0f,0.0f,0.0f });
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y);
 	auto matWorld = matRot * matTrans;
@@ -121,10 +123,10 @@ void GameState::Render()
 	mGouraudShadingVertexShader.Bind();
 	mGouraudShadingPixelShader.Bind();
 
-	mMeshBuffer.Draw();
+	mMeshBufferTeaPot.Draw();
 
 	//ball 2 - flat
-	matTrans = Matrix4::Translation({ -3.0f,0.0f,0.0f });
+	matTrans = Matrix4::Translation({ -6.0f,0.0f,0.0f });
 	matWorld = matRot * matTrans;
 
 	transformData.world = Transpose(matWorld);
@@ -135,7 +137,7 @@ void GameState::Render()
 	mFlatShadingVertexShader.Bind();
 	mFlatShadingPixelShader.Bind();
 
-	mMeshBuffer.Draw();
+	mMeshBufferTeaPot.Draw();
 
 	//ball 3 - phong
 	mSampler.BindVS();
@@ -145,7 +147,7 @@ void GameState::Render()
 	mSpecularTexture.BindPS(1);
 	mSpecularTexture.BindVS(1);
 
-	matTrans = Matrix4::Translation({ 1.5f,0.0f,0.0f });
+	matTrans = Matrix4::Translation({ 4.0f,0.0f,0.0f });
 	matWorld = matRot * matTrans;
 
 	transformData.world = Transpose(matWorld);
@@ -156,11 +158,11 @@ void GameState::Render()
 	mPhongShadingVertexShader.Bind();
 	mPhongShadingPixelShader.Bind();
 
-	mMeshBuffer.Draw();
+	mMeshBufferTeaPot.Draw();
 
 	//ball 4 - phong point
 
-	matTrans = Matrix4::Translation({ 3.75f,0.0f,0.0f });
+	matTrans = Matrix4::Translation({ 9.0f,0.0f,0.0f });
 	matWorld = matRot * matTrans;
 
 	transformData.world = Transpose(matWorld);
@@ -171,7 +173,7 @@ void GameState::Render()
 	mPointPhongShadingVertexShader.Bind();
 	mPointPhongShadingPixelShader.Bind();
 
-	mMeshBuffer.Draw();
+	mMeshBufferTeaPot.Draw();
 
 }
 

@@ -5,6 +5,7 @@ layout (location = 1) in vec4 aNormal;
 layout (location = 2) in vec4 aTangent;
 layout (location = 3) in vec2 aTexCoord;
 
+out vec3 outPos;
 out vec3 outWorldNormal;
 out vec3 outDirToLight;
 out vec3 outDirToView;
@@ -58,6 +59,7 @@ void main()
 #shader PS
 #version 450 core
 
+in vec3 outPos;
 in vec3 outWorldNormal;
 in vec3 outDirToLight;
 in vec3 outDirToView;
@@ -94,7 +96,7 @@ uniform sampler2D specularMap;
 void main()
 {
 	vec3 worldNormal = normalize(outWorldNormal);
-	vec3 dirToLight = normalize(outDirToLight);
+	vec3 dirToLight = normalize(outDirToLight - outPos);
 	vec3 dirToView = normalize(outDirToView);
 
 	//ambient

@@ -16,7 +16,9 @@ private:
 	Angazi::Graphics::Camera mCamera;
 
 	Angazi::Graphics::Mesh mMesh;
+	Angazi::Graphics::Mesh mMeshTeapot;
 	Angazi::Graphics::MeshBuffer mMeshBuffer;
+	Angazi::Graphics::MeshBuffer mMeshBufferTeaPot;
 
 	Angazi::Graphics::DirectionalLight mDirectionalLight;
 	Angazi::Graphics::Material mMaterial;

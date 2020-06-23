@@ -6,6 +6,7 @@
 #include <ImGui/Inc/imgui.h>
 #include <ImGui/Inc/imgui_impl_opengl3.h>
 #include <ImGui/Inc/imgui_impl_win32.h>
+#include "GraphicsSystemGL.h"
 
 extern IMGUI_IMPL_API LRESULT  ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -20,18 +21,18 @@ namespace
 	{
 		switch (message)
 		{
-			case WM_LBUTTONDOWN:
-			case WM_LBUTTONUP:
-			case WM_LBUTTONDBLCLK:
-			case WM_RBUTTONDOWN:
-			case WM_RBUTTONUP:
-			case WM_RBUTTONDBLCLK:
-			case WM_MBUTTONDOWN:
-			case WM_MBUTTONUP:
-			case WM_MBUTTONDBLCLK:
-			case WM_MOUSEWHEEL:
-			case WM_MOUSEHWHEEL:
-				return true;
+		case WM_LBUTTONDOWN:
+		case WM_LBUTTONUP:
+		case WM_LBUTTONDBLCLK:
+		case WM_RBUTTONDOWN:
+		case WM_RBUTTONUP:
+		case WM_RBUTTONDBLCLK:
+		case WM_MBUTTONDOWN:
+		case WM_MBUTTONUP:
+		case WM_MBUTTONDBLCLK:
+		case WM_MOUSEWHEEL:
+		case WM_MOUSEHWHEEL:
+			return true;
 		}
 		return false;
 	}
@@ -40,12 +41,12 @@ namespace
 	{
 		switch (message)
 		{
-			case WM_KEYDOWN:
-			case WM_KEYUP:
-			case WM_SYSKEYDOWN:
-			case WM_SYSKEYUP:
-			case WM_CHAR:
-				return true;
+		case WM_KEYDOWN:
+		case WM_KEYUP:
+		case WM_SYSKEYDOWN:
+		case WM_SYSKEYUP:
+		case WM_CHAR:
+			return true;
 		}
 		return false;
 	}
@@ -141,6 +142,7 @@ namespace
 		}
 #endif
 	}
+
 }
 
 LRESULT CALLBACK DebugUIMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
@@ -168,7 +170,7 @@ void DebugUI::StaticInitialize(HWND window, bool docking, bool multiViewport)
 	ImGuiIO& io = ImGui::GetIO();
 	if (docking)
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-	if(multiViewport)
+	if (multiViewport)
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 	ImGui_ImplWin32_Init(window);

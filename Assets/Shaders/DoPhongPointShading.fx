@@ -56,7 +56,7 @@ VS_OUTPUT VS(VS_INPUT input)
 
     output.position = mul(float4(localPosition, 1.0f), WVP);
 	output.worldNormal = worldNormal;
-	output.dirToLight = -(LightDirection - localPosition);
+	output.dirToLight = -(LightDirection);
 	output.dirToView = normalize(ViewPosition - worldPosition);
 	output.texCoord = input.texCoord;
     return output;
@@ -71,7 +71,7 @@ VS_OUTPUT VS(VS_INPUT input)
 float4 PS(VS_OUTPUT input) : SV_Target
 {
 	float3 worldNormal = normalize(input.worldNormal);
-	float3 dirToLight = normalize(input.dirToLight);
+	float3 dirToLight = normalize(input.dirToLight - input.position);
 	float3 dirToView = normalize(input.dirToView);
 
 	float4 ambient = LightAmbient * MaterialAmbient;
@@ -87,6 +87,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float4 tex = diffuseMap.Sample(textureSampler, input.texCoord);
 	float specularFactor = specularMap.Sample(textureSampler, input.texCoord).r;
 
-	float4 color = (ambient + diffuse)*tex + specular * specularFactor;
+	float4 color = (ambient + diffuse) * tex + specular * specularFactor;
     return color;
 }

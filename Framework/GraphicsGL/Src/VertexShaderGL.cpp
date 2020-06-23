@@ -73,7 +73,6 @@ void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t ve
 		glDeleteProgram(mVertexShader);
 		ASSERT(isLinked, "[VertexShaderGL] - Shader failed to link - %s", infoLog.data());
 	}
-
 }
 
 void Angazi::Graphics::VertexShader::Terminate()
@@ -83,8 +82,8 @@ void Angazi::Graphics::VertexShader::Terminate()
 
 void Angazi::Graphics::VertexShader::Bind()
 {
-	glUseProgramStages(GraphicsSystem::Get()->pipeline, GL_VERTEX_SHADER_BIT, mVertexShader);
-	glBindProgramPipeline(GraphicsSystem::Get()->pipeline);
+	glUseProgramStages(GraphicsSystem::Get()->GetCurrentPipeline(), GL_VERTEX_SHADER_BIT, mVertexShader);
+
 }
 
 #endif

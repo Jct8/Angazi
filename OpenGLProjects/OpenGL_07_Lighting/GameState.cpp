@@ -2,21 +2,26 @@
 #include "ImGui/Inc/imgui.h"
 
 using namespace Angazi;
-using namespace Angazi::GraphicsGL;
+using namespace Angazi::Graphics;
 using namespace Angazi::Input;
 using namespace Angazi::Math;
 
 void GameState::Initialize()
 {
-	GraphicsSystemGL::Get()->SetClearColor(Colors::Black);
+	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
 	mCamera.SetPosition({ 0.0f, 0.0f,-4.0f });
-	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
+	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
 	mMesh = MeshBuilder::CreateSphere(1.0f, 16, 16);
-	mMeshBuffer.Initialize(mMesh,Vertex::Format);
+	mMeshBuffer.Initialize(mMesh);
+
+	ObjLoader::Load("../../Assets/Models/Teapot/utah-teapot.obj", 0.1f, mMeshTeapot);
+	mMeshBufferTeaPot.Initialize(mMeshTeapot);
 
 	mTransformBuffer.Initialize();
+	mLightBuffer.Initialize();
+	mMaterialBuffer.Initialize();
 
 	mDirectionalLight.direction = Normalize({ 1.0f, -1.0f,1.0f });
 	mDirectionalLight.ambient = { 0.3f };
@@ -28,18 +33,42 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f };
 	mMaterial.power = 80.0f;
 
-	mGouraudShadingShader.Initialize("../../Assets/GLShaders/GLGouraudShading.glsl");
-	mPhongShadingShader.Initialize("../../Assets/GLShaders/GLPhongShading.glsl");
+	mGouraudShadingVertexShader.Initialize("../../Assets/GLShaders/GouraudShading.glsl", VertexPN::Format);
+	mGouraudShadingPixelShader.Initialize("../../Assets/GLShaders/GouraudShading.glsl");
 
+	mPhongShadingVertexShader.Initialize("../../Assets/GLShaders/PhongShading.glsl", Vertex::Format);
+	mPhongShadingPixelShader.Initialize("../../Assets/GLShaders/PhongShading.glsl");
+
+	mPointPhongShadingVertexShader.Initialize("../../Assets/GLShaders/PhongShadingPoint.glsl", Vertex::Format);
+	mPointPhongShadingPixelShader.Initialize("../../Assets/GLShaders/PhongShadingPoint.glsl");
+
+	mFlatShadingVertexShader.Initialize("../../Assets/GLShaders/FlatShading.glsl", VertexPN::Format);
+	mFlatShadingPixelShader.Initialize("../../Assets/GLShaders/FlatShading.glsl");
+
+	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	mTexture.Initialize("../../Assets/Images/white.jpg");
+	mSpecularTexture.Initialize("../../Assets/Images/white.jpg");
 }
 
 void GameState::Terminate()
 {
+	mSpecularTexture.Terminate();
 	mTexture.Terminate();
-	mPhongShadingShader.Terminate();
-	mGouraudShadingShader.Terminate();
+	mSampler.Terminate();
+
+	mFlatShadingPixelShader.Terminate();
+	mFlatShadingVertexShader.Terminate();
+	mPointPhongShadingPixelShader.Terminate();
+	mPointPhongShadingVertexShader.Terminate();
+	mPhongShadingPixelShader.Terminate();
+	mPhongShadingVertexShader.Terminate();
+	mGouraudShadingPixelShader.Terminate();
+	mGouraudShadingVertexShader.Terminate();
+
+	mMaterialBuffer.Terminate();
+	mLightBuffer.Terminate();
 	mTransformBuffer.Terminate();
+	mMeshBufferTeaPot.Terminate();
 	mMeshBuffer.Terminate();
 }
 
@@ -68,33 +97,6 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-	mTransformBuffer.Bind(4);
-
-	mGouraudShadingShader.SetUniform4f("material.ambient", mMaterial.ambient);
-	mGouraudShadingShader.SetUniform4f("material.diffuse", mMaterial.diffuse);
-	mGouraudShadingShader.SetUniform4f("material.specular",mMaterial.specular);
-	mGouraudShadingShader.SetUniform1f("material.power",  mMaterial.power);
-
-	mGouraudShadingShader.SetUniform4f("light.ambient", mDirectionalLight.ambient);
-	mGouraudShadingShader.SetUniform4f("light.diffuse", mDirectionalLight.diffuse);
-	mGouraudShadingShader.SetUniform4f("light.specular",mDirectionalLight.specular);
-	mGouraudShadingShader.SetUniform3f("light.direction", mDirectionalLight.direction);
-
-	mPhongShadingShader.SetUniform4f("material.ambient", mMaterial.ambient);
-	mPhongShadingShader.SetUniform4f("material.diffuse", mMaterial.diffuse);
-	mPhongShadingShader.SetUniform4f("material.specular", mMaterial.specular);
-	mPhongShadingShader.SetUniform1f("material.power", mMaterial.power);
-
-	mPhongShadingShader.SetUniform4f("light.ambient", mDirectionalLight.ambient);
-	mPhongShadingShader.SetUniform4f("light.diffuse", mDirectionalLight.diffuse);
-	mPhongShadingShader.SetUniform4f("light.specular", mDirectionalLight.specular);
-	mPhongShadingShader.SetUniform3f("light.direction", mDirectionalLight.direction);
-
-	//mTexture.Bind("diffuseMap");
-	//mTexture.Bind("displacementMap", 1);
-	//mTexture.Bind("specularMap", 2);
-
-	//ball 1
 	auto matTrans = Matrix4::Translation({ -1.0f,0.0f,0.0f });
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y);
 	auto matWorld = matRot * matTrans;
@@ -102,40 +104,83 @@ void GameState::Render()
 	auto matProj = mCamera.GetPerspectiveMatrix();
 
 	TransformData transformData;
+	mTransformBuffer.BindVS(0);
+
+	mLightBuffer.Update(&mDirectionalLight);
+	mLightBuffer.BindVS(1);
+	mLightBuffer.BindPS(1);
+
+	mMaterialBuffer.Update(&mMaterial);
+	mMaterialBuffer.BindVS(2);
+	mMaterialBuffer.BindPS(2);
+
+	//ball 1 - gouroud
 	transformData.world = Transpose(matWorld);
 	transformData.wvp = Transpose(matWorld * matView *matProj);
 	transformData.viewPosition = mCamera.GetPosition();
-
 	mTransformBuffer.Update(&transformData);
 
-	mGouraudShadingShader.SetUniformMat4f("transform.WVP", transformData.wvp);
-	mGouraudShadingShader.SetUniformMat4f("transform.World", transformData.world);
-	mGouraudShadingShader.SetUniform3f("transform.ViewPosition", transformData.viewPosition);
+	mGouraudShadingVertexShader.Bind();
+	mGouraudShadingPixelShader.Bind();
 
-	mGouraudShadingShader.Bind();
-	mMeshBuffer.Draw();
+	mMeshBufferTeaPot.Draw();
 
-	//ball 2
-	//matTrans = Matrix4::Translation({ 3.0f,0.0f,0.0f });
-	//matWorld = matRot * matTrans;
-	//
-	//transformData.world = Transpose(matWorld);
-	//transformData.wvp = Transpose(matWorld * matView *matProj);
-	//transformData.viewPosition = mCamera.GetPosition();
-	//
-	//mPhongShadingShader.SetUniformMat4f("transform.WVP", transformData.wvp);
-	//mPhongShadingShader.SetUniformMat4f("transform.World", transformData.world);
-	//mPhongShadingShader.SetUniform3f("transform.ViewPosition", transformData.viewPosition);
+	//ball 2 - flat
+	matTrans = Matrix4::Translation({ -6.0f,0.0f,0.0f });
+	matWorld = matRot * matTrans;
 
-	//mPhongShadingShader.Bind();
-	//mMeshBuffer.Draw();
+	transformData.world = Transpose(matWorld);
+	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.viewPosition = mCamera.GetPosition();
+	mTransformBuffer.Update(&transformData);
+
+	mFlatShadingVertexShader.Bind();
+	mFlatShadingPixelShader.Bind();
+
+	mMeshBufferTeaPot.Draw();
+
+	//ball 3 - phong
+	mSampler.BindVS();
+	mSampler.BindPS();
+	mTexture.BindPS(0);
+	mTexture.BindVS(0);
+	mSpecularTexture.BindPS(1);
+	mSpecularTexture.BindVS(1);
+
+	matTrans = Matrix4::Translation({ 4.0f,0.0f,0.0f });
+	matWorld = matRot * matTrans;
+
+	transformData.world = Transpose(matWorld);
+	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.viewPosition = mCamera.GetPosition();
+	mTransformBuffer.Update(&transformData);
+
+	mPhongShadingVertexShader.Bind();
+	mPhongShadingPixelShader.Bind();
+
+	mMeshBufferTeaPot.Draw();
+
+	//ball 4 - phong point
+
+	matTrans = Matrix4::Translation({ 9.0f,0.0f,0.0f });
+	matWorld = matRot * matTrans;
+
+	transformData.world = Transpose(matWorld);
+	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.viewPosition = mCamera.GetPosition();
+	mTransformBuffer.Update(&transformData);
+
+	mPointPhongShadingVertexShader.Bind();
+	mPointPhongShadingPixelShader.Bind();
+
+	mMeshBufferTeaPot.Draw();
 
 }
 
 void GameState::DebugUI()
 {
-	ImGui::Begin("Setting",nullptr,ImGuiWindowFlags_AlwaysAutoResize);
-	if (ImGui::CollapsingHeader("Light"))
+	ImGui::Begin("Setting", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		bool directionChanged = false;
 		directionChanged |= ImGui::DragFloat("Direction X##Light", &mDirectionalLight.direction.x, 0.01f, -1.0f, 1.0f);
@@ -149,14 +194,14 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Diffuse##Light", &mDirectionalLight.diffuse.x);
 		ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.x);
 	}
-	if (ImGui::CollapsingHeader("Material"))
+	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::ColorEdit4("Ambient##Material", &mMaterial.ambient.x);
 		ImGui::ColorEdit4("Diffuse##Material", &mMaterial.diffuse.x);
 		ImGui::ColorEdit4("Specular##Material", &mMaterial.specular.x);
 		ImGui::DragFloat("Power##Material", &mMaterial.power, 1.0f, 1.0f, 100.0f);
 	}
-	if (ImGui::CollapsingHeader("Transform"))
+	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::DragFloat3("Rotation##Transform", &mRotation.x, 0.01f);
 	}

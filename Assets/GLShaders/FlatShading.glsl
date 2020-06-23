@@ -44,7 +44,7 @@ void main()
 	//diffuse
 	vec3 dirToLight = -LightDirection;
 	float diffuseIntensity = clamp(dot(dirToLight, worldNormal), 0.0 ,1.0);
-	vec4 diffuse = diffuseIntensity * LightDiffuse * MaterialDiffuse ;
+	vec4 diffuse = diffuseIntensity * LightDiffuse * MaterialDiffuse;
 
 	//specular
 	vec3 dirToView = normalize(ViewPosition - worldPosition);
@@ -62,7 +62,7 @@ void main()
 #shader PS
 #version 450 core
 
-in vec4 outColor;
+flat in vec4 outColor;
 out vec4 FragColor;
 
 void main()

@@ -81,8 +81,7 @@ void Angazi::Graphics::PixelShader::Terminate()
 
 void Angazi::Graphics::PixelShader::Bind()
 {
-	glUseProgramStages(GraphicsSystem::Get()->pipeline, GL_FRAGMENT_SHADER_BIT, mPixelShader);
-	glBindProgramPipeline(GraphicsSystem::Get()->pipeline);
+	glUseProgramStages(GraphicsSystem::Get()->GetCurrentPipeline(), GL_FRAGMENT_SHADER_BIT, mPixelShader);
 }
 
 #endif

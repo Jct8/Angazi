@@ -110,8 +110,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GLShaders", "GLShaders", "{
 		Assets\GLShaders\Basic.glsl = Assets\GLShaders\Basic.glsl
 		Assets\GLShaders\Camera.glsl = Assets\GLShaders\Camera.glsl
 		Assets\GLShaders\Color.glsl = Assets\GLShaders\Color.glsl
+		Assets\GLShaders\FlatShading.glsl = Assets\GLShaders\FlatShading.glsl
 		Assets\GLShaders\GouraudShading.glsl = Assets\GLShaders\GouraudShading.glsl
 		Assets\GLShaders\PhongShading.glsl = Assets\GLShaders\PhongShading.glsl
+		Assets\GLShaders\PhongShadingPoint.glsl = Assets\GLShaders\PhongShadingPoint.glsl
 		Assets\GLShaders\SimpleDraw.glsl = Assets\GLShaders\SimpleDraw.glsl
 		Assets\GLShaders\Texturing.glsl = Assets\GLShaders\Texturing.glsl
 	EndProjectSection

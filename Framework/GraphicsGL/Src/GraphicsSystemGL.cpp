@@ -127,6 +127,7 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 	glEnable(GL_DEPTH_TEST);
 
 	glGenProgramPipelines(1, &pipeline);
+	glBindProgramPipeline(pipeline);
 
 	LOG("OpenGL version supported by this platform: (%s)", glGetString(GL_VERSION));
 	LOG("Vendor: (%s)", glGetString(GL_VENDOR));
@@ -136,6 +137,7 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 void GraphicsSystem::Terminate()
 {
 	glDeleteProgramPipelines(1,&pipeline);
+
 	// Restore original window's procedure
 	sWindowMessageHandler.Unhook();
 

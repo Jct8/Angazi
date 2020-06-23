@@ -13,13 +13,15 @@ public:
 	void DebugUI() override;
 
 private:
-	Angazi::GraphicsGL::CameraGL mCamera;
+	Angazi::Graphics::Camera mCamera;
 
-	Angazi::GraphicsGL::Mesh mMesh;
-	Angazi::GraphicsGL::MeshBufferGL mMeshBuffer;
+	Angazi::Graphics::Mesh mMesh;
+	Angazi::Graphics::Mesh mMeshTeapot;
+	Angazi::Graphics::MeshBuffer mMeshBuffer;
+	Angazi::Graphics::MeshBuffer mMeshBufferTeaPot;
 
-	Angazi::GraphicsGL::DirectionalLight mDirectionalLight;
-	Angazi::GraphicsGL::Material mMaterial;
+	Angazi::Graphics::DirectionalLight mDirectionalLight;
+	Angazi::Graphics::Material mMaterial;
 
 	struct TransformData
 	{
@@ -29,14 +31,29 @@ private:
 		float padding;
 	};
 
-	using TransformBuffer = Angazi::GraphicsGL::TypedUniformBuffer<TransformData>;
+	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
+	using LightBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::DirectionalLight>;
+	using MaterialBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::Material>;
 
 	TransformBuffer mTransformBuffer;
+	LightBuffer mLightBuffer;
+	MaterialBuffer mMaterialBuffer;
 
-	Angazi::GraphicsGL::Shader mGouraudShadingShader;
-	Angazi::GraphicsGL::Shader mPhongShadingShader;
+	Angazi::Graphics::VertexShader mGouraudShadingVertexShader;
+	Angazi::Graphics::PixelShader mGouraudShadingPixelShader;
 
-	Angazi::GraphicsGL::TextureGL mTexture;
+	Angazi::Graphics::VertexShader mPhongShadingVertexShader;
+	Angazi::Graphics::PixelShader mPhongShadingPixelShader;
+
+	Angazi::Graphics::VertexShader mFlatShadingVertexShader;
+	Angazi::Graphics::PixelShader mFlatShadingPixelShader;
+
+	Angazi::Graphics::VertexShader mPointPhongShadingVertexShader;
+	Angazi::Graphics::PixelShader mPointPhongShadingPixelShader;
+
+	Angazi::Graphics::Sampler mSampler;
+	Angazi::Graphics::Texture mTexture;
+	Angazi::Graphics::Texture mSpecularTexture;
 
 	Angazi::Math::Vector3 mRotation = 0.0f;
 };
