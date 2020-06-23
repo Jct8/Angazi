@@ -36,27 +36,42 @@ void PixelShader::Initialize(const std::filesystem::path& filePath, const char *
 	std::string shaderString = shaderSource.str();
 	auto fileCstr = static_cast<const char *>(shaderString.c_str());
 	mPixelShader = glCreateShaderProgramv(GL_FRAGMENT_SHADER, 1, &fileCstr );
-
-
-	//mPixelShader = glCreateShader(GL_FRAGMENT_SHADER);
-	//const char* src = shaderString.c_str();
-	//glShaderSource(mPixelShader, 1, &src, nullptr);
-	//glCompileShader(mPixelShader);
-
-	//int result;
-	//glGetShaderiv(mPixelShader, GL_COMPILE_STATUS, &result);
-	//ASSERT(result, "Shader failed to compile.");
-	//if (result == GL_FALSE)
-	//{
-	//	int length;
-	//	glGetShaderiv(mPixelShader, GL_INFO_LOG_LENGTH, &length);
-	//	char *message = (char*)alloca(length * sizeof(char));
-	//	glGetShaderInfoLog(mPixelShader, length, &length, message);
-	//	glDeleteShader(mPixelShader);
-	//}
-
 	ASSERT(mPixelShader != 0, "[PixelShaderGL] - Error creating pixel shader");
 
+	/*mPixelShader = glCreateShader(GL_FRAGMENT_SHADER);
+	const char* src = shaderString.c_str();
+
+	glShaderSource(mPixelShader, 1, &src, nullptr);
+	glCompileShader(mPixelShader);*/
+
+	GLint result;
+	glGetShaderiv(mPixelShader, GL_COMPILE_STATUS, &result);
+	ASSERT(result, "Shader failed to compile.");
+	if (result == GL_FALSE)
+	{
+		GLint maxLength = 0;
+		glGetProgramiv(mPixelShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+		std::vector<GLchar> infoLog(maxLength);
+		glGetProgramInfoLog(mPixelShader, maxLength, &maxLength, &infoLog[0]);
+
+		glDeleteProgram(mPixelShader);
+		ASSERT(result, "[PixelShaderGL] - Shader failed to compile - %s:", infoLog.data());
+	}
+
+	GLint isLinked = 0;
+	glGetProgramiv(mPixelShader, GL_LINK_STATUS, &isLinked);
+	if (isLinked == GL_FALSE)
+	{
+		GLint maxLength = 0;
+		glGetProgramiv(mPixelShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+		std::vector<GLchar> infoLog(maxLength);
+		glGetProgramInfoLog(mPixelShader, maxLength, &maxLength, &infoLog[0]);
+
+		glDeleteProgram(mPixelShader);
+		ASSERT(isLinked, "[PixelShaderGL] - Shader failed to link - %s", infoLog.data());
+	}
 }
 
 void Angazi::Graphics::PixelShader::Terminate()

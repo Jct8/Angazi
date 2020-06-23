@@ -1,7 +1,7 @@
 #pragma once
 #ifdef ENABLE_OPENGL
 
-namespace Angazi::GraphicsGL::DebugUIGL {
+namespace Angazi::Graphics::DebugUIGL {
 
 	enum class Theme
 	{

@@ -12,6 +12,8 @@ namespace Angazi::Graphics
 		Texture(const Texture&) = delete;
 		Texture& operator=(const Texture&) = delete;
 
+		Texture(Texture&&) = default;
+
 		void Initialize(const std::filesystem::path& fileName);
 		void Initialize(const std::vector<std::filesystem::path>& cubeSides);
 		void Terminate();

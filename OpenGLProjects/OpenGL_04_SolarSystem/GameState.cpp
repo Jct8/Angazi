@@ -1,7 +1,7 @@
 #include "GameState.h"
 
 using namespace Angazi;
-using namespace Angazi::GraphicsGL;
+using namespace Angazi::Graphics;
 using namespace Angazi::Input;
 using namespace Angazi::Math;
 
@@ -13,13 +13,11 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f,15.0f,-40.0f });
 	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
 
-	mMeshSphere = MeshBuilder::CreateSpherePX(2, 32, 32);
-	mMeshDomeSphere = MeshBuilder::CreateSpherePX(60, 32, 32,false);
+	mMeshBufferSphere.Initialize(MeshBuilder::CreateSpherePX(2, 32, 32));
+	mMeshBufferDome.Initialize(MeshBuilder::CreateSpherePX(60, 32, 32, false));
 
-	mMeshBufferSphere.Initialize(mMeshSphere,VertexPX::Format);
-	mMeshBufferDome.Initialize(mMeshDomeSphere,VertexPX::Format);
-
-	mShader.Initialize("../../Assets/GLShaders/GLCamera.glsl");
+	mVertexShader.Initialize("../../Assets/GLShaders/Camera.glsl", VertexPX::Format);
+	mPixelShader.Initialize("../../Assets/GLShaders/Camera.glsl");
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -29,7 +27,7 @@ void GameState::Initialize()
 		mScale.emplace_back();
 		mTranslation.emplace_back();
 		mMoonTextures.emplace_back();
-		mMoonTextures[i].Initialize("Moon.jpg");
+		mMoonTextures[i].Initialize("../../Assets/Images/Moon.jpg");
 	}
 
 	mPlanetTextures[0].Initialize("../../Assets/Images/Sun.jpg");
@@ -77,17 +75,21 @@ void GameState::Initialize()
 	mScale[7] = 1.0f;
 	mScale[8] = 1.0f;
 	mScale[9] = 0.3f;
+
+	mTransformBuffer.Initialize();
 }
 
 void GameState::Terminate()
 {
+	mTransformBuffer.Terminate();
 	for (size_t i = 0; i < mPlanetTextures.size(); i++)
 	{
 		mPlanetTextures[i].Terminate();
 		mMoonTextures[i].Terminate();
 	}
 
-	mShader.Terminate();
+	mPixelShader.Terminate();
+	mVertexShader.Terminate();
 	mDomeTexture.Terminate();
 	mMeshBufferSphere.Terminate();
 	mMeshBufferDome.Terminate();
@@ -95,16 +97,24 @@ void GameState::Terminate()
 
 void GameState::Update(float deltaTime)
 {
-	const float kMoveSpeed = 10.0f;
-	const float kTurnSpeed = 1.0f;
-
 	auto inputSystem = InputSystem::Get();
+
+	const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 10.0f : 1.0f;
+	const float kTurnSpeed = 10.0f * Constants::DegToRad;
+
 	if (inputSystem->IsKeyDown(KeyCode::W))
 		mCamera.Walk(kMoveSpeed*deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::S))
 		mCamera.Walk(-kMoveSpeed * deltaTime);
-	mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
-	mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::A))
+		mCamera.Strafe(-kMoveSpeed * deltaTime);
+	if (inputSystem->IsKeyDown(KeyCode::D))
+		mCamera.Strafe(kMoveSpeed*deltaTime);
+	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
+	{
+		mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
+		mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+	}
 
 	mRotation -= deltaTime;
 }
@@ -114,7 +124,8 @@ void GameState::Render()
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
 
-	mShader.Bind();
+	mVertexShader.Bind();
+	mPixelShader.Bind();
 
 	for (size_t i = 0; i <mPlanetTextures.size(); i++)
 	{
@@ -125,8 +136,11 @@ void GameState::Render()
 		auto matTrans = Matrix4::Translation({ 0.5f*i + i*5.0f,0.0f,0.0f });
 		auto matWVP = Transpose( matScale * matSelfRotation * matTrans * matWorld * matView * matProj);
 
-		mShader.SetUniformMat4f("WVP", matWVP);
-		mPlanetTextures[i].Bind();
+		data.wvp = matWVP;
+		mTransformBuffer.Set(data);
+		mTransformBuffer.BindVS(0);
+
+		mPlanetTextures[i].BindPS(0);
 		mMeshBufferSphere.Draw();
 
 		//Moon
@@ -136,8 +150,11 @@ void GameState::Render()
 		auto matMoonTrans = Matrix4::Translation({ 2.0f,0.0f,0.0f });
 		auto matMoonWVP = Transpose(matMoonScale *matMoonSelfRotation * matMoonTrans * matMoon * matTrans * matWorld * matView * matProj);
 		
-		mMoonTextures[i].Bind();
-		mShader.SetUniformMat4f("WVP", matMoonWVP);
+		data.wvp = matMoonWVP;
+		mTransformBuffer.Set(data);
+		mTransformBuffer.BindVS(0);
+
+		mMoonTextures[i].BindPS(0);
 		mMeshBufferSphere.Draw();
 	}
 
@@ -145,7 +162,10 @@ void GameState::Render()
 	auto matScale = Matrix4::Scaling(1.0f);
 	auto matWVP = Transpose(matScale * matWorld * matView * matProj);
 
-	mDomeTexture.Bind();
-	mShader.SetUniformMat4f("WVP", matWVP);
+	data.wvp = matWVP;
+	mTransformBuffer.Set(data);
+	mTransformBuffer.BindVS(0);
+
+	mDomeTexture.BindPS(0);
 	mMeshBufferDome.Draw();
 }

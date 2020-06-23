@@ -5,7 +5,7 @@
 #include "Common.h"
 
 #include "BlendStateGL.h"
-#include "DebugUI.h"
+#include "DebugUIGL.h"
 #include "DepthStencilStateGL.h"
 #include "GraphicsSystemGL.h"
 #include "MeshBufferGL.h"

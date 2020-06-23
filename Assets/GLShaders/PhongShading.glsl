@@ -5,7 +5,7 @@ layout (location = 1) in vec3 aNormal;
 layout (location = 2) in vec3 aTangent;
 layout (location = 3) in vec2 aTexCoord;
 
-layout(std140) uniform Transforms
+layout(std140, binding = 2) uniform Transforms
 {
     mat4 World;
 	mat4 WVP; // world view projection - all three matricies combined . local - camera 

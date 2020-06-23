@@ -11,10 +11,19 @@ public:
 	void Render() override;
 
 private:
+	struct TransformData
+	{
+		Angazi::Math::Matrix4 wvp;
+	};
+	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
+
 	Angazi::Graphics::Camera mCamera;
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader mPixelShader;
 	Angazi::Graphics::Texture mTexture;
+
+	TransformData data;
+	TransformBuffer mTransformBuffer;
 
 	Angazi::Graphics::MeshBuffer mMeshBuffer;
 	Angazi::Graphics::MeshPX mMesh;

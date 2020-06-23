@@ -19,7 +19,7 @@ void Texture::Initialize(const std::filesystem::path& filePath)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	int width, height, bytesPerPixel;
-	stbi_set_flip_vertically_on_load(true);
+	stbi_set_flip_vertically_on_load(false);
 	unsigned char* imageData = stbi_load(filePath.u8string().c_str(), &width, &height, &bytesPerPixel,0);
 
 	if (imageData)
@@ -42,22 +42,24 @@ void Texture::Terminate()
 
 void Texture::BindVS(uint32_t slot) const
 {
-	glActiveTexture(GL_TEXTURE0 + slot);
-	glBindTexture(GL_TEXTURE_2D, mTextureID);
+	//glActiveTexture(GL_TEXTURE0 + slot);
+	//glBindTexture(GL_TEXTURE_2D, mTextureID);
+	glBindTextureUnit(slot, mTextureID);
 }
 
 void Texture::BindPS(uint32_t slot) const
 {
-	glActiveTexture(GL_TEXTURE0 + slot);
-	glBindTexture(GL_TEXTURE_2D, mTextureID);
+	//glActiveTexture(GL_TEXTURE0 + slot);
+	//glBindTexture(GL_TEXTURE_2D, mTextureID);
+	glBindTextureUnit(slot, mTextureID);
 }
 void Texture::UnbindVS(uint32_t slot) const
 {
-
+	glBindTextureUnit(slot, mTextureID);
 }
 void Texture::UnbindPS(uint32_t slot) const
 {
-
+	glBindTextureUnit(slot, mTextureID);
 }
 
 //void TextureGL::Bind(const std::string & name, unsigned int slot) const

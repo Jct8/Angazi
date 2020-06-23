@@ -1,10 +1,15 @@
 #shader VS
-#version 410 core
+#version 450 core
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec2 aTexCoord;
 
 out vec3 ourColor;
 out vec2 TexCoord;
+
+out gl_PerVertex
+{
+    vec4 gl_Position;
+};
 
 void main()
 {
@@ -13,12 +18,12 @@ void main()
 }
 
 #shader PS
-#version 410 core
+#version 450 core
 
 out vec4 FragColor;
 in vec2 TexCoord;
 
-uniform sampler2D texture1;
+layout (location = 0) uniform sampler2D texture1;
 
 void main()
 {

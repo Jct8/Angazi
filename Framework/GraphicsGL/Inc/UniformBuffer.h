@@ -14,7 +14,6 @@ namespace Angazi::Graphics
 
 		void Initialize(int size);
 		void Terminate();
-		void Bind(uint32_t slot = 0) const;
 		void BindVS(uint32_t slot = 0) const;
 		void BindPS(uint32_t slot = 0) const;
 		void UnbindVS(uint32_t slot = 0) const;
@@ -23,7 +22,7 @@ namespace Angazi::Graphics
 
 		void Update(const void* data) const;
 	private:
-		unsigned int mConstantBuffer = 0;
+		uint32_t mConstantBuffer = 0;
 		int mSize;
 	};
 

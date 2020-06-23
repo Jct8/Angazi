@@ -22,12 +22,11 @@ void GameState::Initialize()
 	mMeshPX.indices.push_back(3);
 	mMeshPX.indices.push_back(2);
 
-	mMeshBuffer.Initialize(mMeshPX, VertexPX::Format);
+	mMeshBuffer.Initialize(mMeshPX);
 
 	mVertexShader.Initialize("../../Assets/GLShaders/Texturing.glsl", VertexPX::Format);
 	mPixelShader.Initialize("../../Assets/GLShaders/Texturing.glsl");
 	mTexture.Initialize("../../Assets/Images/Goat.jpg");
-	
 }
 
 void GameState::Terminate()
@@ -48,6 +47,6 @@ void GameState::Render()
 {
 	mVertexShader.Bind();
 	mPixelShader.Bind();
-	mTexture.BindPS(5);
+	mTexture.BindPS(0);
 	mMeshBuffer.Draw();
 }

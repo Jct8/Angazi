@@ -38,26 +38,41 @@ void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t ve
 	std::string shaderString = shaderSource.str();
 	auto fileCstr = static_cast<const char *>(shaderString.c_str());
 	mVertexShader = glCreateShaderProgramv(GL_VERTEX_SHADER, 1, &fileCstr);
+	ASSERT(mVertexShader != 0, "[VertexShaderGL] - Error creating vertex shader");
 
 	//mVertexShader = glCreateShader(GL_VERTEX_SHADER);
 	//const char* src = shaderString.c_str();
-
+	//
 	//glShaderSource(mVertexShader, 1, &src, nullptr);
 	//glCompileShader(mVertexShader);
 
-	//int result;
-	//glGetShaderiv(mVertexShader, GL_COMPILE_STATUS, &result);
-	//ASSERT(result, "Shader failed to compile.");
-	//if (result == GL_FALSE)
-	//{
-	//	int length;
-	//	glGetShaderiv(mVertexShader, GL_INFO_LOG_LENGTH, &length);
-	//	char *message = (char*)alloca(length * sizeof(char));
-	//	glGetShaderInfoLog(mVertexShader, length, &length, message);
-	//	glDeleteShader(mVertexShader);
-	//}
+	GLint result;
+	glGetShaderiv(mVertexShader, GL_COMPILE_STATUS, &result);
+	if (result == GL_FALSE)
+	{
+		GLint maxLength = 0;
+		glGetProgramiv(mVertexShader, GL_INFO_LOG_LENGTH, &maxLength);
 
-	ASSERT(mVertexShader != 0, "[VertexShaderGL] - Error creating vertex shader");
+		std::vector<GLchar> infoLog(maxLength);
+		glGetProgramInfoLog(mVertexShader, maxLength, &maxLength, &infoLog[0]);
+
+		glDeleteProgram(mVertexShader);
+		ASSERT(result, "[VertexShaderGL] - Shader failed to compile - %s:", infoLog.data());
+	}
+
+	GLint isLinked = 0;
+	glGetProgramiv(mVertexShader, GL_LINK_STATUS, &isLinked);
+	if (isLinked == GL_FALSE)
+	{
+		GLint maxLength = 0;
+		glGetProgramiv(mVertexShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+		std::vector<GLchar> infoLog(maxLength);
+		glGetProgramInfoLog(mVertexShader, maxLength, &maxLength, &infoLog[0]);
+
+		glDeleteProgram(mVertexShader);
+		ASSERT(isLinked, "[VertexShaderGL] - Shader failed to link - %s", infoLog.data());
+	}
 
 }
 

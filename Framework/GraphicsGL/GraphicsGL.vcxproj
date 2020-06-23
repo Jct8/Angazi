@@ -159,7 +159,7 @@
   <ItemGroup>
     <ClInclude Include="Inc\BlendStateGL.h" />
     <ClInclude Include="Inc\Common.h" />
-    <ClInclude Include="Inc\DebugUI.h" />
+    <ClInclude Include="Inc\DebugUIGL.h" />
     <ClInclude Include="Inc\DepthStencilStateGL.h" />
     <ClInclude Include="Inc\GraphicsGL.h" />
     <ClInclude Include="Inc\GraphicsSystemGL.h" />
@@ -181,7 +181,7 @@
     <ClCompile Include="Src\SamplerGL.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\DebugUI.cpp" />
+    <ClCompile Include="Src\DebugUIGL.cpp" />
     <ClCompile Include="Src\GraphicsSystemGL.cpp" />
     <ClCompile Include="Src\MeshBufferGL.cpp" />
     <ClCompile Include="Src\PixelShaderGL.cpp" />

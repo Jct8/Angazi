@@ -179,9 +179,6 @@ void GameState::Render()
 	//	p.x, p.y, p.z, 1.0f
 	//};
 
-
-	auto context = GraphicsSystem::Get()->GetContext();
-
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
 	mConstantBuffer.BindVS();

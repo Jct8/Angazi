@@ -11,19 +11,24 @@ public:
 	void Render() override;
 
 private:
-	Angazi::GraphicsGL::CameraGL mCamera;
+	struct TransformData
+	{
+		Angazi::Math::Matrix4 wvp;
+	};
+	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
+	TransformData data;
+	TransformBuffer mTransformBuffer;
 
-	Angazi::GraphicsGL::MeshPX mMeshSphere;
-	Angazi::GraphicsGL::MeshPX mMeshDomeSphere;
+	Angazi::Graphics::Camera mCamera;
+	Angazi::Graphics::MeshBuffer mMeshBufferSphere;
+	Angazi::Graphics::MeshBuffer mMeshBufferDome;
 
-	Angazi::GraphicsGL::MeshBufferGL mMeshBufferSphere;
-	Angazi::GraphicsGL::MeshBufferGL mMeshBufferDome;
+	Angazi::Graphics::PixelShader mPixelShader;
+	Angazi::Graphics::VertexShader mVertexShader;
 
-	Angazi::GraphicsGL::Shader mShader;
-
-	std::vector<Angazi::GraphicsGL::TextureGL> mPlanetTextures;
-	std::vector<Angazi::GraphicsGL::TextureGL> mMoonTextures;
-	Angazi::GraphicsGL::TextureGL mDomeTexture;
+	std::vector<Angazi::Graphics::Texture> mPlanetTextures;
+	std::vector<Angazi::Graphics::Texture> mMoonTextures;
+	Angazi::Graphics::Texture mDomeTexture;
 
 	std::vector<float> mRotationSpeed;
 	std::vector<float> mSelfRotationSpeed;

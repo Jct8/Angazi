@@ -5,6 +5,10 @@ using namespace Angazi::Graphics;
 using namespace Angazi::Input;
 using namespace Angazi::Math;
 
+namespace
+{
+	uint32_t mProgram;
+}
 
 void GameState::Initialize()
 {
@@ -77,17 +81,29 @@ void GameState::Initialize()
 	mMesh.indices.push_back(6);
 	mMesh.indices.push_back(3);
 
-	mMeshBuffer.Initialize(mMesh, VertexPX::Format);
+	mMeshBuffer.Initialize(MeshBuilder::CreateCubePX(), VertexPX::Format);
 
 	mVertexShader.Initialize("../../Assets/GLShaders/Camera.glsl", VertexPX::Format);
 	mPixelShader.Initialize("../../Assets/GLShaders/Camera.glsl");
+	//mProgram = glCreateProgram();
+
+	//glAttachShader(mProgram, mVertexShader.GetId());
+	//glAttachShader(mProgram, mPixelShader.GetId());
+	//glLinkProgram(mProgram);
+	//glValidateProgram(mProgram);
 
 	mTexture.Initialize("../../Assets/Images/Goat.jpg");
+
+	mTransformBuffer.Initialize();
 }
 
 void GameState::Terminate()
 {
+	mTransformBuffer.Terminate();
+
 	mTexture.Terminate();
+	//glDeleteProgram(mProgram);
+
 	mPixelShader.Terminate();
 	mVertexShader.Terminate();
 	mMeshBuffer.Terminate();
@@ -95,21 +111,24 @@ void GameState::Terminate()
 
 void GameState::Update(float deltaTime)
 {
-	const float kMoveSpeed = 10.0f;
-	const float kTurnSpeed = 1.0f;
-
 	auto inputSystem = InputSystem::Get();
+
+	const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 10.0f : 1.0f;
+	const float kTurnSpeed = 10.0f * Constants::DegToRad;
+
 	if (inputSystem->IsKeyDown(KeyCode::W))
 		mCamera.Walk(kMoveSpeed*deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::S))
 		mCamera.Walk(-kMoveSpeed * deltaTime);
-	mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
-	mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
-
 	if (inputSystem->IsKeyDown(KeyCode::A))
-		mRotation += deltaTime;
+		mCamera.Strafe(-kMoveSpeed * deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::D))
-		mRotation -= deltaTime;
+		mCamera.Strafe(kMoveSpeed*deltaTime);
+	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
+	{
+		mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
+		mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+	}
 }
 
 void GameState::Render()
@@ -119,20 +138,16 @@ void GameState::Render()
 	auto matProj = mCamera.GetPerspectiveMatrix();
 	auto matWVP = Transpose(matWorld * matView * matProj);
 
-	auto mat = matWVP;
-	GLfloat glMat[16] =
-	{
-		mat._11,mat._12, mat._13, mat._14,
-		mat._21,mat._22, mat._23, mat._24,
-		mat._31,mat._32, mat._33, mat._34,
-		mat._41,mat._42, mat._43, mat._44
-	};
 	mVertexShader.Bind();
-
-	glProgramUniform4fv(glGetUniformLocation(GraphicsSystem::Get()->pipeline, "WVP"), 1, GL_TRUE, glMat);
 	mPixelShader.Bind();
-	mTexture.BindPS();
 
+	mTexture.BindPS();
+	data.wvp = matWVP;
+	mTransformBuffer.Set(data);
+	mTransformBuffer.BindVS(0);
+
+	//glUseProgram(mProgram);
+	
 
 	mMeshBuffer.Draw();
 }

@@ -39,4 +39,5 @@ void GameState::Render()
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 	mMeshBuffer.Draw();
+
 }
