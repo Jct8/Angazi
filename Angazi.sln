@@ -110,6 +110,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GLShaders", "GLShaders", "{
 		Assets\GLShaders\Basic.glsl = Assets\GLShaders\Basic.glsl
 		Assets\GLShaders\Camera.glsl = Assets\GLShaders\Camera.glsl
 		Assets\GLShaders\Color.glsl = Assets\GLShaders\Color.glsl
+		Assets\GLShaders\Earth.glsl = Assets\GLShaders\Earth.glsl
 		Assets\GLShaders\FlatShading.glsl = Assets\GLShaders\FlatShading.glsl
 		Assets\GLShaders\GouraudShading.glsl = Assets\GLShaders\GouraudShading.glsl
 		Assets\GLShaders\PhongShading.glsl = Assets\GLShaders\PhongShading.glsl
@@ -163,6 +164,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "23_HelloRagDoll", "VGP334\23_HelloRagDoll\23_HelloRagDoll.vcxproj", "{84D7ABC6-C039-419A-8525-0A1E43B87874}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphicsDX11", "Framework\GraphicsDX11\GraphicsDX11.vcxproj", "{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_08_Earth", "OpenGLProjects\OpenGL_08_Earth\OpenGL_08_Earth.vcxproj", "{14DFE596-0E29-49DE-8F5E-3D23841C98C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -992,6 +995,22 @@ Global
 		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.Debug|x64.ActiveCfg = Debug|x64
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.Debug|x64.Build.0 = Debug|x64
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.Debug|x86.ActiveCfg = Debug|Win32
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.Debug|x86.Build.0 = Debug|Win32
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.MinSizeRel|x64.Build.0 = Release|x64
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.MinSizeRel|x86.Build.0 = Release|Win32
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.Release|x64.ActiveCfg = Release|x64
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.Release|x64.Build.0 = Release|x64
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.Release|x86.ActiveCfg = Release|Win32
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.Release|x86.Build.0 = Release|Win32
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1050,12 +1069,13 @@ Global
 		{7EF1E16D-6238-4305-88DF-3A1732AA033C} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
 		{84D7ABC6-C039-419A-8525-0A1E43B87874} = {5DEF80F3-BF39-42FC-85E8-013A63D44598}
 		{E7F4E0A5-6B93-453A-8842-CBA502B27F0D} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
+		{14DFE596-0E29-49DE-8F5E-3D23841C98C1} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 51
+		SccNumberOfProjects = 52
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1259,5 +1279,9 @@ Global
 		SccProjectTopLevelParentUniqueName50 = Angazi.sln
 		SccProjectName50 = Framework/GraphicsDX11
 		SccLocalPath50 = Framework\\GraphicsDX11
+		SccProjectUniqueName51 = OpenGLProjects\\OpenGL_08_Earth\\OpenGL_08_Earth.vcxproj
+		SccProjectTopLevelParentUniqueName51 = Angazi.sln
+		SccProjectName51 = OpenGLProjects/OpenGL_08_Earth
+		SccLocalPath51 = OpenGLProjects\\OpenGL_08_Earth
 	EndGlobalSection
 EndGlobal

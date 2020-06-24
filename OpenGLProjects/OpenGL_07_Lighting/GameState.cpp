@@ -173,7 +173,7 @@ void GameState::Render()
 	mPointPhongShadingVertexShader.Bind();
 	mPointPhongShadingPixelShader.Bind();
 
-	mMeshBufferTeaPot.Draw();
+	mMeshBuffer.Draw();
 
 }
 

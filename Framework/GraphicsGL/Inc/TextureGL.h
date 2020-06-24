@@ -23,9 +23,13 @@ namespace Angazi::Graphics
 		void UnbindVS(uint32_t slot = 0) const;
 		void UnbindPS(uint32_t slot = 0) const;
 
+		uint32_t GetWidth() const { return mWidth; }
+		uint32_t GetHeight() const { return mHeight; }
 		//void Bind(const std::string &name,unsigned int slot = 0) const;
 	private:
-		unsigned int mTextureID;
+		uint32_t mTextureID;
+		uint32_t mWidth;
+		uint32_t mHeight;
 	};
 } // namespace Angazi::GraphicsGL
 

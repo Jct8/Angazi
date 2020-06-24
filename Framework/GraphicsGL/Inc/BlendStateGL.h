@@ -27,8 +27,7 @@ namespace Angazi::Graphics
 		void Bind() const;
 
 	private:
-		//ID3D11BlendState* mBlendState = nullptr;
-
+		Mode mBlendState = Mode::Opaque;
 	};
 }
 

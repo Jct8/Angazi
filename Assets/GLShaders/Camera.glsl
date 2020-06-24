@@ -27,7 +27,7 @@ void main()
 out vec4 FragColor;
 in vec2 TexCoord;
 
-uniform sampler2D texture1;
+layout(binding = 0) uniform sampler2D texture1;
 
 void main()
 {

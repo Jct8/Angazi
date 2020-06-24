@@ -113,9 +113,9 @@ void MeshBuffer::InitializeInternal(const void * vertices, int vertexSize, int v
 	mIndexCount = indexCount;
 
 	glGenVertexArrays(1, &mVertexArray);
-	glGenBuffers(1, &mVertexBuffer);
 	glBindVertexArray(mVertexArray);
 
+	glGenBuffers(1, &mVertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
 	unsigned int drawType = GL_STATIC_DRAW;
 	if (dynamic)
@@ -128,8 +128,8 @@ void MeshBuffer::InitializeInternal(const void * vertices, int vertexSize, int v
 	{
 		glEnableVertexAttribArray(i);
 		glVertexAttribPointer(i, vertexLayout[i].count, vertexLayout[i].type, vertexLayout[i].normalized,
-			vertexSize, (const void*)offset);
-		offset += vertexLayout[i].count * VertexElementDesc::GetSizeOfType(vertexLayout[i].type);
+			vertexSize, (const void*)(offset * VertexElementDesc::GetSizeOfType(vertexLayout[i].type)) );
+		offset += vertexLayout[i].count;
 	}
 
 	if (indexCount > 0)

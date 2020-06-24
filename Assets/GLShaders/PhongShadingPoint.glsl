@@ -39,7 +39,9 @@ layout(std140, binding = 2) uniform MaterialBuffer
 	float MaterialPower;
 };
 
-uniform sampler2D displacementMap;
+layout(binding = 0) uniform sampler2D displacementMap;
+layout(binding = 1) uniform sampler2D diffuseMap;
+layout(binding = 2) uniform sampler2D specularMap;
 
 void main()
 {
@@ -90,8 +92,9 @@ layout(std140, binding = 2) uniform MaterialBuffer
 	float MaterialPower;
 };
 
-uniform sampler2D diffuseMap;
-uniform sampler2D specularMap;
+layout(binding = 0) uniform sampler2D displacementMap;
+layout(binding = 1) uniform sampler2D diffuseMap;
+layout(binding = 2) uniform sampler2D specularMap;
 
 void main()
 {

@@ -10,24 +10,29 @@ using namespace Angazi::Graphics;
 
 void Texture::Initialize(const std::filesystem::path& filePath)
 {
-	glGenTextures(1, &mTextureID);
-	glBindTexture(GL_TEXTURE_2D, mTextureID);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	int width, height, bytesPerPixel;
+	int width, height, channels;
 	stbi_set_flip_vertically_on_load(false);
-	unsigned char* imageData = stbi_load(filePath.u8string().c_str(), &width, &height, &bytesPerPixel,0);
+	stbi_uc* imageData = stbi_load(filePath.u8string().c_str(), &width, &height, &channels, STBI_rgb);
 
-	if (imageData)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGB , GL_UNSIGNED_BYTE,imageData);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		stbi_image_free(imageData);
-	}
+	ASSERT(imageData, "[TextureGL] - Failed to load image!");
+	mWidth = width;
+	mHeight = height;
+	GLenum internalFormat = GL_RGB8;
+	GLenum dataFormat = GL_RGB;
+
+
+	glCreateTextures(GL_TEXTURE_2D, 1, &mTextureID);
+	glTextureStorage2D(mTextureID, 1, internalFormat, mWidth, mHeight);
+
+	glTextureParameteri(mTextureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTextureParameteri(mTextureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+	glTextureParameteri(mTextureID, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTextureParameteri(mTextureID, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+
+	glTextureSubImage2D(mTextureID, 0, 0, 0, mWidth, mHeight, dataFormat, GL_UNSIGNED_BYTE, imageData);
+
+	stbi_image_free(imageData);
 }
 
 Texture::~Texture()

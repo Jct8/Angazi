@@ -95,7 +95,7 @@ float4 PSEarth(VSOutput input) : SV_Target
 	float3 normal = worldNormal;
 	if (normalMapWeight != 0.0f)
 	{
-		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal, };
+		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal };
 		float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
 		float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
 		normal = mul(normalSampled, TBNW);
