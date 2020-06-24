@@ -55,7 +55,7 @@ GraphicsSystem* GraphicsSystem::Get()
 
 GraphicsSystem::~GraphicsSystem()
 {
-	
+	ASSERT(!glIsProgramPipeline(pipeline), "[GraphicsSystemGL] Terminate() must be called to clean up!");
 }
 
 void GraphicsSystem::Initialize(HWND window, bool fullscreen)
@@ -71,7 +71,7 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 	pfd.bReserved = 0;
 	pfd.cAccumAlphaBits = 0;
 	pfd.cAccumBits = 0;
-	pfd.cAccumBlueBits = 0;
+	pfd.cAccumBlueBits = 24;
 	pfd.cAccumGreenBits = 0;
 	pfd.cAccumRedBits = 0;
 	pfd.cAlphaBits = 0;
@@ -80,7 +80,7 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 	pfd.cBlueBits = 0;
 	pfd.cBlueShift = 0;
 	pfd.cColorBits = 32;
-	pfd.cDepthBits = 32;
+	pfd.cDepthBits = 8;
 	pfd.cGreenBits = 0;
 	pfd.cGreenShift = 0;
 	pfd.cRedBits = 0;
@@ -90,7 +90,7 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 	pfd.dwFlags = PFD_SUPPORT_OPENGL | PFD_DRAW_TO_WINDOW | PFD_DOUBLEBUFFER;
 	pfd.dwLayerMask = 0;
 	pfd.dwVisibleMask = 0;
-	pfd.iLayerType = 0;
+	pfd.iLayerType = PFD_MAIN_PLANE;
 	pfd.iPixelType = PFD_TYPE_RGBA;
 	pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
 	pfd.nVersion = 1;
@@ -142,7 +142,6 @@ void GraphicsSystem::Terminate()
 	ASSERT(wglMakeCurrent(NULL, NULL), "[GraphicsSystemGL] Release of DC and RC failed");
 	ASSERT(wglDeleteContext(glRenderingContext), "[GraphicsSystemGL] Release of rendering context failed");
 	ASSERT(ReleaseDC(myWindow,hDeviceContext), "[GraphicsSystemGL] Release of Device context failed");
-
 }
 
 void GraphicsSystem::BeginRender()

@@ -8,7 +8,7 @@ using namespace Angazi::Graphics;
 
 PixelShader::~PixelShader()
 {
-	//ASSERT(mPixelShader == nullptr, "[PixelShader] Terminate() must be called to clean up!");
+	ASSERT(!glIsProgram(mPixelShader), "[PixelShaderGL] Terminate() must be called to clean up!");
 }
 
 void PixelShader::Initialize(const std::filesystem::path& filePath, const char * shaderName)

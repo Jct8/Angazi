@@ -9,6 +9,7 @@ using namespace Angazi::Graphics;
 
 ConstantBuffer::~ConstantBuffer()
 {
+	ASSERT(!glIsBuffer(mConstantBuffer), "[UniformBuffer] Terminate() must be called to clean up!");
 }
 
 void ConstantBuffer::Initialize(int size)
@@ -22,7 +23,8 @@ void ConstantBuffer::Initialize(int size)
 
 void ConstantBuffer::Terminate()
 {
-	glDeleteBuffers(GL_UNIFORM_BUFFER, &mConstantBuffer);
+	if(glIsBuffer(mConstantBuffer))
+		glDeleteBuffers(GL_UNIFORM_BUFFER, &mConstantBuffer);
 }
 
 void ConstantBuffer::BindVS(uint32_t slot) const

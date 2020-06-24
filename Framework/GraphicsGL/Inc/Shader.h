@@ -6,9 +6,11 @@ namespace Angazi::Graphics
 	class Shader
 	{
 	public:
-		void Initialize(const std::filesystem::path filePath);
+		void Initialize(const std::filesystem::path filePath, const char * VSshaderName = "VS", const char * PSshaderName = "PS");
 		void Terminate();
 		void Bind();
+
+		~Shader();
 
 		//set uniforms
 		void SetUniform1i(const std::string name, int value);
@@ -20,7 +22,7 @@ namespace Angazi::Graphics
 
 	private:
 		unsigned int CompileShader(unsigned int type, const std::string& source);
-		std::vector<std::string> ParseShader(const std::filesystem::path& filepath);
+		std::vector<std::string> ParseShader(const std::filesystem::path& filepath, const char * VSshaderName, const char * PSshaderName);
 		unsigned int mProgram;
 	};
 }

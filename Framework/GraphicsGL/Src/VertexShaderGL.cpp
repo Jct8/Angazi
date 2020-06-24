@@ -10,7 +10,7 @@ using namespace Angazi::Graphics;
 
 VertexShader::~VertexShader()
 {
-	//ASSERT(mVertexShader == nullptr, "[VertexShader] Terminate() must be called to clean up!");
+	ASSERT(!glIsProgram(mVertexShader), "[VertexShaderGL] Terminate() must be called to clean up!");
 }
 
 void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t vertextFormat, const char * shaderName)
@@ -83,7 +83,6 @@ void Angazi::Graphics::VertexShader::Terminate()
 void Angazi::Graphics::VertexShader::Bind()
 {
 	glUseProgramStages(GraphicsSystem::Get()->GetCurrentPipeline(), GL_VERTEX_SHADER_BIT, mVertexShader);
-
 }
 
 #endif

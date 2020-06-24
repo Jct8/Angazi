@@ -49,10 +49,10 @@ namespace Angazi::Graphics
 	private:
 		void InitializeInternal(const void * vertices, int vertexSize, int vertexCount, const uint32_t* indices, int indexCount, uint32_t vertextFormat, bool dynamic = false);
 
-		unsigned int mVertexBuffer;
-		unsigned int mIndexBuffer;
-		unsigned int mVertexArray;
-		unsigned int mTopology = GL_TRIANGLES;
+		uint32_t mVertexBuffer;
+		uint32_t mIndexBuffer;
+		uint32_t mVertexArray;
+		uint32_t mTopology = GL_TRIANGLES;
 
 		int mVertexCount = 0;
 		int mVertexSize = 0;

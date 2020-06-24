@@ -23,7 +23,7 @@ namespace Angazi::Graphics {
 		void BindPS(uint32_t slot = 0)  const;
 
 	private:
-		//ID3D11SamplerState* mSampler = nullptr;
+		uint32_t mSampler = 0;
 	};
 
 } // namespace PCEngine::Graphics

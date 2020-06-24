@@ -5,13 +5,7 @@
 using namespace Angazi;
 using namespace Angazi::Graphics;
 
-namespace
-{
-	const char * vsDefine = "#define COMPILING_VS\n";
-	const char * fsDefine = "#define COMPILING_FS\n";
-}
-
-void Shader::Initialize(const std::filesystem::path filePath)
+void Shader::Initialize(const std::filesystem::path filePath, const char * VSshaderName, const char * PSshaderName)
 {
 	mProgram = glCreateProgram();
 
@@ -20,20 +14,35 @@ void Shader::Initialize(const std::filesystem::path filePath)
 	buffer << file.rdbuf();
 	std::string fileContents = buffer.str();
 
-	std::vector<std::string> shaders = ParseShader(filePath);
+	std::vector<std::string> shaders = ParseShader(filePath, VSshaderName, PSshaderName);
 	std::string vsSource = shaders[0];
 	std::string fsSource = shaders[1];
 
-	unsigned int vs = CompileShader(GL_VERTEX_SHADER, vsSource);
-	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fsSource);
+	uint32_t vs = CompileShader(GL_VERTEX_SHADER, vsSource);
+	uint32_t fs = CompileShader(GL_FRAGMENT_SHADER, fsSource);
 
 	glAttachShader(mProgram, vs);
 	glAttachShader(mProgram, fs);
 	glLinkProgram(mProgram);
-	glValidateProgram(mProgram);
 
-	glDeleteShader(fs);
-	glDeleteShader(vs);
+	GLint isLinked = 0;
+	glGetProgramiv(mProgram, GL_LINK_STATUS, &isLinked);
+	if (isLinked == GL_FALSE)
+	{
+		GLint maxLength = 0;
+		glGetProgramiv(mProgram, GL_INFO_LOG_LENGTH, &maxLength);
+
+		// The maxLength includes the NULL character
+		std::vector<GLchar> infoLog(maxLength);
+		glGetProgramInfoLog(mProgram, maxLength, &maxLength, &infoLog[0]);
+
+		glDeleteProgram(mProgram);
+		glDeleteShader(vs);
+		glDeleteShader(fs);
+		ASSERT(isLinked, "[Shader] - Shader failed to link - %s", infoLog.data());
+	}
+	glDetachShader(mProgram, vs);
+	glDetachShader(mProgram, fs);
 }
 
 void Shader::Terminate()
@@ -44,6 +53,11 @@ void Shader::Terminate()
 void Shader::Bind()
 {
 	glUseProgram(mProgram);
+}
+
+Shader::~Shader()
+{
+	ASSERT(!glIsProgram(mProgram), "[Shader] Terminate() must be called to clean up!");
 }
 
 void Shader::SetUniform1i(const std::string name, int value)
@@ -84,7 +98,7 @@ void Shader::SetUniformMat4f(const std::string name, Math::Matrix4 mat)
 
 unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
 {
-	unsigned int id = glCreateShader(type);
+	uint32_t id = glCreateShader(type);
 	const char* src = source.c_str();
 
 	glShaderSource(id, 1, &src, nullptr);
@@ -95,20 +109,23 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
 	ASSERT(result, "Shader failed to compile.");
 	if (result == GL_FALSE)
 	{
-		int length;
-		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-		char *message = (char*)alloca(length * sizeof(char));
-		glGetShaderInfoLog(id, length, &length, message);
+		GLint maxLength = 0;
+		glGetProgramiv(id, GL_INFO_LOG_LENGTH, &maxLength);
+
+		std::vector<GLchar> infoLog(maxLength);
+		glGetProgramInfoLog(id, maxLength, &maxLength, &infoLog[0]);
+
 		glDeleteShader(id);
-		return 0;
+		ASSERT(result, "[Shader] - Shader failed to compile - %s:", infoLog.data());
 	}
 
 	return id;
 }
 
-std::vector<std::string> Shader::ParseShader(const std::filesystem::path & filepath)
+std::vector<std::string> Shader::ParseShader(const std::filesystem::path & filepath, const char * VSshaderName, const char * PSshaderName)
 {
 	std::ifstream stream(filepath);
+	ASSERT(stream, "[Shader] - Error Reading File");
 	std::vector<std::string> retVec;
 
 	enum class ShaderType
@@ -125,9 +142,9 @@ std::vector<std::string> Shader::ParseShader(const std::filesystem::path & filep
 	{
 		if (line.find("#shader") != std::string::npos)
 		{
-			if (line.find("VS") != std::string::npos)
+			if (line.find(VSshaderName) != std::string::npos)
 				type = ShaderType::VERTEX;
-			else if (line.find("PS") != std::string::npos)
+			else if (line.find(PSshaderName) != std::string::npos)
 				type = ShaderType::FRAGMENT;
 		}
 		else

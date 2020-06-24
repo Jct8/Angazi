@@ -59,7 +59,9 @@ namespace
 
 MeshBuffer::~MeshBuffer()
 {
-
+	ASSERT(!glIsBuffer(mVertexBuffer), "[MeshBufferGL] Terminate() must be called to clean up!");
+	ASSERT(!glIsBuffer(mIndexBuffer), "[MeshBufferGL] Terminate() must be called to clean up!");
+	ASSERT(!glIsVertexArray(mVertexArray) , "[MeshBufferGL] Terminate() must be called to clean up!");
 }
 
 void MeshBuffer::SetTopology(Topology topology)

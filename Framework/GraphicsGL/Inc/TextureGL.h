@@ -25,7 +25,6 @@ namespace Angazi::Graphics
 
 		uint32_t GetWidth() const { return mWidth; }
 		uint32_t GetHeight() const { return mHeight; }
-		//void Bind(const std::string &name,unsigned int slot = 0) const;
 	private:
 		uint32_t mTextureID;
 		uint32_t mWidth;
