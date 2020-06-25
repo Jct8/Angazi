@@ -97,7 +97,6 @@ void MeshBuffer::Draw() const
 {
 	if (mIndexCount > 0)
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
 		glBindVertexArray(mVertexArray);
 		glDrawElements(mTopology, mIndexCount, GL_UNSIGNED_INT, nullptr);
 	}
@@ -125,7 +124,7 @@ void MeshBuffer::InitializeInternal(const void * vertices, int vertexSize, int v
 	glBufferData(GL_ARRAY_BUFFER, vertexCount * vertexSize, vertices, drawType);
 	
 	auto vertexLayout = GetVertexLayout(vertexFormat);
-	UINT_PTR offset = 0;
+	uint32_t offset = 0;
 	for (size_t i = 0; i < vertexLayout.size(); i++)
 	{
 		glEnableVertexAttribArray(i);
@@ -140,6 +139,7 @@ void MeshBuffer::InitializeInternal(const void * vertices, int vertexSize, int v
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 	}
+	glBindVertexArray(0);
 }
 
 #endif

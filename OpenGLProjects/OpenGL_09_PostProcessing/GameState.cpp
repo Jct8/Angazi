@@ -56,7 +56,7 @@ void GameState::Initialize()
 	mScreenQuadBuffer.Initialize(mScreenQuad);
 
 	mPostProcessingVertexShader.Initialize("../../Assets/GLShaders/PostProcessing.glsl", VertexPX::Format);
-	mPostProcessingPixelShader.Initialize("../../Assets/GLShaders/PostProcessing.glsl");
+	mPostProcessingPixelShader.Initialize("../../Assets/GLShaders/PostProcessing.glsl","PSNoProcessing");
 
 
 	mMeshBuffer2.Initialize(MeshBuilder::CreateNDCQuad());
@@ -110,8 +110,12 @@ void GameState::Update(float deltaTime)
 
 	if (inputSystem->IsKeyDown(KeyCode::A))
 		mCamera.Strafe(-kMoveSpeed * deltaTime);
+	//mRotation += deltaTime;
 	if (inputSystem->IsKeyDown(KeyCode::D))
 		mCamera.Strafe(kMoveSpeed*deltaTime);
+	//mRotation -= deltaTime;
+
+	mCloudRotation += deltaTime * 0.005f;
 }
 
 void GameState::Render()

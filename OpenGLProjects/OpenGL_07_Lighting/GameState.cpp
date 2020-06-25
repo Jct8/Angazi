@@ -10,7 +10,7 @@ void GameState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
-	mCamera.SetPosition({ 0.0f, 0.0f,-4.0f });
+	mCamera.SetPosition({ 0.0f, 0.0f,-10.0f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
 	mMesh = MeshBuilder::CreateSphere(1.0f, 16, 16);
@@ -48,6 +48,7 @@ void GameState::Initialize()
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	mTexture.Initialize("../../Assets/Images/white.jpg");
 	mSpecularTexture.Initialize("../../Assets/Images/white.jpg");
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 void GameState::Terminate()
