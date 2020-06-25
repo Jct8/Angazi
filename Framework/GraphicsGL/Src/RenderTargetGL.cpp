@@ -10,109 +10,104 @@ using namespace Angazi::Graphics;
 
 namespace
 {
-	//DXGI_FORMAT GetFormats(RenderTarget::Format format)
-	//{
-	//	switch (format)
-	//	{
-	//	case Angazi::Graphics::RenderTarget::Format::RGBA_U8:	return DXGI_FORMAT_R8G8B8A8_UNORM;
-	//	case Angazi::Graphics::RenderTarget::Format::RGBA_F16:	return DXGI_FORMAT_R16G16B16A16_FLOAT;
-	//	case Angazi::Graphics::RenderTarget::Format::RGBA_U32:	return DXGI_FORMAT_R32G32B32A32_UINT;
-	//	case Angazi::Graphics::RenderTarget::Format::R_F16:		return DXGI_FORMAT_R16_FLOAT;
-	//	case Angazi::Graphics::RenderTarget::Format::R_S32:		return DXGI_FORMAT_R32_SINT;
-	//	default:
-	//		ASSERT(false, "[RenderTarget] Unsupported format %d", static_cast<uint32_t>(format));
-	//		break;
-	//	}
-	//	return DXGI_FORMAT_R8G8B8A8_UNORM;
-	//};
+	std::pair<uint32_t, uint32_t> GetFormats(RenderTarget::Format format)
+	{
+		switch (format)
+		{
+		case Angazi::Graphics::RenderTarget::Format::RGBA_U8:	return { GL_RGBA, GL_RGBA8 };
+		case Angazi::Graphics::RenderTarget::Format::RGBA_F16:	return { GL_RGBA, GL_RGBA16F };
+		case Angazi::Graphics::RenderTarget::Format::RGBA_U32:	return { GL_RGBA_INTEGER, GL_RGBA32UI };
+		case Angazi::Graphics::RenderTarget::Format::R_F16:		return { GL_RED, GL_R16F };
+		case Angazi::Graphics::RenderTarget::Format::R_S32:		return { GL_RED_INTEGER, GL_R32I};
+		default:
+			ASSERT(false, "[RenderTarget] Unsupported format %d", static_cast<uint32_t>(format));
+			break;
+		}
+		return { GL_RGBA, GL_RGBA8 };
+	};
 }
 
 RenderTarget::~RenderTarget()
 {
-	//ASSERT(mShaderResourceView == nullptr, "[RenderTarget] Render target not released!");
-	//ASSERT(mRenderTargetView == nullptr, "[RenderTarget] Render target not released!");
-	//ASSERT(mDepthStencilView == nullptr, "[RenderTarget] Render target not released!");
+	ASSERT(!glIsTexture(mShaderResource), "[RenderTargetGL] Terminate() must be called to clean up!");
+	ASSERT(!glIsFramebuffer(mRenderTarget), "[RenderTargetGL] Terminate() must be called to clean up!");
+	//ASSERT(!glIsTexture(mDepthStencil), "[RenderTargetGL] Terminate() must be called to clean up!");
+	ASSERT(!glIsRenderbuffer(mDepthStencil), "[RenderTargetGL] Terminate() must be called to clean up!");
 }
 
 void RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
 {
-	//D3D11_TEXTURE2D_DESC desc = {};
-	//desc.Width = width;
-	//desc.Height = height;
-	//desc.MipLevels = 1;
-	//desc.ArraySize = 1;
-	//desc.Format = GetFormats(format);
-	//desc.SampleDesc.Count = 1;
-	//desc.SampleDesc.Quality = 0;
-	//desc.Usage = D3D11_USAGE_DEFAULT;
-	//desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-	//desc.CPUAccessFlags = 0;
-	//desc.MiscFlags = 0;
+	auto textureFormat = GetFormats(format);
 
-	//auto device = GetDevice();
+	glBindTexture(GL_TEXTURE_2D, 0);
 
-	//ID3D11Texture2D* texture = nullptr;
-	//HRESULT hr = device->CreateTexture2D(&desc, nullptr, &texture);
-	//ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create render texture");
+	glCreateFramebuffers(1, &mRenderTarget);
+	glBindFramebuffer(GL_FRAMEBUFFER, mRenderTarget);
 
-	//hr = device->CreateShaderResourceView(texture, nullptr, &mShaderResourceView);
-	//ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to shader resourece view");
+	glCreateTextures(GL_TEXTURE_2D, 1, &mShaderResource);
+	glBindTexture(GL_TEXTURE_2D, mShaderResource);
+	glTexImage2D(GL_TEXTURE_2D, 0, textureFormat.second, width, height, 0, textureFormat.first, GL_UNSIGNED_BYTE, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mShaderResource, 0);
 
-	//hr = device->CreateRenderTargetView(texture, nullptr, &mRenderTargetView);
-	//ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create render target view");
-	//SafeRelease(texture);
+	glGenRenderbuffers(1, &mDepthStencil);
+	glBindRenderbuffer(GL_RENDERBUFFER, mDepthStencil);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height); 
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, mDepthStencil);
 
-	//desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	//desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	//glCreateTextures(GL_TEXTURE_2D, 1, &mDepthStencil);
+	//glBindTexture(GL_TEXTURE_2D, mDepthStencil);
+	//glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, width, height);
+	//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, mDepthStencil, 0);
 
-	//hr = device->CreateTexture2D(&desc, nullptr, &texture);
-	//ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create depth stencil texture");
+	ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer is incomplete!");
 
-	//hr = device->CreateDepthStencilView(texture, nullptr, &mDepthStencilView);
-	//ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create depth stencil view");
-	//SafeRelease(texture);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	//mViewport.TopLeftX = 0.0f;
-	//mViewport.TopLeftY = 0.0f;
-	//mViewport.Width = static_cast<float>(width);
-	//mViewport.Height = static_cast<float>(height);
-	//mViewport.MinDepth = 0.0f;
-	//mViewport.MaxDepth = 1.0f;
+	mViewportTopLeftX = 0;
+	mViewportTopLeftY = 0;
+	mViewportWidth = width;
+	mViewportHeight = height;
 }
 
 void RenderTarget::Terminate()
 {
-	//SafeRelease(mShaderResourceView);
-	//SafeRelease(mRenderTargetView);
-	//SafeRelease(mDepthStencilView);
+	glDeleteTextures(1, &mShaderResource);
+	glDeleteFramebuffers(1, &mRenderTarget);
+	glDeleteRenderbuffers(1, &mDepthStencil);
+	//glDeleteTextures(1, &mDepthStencil);
 }
 
 void RenderTarget::BeginRender()
 {
-	//float ClearColor[4] = { 0.5f,0.5f ,0.5f ,1.0f };// RGBA
+	glBindFramebuffer(GL_FRAMEBUFFER, mRenderTarget);
+	glEnable(GL_DEPTH_TEST);
 
-	//auto context = GetContext();
-	//context->ClearRenderTargetView(mRenderTargetView, ClearColor);
-	//context->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	//context->OMSetRenderTargets(1, &mRenderTargetView, mDepthStencilView);
-	//context->RSSetViewports(1, &mViewport);
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glViewport(mViewportTopLeftX, mViewportTopLeftY, mViewportWidth, mViewportHeight);
 }
 
 void RenderTarget::EndRender()
 {
-	//GraphicsSystem::Get()->ResetRenderTarget();
-	//GraphicsSystem::Get()->ResetViewport();
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glDisable(GL_DEPTH_TEST);
+
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	GraphicsSystem::Get()->ResetViewport();
 }
 
 void RenderTarget::BindPS(uint32_t slot) const
 {
-	//GetContext()->PSSetShaderResources(slot, 1, &mShaderResourceView);
+	glBindTextureUnit(slot, mShaderResource);
 }
 
 void RenderTarget::UnbindPS(uint32_t slot)
 {
-	//static ID3D11ShaderResourceView* dummy = nullptr;
-	//GetContext()->PSSetShaderResources(slot, 1, &dummy);
+	glBindTextureUnit(slot, 0);
 }
 
 #endif

@@ -46,6 +46,11 @@ namespace Angazi::Graphics
 		HDC hDeviceContext = NULL;
 		HGLRC glRenderingContext = NULL;
 
+		uint32_t mViewportWidth;
+		uint32_t mViewportHeight;
+		uint32_t mViewportTopLeftX;
+		uint32_t mViewportTopLeftY;
+
 		HWND myWindow;
 
 		Color mClearColor = Colors::White;

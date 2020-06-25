@@ -142,9 +142,11 @@ std::vector<std::string> Shader::ParseShader(const std::filesystem::path & filep
 	{
 		if (line.find("#shader") != std::string::npos)
 		{
-			if (line.find(VSshaderName) != std::string::npos)
+			size_t n = line.rfind(VSshaderName);
+			if (n != std::string::npos && line.substr(n) == VSshaderName)
 				type = ShaderType::VERTEX;
-			else if (line.find(PSshaderName) != std::string::npos)
+			n = line.rfind(PSshaderName);
+			if (n != std::string::npos && line.substr(n) == PSshaderName)
 				type = ShaderType::FRAGMENT;
 		}
 		else

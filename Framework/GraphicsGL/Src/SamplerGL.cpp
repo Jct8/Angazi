@@ -8,18 +8,18 @@ using namespace Angazi::Graphics;
 
 namespace
 {
-	uint32_t GetFilter(Sampler::Filter filter)
+	std::pair<uint32_t,uint32_t> GetFilter(Sampler::Filter filter)
 	{
 		switch (filter)
 		{
 		case Sampler::Filter::Point:
-			return GL_NEAREST_MIPMAP_NEAREST;
+			return { GL_NEAREST, GL_NEAREST_MIPMAP_NEAREST };
 		case Sampler::Filter::Linear:
-			return GL_LINEAR_MIPMAP_LINEAR;
+			return { GL_LINEAR , GL_LINEAR_MIPMAP_LINEAR };
 		case Sampler::Filter::Anisotropic:
-			return GL_TEXTURE_MAX_ANISOTROPY_EXT;
+			return { GL_LINEAR ,GL_LINEAR_MIPMAP_LINEAR};
 		}
-		return GL_NEAREST_MIPMAP_NEAREST;
+		return { GL_NEAREST,GL_NEAREST_MIPMAP_NEAREST };
 	}
 
 	uint32_t GetAddressMode(Sampler::AddressMode mode)
@@ -50,11 +50,24 @@ void Sampler::Initialize(Filter filter, AddressMode addressMode)
 	auto GLaddressMode = GetAddressMode(addressMode);
 
 	glGenSamplers(1, &mSampler);
-	glSamplerParameteri(mSampler, GL_TEXTURE_MIN_FILTER, GLfilter);
-	glSamplerParameteri(mSampler, GL_TEXTURE_MAG_FILTER, GLfilter);
+	glSamplerParameteri(mSampler, GL_TEXTURE_MAG_FILTER, GLfilter.first);
+	glSamplerParameteri(mSampler, GL_TEXTURE_MIN_FILTER, GLfilter.second);
+
+	float maxLOD = 0.0f;
+	glGetFloatv(GL_TEXTURE_MAX_LEVEL, &maxLOD);
+	glSamplerParameterf(mSampler, GL_TEXTURE_MIN_LOD, 0.0f);
+	glSamplerParameterf(mSampler, GL_TEXTURE_MAX_LOD, maxLOD);
+	glSamplerParameterf(mSampler, GL_TEXTURE_COMPARE_FUNC, GL_NEVER);
 
 	glSamplerParameteri(mSampler, GL_TEXTURE_WRAP_S, GLaddressMode);
 	glSamplerParameteri(mSampler, GL_TEXTURE_WRAP_T, GLaddressMode);
+
+	if (filter == Sampler::Filter::Anisotropic)
+	{
+		float aniso = 0.0f;
+		glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &aniso);
+		glSamplerParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, aniso);
+	}
 }
 
 void Sampler::Terminate()

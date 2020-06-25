@@ -25,7 +25,8 @@ void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t ve
 	{
 		if (line.find("#shader") != std::string::npos)
 		{
-			if (line.find(shaderName) != std::string::npos)
+			size_t n = line.rfind(shaderName);
+			if (n != std::string::npos && line.substr(n) == shaderName)
 				read = true;
 			else
 				read = false;

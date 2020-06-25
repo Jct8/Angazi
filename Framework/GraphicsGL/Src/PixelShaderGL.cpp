@@ -23,7 +23,8 @@ void PixelShader::Initialize(const std::filesystem::path& filePath, const char *
 	{
 		if (line.find("#shader") != std::string::npos)
 		{
-			if (line.find(shaderName) != std::string::npos)
+			size_t n = line.rfind(shaderName);
+			if (n != std::string::npos && line.substr(n) == shaderName)
 				read = true;
 			else
 				read = false;

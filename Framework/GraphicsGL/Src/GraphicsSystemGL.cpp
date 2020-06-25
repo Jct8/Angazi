@@ -122,8 +122,6 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 	Resize(width, height);
 	sWindowMessageHandler.Hook(window, GraphicsSystemMessageHandler);
 
-	glEnable(GL_DEPTH_TEST);
-
 	glGenProgramPipelines(1, &pipeline);
 	glBindProgramPipeline(pipeline);
 
@@ -146,14 +144,17 @@ void GraphicsSystem::Terminate()
 
 void GraphicsSystem::BeginRender()
 {
-	wglMakeCurrent(hDeviceContext, glRenderingContext);
+	//wglMakeCurrent(hDeviceContext, glRenderingContext);
 	glClearColor(mClearColor.x, mClearColor.y, mClearColor.z, mClearColor.w);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+
 	glLoadIdentity();
 }
 
 void GraphicsSystem::EndRender()
 {
+	glDisable(GL_DEPTH_TEST);
 	SwapBuffers(hDeviceContext);
 }
 
@@ -173,6 +174,12 @@ void GraphicsSystem::Resize(uint32_t width, uint32_t height)
 	//gluPerspective(45.0, 1.0 * (width / height), 1.0, 1000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	// Setup the viewport
+	mViewportWidth = GetBackBufferWidth();
+	mViewportHeight = GetBackBufferHeight();
+	mViewportTopLeftX = 0;
+	mViewportTopLeftY = 0;
 }
 
 void GraphicsSystem::ResetRenderTarget()
@@ -183,8 +190,7 @@ void GraphicsSystem::ResetRenderTarget()
 
 void GraphicsSystem::ResetViewport()
 {
-	ASSERT(false, "Not Implemented Yet!");
-	//mImmediateContext->RSSetViewports(1, &mViewport);
+	glViewport(mViewportTopLeftX, mViewportTopLeftY, mViewportWidth, mViewportHeight);
 }
 
 uint32_t GraphicsSystem::GetBackBufferWidth() const

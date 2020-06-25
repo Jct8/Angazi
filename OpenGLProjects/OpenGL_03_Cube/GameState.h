@@ -21,6 +21,7 @@ private:
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader mPixelShader;
 	Angazi::Graphics::Texture mTexture;
+	Angazi::Graphics::Sampler mSampler;
 
 	TransformData data;
 	TransformBuffer mTransformBuffer;

@@ -34,11 +34,14 @@ namespace Angazi::Graphics
 		void* GetShaderResourceView() const { /*return mShaderResourceView;*/ }
 
 	private:
-		//ID3D11ShaderResourceView* mShaderResourceView = nullptr;
-		//ID3D11RenderTargetView* mRenderTargetView = nullptr;
-		//ID3D11DepthStencilView* mDepthStencilView = nullptr;
-		//D3D11_VIEWPORT mViewport;
-		//D3D11_MAPPED_SUBRESOURCE mSubresource;
+		uint32_t mRenderTarget;
+		uint32_t mShaderResource;
+		uint32_t mDepthStencil;
+
+		uint32_t mViewportWidth;
+		uint32_t mViewportHeight;
+		uint32_t mViewportTopLeftX;
+		uint32_t mViewportTopLeftY;
 	};
 }
 

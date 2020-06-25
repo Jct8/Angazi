@@ -95,10 +95,12 @@ void GameState::Initialize()
 	mTexture.Initialize("../../Assets/Images/Goat.jpg");
 
 	mTransformBuffer.Initialize();
+	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 }
 
 void GameState::Terminate()
 {
+	mSampler.Terminate();
 	mTransformBuffer.Terminate();
 
 	mTexture.Terminate();
@@ -142,12 +144,14 @@ void GameState::Render()
 	mPixelShader.Bind();
 
 	mTexture.BindPS();
+
+	mSampler.BindVS(0);
+	mSampler.BindPS(0);
 	data.wvp = matWVP;
 	mTransformBuffer.Set(data);
 	mTransformBuffer.BindVS(0);
 
 	//glUseProgram(mProgram);
-	
 
 	mMeshBuffer.Draw();
 }
