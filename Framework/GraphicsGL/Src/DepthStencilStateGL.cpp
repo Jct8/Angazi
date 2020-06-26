@@ -12,33 +12,29 @@ DepthStencilState::~DepthStencilState()
 	//ASSERT(mDepthStencilState == nullptr, "DepthStencilState -- DepthStencil state not released!");
 }
 
-void DepthStencilState::Initialize(bool enableDepth)
+void DepthStencilState::Initialize(bool depthEnable, bool depthWrite)
 {
-	//D3D11_DEPTH_STENCIL_DESC depthStencilDesc{};
-	//depthStencilDesc.DepthEnable = enableDepth;
-	//depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	//depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
-
-	//auto device = GraphicsSystem::Get()->GetDevice();
-	//HRESULT hr = device->CreateDepthStencilState(&depthStencilDesc, &mDepthStencilState);
-	//ASSERT(SUCCEEDED(hr), "[DepthStencil] Failed to create depth stencil state");
+	mDepthEnabled = depthEnable;
+	mDepthWrite = depthWrite;
 }
 
 void DepthStencilState::Terminate()
 {
-	//SafeRelease(mDepthStencilState);
+	Clear();
 }
 
 void DepthStencilState::Set()
 {
-	//auto context = GraphicsSystem::Get()->GetContext();
-	//context->OMSetDepthStencilState(mDepthStencilState,0);
+	mDepthEnabled == true ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+	mDepthWrite == true ? glDepthMask(GL_TRUE): glDepthMask(GL_FALSE);
+	glDepthFunc(GL_LEQUAL);
 }
 
 void DepthStencilState::Clear()
 {
-	//auto context = GraphicsSystem::Get()->GetContext();
-	//context->OMSetDepthStencilState(nullptr,0);
+	glDisable(GL_DEPTH_TEST);
+	glDepthMask(GL_FALSE);
+	glDepthFunc(GL_LESS);
 }
 
 #endif

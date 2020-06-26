@@ -49,7 +49,8 @@ void GameState::Initialize()
 	mClouds.Initialize("../../Assets/Images/earth_clouds.jpg");
 
 	mBlendState.Initialize(BlendState::Mode::Additive);
-	
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 }
 
 void GameState::Terminate()

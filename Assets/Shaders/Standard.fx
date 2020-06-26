@@ -32,7 +32,7 @@ cbuffer SettingsBuffer : register(b3)
 	float brightness : packoffset(c1.x);
 	bool useShadow : packoffset(c1.y);
 	float depthBias : packoffset(c1.z);
-	bool isSkinnedMesh : packoffset(c1.w);
+	float isSkinnedMesh : packoffset(c1.w);
 }
 
 cbuffer ShadowBuffer : register(b4)
@@ -142,7 +142,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 normal = worldNormal;
 	if (normalMapWeight != 0.0f)
 	{
-		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal, };
+		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal};
 		float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
 		float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
 		normal = mul(normalSampled, TBNW);

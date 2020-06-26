@@ -4,7 +4,6 @@
 #ifdef ENABLE_DIRECTX11
 
 #include "GraphicsSystemDX11.h"
-//#include "GraphicsSystem.h"
 
 using namespace Angazi::Graphics;
 
@@ -13,16 +12,16 @@ DepthStencilState::~DepthStencilState()
 	ASSERT(mDepthStencilState == nullptr, "DepthStencilState -- DepthStencil state not released!");
 }
 
-void DepthStencilState::Initialize(bool enableDepth)
+void DepthStencilState::Initialize(bool depthEnable, bool depthWrite)
 {
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc{};
-	depthStencilDesc.DepthEnable = enableDepth;
-	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depthStencilDesc.DepthEnable = depthEnable ? TRUE : FALSE;
+	depthStencilDesc.DepthWriteMask = depthWrite ? D3D11_DEPTH_WRITE_MASK_ALL : D3D11_DEPTH_WRITE_MASK_ZERO;
 	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 
 	auto device = GraphicsSystem::Get()->GetDevice();
 	HRESULT hr = device->CreateDepthStencilState(&depthStencilDesc, &mDepthStencilState);
-	ASSERT(SUCCEEDED(hr), "[DepthStencil] Failed to create depth stencil state");
+	ASSERT(SUCCEEDED(hr), "DepthStencilState -- Failed to create depth stencil state.");
 }
 
 void DepthStencilState::Terminate()

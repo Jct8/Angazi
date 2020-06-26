@@ -9,31 +9,31 @@ using namespace Angazi::Graphics;
 
 namespace
 {
-	//inline D3D11_CULL_MODE GetCullMode(RasterizerState::CullMode cullMode)
-	//{
-	//	switch (cullMode)
-	//	{
-	//	case RasterizerState::CullMode::Front:
-	//		return D3D11_CULL_FRONT;
-	//	case RasterizerState::CullMode::Back:
-	//		return D3D11_CULL_BACK;
-	//	case RasterizerState::CullMode::None:
-	//		return D3D11_CULL_NONE;
-	//	}
-	//	return D3D11_CULL_NONE;
-	//};
+	inline uint32_t GetCullMode(RasterizerState::CullMode cullMode)
+	{
+		switch (cullMode)
+		{
+		case RasterizerState::CullMode::Front:
+			return GL_FRONT;
+		case RasterizerState::CullMode::Back:
+			return GL_BACK;
+		case RasterizerState::CullMode::None:
+			return GL_NONE;
+		}
+		return GL_NONE;
+	};
 
-	//inline D3D11_FILL_MODE GetFillMode(RasterizerState::FillMode fillMode)
-	//{
-	//	switch (fillMode)
-	//	{
-	//	case RasterizerState::FillMode::Solid:
-	//		return D3D11_FILL_SOLID;
-	//	case RasterizerState::FillMode::Wireframe:
-	//		return D3D11_FILL_WIREFRAME;
-	//	}
-	//	return D3D11_FILL_WIREFRAME;
-	//};
+	inline uint32_t GetFillMode(RasterizerState::FillMode fillMode)
+	{
+		switch (fillMode)
+		{
+		case RasterizerState::FillMode::Solid:
+			return GL_FILL;
+		case RasterizerState::FillMode::Wireframe:
+			return GL_LINE;
+		}
+		return GL_LINE;
+	};
 }
 
 RasterizerState::~RasterizerState()
@@ -43,32 +43,27 @@ RasterizerState::~RasterizerState()
 
 void RasterizerState::Initialize(CullMode cullMode, FillMode fillMode)
 {
-	//D3D11_RASTERIZER_DESC desc{};
-	//desc.CullMode = GetCullMode(cullMode);
-	//desc.FillMode = GetFillMode(fillMode);
-	//desc.DepthClipEnable = true;
-	//desc.MultisampleEnable = true;
-
-	//auto device = GraphicsSystem::Get()->GetDevice();
-	//HRESULT hr = device->CreateRasterizerState(&desc, &mRasterizerState);
-	//ASSERT(SUCCEEDED(hr), "RasterizerState -- Failed to create rasterizer state.");
+	mCullMode = cullMode;
+	mFillMode = fillMode;
 }
 
 void RasterizerState::Terminate()
 {
-	//SafeRelease(mRasterizerState);
+
 }
 
 void RasterizerState::Set()
 {
-	//auto context = GraphicsSystem::Get()->GetContext();
-	//context->RSSetState(mRasterizerState);
+	glCullFace(GetCullMode(mCullMode));
+	glEnable(GL_CULL_FACE);
+	glPolygonMode(GL_FRONT_AND_BACK, GetFillMode(mFillMode));
 }
 
 void RasterizerState::Clear()
 {
-	//auto context = GraphicsSystem::Get()->GetContext();
-	//context->RSSetState(nullptr);
+	glCullFace(GetCullMode(CullMode::None));
+	glDisable(GL_CULL_FACE);
+	glPolygonMode(GL_FRONT_AND_BACK, GetFillMode(FillMode::Solid));
 }
 
 #endif

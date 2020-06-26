@@ -23,6 +23,8 @@ namespace Angazi::Graphics
 
 	private:
 		//ID3D11RasterizerState* mRasterizerState = nullptr;
+		FillMode mFillMode = FillMode::Solid;
+		CullMode mCullMode = CullMode::Front;
 	};
 }
 

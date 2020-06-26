@@ -56,18 +56,11 @@ void GameState::Initialize()
 	mScreenQuadBuffer.Initialize(mScreenQuad);
 
 	mPostProcessingVertexShader.Initialize("../../Assets/GLShaders/PostProcessing.glsl", VertexPX::Format);
-	mPostProcessingPixelShader.Initialize("../../Assets/GLShaders/PostProcessing.glsl","PSNoProcessing");
-
-
-	mMeshBuffer2.Initialize(MeshBuilder::CreateNDCQuad());
-
+	mPostProcessingPixelShader.Initialize("../../Assets/GLShaders/PostProcessing.glsl");
 }
 
 void GameState::Terminate()
 {
-
-	mMeshBuffer2.Terminate();
-
 	mPostProcessingPixelShader.Terminate();
 	mPostProcessingVertexShader.Terminate();
 	mScreenQuadBuffer.Terminate();

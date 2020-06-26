@@ -13,14 +13,14 @@ namespace Angazi::Graphics
 		DepthStencilState(const DepthStencilState&) = delete;
 		DepthStencilState& operator=(const DepthStencilState&) = delete;
 
-		void Initialize(bool depthEnabled);
+		void Initialize(bool depthEnable, bool depthWrite);
 		void Terminate();
 
 		void Set();
 		void Clear();
 
 	private:
-		ID3D11DepthStencilState* mDepthStencilState =  nullptr;
+		ID3D11DepthStencilState* mDepthStencilState = nullptr;
 	};
 }
 

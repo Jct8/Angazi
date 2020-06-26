@@ -37,7 +37,7 @@ void Skybox::CreateSkybox()
 
 	// Render States
 	mRasterizerState.Initialize(RasterizerState::CullMode::None, RasterizerState::FillMode::Solid);
-	mDepthStencilState.Initialize(true);
+	mDepthStencilState.Initialize(true,true);
 
 	//MeshBuffer
 	mBoxBuffer.Initialize(MeshBuilder::CreateInnerCubeP());

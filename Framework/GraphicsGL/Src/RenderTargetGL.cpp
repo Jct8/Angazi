@@ -82,7 +82,7 @@ void RenderTarget::Terminate()
 void RenderTarget::BeginRender()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, mRenderTarget);
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -92,11 +92,10 @@ void RenderTarget::BeginRender()
 void RenderTarget::EndRender()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST);
 
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	GraphicsSystem::Get()->ResetViewport();
 }
 
