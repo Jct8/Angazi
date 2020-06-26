@@ -11,6 +11,14 @@ public:
 	void Render() override;
 
 private:
+	struct TransformData
+	{
+		Angazi::Math::Matrix4 wvp;
+	};
+	using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
+	TransformData data;
+	TransformBuffer mTransformBuffer;
+
 	Angazi::Graphics::VertexShader mVertexShader;
 	Angazi::Graphics::PixelShader mPixelShader;
 	Angazi::Graphics::Texture mTexture;

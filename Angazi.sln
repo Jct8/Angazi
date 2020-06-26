@@ -107,21 +107,21 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12_HelloEarth", "VGP330\12_
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GLShaders", "GLShaders", "{656D39BF-13D7-4767-BC6F-2FD4A27FB46A}"
 	ProjectSection(SolutionItems) = preProject
-		Assets\GLShaders\Basic.glsl = Assets\GLShaders\Basic.glsl
-		Assets\GLShaders\Camera.glsl = Assets\GLShaders\Camera.glsl
-		Assets\GLShaders\Color.glsl = Assets\GLShaders\Color.glsl
 		Assets\GLShaders\DepthMap.glsl = Assets\GLShaders\DepthMap.glsl
+		Assets\GLShaders\DoFlatShading.glsl = Assets\GLShaders\DoFlatShading.glsl
+		Assets\GLShaders\DoGouraudShading.glsl = Assets\GLShaders\DoGouraudShading.glsl
+		Assets\GLShaders\DoNothing.glsl = Assets\GLShaders\DoNothing.glsl
+		Assets\GLShaders\DoPhongPointShading.glsl = Assets\GLShaders\DoPhongPointShading.glsl
+		Assets\GLShaders\DoPhongShading.glsl = Assets\GLShaders\DoPhongShading.glsl
+		Assets\GLShaders\DoSomething.glsl = Assets\GLShaders\DoSomething.glsl
+		Assets\GLShaders\DoTexturing.glsl = Assets\GLShaders\DoTexturing.glsl
+		Assets\GLShaders\DoTransform.glsl = Assets\GLShaders\DoTransform.glsl
 		Assets\GLShaders\Earth.glsl = Assets\GLShaders\Earth.glsl
-		Assets\GLShaders\FlatShading.glsl = Assets\GLShaders\FlatShading.glsl
-		Assets\GLShaders\GouraudShading.glsl = Assets\GLShaders\GouraudShading.glsl
-		Assets\GLShaders\PhongShading.glsl = Assets\GLShaders\PhongShading.glsl
-		Assets\GLShaders\PhongShadingPoint.glsl = Assets\GLShaders\PhongShadingPoint.glsl
 		Assets\GLShaders\PostProcessing.glsl = Assets\GLShaders\PostProcessing.glsl
 		Assets\GLShaders\SimpleDraw.glsl = Assets\GLShaders\SimpleDraw.glsl
 		Assets\GLShaders\Skybox.glsl = Assets\GLShaders\Skybox.glsl
 		Assets\GLShaders\Standard.glsl = Assets\GLShaders\Standard.glsl
 		Assets\GLShaders\Terrain.glsl = Assets\GLShaders\Terrain.glsl
-		Assets\GLShaders\Texturing.glsl = Assets\GLShaders\Texturing.glsl
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "13_HelloPostProcessing", "VGP330\13_HelloPostProcessing\13_HelloPostProcessing.vcxproj", "{18211E6E-4B6E-4175-9438-D7F603F39BAE}"

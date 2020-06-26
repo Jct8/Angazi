@@ -86,7 +86,7 @@ out vec4 FragColor;
 
 layout(std140, binding = 0) uniform TransformBuffer
 {
-    mat4 World;
+	mat4 World;
 	mat4 WVP;
 	vec3 ViewPosition;
 };
@@ -175,12 +175,12 @@ out vec2 outTexCoord;
 
 out gl_PerVertex
 {
-    vec4 gl_Position;
+	vec4 gl_Position;
 };
 
 layout(std140, binding = 0) uniform TransformBuffer
 {
-    mat4 World;
+	mat4 World;
 	mat4 WVP;
 	vec3 ViewPosition;
 };

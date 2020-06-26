@@ -18,8 +18,8 @@ void GameState::Initialize()
 
 	mMeshBuffer.Initialize(mMeshPC);
 
-	mVertexShader.Initialize("../../Assets/GLShaders/Color.glsl", VertexPC::Format);
-	mPixelShader.Initialize("../../Assets/GLShaders/Color.glsl");
+	mVertexShader.Initialize("../../Assets/GLShaders/DoSomething.glsl", VertexPC::Format);
+	mPixelShader.Initialize("../../Assets/GLShaders/DoSomething.glsl");
 }
 
 void GameState::Terminate()

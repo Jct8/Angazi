@@ -16,10 +16,8 @@ void GameState::Initialize()
 	mMeshBufferSphere.Initialize(MeshBuilder::CreateSpherePX(2, 32, 32));
 	mMeshBufferDome.Initialize(MeshBuilder::CreateSpherePX(60, 32, 32, false));
 
-	mVertexShader.Initialize("../../Assets/GLShaders/Camera.glsl", VertexPX::Format);
-	mPixelShader.Initialize("../../Assets/GLShaders/Camera.glsl");
-
-	
+	mVertexShader.Initialize("../../Assets/GLShaders/DoTexturing.glsl", VertexPX::Format);
+	mPixelShader.Initialize("../../Assets/GLShaders/DoTexturing.glsl");
 
 	mPlanetTextures.resize(10);
 	mSelfRotationSpeed.resize(10);

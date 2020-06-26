@@ -83,8 +83,8 @@ void GameState::Initialize()
 
 	mMeshBuffer.Initialize(MeshBuilder::CreateCubePX(), VertexPX::Format);
 
-	mVertexShader.Initialize("../../Assets/GLShaders/Camera.glsl", VertexPX::Format);
-	mPixelShader.Initialize("../../Assets/GLShaders/Camera.glsl");
+	mVertexShader.Initialize("../../Assets/GLShaders/DoTransform.glsl", VertexPX::Format);
+	mPixelShader.Initialize("../../Assets/GLShaders/DoTransform.glsl");
 	//mProgram = glCreateProgram();
 
 	//glAttachShader(mProgram, mVertexShader.GetId());

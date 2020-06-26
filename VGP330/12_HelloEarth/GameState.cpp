@@ -101,8 +101,6 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-	auto context = GraphicsSystem::Get()->GetContext();
-
 	auto matTrans = Matrix4::Translation({-1.0f,0.0f,0.0f});
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 	auto matWorld = matRot * matTrans;

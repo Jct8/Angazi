@@ -78,7 +78,7 @@ void Skybox::CreateSkybox()
 	mTexture.Initialize(fileNames);
 
 	// Render States
-	mRasterizerState.Initialize(RasterizerState::CullMode::None, RasterizerState::FillMode::Solid);
+	mRasterizerState.Initialize(RasterizerState::CullMode::Front, RasterizerState::FillMode::Solid);
 	mDepthStencilState.Initialize(true, true);
 
 	//MeshBuffer

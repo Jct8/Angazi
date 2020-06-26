@@ -401,7 +401,6 @@ void GameState::DrawScene()
 
 	if (usingClothTexture)
 	{
-		auto context = GraphicsSystem::Get()->GetContext();
 		mConstantBuffer.BindVS();
 
 		mVertexShader.Bind();

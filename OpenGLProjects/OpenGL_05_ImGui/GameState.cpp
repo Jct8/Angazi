@@ -13,8 +13,8 @@ void GameState::Initialize()
 
 	mMeshBuffer.Initialize(MeshBuilder::CreateCubePX());
 
-	mVertexShader.Initialize("../../Assets/GLShaders/Camera.glsl",VertexPX::Format);
-	mPixelShader.Initialize("../../Assets/GLShaders/Camera.glsl");
+	mVertexShader.Initialize("../../Assets/GLShaders/DoTransform.glsl",VertexPX::Format);
+	mPixelShader.Initialize("../../Assets/GLShaders/DoTransform.glsl");
 
 	mTexture.Initialize("../../Assets/Images/Goat.jpg");
 	mTransformBuffer.Initialize();

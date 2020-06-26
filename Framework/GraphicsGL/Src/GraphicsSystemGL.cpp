@@ -126,7 +126,7 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 	glBindProgramPipeline(pipeline);
 
 	glCullFace(GL_FRONT);
-	glEnable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
 
 	LOG("OpenGL version supported by this platform: (%s)", glGetString(GL_VERSION));
 	LOG("Vendor: (%s)", glGetString(GL_VENDOR));

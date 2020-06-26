@@ -13,7 +13,18 @@ PixelShader::~PixelShader()
 
 void PixelShader::Initialize(const std::filesystem::path& filePath, const char * shaderName)
 {
-	std::ifstream stream(filePath);
+	std::filesystem::path defaultFilePathName = "../../Assets/GLShaders/";
+	if (filePath.extension() != "glsl")
+	{
+		defaultFilePathName.append(filePath.stem().string());
+		defaultFilePathName.replace_extension("glsl");
+	}
+	else
+	{
+		defaultFilePathName = filePath;
+	}
+
+	std::ifstream stream(defaultFilePathName);
 	ASSERT( stream , "[PixelShaderGL] - Error Reading File");
 
 	std::string line;

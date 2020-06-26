@@ -14,14 +14,8 @@ namespace
 	public:
 		void Initialize(uint32_t maxVertexCount)
 		{
-#ifdef ENABLE_DIRECTX11
 			mVertexShader.Initialize("../../Assets/Shaders/SimpleDraw.fx", VertexPC::Format);
 			mPixelShader.Initialize("../../Assets/Shaders/SimpleDraw.fx");
-#endif // ENABLE_DIRECTX
-#ifdef ENABLE_OPENGL
-			mVertexShader.Initialize("../../Assets/GLShaders/SimpleDraw.glsl", VertexPC::Format);
-			mPixelShader.Initialize("../../Assets/GLShaders/SimpleDraw.glsl");
-#endif // ENABLE_OPENGL
 			mConstantBuffer.Initialize(sizeof(Math::Matrix4));
 			mMeshBuffer.Initialize<VertexPC>(nullptr, maxVertexCount, true);
 			mLineVertices = std::make_unique<VertexPC[]>(maxVertexCount);

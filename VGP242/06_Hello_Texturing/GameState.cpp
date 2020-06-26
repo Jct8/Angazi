@@ -127,8 +127,6 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-	auto context = GraphicsSystem::Get()->GetContext();
-
 	auto matWorld = Matrix4::RotationY(mRotation);
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();

@@ -15,7 +15,18 @@ VertexShader::~VertexShader()
 
 void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t vertextFormat, const char * shaderName)
 {
-	std::ifstream stream(filePath);
+	std::filesystem::path defaultFilePathName = "../../Assets/GLShaders/";
+	if (filePath.extension() != "glsl")
+	{
+		defaultFilePathName.append(filePath.stem().string());
+		defaultFilePathName.replace_extension("glsl");
+	}
+	else
+	{
+		defaultFilePathName = filePath;
+	}
+
+	std::ifstream stream(defaultFilePathName);
 	ASSERT(stream, "[VertexShaderGL] - Error Reading File");
 
 	std::string line;

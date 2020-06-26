@@ -33,17 +33,17 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f };
 	mMaterial.power = 80.0f;
 
-	mGouraudShadingVertexShader.Initialize("../../Assets/GLShaders/GouraudShading.glsl", VertexPN::Format);
-	mGouraudShadingPixelShader.Initialize("../../Assets/GLShaders/GouraudShading.glsl");
+	mGouraudShadingVertexShader.Initialize("../../Assets/GLShaders/DoGouraudShading.glsl", VertexPN::Format);
+	mGouraudShadingPixelShader.Initialize("../../Assets/GLShaders/DoGouraudShading.glsl");
 
-	mPhongShadingVertexShader.Initialize("../../Assets/GLShaders/PhongShading.glsl", Vertex::Format);
-	mPhongShadingPixelShader.Initialize("../../Assets/GLShaders/PhongShading.glsl");
+	mPhongShadingVertexShader.Initialize("../../Assets/GLShaders/DoPhongShading.glsl", Vertex::Format);
+	mPhongShadingPixelShader.Initialize("../../Assets/GLShaders/DoPhongShading.glsl");
 
-	mPointPhongShadingVertexShader.Initialize("../../Assets/GLShaders/PhongShadingPoint.glsl", Vertex::Format);
-	mPointPhongShadingPixelShader.Initialize("../../Assets/GLShaders/PhongShadingPoint.glsl");
+	mPointPhongShadingVertexShader.Initialize("../../Assets/GLShaders/DoPhongShadingPoint.glsl", Vertex::Format);
+	mPointPhongShadingPixelShader.Initialize("../../Assets/GLShaders/DoPhongShadingPoint.glsl");
 
-	mFlatShadingVertexShader.Initialize("../../Assets/GLShaders/FlatShading.glsl", VertexPN::Format);
-	mFlatShadingPixelShader.Initialize("../../Assets/GLShaders/FlatShading.glsl");
+	mFlatShadingVertexShader.Initialize("../../Assets/GLShaders/DoFlatShading.glsl", VertexPN::Format);
+	mFlatShadingPixelShader.Initialize("../../Assets/GLShaders/DoFlatShading.glsl");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	mTexture.Initialize("../../Assets/Images/white.jpg");
