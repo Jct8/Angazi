@@ -82,12 +82,12 @@ void GameState::Initialize()
 	mScale[8] = 1.0f;
 	mScale[9] = 0.3f;
 
-	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Back);
-	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Front);
-	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Left);
-	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Right);
-	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Top);
-	mSkybox.AddTexture("../../Assets/Images/Skybox/space.png", Skybox::Bottom);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/back.png", Skybox::Back);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/front.png", Skybox::Front);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/left.png", Skybox::Left);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/right.png", Skybox::Right);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/top.png", Skybox::Top);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/bottom.png", Skybox::Bottom);
 	mSkybox.CreateSkybox();
 }
 

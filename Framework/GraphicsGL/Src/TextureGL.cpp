@@ -55,10 +55,10 @@ void Texture::Initialize(const std::vector<std::filesystem::path>& cubeSides)
 	int width, height, nrChannels;
 	for (size_t i = 0; i < cubeSides.size(); i++)
 	{
-		stbi_uc *data = stbi_load(cubeSides[i].u8string().c_str(), &width, &height, &nrChannels, 0);
+		stbi_uc *data = stbi_load(cubeSides[i].u8string().c_str(), &width, &height, &nrChannels, STBI_rgb_alpha);
 		if (data)
 		{
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 			stbi_image_free(data);
 		}
 		else

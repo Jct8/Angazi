@@ -19,14 +19,16 @@ void GameState::Initialize()
 	mVertexShader.Initialize("../../Assets/GLShaders/Camera.glsl", VertexPX::Format);
 	mPixelShader.Initialize("../../Assets/GLShaders/Camera.glsl");
 
+	
+
+	mPlanetTextures.resize(10);
+	mSelfRotationSpeed.resize(10);
+	mRotationSpeed.resize(10);
+	mScale.resize(10);
+	mTranslation.resize(10);
+	mMoonTextures.resize(10);
 	for (int i = 0; i < 10; i++)
 	{
-		mPlanetTextures.emplace_back();
-		mSelfRotationSpeed.emplace_back();
-		mRotationSpeed.emplace_back();
-		mScale.emplace_back();
-		mTranslation.emplace_back();
-		mMoonTextures.emplace_back();
 		mMoonTextures[i].Initialize("../../Assets/Images/Moon.jpg");
 	}
 
@@ -77,10 +79,21 @@ void GameState::Initialize()
 	mScale[9] = 0.3f;
 
 	mTransformBuffer.Initialize();
+
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/back.png", Skybox::Back);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/front.png", Skybox::Front);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/left.png", Skybox::Left);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/right.png", Skybox::Right);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/top.png", Skybox::Top);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/bottom.png", Skybox::Bottom);
+	mSkybox.CreateSkybox();
 }
 
 void GameState::Terminate()
 {
+	mSkybox.Terminate();
+
+
 	mTransformBuffer.Terminate();
 	for (size_t i = 0; i < mPlanetTextures.size(); i++)
 	{
@@ -93,6 +106,7 @@ void GameState::Terminate()
 	mDomeTexture.Terminate();
 	mMeshBufferSphere.Terminate();
 	mMeshBufferDome.Terminate();
+
 }
 
 void GameState::Update(float deltaTime)
@@ -167,5 +181,8 @@ void GameState::Render()
 	mTransformBuffer.BindVS(0);
 
 	mDomeTexture.BindPS(0);
-	mMeshBufferDome.Draw();
+	//mMeshBufferDome.Draw();
+
+	mSkybox.Draw(mCamera);
+
 }
