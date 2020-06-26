@@ -20,8 +20,15 @@ void Terrain::Initialize(uint32_t numRows, uint32_t numCols, float cellSize)
 	mCellSize = cellSize;
 
 	mConstantBuffer.Initialize();
+
+#ifdef ENABLE_DIRECTX11
 	mTerrainVertexShader.Initialize("../../Assets/Shaders/Terrain.fx", Graphics::Vertex::Format);
 	mTerrainPixelShader.Initialize("../../Assets/Shaders/Terrain.fx");
+#endif
+#ifdef ENABLE_OPENGL
+	mTerrainVertexShader.Initialize("../../Assets/GLShaders/Terrain.glsl", Graphics::Vertex::Format);
+	mTerrainPixelShader.Initialize("../../Assets/GLShaders/Terrain.glsl");
+#endif
 
 	mSampler.Initialize(Graphics::Sampler::Filter::Anisotropic, Graphics::Sampler::AddressMode::Wrap);
 	mGrassTexture.Initialize("../../Assets/Images/grass_2048.jpg");

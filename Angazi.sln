@@ -118,7 +118,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GLShaders", "GLShaders", "{
 		Assets\GLShaders\PhongShadingPoint.glsl = Assets\GLShaders\PhongShadingPoint.glsl
 		Assets\GLShaders\PostProcessing.glsl = Assets\GLShaders\PostProcessing.glsl
 		Assets\GLShaders\SimpleDraw.glsl = Assets\GLShaders\SimpleDraw.glsl
+		Assets\GLShaders\Skybox.glsl = Assets\GLShaders\Skybox.glsl
 		Assets\GLShaders\Standard.glsl = Assets\GLShaders\Standard.glsl
+		Assets\GLShaders\Terrain.glsl = Assets\GLShaders\Terrain.glsl
 		Assets\GLShaders\Texturing.glsl = Assets\GLShaders\Texturing.glsl
 	EndProjectSection
 EndProject
@@ -173,6 +175,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_09_PostProcessing", "OpenGLProjects\OpenGL_09_PostProcessing\OpenGL_09_PostProcessing.vcxproj", "{2258ACD7-F825-4833-AA4F-8A69A9C24E5B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_10_Shadow_Mapping", "OpenGLProjects\OpenGL_10_Shadow_Mapping\OpenGL_10_Shadow_Mapping.vcxproj", "{F080A294-9EA3-43CF-B2E0-08F7CE2887CD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_11_Terrain", "OpenGLProjects\OpenGL_11_Terrain\OpenGL_11_Terrain.vcxproj", "{B71224EA-8FC0-486F-A8DB-CBAA6917B351}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_12_Animation", "OpenGLProjects\OpenGL_12_Animation\OpenGL_12_Animation.vcxproj", "{D297552F-9509-44A9-A3F2-B3C1980D9046}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1050,6 +1056,38 @@ Global
 		{F080A294-9EA3-43CF-B2E0-08F7CE2887CD}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{F080A294-9EA3-43CF-B2E0-08F7CE2887CD}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{F080A294-9EA3-43CF-B2E0-08F7CE2887CD}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.Debug|x64.ActiveCfg = Debug|x64
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.Debug|x64.Build.0 = Debug|x64
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.Debug|x86.ActiveCfg = Debug|Win32
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.Debug|x86.Build.0 = Debug|Win32
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.MinSizeRel|x64.Build.0 = Release|x64
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.MinSizeRel|x86.Build.0 = Release|Win32
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.Release|x64.ActiveCfg = Release|x64
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.Release|x64.Build.0 = Release|x64
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.Release|x86.ActiveCfg = Release|Win32
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.Release|x86.Build.0 = Release|Win32
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.Debug|x64.ActiveCfg = Debug|x64
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.Debug|x64.Build.0 = Debug|x64
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.Debug|x86.ActiveCfg = Debug|Win32
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.Debug|x86.Build.0 = Debug|Win32
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.MinSizeRel|x64.Build.0 = Release|x64
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.MinSizeRel|x86.Build.0 = Release|Win32
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.Release|x64.ActiveCfg = Release|x64
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.Release|x64.Build.0 = Release|x64
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.Release|x86.ActiveCfg = Release|Win32
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.Release|x86.Build.0 = Release|Win32
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{D297552F-9509-44A9-A3F2-B3C1980D9046}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1111,12 +1149,14 @@ Global
 		{14DFE596-0E29-49DE-8F5E-3D23841C98C1} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{2258ACD7-F825-4833-AA4F-8A69A9C24E5B} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{F080A294-9EA3-43CF-B2E0-08F7CE2887CD} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
+		{B71224EA-8FC0-486F-A8DB-CBAA6917B351} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
+		{D297552F-9509-44A9-A3F2-B3C1980D9046} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 54
+		SccNumberOfProjects = 56
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1332,5 +1372,13 @@ Global
 		SccProjectTopLevelParentUniqueName53 = Angazi.sln
 		SccProjectName53 = OpenGLProjects/OpenGL_10_Shadow_Mapping
 		SccLocalPath53 = OpenGLProjects\\OpenGL_10_Shadow_Mapping
+		SccProjectUniqueName54 = OpenGLProjects\\OpenGL_11_Terrain\\OpenGL_11_Terrain.vcxproj
+		SccProjectTopLevelParentUniqueName54 = Angazi.sln
+		SccProjectName54 = OpenGLProjects/OpenGL_11_Terrain
+		SccLocalPath54 = OpenGLProjects\\OpenGL_11_Terrain
+		SccProjectUniqueName55 = OpenGLProjects\\OpenGL_12_Animation\\OpenGL_12_Animation.vcxproj
+		SccProjectTopLevelParentUniqueName55 = Angazi.sln
+		SccProjectName55 = OpenGLProjects/OpenGL_12_Animation
+		SccLocalPath55 = OpenGLProjects\\OpenGL_12_Animation
 	EndGlobalSection
 EndGlobal

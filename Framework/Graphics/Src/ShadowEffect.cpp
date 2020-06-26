@@ -34,7 +34,7 @@ void ShadowEffect::Initialize(const std::filesystem::path & fileName)
 	constexpr uint32_t depthMapSize = 8000;//4096;
 	auto graphicsSystem = GraphicsSystem::Get();
 	//mDepthMapRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
-	mDepthMapRenderTarget.Initialize(depthMapSize, depthMapSize, RenderTarget::Format::RGBA_U32);
+	mDepthMapRenderTarget.Initialize(depthMapSize, depthMapSize, RenderTarget::Format::RGBA_U8);
 	mDepthMapVertexShader.Initialize(fileName, BoneVertex::Format);
 	mDepthMapPixelShader.Initialize(fileName);
 	mDepthMapConstantBuffer.Initialize();

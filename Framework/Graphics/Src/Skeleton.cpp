@@ -18,13 +18,13 @@ namespace
 			auto direction = childPosition - bonePosition;
 			//SimpleDraw::AddLine(bonePosition, childPosition, Colors::AliceBlue);
 			//SimpleDraw::AddCone(bonePosition, Normalize(direction), Magnitude(direction), 1.0f, Colors::AliceBlue);
-			//SimpleDraw::AddBone(bonePosition, direction, Colors::AliceBlue, scale *0.01f, true);
+			SimpleDraw::AddBone(bonePosition, direction, Colors::AliceBlue, scale *0.01f, true);
 			//SimpleDraw::AddTransform(boneMatrices[bone->index]);
 			DrawBone(bone->children[i], boneMatrices, scale);
 		}
 		if (j == 14)
 		{
-			SimpleDraw::AddTransform(boneMatrices[bone->index]);
+			//SimpleDraw::AddTransform(boneMatrices[bone->index]);
 			//Math::Vector3 childPosition = GetTranslation(boneMatrices[bone->children[0]->index]);
 			//auto direction =  bonePosition - childPosition;
 			//SimpleDraw::AddBone(bonePosition, direction, Colors::AliceBlue, scale *0.01f, true);
@@ -59,7 +59,7 @@ void Angazi::Graphics::UpdateBoneMatrices(Bone* bone, std::vector<Math::Matrix4>
 		UpdateBoneMatrices(bone->children[i], boneMatrices, applyOffset, clip, time);
 
 	if (applyOffset)
-		boneMatrices[bone->index] = Math::Transpose(bone->offsetTransform * boneMatrices[bone->index]);
+		boneMatrices[bone->index] = Math::Transpose(bone->offsetTransform * boneMatrices[bone->index] );
 }
 
 void Angazi::Graphics::UpdateBoneMatrices(Bone* bone, std::vector<Math::Matrix4>& boneMatrices,

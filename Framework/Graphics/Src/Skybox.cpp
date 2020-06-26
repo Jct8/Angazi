@@ -41,12 +41,16 @@ void Skybox::CreateSkybox()
 
 	//MeshBuffer
 	mBoxBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
-	//mBoxBuffer.Initialize(MeshBuilder::CreatePlanePX( 100, 100));
 
 	// Shaders
+#ifdef ENABLE_DIRECTX11
 	mVertexShader.Initialize("../../Assets/Shaders/Skybox.fx", VertexP::Format);
 	mPixelShader.Initialize("../../Assets/Shaders/Skybox.fx");
-
+#endif
+#ifdef ENABLE_OPENGL
+	mVertexShader.Initialize("../../Assets/GLShaders/Skybox.glsl", VertexP::Format);
+	mPixelShader.Initialize("../../Assets/GLShaders/Skybox.glsl");
+#endif
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	mTransformBuffer.Initialize();
 }
