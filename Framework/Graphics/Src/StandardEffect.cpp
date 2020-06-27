@@ -16,6 +16,7 @@ void StandardEffect::Initialize(const std::filesystem::path & fileName)
 	mSettingsBuffer.Initialize();
 	mShadowConstantBuffer.Initialize();
 	mBoneTransformBuffer.Initialize();
+	mClippingConstantBuffer.Initialize();
 
 	// Shaders
 	mVertexShader.Initialize(fileName, BoneVertex::Format);
@@ -36,6 +37,7 @@ void StandardEffect::Terminate()
 	mVertexShader.Terminate();
 
 	// Constant Buffers
+	mClippingConstantBuffer.Terminate();
 	mBoneTransformBuffer.Terminate();
 	mShadowConstantBuffer.Terminate();
 	mSettingsBuffer.Terminate();
@@ -66,6 +68,7 @@ void StandardEffect::Begin()
 	mSettingsBuffer.BindPS(3);
 	mShadowConstantBuffer.BindVS(4);
 	mBoneTransformBuffer.BindVS(5);
+	mClippingConstantBuffer.BindVS(6);
 
 	// Maps
 	mDiffuseMap.BindPS(0);
@@ -89,6 +92,7 @@ void StandardEffect::End()
 	mSettingsBuffer.UnbindPS(3);
 	mShadowConstantBuffer.UnbindVS(4);
 	mBoneTransformBuffer.UnbindVS(5);
+	mClippingConstantBuffer.UnbindVS(6);
 
 	// Textures
 	mDiffuseMap.UnbindPS(0);
@@ -130,6 +134,12 @@ void StandardEffect::SetBoneTransforms(const std::vector<Math::Matrix4>& boneTra
 		mBoneTransform.boneTransforms[i] = boneTransforms[i];
 	}
 	mBoneTransformBuffer.Update(&mBoneTransform);
+}
+
+void StandardEffect::SetClippingPlane(const Math::Vector4& plane) 
+{ 
+	mClipping.plane = plane; 
+	mClippingConstantBuffer.Set(mClipping);
 }
 
 void StandardEffect::SetDiffuseTexture(const std::filesystem::path & fileName)

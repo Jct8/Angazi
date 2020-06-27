@@ -30,3 +30,4 @@
 #include "StandardEffect.h"
 #include "TextureManager.h"
 #include "VertexTypes.h"
+#include "WaterEffect.h"

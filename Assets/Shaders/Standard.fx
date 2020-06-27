@@ -45,6 +45,11 @@ cbuffer BoneTransformBuffer : register(b5)
 	matrix boneTransforms[256];
 }
 
+cbuffer ClippingBuffer : register(b6)
+{
+	float4 clippingPlane;
+}
+
 Texture2D diffuseMap : register(t0);
 Texture2D specularMap : register(t1);
 Texture2D displacementMap : register(t2);
@@ -94,6 +99,7 @@ struct VS_OUTPUT
 	float3 dirToView : TEXCOORD2;
 	float2 texCoord	: TEXCOORD3;
 	float4 positionNDC : TEXCOORD4;
+	float clip : SV_ClipDistance0;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
@@ -101,7 +107,7 @@ VS_OUTPUT VS(VS_INPUT input)
 	VS_OUTPUT output;
 
 	float displacement = displacementMap.SampleLevel(textureSampler, input.texCoord, 0).x;
-	float3 localPosition = input.position + (input.normal * displacement * bumpMapWeight);
+	float3 localPosition = input.position + (input.normal.xyz * displacement * bumpMapWeight);
 
 	matrix toRoot = GetBoneTransform(input.blendIndices, input.blendWeights);
 	matrix toWorld = mul(toRoot, World);
@@ -109,8 +115,8 @@ VS_OUTPUT VS(VS_INPUT input)
 	matrix toNDCLight = mul(toRoot, WVPLight);
 	
 	float3 worldPosition = mul(float4(localPosition, 1.0f), toWorld).xyz;
-	float3 worldNormal = mul(input.normal, (float3x3) toWorld);
-	float3 worldTangent = mul(input.tangent, (float3x3) toWorld);
+	float3 worldNormal = mul(input.normal.xyz, (float3x3) toWorld);
+	float3 worldTangent = mul(input.tangent.xyz, (float3x3) toWorld);
 
 	output.position = mul(float4(localPosition, 1.0f), toNDC);
 	output.worldNormal = worldNormal;
@@ -121,6 +127,8 @@ VS_OUTPUT VS(VS_INPUT input)
 
 	if(useShadow)
 		output.positionNDC = mul(float4(localPosition, 1.0f), toNDCLight);
+
+	output.clip = dot(mul(float4(input.position, 1.0f), World), clippingPlane);
 
 	return output;
 }

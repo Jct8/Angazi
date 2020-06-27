@@ -78,21 +78,20 @@ void Skybox::CreateSkybox()
 	mTexture.Initialize(fileNames);
 
 	// Render States
+#ifdef ENABLE_DIRECTX11
+	mRasterizerState.Initialize(RasterizerState::CullMode::Back, RasterizerState::FillMode::Solid);
+#endif
+#ifdef ENABLE_OPENGL
 	mRasterizerState.Initialize(RasterizerState::CullMode::Front, RasterizerState::FillMode::Solid);
-	mDepthStencilState.Initialize(true, true);
+#endif
+	mDepthStencilState.Initialize(true, false);
 
 	//MeshBuffer
 	mBoxBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
 
 	// Shaders
-#ifdef ENABLE_DIRECTX11
 	mVertexShader.Initialize("../../Assets/Shaders/Skybox.fx", VertexP::Format);
 	mPixelShader.Initialize("../../Assets/Shaders/Skybox.fx");
-#endif
-#ifdef ENABLE_OPENGL
-	mVertexShader.Initialize("../../Assets/GLShaders/Skybox.glsl", VertexP::Format);
-	mPixelShader.Initialize("../../Assets/GLShaders/Skybox.glsl");
-#endif
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	mTransformBuffer.Initialize();
 }
@@ -137,4 +136,5 @@ void Skybox::Draw(const Angazi::Graphics::Camera & camera)
 
 	mBoxBuffer.Draw();
 	mRasterizerState.Clear();
+	mDepthStencilState.Clear();
 }

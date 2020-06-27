@@ -28,31 +28,18 @@ cbuffer SettingsBuffer : register(b3)
 	float specularMapWeight : packoffset(c0.x);
 	float bumpMapWeight : packoffset(c0.y);
 	float normalMapWeight : packoffset(c0.z);
-	float aoWeight : packoffset(c0.w);
-	float brightness : packoffset(c1.x);
-	bool useShadow : packoffset(c1.y);
-	float depthBias : packoffset(c1.z);
-	float movement : packoffset(c1.w);
-	float movementSpeed : packoffset(c2.x);
+	float brightness : packoffset(c0.w);
+	float movement : packoffset(c1.x);
+	float movementSpeed : packoffset(c1.y);
 }
-cbuffer ShadowBuffer : register(b4)
-{
-	matrix WVPLight;
-}
-
-//cbuffer ClippingBuffer : register(b5)
-//{
-//	float4 clippingPlane;
-//}
 
 Texture2D diffuseMap : register(t0);
 Texture2D specularMap : register(t1);
 Texture2D displacementMap : register(t2);
 Texture2D normalMap : register(t3);
-Texture2D aoMap : register(t4);
-Texture2D depthMap : register(t5);
-Texture2D refractionMap : register(t6);
-Texture2D reflectionMap : register(t7);
+Texture2D refractionMap : register(t4);
+Texture2D reflectionMap : register(t5);
+//Texture2D depthMap : register(t6);
 
 SamplerState textureSampler : register(s0);
 

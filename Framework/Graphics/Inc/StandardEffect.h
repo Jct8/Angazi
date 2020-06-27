@@ -31,6 +31,8 @@ namespace Angazi::Graphics
 
 		void SetBoneTransforms(const std::vector<Math::Matrix4>& boneTransforms);
 
+		void SetClippingPlane(const Math::Vector4& plane);
+
 		void SetDiffuseTexture(const std::filesystem::path& fileName);
 		void SetNormalTexture(const std::filesystem::path& fileName);
 		void SetSpecularTexture(const std::filesystem::path& fileName);
@@ -49,7 +51,7 @@ namespace Angazi::Graphics
 		void SetBumpMapWeight(float weight) { mSettings.bumpMapWeight = weight; }
 		void SetNormalMapWeight(float weight) { mSettings.normalMapWeight = weight; }
 		void SetAOWeight(float weight) { mSettings.aoMapWeight = weight; }
-		void SetBrightness(float brightness) { mSettings.brightness = 0.0f; };
+		void SetBrightness(float brightness) { mSettings.brightness = brightness; };
 		void SetDepthBias(float bias) { mSettings.depthBias = bias; };
 
 		void UseShadow(bool use) { mSettings.useShadow = use == true ? 1 : 0; };
@@ -85,22 +87,30 @@ namespace Angazi::Graphics
 			Math::Matrix4 boneTransforms[256];
 		};
 
+		struct Clipping
+		{
+			Angazi::Math::Vector4 plane = 0.0f;
+		};
+
 		using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
 		using LightBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::DirectionalLight>;
 		using MaterialBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Graphics::Material>;
 		using SettingsBuffer = Angazi::Graphics::TypedConstantBuffer<Settings>;
 		using ShadowConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;
 		using BoneTransformBuffer = Angazi::Graphics::TypedConstantBuffer<BoneTransform>;
+		using ClippingConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Clipping>;
 
 		TransformBuffer mTransformBuffer;
 		LightBuffer mLightBuffer;
 		MaterialBuffer mMaterialBuffer;
 		SettingsBuffer mSettingsBuffer;
 		BoneTransformBuffer mBoneTransformBuffer;
+		ClippingConstantBuffer mClippingConstantBuffer;
 
 		Settings mSettings;
 		TransformData transformData;
 		BoneTransform mBoneTransform;
+		Clipping mClipping;
 
 		Angazi::Graphics::VertexShader mVertexShader;
 		Angazi::Graphics::PixelShader  mPixelShader;
