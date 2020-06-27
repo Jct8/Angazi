@@ -5,10 +5,11 @@
 
 #include <ImGui/Inc/imgui.h>
 #include <ImGui/Inc/imgui_impl_opengl3.h>
-#include <ImGui/Inc/imgui_impl_win32.h>
+#include <ImGui/Inc/imgui_impl_win32_opengl.h>
 #include "GraphicsSystemGL.h"
+#include "GLUtil.h"
 
-extern IMGUI_IMPL_API LRESULT  ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+extern IMGUI_IMPL_API LRESULT  ImGui_ImplWin32_opengl_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 using namespace Angazi::Core;
 using namespace Angazi::Graphics;
@@ -150,12 +151,12 @@ LRESULT CALLBACK DebugUIMessageHandler(HWND window, UINT message, WPARAM wParam,
 	ImGuiIO& io = ImGui::GetIO();
 
 	if (io.WantCaptureMouse && IsMouseInput(message))
-		return ImGui_ImplWin32_WndProcHandler(window, message, wParam, lParam);
+		return ImGui_ImplWin32_opengl_WndProcHandler(window, message, wParam, lParam);
 
 	if (io.WantCaptureKeyboard && IsKeyboardInput(message))
-		return ImGui_ImplWin32_WndProcHandler(window, message, wParam, lParam);
+		return ImGui_ImplWin32_opengl_WndProcHandler(window, message, wParam, lParam);
 
-	LRESULT result = ImGui_ImplWin32_WndProcHandler(window, message, wParam, lParam);
+	LRESULT result = ImGui_ImplWin32_opengl_WndProcHandler(window, message, wParam, lParam);
 	if (result != 0)
 		return result;
 
@@ -164,6 +165,7 @@ LRESULT CALLBACK DebugUIMessageHandler(HWND window, UINT message, WPARAM wParam,
 
 void DebugUI::StaticInitialize(HWND window, bool docking, bool multiViewport)
 {
+
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
@@ -173,7 +175,7 @@ void DebugUI::StaticInitialize(HWND window, bool docking, bool multiViewport)
 	if (multiViewport)
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-	ImGui_ImplWin32_Init(window);
+	ImGui_ImplWin32_opengl_Init(window,GetContext());
 	const char* glslVersion = "#version 450";
 	ImGui_ImplOpenGL3_Init(glslVersion);
 
@@ -187,7 +189,7 @@ void DebugUI::StaticTerminate()
 	sWindowMessageHandler.Unhook();
 
 	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplWin32_Shutdown();
+	ImGui_ImplWin32_opengl_Shutdown();
 	ImGui::DestroyContext();
 }
 
@@ -213,7 +215,7 @@ void DebugUI::SetTheme(Theme theme)
 void DebugUI::BeginRender()
 {
 	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplWin32_NewFrame();
+	ImGui_ImplWin32_opengl_NewFrame();
 	ImGui::NewFrame();
 }
 
@@ -227,8 +229,8 @@ void DebugUI::EndRender()
 	{
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();
+		wglMakeCurrent(GetDevice(), GetContext());
 	}
-
 }
 
 #endif

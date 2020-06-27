@@ -164,6 +164,7 @@
     <ClInclude Include="Inc\imgui_impl_dx11.h" />
     <ClInclude Include="Inc\imgui_impl_opengl3.h" />
     <ClInclude Include="Inc\imgui_impl_win32.h" />
+    <ClInclude Include="Inc\imgui_impl_win32_opengl.h" />
     <ClInclude Include="Inc\imstb_rectpack.h" />
     <ClInclude Include="Inc\imstb_textedit.h" />
     <ClInclude Include="Inc\imstb_truetype.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Src\imgui_impl_dx11.cpp" />
     <ClCompile Include="Src\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Src\imgui_impl_win32.cpp" />
+    <ClCompile Include="Src\imgui_impl_win32_opengl.cpp" />
     <ClCompile Include="Src\imgui_widgets.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

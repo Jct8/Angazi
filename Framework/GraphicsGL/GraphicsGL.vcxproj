@@ -173,9 +173,11 @@
     <ClInclude Include="Inc\TextureGL.h" />
     <ClInclude Include="Inc\UniformBuffer.h" />
     <ClInclude Include="Inc\VertexShaderGL.h" />
+    <ClInclude Include="Src\GLUtil.h" />
     <ClInclude Include="Src\Precompiled.h" />
     <ClCompile Include="Src\BlendStateGL.cpp" />
     <ClCompile Include="Src\DepthStencilStateGL.cpp" />
+    <ClCompile Include="Src\GLUtil.cpp" />
     <ClCompile Include="Src\RasterizerStateGL.cpp" />
     <ClCompile Include="Src\RenderTargetGL.cpp" />
     <ClCompile Include="Src\SamplerGL.cpp" />

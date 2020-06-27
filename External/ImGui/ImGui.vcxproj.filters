@@ -36,6 +36,9 @@
     <ClInclude Include="Inc\imgui_impl_opengl3.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\imgui_impl_win32_opengl.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\imgui.cpp">
@@ -57,6 +60,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\imgui_impl_opengl3.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\imgui_impl_win32_opengl.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
