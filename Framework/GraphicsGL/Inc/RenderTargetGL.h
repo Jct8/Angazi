@@ -29,7 +29,9 @@ namespace Angazi::Graphics
 		void EndRender();
 
 		void BindPS(uint32_t slot) const;
-		void UnbindPS(uint32_t slot);
+		void BindDepthPS(uint32_t slot) const;
+
+		void UnbindPS(uint32_t slot) const;
 
 		void* GetShaderResourceView() const { return reinterpret_cast<void*>(static_cast<intptr_t>(mShaderResource)); }
 

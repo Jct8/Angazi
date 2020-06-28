@@ -120,6 +120,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GLShaders", "GLShaders", "{
 		Assets\GLShaders\Skybox.glsl = Assets\GLShaders\Skybox.glsl
 		Assets\GLShaders\Standard.glsl = Assets\GLShaders\Standard.glsl
 		Assets\GLShaders\Terrain.glsl = Assets\GLShaders\Terrain.glsl
+		Assets\GLShaders\Water.glsl = Assets\GLShaders\Water.glsl
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "13_HelloPostProcessing", "VGP330\13_HelloPostProcessing\13_HelloPostProcessing.vcxproj", "{18211E6E-4B6E-4175-9438-D7F603F39BAE}"

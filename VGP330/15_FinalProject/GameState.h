@@ -36,7 +36,6 @@ private:
 
 	//Textures
 	Angazi::Graphics::Sampler mSampler;;
-	Angazi::Graphics::BlendState mBlendState;
 
 	Angazi::Math::Vector3 mRotation = 0.0f;
 	Angazi::Math::Vector3 mTranslation = 0.0f;
@@ -66,4 +65,5 @@ private:
 	float waterBrightness = 1.7f;
 	float waterMovementSpeed = 0.020f;
 	float waterDisplacement = 0.165f;
+	float waterReflectionPower = 0.5f;
 };

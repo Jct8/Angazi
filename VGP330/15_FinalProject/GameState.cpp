@@ -27,7 +27,6 @@ void GameState::Initialize()
 	mMaterial.power = 80.0f;
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mBlendState.Initialize(BlendState::Mode::Additive);
 
 	// Post Processing
 	auto graphicsSystem = GraphicsSystem::Get();
@@ -64,6 +63,7 @@ void GameState::Initialize()
 	mWaterEffect.SetBrightness(waterBrightness);
 	mWaterEffect.SetWaterDisplacement(waterDisplacement);
 	mWaterEffect.SetMovementSpeed(waterMovementSpeed);
+	mWaterEffect.SetReflectivePower(waterReflectionPower);
 
 	mSkybox.CreateSkybox();
 }
@@ -83,7 +83,6 @@ void GameState::Terminate()
 	mScreenQuadBuffer.Terminate();
 	mRenderTarget.Terminate();
 	//
-	mBlendState.Terminate();
 	mSampler.Terminate();
 
 	mPlaneMeshBuffer.Terminate();
@@ -120,7 +119,6 @@ void GameState::Render()
 	mWaterEffect.BeginRefraction();
 	DrawScene(RenderType::Refraction);
 	mWaterEffect.EndRefraction();
-
 
 	/////Reflection///////
 	mWaterEffect.BeginReflection(mCamera,mTranslation.y);
@@ -189,16 +187,18 @@ void GameState::DebugUI()
 		static bool normal = true;
 		static bool specular = true;
 		static bool aoMap = true;
-		if(ImGui::SliderFloat("Displacement", &waterDisplacement, 0.0f, 1.0f))
-			mWaterEffect.SetWaterDisplacement(waterDisplacement);
 		if (ImGui::Checkbox("Normal Map", &normal))
 			mWaterEffect.SetNormalMapWeight(normal ? 1.0f : 0.0f);
 		if (ImGui::Checkbox("Specular Map", &specular))
 			mWaterEffect.SetSpecularMapWeight(specular ? 1.0f : 0.0f);
+		if(ImGui::SliderFloat("Displacement", &waterDisplacement, 0.0f, 1.0f))
+			mWaterEffect.SetWaterDisplacement(waterDisplacement);
 		if(ImGui::SliderFloat("Brightness", &waterBrightness, 0.0f, 10.f))
 			mWaterEffect.SetBrightness(waterBrightness);
 		if (ImGui::SliderFloat("Movement Speed", &waterMovementSpeed, 0.0001f, 0.1f))
 			mWaterEffect.SetMovementSpeed(waterMovementSpeed);
+		if (ImGui::SliderFloat("Reflective Factor", &waterReflectionPower, 0.0f, 10.0f))
+			mWaterEffect.SetReflectivePower(waterReflectionPower);
 	}
 	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{
@@ -222,10 +222,10 @@ void GameState::DrawScene(RenderType rendertype)
 	switch (rendertype)
 	{
 	case GameState::Reflection:
-		mClippingPlane = { 0.0f, 1.0f,0.0f, -mTranslation.y }; // Cull Down
+		mClippingPlane = { 0.0f, 1.0f,0.0f, -mTranslation.y + 0.4f }; // Cull Down
 		break;
 	case GameState::Refraction:
-		mClippingPlane = { 0.0f, -1.0f,0.0f, mTranslation.y }; // Cull Up
+		mClippingPlane = { 0.0f, -1.0f,0.0f, mTranslation.y + 0.4f }; // Cull Up
 		break;
 	default:
 		mClippingPlane = { 0.0f, 0.0f,0.0f,0.0f }; // No Cull
@@ -257,10 +257,8 @@ void GameState::DrawScene(RenderType rendertype)
 		//mWaterEffect.UpdateShadowBuffer(wvpLight);
 		mWaterEffect.UpdateSettings();
 
-		mBlendState.Bind();
 		mPlaneMeshBuffer.Draw();
 		mWaterEffect.End();
-		mBlendState.ClearState();
 	}
 
 	//Tank

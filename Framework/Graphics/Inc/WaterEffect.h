@@ -55,6 +55,7 @@ namespace Angazi::Graphics
 		void SetBrightness(float brightness) { mSettings.brightness = brightness; };
 		void SetMovement(float movement) { mSettings.movement = movement; };
 		void SetMovementSpeed(float movementSpeed) { mSettings.movementSpeed = movementSpeed; };
+		void SetReflectivePower(float reflectivePower) { mSettings.reflectivePower = reflectivePower; };
 
 		void UpdateSettings() { mSettingsBuffer.Update(&mSettings); };
 
@@ -77,7 +78,8 @@ namespace Angazi::Graphics
 			float brightness = 1.0f;
 			float movement = 0.0f;
 			float movementSpeed = 0.005f;
-			float padding[2];
+			float reflectivePower = 0.5f;
+			float padding[1];
 		};
 
 		using TransformBuffer = Angazi::Graphics::TypedConstantBuffer<TransformData>;
@@ -97,6 +99,7 @@ namespace Angazi::Graphics
 		Angazi::Graphics::VertexShader mVertexShader;
 		Angazi::Graphics::PixelShader  mPixelShader;
 		Angazi::Graphics::Sampler mSampler;
+		Angazi::Graphics::BlendState mBlendState;
 
 		Angazi::Graphics::Texture mDiffuseMap;
 		Angazi::Graphics::Texture mSpecularMap;

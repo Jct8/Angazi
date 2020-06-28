@@ -25,7 +25,6 @@ namespace Angazi::Graphics
 		void Terminate();
 
 		void Bind() const;
-
 	private:
 		Mode mBlendState = Mode::Opaque;
 	};

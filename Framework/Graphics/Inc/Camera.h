@@ -43,7 +43,7 @@ namespace Angazi::Graphics
 
 		float mFov = 60.0f * Math::Constants::DegToRad;
 		float mAspectRatio = 0.0f;
-		float mNearPlane = 1.0f;
+		float mNearPlane = 0.1f;
 		float mFarPlane = 10000.0f;
 };
 

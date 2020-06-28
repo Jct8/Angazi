@@ -4,8 +4,6 @@ layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec4 aNormal;
 layout (location = 2) in vec4 aTangent;
 layout (location = 3) in vec2 aTexCoord;
-layout (location = 4) in ivec4 aBlendIndices;
-layout (location = 5) in vec4 aBlendWeights;
 
 out vec3 outWorldNormal;
 out vec3 outWorldTangent;
@@ -13,11 +11,11 @@ out vec3 outDirToLight;
 out vec3 outDirToView;
 out vec2 outTexCoord;
 out vec4 outPositionNDC;
+out vec4 outPositionScreen;
 
 out gl_PerVertex
 {
 	vec4 gl_Position;
-	float gl_ClipDistance;
 };
 
 layout(std140, binding = 0) uniform TransformBuffer
@@ -48,80 +46,41 @@ layout(std140, binding = 3) uniform SettingsBuffer
 	float specularMapWeight;
 	float bumpMapWeight;
 	float normalMapWeight;
-	float aoWeight;
 	float brightness;
-	bool useShadow;
-	float depthBias;
-	float isSkinnedMesh;
+	float movement;
+	float movementSpeed;
+	float reflectivePower;
 };
-
-layout(std140, binding = 4) uniform ShadowBuffer 
-{
-	mat4x4 WVPLight;
-};
-
-layout(std140, binding = 5) uniform BoneTransformBuffer 
-{
-	mat4x4 boneTransforms[256];
-};
-
-layout(std140, binding = 6) uniform ClippingBuffer 
-{
-	vec4 clippingPlane;
-};
-
-mat4 Identity = mat4
-	(1.0, 0.0, 0.0, 0.0,
-	 0.0, 1.0, 0.0, 0.0,
-	 0.0, 0.0, 1.0, 0.0,
-	 0.0, 0.0, 0.0, 1.0); 
-
-mat4 GetBoneTransform(ivec4 indices, vec4 weights)
-{
-	if (length(weights) <= 0.0f || isSkinnedMesh == 0.0f)
-		return Identity;
-
-	mat4 transform;
-	transform = boneTransforms[indices[0]] * weights[0];
-	transform += boneTransforms[indices[1]] * weights[1];
-	transform += boneTransforms[indices[2]] * weights[2];
-	transform += boneTransforms[indices[3]] * weights[3];
-	return transform;
-}
 
 layout(binding = 0) uniform sampler2D diffuseMap;
 layout(binding = 1) uniform sampler2D specularMap;
 layout(binding = 2) uniform sampler2D displacementMap;
 layout(binding = 3) uniform sampler2D normalMap;
-layout(binding = 4) uniform sampler2D aoMap;
-layout(binding = 5) uniform sampler2D depthMap;
+layout(binding = 4) uniform sampler2D refractionMap;
+layout(binding = 5) uniform sampler2D reflectionMap;
+layout(binding = 6) uniform sampler2D depthMap;
 
 void main()
 {
-	float displacement =  texture(displacementMap, aTexCoord,0).x;
+	float xCoord = aTexCoord.x + movement;
+	if (xCoord > 1.0f)
+		xCoord -= 1.0f;
+
+	float displacement =  texture(displacementMap, vec2(xCoord, aTexCoord.y), 1).r * 2.0f - 1.0f;
 	vec3 localPosition = aPos + (aNormal.xyz * displacement * bumpMapWeight);
+	vec3 worldPosition = (vec4(localPosition, 1.0f)* World).xyz;
+	vec3 worldNormal = aNormal.xyz* mat3x3(World);
+	vec3 worldTangent = aTangent.xyz* mat3x3(World);
 
-	mat4 toRoot = GetBoneTransform(aBlendIndices, aBlendWeights);
-	mat4 toWorld = toRoot* World;
-	mat4 toNDC = toRoot * WVP;
-	mat4 toNDCLight = toRoot * WVPLight;
+	vec4 outPos = vec4(localPosition, 1.0f) * WVP;
+	outPositionScreen= vec4(aPos, 1.0f) * WVP;
 
-	vec3 worldPosition = (vec4(localPosition, 1.0f) * toWorld).xyz;
-	vec3 worldNormal = aNormal.xyz * mat3x3(toWorld);
-	vec3 worldTangent = aTangent.xyz * mat3x3(toWorld);
-
-	vec4 outPos = vec4(localPosition, 1.0f) * toNDC;
 	outWorldNormal = worldNormal;
 	outWorldTangent = worldTangent;
 	outDirToLight = -LightDirection;
 	outDirToView = normalize(ViewPosition - worldPosition);
 	outTexCoord = aTexCoord;
-
-	if(useShadow)
-		outPositionNDC = vec4(localPosition, 1.0f) * toNDCLight;
-
-	gl_ClipDistance = dot(vec4(aPos, 1.0f)* World, clippingPlane);
-	gl_Position = outPos;
+	gl_Position = outPos; 
 }
 
 #shader PS
@@ -133,12 +92,13 @@ in vec3 outDirToLight;
 in vec3 outDirToView;
 in vec2 outTexCoord;
 in vec4 outPositionNDC;
+in vec4 outPositionScreen;
 
 out vec4 FragColor;
 
 layout(std140, binding = 0) uniform TransformBuffer
 {
-    mat4 World;
+	mat4 World;
 	mat4 WVP;
 	vec3 ViewPosition;
 };
@@ -164,34 +124,19 @@ layout(std140, binding = 3) uniform SettingsBuffer
 	float specularMapWeight;
 	float bumpMapWeight;
 	float normalMapWeight;
-	float aoWeight;
 	float brightness;
-	bool useShadow;
-	float depthBias;
-	bool isSkinnedMesh;
-};
-
-layout(std140, binding = 4) uniform ShadowBuffer 
-{
-	mat4x4 WVPLight;
-};
-
-layout(std140, binding = 5) uniform BoneTransformBuffer 
-{
-	mat4x4 boneTransforms[256];
-};
-
-layout(std140, binding = 6) uniform ClippingBuffer 
-{
-	vec4 clippingPlane;
+	float movement;
+	float movementSpeed;
+	float reflectivePower;
 };
 
 layout(binding = 0) uniform sampler2D diffuseMap;
 layout(binding = 1) uniform sampler2D specularMap;
 layout(binding = 2) uniform sampler2D displacementMap;
 layout(binding = 3) uniform sampler2D normalMap;
-layout(binding = 4) uniform sampler2D aoMap;
-layout(binding = 5) uniform sampler2D depthMap;
+layout(binding = 4) uniform sampler2D refractionMap;
+layout(binding = 5) uniform sampler2D reflectionMap;
+layout(binding = 6) uniform sampler2D depthMap;
 
 void main()
 {
@@ -201,19 +146,42 @@ void main()
 	vec3 dirToLight = normalize(outDirToLight);
 	vec3 dirToView = normalize(outDirToView);
 
+	vec2 ndc = (outPositionScreen.xy / outPositionScreen.w) *0.5f +0.5f;
+	vec2 UVReflect = ndc;
+	vec2 UVRefraction = ndc;
+	UVReflect.y = 1.0f - UVReflect.y;
+
+	// Water Depth
+	float near = 0.1f;
+	float far = 10000.0f;
+	float depth = texture(depthMap,UVRefraction).r;
+	float floorDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+	depth = gl_FragCoord.z;
+	float waterDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+	float waterDepth = floorDistance - waterDistance;
+
+	float xCoord = outTexCoord.x + movement;
+	if (xCoord > 1.0f)
+		xCoord -= 1.0f;
+	float yCoord = outTexCoord.y + movement;
+	if (yCoord > 1.0f)
+		yCoord -= 1.0f;
+
+	vec2 displacementCoords = (texture(displacementMap, vec2(xCoord, outTexCoord.y), 1).rg * 2.0f - 1.0f) * movementSpeed;
+	displacementCoords += (texture(displacementMap, vec2(xCoord, yCoord), 1).rg * 2.0f - 1.0f) * movementSpeed;
+	displacementCoords *= clamp(waterDepth,0.0f,1.0f);
+
 	vec3 normal = worldNormal;
 	if (normalMapWeight != 0.0f)
 	{
 		mat3x3 TBNW = { worldTangent, worldBinormal, worldNormal};
-		vec4 normalColor = texture(normalMap, outTexCoord);
+		vec4 normalColor = texture(normalMap, displacementCoords+0.09);
 		vec3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
-		normal = TBNW * normalSampled;
+		normal = TBNW *normalSampled ;
 	}
 
 	// ambient
 	vec4 ambient = LightAmbient * MaterialAmbient;
-	if(aoWeight == 1.0f)
-		ambient = texture(aoMap, outTexCoord);
 
 	// diffuse
 	float diffuseIntensity = clamp(dot(dirToLight, normal),0.0,1.0);
@@ -225,24 +193,23 @@ void main()
 	float specularIntensity = pow(specularBase, MaterialPower);
 	vec4 specular = specularIntensity * LightSpecular * MaterialSpecular;
 
-	vec4 mainTexture = texture(diffuseMap, outTexCoord);
-	float specularFactor = texture(specularMap, outTexCoord).r;
+	UVRefraction = clamp(UVRefraction + displacementCoords,0.0,1.0);
+	UVReflect = clamp(UVReflect + displacementCoords,0.0,1.0);
 
-	vec4 color = (ambient + diffuse) * mainTexture * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
-	if (useShadow)
-	{
-		float actualDepth = 1.0f - outPositionNDC.z / outPositionNDC.w;
-		vec2 shadowUV = outPositionNDC.xy / outPositionNDC.w;
-		shadowUV = (shadowUV + 1.0f) *0.5f;
-		//shadowUV.y = 1.0f - shadowUV.y;
-		if (clamp(shadowUV.x,0.0,1.0) == shadowUV.x && clamp(shadowUV.y,0.0,1.0) == shadowUV.y)
-		{
-			float savedDepth = texture(depthMap, shadowUV).r;
-			if (savedDepth > actualDepth + depthBias)
-			{
-				color = ambient * mainTexture;
-			}
-		}
-	}
+	vec4 texColor = texture(diffuseMap, displacementCoords);
+	vec4 texColorRefraction = texture(refractionMap, UVRefraction);
+	vec4 texColorReflection = texture(reflectionMap, UVReflect);
+
+	float specularFactor = texture(specularMap, outTexCoord).r * clamp(waterDepth,0.0f,1.0f);
+
+	float reflectionFactor = clamp(dot(dirToView, worldNormal),0.0,1.0);
+	reflectionFactor = pow(reflectionFactor,reflectivePower);
+	
+	vec4 waterColor = mix(texColorReflection, texColorRefraction, reflectionFactor);
+	texColor = mix(texColor, waterColor, 0.77f);
+
+	vec4 color = (ambient + diffuse) * texColor * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
+	color.a = clamp(waterDepth,0.0f,1.0f);
+
 	FragColor = color;
 }

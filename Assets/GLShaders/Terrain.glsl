@@ -9,11 +9,11 @@ out vec3 outWorldNormal;
 out vec3 outWorldTangent;
 out vec3 outDirToView;
 out vec2 outTexCoord;
-out float clip;
 
 out gl_PerVertex
 {
 	vec4 gl_Position;
+	float gl_ClipDistance;
 };
 
 layout(std140, binding = 0) uniform TransformBuffer
@@ -37,7 +37,7 @@ void main()
 	outWorldTangent = aTangent.xyz * mat3x3(World);
 	outDirToView = ViewPosition - (aPos.xyz * mat3x3(World));
 	outTexCoord = aTexCoord * 10.0f;
-	clip = dot(vec4(aPos, 1.0f) * World, clippingPlane);
+	gl_ClipDistance = dot(vec4(aPos, 1.0f) * World, clippingPlane);
 
 	gl_Position = outPos;
 }
@@ -49,7 +49,6 @@ in vec3 outWorldNormal;
 in vec3 outWorldTangent;
 in vec3 outDirToView;
 in vec2 outTexCoord;
-in float clip;
 
 out vec4 FragColor;
 

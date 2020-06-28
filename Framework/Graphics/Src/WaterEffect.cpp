@@ -28,6 +28,7 @@ void WaterEffect::Initialize(const std::filesystem::path & fileName)
 	mPixelShader.Initialize(fileName);
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
+	mBlendState.Initialize(BlendState::Mode::AlpahPremultiplied);
 
 	// Textures
 	SetDiffuseTexture("../../Assets/Images/Water/water2.jpg");
@@ -52,6 +53,7 @@ void WaterEffect::Terminate()
 	mSpecularMap.Terminate();
 	mDiffuseMap.Terminate();
 
+	mBlendState.Terminate();
 	mSampler.Terminate();
 
 	// Shaders
@@ -123,9 +125,12 @@ void WaterEffect::Begin()
 	mNormalMap.BindPS(3);
 	mRefractionRenderTarget.BindPS(4);
 	mReflectionRenderTarget.BindPS(5);
+	mRefractionRenderTarget.BindDepthPS(6);
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
+
+	mBlendState.Bind();
 }
 
 void WaterEffect::End()
@@ -140,6 +145,7 @@ void WaterEffect::End()
 	mSettingsBuffer.UnbindPS(3);
 	mRefractionRenderTarget.UnbindPS(4);
 	mReflectionRenderTarget.UnbindPS(5);
+	mRefractionRenderTarget.UnbindPS(6);
 
 	// Textures
 	mDiffuseMap.UnbindPS(0);
@@ -149,6 +155,8 @@ void WaterEffect::End()
 	mNormalMap.UnbindPS(3);
 	mRefractionRenderTarget.UnbindPS(4);
 	mReflectionRenderTarget.UnbindPS(5);
+
+	mBlendState.ClearState();
 }
 
 void WaterEffect::SetWorldMatrix(const Math::Matrix4 & world)

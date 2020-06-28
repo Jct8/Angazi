@@ -29,12 +29,15 @@ namespace Angazi::Graphics
 		void EndRender();
 
 		void BindPS(uint32_t slot) const;
+		void BindDepthPS(uint32_t slot) const;
 		void UnbindPS(uint32_t slot);
 
 		void* GetShaderResourceView() const { return mShaderResourceView; }
 
 	private:
 		ID3D11ShaderResourceView* mShaderResourceView = nullptr;
+		ID3D11ShaderResourceView* mShaderResourceViewDepth = nullptr;
+
 		ID3D11RenderTargetView* mRenderTargetView = nullptr;
 		ID3D11DepthStencilView* mDepthStencilView = nullptr;
 		D3D11_VIEWPORT mViewport;

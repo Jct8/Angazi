@@ -26,10 +26,7 @@ namespace
 			break;
 		}
 		return { D3D11_BLEND_ONE , D3D11_BLEND_ZERO };
-
 	}
-
-
 }
 
 

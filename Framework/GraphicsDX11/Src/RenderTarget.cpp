@@ -62,14 +62,30 @@ void RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
 	ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create render target view");
 	SafeRelease(texture);
 
-	desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	//https://stackoverflow.com/questions/20256815/how-to-check-the-content-of-the-depth-stencil-buffer/20324477
+	//desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	desc.Format = DXGI_FORMAT_R24G8_TYPELESS;
+	desc.BindFlags = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
 
 	hr = device->CreateTexture2D(&desc, nullptr, &texture);
 	ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create depth stencil texture");
 
-	hr = device->CreateDepthStencilView(texture, nullptr, &mDepthStencilView);
+	D3D11_DEPTH_STENCIL_VIEW_DESC ddesc = {};
+	ddesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	ddesc.ViewDimension =  D3D11_DSV_DIMENSION_TEXTURE2D;
+	ddesc.Texture2D.MipSlice = 0;
+
+	hr = device->CreateDepthStencilView(texture, &ddesc, &mDepthStencilView);
 	ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create depth stencil view");
+
+	D3D11_SHADER_RESOURCE_VIEW_DESC sr_desc = {};
+	sr_desc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
+	sr_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	sr_desc.Texture2D.MipLevels = 1;
+
+	hr = device->CreateShaderResourceView(texture, &sr_desc, &mShaderResourceViewDepth);
+	ASSERT(SUCCEEDED(hr), "[RenderTarget] Failed to create depth stencil view");
+
 	SafeRelease(texture);
 
 	mViewport.TopLeftX = 0.0f;
@@ -82,6 +98,7 @@ void RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
 
 void RenderTarget::Terminate()
 {
+	SafeRelease(mShaderResourceViewDepth);
 	SafeRelease(mShaderResourceView);
 	SafeRelease(mRenderTargetView);
 	SafeRelease(mDepthStencilView);
@@ -107,6 +124,11 @@ void RenderTarget::EndRender()
 void RenderTarget::BindPS(uint32_t slot) const
 {
 	GetContext()->PSSetShaderResources(slot, 1, &mShaderResourceView);
+}
+
+void RenderTarget::BindDepthPS(uint32_t slot) const
+{
+	GetContext()->PSSetShaderResources(slot, 1, &mShaderResourceViewDepth);
 }
 
 void RenderTarget::UnbindPS(uint32_t slot)

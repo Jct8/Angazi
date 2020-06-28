@@ -32,8 +32,8 @@ void DepthStencilState::Set()
 
 void DepthStencilState::Clear()
 {
-	glDisable(GL_DEPTH_TEST);
-	glDepthMask(GL_FALSE);
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
 	glDepthFunc(GL_LESS);
 }
 

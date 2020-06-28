@@ -31,6 +31,7 @@ cbuffer SettingsBuffer : register(b3)
 	float brightness : packoffset(c0.w);
 	float movement : packoffset(c1.x);
 	float movementSpeed : packoffset(c1.y);
+	float reflectivePower : packoffset(c1.z);
 }
 
 Texture2D diffuseMap : register(t0);
@@ -39,7 +40,7 @@ Texture2D displacementMap : register(t2);
 Texture2D normalMap : register(t3);
 Texture2D refractionMap : register(t4);
 Texture2D reflectionMap : register(t5);
-//Texture2D depthMap : register(t6);
+Texture2D depthMap : register(t6);
 
 SamplerState textureSampler : register(s0);
 
@@ -85,8 +86,6 @@ VS_OUTPUT VS(VS_INPUT input)
 	output.dirToView = normalize(ViewPosition - worldPosition);
 	output.texCoord = input.texCoord;
 
-	//if (useShadow)
-	//	output.positionNDC = mul(float4(localPosition, 1.0f), WVPLight);
 	return output;
 }
 
@@ -104,6 +103,21 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 dirToLight = normalize(input.dirToLight);
 	float3 dirToView = normalize(input.dirToView);
 	
+	float2 ndc = input.positionScreen.xy / input.positionScreen.w;
+	float2 UVRefraction = (ndc + 1.0f) * 0.5f;
+	float2 UVReflect = UVRefraction;
+	UVRefraction.y = 1.0f - UVRefraction.y;
+	
+	// Water Depth
+	float near = 0.1f;
+	float far = 10000.0f;
+	float depth = depthMap.Sample(textureSampler, UVRefraction).r;
+	//float depth = 1.0f - input.positionScreen.z / input.positionScreen.w;
+	float floorDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+	depth = input.position.z;
+	float waterDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+	float waterDepth = floorDistance - waterDistance;
+	
 	float xCoord = input.texCoord.x + movement;
 	if (xCoord > 1.0f)
 		xCoord -= 1.0f;
@@ -113,11 +127,12 @@ float4 PS(VS_OUTPUT input) : SV_Target
 
 	float2 displacementCoords = (displacementMap.SampleLevel(textureSampler, float2(xCoord, input.texCoord.y), 1).rg * 2.0f - 1.0f) * movementSpeed;
 	displacementCoords += (displacementMap.SampleLevel(textureSampler, float2(xCoord, yCoord), 1).rg * 2.0f - 1.0f) * movementSpeed;
-
+	displacementCoords *= saturate(waterDepth);
+	
 	float3 normal = worldNormal;
 	if (normalMapWeight != 0.0f)
 	{
-		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal, };
+		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal};
 		float4 normalColor = normalMap.Sample(textureSampler, displacementCoords+0.09);
 		float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
 		normal = mul(normalSampled, TBNW);
@@ -133,17 +148,9 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 halfAngle = normalize(dirToLight + dirToView);
 	float specularBase = saturate(dot(halfAngle, normal));
 	float specularIntensity = pow(specularBase, MaterialPower);
-	float4 specular = specularIntensity * LightSpecular * MaterialSpecular;
+	float4 specular = specularIntensity * LightSpecular * MaterialSpecular * saturate(waterDepth);;
 
-	float2 UVRefraction = input.positionScreen.xy / input.positionScreen.w;
-	UVRefraction = (UVRefraction + 1.0f) * 0.5f;
-	float2 UVReflect = UVRefraction;
-	UVRefraction.y = 1.0f - UVRefraction.y;
-
-	
-	
 	UVRefraction = saturate(UVRefraction + displacementCoords);
-
 	UVReflect = saturate(UVReflect+ displacementCoords);
 
 	float4 texColor = diffuseMap.Sample(textureSampler, displacementCoords);
@@ -152,26 +159,15 @@ float4 PS(VS_OUTPUT input) : SV_Target
 
 	float specularFactor = specularMap.Sample(textureSampler, input.texCoord).r;
 	
-	float refractiveFactor = saturate(dot(dirToView, worldNormal));
-	float4 waterColor = lerp(texColorReflection, texColorRefraction, refractiveFactor);
+	float reflectionFactor = saturate(dot(dirToView, worldNormal));
+	reflectionFactor = pow(reflectionFactor, reflectivePower);
+
+	float4 waterColor = lerp(texColorReflection, texColorRefraction, reflectionFactor);
 	texColor = lerp(texColor, waterColor, 0.77f);
 
 	float4 color = (ambient + diffuse) * texColor * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
+	color.a = saturate(waterDepth);
+	//color = float4(waterDepth, waterDepth, waterDepth, waterDepth);
 
-	//if (useShadow)
-	//{
-	//	float actualDepth = 1.0f - input.positionNDC.z / input.positionNDC.w;
-	//	float2 shadowUV = input.positionNDC.xy / input.positionNDC.w;
-	//	shadowUV = (shadowUV + 1.0f) * 0.5f;
-	//	shadowUV.y = 1.0f - shadowUV.y;
-	//	if (saturate(shadowUV.x) == shadowUV.x && saturate(shadowUV.y) == shadowUV.y)
-	//	{
-	//		float savedDepth = depthMap.Sample(textureSampler, shadowUV).r;
-	//		if (savedDepth > actualDepth + depthBias)
-	//		{
-	//			color = ambient * texColor;
-	//		}
-	//	}
-	//}
 	return color;
 }
