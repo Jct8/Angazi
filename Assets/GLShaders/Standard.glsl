@@ -138,7 +138,7 @@ out vec4 FragColor;
 
 layout(std140, binding = 0) uniform TransformBuffer
 {
-    mat4 World;
+	mat4 World;
 	mat4 WVP;
 	vec3 ViewPosition;
 };
@@ -158,7 +158,6 @@ layout(std140, binding = 2) uniform MaterialBuffer
 	vec4 MaterialSpecular;
 	float MaterialPower;
 };
-
 layout(std140, binding = 3) uniform SettingsBuffer 
 {
 	float specularMapWeight;

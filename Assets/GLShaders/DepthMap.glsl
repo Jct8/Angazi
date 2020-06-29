@@ -4,7 +4,7 @@ layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec4 aNormal;
 layout (location = 2) in vec4 aTangent;
 layout (location = 3) in vec2 aTexCoord;
-layout (location = 4) in uvec4 aBlendIndices;
+layout (location = 4) in ivec4 aBlendIndices;
 layout (location = 5) in vec4 aBlendWeights;
 
 out vec4 outPositionNDC;
@@ -35,7 +35,7 @@ mat4 Identity = mat4
 	 0.0f, 0.0f, 1.0f, 0.0f,
 	 0.0f, 0.0f, 0.0f, 1.0f); 
 
-mat4 GetBoneTransform(uvec4 indices, vec4 weights)
+mat4 GetBoneTransform(ivec4 indices, vec4 weights)
 {
 	if (length(weights) <= 0.0f || isSkinnedMesh == 0.0f)
 		return Identity;

@@ -84,7 +84,7 @@ namespace Angazi::Graphics
 
 		struct BoneTransform
 		{
-			Math::Matrix4 boneTransforms[256];
+			Angazi::Math::Matrix4 boneTransforms[256];
 		};
 
 		struct Clipping

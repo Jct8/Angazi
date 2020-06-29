@@ -30,7 +30,7 @@ void GameState::Initialize()
 
 	// Model
 	model.Initialize("../../Assets/Models/James/James.model");
-	modelArena.Initialize("../../Assets/Models/Arena/Arena.model");
+	//modelArena.Initialize("../../Assets/Models/Arena/Arena.model");
 	animator.Initialize(model);
 	animator.SetClipLooping(0 , true);
 
@@ -38,7 +38,7 @@ void GameState::Initialize()
 	mModelStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
 	mModelStandardEffect.UseShadow(true);
 	mModelStandardEffect.SetNormalMapWeight(1.0f);
-	mModelStandardEffect.SetSkinnedMesh(1.0f);
+	mModelStandardEffect.SetSkinnedMesh(true);
 
 	//mArenaStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
 	//mArenaStandardEffect.UseShadow(true);
@@ -81,7 +81,7 @@ void GameState::Update(float deltaTime)
 {
 	auto inputSystem = InputSystem::Get();
 
-	const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 100.0f : 10.0f;
+	const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 50.0f : 5.0f;
 	const float kTurnSpeed = 10.0f * Constants::DegToRad;
 
 	if (inputSystem->IsKeyDown(KeyCode::W))
@@ -208,7 +208,7 @@ void GameState::DrawScene()
 	SimpleDraw::Render(mCamera, matWorld);
 
 	// Ground
-	matWorld = Matrix4::Translation({ 0.0f,-2.5f,0.0f });;
+	matWorld = Matrix4::Translation({ 0.0f,-4.5f,0.0f });;
 	mGroundStandardEffect.Begin();
 	mGroundStandardEffect.SetMaterial(mMaterial);
 	mGroundStandardEffect.SetDirectionalLight(mDirectionalLight);

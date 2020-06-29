@@ -130,10 +130,8 @@ void StandardEffect::SetMaterial(const Material & material)
 void StandardEffect::SetBoneTransforms(const std::vector<Math::Matrix4>& boneTransforms)
 {
 	for (size_t i = 0; i < boneTransforms.size(); i++)
-	{
 		mBoneTransform.boneTransforms[i] = boneTransforms[i];
-	}
-	mBoneTransformBuffer.Update(&mBoneTransform);
+	mBoneTransformBuffer.Set(mBoneTransform);
 }
 
 void StandardEffect::SetClippingPlane(const Math::Vector4& plane) 

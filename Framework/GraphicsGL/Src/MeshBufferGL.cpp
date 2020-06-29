@@ -62,7 +62,7 @@ MeshBuffer::~MeshBuffer()
 {
 	ASSERT(!glIsBuffer(mVertexBuffer), "[MeshBufferGL] Terminate() must be called to clean up!");
 	ASSERT(!glIsBuffer(mIndexBuffer), "[MeshBufferGL] Terminate() must be called to clean up!");
-	ASSERT(!glIsVertexArray(mVertexArray) , "[MeshBufferGL] Terminate() must be called to clean up!");
+	ASSERT(!glIsVertexArray(mVertexArray), "[MeshBufferGL] Terminate() must be called to clean up!");
 }
 
 void MeshBuffer::SetTopology(Topology topology)
@@ -123,14 +123,25 @@ void MeshBuffer::InitializeInternal(const void * vertices, int vertexSize, int v
 	if (dynamic)
 		drawType = GL_DYNAMIC_DRAW;
 	glBufferData(GL_ARRAY_BUFFER, vertexCount * vertexSize, vertices, drawType);
-	
+
 	auto vertexLayout = GetVertexLayout(vertexFormat);
 	uint32_t offset = 0;
 	for (size_t i = 0; i < vertexLayout.size(); i++)
 	{
 		glEnableVertexAttribArray(i);
-		glVertexAttribPointer(i, vertexLayout[i].count, vertexLayout[i].type, vertexLayout[i].normalized,
-			vertexSize, (const void*)(offset * VertexElementDesc::GetSizeOfType(vertexLayout[i].type)) );
+		if (vertexLayout[i].type == GL_INT)
+		{
+			glVertexAttribIPointer(i, vertexLayout[i].count, vertexLayout[i].type,
+				vertexSize, (const void*)(offset * VertexElementDesc::GetSizeOfType(vertexLayout[i].type)));
+		}
+		else if (vertexLayout[i].type == GL_FLOAT)
+		{
+			glVertexAttribPointer(i, vertexLayout[i].count, vertexLayout[i].type, vertexLayout[i].normalized,
+				vertexSize, (const void*)(offset * VertexElementDesc::GetSizeOfType(vertexLayout[i].type)));
+		}
+		else
+			ASSERT(false, "[MeshBufferGL] Type not supported");
+
 		offset += vertexLayout[i].count;
 	}
 

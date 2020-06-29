@@ -3,8 +3,8 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 
-#define ENABLE_DIRECTX11
-//#define ENABLE_OPENGL
+//#define ENABLE_DIRECTX11
+#define ENABLE_OPENGL
 
 //Win32 headers
 #include <objbase.h>
