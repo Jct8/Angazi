@@ -24,8 +24,9 @@ namespace Angazi::Graphics
 		void CreateSkybox();
 		void Terminate();
 
+		void ChangeDefualtSkybox(int skyboxNumber);
 		void Draw(const Angazi::Graphics::Camera& camera);
-
+		Angazi::Graphics::Texture* GetSkyboxTexture() { return &mTexture; };
 	private:
 		struct TransformData
 		{

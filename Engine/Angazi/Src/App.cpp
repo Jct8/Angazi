@@ -27,7 +27,7 @@ void Angazi::App::Run(AppConfig appConfig)
 
 	//Initialize the graphics systems
 	GraphicsSystem::StaticInitialize(handle, false);
-	DebugUI::StaticInitialize(handle, false, true);
+	DebugUI::StaticInitialize(handle, true, true);
 	SimpleDraw::StaticInitialize(1024 * 1024);
 #ifdef ENABLE_DIRECTX11
 	Graphics::SpriteRenderer::StaticInitialize();

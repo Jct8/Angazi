@@ -249,7 +249,7 @@ void GameState::DrawScene(RenderType rendertype)
 		mWaterEffect.Begin();
 		mWaterEffect.SetMaterial(mMaterial);
 		mWaterEffect.SetDirectionalLight(mDirectionalLight);
-		mWaterEffect.SetViewProjection(mCamera.GetPosition());
+		mWaterEffect.SetViewPosition(mCamera.GetPosition());
 		mWaterEffect.SetWorldMatrix(matWorld);
 		mWaterEffect.SetWVPMatrix(matWorld, matView, matProj);
 		//mWaterEffect.SetDepthTexture(target);
@@ -268,7 +268,7 @@ void GameState::DrawScene(RenderType rendertype)
 	mTankEffect.Begin();
 	mTankEffect.SetMaterial(mMaterial);
 	mTankEffect.SetDirectionalLight(mDirectionalLight);
-	mTankEffect.SetViewProjection(mCamera.GetPosition());
+	mTankEffect.SetViewPosition(mCamera.GetPosition());
 	mTankEffect.SetWorldMatrix(matWorld);
 	mTankEffect.SetWVPMatrix(matWorld, matView, matProj);
 	//mGroundEffect.SetDepthTexture(target);
@@ -286,7 +286,7 @@ void GameState::DrawScene(RenderType rendertype)
 	mGroundEffect.Begin();
 	mGroundEffect.SetMaterial(mMaterial);
 	mGroundEffect.SetDirectionalLight(mDirectionalLight);
-	mGroundEffect.SetViewProjection(mCamera.GetPosition());
+	mGroundEffect.SetViewPosition(mCamera.GetPosition());
 	mGroundEffect.SetWorldMatrix(matWorld);
 	mGroundEffect.SetWVPMatrix(matWorld, matView, matProj);
 	//mGroundEffect.SetDepthTexture(target);

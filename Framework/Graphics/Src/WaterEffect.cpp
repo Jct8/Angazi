@@ -171,8 +171,16 @@ void WaterEffect::SetWVPMatrix(const Math::Matrix4 & world, const Math::Matrix4 
 	mTransformBuffer.Update(&transformData);
 }
 
-void WaterEffect::SetViewProjection(const Math::Vector3 & viewProjection)
+void WaterEffect::SetViewPosition(const Math::Vector3& viewPosition)
 {
+	transformData.viewPosition = viewPosition;
+	mTransformBuffer.Update(&transformData);
+}
+
+void WaterEffect::SetTransformData(const Math::Matrix4 & world, const Math::Matrix4 & view, const Math::Matrix4 & projection, const Math::Vector3 & viewProjection)
+{
+	transformData.world = Math::Transpose(world);
+	transformData.wvp = Math::Transpose(world * view * projection);
 	transformData.viewPosition = viewProjection;
 	mTransformBuffer.Update(&transformData);
 }

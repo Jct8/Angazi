@@ -12,6 +12,7 @@
 #include "Camera.h"
 #include "Colors.h"
 #include "Effect.h"
+#include "EnvironmentMap.h"
 #include "Keyframe.h"
 #include "LightTypes.h"
 #include "Material.h"

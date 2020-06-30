@@ -47,6 +47,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA
 		Assets\Shaders\DoTexturing.fx = Assets\Shaders\DoTexturing.fx
 		Assets\Shaders\DoTransform.fx = Assets\Shaders\DoTransform.fx
 		Assets\Shaders\Earth.fx = Assets\Shaders\Earth.fx
+		Assets\Shaders\EnvironmentMap.fx = Assets\Shaders\EnvironmentMap.fx
 		Assets\Shaders\PostProcessing.fx = Assets\Shaders\PostProcessing.fx
 		Assets\Shaders\SimpleDraw.fx = Assets\Shaders\SimpleDraw.fx
 		Assets\Shaders\Skybox.fx = Assets\Shaders\Skybox.fx
@@ -115,6 +116,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GLShaders", "GLShaders", "{
 		Assets\GLShaders\DoTexturing.glsl = Assets\GLShaders\DoTexturing.glsl
 		Assets\GLShaders\DoTransform.glsl = Assets\GLShaders\DoTransform.glsl
 		Assets\GLShaders\Earth.glsl = Assets\GLShaders\Earth.glsl
+		Assets\GLShaders\EnvironmentMap.glsl = Assets\GLShaders\EnvironmentMap.glsl
 		Assets\GLShaders\PostProcessing.glsl = Assets\GLShaders\PostProcessing.glsl
 		Assets\GLShaders\SimpleDraw.glsl = Assets\GLShaders\SimpleDraw.glsl
 		Assets\GLShaders\Skybox.glsl = Assets\GLShaders\Skybox.glsl
@@ -178,6 +180,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_11_Terrain", "OpenGLProjects\OpenGL_11_Terrain\OpenGL_11_Terrain.vcxproj", "{B71224EA-8FC0-486F-A8DB-CBAA6917B351}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_12_Animation", "OpenGLProjects\OpenGL_12_Animation\OpenGL_12_Animation.vcxproj", "{D297552F-9509-44A9-A3F2-B3C1980D9046}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CubeMaps", "Projects\CubeMaps\CubeMaps.vcxproj", "{84099603-CC1E-47FC-BA5F-3CE800547046}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1087,6 +1091,22 @@ Global
 		{D297552F-9509-44A9-A3F2-B3C1980D9046}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{D297552F-9509-44A9-A3F2-B3C1980D9046}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{D297552F-9509-44A9-A3F2-B3C1980D9046}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.Debug|x64.ActiveCfg = Debug|x64
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.Debug|x64.Build.0 = Debug|x64
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.Debug|x86.ActiveCfg = Debug|Win32
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.Debug|x86.Build.0 = Debug|Win32
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.MinSizeRel|x64.Build.0 = Release|x64
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.MinSizeRel|x86.Build.0 = Release|Win32
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.Release|x64.ActiveCfg = Release|x64
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.Release|x64.Build.0 = Release|x64
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.Release|x86.ActiveCfg = Release|Win32
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.Release|x86.Build.0 = Release|Win32
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{84099603-CC1E-47FC-BA5F-3CE800547046}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1150,12 +1170,13 @@ Global
 		{F080A294-9EA3-43CF-B2E0-08F7CE2887CD} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{B71224EA-8FC0-486F-A8DB-CBAA6917B351} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{D297552F-9509-44A9-A3F2-B3C1980D9046} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
+		{84099603-CC1E-47FC-BA5F-3CE800547046} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 56
+		SccNumberOfProjects = 57
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1379,5 +1400,9 @@ Global
 		SccProjectTopLevelParentUniqueName55 = Angazi.sln
 		SccProjectName55 = OpenGLProjects/OpenGL_12_Animation
 		SccLocalPath55 = OpenGLProjects\\OpenGL_12_Animation
+		SccProjectUniqueName56 = Projects\\CubeMaps\\CubeMaps.vcxproj
+		SccProjectTopLevelParentUniqueName56 = Angazi.sln
+		SccProjectName56 = Projects/CubeMaps
+		SccLocalPath56 = Projects\\CubeMaps
 	EndGlobalSection
 EndGlobal

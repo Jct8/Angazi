@@ -10,54 +10,7 @@ using namespace Angazi::Graphics;
 
 Skybox::Skybox()
 {
-	//cubeSides[Right] = "../../Assets/Images/Skybox/right.jpg";
-	//cubeSides[Left] = "../../Assets/Images/Skybox/left.jpg";
-	//cubeSides[Top] = "../../Assets/Images/Skybox/top.jpg";
-	//cubeSides[Bottom] = "../../Assets/Images/Skybox/bottom.jpg";
-	//cubeSides[Front] = "../../Assets/Images/Skybox/front.jpg";
-	//cubeSides[Back] = "../../Assets/Images/Skybox/back.jpg";
-
-	cubeSides[Right] = "../../Assets/Images/Skybox2/right.jpg";
-	cubeSides[Left] = "../../Assets/Images/Skybox2/left.jpg";
-	cubeSides[Top] = "../../Assets/Images/Skybox2/top.jpg";
-	cubeSides[Bottom] = "../../Assets/Images/Skybox2/bottom.jpg";
-	cubeSides[Front] = "../../Assets/Images/Skybox2/front.jpg";
-	cubeSides[Back] = "../../Assets/Images/Skybox2/back.jpg";
-
-	//cubeSides[Right] = "../../Assets/Images/Skybox3/right.png";
-	//cubeSides[Left] = "../../Assets/Images/Skybox3/left.png";
-	//cubeSides[Top] = "../../Assets/Images/Skybox3/top.png";
-	//cubeSides[Bottom] = "../../Assets/Images/Skybox3/bottom.png";
-	//cubeSides[Front] = "../../Assets/Images/Skybox3/front.png";
-	//cubeSides[Back] = "../../Assets/Images/Skybox3/back.png";
-
-	//cubeSides[Right] = "../../Assets/Images/Skybox4/right.png";
-	//cubeSides[Left] = "../../Assets/Images/Skybox4/left.png";
-	//cubeSides[Top] = "../../Assets/Images/Skybox4/top.png";
-	//cubeSides[Bottom] = "../../Assets/Images/Skybox4/bottom.png";
-	//cubeSides[Front] = "../../Assets/Images/Skybox4/front.png";
-	//cubeSides[Back] = "../../Assets/Images/Skybox4/back.png";
-
-	//cubeSides[Right] = "../../Assets/Images/Skybox5/right.png";
-	//cubeSides[Left] = "../../Assets/Images/Skybox5/left.png";
-	//cubeSides[Top] = "../../Assets/Images/Skybox5/top.png";
-	//cubeSides[Bottom] = "../../Assets/Images/Skybox5/bottom.png";
-	//cubeSides[Front] = "../../Assets/Images/Skybox5/front.png";
-	//cubeSides[Back] = "../../Assets/Images/Skybox5/back.png";
-
-	//cubeSides[Right] = "../../Assets/Images/Skybox6/right.png";
-	//cubeSides[Left] = "../../Assets/Images/Skybox6/left.png";
-	//cubeSides[Top] = "../../Assets/Images/Skybox6/top.png";
-	//cubeSides[Bottom] = "../../Assets/Images/Skybox6/bottom.png";
-	//cubeSides[Front] = "../../Assets/Images/Skybox6/front.png";
-	//cubeSides[Back] = "../../Assets/Images/Skybox6/back.png";
-
-	//cubeSides[Right] = "../../Assets/Images/Skybox7/right.png";
-	//cubeSides[Left] = "../../Assets/Images/Skybox7/left.png";
-	//cubeSides[Top] = "../../Assets/Images/Skybox7/top.png";
-	//cubeSides[Bottom] = "../../Assets/Images/Skybox7/bottom.png";
-	//cubeSides[Front] = "../../Assets/Images/Skybox7/front.png";
-	//cubeSides[Back] = "../../Assets/Images/Skybox7/back.png";
+	ChangeDefualtSkybox(1);
 }
 
 Skybox::~Skybox()
@@ -109,6 +62,28 @@ void Skybox::Terminate()
 	mRasterizerState.Terminate();
 
 	mTexture.Terminate();
+}
+
+void Skybox::ChangeDefualtSkybox(int skyboxNumber)
+{
+	std::string defaultPath = "../../Assets/Images/";
+	switch (skyboxNumber)
+	{
+	case 1:	defaultPath.append("Skybox"); break;
+	case 2:	defaultPath.append("Skybox2"); break;
+	case 3:	defaultPath.append("Skybox3"); break;
+	case 4:	defaultPath.append("Skybox4"); break;
+	case 5:	defaultPath.append("Skybox5"); break;
+	case 6:	defaultPath.append("Skybox6"); break;
+	case 7:	defaultPath.append("Skybox7"); break;
+	default:defaultPath.append("Skybox"); break;
+	}
+	cubeSides[Right] = defaultPath + "/right.png";
+	cubeSides[Left] = defaultPath + "/left.png";
+	cubeSides[Top] = defaultPath + "/top.png";
+	cubeSides[Bottom] = defaultPath + "/bottom.png";
+	cubeSides[Front] = defaultPath + "/front.png";
+	cubeSides[Back] = defaultPath + "/back.png";
 }
 
 void Skybox::Draw(const Angazi::Graphics::Camera & camera)

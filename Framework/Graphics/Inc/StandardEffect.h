@@ -14,7 +14,7 @@ namespace Angazi::Graphics
 		StandardEffect(const StandardEffect&) = delete;
 		StandardEffect& operator=(const StandardEffect&) = delete;
 
-		void Initialize(const std::filesystem::path& fileName) override;
+		void Initialize(const std::filesystem::path& fileName = "../../Assets/Shaders/Standard.fx") override;
 		void Terminate() override;
 
 		void Begin() override;
@@ -23,8 +23,9 @@ namespace Angazi::Graphics
 	public:
 
 		void SetWorldMatrix(const Math::Matrix4& world);
-		void SetWVPMatrix(const Math::Matrix4& world, const Math::Matrix4& view, const Math::Matrix4& projection );
-		void SetViewProjection(const Math::Vector3& viewProjection);
+		void SetWVPMatrix(const Math::Matrix4& world, const Math::Matrix4& view, const Math::Matrix4& projection);
+		void SetViewPosition(const Math::Vector3& viewPosition);
+		void SetTransformData(const Math::Matrix4& world, const Math::Matrix4& view, const Math::Matrix4& projection, const Math::Vector3& viewPosition);
 
 		void SetDirectionalLight(const DirectionalLight& light);
 		void SetMaterial(const Material& material);

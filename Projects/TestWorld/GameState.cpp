@@ -116,7 +116,7 @@ void GameState::Render()
 
 void GameState::DebugUI()
 {
-	ImGui::Begin("Setting", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Text("FPS: %.2f", Angazi::Core::TimeUtil::GetFramesPerSecond());
 	/*ImGui::Image(
 		mShadowEffect.GetRenderTarget()->GetShaderResourceView(),
@@ -188,7 +188,7 @@ void GameState::DrawScene()
 	mModelStandardEffect.Begin();
 	mModelStandardEffect.SetMaterial(mMaterial);
 	mModelStandardEffect.SetDirectionalLight(mDirectionalLight);
-	mModelStandardEffect.SetViewProjection(mCamera.GetPosition());
+	mModelStandardEffect.SetViewPosition(mCamera.GetPosition());
 	mModelStandardEffect.SetWorldMatrix(matWorld);
 	mModelStandardEffect.SetWVPMatrix(matWorld, matView, matProj);
 	mModelStandardEffect.SetDepthTexture(target);
@@ -207,7 +207,7 @@ void GameState::DrawScene()
 	mGroundStandardEffect.Begin();
 	mGroundStandardEffect.SetMaterial(mMaterial);
 	mGroundStandardEffect.SetDirectionalLight(mDirectionalLight);
-	mGroundStandardEffect.SetViewProjection(mCamera.GetPosition());
+	mGroundStandardEffect.SetViewPosition(mCamera.GetPosition());
 	mGroundStandardEffect.SetWorldMatrix(matWorld);
 	mGroundStandardEffect.SetWVPMatrix(matWorld, matView, matProj);
 	mGroundStandardEffect.SetDepthTexture(target);

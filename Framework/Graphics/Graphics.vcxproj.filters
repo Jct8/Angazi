@@ -150,10 +150,13 @@
     <ClInclude Include="Inc\PostProcessingEffect.h">
       <Filter>Inc\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Skybox.h">
-      <Filter>Inc\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\WaterEffect.h">
+      <Filter>Inc\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\EnvironmentMap.h">
+      <Filter>Inc\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Skybox.h">
       <Filter>Inc\Shader</Filter>
     </ClInclude>
   </ItemGroup>
@@ -212,10 +215,13 @@
     <ClCompile Include="Src\PostProcessingEffect.cpp">
       <Filter>Src\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Skybox.cpp">
-      <Filter>Src\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Src\WaterEffect.cpp">
+      <Filter>Src\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\EnvironmentMap.cpp">
+      <Filter>Src\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Skybox.cpp">
       <Filter>Src\Shader</Filter>
     </ClCompile>
   </ItemGroup>

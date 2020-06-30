@@ -2,6 +2,7 @@
 #include "Mesh.h"
 
 #include "MeshBuilder.h"
+#include "DirectXTK/Inc/GeometricPrimitive.h"
 
 //using namespace Angazi;
 using namespace Angazi::Graphics;
@@ -79,93 +80,63 @@ MeshP MeshBuilder::CreateInnerCubeP()
 
 MeshPX MeshBuilder::CreateCubePX()
 {
-	MeshPX mMesh;
+	MeshPX mesh;
 	//Front Vertices
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , {0.0f,0.0f} });// 0
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , {1.0f,0.0f} });// 1
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , {1.0f,1.0f} });// 2
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , {0.0f,1.0f} });// 3
+	mesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, -0.5f } , {0.0f,0.0f} });// 0
+	mesh.vertices.push_back({ Vector3{  0.5f,  0.5f, -0.5f } , {1.0f,0.0f} });// 1
+	mesh.vertices.push_back({ Vector3{  0.5f, -0.5f, -0.5f } , {1.0f,1.0f} });// 2
+	mesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, -0.5f } , {0.0f,1.0f} });// 3
 	//Back Vertices
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f } , {1.0f,0.0f} });// 4
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f } , {0.0f,0.0f} });// 5
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f } , {0.0f,1.0f} });// 6
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f } , {1.0f,1.0f} });// 7
+	mesh.vertices.push_back({ Vector3{ -0.5f,  0.5f,  0.5f } , {1.0f,0.0f} });// 4
+	mesh.vertices.push_back({ Vector3{  0.5f,  0.5f,  0.5f } , {0.0f,0.0f} });// 5
+	mesh.vertices.push_back({ Vector3{  0.5f, -0.5f,  0.5f } , {0.0f,1.0f} });// 6
+	mesh.vertices.push_back({ Vector3{ -0.5f, -0.5f,  0.5f } , {1.0f,1.0f} });// 7
 	//Left Vertices
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f } , {0.0f,0.0f} });// 8
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , {1.0f,0.0f} });// 9
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , {1.0f,1.0f} });// 10
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f } , {0.0f,1.0f} });// 11
+	mesh.vertices.push_back({ Vector3{ -0.5f,  0.5f,  0.5f } , {0.0f,0.0f} });// 8
+	mesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, -0.5f } , {1.0f,0.0f} });// 9
+	mesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, -0.5f } , {1.0f,1.0f} });// 10
+	mesh.vertices.push_back({ Vector3{ -0.5f, -0.5f,  0.5f } , {0.0f,1.0f} });// 11
 	//Right Vertices
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , {0.0f,0.0f} });// 12
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f } , {1.0f,0.0f} });// 13
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f } , {1.0f,1.0f} });// 14
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , {0.0f,1.0f} });// 15
+	mesh.vertices.push_back({ Vector3{  0.5f,  0.5f, -0.5f } , {0.0f,0.0f} });// 12
+	mesh.vertices.push_back({ Vector3{  0.5f,  0.5f,  0.5f } , {1.0f,0.0f} });// 13
+	mesh.vertices.push_back({ Vector3{  0.5f, -0.5f,  0.5f } , {1.0f,1.0f} });// 14
+	mesh.vertices.push_back({ Vector3{  0.5f, -0.5f, -0.5f } , {0.0f,1.0f} });// 15
 	// Top Vertices
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 1.0f } , {0.0f,0.0f} });// 16
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 1.0f } , {1.0f,0.0f} });// 17
-	mMesh.vertices.push_back({ Vector3{  0.5f,  0.5f, 0.0f } , {1.0f,1.0f} });// 18
-	mMesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, 0.0f } , {0.0f,1.0f} });// 19
+	mesh.vertices.push_back({ Vector3{ -0.5f,  0.5f,  0.5f } , {0.0f,0.0f} });// 16
+	mesh.vertices.push_back({ Vector3{  0.5f,  0.5f,  0.5f } , {1.0f,0.0f} });// 17
+	mesh.vertices.push_back({ Vector3{  0.5f,  0.5f, -0.5f } , {1.0f,1.0f} });// 18
+	mesh.vertices.push_back({ Vector3{ -0.5f,  0.5f, -0.5f } , {0.0f,1.0f} });// 19
 	// Bottom Vertices
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 0.0f } , {0.0f,0.0f} });// 20
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 0.0f } , {1.0f,0.0f} });// 21
-	mMesh.vertices.push_back({ Vector3{  0.5f, -0.5f, 1.0f } , {1.0f,1.0f} });// 22
-	mMesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, 1.0f } , {0.0f,1.0f} });// 23
+	mesh.vertices.push_back({ Vector3{ -0.5f, -0.5f, -0.5f } , {0.0f,0.0f} });// 20
+	mesh.vertices.push_back({ Vector3{  0.5f, -0.5f, -0.5f } , {1.0f,0.0f} });// 21
+	mesh.vertices.push_back({ Vector3{  0.5f, -0.5f,  0.5f } , {1.0f,1.0f} });// 22
+	mesh.vertices.push_back({ Vector3{ -0.5f, -0.5f,  0.5f } , {0.0f,1.0f} });// 23
 
 	// Front Indices
-	mMesh.indices.push_back(0);
-	mMesh.indices.push_back(1);
-	mMesh.indices.push_back(2);
-
-	mMesh.indices.push_back(0);
-	mMesh.indices.push_back(2);
-	mMesh.indices.push_back(3);
+	mesh.indices.push_back(0); mesh.indices.push_back(1); mesh.indices.push_back(2);
+	mesh.indices.push_back(0); mesh.indices.push_back(2); mesh.indices.push_back(3);
 
 	// Back Indices
-	mMesh.indices.push_back(5);
-	mMesh.indices.push_back(4);
-	mMesh.indices.push_back(7);
-
-	mMesh.indices.push_back(5);
-	mMesh.indices.push_back(7);
-	mMesh.indices.push_back(6);
+	mesh.indices.push_back(5); mesh.indices.push_back(4); mesh.indices.push_back(7);
+	mesh.indices.push_back(5); mesh.indices.push_back(7); mesh.indices.push_back(6);
 
 	// Right Indices
-	mMesh.indices.push_back(12);
-	mMesh.indices.push_back(13);
-	mMesh.indices.push_back(14);
-
-	mMesh.indices.push_back(12);
-	mMesh.indices.push_back(14);
-	mMesh.indices.push_back(15);
+	mesh.indices.push_back(12); mesh.indices.push_back(13); mesh.indices.push_back(14);
+	mesh.indices.push_back(12); mesh.indices.push_back(14); mesh.indices.push_back(15);
 
 	// Left Indices
-	mMesh.indices.push_back(8);
-	mMesh.indices.push_back(9);
-	mMesh.indices.push_back(10);
-
-	mMesh.indices.push_back(8);
-	mMesh.indices.push_back(10);
-	mMesh.indices.push_back(11);
+	mesh.indices.push_back(8); mesh.indices.push_back(9);  mesh.indices.push_back(10);
+	mesh.indices.push_back(8); mesh.indices.push_back(10); mesh.indices.push_back(11);
 
 	// Top Indices
-	mMesh.indices.push_back(16);
-	mMesh.indices.push_back(17);
-	mMesh.indices.push_back(18);
-
-	mMesh.indices.push_back(16);
-	mMesh.indices.push_back(18);
-	mMesh.indices.push_back(19);
+	mesh.indices.push_back(16); mesh.indices.push_back(17); mesh.indices.push_back(18);
+	mesh.indices.push_back(16); mesh.indices.push_back(18); mesh.indices.push_back(19);
 
 	// Bottom Indices
-	mMesh.indices.push_back(20);
-	mMesh.indices.push_back(21);
-	mMesh.indices.push_back(23);
+	mesh.indices.push_back(20); mesh.indices.push_back(21); mesh.indices.push_back(23);
+	mesh.indices.push_back(21); mesh.indices.push_back(22); mesh.indices.push_back(23);
 
-	mMesh.indices.push_back(21);
-	mMesh.indices.push_back(22);
-	mMesh.indices.push_back(23);
-
-	return mMesh;
+	return mesh;
 }
 
 MeshPX MeshBuilder::CreatePlanePX(int height, int width)
@@ -324,6 +295,67 @@ MeshPN MeshBuilder::CreateSpherePN(float radius, int rings, int slices)
 	}
 
 	return retMesh;
+}
+
+Mesh MeshBuilder::CreateCube()
+{
+	Mesh mesh;
+	Math::Vector3 position;
+	//Front Vertices
+	mesh.vertices.push_back({ { -0.5f,  0.5f, -0.5f }, {0.0f,0.0f,-1.0f}, {1.0f,0.0f,0.0f} , {0.0f,0.0f} });// 0
+	mesh.vertices.push_back({ {  0.5f,  0.5f, -0.5f }, {0.0f,0.0f,-1.0f}, {1.0f,0.0f,0.0f} , {1.0f,0.0f} });// 1
+	mesh.vertices.push_back({ {  0.5f, -0.5f, -0.5f }, {0.0f,0.0f,-1.0f}, {1.0f,0.0f,0.0f} , {1.0f,1.0f} });// 2
+	mesh.vertices.push_back({ { -0.5f, -0.5f, -0.5f }, {0.0f,0.0f,-1.0f}, {1.0f,0.0f,0.0f} , {0.0f,1.0f} });// 3
+	//Back Vertices
+	mesh.vertices.push_back({ { -0.5f,  0.5f,  0.5f }, {0.0f,0.0f, 1.0f}, {-1.0f,0.0f,0.0f} , {0.0f,0.0f} });// 4
+	mesh.vertices.push_back({ {  0.5f,  0.5f,  0.5f }, {0.0f,0.0f, 1.0f}, {-1.0f,0.0f,0.0f} , {1.0f,0.0f} });// 5
+	mesh.vertices.push_back({ {  0.5f, -0.5f,  0.5f }, {0.0f,0.0f, 1.0f}, {-1.0f,0.0f,0.0f} , {1.0f,1.0f} });// 6
+	mesh.vertices.push_back({ { -0.5f, -0.5f,  0.5f }, {0.0f,0.0f, 1.0f}, {-1.0f,0.0f,0.0f} , {0.0f,1.0f} });// 7
+	//Left Vertices
+	mesh.vertices.push_back({ { -0.5f,  0.5f,  0.5f }, {-1.0f,0.0f,0.0f}, {0.0f,0.0f,1.0f} , {0.0f,0.0f} });// 8
+	mesh.vertices.push_back({ { -0.5f,  0.5f, -0.5f }, {-1.0f,0.0f,0.0f}, {0.0f,0.0f,1.0f} , {1.0f,0.0f} });// 9
+	mesh.vertices.push_back({ { -0.5f, -0.5f, -0.5f }, {-1.0f,0.0f,0.0f}, {0.0f,0.0f,1.0f} , {1.0f,1.0f} });// 10
+	mesh.vertices.push_back({ { -0.5f, -0.5f,  0.5f }, {-1.0f,0.0f,0.0f}, {0.0f,0.0f,1.0f} , {0.0f,1.0f} });// 11
+	//Right Vertices
+	mesh.vertices.push_back({ {  0.5f,  0.5f, -0.5f }, {1.0f,0.0f,0.0f}, {0.0f,0.0f,-1.0f} , {0.0f,0.0f} });// 12
+	mesh.vertices.push_back({ {  0.5f,  0.5f,  0.5f }, {1.0f,0.0f,0.0f}, {0.0f,0.0f,-1.0f} , {1.0f,0.0f} });// 13
+	mesh.vertices.push_back({ {  0.5f, -0.5f,  0.5f }, {1.0f,0.0f,0.0f}, {0.0f,0.0f,-1.0f} , {1.0f,1.0f} });// 14
+	mesh.vertices.push_back({ {  0.5f, -0.5f, -0.5f }, {1.0f,0.0f,0.0f}, {0.0f,0.0f,-1.0f} , {0.0f,1.0f} });// 15
+	// Top Vertices
+	mesh.vertices.push_back({ { -0.5f,  0.5f,  0.5f }, {0.0f,1.0f,0.0f}, {1.0f,0.0f,0.0f} , {0.0f,0.0f} });// 16
+	mesh.vertices.push_back({ {  0.5f,  0.5f,  0.5f }, {0.0f,1.0f,0.0f}, {1.0f,0.0f,0.0f} , {1.0f,0.0f} });// 17
+	mesh.vertices.push_back({ {  0.5f,  0.5f, -0.5f }, {0.0f,1.0f,0.0f}, {1.0f,0.0f,0.0f} , {1.0f,1.0f} });// 18
+	mesh.vertices.push_back({ { -0.5f,  0.5f, -0.5f }, {0.0f,1.0f,0.0f}, {1.0f,0.0f,0.0f} , {0.0f,1.0f} });// 19
+	// Bottom Vertices
+	mesh.vertices.push_back({ { -0.5f, -0.5f, -0.5f }, {0.0f,-1.0f,0.0f}, {-1.0f,0.0f,0.0f} , {0.0f,0.0f} });// 20
+	mesh.vertices.push_back({ {  0.5f, -0.5f, -0.5f }, {0.0f,-1.0f,0.0f}, {-1.0f,0.0f,0.0f} , {1.0f,0.0f} });// 21
+	mesh.vertices.push_back({ {  0.5f, -0.5f,  0.5f }, {0.0f,-1.0f,0.0f}, {-1.0f,0.0f,0.0f} , {1.0f,1.0f} });// 22
+	mesh.vertices.push_back({ { -0.5f, -0.5f,  0.5f }, {0.0f,-1.0f,0.0f}, {-1.0f,0.0f,0.0f} , {0.0f,1.0f} });// 23
+	// Front Indices
+	mesh.indices.push_back(0); mesh.indices.push_back(1); mesh.indices.push_back(2);
+	mesh.indices.push_back(2); mesh.indices.push_back(3); mesh.indices.push_back(0);
+
+	// Back Indices
+	mesh.indices.push_back(5); mesh.indices.push_back(4); mesh.indices.push_back(7);
+	mesh.indices.push_back(5); mesh.indices.push_back(7); mesh.indices.push_back(6);
+
+	// Right Indices
+	mesh.indices.push_back(12); mesh.indices.push_back(13); mesh.indices.push_back(14);
+	mesh.indices.push_back(12); mesh.indices.push_back(14); mesh.indices.push_back(15);
+
+	// Left Indices
+	mesh.indices.push_back(8); mesh.indices.push_back(9);  mesh.indices.push_back(10);
+	mesh.indices.push_back(8); mesh.indices.push_back(10); mesh.indices.push_back(11);
+
+	// Top Indices
+	mesh.indices.push_back(16); mesh.indices.push_back(17); mesh.indices.push_back(18);
+	mesh.indices.push_back(16); mesh.indices.push_back(18); mesh.indices.push_back(19);
+
+	// Bottom Indices
+	mesh.indices.push_back(20); mesh.indices.push_back(21); mesh.indices.push_back(23);
+	mesh.indices.push_back(21); mesh.indices.push_back(22); mesh.indices.push_back(23);
+
+	return mesh;
 }
 
 Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices)
@@ -513,58 +545,3 @@ void MeshBuilder::ComputeNormals(Mesh &mesh)
 		mesh.vertices[i].normal = Angazi::Math::Normalize(newNormals[i]);
 
 }
-
-//Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices)
-//{
-//	Mesh retMesh;
-//	float phiIncrement = Math::Constants::Pi / rings;
-//	float thetaIncrement = Math::Constants::TwoPi / slices;
-//
-//	for (float phi = 0; phi <= Math::Constants::Pi ; phi += phiIncrement)
-//	{
-//		for (float theta = 0; theta <= Math::Constants::TwoPi; theta += thetaIncrement)
-//		{
-//			float u = theta / Math::Constants::TwoPi;
-//			float v = static_cast<float>(phi) / static_cast<float>(Math::Constants::Pi);
-//			float newRadius = radius * sinf(phi);
-//			Math::Vector3 vec = Math::Vector3{ newRadius* -sinf(theta), radius * cosf(phi) , newRadius * cosf(theta) };
-//			retMesh.vertices.push_back
-//			(
-//				{ vec, Math::Normalize(vec) ,Math::Normalize(vec), Math::Vector2{u,v} }
-//			);
-//		}
-//	}
-//
-//	for (int y = 0; y <= rings; y++)
-//	{
-//		for (int x = 0; x <= slices; x++)
-//		{
-//			/*auto base = x + (y*rings+y);
-//			retMesh.indices.push_back(base);
-//			retMesh.indices.push_back(base+rings+2);
-//			retMesh.indices.push_back(base+rings+1);
-//
-//			retMesh.indices.push_back(base);
-//			retMesh.indices.push_back(base + 1);
-//			retMesh.indices.push_back(base + rings + 2);*/
-//
-//			/*retMesh.indices.push_back(y * slices + x);
-//			retMesh.indices.push_back((y + 1) * slices + x + 2);
-//			retMesh.indices.push_back((y + 1)  * slices + x + 1);
-//
-//			retMesh.indices.push_back(y * slices + x);
-//			retMesh.indices.push_back(y * slices + x + 1);
-//			retMesh.indices.push_back((y + 1)* slices + x + 2);*/
-//
-//			/*retMesh.indices.push_back(y * slices + x);
-//			retMesh.indices.push_back((y + 1) * slices + x + 1);
-//			retMesh.indices.push_back((y + 1) * slices + x);
-//
-//			retMesh.indices.push_back(y * slices + x);
-//			retMesh.indices.push_back(y * slices + x + 1);
-//			retMesh.indices.push_back((y + 1)* slices + x + 1);*/
-//
-//		}
-//	}
-//	return retMesh;
-//}

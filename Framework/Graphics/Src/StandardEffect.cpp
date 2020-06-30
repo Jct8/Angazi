@@ -112,9 +112,17 @@ void StandardEffect::SetWVPMatrix(const Math::Matrix4& world, const Math::Matrix
 	transformData.wvp = Math::Transpose(world * view * projection);
 	mTransformBuffer.Update(&transformData);
 }
-void StandardEffect::SetViewProjection(const Math::Vector3 & viewProjection)
+void StandardEffect::SetViewPosition(const Math::Vector3 & viewPosition)
 {
-	transformData.viewPosition = viewProjection;
+	transformData.viewPosition = viewPosition;
+	mTransformBuffer.Update(&transformData);
+}
+
+void StandardEffect::SetTransformData(const Math::Matrix4 & world, const Math::Matrix4 & view, const Math::Matrix4 & projection, const Math::Vector3 & viewPosition)
+{
+	transformData.world = Math::Transpose(world);
+	transformData.wvp = Math::Transpose(world * view * projection);
+	transformData.viewPosition = viewPosition;
 	mTransformBuffer.Update(&transformData);
 }
 
