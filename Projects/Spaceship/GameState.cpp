@@ -9,7 +9,7 @@ using namespace Angazi::Math;
 namespace
 {
 	float displacementWeight = 0.0f;
-	float brightness = 5.0f;
+	float brightness = 1.0f;
 }
 
 void GameState::Initialize()
@@ -102,9 +102,9 @@ void GameState::Initialize()
 	ObjLoader::Load("../../Assets/Models/Spaceship/Trident-A10.obj", 0.001f, mSpaceshipMesh);
 	mMeshBufferSpaceship.Initialize(mSpaceshipMesh);
 	mStandardEffect.Initialize();
-	mStandardEffect.SetDiffuseTexture("../../Assets/Models/Spaceship/Trident_Dekol_Color.tif");
-	mStandardEffect.SetDisplacementTexture("../../Assets/Models/Spaceship/Trident_Bump.tif");
-	mStandardEffect.SetSpecularTexture("../../Assets/Models/Spaceship/Trident_Specular.tif");
+	mStandardEffect.SetDiffuseTexture("../../Assets/Models/Spaceship/Trident_Dekol_Color.png");
+	mStandardEffect.SetDisplacementTexture("../../Assets/Models/Spaceship/Trident_Bump.png");
+	mStandardEffect.SetSpecularTexture("../../Assets/Models/Spaceship/Trident_Specular.png");
 
 	mStandardEffect.SetBumpMapWeight(displacementWeight);
 	mStandardEffect.SetBrightness(brightness);
