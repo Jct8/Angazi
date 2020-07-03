@@ -27,19 +27,19 @@ void GameState::Initialize()
 	mMoonTextures.resize(10);
 	for (int i = 0; i < 10; i++)
 	{
-		mMoonTextures[i].Initialize("../../Assets/Images/Moon.jpg");
+		mMoonTextures[i].Initialize("../../Assets/Images/Space/Moon.jpg");
 	}
 
-	mPlanetTextures[0].Initialize("../../Assets/Images/Sun.jpg");
-	mPlanetTextures[1].Initialize("../../Assets/Images/Mercury.jpg");
-	mPlanetTextures[2].Initialize("../../Assets/Images/Venus.jpg");
-	mPlanetTextures[3].Initialize("../../Assets/Images/Earth.jpg");
-	mPlanetTextures[4].Initialize("../../Assets/Images/Mars.jpg");
-	mPlanetTextures[5].Initialize("../../Assets/Images/Jupiter.jpg");
-	mPlanetTextures[6].Initialize("../../Assets/Images/Saturn.jpg");
-	mPlanetTextures[7].Initialize("../../Assets/Images/Uranus.jpg");
-	mPlanetTextures[8].Initialize("../../Assets/Images/Neptune.jpg");
-	mPlanetTextures[9].Initialize("../../Assets/Images/Pluto.jpg");
+	mPlanetTextures[0].Initialize("../../Assets/Images/Space/Sun.jpg");
+	mPlanetTextures[1].Initialize("../../Assets/Images/Space/Mercury.jpg");
+	mPlanetTextures[2].Initialize("../../Assets/Images/Space/Venus.jpg");
+	mPlanetTextures[3].Initialize("../../Assets/Images/Space/Earth.jpg");
+	mPlanetTextures[4].Initialize("../../Assets/Images/Space/Mars.jpg");
+	mPlanetTextures[5].Initialize("../../Assets/Images/Space/Jupiter.jpg");
+	mPlanetTextures[6].Initialize("../../Assets/Images/Space/Saturn.jpg");
+	mPlanetTextures[7].Initialize("../../Assets/Images/Space/Uranus.jpg");
+	mPlanetTextures[8].Initialize("../../Assets/Images/Space/Neptune.jpg");
+	mPlanetTextures[9].Initialize("../../Assets/Images/Space/Pluto.jpg");
 
 	mDomeTexture.Initialize("../../Assets/Images/Stars.jpg");
 

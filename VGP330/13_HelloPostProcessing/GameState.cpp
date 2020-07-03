@@ -41,14 +41,13 @@ void GameState::Initialize()
 	mCloudShadingPixelShader.Initialize("../../Assets/Shaders/Earth.fx", "PSCloud");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	//mTexture.Initialize("../../Assets/Images/earth.jpg");
-	mTexture.Initialize("../../Assets/Images/8k_earth.jpg");
-	mSpecularTexture.Initialize("../../Assets/Images/earth_spec.jpg");
-	mDisplacementTexture.Initialize("../../Assets/Images/earth_bump.jpg");
-	mNormalMap.Initialize("../../Assets/Images/earth_normal.jpg");
-	//mNightMap.Initialize("../../Assets/Images/earth_lights.jpg");
-	mNightMap.Initialize("../../Assets/Images/8k_earth_nightmap.jpg");
-	mClouds.Initialize("../../Assets/Images/earth_clouds.jpg");
+	mTexture.Initialize("../../Assets/Images/Earth/8k_earth.jpg");
+	mSpecularTexture.Initialize("../../Assets/Images/Earth/earth_spec.jpg");
+	mDisplacementTexture.Initialize("../../Assets/Images/Earth/earth_bump.jpg");
+	mNormalMap.Initialize("../../Assets/Images/Earth/earth_normal.jpg");
+	//mNightMap.Initialize("../../Assets/Images/Earth/earth_lights.jpg");
+	mNightMap.Initialize("../../Assets/Images/Earth/8k_earth_nightmap.jpg");
+	mClouds.Initialize("../../Assets/Images/Earth/earth_clouds.jpg");
 
 	mBlendState.Initialize(BlendState::Mode::Additive);
 

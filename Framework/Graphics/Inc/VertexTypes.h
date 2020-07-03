@@ -1,8 +1,6 @@
 #pragma once
 #include "Common.h"
 
-//#include "Colors.h"
-
 namespace Angazi::Graphics
 {
 	constexpr uint32_t VE_Position =	 0x1 << 0;// 0000 0001
@@ -41,6 +39,14 @@ namespace Angazi::Graphics
 		VERTEX_FORMAT(VE_Position | VE_Normal);
 		Math::Vector3 position;
 		Math::Vector3 normal;
+	};
+
+	struct VertexPCX
+	{
+		VERTEX_FORMAT(VE_Position | VE_Color | VE_TexCoord);
+		Math::Vector3 position;
+		Color color;
+		Math::Vector2 uv;
 	};
 
 	struct Vertex

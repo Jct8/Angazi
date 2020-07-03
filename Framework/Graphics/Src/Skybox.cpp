@@ -58,7 +58,7 @@ void Skybox::Terminate()
 	mVertexShader.Terminate();
 
 	mBoxBuffer.Terminate();
-	mDepthStencilState.Clear();
+	mDepthStencilState.Terminate();
 	mRasterizerState.Terminate();
 
 	mTexture.Terminate();

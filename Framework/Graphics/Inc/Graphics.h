@@ -2,7 +2,6 @@
 
 #include "Common.h"
 
-
 #include "Animation.h"
 #include "AnimationBuilder.h"
 #include "AnimationClip.h"
@@ -21,6 +20,7 @@
 #include "MeshIO.h"
 #include "Model.h"
 #include "ObjLoader.h"
+#include "ParticleEmitter.h"
 #include "PostProcessingEffect.h"
 #include "ShadowEffect.h"
 #include "SimpleDraw.h"

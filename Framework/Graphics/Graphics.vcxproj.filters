@@ -58,6 +58,12 @@
     <Filter Include="Src\Pch">
       <UniqueIdentifier>{7ae6f2c4-90cc-40c6-b2c4-01c25f861087}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\VFX">
+      <UniqueIdentifier>{1a4fb11e-2f74-408d-b879-0493941ac0fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\VFX">
+      <UniqueIdentifier>{7aa3d28b-5cb9-41fa-b608-8ab93a0153a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Common.h">
@@ -159,6 +165,9 @@
     <ClInclude Include="Inc\Skybox.h">
       <Filter>Inc\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\ParticleEmitter.h">
+      <Filter>Inc\VFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Camera.cpp">
@@ -223,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="Src\Skybox.cpp">
       <Filter>Src\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ParticleEmitter.cpp">
+      <Filter>Src\VFX</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

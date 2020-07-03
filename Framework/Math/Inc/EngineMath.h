@@ -42,18 +42,10 @@ namespace Angazi::Math
 	inline Vector2 PerpendicularLH(const Vector2& v)					{ return Vector2(-v.y, v.x); }
 	inline Vector2 PerpendicularRH(const Vector2& v)					{ return Vector2(v.y, -v.x); }
 
-	inline float RandomFloat() 
-	{
-		std::random_device myRandomDevice{};
-		std::mt19937 myRandomEngine{ myRandomDevice() };
-		return std::uniform_real_distribution<float>{ 0, 1.0f }(myRandomEngine);
-	}
-	inline float RandomFloat(float min, float max) 
-	{
-		std::random_device myRandomDevice{};
-		std::mt19937 myRandomEngine{ myRandomDevice() };
-		return std::uniform_real_distribution<float>{ min, max }(myRandomEngine);
-	}
+	float RandomFloat();
+	float RandomFloat(float min, float max);
+	int RandomInt();
+	int RandomInt(int min, int max);
 
 	inline Vector2 RandomVector2(const Vector2& min, const Vector2& max)
 	{

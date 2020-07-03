@@ -3,6 +3,12 @@
 
 using namespace Angazi::Math;
 
+namespace
+{
+	std::random_device myRandomDevice{};
+	std::mt19937 myRandomEngine{ myRandomDevice() };
+}
+
 // Vector2 Definition
 const Vector2 Vector2::Zero{ 0.0f };
 const Vector2 Vector2::One{ 1.0f };
@@ -43,6 +49,22 @@ const Matrix3 Matrix3::Identity
 	0.0f, 0.0f, 1.0f
 };
 
+float Angazi::Math::RandomFloat()
+{
+	return std::uniform_real_distribution<float>{ 0, 1.0f }(myRandomEngine);
+}
+float Angazi::Math::RandomFloat(float min, float max)
+{
+	return std::uniform_real_distribution<float>{ min, max }(myRandomEngine);
+}
+int Angazi::Math::RandomInt()
+{
+	return std::uniform_int_distribution<>{ 0, 1 }(myRandomEngine);
+}
+int Angazi::Math::RandomInt(int min, int max)
+{
+	return std::uniform_int_distribution<>{ min, max }(myRandomEngine);
+}
 
 
 bool Angazi::Math::GetContactPoint(const Ray& ray, const OBB& obb, Vector3& point, Vector3& normal)
@@ -99,7 +121,6 @@ bool Angazi::Math::GetContactPoint(const Ray& ray, const OBB& obb, Vector3& poin
 	normal = TransformNormal(normal, matWorld);
 	return true;
 }
-
 bool Angazi::Math::Intersect(const Ray& ray, const Plane& plane, float& distance)
 {
 	const float orgDotN = Dot(ray.origin, plane.n);
@@ -124,7 +145,6 @@ bool Angazi::Math::Intersect(const Ray& ray, const Plane& plane, float& distance
 	return true;
 }
 
-
 bool Angazi::Math::IsContained(const Vector3 & point, const AABB & aabb)
 {
 	auto min = aabb.Min();
@@ -135,7 +155,6 @@ bool Angazi::Math::IsContained(const Vector3 & point, const AABB & aabb)
 		return false;
 	return true;
 }
-
 bool Angazi::Math::IsContained(const Vector3 & point, const OBB & obb)
 {
 	// Compute the world-to-local matrices
