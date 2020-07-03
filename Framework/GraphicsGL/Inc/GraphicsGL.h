@@ -14,6 +14,7 @@
 #include "RenderTargetGL.h"
 #include "SamplerGL.h"
 #include "Shader.h"
+#include "SpriteRendererGL.h"
 #include "TextureGL.h"
 #include "VertexShaderGL.h"
 #include "UniformBuffer.h"

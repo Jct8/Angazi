@@ -1,7 +1,6 @@
 #include "ParticleManager.h"
 
 using namespace Angazi;
-using namespace Angazi::Graphics;
 
 namespace
 {
@@ -86,7 +85,7 @@ void ParticleManager::Render()
 	}
 }
 
-void ParticleManager::StartParticle(Math::Vector2 pos, std::string key, Pivot pivot)
+void ParticleManager::StartParticle(Math::Vector2 pos, std::string key, Graphics::Pivot pivot)
 {
 	for (size_t i = 0; i < mParticles[key].size(); i++)
 	{

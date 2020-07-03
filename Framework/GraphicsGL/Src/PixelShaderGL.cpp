@@ -88,6 +88,7 @@ void PixelShader::Initialize(const std::filesystem::path& filePath, const char *
 
 void Angazi::Graphics::PixelShader::Terminate()
 {
+	glUseProgramStages(GraphicsSystem::Get()->GetCurrentPipeline(), GL_FRAGMENT_SHADER_BIT, 0);
 	glDeleteProgram(mPixelShader);
 }
 

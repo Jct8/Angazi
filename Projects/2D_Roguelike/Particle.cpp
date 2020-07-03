@@ -2,7 +2,6 @@
 #include "Camera2D.h"
 
 using namespace Angazi;
-using namespace Angazi::Graphics;
 
 void Particle::Load(std::string fileName,int columns, int rows)
 {
@@ -47,7 +46,7 @@ void Particle::Render()
 		 spriteWidth*column , spriteHeight*row,
 		 spriteWidth*column + spriteWidth, spriteHeight *row + spriteHeight
 	};
-	SpriteRenderer::Get()->Draw(mTexture, rect, screenPos, 0.0f, mPivot, Flip::None);
+	Graphics::SpriteRenderer::Get()->Draw(mTexture, rect, screenPos, 0.0f, mPivot, Graphics::Flip::None);
 	if (mFrame == mFrameCount - 1)
 		isActive = false;
 }

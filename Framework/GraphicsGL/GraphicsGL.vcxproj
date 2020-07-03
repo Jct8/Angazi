@@ -169,6 +169,7 @@
     <ClInclude Include="Inc\RenderTargetGL.h" />
     <ClInclude Include="Inc\SamplerGL.h" />
     <ClInclude Include="Inc\Shader.h" />
+    <ClInclude Include="Inc\SpriteRendererGL.h" />
     <ClInclude Include="Inc\stb_image.h" />
     <ClInclude Include="Inc\TextureGL.h" />
     <ClInclude Include="Inc\UniformBuffer.h" />
@@ -194,6 +195,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Src\Shader.cpp" />
+    <ClCompile Include="Src\SpriteRendererGL.cpp" />
     <ClCompile Include="Src\stb_image.cpp" />
     <ClCompile Include="Src\TextureGL.cpp" />
     <ClCompile Include="Src\UniformBuffer.cpp" />

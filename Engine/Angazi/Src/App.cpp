@@ -29,9 +29,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	GraphicsSystem::StaticInitialize(handle, false);
 	DebugUI::StaticInitialize(handle, true, true);
 	SimpleDraw::StaticInitialize(1024 * 1024);
-#ifdef ENABLE_DIRECTX11
 	Graphics::SpriteRenderer::StaticInitialize();
-#endif
 
 	//Initialize the starting state
 	mCurrentState = mAppStates.begin()->second.get();
@@ -86,9 +84,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	mCurrentState->Terminate();
 
 	//Terminate engine systems
-#ifdef ENABLE_DIRECTX11
 	Graphics::SpriteRenderer::StaticTerminate();
-#endif
 	SimpleDraw::StaticTerminate();
 	DebugUI::StaticTerminate();
 	GraphicsSystem::StaticTerminate();

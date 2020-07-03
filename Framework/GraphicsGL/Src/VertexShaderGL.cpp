@@ -89,6 +89,7 @@ void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t ve
 
 void Angazi::Graphics::VertexShader::Terminate()
 {
+	glUseProgramStages(GraphicsSystem::Get()->GetCurrentPipeline(), GL_VERTEX_SHADER_BIT, 0);
 	glDeleteProgram(mVertexShader);
 }
 
