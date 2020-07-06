@@ -21,6 +21,7 @@
 #include "Model.h"
 #include "ObjLoader.h"
 #include "ParticleEmitter.h"
+#include "PbrEffect.h"
 #include "PostProcessingEffect.h"
 #include "ShadowEffect.h"
 #include "SimpleDraw.h"

@@ -168,6 +168,9 @@
     <ClInclude Include="Inc\ParticleEmitter.h">
       <Filter>Inc\VFX</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\PbrEffect.h">
+      <Filter>Inc\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Camera.cpp">
@@ -235,6 +238,9 @@
     </ClCompile>
     <ClCompile Include="Src\ParticleEmitter.cpp">
       <Filter>Src\VFX</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PbrEffect.cpp">
+      <Filter>Src\Shader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -49,6 +49,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA
 		Assets\Shaders\Earth.fx = Assets\Shaders\Earth.fx
 		Assets\Shaders\EnvironmentMap.fx = Assets\Shaders\EnvironmentMap.fx
 		Assets\Shaders\Particles.fx = Assets\Shaders\Particles.fx
+		Assets\Shaders\PBR.fx = Assets\Shaders\PBR.fx
 		Assets\Shaders\PostProcessing.fx = Assets\Shaders\PostProcessing.fx
 		Assets\Shaders\SimpleDraw.fx = Assets\Shaders\SimpleDraw.fx
 		Assets\Shaders\Skybox.fx = Assets\Shaders\Skybox.fx
@@ -186,6 +187,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CubeMaps", "Projects\CubeMaps\CubeMaps.vcxproj", "{84099603-CC1E-47FC-BA5F-3CE800547046}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Spaceship", "Projects\Spaceship\Spaceship.vcxproj", "{8E264DBC-B76A-49B3-8B38-77185281D93F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PBR", "Projects\PBR\PBR.vcxproj", "{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1127,6 +1130,22 @@ Global
 		{8E264DBC-B76A-49B3-8B38-77185281D93F}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{8E264DBC-B76A-49B3-8B38-77185281D93F}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{8E264DBC-B76A-49B3-8B38-77185281D93F}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.Debug|x64.ActiveCfg = Debug|x64
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.Debug|x64.Build.0 = Debug|x64
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.Debug|x86.ActiveCfg = Debug|Win32
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.Debug|x86.Build.0 = Debug|Win32
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.MinSizeRel|x64.Build.0 = Release|x64
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.MinSizeRel|x86.Build.0 = Release|Win32
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.Release|x64.ActiveCfg = Release|x64
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.Release|x64.Build.0 = Release|x64
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.Release|x86.ActiveCfg = Release|Win32
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.Release|x86.Build.0 = Release|Win32
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1192,12 +1211,13 @@ Global
 		{D297552F-9509-44A9-A3F2-B3C1980D9046} = {CBC87F91-E468-482E-8B22-D8AAA1668ABB}
 		{84099603-CC1E-47FC-BA5F-3CE800547046} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 		{8E264DBC-B76A-49B3-8B38-77185281D93F} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
+		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 58
+		SccNumberOfProjects = 59
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1429,5 +1449,9 @@ Global
 		SccProjectTopLevelParentUniqueName57 = Angazi.sln
 		SccProjectName57 = Projects/Spaceship
 		SccLocalPath57 = Projects\\Spaceship
+		SccProjectUniqueName58 = Projects\\PBR\\PBR.vcxproj
+		SccProjectTopLevelParentUniqueName58 = Angazi.sln
+		SccProjectName58 = Projects/PBR
+		SccLocalPath58 = Projects\\PBR
 	EndGlobalSection
 EndGlobal

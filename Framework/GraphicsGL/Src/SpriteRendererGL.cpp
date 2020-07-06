@@ -59,23 +59,25 @@ void SpriteRenderer::SetTransform(const Math::Matrix4 & transform)
 void SpriteRenderer::BeginRender()
 {
 	//ASSERT(mSpriteBatch != nullptr, "[SpriteRenderer] Not initialized.");
+	ASSERT(false, "[SpriteRendererGL] Not implemented for OpenGL.");
 }
 
 void SpriteRenderer::EndRender()
 {
 	//ASSERT(mSpriteBatch != nullptr, "[SpriteRenderer] Not initialized.");
+	ASSERT(false, "[SpriteRendererGL] Not implemented for OpenGL.");
 }
 
 void SpriteRenderer::Draw(const Texture & texture, const Math::Vector2 & pos, float rotation, Pivot pivot, Flip flip)
 {
 	//ASSERT(mSpriteBatch != nullptr, "[SpriteRenderer] Not initialized.");
-	ASSERT(false, "[SpriteRendererGL] Not implemented.");
+	ASSERT(false, "[SpriteRendererGL] Not implemented for OpenGL.");
 }
 
 void SpriteRenderer::Draw(const Texture & texture, const Math::Rect & sourceRect, const Math::Vector2 & pos, float rotation, Pivot pivot, Flip flip)
 {
 	//ASSERT(mSpriteBatch != nullptr, "[SpriteRenderer] Not initialized.");
-	ASSERT(false, "[SpriteRendererGL] Not implemented.");
+	ASSERT(false, "[SpriteRendererGL] Not implemented for OpenGL.");
 }
 
 #endif

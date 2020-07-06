@@ -274,9 +274,7 @@ void GameState::DrawScene()
 	mModelStandardEffect.Begin();
 	mModelStandardEffect.SetMaterial(mMaterial);
 	mModelStandardEffect.SetDirectionalLight(mDirectionalLight);
-	mModelStandardEffect.SetViewProjection(mCamera.GetPosition());
-	mModelStandardEffect.SetWorldMatrix(matWorld);
-	mModelStandardEffect.SetWVPMatrix(matWorld, matView, matProj);
+	mModelStandardEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 	mModelStandardEffect.SetDepthTexture(target);
 	mModelStandardEffect.UpdateSettings();
 	mModelStandardEffect.SetBoneTransforms(animator.GetBoneMatrices());
@@ -293,9 +291,7 @@ void GameState::DrawScene()
 	mGroundStandardEffect.Begin();
 	mGroundStandardEffect.SetMaterial(mMaterial);
 	mGroundStandardEffect.SetDirectionalLight(mDirectionalLight);
-	mGroundStandardEffect.SetViewProjection(mCamera.GetPosition());
-	mGroundStandardEffect.SetWorldMatrix(matWorld);
-	mGroundStandardEffect.SetWVPMatrix(matWorld, matView, matProj);
+	mGroundStandardEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 	mGroundStandardEffect.SetDepthTexture(target);
 	auto wvpLight = Transpose(matWorld * lightVP);
 	mGroundStandardEffect.UpdateShadowBuffer(wvpLight);

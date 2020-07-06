@@ -156,7 +156,7 @@ void GameState::Update(float deltaTime)
 
 	mShipTilt *= 0.95f;
 
-	const float shipTurnSpeed = 0.1f;
+	const float shipTurnSpeed = 0.3f;
 	mShipRotation += inputSystem->GetMouseMoveX() * shipTurnSpeed * deltaTime;
 	mShipElevation += inputSystem->GetMouseMoveY() * shipTurnSpeed * deltaTime;
 
