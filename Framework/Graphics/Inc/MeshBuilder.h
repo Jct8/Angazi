@@ -22,7 +22,7 @@ namespace Angazi::Graphics
 
 		static Mesh CreateCube();
 		static Mesh CreatePlane(float size, int rings = 16, int slices = 16);
-		static Mesh CreateSphere(float radius, int rings = 16, int slices = 16);
+		static Mesh CreateSphere(float radius, int rings = 16, int slices = 16, int repeatedUVS = 1);
 
 		static void ComputeNormals(Mesh &mesh);
 	};

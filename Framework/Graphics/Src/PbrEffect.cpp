@@ -22,8 +22,8 @@ void PbrEffect::Initialize(const std::filesystem::path & fileName)
 	mPixelShader.Initialize(fileName);
 
 	// 
-	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mBlendState.Initialize(BlendState::Mode::Additive);
+	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Wrap);
+	mBlendState.Initialize(BlendState::Mode::Opaque);
 
 }
 void PbrEffect::Terminate()
@@ -158,7 +158,7 @@ void PbrEffect::SetNormalTexture(const std::filesystem::path & fileName)
 }
 void PbrEffect::SetDisplacementTexture(const std::filesystem::path & fileName)
 {
-	mSettings.bumpMapWeight = 1.0f;
+	mSettings.bumpMapWeight = 0.1f;
 	mDisplacementMap.Initialize(fileName);
 }
 void PbrEffect::SetAOTexture(const std::filesystem::path & fileName)

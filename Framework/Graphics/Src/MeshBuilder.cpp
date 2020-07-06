@@ -358,7 +358,7 @@ Mesh MeshBuilder::CreateCube()
 	return mesh;
 }
 
-Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices)
+Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices, int repeatedUVS)
 {
 	Mesh retMesh;
 	float phiIncrement = Math::Constants::Pi / rings;
@@ -368,15 +368,15 @@ Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices)
 
 	for (int i = 0; i <= rings; i++)
 	{
-		float v = static_cast<float>(i) / rings;
+		float v = static_cast<float>(i) / (rings / repeatedUVS);
 		float theta = 0.0f;
 		for (int j = 0; j <= slices; j++)
 		{
-			float u = static_cast<float>(j) / (slices);
+			float u = static_cast<float>(j) / (slices / repeatedUVS);
 			float newRadius = radius * sinf(phi);
+
 			Math::Vector3 vec = Math::Vector3{ newRadius* sinf(theta), radius * cosf(phi) , newRadius * -cosf(theta) };
 			Math::Vector3 normalized = Math::Normalize(vec);
-
 			retMesh.vertices.push_back
 			(
 				{ vec, normalized , Math::Vector3{-normalized.z , 0.0f , normalized.x} , Math::Vector2{u,v} }

@@ -203,20 +203,20 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float nDotV = max(dot(normal, V), 0.0f);
 	
 	// Ambient
-	float4 ambient = LightAmbient * MaterialAmbient;
+	float4 ambient = LightAmbient;
 	if (aoWeight == 1.0f)
-		ambient = aoMap.Sample(textureSampler, input.texCoord);
+		ambient *= aoMap.Sample(textureSampler, input.texCoord).r;
 	
 	// Specular
 	float D = DistributionGGX(normal, halfVector, roughness); 
 	float G = GeometrySmith(normal, V, L, roughness);
 	float3 F = FresnalSchlick(nDotV, f0);
-	float3 specularBRDF = (D * G * F) / max(4.0f * nDotV * nDotL, 0.00001f) * LightSpecular.rgb; // Cook-Torrance specular
+	float3 specularBRDF = (D * G * F) / max(4.0f * nDotV * nDotL, 0.00001f) /** LightSpecular.rgb*/; // Cook-Torrance specular
 	
 	// Diffuse
 	float3 kDiffuse = float3(1.0f, 1.0f, 1.0f) - F;
 	kDiffuse *= 1.0f - metallic;
-	float3 diffuseBRDF = kDiffuse * albedoColor * LightDiffuse.rgb;
+	float3 diffuseBRDF = kDiffuse * albedoColor /** LightDiffuse.rgb*/;
 
 	float3 directLighting = (diffuseBRDF + specularBRDF ) * nDotL;
 	float3 color = ambient.rgb + directLighting;

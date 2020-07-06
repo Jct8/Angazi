@@ -26,5 +26,5 @@ private:
 	Angazi::Graphics::PbrEffect mPbrEffect;
 
 	Angazi::Math::Vector3 mRotation = 0.0f;
-	bool useTextureMap = false;
+	bool useTextureMap = true;
 };
