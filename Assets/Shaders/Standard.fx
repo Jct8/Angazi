@@ -99,6 +99,7 @@ struct VS_OUTPUT
 	float3 dirToView : TEXCOORD2;
 	float2 texCoord	: TEXCOORD3;
 	float4 positionNDC : TEXCOORD4;
+	float3 worldPosition : TEXCOORD5;
 	float clip : SV_ClipDistance0;
 };
 
@@ -121,6 +122,7 @@ VS_OUTPUT VS(VS_INPUT input)
 	output.position = mul(float4(localPosition, 1.0f), toNDC);
 	output.worldNormal = worldNormal;
 	output.worldTangent = worldTangent;
+	output.worldPosition = worldPosition;
 	output.dirToLight = -LightDirection;
 	output.dirToView = normalize(ViewPosition - worldPosition);
 	output.texCoord = input.texCoord;
@@ -150,15 +152,30 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 normal = worldNormal;
 	if (normalMapWeight != 0.0f)
 	{
-		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal};
-		float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
-		float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
-		normal = mul(normalSampled, TBNW);
+		if (!all(worldTangent))
+		{
+			float3x3 TBNW = { worldTangent, worldBinormal, worldNormal };
+			float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
+			float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
+			normal = mul(normalSampled, TBNW);
+		}
+		else
+		{
+			float3 tangentNormal = normalMap.Sample(textureSampler, input.texCoord).xyz * 2.0 - 1.0;
+			float3 Q1 = ddx(input.worldPosition);
+			float3 Q2 = ddy(input.worldPosition);
+			float2 st1 = ddx(input.texCoord);
+			float2 st2 = ddy(input.texCoord);
+			float3 T = normalize(Q1 * st2.y - Q2 * st1.y);
+			float3 B = -normalize(cross(worldNormal, T));
+			float3x3 TBN = { T, B, worldNormal };
+			normal = normalize(mul(tangentNormal, TBN));
+		}
 	}
 
 	float4 ambient = LightAmbient * MaterialAmbient;
 	if(aoWeight == 1.0f)
-		ambient = aoMap.Sample(textureSampler, input.texCoord);
+		ambient += aoMap.Sample(textureSampler, input.texCoord);
 
 	float diffuseIntensity = saturate(dot(dirToLight, normal));
 	float4 diffuse = diffuseIntensity * LightDiffuse * MaterialDiffuse;

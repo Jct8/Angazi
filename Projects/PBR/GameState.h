@@ -13,6 +13,10 @@ public:
 	void DebugUI() override;
 
 private:
+	void SetPBRTextures(std::string textureName);
+	void SetStandardTextures(std::string textureName);
+
+private:
 	Angazi::Graphics::Camera mCamera;
 	Angazi::Graphics::Skybox mSkybox;
 
@@ -22,8 +26,11 @@ private:
 
 	Angazi::Graphics::MeshBuffer mMeshBufferSphere;
 
-	Angazi::Graphics::Texture mPlainTexture;
 	Angazi::Graphics::PbrEffect mPbrEffect;
+	Angazi::Graphics::StandardEffect mStandardEffect;
+
+	Angazi::Graphics::Texture mPlainTexture;
+	std::unordered_map<std::string ,std::unordered_map<std::string,std::unique_ptr<Angazi::Graphics::Texture>>> mTextures;
 
 	Angazi::Math::Vector3 mRotation = 0.0f;
 	bool useTextureMap = true;

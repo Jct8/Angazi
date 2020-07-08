@@ -116,7 +116,6 @@ namespace Angazi::Graphics
 		Angazi::Graphics::VertexShader mVertexShader;
 		Angazi::Graphics::PixelShader  mPixelShader;
 
-		Angazi::Graphics::Sampler mSampler;
 		Angazi::Graphics::BlendState mBlendState;
 
 		Angazi::Graphics::Texture mDiffuseMap;

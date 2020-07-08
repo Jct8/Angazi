@@ -69,8 +69,9 @@ static matrix Identity =
 	0, 0, 1, 0,
 	0, 0, 0, 1
 };
-const float PI = 3.14159265359;
-float3 fDielectric = float3(0.04f, 0.04f, 0.04f);
+static const float PI = 3.14159265359;
+static const float EPSILON = 1e-6f;
+const float3 fDielectric = float3(0.04f, 0.04f, 0.04f);
 
 matrix GetBoneTransform(int4 indices, float4 weights)
 {
@@ -89,31 +90,33 @@ float DistributionGGX(float3 normal, float3 halfVector, float roughness)
 {
 	float alpha = roughness * roughness;
 	float alphaSquared = alpha * alpha;
-	float nDotH = max(dot(normal, halfVector),0.0);
-	float denominator = (nDotH * nDotH) * (alphaSquared - 1.0) + 1.0;
-	return alphaSquared / (denominator * denominator); //https://seblagarde.wordpress.com/2012/01/08/pi-or-not-to-pi-in-game-lighting-equation/
+	float nDotH = max(dot(normal, halfVector), 0.0f);
+	float denominator = (nDotH * nDotH) * (alphaSquared - 1.0f) + 1.0f;
+	return alphaSquared / max( denominator * denominator, EPSILON);
+	//https://seblagarde.wordpress.com/2012/01/08/pi-or-not-to-pi-in-game-lighting-equation/ //
 }
 
 float GeometrySmith(float3 normal, float3 viewDir, float3 lightDir, float roughness)
 {
-	float r = roughness + 1.0;
-	float kDirect = (r * r)/8.0;
-	float nDotV = max(dot(normal, viewDir), 0.0);
-	float nDotL = max(dot(normal, lightDir), 0.0);
+	float r = roughness + 1.0f;
+	float kDirect = (r * r) / 8.0f;
+	float nDotV = max(dot(normal, viewDir), 0.0f);
+	float nDotL = max(dot(normal, lightDir), 0.0f);
 
-	float ggx1 = nDotV / (nDotV * (1.0 - kDirect) + kDirect);
-	float ggx2 = nDotL / (nDotL * (1.0 - kDirect) + kDirect);
+	float ggx1 = nDotV / (nDotV * (1.0f - kDirect) + kDirect);
+	float ggx2 = nDotL / (nDotL * (1.0f - kDirect) + kDirect);
 	return ggx1 * ggx2;
 }
 
 float3 FresnalSchlick(float cosTheta, float3 f0)
 {
-	return f0 + (1.0 - f0) * pow(1.0 - cosTheta, 5.0);
+	cosTheta = min(cosTheta, 1.0f);
+	return max(f0 + (1.0f - f0) * pow(1.0f - cosTheta, 5.0f), 0.0f);
 }
 
 float3 FresnelSchlickRoughness(float cosTheta, float3 F0, float roughness)
 {
-	return F0 + (max(float3(1.0f - roughness, 1.0f - roughness, 1.0f - roughness), F0) - F0) * pow(1.0 - cosTheta, 5.0f);
+	return F0 + (max(float3(1.0f - roughness, 1.0f - roughness, 1.0f - roughness), F0) - F0) * pow(1.0f - cosTheta, 5.0f);
 }
 
 struct VS_INPUT
@@ -135,6 +138,7 @@ struct VS_OUTPUT
 	float3 dirToView : TEXCOORD2;
 	float2 texCoord	: TEXCOORD3;
 	float4 positionNDC : TEXCOORD4;
+	float3 worldPosition : TEXCOORD5;
 	float clip : SV_ClipDistance0;
 };
 
@@ -155,6 +159,7 @@ VS_OUTPUT VS(VS_INPUT input)
 	float3 worldTangent = mul(input.tangent.xyz, (float3x3) toWorld);
 
 	output.position = mul(float4(localPosition, 1.0f), toNDC);
+	output.worldPosition = worldPosition;
 	output.worldNormal = worldNormal;
 	output.worldTangent = worldTangent;
 	output.dirToLight = -LightDirection;
@@ -176,7 +181,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 dirToLight = normalize(input.dirToLight);
 	float3 dirToView = normalize(input.dirToView);
 	
-	float3 albedoColor = albedoMap.Sample(textureSampler, input.texCoord).rgb;
+	float3 albedoColor = pow(albedoMap.Sample(textureSampler, input.texCoord).rgb, 2.2f);
 	float metallic = metallicMap.Sample(textureSampler, input.texCoord).r;
 	if (metallicWeight >= 0.0f)
 		metallic = metallicWeight;
@@ -187,38 +192,55 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 normal = worldNormal;
 	if (normalMapWeight != 0.0f)
 	{
-		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal };
-		float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
-		float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
-		normal = mul(normalSampled, TBNW);
+		if (!all(worldTangent))
+		{
+			float3x3 TBNW = { worldTangent, worldBinormal, worldNormal };
+			float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
+			float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
+			normal = mul(normalSampled, TBNW);
+		}
+		else
+		{
+			float3 tangentNormal = normalMap.Sample(textureSampler, input.texCoord).xyz * 2.0 - 1.0;
+			float3 Q1 = ddx(input.worldPosition);
+			float3 Q2 = ddy(input.worldPosition);
+			float2 st1 = ddx(input.texCoord);
+			float2 st2 = ddy(input.texCoord);
+			float3 T = normalize(Q1 * st2.y - Q2 * st1.y);
+			float3 B = -normalize(cross(worldNormal, T));
+			float3x3 TBN = { T, B, worldNormal };
+			normal = normalize(mul(tangentNormal, TBN));
+		}
 	}
 
 	////// PBR Lighting //////
-	float3 f0 = lerp(fDielectric, albedoColor, metallic);
+	float ambientOcclusion = 1.0f;
+	if (aoWeight == 1.0f)
+		ambientOcclusion = aoMap.Sample(textureSampler, input.texCoord).r;
+	float3 diffuseColor = lerp(albedoColor, float3(0, 0, 0), metallic) * ambientOcclusion;
+	float3 f0 = lerp(fDielectric, albedoColor, metallic) * ambientOcclusion;
 	float3 V = dirToView;
 	float3 L = dirToLight;
 	float3 halfVector = normalize(V+L);
 	float3 radiance = LightDiffuse;
 	float nDotL = max(dot(normal, L), 0.0f);
 	float nDotV = max(dot(normal, V), 0.0f);
-	
+
 	// Ambient
-	float4 ambient = LightAmbient;
-	if (aoWeight == 1.0f)
-		ambient *= aoMap.Sample(textureSampler, input.texCoord).r;
-	
+	float4 ambient = LightAmbient * float4(albedoColor, 1.0f) * ambientOcclusion;
+
 	// Specular
 	float D = DistributionGGX(normal, halfVector, roughness); 
 	float G = GeometrySmith(normal, V, L, roughness);
 	float3 F = FresnalSchlick(nDotV, f0);
-	float3 specularBRDF = (D * G * F) / max(4.0f * nDotV * nDotL, 0.00001f) /** LightSpecular.rgb*/; // Cook-Torrance specular
+	float3 specularBRDF = (D * G * F) / max(4.0f * nDotV * nDotL, EPSILON) * LightSpecular.rgb; // Cook-Torrance specular
 	
 	// Diffuse
 	float3 kDiffuse = float3(1.0f, 1.0f, 1.0f) - F;
 	kDiffuse *= 1.0f - metallic;
-	float3 diffuseBRDF = kDiffuse * albedoColor /** LightDiffuse.rgb*/;
+	float3 diffuseBRDF = kDiffuse * diffuseColor * LightDiffuse.rgb;
 
-	float3 directLighting = (diffuseBRDF + specularBRDF ) * nDotL;
+	float3 directLighting = (diffuseBRDF + specularBRDF) * brightness * nDotL;
 	float3 color = ambient.rgb + directLighting;
 
 	// Shadowing
@@ -238,7 +260,9 @@ float4 PS(VS_OUTPUT input) : SV_Target
 		}
 	}
 
-	//color = color / (color + float3(1.0f, 1.0f, 1.0f));
-	//color = pow(color, float3(1.0f / 2.2f, 1.0f / 2.2f, 1.0f / 2.2f));
+	color = color / (color + float3(1.0f, 1.0f, 1.0f));
+
+	float gammaCorrect = 1.0f / 2.2f;
+	color = pow(color, float3(gammaCorrect, gammaCorrect, gammaCorrect));
 	return float4(color, 1.0f);
 }

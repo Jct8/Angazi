@@ -23,14 +23,11 @@ void StandardEffect::Initialize(const std::filesystem::path & fileName)
 	mPixelShader.Initialize(fileName);
 
 	// 
-	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	mBlendState.Initialize(BlendState::Mode::Additive);
-
 }
 void StandardEffect::Terminate()
 {
 	mBlendState.Terminate();
-	mSampler.Terminate();
 
 	// Shaders
 	mPixelShader.Terminate();
@@ -54,10 +51,6 @@ void StandardEffect::Terminate()
 }
 void StandardEffect::Begin()
 {
-	// Sampler
-	mSampler.BindVS();
-	mSampler.BindPS();
-
 	// Constant Buffers
 	mTransformBuffer.BindVS(0);
 	mLightBuffer.BindVS(1);

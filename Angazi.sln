@@ -190,6 +190,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Spaceship", "Projects\Space
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PBR", "Projects\PBR\PBR.vcxproj", "{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PBRmodel", "Projects\PBRmodel\PBRmodel.vcxproj", "{ABF21874-ECF3-483C-8B98-0FE15345897C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1146,6 +1148,22 @@ Global
 		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.Debug|x64.ActiveCfg = Debug|x64
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.Debug|x64.Build.0 = Debug|x64
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.Debug|x86.ActiveCfg = Debug|Win32
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.Debug|x86.Build.0 = Debug|Win32
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.MinSizeRel|x64.Build.0 = Release|x64
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.MinSizeRel|x86.Build.0 = Release|Win32
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.Release|x64.ActiveCfg = Release|x64
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.Release|x64.Build.0 = Release|x64
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.Release|x86.ActiveCfg = Release|Win32
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.Release|x86.Build.0 = Release|Win32
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{ABF21874-ECF3-483C-8B98-0FE15345897C}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1212,12 +1230,13 @@ Global
 		{84099603-CC1E-47FC-BA5F-3CE800547046} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 		{8E264DBC-B76A-49B3-8B38-77185281D93F} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 		{D4EDFD7C-6F1B-44F8-AAD9-6611E9ADF132} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
+		{ABF21874-ECF3-483C-8B98-0FE15345897C} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 59
+		SccNumberOfProjects = 60
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1453,5 +1472,9 @@ Global
 		SccProjectTopLevelParentUniqueName58 = Angazi.sln
 		SccProjectName58 = Projects/PBR
 		SccLocalPath58 = Projects\\PBR
+		SccProjectUniqueName59 = Projects\\PBRmodel\\PBRmodel.vcxproj
+		SccProjectTopLevelParentUniqueName59 = Angazi.sln
+		SccProjectName59 = Projects/PBRmodel
+		SccLocalPath59 = Projects\\PBRmodel
 	EndGlobalSection
 EndGlobal
