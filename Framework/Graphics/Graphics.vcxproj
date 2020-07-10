@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\EnvironmentMap.cpp" />
+    <ClCompile Include="Src\HdrEffect.cpp" />
     <ClCompile Include="Src\ParticleEmitter.cpp" />
     <ClCompile Include="Src\PbrEffect.cpp" />
     <ClCompile Include="Src\WaterEffect.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Inc\Effect.h" />
     <ClInclude Include="Inc\EnvironmentMap.h" />
     <ClInclude Include="Inc\Graphics.h" />
+    <ClInclude Include="Inc\HdrEffect.h" />
     <ClInclude Include="Inc\Keyframe.h" />
     <ClInclude Include="Inc\LightTypes.h" />
     <ClInclude Include="Inc\Material.h" />

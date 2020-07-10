@@ -28,6 +28,7 @@ private:
 	Angazi::Graphics::StandardEffect mModelStandardEffect;
 	//Angazi::Graphics::StandardEffect mArenaStandardEffect;
 	Angazi::Graphics::StandardEffect mGroundStandardEffect;
+	Angazi::Graphics::HdrEffect mHdrEffect;
 
 	// Model
 	Angazi::Graphics::Model model;

@@ -15,8 +15,8 @@ namespace Angazi::Graphics
 
 		Texture(Texture&&) = default;
 
-		void Initialize(const std::filesystem::path& fileName);
-		void Initialize(const std::vector<std::filesystem::path>& cubeSides);
+		void Initialize(const std::filesystem::path& fileName, bool gammaCorrection = false);
+		void Initialize(const std::vector<std::filesystem::path>& cubeSides, bool gammaCorrection = false);
 		void Terminate();
 
 		void BindVS(uint32_t slot = 0) const;

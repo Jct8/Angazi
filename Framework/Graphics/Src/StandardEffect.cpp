@@ -143,7 +143,7 @@ void StandardEffect::SetClippingPlane(const Math::Vector4& plane)
 
 void StandardEffect::SetDiffuseTexture(const std::filesystem::path & fileName)
 {
-	mDiffuseMap.Initialize(fileName);
+	mDiffuseMap.Initialize(fileName,true);
 }
 void StandardEffect::SetNormalTexture(const std::filesystem::path & fileName)
 {

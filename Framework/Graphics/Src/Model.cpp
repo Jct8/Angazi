@@ -104,7 +104,7 @@ void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)
 		if (!data.diffuseMapName.empty())
 		{
 			data.diffuseMap = std::make_unique<Texture>();
-			data.diffuseMap->Initialize(fileName.replace_filename(data.diffuseMapName));
+			data.diffuseMap->Initialize(fileName.replace_filename(data.diffuseMapName),true);
 		}
 		if (!data.normalMapName.empty())
 		{

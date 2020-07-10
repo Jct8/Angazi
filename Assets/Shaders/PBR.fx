@@ -181,7 +181,8 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 dirToLight = normalize(input.dirToLight);
 	float3 dirToView = normalize(input.dirToView);
 	
-	float3 albedoColor = pow(albedoMap.Sample(textureSampler, input.texCoord).rgb, 2.2f);
+	float gamma = 2.2f;
+	float3 albedoColor = pow(albedoMap.Sample(textureSampler, input.texCoord).rgb, gamma);
 	float metallic = metallicMap.Sample(textureSampler, input.texCoord).r;
 	if (metallicWeight >= 0.0f)
 		metallic = metallicWeight;
@@ -262,7 +263,8 @@ float4 PS(VS_OUTPUT input) : SV_Target
 
 	color = color / (color + float3(1.0f, 1.0f, 1.0f));
 
-	float gammaCorrect = 1.0f / 2.2f;
-	color = pow(color, float3(gammaCorrect, gammaCorrect, gammaCorrect));
+	float gammaCorrect = 1.0f / gamma;
+	
+	//color = pow(color, float3(gammaCorrect, gammaCorrect, gammaCorrect));
 	return float4(color, 1.0f);
 }

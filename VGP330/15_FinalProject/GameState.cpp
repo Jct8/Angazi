@@ -57,13 +57,17 @@ void GameState::Initialize()
 	mTankEffect.SetSpecularTexture("../../Assets/Models/Tank/tank_specular.jpg");
 	mTankEffect.SetNormalTexture("../../Assets/Models/Tank/tank_normal.jpg");
 	mTankEffect.SetAOTexture("../../Assets/Models/Tank/tank_ao.jpg");
-	mTankEffect.SetBrightness(10.0f);
+	mTankEffect.SetBrightness(1.0f);
 
 	mWaterEffect.Initialize("../../Assets/Shaders/Water.fx");
 	mWaterEffect.SetBrightness(waterBrightness);
 	mWaterEffect.SetWaterDisplacement(waterDisplacement);
 	mWaterEffect.SetMovementSpeed(waterMovementSpeed);
 	mWaterEffect.SetReflectivePower(waterReflectionPower);
+
+	mHdrEffect.Initialize();
+	mHdrEffect.EnableHDR(true);
+	mHdrEffect.EnableGammaCorrection(true);
 
 	mSkybox.CreateSkybox();
 }
@@ -72,6 +76,8 @@ void GameState::Terminate()
 {
 	mSkybox.Terminate();
 
+	mHdrEffect.Terminate();
+	mWaterEffect.Terminate();
 	mTankEffect.Terminate();
 	mGroundEffect.Terminate();
 
@@ -131,9 +137,13 @@ void GameState::Render()
 	DrawScene(RenderType::Normal);
 	mRenderTarget.EndRender();
 
+	mHdrEffect.BeginRender();
 	mRenderTarget.BindPS(0);
 	PostProcess();
 	mRenderTarget.UnbindPS(0);
+	mHdrEffect.EndRender();
+
+	mHdrEffect.RenderHdrQuad();
 }
 
 void GameState::DebugUI()
@@ -206,6 +216,11 @@ void GameState::DebugUI()
 		ImGui::DragFloat3("WaterTranslation##Transform", &mTranslation.x, 0.3f);
 		ImGui::DragFloat3("TankTranslation##Transform", &mTankPosition.x, 0.3f);
 		ImGui::DragFloat3("GroundTranslation##Transform", &mGroundTranslation.x, 0.3f);
+	}
+	static float exposure = 1.0f;
+	if (ImGui::SliderFloat("Exposure", &exposure, 0.0f, 10.0f))
+	{
+		mHdrEffect.SetExposure(exposure);
 	}
 	ImGui::End();
 }

@@ -28,7 +28,7 @@ void Skybox::CreateSkybox()
 	std::vector<std::filesystem::path> fileNames;
 	for (std::map<Side, std::filesystem::path>::iterator it = cubeSides.begin(); it != cubeSides.end(); ++it)
 		fileNames.push_back(it->second);
-	mTexture.Initialize(fileNames);
+	mTexture.Initialize(fileNames,true);
 
 	// Render States
 #ifdef ENABLE_DIRECTX11

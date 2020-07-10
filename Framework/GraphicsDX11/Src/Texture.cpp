@@ -13,9 +13,15 @@ Texture::~Texture()
 	ASSERT(mShaderResourceView == nullptr, "[Texture] Terminate() must be called to clean up!");
 }
 
-void Texture::Initialize(const std::filesystem::path& fileName)
+void Texture::Initialize(const std::filesystem::path& fileName, bool gammaCorrection)
 {
-	HRESULT hr = DirectX::CreateWICTextureFromFile(GetDevice(), GetContext(), fileName.c_str(), nullptr, &mShaderResourceView);
+	HRESULT hr;
+	if(gammaCorrection)
+		hr = DirectX::CreateWICTextureFromFileEx(GetDevice(), GetContext(), fileName.c_str()
+			,0 , D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET, 0
+			, D3D11_RESOURCE_MISC_GENERATE_MIPS, DirectX::WIC_LOADER_FORCE_SRGB, nullptr, &mShaderResourceView);
+	else
+		hr = DirectX::CreateWICTextureFromFile(GetDevice(), GetContext(), fileName.c_str(), nullptr, &mShaderResourceView);
 	ASSERT(SUCCEEDED(hr), "Failed to load texture %ls.", fileName.c_str());
 
 	// Get Width and Height of the texture
@@ -30,7 +36,7 @@ void Texture::Initialize(const std::filesystem::path& fileName)
 	mHeight = desc.Height;
 }
 
-void Texture::Initialize(const std::vector<std::filesystem::path>& cubeSides)
+void Texture::Initialize(const std::vector<std::filesystem::path>& cubeSides, bool gammaCorrection)
 {
 	HRESULT hr;
 	std::array<ID3D11Resource*, 6> resourceArray;
@@ -38,7 +44,14 @@ void Texture::Initialize(const std::vector<std::filesystem::path>& cubeSides)
 	int i = 0;
 	for (auto side : cubeSides)
 	{
-		hr = DirectX::CreateWICTextureFromFile(GetDevice(), GetContext(), side.c_str(), nullptr, &srvArray[i]);
+		if (gammaCorrection)
+			hr = DirectX::CreateWICTextureFromFileEx(GetDevice(), GetContext(), side.c_str()
+				, 0, D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET, 0
+				, D3D11_RESOURCE_MISC_GENERATE_MIPS, DirectX::WIC_LOADER_FORCE_SRGB, nullptr, &srvArray[i]);
+		else
+			hr = DirectX::CreateWICTextureFromFile(GetDevice(), GetContext(), side.c_str(), nullptr, &srvArray[i]);
+
+		//hr = DirectX::CreateWICTextureFromFile(GetDevice(), GetContext(), side.c_str(), nullptr, );
 		ASSERT(SUCCEEDED(hr), "[Texture] Failed to load texture %ls.", side.c_str());
 		srvArray[i]->GetResource(&resourceArray[i]);
 		i++;

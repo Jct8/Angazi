@@ -171,6 +171,9 @@
     <ClInclude Include="Inc\PbrEffect.h">
       <Filter>Inc\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\HdrEffect.h">
+      <Filter>Inc\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Camera.cpp">
@@ -240,6 +243,9 @@
       <Filter>Src\VFX</Filter>
     </ClCompile>
     <ClCompile Include="Src\PbrEffect.cpp">
+      <Filter>Src\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\HdrEffect.cpp">
       <Filter>Src\Shader</Filter>
     </ClCompile>
   </ItemGroup>

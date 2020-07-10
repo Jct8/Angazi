@@ -53,6 +53,7 @@ private:
 	Angazi::Graphics::StandardEffect mTankEffect;
 	Angazi::Graphics::StandardEffect mGroundEffect;
 	Angazi::Graphics::WaterEffect mWaterEffect;
+	Angazi::Graphics::HdrEffect mHdrEffect;
 
 	// PostProcessing
 	Angazi::Graphics::RenderTarget mRenderTarget;

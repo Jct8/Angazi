@@ -56,6 +56,10 @@ void GameState::Initialize()
 	mGroundMesh = MeshBuilder::CreatePlane(100.0f, 50, 50);
 	mGroundMeshBuffer.Initialize(mGroundMesh);
 
+	mHdrEffect.Initialize();
+	mHdrEffect.EnableHDR(true);
+	mHdrEffect.EnableGammaCorrection(true);
+
 	mShadowEffect.Initialize("../../Assets/Shaders/DepthMap.fx");
 	mSkybox.CreateSkybox();
 }
@@ -65,6 +69,7 @@ void GameState::Terminate()
 	mSkybox.Terminate();
 	// Effects
 	mShadowEffect.Terminate();
+	mHdrEffect.Terminate();
 	mGroundStandardEffect.Terminate();
 	//mArenaStandardEffect.Terminate();
 	mModelStandardEffect.Terminate();
@@ -116,7 +121,11 @@ void GameState::Render()
 	DrawScene();
 	mPostProcessingEffect.EndRender();
 
+	mHdrEffect.BeginRender();
 	mPostProcessingEffect.PostProcess();
+	mHdrEffect.EndRender();
+
+	mHdrEffect.RenderHdrQuad();
 }
 
 void GameState::DebugUI()
@@ -176,7 +185,11 @@ void GameState::DebugUI()
 		animator.SetAnimationSpeed(animationSpeed);
 	}
 	ImGui::Checkbox("Show Skeleton", &mShowSkeleton);
-
+	static float exposure = 1.0f;
+	if (ImGui::SliderFloat("Exposure", &exposure, 0.0f, 10.0f))
+	{
+		mHdrEffect.SetExposure(exposure);
+	}
 	ImGui::End();
 }
 
