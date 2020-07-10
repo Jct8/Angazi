@@ -16,7 +16,6 @@ namespace
 	float brightness = 1.0f;
 
 	std::vector<std::string> textureNames;
-
 	std::string choosenTexture;
 }
 
@@ -181,7 +180,6 @@ void GameState::DrawScene()
 		mPbrEffect.SetDirectionalLight(mDirectionalLight);
 		mPbrEffect.SetMaterial(mMaterial);
 		SetPBRTextures(choosenTexture);
-
 		mPbrEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 		mPbrEffect.UpdateSettings();
 		mMeshBufferSphere.Draw();

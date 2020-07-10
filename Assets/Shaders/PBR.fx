@@ -222,7 +222,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 V = dirToView;
 	float3 L = dirToLight;
 	float3 halfVector = normalize(V+L);
-	float3 radiance = LightDiffuse;
 	float nDotL = max(dot(normal, L), 0.0f);
 	float nDotV = max(dot(normal, V), 0.0f);
 

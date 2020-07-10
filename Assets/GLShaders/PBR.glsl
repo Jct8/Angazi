@@ -46,7 +46,6 @@ layout(std140, binding = 2) uniform MaterialBuffer
 
 layout(std140, binding = 3) uniform SettingsBuffer 
 {
-	float specularMapWeight;
 	float bumpMapWeight;
 	float normalMapWeight;
 	float aoWeight;
@@ -54,6 +53,8 @@ layout(std140, binding = 3) uniform SettingsBuffer
 	bool useShadow;
 	float depthBias;
 	float isSkinnedMesh;
+	float metallicWeight;
+	float roughnessWeight;
 };
 
 layout(std140, binding = 4) uniform ShadowBuffer 
@@ -90,12 +91,13 @@ mat4 GetBoneTransform(ivec4 indices, vec4 weights)
 	return transform;
 }
 
-layout(binding = 0) uniform sampler2D diffuseMap;
-layout(binding = 1) uniform sampler2D specularMap;
-layout(binding = 2) uniform sampler2D displacementMap;
-layout(binding = 3) uniform sampler2D normalMap;
-layout(binding = 4) uniform sampler2D aoMap;
-layout(binding = 5) uniform sampler2D depthMap;
+layout(binding = 0) uniform sampler2D albedoMap;
+layout(binding = 1) uniform sampler2D displacementMap;
+layout(binding = 2) uniform sampler2D normalMap;
+layout(binding = 3) uniform sampler2D aoMap;
+layout(binding = 4) uniform sampler2D depthMap;
+layout(binding = 5) uniform sampler2D metallicMap;
+layout(binding = 6) uniform sampler2D roughnessMap;
 
 void main()
 {
@@ -163,14 +165,15 @@ layout(std140, binding = 2) uniform MaterialBuffer
 };
 layout(std140, binding = 3) uniform SettingsBuffer 
 {
-	float specularMapWeight;
 	float bumpMapWeight;
 	float normalMapWeight;
 	float aoWeight;
 	float brightness;
 	bool useShadow;
 	float depthBias;
-	bool isSkinnedMesh;
+	float isSkinnedMesh;
+	float metallicWeight;
+	float roughnessWeight;
 };
 
 layout(std140, binding = 4) uniform ShadowBuffer 
@@ -188,12 +191,50 @@ layout(std140, binding = 6) uniform ClippingBuffer
 	vec4 clippingPlane;
 };
 
-layout(binding = 0) uniform sampler2D diffuseMap;
-layout(binding = 1) uniform sampler2D specularMap;
-layout(binding = 2) uniform sampler2D displacementMap;
-layout(binding = 3) uniform sampler2D normalMap;
-layout(binding = 4) uniform sampler2D aoMap;
-layout(binding = 5) uniform sampler2D depthMap;
+layout(binding = 0) uniform sampler2D albedoMap;
+layout(binding = 1) uniform sampler2D displacementMap;
+layout(binding = 2) uniform sampler2D normalMap;
+layout(binding = 3) uniform sampler2D aoMap;
+layout(binding = 4) uniform sampler2D depthMap;
+layout(binding = 5) uniform sampler2D metallicMap;
+layout(binding = 6) uniform sampler2D roughnessMap;
+
+const float PI = 3.14159265359;
+const float EPSILON = 1e-6f;
+const vec3 fDielectric = vec3(0.04f, 0.04f, 0.04f);
+
+float DistributionGGX(vec3 normal, vec3 halfVector, float roughness)
+{
+	float alpha = roughness * roughness;
+	float alphaSquared = alpha * alpha;
+	float nDotH = max(dot(normal, halfVector), 0.0f);
+	float denominator = (nDotH * nDotH) * (alphaSquared - 1.0f) + 1.0f;
+	return alphaSquared / max( denominator * denominator, EPSILON);
+	//https://seblagarde.wordpress.com/2012/01/08/pi-or-not-to-pi-in-game-lighting-equation/ //
+}
+
+float GeometrySmith(vec3 normal, vec3 viewDir, vec3 lightDir, float roughness)
+{
+	float r = roughness + 1.0f;
+	float kDirect = (r * r) / 8.0f;
+	float nDotV = max(dot(normal, viewDir), 0.0f);
+	float nDotL = max(dot(normal, lightDir), 0.0f);
+
+	float ggx1 = nDotV / (nDotV * (1.0f - kDirect) + kDirect);
+	float ggx2 = nDotL / (nDotL * (1.0f - kDirect) + kDirect);
+	return ggx1 * ggx2;
+}
+
+vec3 FresnalSchlick(float cosTheta, vec3 f0)
+{
+	cosTheta = min(cosTheta, 1.0f);
+	return max(f0 + (1.0f - f0) * pow(1.0f - cosTheta, 5.0f), 0.0f);
+}
+
+vec3 FresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness)
+{
+	return F0 + (max(vec3(1.0f - roughness, 1.0f - roughness, 1.0f - roughness), F0) - F0) * pow(1.0f - cosTheta, 5.0f);
+}
 
 void main()
 {
@@ -202,6 +243,14 @@ void main()
 	vec3 worldBinormal = normalize(cross(worldNormal,worldTangent));
 	vec3 dirToLight = normalize(outDirToLight);
 	vec3 dirToView = normalize(outDirToView);
+
+	vec3 albedoColor = texture(albedoMap, outTexCoord).rgb;
+	float metallic = texture(metallicMap, outTexCoord).r;
+	if (metallicWeight >= 0.0f)
+		metallic = metallicWeight;
+	float roughness = texture(roughnessMap, outTexCoord).r;
+	if (roughnessWeight >= 0.0f)
+		roughness = roughnessWeight;
 
 	vec3 normal = worldNormal;
 	if (normalMapWeight != 0.0f)
@@ -227,40 +276,49 @@ void main()
 		}
 	}
 
-	// ambient
+	////// PBR Lighting //////
 	float ambientOcclusion = 1.0f;
-	if(aoWeight == 1.0f)
+	if (aoWeight == 1.0f)
 		ambientOcclusion = texture(aoMap, outTexCoord).r;
+	vec3 diffuseColor = mix(albedoColor, vec3(0.0f), metallic);
+	vec3 f0 = mix(fDielectric, albedoColor, metallic);
+	vec3 V = dirToView;
+	vec3 L = dirToLight;
+	vec3 halfVector = normalize(V+L);
+	float nDotL = max(dot(normal, L), 0.0f);
+	float nDotV = max(dot(normal, V), 0.0f);
+
+	// ambient
 	vec4 ambient = LightAmbient * MaterialAmbient;
 
-	// diffuse
-	float diffuseIntensity = clamp(dot(dirToLight, normal),0.0,1.0);
-	vec4 diffuse = diffuseIntensity * LightDiffuse* MaterialDiffuse;
+	// Specular
+	float D = DistributionGGX(normal, halfVector, roughness); 
+	float G = GeometrySmith(normal, V, L, roughness);
+	vec3 F = FresnalSchlick(nDotV, f0);
+	vec3 specularBRDF = (D * G * F) / max(4.0f * nDotV * nDotL, EPSILON) * LightSpecular.rgb * MaterialSpecular.rgb; // Cook-Torrance specular
 
-	// specular
-	vec3 halfAngle = normalize(dirToLight + dirToView);
-	float specularBase = clamp(dot(halfAngle, normal), 0.0,1.0);
-	float specularIntensity = pow(specularBase, MaterialPower);
-	vec4 specular = specularIntensity * LightSpecular * MaterialSpecular;
+	// Diffuse
+	vec3 kDiffuse = vec3(1.0f) - F;
+	kDiffuse *= 1.0f - metallic;
+	vec3 diffuseBRDF = kDiffuse * diffuseColor * LightDiffuse.rgb * MaterialDiffuse.rgb;
 
-	vec4 mainTexture = texture(diffuseMap, outTexCoord);
-	float specularFactor = texture(specularMap, outTexCoord).r;
+	vec3 directLighting = (diffuseBRDF + specularBRDF) * brightness * nDotL;
+	vec3 color = (ambient.rgb + directLighting) * ambientOcclusion;
 
-	vec4 color = (ambient + diffuse) * mainTexture * brightness* ambientOcclusion  + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
 	if (useShadow)
 	{
 		float actualDepth = 1.0f - outPositionNDC.z / outPositionNDC.w;
 		vec2 shadowUV = outPositionNDC.xy / outPositionNDC.w;
 		shadowUV = (shadowUV + 1.0f) *0.5f;
 		//shadowUV.y = 1.0f - shadowUV.y;
-		if (clamp(shadowUV.x,0.0,1.0) == shadowUV.x && clamp(shadowUV.y,0.0,1.0) == shadowUV.y)
+		if (clamp(shadowUV.x,0.0f,1.0f) == shadowUV.x && clamp(shadowUV.y,0.0f,1.0f) == shadowUV.y)
 		{
 			float savedDepth = texture(depthMap, shadowUV).r;
 			if (savedDepth > actualDepth + depthBias)
 			{
-				color = ambient * mainTexture;
+				color = ambient.rgb * albedoColor;
 			}
 		}
 	}
-	FragColor = color;
+	FragColor = vec4(color,1.0f);
 }

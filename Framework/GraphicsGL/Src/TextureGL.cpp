@@ -26,7 +26,7 @@ void Texture::Initialize(const std::filesystem::path& filePath, bool gammaCorrec
 	}
 	else if (channels == 3)
 	{
-		internalFormat = gammaCorrection ? GL_SRGB8 GL_RGB8;
+		internalFormat = gammaCorrection ? GL_SRGB8 : GL_RGB8;
 		dataFormat = GL_RGB;
 	}
 	else if (channels == 2)
@@ -47,18 +47,19 @@ void Texture::Initialize(const std::filesystem::path& filePath, bool gammaCorrec
 	stbi_image_free(imageData);
 }
 
-void Texture::Initialize(const std::vector<std::filesystem::path>& cubeSides)
+void Texture::Initialize(const std::vector<std::filesystem::path>& cubeSides, bool gammaCorrection)
 {
 	glGenTextures(1, &mTextureID);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, mTextureID);
 
 	int width, height, nrChannels;
+	GLenum internalFormat = gammaCorrection ? GL_SRGB8_ALPHA8 : GL_RGBA8;
 	for (size_t i = 0; i < cubeSides.size(); i++)
 	{
 		stbi_uc *data = stbi_load(cubeSides[i].u8string().c_str(), &width, &height, &nrChannels, STBI_rgb_alpha);
 		if (data)
 		{
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalFormat, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 			stbi_image_free(data);
 		}
 		else

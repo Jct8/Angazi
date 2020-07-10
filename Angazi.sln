@@ -122,6 +122,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GLShaders", "GLShaders", "{
 		Assets\GLShaders\EnvironmentMap.glsl = Assets\GLShaders\EnvironmentMap.glsl
 		Assets\GLShaders\HDR.glsl = Assets\GLShaders\HDR.glsl
 		Assets\GLShaders\Particles.glsl = Assets\GLShaders\Particles.glsl
+		Assets\GLShaders\PBR.glsl = Assets\GLShaders\PBR.glsl
 		Assets\GLShaders\PostProcessing.glsl = Assets\GLShaders\PostProcessing.glsl
 		Assets\GLShaders\SimpleDraw.glsl = Assets\GLShaders\SimpleDraw.glsl
 		Assets\GLShaders\Skybox.glsl = Assets\GLShaders\Skybox.glsl
