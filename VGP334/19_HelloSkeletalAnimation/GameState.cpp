@@ -221,7 +221,7 @@ void GameState::DrawScene()
 	SimpleDraw::Render(mCamera, matWorld);
 
 	// Ground
-	matWorld = Matrix4::Translation({ 0.0f,-4.5f,0.0f });;
+	matWorld = Matrix4::Translation({ 0.0f,-2.5f,0.0f });;
 	mGroundStandardEffect.Begin();
 	mGroundStandardEffect.SetMaterial(mMaterial);
 	mGroundStandardEffect.SetDirectionalLight(mDirectionalLight);

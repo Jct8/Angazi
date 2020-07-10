@@ -73,10 +73,13 @@ void GameState::Initialize()
 
 	mShadowEffect.Initialize("../../Assets/Shaders/DepthMap.fx");
 	mSkybox.CreateSkybox();
+
+	mHdrEffect.Initialize();
 }
 
 void GameState::Terminate()
 {
+	mHdrEffect.Terminate();
 	mSkybox.Terminate();
 
 	// Effects
@@ -165,7 +168,11 @@ void GameState::Render()
 	DrawScene();
 	mPostProcessingEffect.EndRender();
 
+	mHdrEffect.BeginRender();
 	mPostProcessingEffect.PostProcess();
+	mHdrEffect.EndRender();
+
+	mHdrEffect.RenderHdrQuad();
 }
 
 void GameState::DebugUI()

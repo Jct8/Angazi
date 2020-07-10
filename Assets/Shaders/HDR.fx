@@ -37,7 +37,8 @@ float4 PS(VSOutput input) : SV_Target
 	float4 color = textureMap.Sample(textureSampler, input.texCoord);
 	if (useHDR)
 		color = float4(1.0f, 1.0f, 1.0f, 1.0f) - exp(-color * exposure);
-	if (useGammaCorrection)	
+		//color = color / (color + float4(1.0f, 1.0f, 1.0f, 1.0f));
+	if (useGammaCorrection)
 		color = pow(color, float4(gammaInv, gammaInv, gammaInv, gammaInv));
 	
 	return color;

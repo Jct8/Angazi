@@ -16,6 +16,8 @@ private:
 	void SetPBRTextures(std::string textureName);
 	void SetStandardTextures(std::string textureName);
 
+	void DrawScene();
+
 private:
 	Angazi::Graphics::Camera mCamera;
 	Angazi::Graphics::Skybox mSkybox;
@@ -28,6 +30,7 @@ private:
 
 	Angazi::Graphics::PbrEffect mPbrEffect;
 	Angazi::Graphics::StandardEffect mStandardEffect;
+	Angazi::Graphics::HdrEffect mHdrEffect;
 
 	Angazi::Graphics::Texture mPlainTexture;
 	std::unordered_map<std::string ,std::unordered_map<std::string,std::unique_ptr<Angazi::Graphics::Texture>>> mTextures;

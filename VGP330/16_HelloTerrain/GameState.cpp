@@ -25,12 +25,10 @@ namespace
 
 void GameState::Initialize()
 {
-
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
-
 	//mTankPosition = { 0.0f,3.5f,0.0f };
-	mSettings.brightness = 10.0f;
+	mSettings.brightness = 1.0f;
 	mDefaultCamera.SetNearPlane(0.1f);
 	mDefaultCamera.SetFarPlane(300.0f);
 	mDefaultCamera.SetPosition({ 0.0f, 10.0f, -30.0f });
@@ -107,10 +105,12 @@ void GameState::Initialize()
 	mTerrain.LoadHeightmap("../../Assets/Heightmaps/heightmap_200x200.raw");
 	mDepthSettingsBuffer.Initialize();
 
+	mHdrEffect.Initialize();
 }
 
 void GameState::Terminate()
 {
+	mHdrEffect.Terminate();
 	mDepthSettingsBuffer.Terminate();
 
 	mTerrain.Terminate();
@@ -300,10 +300,13 @@ void GameState::Render()
 	DrawScene();
 	mRenderTarget.EndRender();
 
+	mHdrEffect.BeginRender();
 	mRenderTarget.BindPS(0);
 	PostProcess();
 	mRenderTarget.UnbindPS(0);
+	mHdrEffect.EndRender();
 
+	mHdrEffect.RenderHdrQuad();
 }
 
 void GameState::DebugUI()

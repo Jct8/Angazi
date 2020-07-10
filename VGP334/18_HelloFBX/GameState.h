@@ -34,6 +34,7 @@ private:
 	Angazi::Graphics::StandardEffect mJetStandardEffect;
 	Angazi::Graphics::StandardEffect mModelStandardEffect;
 	Angazi::Graphics::StandardEffect mGroundStandardEffect;
+	Angazi::Graphics::HdrEffect mHdrEffect;
 
 	// Model
 	Angazi::Graphics::Model model;

@@ -8,7 +8,7 @@
 using namespace Angazi;
 using namespace Angazi::Graphics;
 
-void Texture::Initialize(const std::filesystem::path& filePath)
+void Texture::Initialize(const std::filesystem::path& filePath, bool gammaCorrection)
 {
 	int width, height, channels;
 	stbi_set_flip_vertically_on_load(false);
@@ -21,12 +21,12 @@ void Texture::Initialize(const std::filesystem::path& filePath)
 	GLenum internalFormat = 0, dataFormat = 0;
 	if (channels == 4)
 	{
-		internalFormat = GL_SRGB8_ALPHA8;
+		internalFormat = gammaCorrection ? GL_SRGB8_ALPHA8 : GL_RGBA8;
 		dataFormat = GL_RGBA;
 	}
 	else if (channels == 3)
 	{
-		internalFormat = GL_SRGB8;
+		internalFormat = gammaCorrection ? GL_SRGB8 GL_RGB8;
 		dataFormat = GL_RGB;
 	}
 	else if (channels == 2)

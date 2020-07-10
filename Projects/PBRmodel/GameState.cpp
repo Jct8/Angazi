@@ -96,7 +96,7 @@ void GameState::Initialize()
 	mPlainTexture.Initialize("../../Assets/Images/white.jpg");
 
 	mTextures["Helmet"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Albedo"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_BaseColor.png");
+	mTextures["Helmet"]["Albedo"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_BaseColor.png", true);
 	mTextures["Helmet"]["Normal"] = std::make_unique<Texture>();
 	mTextures["Helmet"]["Normal"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Normal.png");
 	mTextures["Helmet"]["AO"] = std::make_unique<Texture>();
@@ -112,10 +112,13 @@ void GameState::Initialize()
 		textureNames.push_back(textures.first);
 	choosenTexture = textureNames[0];
 
+	mHdrEffect.Initialize();
 }
 
 void GameState::Terminate()
 {
+	mHdrEffect.Terminate();
+
 	for (auto &textures : mTextures)
 	{
 		for (auto &texture : textures.second)
@@ -155,6 +158,15 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
+	mHdrEffect.BeginRender();
+	DrawScene();
+	mHdrEffect.EndRender();
+
+	mHdrEffect.RenderHdrQuad();
+}
+
+void GameState::DrawScene()
+{
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 	auto matWorld = matRot * Matrix4::Translation({ 0.0f,0.0f,0.0f });
 	auto matView = mCamera.GetViewMatrix();
@@ -174,7 +186,7 @@ void GameState::Render()
 		mPbrEffect.UpdateSettings();
 		mMeshBufferSphere.Draw();
 		mPbrEffect.End();
-	
+
 		matWorld = matRot * Matrix4::Translation({ 0.3f,0.0f,0.0f });
 		mStandardEffect.Begin();
 		mStandardEffect.SetDirectionalLight(mDirectionalLight);

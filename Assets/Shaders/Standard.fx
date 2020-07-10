@@ -173,9 +173,10 @@ float4 PS(VS_OUTPUT input) : SV_Target
 		}
 	}
 
-	float4 ambient = LightAmbient * MaterialAmbient;
+	float ambientOcclusion = 1.0f;
 	if(aoWeight == 1.0f)
-		ambient += aoMap.Sample(textureSampler, input.texCoord);
+		ambientOcclusion = aoMap.Sample(textureSampler, input.texCoord).r;
+	float4 ambient = LightAmbient * MaterialAmbient;
 
 	float diffuseIntensity = saturate(dot(dirToLight, normal));
 	float4 diffuse = diffuseIntensity * LightDiffuse * MaterialDiffuse;
@@ -188,7 +189,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float4 texColor = diffuseMap.Sample(textureSampler, input.texCoord);
 	float specularFactor = specularMap.Sample(textureSampler, input.texCoord).r;
 
-	float4 color = (ambient + diffuse) * texColor * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
+	float4 color = (ambient + diffuse) * texColor * brightness * ambientOcclusion + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
 
 	if (useShadow)
 	{

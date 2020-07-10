@@ -94,7 +94,7 @@ void GameState::Initialize()
 	mPlainTexture.Initialize("../../Assets/Images/white.jpg");
 
 	mTextures["Rock"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Rock"]["Albedo"]->Initialize("../../Assets/Images/PBR/4K_Rock/Rock034_4K_Color.jpg");
+	mTextures["Rock"]["Albedo"]->Initialize("../../Assets/Images/PBR/4K_Rock/Rock034_4K_Color.jpg",true);
 	mTextures["Rock"]["Normal"] = std::make_unique<Texture>();
 	mTextures["Rock"]["Normal"]->Initialize("../../Assets/Images/PBR/4K_Rock/Rock034_4K_Normal.jpg");
 	mTextures["Rock"]["AO"] = std::make_unique<Texture>();
@@ -105,7 +105,7 @@ void GameState::Initialize()
 	mTextures["Rock"]["Roughness"]->Initialize("../../Assets/Images/PBR/4K_Rock/Rock034_4K_Roughness.jpg");
 
 	mTextures["Planks"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Planks"]["Albedo"]->Initialize("../../Assets/Images/PBR/4K_Planks/Planks019_4K_Color.jpg");
+	mTextures["Planks"]["Albedo"]->Initialize("../../Assets/Images/PBR/4K_Planks/Planks019_4K_Color.jpg",true);
 	mTextures["Planks"]["Normal"] = std::make_unique<Texture>();
 	mTextures["Planks"]["Normal"]->Initialize("../../Assets/Images/PBR/4K_Planks/Planks019_4K_Normal.jpg");
 	mTextures["Planks"]["AO"] = std::make_unique<Texture>();
@@ -118,7 +118,7 @@ void GameState::Initialize()
 	mTextures["Planks"]["Metallic"]->Initialize("../../Assets/Images/PBR/4K_Planks/Planks019_4K_Metalness.jpg");
 
 	mTextures["Weave"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Weave"]["Albedo"]->Initialize("../../Assets/Images/PBR/dirty-wicker-weave1/dirty-wicker-weave1-albedo.png");
+	mTextures["Weave"]["Albedo"]->Initialize("../../Assets/Images/PBR/dirty-wicker-weave1/dirty-wicker-weave1-albedo.png",true);
 	mTextures["Weave"]["Normal"] = std::make_unique<Texture>();
 	mTextures["Weave"]["Normal"]->Initialize("../../Assets/Images/PBR/dirty-wicker-weave1/dirty-wicker-weave1-normal-dx.png");
 	mTextures["Weave"]["AO"] = std::make_unique<Texture>();
@@ -131,7 +131,7 @@ void GameState::Initialize()
 	mTextures["Weave"]["Metallic"]->Initialize("../../Assets/Images/PBR/dirty-wicker-weave1/dirty-wicker-weave1-metallic.png");
 
 	mTextures["Bark"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Bark"]["Albedo"]->Initialize("../../Assets/Images/PBR/bark1/bark1-albedo.png");
+	mTextures["Bark"]["Albedo"]->Initialize("../../Assets/Images/PBR/bark1/bark1-albedo.png",true);
 	mTextures["Bark"]["Normal"] = std::make_unique<Texture>();
 	mTextures["Bark"]["Normal"]->Initialize("../../Assets/Images/PBR/bark1/bark1-normal3.png");
 	mTextures["Bark"]["AO"] = std::make_unique<Texture>();
@@ -144,7 +144,7 @@ void GameState::Initialize()
 	mTextures["Bark"]["Metallic"]->Initialize("../../Assets/Images/PBR/bark1/bark1-metalness.png");
 
 	mTextures["Concrete"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Concrete"]["Albedo"]->Initialize("../../Assets/Images/PBR/broken_down_concrete2/broken_down_concrete2_albedo.png");
+	mTextures["Concrete"]["Albedo"]->Initialize("../../Assets/Images/PBR/broken_down_concrete2/broken_down_concrete2_albedo.png", true);
 	mTextures["Concrete"]["Normal"] = std::make_unique<Texture>();
 	mTextures["Concrete"]["Normal"]->Initialize("../../Assets/Images/PBR/broken_down_concrete2/broken_down_concrete2_Normal-dx.png");
 	mTextures["Concrete"]["AO"] = std::make_unique<Texture>();
@@ -157,7 +157,7 @@ void GameState::Initialize()
 	mTextures["Concrete"]["Metallic"]->Initialize("../../Assets/Images/PBR/broken_down_concrete2/broken_down_concrete2_Metallic.png");
 
 	mTextures["Cobblestylized"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Cobblestylized"]["Albedo"]->Initialize("../../Assets/Images/PBR/cobblestylized3/cobblestylized3_albedo.png");
+	mTextures["Cobblestylized"]["Albedo"]->Initialize("../../Assets/Images/PBR/cobblestylized3/cobblestylized3_albedo.png", true);
 	mTextures["Cobblestylized"]["Normal"] = std::make_unique<Texture>();
 	mTextures["Cobblestylized"]["Normal"]->Initialize("../../Assets/Images/PBR/cobblestylized3/cobblestylized3_normal-dx.png");
 	mTextures["Cobblestylized"]["AO"] = std::make_unique<Texture>();
@@ -170,7 +170,7 @@ void GameState::Initialize()
 	mTextures["Cobblestylized"]["Metallic"]->Initialize("../../Assets/Images/PBR/cobblestylized3/cobblestylized3_metallic.png");
 
 	mTextures["Gray bricks"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Gray bricks"]["Albedo"]->Initialize("../../Assets/Images/PBR/gray-bricks1/gray-bricks1-albedo.png");
+	mTextures["Gray bricks"]["Albedo"]->Initialize("../../Assets/Images/PBR/gray-bricks1/gray-bricks1-albedo.png", true);
 	mTextures["Gray bricks"]["Normal"] = std::make_unique<Texture>();
 	mTextures["Gray bricks"]["Normal"]->Initialize("../../Assets/Images/PBR/gray-bricks1/gray-bricks1-Normal-dx.png");
 	mTextures["Gray bricks"]["AO"] = std::make_unique<Texture>();
@@ -183,7 +183,7 @@ void GameState::Initialize()
 	mTextures["Gray bricks"]["Metallic"]->Initialize("../../Assets/Images/PBR/gray-bricks1/gray-bricks1-Metallic.png");
 
 	mTextures["Modern Tile"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Modern Tile"]["Albedo"]->Initialize("../../Assets/Images/PBR/modern-tile1/modern-tile1-albedo.png");
+	mTextures["Modern Tile"]["Albedo"]->Initialize("../../Assets/Images/PBR/modern-tile1/modern-tile1-albedo.png", true);
 	mTextures["Modern Tile"]["Normal"] = std::make_unique<Texture>();
 	mTextures["Modern Tile"]["Normal"]->Initialize("../../Assets/Images/PBR/modern-tile1/modern-tile1-normal-dx.png");
 	mTextures["Modern Tile"]["AO"] = std::make_unique<Texture>();
@@ -196,7 +196,7 @@ void GameState::Initialize()
 	mTextures["Modern Tile"]["Metallic"]->Initialize("../../Assets/Images/PBR/modern-tile1/modern-tile1-metallic.png");
 
 	mTextures["Ornate celtic gold"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Ornate celtic gold"]["Albedo"]->Initialize("../../Assets/Images/PBR/ornate-celtic-gold/ornate-celtic-gold-albedo.png");
+	mTextures["Ornate celtic gold"]["Albedo"]->Initialize("../../Assets/Images/PBR/ornate-celtic-gold/ornate-celtic-gold-albedo.png", true);
 	mTextures["Ornate celtic gold"]["Normal"] = std::make_unique<Texture>();
 	mTextures["Ornate celtic gold"]["Normal"]->Initialize("../../Assets/Images/PBR/ornate-celtic-gold/ornate-celtic-gold-normal-dx.png");
 	mTextures["Ornate celtic gold"]["AO"] = std::make_unique<Texture>();
@@ -209,7 +209,7 @@ void GameState::Initialize()
 	mTextures["Ornate celtic gold"]["Metallic"]->Initialize("../../Assets/Images/PBR/ornate-celtic-gold/ornate-celtic-gold-metallic.png");
 
 	mTextures["Stylized Cliff"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Stylized Cliff"]["Albedo"]->Initialize("../../Assets/Images/PBR/stylized-cliff2/stylized-cliff2_albedo.png");
+	mTextures["Stylized Cliff"]["Albedo"]->Initialize("../../Assets/Images/PBR/stylized-cliff2/stylized-cliff2_albedo.png", true);
 	mTextures["Stylized Cliff"]["Normal"] = std::make_unique<Texture>();
 	mTextures["Stylized Cliff"]["Normal"]->Initialize("../../Assets/Images/PBR/stylized-cliff2/stylized-cliff2_normal-dx.png");
 	mTextures["Stylized Cliff"]["AO"] = std::make_unique<Texture>();
@@ -224,11 +224,12 @@ void GameState::Initialize()
 	for (auto &textures : mTextures)
 		textureNames.push_back(textures.first);
 	choosenTexture = textureNames[0];
-
+	mHdrEffect.Initialize();
 }
 
 void GameState::Terminate()
 {
+	mHdrEffect.Terminate();
 	for (auto &textures : mTextures)
 	{
 		for (auto &texture : textures.second)
@@ -268,6 +269,15 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
+	mHdrEffect.BeginRender();
+	DrawScene();
+	mHdrEffect.EndRender();
+
+	mHdrEffect.RenderHdrQuad();
+}
+
+void GameState::DrawScene()
+{
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 	auto matWorld = matRot * Matrix4::Translation({ 0.0f,0.0f,0.0f });
 	auto matView = mCamera.GetViewMatrix();
@@ -286,7 +296,7 @@ void GameState::Render()
 		mPbrEffect.UpdateSettings();
 		mMeshBufferSphere.Draw();
 		mPbrEffect.End();
-	
+
 		matWorld = matRot * Matrix4::Translation({ 1.5f,0.0f,0.0f });
 		mStandardEffect.Begin();
 		mStandardEffect.SetDirectionalLight(mDirectionalLight);

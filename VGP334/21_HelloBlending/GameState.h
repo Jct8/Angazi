@@ -47,6 +47,7 @@ private:
 
 	//Shadow
 	Angazi::Graphics::ShadowEffect mShadowEffect;
+	Angazi::Graphics::HdrEffect mHdrEffect;
 
 	// PostProcessing
 	Angazi::Graphics::PostProcessingEffect mPostProcessingEffect;

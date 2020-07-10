@@ -47,7 +47,7 @@ void GameState::Initialize()
 	mJetPosition = { 0.0f,0.0f,0.0f };
 	ObjLoader::Load("../../Assets/Models/Jet/F 15.obj", 1.0f, mJetMesh);
 	mJetMeshBuffer.Initialize(mJetMesh);
-	mJetTexture.Initialize("../../Assets/Models/Jet/F 15E.jpg");
+	mJetTexture.Initialize("../../Assets/Models/Jet/F 15E.jpg",true);
 	mJetSpecularTexture.Initialize("../../Assets/Models/Jet/F 15 Specular.jpg");
 	mJetNormalMap.Initialize("../../Assets/Models/Jet/F-15C normal.jpg");
 	mJetAOMap.Initialize("../../Assets/Models/Jet/F-15CAO.jpg");

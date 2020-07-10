@@ -80,10 +80,12 @@ void GameState::Initialize()
 	mGroundMeshBuffer.Initialize(mGroundMesh);
 
 	//mShadowEffect.Initialize("../../Assets/Shaders/DepthMap.fx");
+	mHdrEffect.Initialize();
 }
 
 void GameState::Terminate()
 {
+	mHdrEffect.Terminate();
 	mShadowEffect.Terminate();
 	mGroundStandardEffect.Terminate();
 	mModelStandardEffect.Terminate();
@@ -128,9 +130,12 @@ void GameState::Render()
 	//DrawDepthMap();
 	//mShadowEffect.End();
 	//mPostProcessingEffect.BeginRender();
+	mHdrEffect.BeginRender();
 	DrawScene();
+	mHdrEffect.EndRender();
 	//mPostProcessingEffect.EndRender();
 
+	mHdrEffect.RenderHdrQuad();
 	//mPostProcessingEffect.PostProcess();
 }
 
@@ -208,9 +213,7 @@ void GameState::DrawScene()
 	mJetStandardEffect.Begin();
 	mJetStandardEffect.SetMaterial(mMaterial);
 	mJetStandardEffect.SetDirectionalLight(mDirectionalLight);
-	mJetStandardEffect.SetViewProjection(mCamera.GetPosition());
-	mJetStandardEffect.SetWorldMatrix(matWorld);
-	mJetStandardEffect.SetWVPMatrix(matWorld,matView,matProj);
+	mJetStandardEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 	mJetStandardEffect.UpdateSettings();
 
 	mJetMeshBuffer.Draw();
@@ -222,9 +225,7 @@ void GameState::DrawScene()
 	mModelStandardEffect.Begin();
 	mModelStandardEffect.SetMaterial(mMaterial);
 	mModelStandardEffect.SetDirectionalLight(mDirectionalLight);
-	mModelStandardEffect.SetViewProjection(mCamera.GetPosition());
-	mModelStandardEffect.SetWorldMatrix(matWorld);
-	mModelStandardEffect.SetWVPMatrix(matWorld, matView, matProj);
+	mModelStandardEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 	//mModelStandardEffect.SetDepthTexture(target);
 	mModelStandardEffect.UpdateSettings();
 
@@ -242,9 +243,7 @@ void GameState::DrawScene()
 	mGroundStandardEffect.Begin();
 	mGroundStandardEffect.SetMaterial(mMaterial);
 	mGroundStandardEffect.SetDirectionalLight(mDirectionalLight);
-	mGroundStandardEffect.SetViewProjection(mCamera.GetPosition());
-	mGroundStandardEffect.SetWorldMatrix(matWorld);
-	mGroundStandardEffect.SetWVPMatrix(matWorld, matView, matProj);
+	mGroundStandardEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 	//mGroundStandardEffect.SetDepthTexture(target);
 	//auto wvpLight = Transpose(matWorld * lightVP);
 	//mGroundStandardEffect.UpdateShadowBuffer(wvpLight);

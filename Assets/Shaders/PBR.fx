@@ -180,9 +180,8 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 worldBinormal = normalize(cross(worldNormal,worldTangent));
 	float3 dirToLight = normalize(input.dirToLight);
 	float3 dirToView = normalize(input.dirToView);
-	
-	float gamma = 2.2f;
-	float3 albedoColor = pow(albedoMap.Sample(textureSampler, input.texCoord).rgb, gamma);
+
+	float3 albedoColor = albedoMap.Sample(textureSampler, input.texCoord).rgb;
 	float metallic = metallicMap.Sample(textureSampler, input.texCoord).r;
 	if (metallicWeight >= 0.0f)
 		metallic = metallicWeight;
@@ -218,8 +217,8 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float ambientOcclusion = 1.0f;
 	if (aoWeight == 1.0f)
 		ambientOcclusion = aoMap.Sample(textureSampler, input.texCoord).r;
-	float3 diffuseColor = lerp(albedoColor, float3(0, 0, 0), metallic) * ambientOcclusion;
-	float3 f0 = lerp(fDielectric, albedoColor, metallic) * ambientOcclusion;
+	float3 diffuseColor = lerp(albedoColor, float3(0, 0, 0), metallic) ;
+	float3 f0 = lerp(fDielectric, albedoColor, metallic) ;
 	float3 V = dirToView;
 	float3 L = dirToLight;
 	float3 halfVector = normalize(V+L);
@@ -228,21 +227,21 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float nDotV = max(dot(normal, V), 0.0f);
 
 	// Ambient
-	float4 ambient = LightAmbient * float4(albedoColor, 1.0f) * ambientOcclusion;
+	float4 ambient = LightAmbient * float4(albedoColor, 1.0f) * MaterialAmbient ;
 
 	// Specular
 	float D = DistributionGGX(normal, halfVector, roughness); 
 	float G = GeometrySmith(normal, V, L, roughness);
 	float3 F = FresnalSchlick(nDotV, f0);
-	float3 specularBRDF = (D * G * F) / max(4.0f * nDotV * nDotL, EPSILON) * LightSpecular.rgb; // Cook-Torrance specular
+	float3 specularBRDF = (D * G * F) / max(4.0f * nDotV * nDotL, EPSILON) * LightSpecular.rgb * MaterialSpecular.rgb; // Cook-Torrance specular
 	
 	// Diffuse
 	float3 kDiffuse = float3(1.0f, 1.0f, 1.0f) - F;
 	kDiffuse *= 1.0f - metallic;
-	float3 diffuseBRDF = kDiffuse * diffuseColor * LightDiffuse.rgb;
+	float3 diffuseBRDF = kDiffuse * diffuseColor * LightDiffuse.rgb * MaterialDiffuse.rgb;
 
 	float3 directLighting = (diffuseBRDF + specularBRDF) * brightness * nDotL;
-	float3 color = ambient.rgb + directLighting;
+	float3 color = (ambient.rgb + directLighting) * ambientOcclusion;
 
 	// Shadowing
 	if (useShadow)
@@ -261,10 +260,5 @@ float4 PS(VS_OUTPUT input) : SV_Target
 		}
 	}
 
-	color = color / (color + float3(1.0f, 1.0f, 1.0f));
-
-	float gammaCorrect = 1.0f / gamma;
-	
-	//color = pow(color, float3(gammaCorrect, gammaCorrect, gammaCorrect));
 	return float4(color, 1.0f);
 }
