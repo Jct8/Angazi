@@ -22,13 +22,20 @@ void Skybox::AddTexture(const std::filesystem::path & path, Side side)
 	cubeSides[side] = path;
 }
 
-void Skybox::CreateSkybox()
+void Skybox::CreateSkybox(const std::filesystem::path& hdrImagePath)
 {
 	//Texture
-	std::vector<std::filesystem::path> fileNames;
-	for (std::map<Side, std::filesystem::path>::iterator it = cubeSides.begin(); it != cubeSides.end(); ++it)
-		fileNames.push_back(it->second);
-	mTexture.Initialize(fileNames,true);
+	if (hdrImagePath == "None")
+	{
+		std::vector<std::filesystem::path> fileNames;
+		for (std::map<Side, std::filesystem::path>::iterator it = cubeSides.begin(); it != cubeSides.end(); ++it)
+			fileNames.push_back(it->second);
+		mTexture.Initialize(fileNames, true);
+	}
+	else
+	{
+		mTexture.InitializeHdrCube(hdrImagePath);
+	}
 
 	// Render States
 #ifdef ENABLE_DIRECTX11
@@ -41,6 +48,7 @@ void Skybox::CreateSkybox()
 
 	//MeshBuffer
 	mBoxBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
+	//mBoxBuffer.Initialize(MeshBuilder::CreatePlanePX(30,30));
 
 	// Shaders
 	mVertexShader.Initialize("../../Assets/Shaders/Skybox.fx", VertexP::Format);

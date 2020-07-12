@@ -11,6 +11,7 @@ SamplerState textureSampler : register(s0);
 struct VS_INPUT
 {
 	float3 position	: POSITION;
+	//float2 texCoord : TEXCOORD;
 };
 
 struct VS_OUTPUT

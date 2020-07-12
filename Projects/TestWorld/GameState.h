@@ -18,36 +18,25 @@ private:
 
 private:
 	Angazi::Graphics::Camera mCamera;
-
 	Angazi::Graphics::DirectionalLight mDirectionalLight;
 	Angazi::Graphics::Material mMaterial;
-
 	Angazi::Graphics::Sampler mSampler;
 
-	// Standard Effects
-	Angazi::Graphics::StandardEffect mModelStandardEffect;
-	Angazi::Graphics::StandardEffect mArenaStandardEffect;
-	Angazi::Graphics::StandardEffect mGroundStandardEffect;
 
-	// Model
-	Angazi::Graphics::Model model;
-	//Angazi::Graphics::Model modelArena;
-	Angazi::Graphics::Animator animator;
+	// Standard Effects
+	Angazi::Graphics::StandardEffect mGroundStandardEffect;
+	Angazi::Graphics::HdrEffect mHdrEffect;
 
 	//Ground
-	Angazi::Graphics::Mesh mGroundMesh;
 	Angazi::Graphics::MeshBuffer mGroundMeshBuffer;
-
-	//Shadow
-	Angazi::Graphics::ShadowEffect mShadowEffect;
-
-	// PostProcessing
-	Angazi::Graphics::PostProcessingEffect mPostProcessingEffect;
 
 	Angazi::Graphics::Skybox mSkybox;
 
-
-	// Skeleton - Animation
-	float animationSpeed = 1.0f;
-	bool mShowSkeleton = false;
+	// Testing
+	Angazi::Graphics::RenderTarget renderTarget;
+	Angazi::Graphics::VertexShader vertexShader;
+	Angazi::Graphics::PixelShader pixelShader;
+	Angazi::Graphics::MeshBuffer meshBuffer;
+	Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4> tranformBuffer;
+	Angazi::Graphics::Camera camera;
 };

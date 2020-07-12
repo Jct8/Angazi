@@ -33,6 +33,7 @@ namespace Angazi::Graphics
 		void UnbindPS(uint32_t slot);
 
 		void* GetShaderResourceView() const { return mShaderResourceView; }
+		ID3D11ShaderResourceView* GetShaderResourceViewPointer() const { return mShaderResourceView; }
 
 	private:
 		ID3D11ShaderResourceView* mShaderResourceView = nullptr;

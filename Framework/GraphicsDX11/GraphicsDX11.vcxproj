@@ -33,6 +33,7 @@
     <ClInclude Include="Inc\Sampler.h" />
     <ClInclude Include="Inc\SpriteRenderer.h" />
     <ClInclude Include="Inc\Texture.h" />
+    <ClInclude Include="Inc\TextureUtil.h" />
     <ClInclude Include="Inc\VertexShader.h" />
     <ClInclude Include="Src\D3DUtil.h" />
     <ClInclude Include="Src\Precompiled.h" />
@@ -57,9 +58,13 @@
     <ClCompile Include="Src\Sampler.cpp" />
     <ClCompile Include="Src\SpriteRenderer.cpp" />
     <ClCompile Include="Src\Texture.cpp" />
+    <ClCompile Include="Src\TextureUtil.cpp" />
     <ClCompile Include="Src\VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\External\DirectXTex\DirectXTex\DirectXTex_Desktop_2017.vcxproj">
+      <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\External\DirectXTK\DirectXTK_Desktop_2017.vcxproj">
       <Project>{e0b52ae7-e160-4d32-bf3f-910b785e5a8e}</Project>
     </ProjectReference>

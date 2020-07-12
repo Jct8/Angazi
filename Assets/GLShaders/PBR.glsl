@@ -298,8 +298,7 @@ void main()
 	vec3 specularBRDF = (D * G * F) / max(4.0f * nDotV * nDotL, EPSILON) * LightSpecular.rgb * MaterialSpecular.rgb; // Cook-Torrance specular
 
 	// Diffuse
-	vec3 kDiffuse = vec3(1.0f) - F;
-	kDiffuse *= 1.0f - metallic;
+	vec3 kDiffuse = (vec3(1.0f) - F) * (1.0f - metallic);
 	vec3 diffuseBRDF = kDiffuse * diffuseColor * LightDiffuse.rgb * MaterialDiffuse.rgb;
 
 	vec3 directLighting = (diffuseBRDF + specularBRDF) * brightness * nDotL;

@@ -81,16 +81,16 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f };
 	mMaterial.power = 80.0f;
 
-	//mMeshBufferSphere.Initialize(MeshBuilder::CreateSphere(1.0f, 256, 256, 2));
 	ObjLoader::Load("../../Assets/Models/Mandalorian_Helmet/Mandalorian_Helmet.obj",0.01f, mMesh);
-	mMeshBufferSphere.Initialize(mMesh);
+	mMeshBufferHelmet.Initialize(mMesh);
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Mirror);
 
 	mPbrEffect.Initialize();
 	mStandardEffect.Initialize();
 
-	mSkybox.ChangeDefualtSkybox(2);
-	mSkybox.CreateSkybox();
+	//mSkybox.ChangeDefualtSkybox(2);
+	//mSkybox.CreateSkybox();
+	mSkybox.CreateSkybox("../../Assets/Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
 
 	mPlainTexture.Initialize("../../Assets/Images/white.jpg");
 
@@ -131,7 +131,7 @@ void GameState::Terminate()
 	mStandardEffect.Terminate();
 	mPbrEffect.Terminate();
 
-	mMeshBufferSphere.Terminate();
+	mMeshBufferHelmet.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -182,7 +182,7 @@ void GameState::DrawScene()
 		SetPBRTextures(choosenTexture);
 		mPbrEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 		mPbrEffect.UpdateSettings();
-		mMeshBufferSphere.Draw();
+		mMeshBufferHelmet.Draw();
 		mPbrEffect.End();
 
 		matWorld = matRot * Matrix4::Translation({ 0.3f,0.0f,0.0f });
@@ -192,7 +192,7 @@ void GameState::DrawScene()
 		SetStandardTextures(choosenTexture);
 		mStandardEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 		mStandardEffect.UpdateSettings();
-		mMeshBufferSphere.Draw();
+		mMeshBufferHelmet.Draw();
 		mStandardEffect.End();
 	}
 	else
@@ -212,7 +212,7 @@ void GameState::DrawScene()
 				matWorld = Matrix4::Scaling(0.5f) * Matrix4::Translation({ (col - (numColumns / 2)) * spacing, (row - (numRows / 2)) * spacing, 0.0f });
 				mPbrEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 				mPbrEffect.UpdateSettings();
-				mMeshBufferSphere.Draw();
+				mMeshBufferHelmet.Draw();
 			}
 		}
 		mPbrEffect.End();
@@ -283,7 +283,7 @@ void GameState::DebugUI()
 		static const char* item_current = textureNames[0].c_str();
 		if (ImGui::BeginCombo("Select Texture",item_current))
 		{
-			for (int n = 0; n < textureNames.size(); n++)
+			for (size_t n = 0; n < textureNames.size(); n++)
 			{
 				bool is_selected = (item_current == textureNames[n].c_str());
 				if (ImGui::Selectable(textureNames[n].c_str(), is_selected))

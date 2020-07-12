@@ -235,8 +235,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 specularBRDF = (D * G * F) / max(4.0f * nDotV * nDotL, EPSILON) * LightSpecular.rgb * MaterialSpecular.rgb; // Cook-Torrance specular
 	
 	// Diffuse
-	float3 kDiffuse = float3(1.0f, 1.0f, 1.0f) - F;
-	kDiffuse *= 1.0f - metallic;
+	float3 kDiffuse = (float3(1.0f, 1.0f, 1.0f) - F) * (1.0f - metallic);
 	float3 diffuseBRDF = kDiffuse * diffuseColor * LightDiffuse.rgb * MaterialDiffuse.rgb;
 
 	float3 directLighting = (diffuseBRDF + specularBRDF) * brightness * nDotL;

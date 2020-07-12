@@ -5,6 +5,7 @@
 
 #include "D3DUtil.h"
 #include <DirectXTK/Inc/WICTextureLoader.h>
+#include "TextureUtil.h"
 
 using namespace Angazi::Graphics;
 
@@ -16,9 +17,9 @@ Texture::~Texture()
 void Texture::Initialize(const std::filesystem::path& fileName, bool gammaCorrection)
 {
 	HRESULT hr;
-	if(gammaCorrection)
+	if (gammaCorrection)
 		hr = DirectX::CreateWICTextureFromFileEx(GetDevice(), GetContext(), fileName.c_str()
-			,0 , D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET, 0
+			, 0, D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET, 0
 			, D3D11_RESOURCE_MISC_GENERATE_MIPS, DirectX::WIC_LOADER_FORCE_SRGB, nullptr, &mShaderResourceView);
 	else
 		hr = DirectX::CreateWICTextureFromFile(GetDevice(), GetContext(), fileName.c_str(), nullptr, &mShaderResourceView);
@@ -27,7 +28,7 @@ void Texture::Initialize(const std::filesystem::path& fileName, bool gammaCorrec
 	// Get Width and Height of the texture
 	ID3D11Resource* resource = nullptr;
 	mShaderResourceView->GetResource(&resource);
-	
+
 	ID3D11Texture2D* texture = static_cast<ID3D11Texture2D*>(resource);
 	D3D11_TEXTURE2D_DESC desc{};
 	texture->GetDesc(&desc);
@@ -51,7 +52,6 @@ void Texture::Initialize(const std::vector<std::filesystem::path>& cubeSides, bo
 		else
 			hr = DirectX::CreateWICTextureFromFile(GetDevice(), GetContext(), side.c_str(), nullptr, &srvArray[i]);
 
-		//hr = DirectX::CreateWICTextureFromFile(GetDevice(), GetContext(), side.c_str(), nullptr, );
 		ASSERT(SUCCEEDED(hr), "[Texture] Failed to load texture %ls.", side.c_str());
 		srvArray[i]->GetResource(&resourceArray[i]);
 		i++;
@@ -110,6 +110,23 @@ void Texture::Initialize(const std::vector<std::filesystem::path>& cubeSides, bo
 
 	hr = GetDevice()->CreateShaderResourceView(texArray, &viewDesc, &mShaderResourceView);
 	ASSERT(SUCCEEDED(hr), "[Texture] Failed to create cube texture");
+}
+
+void Texture::InitializeHdrCube(const std::filesystem::path & filePath)
+{
+	mShaderResourceView = TextureUtil::CreateCubeTextureFromHDR(filePath);
+
+	// Get Width and Height of the texture
+	ID3D11Resource* resource = nullptr;
+	mShaderResourceView->GetResource(&resource);
+
+	ID3D11Texture2D* texture = static_cast<ID3D11Texture2D*>(resource);
+	D3D11_TEXTURE2D_DESC desc{};
+	texture->GetDesc(&desc);
+	SafeRelease(resource);
+
+	mWidth = desc.Width;
+	mHeight = desc.Height;
 }
 
 void Texture::Terminate()

@@ -21,7 +21,7 @@ namespace Angazi::Graphics
 		~Skybox();
 
 		void AddTexture(const std::filesystem::path& path, Side side);
-		void CreateSkybox();
+		void CreateSkybox(const std::filesystem::path& hdrImagePath = "None");
 		void Terminate();
 
 		void ChangeDefualtSkybox(int skyboxNumber);
