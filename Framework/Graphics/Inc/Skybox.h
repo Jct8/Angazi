@@ -26,7 +26,9 @@ namespace Angazi::Graphics
 
 		void ChangeDefualtSkybox(int skyboxNumber);
 		void Draw(const Angazi::Graphics::Camera& camera);
+
 		const Angazi::Graphics::Texture* GetSkyboxTexture() { return &mTexture; };
+		const Angazi::Graphics::Texture* GetIrradianceMap() { return &mIrradianceMap; };
 	private:
 		struct TransformData
 		{
@@ -45,6 +47,7 @@ namespace Angazi::Graphics
 		Angazi::Graphics::PixelShader  mPixelShader;
 		Angazi::Graphics::Sampler mSampler;
 		Angazi::Graphics::Texture mTexture;
+		Angazi::Graphics::Texture mIrradianceMap;
 
 		std::map<Side,std::filesystem::path> cubeSides;
 	};

@@ -90,7 +90,8 @@ void GameState::Initialize()
 
 	//mSkybox.ChangeDefualtSkybox(2);
 	//mSkybox.CreateSkybox();
-	mSkybox.CreateSkybox("../../Assets/Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
+	//mSkybox.CreateSkybox("../../Assets/Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
+	mSkybox.CreateSkybox("../../Assets/Images/HdrMaps/Shiodome_Stairs/10-Shiodome_Stairs_3k.hdr");
 
 	mPlainTexture.Initialize("../../Assets/Images/white.jpg");
 
@@ -180,6 +181,7 @@ void GameState::DrawScene()
 		mPbrEffect.SetDirectionalLight(mDirectionalLight);
 		mPbrEffect.SetMaterial(mMaterial);
 		SetPBRTextures(choosenTexture);
+		mPbrEffect.SetIrradianceMap(mSkybox.GetIrradianceMap());
 		mPbrEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 		mPbrEffect.UpdateSettings();
 		mMeshBufferHelmet.Draw();
@@ -200,9 +202,9 @@ void GameState::DrawScene()
 		mPbrEffect.Begin();
 		mPbrEffect.SetDirectionalLight(mDirectionalLight);
 		mPbrEffect.SetMaterial(mMaterial);
-
+		mPbrEffect.SetIrradianceMap(mSkybox.GetIrradianceMap());
 		mPbrEffect.SetDiffuseTexture(&mPlainTexture);
-		float spacing = 1.3f;
+		float spacing = 0.5f;
 		for (int row = 0; row < numRows; ++row)
 		{
 			mPbrEffect.SetMetallicWeight((float)row / (float)numRows);

@@ -34,7 +34,8 @@ void Skybox::CreateSkybox(const std::filesystem::path& hdrImagePath)
 	}
 	else
 	{
-		mTexture.InitializeHdrCube(hdrImagePath);
+		mTexture.InitializeHdrCube(hdrImagePath, "../../Assets/Shaders/Equirectangular.fx", 1024);
+		mIrradianceMap.InitializeIrradiancMap(mTexture, "../../Assets/Shaders/IrradianceMap.fx", 32);
 	}
 
 	// Render States
@@ -48,7 +49,6 @@ void Skybox::CreateSkybox(const std::filesystem::path& hdrImagePath)
 
 	//MeshBuffer
 	mBoxBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
-	//mBoxBuffer.Initialize(MeshBuilder::CreatePlanePX(30,30));
 
 	// Shaders
 	mVertexShader.Initialize("../../Assets/Shaders/Skybox.fx", VertexP::Format);
@@ -69,6 +69,7 @@ void Skybox::Terminate()
 	mDepthStencilState.Terminate();
 	mRasterizerState.Terminate();
 
+	mIrradianceMap.Terminate();
 	mTexture.Terminate();
 }
 
@@ -100,6 +101,7 @@ void Skybox::Draw(const Angazi::Graphics::Camera & camera)
 	mSampler.BindPS();
 	// Bind Texture
 	mTexture.BindPS(0);
+	//mIrradianceMap.BindPS(0);
 
 	auto matView = camera.GetViewMatrix();
 	auto matProj = camera.GetPerspectiveMatrix();

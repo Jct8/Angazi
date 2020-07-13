@@ -5,7 +5,6 @@
 
 #include "D3DUtil.h"
 #include <DirectXTK/Inc/WICTextureLoader.h>
-#include <DirectXTex/DirectXTex/DirectXTexP.h>
 #include "RenderTarget.h"
 #include "PixelShader.h"
 #include "VertexShader.h"
@@ -30,7 +29,8 @@ namespace
 	};
 }
 
-ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreateCubeTextureFromHDR(const std::filesystem::path & filePath,)
+ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreateCubeMapFromTexture(ID3D11ShaderResourceView* texture
+	, const std::filesystem::path & shaderFilePath,uint32_t cubeLength)
 {
 	RenderTarget renderTarget;
 	VertexShader vertexShader;
@@ -39,24 +39,14 @@ ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreateCubeTextureFromH
 	TypedConstantBuffer<Math::Matrix4> tranformBuffer;
 	Camera camera;
 
-	DirectX::ScratchImage image;
-	ID3D11ShaderResourceView* hdrShaderResourceView;
-
-	HRESULT hr = DirectX::LoadFromHDRFile(filePath.c_str(), nullptr, image);
-	ASSERT(SUCCEEDED(hr), "[Texture] Failed to load texture");
-	hr = CreateShaderResourceView(GetDevice(), image.GetImages(), image.GetImageCount(), image.GetMetadata(), &hdrShaderResourceView);
-	ASSERT(SUCCEEDED(hr), "[Texture] Failed to create shader resource view");
-
-	renderTarget.Initialize(1024, 1024, RenderTarget::Format::RGBA_F16);
+	renderTarget.Initialize(cubeLength, cubeLength, RenderTarget::Format::RGBA_F16);
 	meshBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
-	vertexShader.Initialize("../../Assets/Shaders/Equirectangular.fx", VertexP::Format);
-	pixelShader.Initialize("../../Assets/Shaders/Equirectangular.fx");
+	vertexShader.Initialize(shaderFilePath, VertexP::Format);
+	pixelShader.Initialize(shaderFilePath);
 	tranformBuffer.Initialize();
 
 	camera.SetNearPlane(0.1f);
 	camera.SetFarPlane(10.0f);
-	camera.SetPosition({ });
-	camera.SetDirection({ 0.0f,0.0f ,1.0f });
 	camera.SetFov(90.0f * Math::Constants::DegToRad);
 	camera.SetAspectRatio(1.0f);
 
@@ -78,7 +68,7 @@ ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreateCubeTextureFromH
 	texArrayDesc.CPUAccessFlags = 0;
 	texArrayDesc.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
 	ID3D11Texture2D* texArray = 0;
-	hr = GetDevice()->CreateTexture2D(&texArrayDesc, 0, &texArray);
+	HRESULT hr = GetDevice()->CreateTexture2D(&texArrayDesc, 0, &texArray);
 	ASSERT(SUCCEEDED(hr), "[Texture] Failed to create 2D texture");
 
 	// Copy individual texture elements into texture array.
@@ -92,7 +82,7 @@ ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreateCubeTextureFromH
 		renderTarget.BeginRender();
 		pixelShader.Bind();
 		vertexShader.Bind();
-		GetContext()->PSSetShaderResources(0, 1, &hdrShaderResourceView);
+		GetContext()->PSSetShaderResources(0, 1, &texture);
 		tranformBuffer.Set(Math::Transpose(matView * matProj));
 		tranformBuffer.BindVS(0);
 		meshBuffer.Draw();
@@ -128,7 +118,6 @@ ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreateCubeTextureFromH
 	hr = GetDevice()->CreateShaderResourceView(texArray, &viewDesc, &retShaderResourceView);
 	ASSERT(SUCCEEDED(hr), "[Texture] Failed to create cube texture");
 
-	SafeRelease(hdrShaderResourceView);
 	tranformBuffer.Terminate();
 	meshBuffer.Terminate();
 	pixelShader.Terminate();

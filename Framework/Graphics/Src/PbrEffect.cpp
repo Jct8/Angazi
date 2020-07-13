@@ -51,6 +51,7 @@ void PbrEffect::Terminate()
 	mAmbientOcclusionMap.Terminate();
 	mMetallicMap.Terminate();
 	mRoughnessMap.Terminate();
+	mIrradienceMap.Terminate();
 }
 void PbrEffect::Begin()
 {
@@ -77,6 +78,7 @@ void PbrEffect::Begin()
 	mAmbientOcclusionMap.BindPS(3);
 	mMetallicMap.BindPS(5);
 	mRoughnessMap.BindPS(6);
+	mIrradienceMap.BindPS(7);
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
@@ -94,6 +96,7 @@ void PbrEffect::End()
 	mShadowConstantBuffer.UnbindVS(4);
 	mBoneTransformBuffer.UnbindVS(5);
 	mClippingConstantBuffer.UnbindVS(6);
+	mIrradienceMap.UnbindVS(7);
 
 	// Textures
 	mDiffuseMap.UnbindPS(0);
@@ -178,6 +181,11 @@ void PbrEffect::SetRoughnessTexture(const std::filesystem::path& fileName)
 {
 	mRoughnessMap.Initialize(fileName);
 }
+void PbrEffect::SetIrradianceMap(const std::filesystem::path& fileName)
+{
+	mSettings.useIBL = 1;
+	mIrradienceMap.Initialize(fileName);
+}
 
 void PbrEffect::SetDiffuseTexture(const Texture * diffuseTexture)
 {
@@ -206,4 +214,9 @@ void PbrEffect::SetMetallicTexture(const Texture* metallicMap)
 void PbrEffect::SetRoughnessTexture(const Texture* roughnessMap)
 {
 	roughnessMap->BindPS(6);
+}
+void PbrEffect::SetIrradianceMap(const Texture* irradianceMap)
+{
+	mSettings.useIBL = 1;
+	irradianceMap->BindPS(7);
 }

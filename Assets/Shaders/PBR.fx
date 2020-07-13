@@ -21,7 +21,7 @@ cbuffer MaterialBuffer : register(b2)
 	float4 MaterialAmbient;
 	float4 MaterialDiffuse;
 	float4 MaterialSpecular;
-	float  MaterialPower;
+	float MaterialPower;
 }
 
 cbuffer SettingsBuffer : register(b3)
@@ -35,6 +35,7 @@ cbuffer SettingsBuffer : register(b3)
 	float isSkinnedMesh : packoffset(c1.z);
 	float metallicWeight : packoffset(c1.w);
 	float roughnessWeight : packoffset(c2.x);
+	bool useIBL : packoffset(c2.y);
 }
 
 cbuffer ShadowBuffer : register(b4)
@@ -59,6 +60,7 @@ Texture2D aoMap : register(t3);
 Texture2D depthMap : register(t4);
 Texture2D metallicMap : register(t5);
 Texture2D roughnessMap : register(t6);
+TextureCube irradianceMap : register(t7);
 
 SamplerState textureSampler : register(s0);
 
@@ -92,7 +94,7 @@ float DistributionGGX(float3 normal, float3 halfVector, float roughness)
 	float alphaSquared = alpha * alpha;
 	float nDotH = max(dot(normal, halfVector), 0.0f);
 	float denominator = (nDotH * nDotH) * (alphaSquared - 1.0f) + 1.0f;
-	return alphaSquared / max( denominator * denominator, EPSILON);
+	return alphaSquared / max(denominator * denominator, EPSILON);
 	//https://seblagarde.wordpress.com/2012/01/08/pi-or-not-to-pi-in-game-lighting-equation/ //
 }
 
@@ -124,7 +126,7 @@ struct VS_INPUT
 	float3 position : POSITION;
 	float4 normal : NORMAL;
 	float4 tangent : TANGENT;
-	float2 texCoord	: TEXCOORD;
+	float2 texCoord : TEXCOORD;
 	int4 blendIndices : BLENDINDICES;
 	float4 blendWeights : BLENDWEIGHT;
 };
@@ -133,10 +135,10 @@ struct VS_OUTPUT
 {
 	float4 position : SV_POSITION;
 	float3 worldNormal : NORMAL;
-	float3 worldTangent :TEXCOORD0;
+	float3 worldTangent : TEXCOORD0;
 	float3 dirToLight : TEXCOORD1;
 	float3 dirToView : TEXCOORD2;
-	float2 texCoord	: TEXCOORD3;
+	float2 texCoord : TEXCOORD3;
 	float4 positionNDC : TEXCOORD4;
 	float3 worldPosition : TEXCOORD5;
 	float clip : SV_ClipDistance0;
@@ -166,7 +168,7 @@ VS_OUTPUT VS(VS_INPUT input)
 	output.dirToView = normalize(ViewPosition - worldPosition);
 	output.texCoord = input.texCoord;
 
-	if(useShadow)
+	if (useShadow)
 		output.positionNDC = mul(float4(localPosition, 1.0f), toNDCLight);
 
 	output.clip = dot(mul(float4(input.position, 1.0f), World), clippingPlane);
@@ -177,7 +179,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 {
 	float3 worldNormal = normalize(input.worldNormal);
 	float3 worldTangent = normalize(input.worldTangent);
-	float3 worldBinormal = normalize(cross(worldNormal,worldTangent));
+	float3 worldBinormal = normalize(cross(worldNormal, worldTangent));
 	float3 dirToLight = normalize(input.dirToLight);
 	float3 dirToView = normalize(input.dirToView);
 
@@ -217,36 +219,48 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float ambientOcclusion = 1.0f;
 	if (aoWeight == 1.0f)
 		ambientOcclusion = aoMap.Sample(textureSampler, input.texCoord).r;
-	float3 diffuseColor = lerp(albedoColor, float3(0, 0, 0), metallic) ;
-	float3 f0 = lerp(fDielectric, albedoColor, metallic) ;
+	float3 f0 = lerp(fDielectric, albedoColor, metallic);
 	float3 V = dirToView;
 	float3 L = dirToLight;
-	float3 halfVector = normalize(V+L);
+	float3 halfVector = normalize(V + L);
 	float nDotL = max(dot(normal, L), 0.0f);
 	float nDotV = max(dot(normal, V), 0.0f);
 
 	// Ambient
-	float4 ambient = LightAmbient * float4(albedoColor, 1.0f) * MaterialAmbient ;
+	float4 ambient = float4(albedoColor, 1.0f) * LightAmbient * MaterialAmbient;
 
 	// Specular
-	float D = DistributionGGX(normal, halfVector, roughness); 
+	float D = DistributionGGX(normal, halfVector, roughness);
 	float G = GeometrySmith(normal, V, L, roughness);
 	float3 F = FresnalSchlick(nDotV, f0);
 	float3 specularBRDF = (D * G * F) / max(4.0f * nDotV * nDotL, EPSILON) * LightSpecular.rgb * MaterialSpecular.rgb; // Cook-Torrance specular
 	
 	// Diffuse
 	float3 kDiffuse = (float3(1.0f, 1.0f, 1.0f) - F) * (1.0f - metallic);
-	float3 diffuseBRDF = kDiffuse * diffuseColor * LightDiffuse.rgb * MaterialDiffuse.rgb;
+	float3 diffuseBRDF = kDiffuse * albedoColor * LightDiffuse.rgb * MaterialDiffuse.rgb;
 
 	float3 directLighting = (diffuseBRDF + specularBRDF) * brightness * nDotL;
-	float3 color = (ambient.rgb + directLighting) * ambientOcclusion;
 
+	////// IBL //////
+	if (useIBL)
+	{
+		// Diffuse
+		float3 kS = FresnalSchlick(nDotV, f0);
+		float3 kD = (float3(1.0f, 1.0f, 1.0f) - kS) * (1.0f - metallic);
+		float3 diffuse = irradianceMap.Sample(textureSampler, normal).rgb * albedoColor * kD;
+		ambient = float4(diffuse,1.0f);
+
+		//Specular
+
+	}
+
+	float3 color = (ambient.rgb + directLighting) * ambientOcclusion;
 	// Shadowing
 	if (useShadow)
 	{
 		float actualDepth = 1.0f - input.positionNDC.z / input.positionNDC.w;
 		float2 shadowUV = input.positionNDC.xy / input.positionNDC.w;
-		shadowUV = (shadowUV + 1.0f) *0.5f;
+		shadowUV = (shadowUV + 1.0f) * 0.5f;
 		shadowUV.y = 1.0f - shadowUV.y;
 		if (saturate(shadowUV.x) == shadowUV.x && saturate(shadowUV.y) == shadowUV.y)
 		{

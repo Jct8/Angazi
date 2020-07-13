@@ -5,6 +5,7 @@
 
 #include "D3DUtil.h"
 #include <DirectXTK/Inc/WICTextureLoader.h>
+#include <DirectXTex/DirectXTex/DirectXTexP.h>
 #include "TextureUtil.h"
 
 using namespace Angazi::Graphics;
@@ -112,9 +113,19 @@ void Texture::Initialize(const std::vector<std::filesystem::path>& cubeSides, bo
 	ASSERT(SUCCEEDED(hr), "[Texture] Failed to create cube texture");
 }
 
-void Texture::InitializeHdrCube(const std::filesystem::path & filePath)
+void Texture::InitializeHdrCube(const std::filesystem::path & filePath, const std::filesystem::path & shaderFilePath, uint32_t cubeLength)
 {
-	mShaderResourceView = TextureUtil::CreateCubeTextureFromHDR(filePath);
+	DirectX::ScratchImage image;
+	ID3D11ShaderResourceView* hdrShaderResourceView;
+
+	HRESULT hr = DirectX::LoadFromHDRFile(filePath.c_str(), nullptr, image);
+	ASSERT(SUCCEEDED(hr), "[Texture] Failed to load texture");
+	hr = CreateShaderResourceView(GetDevice(), image.GetImages(), image.GetImageCount(), image.GetMetadata(), &hdrShaderResourceView);
+	ASSERT(SUCCEEDED(hr), "[Texture] Failed to create shader resource view");
+
+	mShaderResourceView = TextureUtil::CreateCubeMapFromTexture(hdrShaderResourceView,shaderFilePath,cubeLength);
+
+	SafeRelease(hdrShaderResourceView);
 
 	// Get Width and Height of the texture
 	ID3D11Resource* resource = nullptr;
@@ -123,6 +134,23 @@ void Texture::InitializeHdrCube(const std::filesystem::path & filePath)
 	ID3D11Texture2D* texture = static_cast<ID3D11Texture2D*>(resource);
 	D3D11_TEXTURE2D_DESC desc{};
 	texture->GetDesc(&desc);
+	SafeRelease(resource);
+
+	mWidth = desc.Width;
+	mHeight = desc.Height;
+}
+
+void Texture::InitializeIrradiancMap(Texture & texture, const std::filesystem::path & shaderFilePath, uint32_t cubeLength)
+{
+	mShaderResourceView = TextureUtil::CreateCubeMapFromTexture(texture.GetShaderResourceView(), shaderFilePath, cubeLength);
+
+	// Get Width and Height of the texture
+	ID3D11Resource* resource = nullptr;
+	mShaderResourceView->GetResource(&resource);
+
+	ID3D11Texture2D* tex = static_cast<ID3D11Texture2D*>(resource);
+	D3D11_TEXTURE2D_DESC desc{};
+	tex->GetDesc(&desc);
 	SafeRelease(resource);
 
 	mWidth = desc.Width;

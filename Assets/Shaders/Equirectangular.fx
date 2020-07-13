@@ -1,4 +1,4 @@
-// Description: Simple shader changes Equirectangular to Cubemap
+// Description: Simple shader that changes Equirectangular to Cubemap
 
 cbuffer TransformBuffer : register(b0)
 {

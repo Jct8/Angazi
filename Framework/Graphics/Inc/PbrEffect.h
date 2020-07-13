@@ -41,6 +41,7 @@ namespace Angazi::Graphics
 		void SetDepthTexture(const RenderTarget* target);
 		void SetMetallicTexture(const std::filesystem::path& fileNam);
 		void SetRoughnessTexture(const std::filesystem::path& fileName);
+		void SetIrradianceMap(const std::filesystem::path& fileName);
 
 		void SetDiffuseTexture(const Texture* diffuseTexture);
 		void SetNormalTexture(const Texture* normalTexture);
@@ -49,6 +50,7 @@ namespace Angazi::Graphics
 		void SetDepthTexture(const Texture* depthTexture);
 		void SetMetallicTexture(const Texture* metallicMap);
 		void SetRoughnessTexture(const Texture* roughnessMap);
+		void SetIrradianceMap(const Texture* irradianceMap);
 
 		void SetBumpMapWeight(float weight) { mSettings.bumpMapWeight = weight; }
 		void SetNormalMapWeight(float weight) { mSettings.normalMapWeight = weight; }
@@ -59,6 +61,7 @@ namespace Angazi::Graphics
 		void SetMetallicWeight(float metallicWeight) { mSettings.metallicWeight = metallicWeight; };
 
 		void UseShadow(bool use) { mSettings.useShadow = use == true ? 1 : 0; };
+		void useIBL(bool use) { mSettings.useIBL = use == true ? 1 : 0; };
 		void SetSkinnedMesh(bool isSkinnedMesh) { mSettings.isSkinnedMesh = isSkinnedMesh == true ? 1.0f : 0.0f; };
 
 		void UpdateShadowBuffer(const Math::Matrix4& mat) { mShadowConstantBuffer.Update(&mat); };
@@ -84,7 +87,8 @@ namespace Angazi::Graphics
 			float isSkinnedMesh = 0.0f;
 			float metallicWeight = -1.0f;
 			float roughnessWeight = -1.0f;
-			float padding[3];
+			int useIBL = 0;
+			float padding[2];
 		};
 
 		struct BoneTransform
@@ -129,6 +133,7 @@ namespace Angazi::Graphics
 		Angazi::Graphics::Texture mAmbientOcclusionMap;
 		Angazi::Graphics::Texture mMetallicMap;
 		Angazi::Graphics::Texture mRoughnessMap;
+		Angazi::Graphics::Texture mIrradienceMap;
 
 		//Shadow
 		ShadowConstantBuffer mShadowConstantBuffer;
