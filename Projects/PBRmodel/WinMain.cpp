@@ -4,6 +4,6 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	Angazi::MainApp().AddState<GameState>("GameState");
-	Angazi::MainApp().Run({ "PBR" ,1280, 720});
+	Angazi::MainApp().Run({ "PBR Model" ,1280, 720});
 	return 0;
 }
