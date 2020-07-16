@@ -36,10 +36,6 @@ namespace
 
 void Angazi::Graphics::DrawSkeleton(const Skeleton& skeleton, const std::vector<Math::Matrix4>& boneMatrices, float scale)
 {
-	// Homework
-	// Use skeleton so you know what the parent child order is
-	// But, use boneMatrices (Which is the multiplied out matrices) to get the position
-	// Draw line to connect the bones
 	j = 0;
 	DrawBone(skeleton.root, boneMatrices, scale);
 }

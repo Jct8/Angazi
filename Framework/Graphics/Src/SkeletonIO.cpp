@@ -8,14 +8,12 @@ namespace
 {
 	void WriteMatrix(FILE* file, const Math::Matrix4& m)
 	{
-		// Homework
 		for (size_t i = 0; i < std::size(m.v); i++)
 			fprintf_s(file, "%f ", m.v[i]);
 	}
 
 	void ReadMatrix(FILE* file, Math::Matrix4& m)
 	{
-		// Homework
 		for (size_t i = 0; i < std::size(m.v); i++)
 			fscanf_s(file, "%f ", &m.v[i]);
 	}
@@ -23,7 +21,6 @@ namespace
 
 void SkeletonIO::Write(FILE * file, const Skeleton & skeleton)
 {
-	// Homework
 	uint32_t numBones = static_cast<uint32_t>(skeleton.bones.size());
 	fprintf_s(file, "BoneCount:%d\n", numBones);
 	for (uint32_t i = 0; i < numBones; i++)
@@ -46,7 +43,6 @@ void SkeletonIO::Write(FILE * file, const Skeleton & skeleton)
 
 void SkeletonIO::Read(FILE * file, Skeleton & skeleton)
 {
-	// Homework
 	uint32_t numBones;
 	fscanf_s(file, "BoneCount:%d\n", &numBones);
 	for (uint32_t i = 0; i < numBones; i++)

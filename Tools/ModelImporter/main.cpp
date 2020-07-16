@@ -83,6 +83,7 @@ void SaveModel(const Arguments& args, const Model& model)
 	fprintf_s(file, "MaterialCount: %d\n", numMaterials);
 	for (uint32_t i = 0; i < numMaterials; i++)
 	{
+		// If diffuseMapname is empty string , write<none>
 		if (!model.materialData[i].diffuseMapName.empty())
 			fprintf_s(file, "DiffuseMapName: %s\n", model.materialData[i].diffuseMapName.c_str());
 		else
@@ -100,8 +101,6 @@ void SaveModel(const Arguments& args, const Model& model)
 			, model.materialData[i].material.specular.x, model.materialData[i].material.specular.y, model.materialData[i].material.specular.z);
 		fprintf_s(file, "MaterialPower: %f\n", model.materialData[i].material.power);
 	}
-	//For homework, save out model.materialData as well ...
-	// If diffuseMapname is empty string , write<none>
 	fclose(file);
 }
 

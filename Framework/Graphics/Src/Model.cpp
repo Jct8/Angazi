@@ -12,9 +12,6 @@ using namespace Angazi::Graphics;
 void ModelLoader::LoadSkeleton(std::filesystem::path fileName, Skeleton& skeleton)
 {
 	fileName.replace_extension("skeleton");
-	// Homework:
-	// Do loading
-	// Resolve link here
 	FILE* file = nullptr;
 	fopen_s(&file, fileName.u8string().c_str(), "r");
 	SkeletonIO::Read(file, skeleton);
@@ -36,7 +33,6 @@ void ModelLoader::LoadSkeleton(std::filesystem::path fileName, Skeleton& skeleto
 
 void ModelLoader::LoadAnimationSet(std::filesystem::path fileName, AnimationSet & animationSet)
 {
-	// Homework
 	fileName.replace_extension("animset");
 
 	FILE* file = nullptr;
@@ -74,6 +70,7 @@ void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)
 	model.materialData.resize(numMaterials);
 	for (uint32_t i = 0; i < numMaterials; i++)
 	{
+		// if read <none> for texture name, there is not texture;
 		char buffer[128];
 		fscanf_s(file, "DiffuseMapName: %s\n", buffer, std::size(buffer));
 		if (std::string(buffer) != "<none>")
@@ -91,14 +88,12 @@ void ModelLoader::LoadModel(std::filesystem::path fileName, Model& model)
 		fscanf_s(file, "MaterialPower: %f\n", &model.materialData[i].material.power);
 	}
 
-	//For homework, save out model.materialData as well ...
-	// if read <none> for texture name, there is not texture;
+
 
 	fclose(file);
 
 	for (auto& data : model.meshData)
 		data.meshBuffer.Initialize(data.mesh);
-	//std::filesystem::path path = fileName.remove_filename();
 	for (auto& data : model.materialData)
 	{
 		if (!data.diffuseMapName.empty())

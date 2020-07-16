@@ -13,7 +13,6 @@ void Graph::Resize(int columns, int rows)
 	{
 		for (int x = 0; x < columns; ++x)
 		{
-			//Homework: Connect Neighbours to each node (up to 8, maybe less)
 			Node* nodeTL = GetNode({ x - 1 , y - 1 });
 			Node* nodeTT = GetNode({ x   , y - 1 });
 			Node* nodeTR = GetNode({ x + 1 , y - 1 });
@@ -50,7 +49,6 @@ void Graph::Resize(int columns, int rows)
 
 Graph::Node* Graph::GetNode(const Coord &coord)
 {
-	// Homework: Do bound check , then either return & of node, or nullptr;
 	return const_cast<Node*>(static_cast<const Graph*>(this)->GetNode(coord));
 }
 

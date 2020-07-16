@@ -29,12 +29,12 @@ private:
 
 };
 
-//TODO:
+//TODO-Angazi:
 // Sound effects
 // Falling attack
 // Add wall slide/jump
 
-//TODO Later:
+//TODO-Angazi Later:
 // Fix attack crash
 // Add more weapons
 // Controller support

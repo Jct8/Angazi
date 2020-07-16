@@ -419,13 +419,3 @@ void GameState::DrawScene()
 
 	SimpleDraw::Render(mCamera);
 }
-
-
-// For Homework:
-// Add the following
-// - Tetrahedron
-// - Cubes (how many constraints do you need)
-// - Ball and Chain
-// - Cloth
-// - And if you are up for the challenge, build a figure (may need more constraints)
-// - Build whatever you want

@@ -9,7 +9,7 @@ using namespace Angazi::Math;
 
 namespace
 {
-	// TODO: Move this function into a new file/name: AnimationUtil and add it to the Graphics Library
+	// TODO-Angazi: Move this function into a new file/name: AnimationUtil and add it to the Graphics Library
 	void RunFABRIK(std::vector<Vector3>& points, const Vector3& target, int maxIteration, float errorThreshold)
 	{
 		ASSERT(points.size() >= 2, "Not enough points to run FABRIK");
