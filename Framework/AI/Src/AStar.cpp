@@ -69,6 +69,7 @@ Path AStar::Search(const Graph & graph, const Coord& start, const Coord& end, st
 					{
 						if ((cost + h[neighborIndex]) < g[graph.GetIndex(*iter)] + h[graph.GetIndex(*iter)])
 						{
+							openList.remove(neighbor);
 							openList.insert(iter, neighbor);
 							break;
 						}

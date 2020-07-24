@@ -65,6 +65,7 @@ Path Dijkstras::Search(const Graph & graph, const Coord& start, const Coord& end
 					{
 						if (cost < g[graph.GetIndex(*iter)])
 						{
+							openList.remove(neighbor);
 							openList.insert(iter, neighbor);
 							break;
 						}
