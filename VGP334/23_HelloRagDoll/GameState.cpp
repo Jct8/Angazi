@@ -227,7 +227,7 @@ void GameState::DrawScene()
 	mModelStandardEffect.Begin();
 	mModelStandardEffect.SetMaterial(mMaterial);
 	mModelStandardEffect.SetDirectionalLight(mDirectionalLight);
-	mModelStandardEffect.SetViewProjection(mCamera.GetPosition());
+	mModelStandardEffect.SetViewPosition(mCamera.GetPosition());
 	mModelStandardEffect.SetWorldMatrix(matWorld);
 	mModelStandardEffect.SetWVPMatrix(matWorld, matView, matProj);
 	mModelStandardEffect.UpdateSettings();
