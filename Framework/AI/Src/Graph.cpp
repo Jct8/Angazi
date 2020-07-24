@@ -24,25 +24,23 @@ void Graph::Resize(int columns, int rows)
 			Node* nodeBM = GetNode({ x   , y + 1 });
 			Node* nodeBR = GetNode({ x + 1 , y + 1 });
 
-			if (nodeTL != nullptr)
-				mNodes[GetIndex({ x, y })].neighbors.push_back({ x - 1 , y - 1 });
-			if (nodeTR != nullptr)
-				mNodes[GetIndex({ x, y })].neighbors.push_back({ x + 1 , y - 1 });
-			if (nodeBL != nullptr)
-				mNodes[GetIndex({ x  , y })].neighbors.push_back({ x - 1 , y + 1 });
-			if (nodeBR != nullptr)
-				mNodes[GetIndex({ x  , y })].neighbors.push_back({ x + 1 , y + 1 });
-
 			if (nodeTT != nullptr)
 				mNodes[GetIndex({ x, y })].neighbors.push_back({ x    , y - 1 });
-			if (nodeMR != nullptr)
-				mNodes[GetIndex({ x , y })].neighbors.push_back({ x + 1 , y });
 			if (nodeBM != nullptr)
 				mNodes[GetIndex({ x  , y })].neighbors.push_back({ x    , y + 1 });
+			if (nodeMR != nullptr)
+				mNodes[GetIndex({ x , y })].neighbors.push_back({ x + 1 , y });
 			if (nodeML != nullptr)
 				mNodes[GetIndex({ x  , y })].neighbors.push_back({ x - 1 , y });
 
-
+			if (nodeTR != nullptr)
+				mNodes[GetIndex({ x, y })].neighbors.push_back({ x + 1 , y - 1 });
+			if (nodeTL != nullptr)
+				mNodes[GetIndex({ x, y })].neighbors.push_back({ x - 1 , y - 1 });
+			if (nodeBR != nullptr)
+				mNodes[GetIndex({ x  , y })].neighbors.push_back({ x + 1 , y + 1 });
+			if (nodeBL != nullptr)
+				mNodes[GetIndex({ x  , y })].neighbors.push_back({ x - 1 , y + 1 });
 		}
 	}
 }

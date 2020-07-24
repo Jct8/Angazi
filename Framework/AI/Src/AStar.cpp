@@ -97,7 +97,7 @@ Path AStar::Search(const Graph & graph, const Coord& start, const Coord& end, st
 		}
 		// Close node
 		closedList.push_back(current);
-		opened[graph.GetIndex(start)] = true;
+		closed[graph.GetIndex(current)] = true;
 	}
 	Path path;
 	if (found)

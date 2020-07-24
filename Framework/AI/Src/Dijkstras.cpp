@@ -92,7 +92,7 @@ Path Dijkstras::Search(const Graph & graph, const Coord& start, const Coord& end
 		}
 		// Close node
 		closedList.push_back(current);
-		opened[graph.GetIndex(start)] = true;
+		closed[graph.GetIndex(current)] = true;
 	}
 	Path path;
 	if (found)
