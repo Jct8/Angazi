@@ -49,7 +49,7 @@ namespace CoreTest
 
 			typedAllocator.Delete(ptr);
 			Assert::AreEqual((uint32_t)ptr->a, 0xfeeefeee);
-			Assert::AreEqual((uint32_t)ptr->a, 0xdeadbeef);
+			Assert::AreEqual((uint32_t)ptr->b, 0xdeadbeef);
 		}
 		TEST_METHOD(TestRecycling)
 		{

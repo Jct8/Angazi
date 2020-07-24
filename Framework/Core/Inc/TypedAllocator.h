@@ -11,31 +11,24 @@ namespace Angazi::Core
 		TypedAllocator(size_t capacity)
 			:BlockAllocator(sizeof(DataType),capacity)
 		{
-
 		}
 
-		DataType* New()
+		template <class... Args>
+		DataType* New(Args... args)
 		{
-			// TODO
-			// Get a new block from BlockAllocator
-			// Use placement new on the returned block
-			return nullptr;
+			void* ptr = Allocate();
+			if (ptr == nullptr)
+				return nullptr;
+			DataType* retPtr = new(ptr) DataType(std::forward<Args>(args)...);
+			return retPtr;
 		}
-
-		// Part 2
-		//template <class... Args>
-		//DataType* New()
-		//{
-		//	// TODO
-		//	// Modify New() so it is using variadic template arguments and perfect forwarding
-		//}
 
 		void Delete(DataType* ptr)
 		{
-			// TODO
-			// Call destructor on ptr
-			// Return ptr to BlockAllocator
-			// if ptr is nullptr do nothing
+			if (ptr == nullptr)
+				return;
+			ptr->~DataType();
+			Free(ptr);
 		}
 	};
 }
