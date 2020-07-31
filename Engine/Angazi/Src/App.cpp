@@ -2,6 +2,7 @@
 #include "App.h"
 
 using namespace Angazi;
+using namespace Angazi::Core;
 using namespace Angazi::Graphics;
 using namespace Angazi::Input;
 
@@ -14,6 +15,9 @@ void Angazi::App::ChangeState(const std::string& name)
 void Angazi::App::Run(AppConfig appConfig)
 {
 	mAppConfig = std::move(appConfig);
+
+	// Initialize timer
+	TimeUtil::GetTime();
 
 	// Setup out application window
 	mWindow.Initialize(GetModuleHandle(NULL),
@@ -62,8 +66,8 @@ void Angazi::App::Run(AppConfig appConfig)
 			continue;
 		}
 
-		constexpr float deltaTime = 1.0f / 60.0f;
-		//float deltaTime = Core::TimeUtil::GetDeltaTime();
+		//constexpr float deltaTime = 1.0f / 60.0f;
+		float deltaTime = TimeUtil::GetDeltaTime();
 		//LOG("dt = %.5f",deltaTime);
 		mCurrentState->Update(deltaTime);
 

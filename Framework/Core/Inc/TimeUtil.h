@@ -2,7 +2,6 @@
 
 namespace Angazi::Core::TimeUtil
 {
-	void Initialize();
 	void Update();
 
 	float GetTime();

@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "BlockAllocator.h"
 
-#include "Debug.h"
+#include "DebugUtil.h"
 
 using namespace Angazi;
 using namespace Angazi::Core;

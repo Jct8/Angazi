@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "WindowsMessageHandler.h"
 
-#include "Debug.h"
+#include "DebugUtil.h"
 
 using namespace Angazi::Core;
 
