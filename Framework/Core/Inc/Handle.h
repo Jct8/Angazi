@@ -12,8 +12,8 @@ namespace Angazi::Core
 	{
 	public:
 		Handle()
-			: mIndex(0), // slot 0 will be unused, in other words handle at 0 is an invalidate handle
-			: mGeneration(0)
+			: mIndex(0) // slot 0 will be unused, in other words handle at 0 is an invalidate handle
+			, mGeneration(0)
 		{}
 
 		bool IsValid() const

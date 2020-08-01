@@ -12,16 +12,18 @@ namespace Angazi::Core
 	class HandlePool
 	{
 	public:
-		using HandleType= Handle <DataType>;
+		using HandleType = Handle<DataType>;
 
 		HandlePool(size_t capacity)
 		{
-			// TODO
-			// allocate capacity + 1 entries (we don't use alot 0)
-			// add freeslots to mFreeSlots (excluding 0)
 
 			ASSERT(HandleType::sPool == nullptr, "HandlePool -- Cannot have more than one pool of this type!");
 			HandleType::sPool = this;
+
+			mEntries.resize(capacity + 1);					// allocate capacity + 1 entries (we don't use slot 0)
+			mFreeSlots.resize(capacity);
+			for (size_t i = 0; i < mFreeSlots.size(); i++)	// add freeslots to mFreeSlots (excluding 0)
+				mFreeSlots[i] = i + 1;
 		}
 		~HandlePool()
 		{
@@ -34,22 +36,38 @@ namespace Angazi::Core
 			ASSERT(instance != nullptr, "HandlePool -- Invalid instance.");
 			ASSERT(!mFreeSlots.empty(), "HandlePool -- No more free slots available.");
 
-			// TODO
-			// Get the next dree slot
-			// Set entry instance pointer
-			// Return a handle to this entry (set index and generation)
+			if (mFreeSlots.empty())
+				return HandleType();
+			size_t freeSlot = mFreeSlots.back();
+			mFreeSlots.pop_back();
+			mEntries[freeSlot].instance = instance;
+
+			HandleType handleType;
+			handleType.mGeneration = mEntries[freeSlot].generation;
+			handleType.mIndex = freeSlot;
+			return handleType;
+
 		}
 		void Unregister(HandleType handle)
 		{
-			// TODO 
-			// Skip if handle is invalid
-			// Else find the entry and increment the generation( this invalidates all existing handles to this slot)
-			// Recycle the slot (add the index back to mFreeSlots)
+			if (!IsValid(handle))
+				return;
+
+			mEntries[handle.mIndex].instance = nullptr;
+			mEntries[handle.mIndex].generation++; // this invalidates all existing handles to this slot
+			mFreeSlots.push_back(handle.mIndex);
+			handle.Invalidate();
 		}
 		void Flush()
 		{
-			// Loop throught all entries and increment generaton (invalidates all existing handles)
-			// Re-add all slot indices to mFreeSlots
+			for (size_t i = 0; i < mEntries.size(); i++)
+			{
+				mEntries[i].instance = nullptr;
+				mEntries[i].generation++; // invalidates all existing handles
+			}
+			mFreeSlots.clear();
+			for (size_t i = 1; i < mEntries.size(); i++)
+				mFreeSlots.push_back(i);
 		}
 
 		bool IsValid(HandleType handle) const
