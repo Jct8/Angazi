@@ -35,7 +35,7 @@ namespace Angazi::Graphics
 		float mBlendWeight = 0.0f;
 		float mBlendTime = 0.0f;
 		float mBlendDuration = 0.0f;
-		int mBlendIndex = 0;
+		int mBlendIndex = -1;
 
 		// <Angle, clipNumber>
 		std::map<float, int> blendTree;

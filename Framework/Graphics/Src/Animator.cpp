@@ -72,7 +72,7 @@ void Animator::Update(float deltaTime)
 	AnimationClip* clip = mModel->animationSet.clips[mClipIndex].get();
 	mTimer += mAnimationSpeed * clip->ticksPerSecond *0.5f * deltaTime;
 
-	if (mBlendDuration > 0.0f)
+	if (mBlendDuration > 0.0f && mBlendIndex!= -1)
 	{
 		auto& blendClip = mModel->animationSet.clips[mBlendIndex];
 		mBlendTimer += deltaTime * mAnimationSpeed;
@@ -81,6 +81,7 @@ void Animator::Update(float deltaTime)
 		if (mBlendTime > mBlendDuration)
 		{
 			mClipIndex = mBlendIndex;
+			mBlendIndex = -1;
 			mTimer = mBlendTimer;
 			mBlendWeight = 1.0f;
 			mBlendDuration = 0.0f;
@@ -98,7 +99,7 @@ void Animator::Update(float deltaTime)
 		if (mBlendWeight == 1.0f)
 			mBlendWeight = 0.0f;
 	}
-	else if (mBlendWeight > 0)
+	else if (mBlendWeight > 0 && mBlendIndex != -1)
 	{
 		auto& blendClip = mModel->animationSet.clips[mBlendIndex];
 		UpdateBoneMatrices(mModel->skeleton.root, mBoneMatrices, *clip, *blendClip , mBlendWeight, !isSkeletalAnimation, mTimer);
@@ -134,7 +135,7 @@ void Animator::SetBlendVelocity(Math::Vector2 velocity)
 			mBlendWeight = 0.0f;
 			mBlendTime = 0.0f;
 			mBlendDuration = 0.0f;
-			mBlendIndex = 0;
+			mBlendIndex = -1;
 			return;
 		}
 	}

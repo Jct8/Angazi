@@ -33,7 +33,7 @@ private:
 	Angazi::Graphics::Model model;
 	Angazi::Math::Vector3 mModelPosition = 0.0f;
 	Angazi::Graphics::Animator animator;
-	float mMovementSpeed = 2.0f;
+	float mMovementSpeed = 4.0f;
 
 	//Camera
 	Angazi::Math::Vector3 mCameraOffset;
@@ -56,7 +56,7 @@ private:
 	Angazi::Graphics::Skybox mSkybox;
 
 	// Skeleton - Animation
-	float animationSpeed = 1.0f;
+	float animationSpeed = 2.0f;
 	bool mShowSkeleton = false;
 
 };

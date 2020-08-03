@@ -31,27 +31,27 @@ void GameState::Initialize()
 	mPostProcessingEffect.Initialize("../../Assets/Shaders/PostProcessing.fx", "VS", "PSNoProcessing");
 
 	// Model
-	model.Initialize("../../Assets/Models/SwatRun/SwatRun.model");
+	model.Initialize("../../Assets/Models/Ely/Ely.model");
 	animator.Initialize(model);
-	animator.SetClipLooping(0, true); // backwards left
-	animator.SetClipLooping(1, true); // backwards right
-	animator.SetClipLooping(2, true); // backwards
-	animator.SetClipLooping(3, true); // forwards left
-	animator.SetClipLooping(4 ,true); // forwards right
-	animator.SetClipLooping(5, true); // forwards
-	animator.SetClipLooping(6, true); // left
-	animator.SetClipLooping(7, true); // right
-	animator.SetClipLooping(8, true); // idle
-	animator.PlayAnimation(8);
+	animator.SetClipLooping(1, true); // backwards left
+	animator.SetClipLooping(2, true); // backwards right
+	animator.SetClipLooping(3, true); // backwards
+	animator.SetClipLooping(4, true); // forwards left
+	animator.SetClipLooping(5 ,true); // forwards right
+	animator.SetClipLooping(6, true); // forwards
+	animator.SetClipLooping(7, true); // left
+	animator.SetClipLooping(8, true); // right
+	animator.SetClipLooping(0, true); // idle
+	animator.PlayAnimation(0);
 
-	animator.AddBlendAnimation({ -1,-1 }, 0);
-	animator.AddBlendAnimation({ +1,-1 }, 1);
-	animator.AddBlendAnimation({  0,-1 }, 2);
-	animator.AddBlendAnimation({ -1, 1 }, 3);
-	animator.AddBlendAnimation({ +1, 1 }, 4);
-	animator.AddBlendAnimation({  0, 1 }, 5);
-	animator.AddBlendAnimation({ -1, 0 }, 6);
-	animator.AddBlendAnimation({ +1, 0 }, 7);
+	animator.AddBlendAnimation({ -1,-1 }, 1);
+	animator.AddBlendAnimation({ +1,-1 }, 2);
+	animator.AddBlendAnimation({  0,-1 }, 3);
+	animator.AddBlendAnimation({ -1, 1 }, 4);
+	animator.AddBlendAnimation({ +1, 1 }, 5);
+	animator.AddBlendAnimation({  0, 1 }, 6);
+	animator.AddBlendAnimation({ -1, 0 }, 7);
+	animator.AddBlendAnimation({ +1, 0 }, 8);
 	//animator.AddBlendAnimation({  0,-1 }, 8);
 
 	// Effects
@@ -135,7 +135,7 @@ void GameState::Update(float deltaTime)
 			mInputAxis.x += deltaTime;
 	}
 	if (mInputAxis.x == 0.0f && mInputAxis.y == 0.0f)
-		animator.BlendTo(8, 0.5f);
+		animator.BlendTo(0, 0.5f);
 	else
 		animator.SetBlendVelocity(mInputAxis);
 
@@ -219,9 +219,9 @@ void GameState::DebugUI()
 			float aoMapWeight = aoMap ? 1.0f : 0.0f;
 		}
 	}
-	if (ImGui::SliderFloat("Animation Speed", &animationSpeed, 0.0f, 3.0f))
+	if (ImGui::SliderFloat("Animation Speed", &animationSpeed, 0.0f, 6.0f))
 		animator.SetAnimationSpeed(animationSpeed);
-	ImGui::SliderFloat("Movement Speed", &mMovementSpeed, 0.0f, 4.0f);
+	ImGui::SliderFloat("Movement Speed", &mMovementSpeed, 0.0f, 8.0f);
 	ImGui::DragFloat("X axis", &mInputAxis.x, 0.1f, -1.0f, 1.0f);
 	ImGui::DragFloat("Y axis", &mInputAxis.y, 0.1f, -1.0f, 1.0f);
 	if (ImGui::Checkbox("Show Skeleton", &mShowSkeleton))
