@@ -23,7 +23,7 @@ namespace CoreTest
 		public:
 			int a, b;
 			Foo() : a(42), b(7) {}
-			Foo(int i, int j) : a(i), b(i) {}
+			Foo(int i, int j) : a(i), b(j) {}
 			Foo(Bar b) : a(12), b(34) {}
 			Foo(std::string str) : a(12), b(34) {}
 			~Foo() { a = 0xfeeefeee, b = 0xdeadbeef; }
@@ -36,6 +36,18 @@ namespace CoreTest
 			Assert::IsNotNull(ptr);
 			Assert::IsTrue(ptr->a == 42);
 			Assert::IsTrue(ptr->b == 7);
+
+			Foo* ptr2 = typedAllocator.New();
+			Assert::IsNull(ptr2);
+		}
+
+		TEST_METHOD(TestOverloadedNew)
+		{
+			TypedAllocator<Foo> typedAllocator(1);
+			Foo* ptr = typedAllocator.New(36, 48);
+			Assert::IsNotNull(ptr);
+			Assert::AreEqual(ptr->a, 36);
+			Assert::AreEqual(ptr->b, 48);
 
 			Foo* ptr2 = typedAllocator.New();
 			Assert::IsNull(ptr2);
@@ -63,5 +75,14 @@ namespace CoreTest
 			Assert::IsNotNull(ptr2);
 			Assert::IsTrue(ptr == ptr2);
 		}
+		TEST_METHOD(TestForwardingNew)
+		{
+			TypedAllocator<Foo> typedAllocator(1);
+			Foo* ptr = typedAllocator.New(Bar());
+			Assert::IsNotNull(ptr);
+			Assert::AreEqual(Bar::counter, 2);
+		}
 	};
+
+	int TypedAllocatorTest::Bar::counter = 0;
 }

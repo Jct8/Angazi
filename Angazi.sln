@@ -201,6 +201,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTex", "External\Dire
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CoreTest", "UnitTests\CoreTest\CoreTest.vcxproj", "{60F5D440-E300-4265-8BA5-35E6811154A6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{2FB93E87-58E3-4A0F-A904-E484F93F421D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGame", "App\TestGame\TestGame.vcxproj", "{4AF5431D-06AA-4DEE-9510-8073C1E439BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1455,6 +1459,26 @@ Global
 		{60F5D440-E300-4265-8BA5-35E6811154A6}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{60F5D440-E300-4265-8BA5-35E6811154A6}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{60F5D440-E300-4265-8BA5-35E6811154A6}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Debug|x64.ActiveCfg = Debug|x64
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Debug|x64.Build.0 = Debug|x64
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Debug|x86.ActiveCfg = Debug|Win32
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Debug|x86.Build.0 = Debug|Win32
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.MinSizeRel|x64.Build.0 = Release|x64
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.MinSizeRel|x86.Build.0 = Release|Win32
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Profile|x64.ActiveCfg = Release|x64
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Profile|x64.Build.0 = Release|x64
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Profile|x86.ActiveCfg = Release|Win32
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Profile|x86.Build.0 = Release|Win32
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Release|x64.ActiveCfg = Release|x64
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Release|x64.Build.0 = Release|x64
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Release|x86.ActiveCfg = Release|Win32
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.Release|x86.Build.0 = Release|Win32
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1524,12 +1548,13 @@ Global
 		{ABF21874-ECF3-483C-8B98-0FE15345897C} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 		{371B9FA9-4C90-4AC6-A123-ACED756D6C77} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
 		{60F5D440-E300-4265-8BA5-35E6811154A6} = {D5041A66-2726-44FB-98A5-AA067A5786D6}
+		{4AF5431D-06AA-4DEE-9510-8073C1E439BB} = {2FB93E87-58E3-4A0F-A904-E484F93F421D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 62
+		SccNumberOfProjects = 63
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1777,5 +1802,9 @@ Global
 		SccProjectTopLevelParentUniqueName61 = Angazi.sln
 		SccProjectName61 = UnitTests/CoreTest
 		SccLocalPath61 = UnitTests\\CoreTest
+		SccProjectUniqueName62 = App\\TestGame\\TestGame.vcxproj
+		SccProjectTopLevelParentUniqueName62 = Angazi.sln
+		SccProjectName62 = App/TestGame
+		SccLocalPath62 = App\\TestGame
 	EndGlobalSection
 EndGlobal

@@ -7,12 +7,18 @@
 
 #include "Common.h"
 
-// App Headers
+// App headers
 #include "App.h"
 #include "AppState.h"
 
-// Terrain Headers
+// Terrain headers
 #include "Terrain.h"
+
+// World headers
+#include "Component.h"
+#include "GameObject.h"
+#include "GameObjectFactory.h"
+#include "GameWorld.h"
 
 namespace Angazi 
 {
