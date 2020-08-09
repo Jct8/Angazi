@@ -33,5 +33,5 @@ namespace Angazi::Math
 		Vector4& operator*=(float s) { x *= s; y *= s; z *= s; w *= s; return *this; }
 		Vector4& operator/=(float s) { x /= s; y /= s; z /= s; w /= s; return *this; }
 	};
-	 
+
 }

@@ -95,7 +95,7 @@ namespace Angazi::Math
 				_41 / s, _42 / s, _43 / s, _44 / s
 			};
 		}
-		constexpr Matrix4 operator+=(const Matrix4& rhs)
+		constexpr Matrix4& operator+=(const Matrix4& rhs)
 		{
 			_11 += rhs._11; _12 += rhs._12; _13 += rhs._13; _14 += rhs._14;
 			_21 += rhs._21; _22 += rhs._22; _23 += rhs._23; _24 += rhs._24;
@@ -176,6 +176,12 @@ namespace Angazi::Math
 				0.0f   , 0.0f   , scale.z, 0.0f,
 				0.0f   , 0.0f   , 0.0f   , 1.0f
 			};
+		}
+
+		static Matrix4 Transform(const Vector3 &position, const Vector3 &rotation, const Vector3 &scale)
+		{
+			Matrix4 rot = Matrix4::RotationX(rotation.x) * Matrix4::RotationY(rotation.y) * Matrix4::RotationZ(rotation.z);
+			return rot * Matrix4::Scaling(scale) * Matrix4::Translation(position);
 		}
 
 		static Matrix4 RotationQuaternion(const Quaternion& q);

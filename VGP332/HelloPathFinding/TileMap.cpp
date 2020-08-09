@@ -169,6 +169,29 @@ void TileMap::Render()
 		}
 	}
 
+	for (int y = 0; y < mRows; y++)
+	{
+		for (int x = 0; x < mColumns; x++)
+		{
+			const int index = GetIndex(x, y);
+			Angazi::Math::Vector2 pos
+			{
+				static_cast<float>(x)*32.0f,
+				static_cast<float>(y)*32.0f
+			};
+			SpriteRenderer::Get()->Draw(mTextureIds[mTiles[index]], { pos.x , pos.y }, 0.0f, Pivot::TopLeft);
+			if (mShowGraph)
+			{
+				SimpleDraw::AddScreenCircle({ pos.x + offset , pos.y + offset }, circleRadius, Colors::DarkGray);
+				std::vector<AI::Coord> coords = mGraph.GetNode({ x,y })->neighbors;
+				for (size_t i = 0; i < coords.size(); i++)
+				{
+					SimpleDraw::AddScreenLine(pos.x + offset, pos.y + offset, coords[i].x*mTileSize + offset, coords[i].y*mTileSize + offset, Colors::DarkGray);
+				}
+			}
+		}
+	}
+
 	SimpleDraw::AddScreenCircle({ mStartPosition.x*mTileSize + offset , mStartPosition.y*mTileSize + offset }, circleRadius, Colors::LightGray);
 	SimpleDraw::AddScreenCircle({ mEndPosition.x*mTileSize + offset , mEndPosition.y*mTileSize + offset }, circleRadius, Colors::Red);
 

@@ -2,10 +2,12 @@
 #include "GameObjectFactory.h"
 
 #include "Component.h"
+#include "TransformComponent.h"
+#include "ColliderComponent.h"
 
 using namespace Angazi;
 
-GameObject * GameObjectFactory::Create(GameObjectAllocator & allocator, std::filesystem::path templateFileName)
+GameObject* GameObjectFactory::Create(GameObjectAllocator & allocator, std::filesystem::path templateFileName)
 {
 	auto newObject = allocator.New();
 
@@ -16,11 +18,11 @@ GameObject * GameObjectFactory::Create(GameObjectAllocator & allocator, std::fil
 		// TODO:
 		// Add transformComponent class , add setters/getters, and a function to return a Matrix4
 		// Add ColliderComponent class, add setters/getters for an AABB, add Render to draw the aabb
-		/*auto transform = newObject->AddComponent<TransformComponent>();
+		auto transform = newObject->AddComponent<TransformComponent>();
 		transform->SetPosition({1.0f,2.0f,3.0f});
 
 		auto collider = newObject->AddComponent<ColliderComponent>();
-		collider->SetAABB({Math::Vector3::Zero,Math::Vector3::One});*/
+		collider->SetAABB({Math::Vector3::Zero,Math::Vector3::One});
 	}
 
 	return newObject;

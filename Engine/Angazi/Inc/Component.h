@@ -10,6 +10,7 @@ namespace Angazi
 		Component& operator=(const Component&) = delete;
 
 		virtual ~Component() = default;
+		Component() = default;
 
 		virtual void Initialize() {}
 		virtual void Terminate() {}
@@ -25,6 +26,4 @@ namespace Angazi
 		friend class GameObject;
 		GameObject* mOwner = nullptr;
 	};
-
-
 }

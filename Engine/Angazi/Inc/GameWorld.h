@@ -23,7 +23,6 @@ namespace Angazi
 
 		std::unique_ptr<GameObjectAllocator> mGameObjectAllocator;
 		std::unique_ptr<GameObjectHandlePool> mGameObjectHandlePool;
-
 		GameObjectList mUpdateList;
 
 		bool mInitialized = false;

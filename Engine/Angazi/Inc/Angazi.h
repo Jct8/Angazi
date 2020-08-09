@@ -20,6 +20,9 @@
 #include "GameObjectFactory.h"
 #include "GameWorld.h"
 
+// Components
+#include "TransformComponent.h"
+
 namespace Angazi 
 {
 	App& MainApp(); 
