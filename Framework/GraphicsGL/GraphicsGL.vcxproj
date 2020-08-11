@@ -21,14 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D7DCC971-B132-44A6-A6A0-86B8C5640F17}</ProjectGuid>
-    <SccProjectName>
-    </SccProjectName>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccProvider>
-    </SccProvider>
+    <SccProjectName>$/Angazi/Framework/GraphicsGL</SccProjectName>
+    <SccAuxPath>https://dev.azure.com/timjustin</SccAuxPath>
+    <SccLocalPath>.</SccLocalPath>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GraphicsGL</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
