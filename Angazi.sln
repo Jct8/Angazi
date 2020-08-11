@@ -34,6 +34,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03_HelloTriangle", "VGP242\03_HelloTriangle\03_HelloTriangle.vcxproj", "{6EFD7FB0-4EBF-4570-85B8-ABA270365C47}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{151081E7-6860-49B2-904A-B1EFA6CCB4D5}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{7BEA6B8E-242B-46B4-8366-0A659EFAE1D1}"
 	ProjectSection(SolutionItems) = preProject
@@ -1554,7 +1557,7 @@ Global
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 63
+		SccNumberOfProjects = 64
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1806,5 +1809,9 @@ Global
 		SccProjectTopLevelParentUniqueName62 = Angazi.sln
 		SccProjectName62 = App/TestGame
 		SccLocalPath62 = App\\TestGame
+		SccProjectUniqueName63 = Framework\\GraphicsGL\\GraphicsGL.vcxproj
+		SccProjectTopLevelParentUniqueName63 = Angazi.sln
+		SccProjectName63 = Framework/GraphicsGL
+		SccLocalPath63 = Framework\\GraphicsGL
 	EndGlobalSection
 EndGlobal
