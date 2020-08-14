@@ -11,45 +11,60 @@ GameObject* GameObjectFactory::Create(GameObjectAllocator & allocator, std::file
 {
 	auto newObject = allocator.New();
 
-	// TODO:
-	// Construct the game object based on the data in the template file
-	if (templateFileName == "tallBox")
+	FILE *file = nullptr;
+	fopen_s(&file, templateFileName.u8string().c_str(), "r");
+
+	char readBuffer[65536];
+	rapidjson::FileReadStream is(file, readBuffer, sizeof(readBuffer));
+
+	rapidjson::Document document;
+	document.ParseStream(is);
+
+	if (document.HasMember("GameObject"))
 	{
-		// TODO:
-		// Add transformComponent class , add setters/getters, and a function to return a Matrix4
-		// Add ColliderComponent class, add setters/getters for an AABB, add Render to draw the aabb
-		auto transform = newObject->AddComponent<TransformComponent>();
-		transform->position = { -5.0f,0.0f,0.0f };
+		if (document["GameObject"].HasMember("Components"))
+		{
+			auto components = document["GameObject"]["Components"].GetObjectW();
+			if (components.HasMember("TransformComponent"))
+			{
+				auto transform = newObject->AddComponent<TransformComponent>();
+				if (components["TransformComponent"].HasMember("Position"))
+				{
+					auto x = components["TransformComponent"]["Position"]["x"].GetFloat();
+					auto y = components["TransformComponent"]["Position"]["y"].GetFloat();
+					auto z = components["TransformComponent"]["Position"]["z"].GetFloat();
+					transform->position = { x , y, z };
+				}
+				if (components["TransformComponent"].HasMember("Position"))
+				{
+					auto x = components["TransformComponent"]["Rotation"]["x"].GetFloat();
+					auto y = components["TransformComponent"]["Rotation"]["y"].GetFloat();
+					auto z = components["TransformComponent"]["Rotation"]["z"].GetFloat();
+					auto w = components["TransformComponent"]["Rotation"]["w"].GetFloat();
+					transform->rotation = { x , y, z, w };
+				}
+			}
+			if (document["GameObject"]["Components"].HasMember("ColliderComponent"))
+			{
+				auto collider = newObject->AddComponent<ColliderComponent>();
+				if (components["ColliderComponent"].HasMember("Center"))
+				{
+					auto x = components["ColliderComponent"]["Center"]["x"].GetFloat();
+					auto y = components["ColliderComponent"]["Center"]["y"].GetFloat();
+					auto z = components["ColliderComponent"]["Center"]["z"].GetFloat();
+					collider->center = { x , y, z };
+				}
+				if (components["ColliderComponent"].HasMember("Extend"))
+				{
+					auto x = components["ColliderComponent"]["Extend"]["x"].GetFloat();
+					auto y = components["ColliderComponent"]["Extend"]["y"].GetFloat();
+					auto z = components["ColliderComponent"]["Extend"]["z"].GetFloat();
+					collider->extend = { x , y, z };
+				}
+			}
 
-		auto collider = newObject->AddComponent<ColliderComponent>();
-		collider->center = {0.0f, 3.0f, 0.0f};
-		collider->extend = { 1.0f, 3.0f, 1.0f };
+		}
 	}
-	else if (templateFileName == "longBox")
-	{
-		// TODO:
-		// Add transformComponent class , add setters/getters, and a function to return a Matrix4
-		// Add ColliderComponent class, add setters/getters for an AABB, add Render to draw the aabb
-		auto transform = newObject->AddComponent<TransformComponent>();
-		transform->position = { 0.0f,0.0f,0.0f };
-
-		auto collider = newObject->AddComponent<ColliderComponent>();
-		collider->center = { 0.0f, 1.0f, 0.0f };
-		collider->extend = { 1.0f, 1.0f, 4.0f };
-	}
-	else if (templateFileName == "fatBox")
-	{
-		// TODO:
-		// Add transformComponent class , add setters/getters, and a function to return a Matrix4
-		// Add ColliderComponent class, add setters/getters for an AABB, add Render to draw the aabb
-		auto transform = newObject->AddComponent<TransformComponent>();
-		transform->position = { 5.0f,0.0f,0.0f };
-
-		auto collider = newObject->AddComponent<ColliderComponent>();
-		collider->center = { 0.0f, 1.0f, 0.0f };
-		collider->extend = { 3.0f, 1.0f, 1.0f };
-	}
-
 	return newObject;
 }
 
