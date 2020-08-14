@@ -32,7 +32,6 @@ GameObjectHandle GameWorld::Create(const std::filesystem::path & templateFileNam
 		LOG("GameWorld -- Failed to create game object from template %s",templateFileName.u8string().c_str());
 		return GameObjectHandle();
 	}
-
 	// Register with the handle pool
 	auto handle = mGameObjectHandlePool->Register(gameObject);
 
@@ -40,6 +39,7 @@ GameObjectHandle GameWorld::Create(const std::filesystem::path & templateFileNam
 	gameObject->mWorld = this;
 	gameObject->mName = std::move(name);
 	gameObject->mHandle = handle;
+	gameObject->Initialize();
 
 	// Add game object to the update list
 	mUpdateList.push_back(gameObject);

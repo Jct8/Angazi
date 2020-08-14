@@ -13,16 +13,41 @@ GameObject* GameObjectFactory::Create(GameObjectAllocator & allocator, std::file
 
 	// TODO:
 	// Construct the game object based on the data in the template file
-	if (templateFileName == "../Assets/Templates/player.json")
+	if (templateFileName == "tallBox")
 	{
 		// TODO:
 		// Add transformComponent class , add setters/getters, and a function to return a Matrix4
 		// Add ColliderComponent class, add setters/getters for an AABB, add Render to draw the aabb
 		auto transform = newObject->AddComponent<TransformComponent>();
-		transform->SetPosition({1.0f,2.0f,3.0f});
+		transform->position = { -5.0f,0.0f,0.0f };
 
 		auto collider = newObject->AddComponent<ColliderComponent>();
-		collider->SetAABB({Math::Vector3::Zero,Math::Vector3::One});
+		collider->center = {0.0f, 3.0f, 0.0f};
+		collider->extend = { 1.0f, 3.0f, 1.0f };
+	}
+	else if (templateFileName == "longBox")
+	{
+		// TODO:
+		// Add transformComponent class , add setters/getters, and a function to return a Matrix4
+		// Add ColliderComponent class, add setters/getters for an AABB, add Render to draw the aabb
+		auto transform = newObject->AddComponent<TransformComponent>();
+		transform->position = { 0.0f,0.0f,0.0f };
+
+		auto collider = newObject->AddComponent<ColliderComponent>();
+		collider->center = { 0.0f, 1.0f, 0.0f };
+		collider->extend = { 1.0f, 1.0f, 4.0f };
+	}
+	else if (templateFileName == "fatBox")
+	{
+		// TODO:
+		// Add transformComponent class , add setters/getters, and a function to return a Matrix4
+		// Add ColliderComponent class, add setters/getters for an AABB, add Render to draw the aabb
+		auto transform = newObject->AddComponent<TransformComponent>();
+		transform->position = { 5.0f,0.0f,0.0f };
+
+		auto collider = newObject->AddComponent<ColliderComponent>();
+		collider->center = { 0.0f, 1.0f, 0.0f };
+		collider->extend = { 3.0f, 1.0f, 1.0f };
 	}
 
 	return newObject;

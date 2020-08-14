@@ -1,9 +1,26 @@
 #include "Precompiled.h"
 #include "ColliderComponent.h"
 
-using namespace Angazi;
+#include "GameObject.h"
+#include "TransformComponent.h"
 
-void ColliderComponent::Render()
+using namespace Angazi;
+using namespace Angazi::Graphics;
+
+void Angazi::ColliderComponent::Initialize()
 {
-	Graphics::SimpleDraw::AddAABB(mAABB.center, mAABB.extend, Graphics::Colors::AliceBlue);
+	mTransformComponent = GetOwner().GetComponent<TransformComponent>();
+}
+
+void ColliderComponent::DebugUI()
+{
+	auto aabb = GetAABB();
+	SimpleDraw::AddAABB(aabb.center, aabb.extend, Graphics::Colors::LightGreen);
+}
+
+Math::AABB Angazi::ColliderComponent::GetAABB() const
+{
+	// This is incorrect if we have orientation as well
+	auto translation = mTransformComponent->position;
+	return {translation + center,extend};
 }

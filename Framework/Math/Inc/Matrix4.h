@@ -178,11 +178,8 @@ namespace Angazi::Math
 			};
 		}
 
-		static Matrix4 Transform(const Vector3 &position, const Vector3 &rotation, const Vector3 &scale)
-		{
-			Matrix4 rot = Matrix4::RotationX(rotation.x) * Matrix4::RotationY(rotation.y) * Matrix4::RotationZ(rotation.z);
-			return rot * Matrix4::Scaling(scale) * Matrix4::Translation(position);
-		}
+		static Matrix4 Transform(const Vector3 &translation, const Vector3 &rotation, const Vector3 &scale);
+		static Matrix4 Transform(const Vector3 &translation, const Quaternion &rotation, const Vector3 &scale);
 
 		static Matrix4 RotationQuaternion(const Quaternion& q);
 	};

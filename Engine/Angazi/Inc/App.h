@@ -21,9 +21,11 @@ namespace Angazi
 	class App
 	{
 	public:
-		template<class StateType, class = std::void_t<std::is_base_of<AppState,StateType>>>
+		//template<class StateType, class = std::void_t<std::is_base_of<AppState,StateType>>>
+		template<class StateType>
 		void AddState(std::string name)
 		{
+			static_assert(std::is_base_of_v<AppState, StateType>, "Cannot add type T which is not derived from AppState.");
 			mAppStates.emplace(std::move(name), std::make_unique<StateType>());
 		}
 

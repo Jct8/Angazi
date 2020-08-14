@@ -18,7 +18,10 @@ void GameState::Initialize()
 	mCamera.SetDirection({ 0.0f,-0.36f, 0.92f });
 
 	mWorld.Initialize(100);
-	mWorld.Create("../Assets/Templates/player.json", "Justin");
+	//mWorld.Create("../Assets/Templates/player.json", "Justin");
+	mWorld.Create("tallBox", "Justin");
+	mWorld.Create("longBox", "Justin");
+	mWorld.Create("fatBox", "Justin");
 }
 
 void GameState::Terminate()

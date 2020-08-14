@@ -6,8 +6,10 @@ using namespace Angazi;
 
 void GameObject::Initialize() 
 {
+	ASSERT(!mInitialized, " GameObject -- Game object already initialized.");
 	for (auto& component : mComponents)
 		component->Initialize();
+	mInitialized = true;
 }
 void GameObject::Terminate()
 {

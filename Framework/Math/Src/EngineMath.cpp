@@ -408,3 +408,22 @@ Matrix4 Matrix4::RotationAxis(const Vector3 & axis, float radian)
 		0.0f, 0.0f, 0.0f, 1.0f
 	};
 }
+
+Matrix4 Matrix4::Transform(const Vector3 &translation, const Vector3 &rotation, const Vector3 &scale)
+{
+	Matrix4 rot = Matrix4::RotationX(rotation.x) * Matrix4::RotationY(rotation.y) * Matrix4::RotationZ(rotation.z);
+	return rot * Matrix4::Scaling(scale) * Matrix4::Translation(translation);
+}
+
+Matrix4 Matrix4::Transform(const Vector3 &translation, const Quaternion &rotation, const Vector3 &scale)
+{
+	Matrix4 transform = Matrix4::RotationQuaternion(rotation);
+	transform._11 *= scale.x;
+	transform._22 *= scale.y;
+	transform._33 *= scale.z;
+	transform._41 = translation.x;
+	transform._42 = translation.y;
+	transform._43 = translation.z;
+	return transform;
+	//return Matrix4::RotationQuaternion(rotation) * Matrix4::Scaling(scale) * Matrix4::Translation(translation);
+}
