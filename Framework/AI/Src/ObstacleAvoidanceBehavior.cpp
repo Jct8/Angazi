@@ -52,7 +52,7 @@ Math::Vector2 ObstacleAvoidance::Calculate(Agent & agent)
 		force.x = (closestObstacle.radius - localPositionOfObject.x) * multiplier;
 
 		force.y = (closestObstacle.radius - localPositionOfObject.y) * brakingWeight;
-		return Math::TransformCoord(force, localToWorld);
+		return Math::TransformNormal(force, localToWorld);
 	}
 	return Math::Vector2();
 }
