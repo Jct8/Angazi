@@ -31,6 +31,12 @@
     <Filter Include="Inc\Event">
       <UniqueIdentifier>{b681a133-bc7c-4fd6-a42e-5dcbd4ea746e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\Meta">
+      <UniqueIdentifier>{527b2eb4-addb-4c71-98b3-0ae1da7c19cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Meta">
+      <UniqueIdentifier>{4b20500a-2c6e-4b02-909d-779941968e9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Core.h">
@@ -69,6 +75,18 @@
     <ClInclude Include="Inc\Handle.h">
       <Filter>Inc\Memory</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Meta.h">
+      <Filter>Inc\Meta</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\MetaType.h">
+      <Filter>Inc\Meta</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\MetaUtil.h">
+      <Filter>Inc\Meta</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\MetaRegistration.h">
+      <Filter>Inc\Meta</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Window.cpp">
@@ -88,6 +106,12 @@
     </ClCompile>
     <ClCompile Include="Src\DebugUtil.cpp">
       <Filter>Src\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MetaType.cpp">
+      <Filter>Src\Meta</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MetaRegistration.cpp">
+      <Filter>Src\Meta</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

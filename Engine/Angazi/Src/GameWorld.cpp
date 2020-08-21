@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "GameWorld.h"
+#include "Service.h"
 
 using namespace Angazi;
 
