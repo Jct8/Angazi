@@ -11,6 +11,10 @@
 #include "App.h"
 #include "AppState.h"
 
+// Components
+#include "TransformComponent.h"
+#include "ColliderComponent.h"
+
 // Terrain headers
 #include "Terrain.h"
 
@@ -19,9 +23,7 @@
 #include "GameObject.h"
 #include "GameObjectFactory.h"
 #include "GameWorld.h"
-
-// Components
-#include "TransformComponent.h"
+#include "Service.h"
 
 namespace Angazi 
 {
