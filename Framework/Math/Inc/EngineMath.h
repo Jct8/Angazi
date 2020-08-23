@@ -46,6 +46,8 @@ namespace Angazi::Math
 	float RandomFloat(float min, float max);
 	int RandomInt();
 	int RandomInt(int min, int max);
+	double RandomDouble();
+	double RandomDouble(double min, double max);
 
 	inline Vector2 RandomVector2(const Vector2& min, const Vector2& max)
 	{

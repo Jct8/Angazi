@@ -166,11 +166,13 @@
     <ClInclude Include="Inc\Entity.h" />
     <ClInclude Include="Inc\EvadeBehavior.h" />
     <ClInclude Include="Inc\FleeingBehavior.h" />
+    <ClInclude Include="Inc\GeneticAlgorithm.h" />
     <ClInclude Include="Inc\Goal.h" />
     <ClInclude Include="Inc\GoalComposite.h" />
     <ClInclude Include="Inc\Graph.h" />
     <ClInclude Include="Inc\HidingBehavior.h" />
     <ClInclude Include="Inc\MemoryRecord.h" />
+    <ClInclude Include="Inc\NeuralNetwork.h" />
     <ClInclude Include="Inc\ObstacleAvoidanceBehavior.h" />
     <ClInclude Include="Inc\PartitionGrid.h" />
     <ClInclude Include="Inc\PerceptionModule.h" />
@@ -211,8 +213,10 @@
     <ClCompile Include="Src\Entity.cpp" />
     <ClCompile Include="Src\EvadeBehavior.cpp" />
     <ClCompile Include="Src\FleeingBehavior.cpp" />
+    <ClCompile Include="Src\GeneticAlgorithm.cpp" />
     <ClCompile Include="Src\Graph.cpp" />
     <ClCompile Include="Src\HidingBehavior.cpp" />
+    <ClCompile Include="Src\NeuralNetwork.cpp" />
     <ClCompile Include="Src\ObstacleAvoidanceBehavior.cpp" />
     <ClCompile Include="Src\PerceptionModule.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">

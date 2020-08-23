@@ -42,3 +42,7 @@
 #include "SteeringBehavior.h"
 #include "SteeringModule.h"
 #include "WanderBehavior.h"
+
+// Machine Learning Algorithms
+#include "NeuralNetwork.h"
+#include "GeneticAlgorithm.h"

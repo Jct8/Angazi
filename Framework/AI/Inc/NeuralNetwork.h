@@ -1,8 +1,6 @@
 #pragma once
 
-#include <vector>
-
-namespace AI
+namespace Angazi::AI
 {
 	class Neuron;
 	using Layer = std::vector<Neuron>;

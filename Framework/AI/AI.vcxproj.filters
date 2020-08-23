@@ -43,6 +43,12 @@
     <Filter Include="Src\Steering">
       <UniqueIdentifier>{597e74e4-d996-421b-be61-6ed08970f34b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\Machine Learning">
+      <UniqueIdentifier>{acc66573-7677-4194-937a-fdd8c2f95f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Machine Learning">
+      <UniqueIdentifier>{8cc50991-f8d2-4859-9a98-306bfddad0be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\AI.h">
@@ -150,6 +156,12 @@
     <ClInclude Include="Inc\AIWorld.h">
       <Filter>Inc\World</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\GeneticAlgorithm.h">
+      <Filter>Inc\Machine Learning</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\NeuralNetwork.h">
+      <Filter>Inc\Machine Learning</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -220,6 +232,12 @@
     </ClCompile>
     <ClCompile Include="Src\WanderBehavior.cpp">
       <Filter>Src\Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GeneticAlgorithm.cpp">
+      <Filter>Src\Machine Learning</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\NeuralNetwork.cpp">
+      <Filter>Src\Machine Learning</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

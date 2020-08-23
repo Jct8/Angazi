@@ -1,9 +1,8 @@
+#include "Precompiled.h"
 #include "NeuralNetwork.h"
 
-#include "Random.h"
-#include <cassert>
-
-using namespace AI;
+using namespace Angazi::AI;
+using namespace Angazi::Math;
 
 namespace
 {
@@ -22,7 +21,7 @@ Neuron::Neuron(size_t numOutputs, size_t myIndex)
 	: mMyIndex(myIndex)
 {
 	for (size_t i = 0; i < numOutputs; ++i)
-		mOutputWeights.push_back({ RandomReal(), 0 });
+		mOutputWeights.push_back({ RandomDouble(), 0 });
 }
 
 void Neuron::FeedForward(const Layer& previousLayer)

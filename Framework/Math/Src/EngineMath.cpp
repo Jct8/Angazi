@@ -65,6 +65,14 @@ int Angazi::Math::RandomInt(int min, int max)
 {
 	return std::uniform_int_distribution<>{ min, max }(myRandomEngine);
 }
+double Angazi::Math::RandomDouble()
+{
+	return std::uniform_real_distribution<>{ 0, 1 }(myRandomEngine);
+}
+double Angazi::Math::RandomDouble(double min, double max)
+{
+	return std::uniform_real_distribution<>{ min, max }(myRandomEngine);
+}
 
 
 bool Angazi::Math::GetContactPoint(const Ray& ray, const OBB& obb, Vector3& point, Vector3& normal)

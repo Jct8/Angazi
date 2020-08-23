@@ -1,5 +1,4 @@
-#include "NeuralNetwork.h"
-#include "Random.h"
+#include "Angazi/Inc/Angazi.h"
 #include <iostream>
 
 void ShowVectorVals(const char* label, const std::vector<double>& vals)
@@ -32,7 +31,7 @@ int main(int argc, char* argv[])
 
 	char n[] = "asdsad";
 
-	AI::NeuralNetwork ann({ 2u, 2u, 1u });
+	Angazi::AI::NeuralNetwork ann({ 2u, 2u, 1u });
 
 	int example = 0;
 	for (size_t i = 0; i < 10000; ++i)
@@ -45,7 +44,7 @@ int main(int argc, char* argv[])
 		ShowVectorVals("Targets:", xorOutputValues[example]);
 		std::cout << "\n";
 
-		example = RandomInt(0, 3);
+		example = Angazi::Math::RandomInt(0, 3);
 	}
 
 	return 0;

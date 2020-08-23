@@ -212,6 +212,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VGP337", "VGP337", "{BE4EA1
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NeuralNetwork", "VGP337\NeuralNetwork\NeuralNetwork.vcxproj", "{1E1CC62A-5908-4A21-8D61-5705805E4262}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GA_TravellingSaleman", "VGP337\GA_TravellingSaleman\GA_TravellingSaleman.vcxproj", "{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GeneticAlgorithm", "VGP337\GeneticAlgorithm\GeneticAlgorithm.vcxproj", "{C697791F-470B-4B0F-946D-3DF6364BF3C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1506,6 +1510,46 @@ Global
 		{1E1CC62A-5908-4A21-8D61-5705805E4262}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{1E1CC62A-5908-4A21-8D61-5705805E4262}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{1E1CC62A-5908-4A21-8D61-5705805E4262}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Debug|x64.ActiveCfg = Debug|x64
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Debug|x64.Build.0 = Debug|x64
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Debug|x86.ActiveCfg = Debug|Win32
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Debug|x86.Build.0 = Debug|Win32
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.MinSizeRel|x64.Build.0 = Release|x64
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.MinSizeRel|x86.Build.0 = Release|Win32
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Profile|x64.ActiveCfg = Release|x64
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Profile|x64.Build.0 = Release|x64
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Profile|x86.ActiveCfg = Release|Win32
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Profile|x86.Build.0 = Release|Win32
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Release|x64.ActiveCfg = Release|x64
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Release|x64.Build.0 = Release|x64
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Release|x86.ActiveCfg = Release|Win32
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.Release|x86.Build.0 = Release|Win32
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Debug|x64.ActiveCfg = Debug|x64
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Debug|x64.Build.0 = Debug|x64
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Debug|x86.ActiveCfg = Debug|Win32
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Debug|x86.Build.0 = Debug|Win32
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.MinSizeRel|x64.Build.0 = Release|x64
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.MinSizeRel|x86.Build.0 = Release|Win32
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Profile|x64.ActiveCfg = Release|x64
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Profile|x64.Build.0 = Release|x64
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Profile|x86.ActiveCfg = Release|Win32
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Profile|x86.Build.0 = Release|Win32
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Release|x64.ActiveCfg = Release|x64
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Release|x64.Build.0 = Release|x64
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Release|x86.ActiveCfg = Release|Win32
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.Release|x86.Build.0 = Release|Win32
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1577,12 +1621,14 @@ Global
 		{60F5D440-E300-4265-8BA5-35E6811154A6} = {D5041A66-2726-44FB-98A5-AA067A5786D6}
 		{4AF5431D-06AA-4DEE-9510-8073C1E439BB} = {2FB93E87-58E3-4A0F-A904-E484F93F421D}
 		{1E1CC62A-5908-4A21-8D61-5705805E4262} = {BE4EA151-0611-48F5-9B60-F977892EAD20}
+		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0} = {BE4EA151-0611-48F5-9B60-F977892EAD20}
+		{C697791F-470B-4B0F-946D-3DF6364BF3C5} = {BE4EA151-0611-48F5-9B60-F977892EAD20}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 65
+		SccNumberOfProjects = 67
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1842,5 +1888,13 @@ Global
 		SccProjectTopLevelParentUniqueName64 = Angazi.sln
 		SccProjectName64 = VGP337/NeuralNetwork
 		SccLocalPath64 = VGP337\\NeuralNetwork
+		SccProjectUniqueName65 = VGP337\\GA_TravellingSaleman\\GA_TravellingSaleman.vcxproj
+		SccProjectTopLevelParentUniqueName65 = Angazi.sln
+		SccProjectName65 = VGP337/GA_TravellingSaleman
+		SccLocalPath65 = VGP337\\GA_TravellingSaleman
+		SccProjectUniqueName66 = VGP337\\GeneticAlgorithm\\GeneticAlgorithm.vcxproj
+		SccProjectTopLevelParentUniqueName66 = Angazi.sln
+		SccProjectName66 = VGP337/GeneticAlgorithm
+		SccLocalPath66 = VGP337\\GeneticAlgorithm
 	EndGlobalSection
 EndGlobal
