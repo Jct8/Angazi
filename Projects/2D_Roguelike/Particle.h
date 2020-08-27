@@ -13,10 +13,10 @@ public:
 	bool IsActive() { return isActive; }
 	void SetPivot(Angazi::Graphics::Pivot pivot) { mPivot = pivot; }
 
-	int GetTextureWidth() { return mTexture.GetWidth(); }
+	int GetTextureWidth() { return Angazi::Graphics::TextureManager::Get()->GetTexture(mTexture)->GetWidth(); }
 
 private:
-	Angazi::Graphics::Texture mTexture;
+	Angazi::Graphics::TextureId mTexture;
 	Angazi::Math::Vector2 mPosition;
 
 	int mFrame = 0;

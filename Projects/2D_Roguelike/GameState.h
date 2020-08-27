@@ -20,9 +20,9 @@ public:
 private:
 	Angazi::Graphics::Camera mCamera;
 
-	Angazi::Graphics::Texture backgroundTex;
-	Angazi::Graphics::Texture characterTex;
-	Angazi::Graphics::Texture character2Tex;
+	Angazi::Graphics::TextureId backgroundTex;
+	Angazi::Graphics::TextureId characterTex;
+	Angazi::Graphics::TextureId character2Tex;
 	Angazi::Math::Vector2 currentView;
 
 	float cameraOffset;

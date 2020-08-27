@@ -15,15 +15,15 @@ public:
 	virtual bool CanFire() = 0;
 	virtual void Reload() = 0;
 
-	Angazi::Graphics::Texture* GetSurvivorTextureId() { return &mSurvivorTextureId; }
-	Angazi::Graphics::Texture* GetCrosshairTextureId() { return &mCrosshairTextureId; }
+	Angazi::Graphics::TextureId GetSurvivorTextureId() { return mSurvivorTextureId; }
+	Angazi::Graphics::TextureId GetCrosshairTextureId() { return mCrosshairTextureId; }
 
-	float GetSurvivorWitdh() const { return mSurvivorTextureId.GetWidth() * 0.5f; };
+	float GetSurvivorWitdh() const { return Angazi::Graphics::TextureManager::Get()->GetTexture(mSurvivorTextureId)->GetWidth() * 0.5f; };
 
 protected:
-	Angazi::Graphics::Texture mSurvivorTextureId;
-	Angazi::Graphics::Texture mCrosshairTextureId;
-	Angazi::Graphics::Texture mTextureId;
+	Angazi::Graphics::TextureId mSurvivorTextureId;
+	Angazi::Graphics::TextureId mCrosshairTextureId;
+	Angazi::Graphics::TextureId mTextureId;
 	int mAmmoCount = 0;
 	int mDamage = 0;
 	float mFireDelay = 0;

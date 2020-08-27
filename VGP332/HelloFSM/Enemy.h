@@ -18,7 +18,7 @@ public:
 	void SetAlerted(bool alert) { isAlerted = alert; }
 
 	Angazi::Math::Vector2 GetPosition() { return mPosition; }
-	Angazi::Math::Circle GetBoundingCircle() { return { mPosition, mTextureId.GetWidth()*0.5f }; }
+	Angazi::Math::Circle GetBoundingCircle() { return { mPosition, Angazi::Graphics::TextureManager::Get()->GetTexture(mTextureId)->GetWidth()*0.5f }; }
 	bool IsAlive() { return isAlive; };
 	int GetDamage() { return mDamage; }
 	float GetSpeed() { return mSpeed; }
@@ -28,7 +28,7 @@ public:
 protected:
 	std::unique_ptr<Angazi::AI::StateMachine<Enemy>> mStateMachine;
 
-	Angazi::Graphics::Texture mTextureId;
+	Angazi::Graphics::TextureId mTextureId;
 	Angazi::Math::Vector2 mPosition;
 	Angazi::Math::Vector2 mHeading;
 	

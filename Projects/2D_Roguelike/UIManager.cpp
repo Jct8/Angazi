@@ -31,14 +31,14 @@ UIManager & UIManager::Get()
 
 void UIManager::Load()
 {
-	barEmpty.Initialize("../../Assets/Images/Rougelike/bar_empty.png");
-	barRed.Initialize("../../Assets/Images/Rougelike/bar_red.png");
+	barEmpty = TextureManager::Get()->Load("../../Assets/Images/Rougelike/bar_empty.png");
+	barRed = TextureManager::Get()->Load("../../Assets/Images/Rougelike/bar_red.png");
 }
 
 void UIManager::Unload()
 {
-	barEmpty.Terminate();
-	barRed.Terminate();
+	barEmpty = 0;
+	barRed = 0;
 }
 
 void UIManager::Update(float deltaTime)
@@ -52,15 +52,15 @@ void UIManager::Render()
 	Math::Rect rect
 	{
 		0.0f,0.0f,
-		playerHealthPercent * barRed.GetWidth(),
-		1.0f * barRed.GetHeight()
+		playerHealthPercent * TextureManager::Get()->GetTexture(barRed)->GetWidth(),
+		1.0f * TextureManager::Get()->GetTexture(barRed)->GetHeight()
 	};
 
-	SpriteRenderer::Get()->Draw(barEmpty, { 25.0f,680.0f }, 0.0f, Pivot::TopLeft);
-	SpriteRenderer::Get()->Draw(barRed, rect, { 25.0f,680.0f }, 0.0f, Pivot::TopLeft, Flip::None);
+	BatchRender::Get()->AddSprite(barEmpty, { 25.0f,680.0f }, 0.0f, Pivot::TopLeft);
+	BatchRender::Get()->AddSprite(barRed, rect, { 25.0f,680.0f }, 0.0f, Pivot::TopLeft, Flip::None);
 
 	SimpleDraw::AddScreenRect(30.0f, 610.0f, 90.0f, 670.0f, Colors::AliceBlue);
 	SimpleDraw::AddScreenRect(95.0f, 610.0f, 155.0f, 670.0f, Colors::AliceBlue);
-	SpriteRenderer::Get()->Draw(*player.GetPrimaryWeaponSprite(), { 35.0f,620.0f }, 0.0f , Pivot::TopLeft);
-	SpriteRenderer::Get()->Draw(*player.GetSecondaryWeaponSprite(), { 100.0f,620.0f }, 0.0f , Pivot::TopLeft);
+	BatchRender::Get()->AddSprite(player.GetPrimaryWeaponSprite(), { 35.0f,620.0f }, 0.0f, Pivot::TopLeft);
+	BatchRender::Get()->AddSprite(player.GetSecondaryWeaponSprite(), { 100.0f,620.0f }, 0.0f, Pivot::TopLeft);
 }

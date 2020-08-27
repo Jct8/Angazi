@@ -27,9 +27,9 @@ void GameState::Initialize()
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
 	gameState = GameStart;
-	backgroundTex.Initialize("../../Assets/Images/Rougelike/Background.png");
-	characterTex.Initialize( "../../Assets/Images/Rougelike/Start.png");
-	character2Tex.Initialize("../../Assets/Images/Rougelike/Start2.png");
+	backgroundTex = TextureManager::Get()->Load("../../Assets/Images/Rougelike/Background.png");
+	characterTex = TextureManager::Get()->Load( "../../Assets/Images/Rougelike/Start.png");
+	character2Tex = TextureManager::Get()->Load("../../Assets/Images/Rougelike/Start2.png");
 	Camera2D::StaticInitialize();
 
 	TileMap::StaticInitialize();
@@ -169,8 +169,6 @@ void GameState::Render()
 	auto x = GraphicsSystem::Get()->GetBackBufferWidth()*0.5f;
 	auto y = GraphicsSystem::Get()->GetBackBufferHeight()*0.5f;
 
-	SpriteRenderer::Get()->BeginRender();
-
 	switch (gameState)
 	{
 	case GamePlay:
@@ -183,18 +181,17 @@ void GameState::Render()
 		UIManager::Get().Render();
 		break;
 	default:
-		SpriteRenderer::Get()->Draw(backgroundTex, { x , y });
-		SpriteRenderer::Get()->Draw(characterTex, { x - 350.0f,y + 150.0f });
-		SpriteRenderer::Get()->Draw(character2Tex, { x + 350.0f,y - 150.0f });
+		BatchRender::Get()->AddSprite(backgroundTex, { x , y });
+		BatchRender::Get()->AddSprite(characterTex, { x - 350.0f,y + 150.0f });
+		BatchRender::Get()->AddSprite(character2Tex, { x + 350.0f,y - 150.0f });
 		break;
 	}
-	SpriteRenderer::Get()->EndRender();
 
-	SimpleDraw::Render(mCamera);
 }
 
 void GameState::DebugUI()
 {
+	SimpleDraw::Render(mCamera);
 	TileMap::Get().ShowEditor();
 	player.DebugUI();
 	EnemyManager::Get().DebugUI();

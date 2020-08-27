@@ -54,17 +54,15 @@ void GameState::Render()
 {
 	if (gameState == GAMESTATE::InGame)
 	{
-		SpriteRenderer::Get()->BeginRender();
 		EnemyManager::Get().Render();
 		survivor.Render();
-		SpriteRenderer::Get()->EndRender();
 
-		SimpleDraw::Render(mCamera);
 	}
 }
 
 void GameState::DebugUI()
 {
+	SimpleDraw::Render(mCamera);
 }
 
 void GameState::GameStart()

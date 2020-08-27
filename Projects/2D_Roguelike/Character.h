@@ -50,7 +50,7 @@ protected:
 	float mAttackDelay = 0.0f;
 
 	Animation2D mCurrentAnimation;
-	std::map<Animation2D, std::deque<Angazi::Graphics::Texture>> mAnimations;
+	std::map<Animation2D, std::deque<Angazi::Graphics::TextureId>> mAnimations;
 	std::map<Animation2D, float> mAnimationsDuration;
 
 	Angazi::Math::Vector2 mPosition;

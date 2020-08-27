@@ -14,7 +14,7 @@ public:
 	void DebugUI();
 
 private:
-	Angazi::Graphics::Texture mTextureId;
+	Angazi::Graphics::TextureId mTextureId;
 
 	std::unique_ptr<Angazi::AI::StateMachine<Player>> mStateMachine;
 	std::unique_ptr<Angazi::AI::SteeringModule> mSteeringModule;

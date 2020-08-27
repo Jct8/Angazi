@@ -24,7 +24,7 @@ public:
 
 	bool isDebug = true;
 private:
-	Angazi::Graphics::Texture mTextureId;
+	Angazi::Graphics::TextureId mTextureId;
 
 	std::unique_ptr<Angazi::AI::StateMachine<Enemy>> mStateMachine;
 	std::unique_ptr<Angazi::AI::SteeringModule> mSteeringModule;

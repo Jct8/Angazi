@@ -5,7 +5,7 @@ using namespace Angazi;
 
 void Particle::Load(std::string fileName,int columns, int rows)
 {
-	mTexture.Initialize(fileName.c_str());
+	mTexture = Graphics::TextureManager::Get()->Load(fileName.c_str());
 	mDuration = 0.3f;
 	mFrame = 0;
 	mFrameCount = 6;
@@ -17,7 +17,7 @@ void Particle::Load(std::string fileName,int columns, int rows)
 
 void Particle::Unload()
 {
-	mTexture.Terminate();
+	mTexture = 0;
 }
 
 void Particle::Update(float deltaTime)
@@ -37,8 +37,8 @@ void Particle::Render()
 	if (!isActive)
 		return;
 	Math::Vector2 screenPos = Camera2D::Get().ConvertToScreenPosition(mPosition);
-	float spriteWidth = static_cast<float>(mTexture.GetWidth()) / mColumns;
-	float spriteHeight = static_cast<float>(mTexture.GetHeight()) / mRows;
+	float spriteWidth = static_cast<float>( Graphics::TextureManager::Get()->GetTexture(mTexture)->GetWidth()) / mColumns;
+	float spriteHeight = static_cast<float>(Graphics::TextureManager::Get()->GetTexture(mTexture)->GetHeight()) / mRows;
 	int row = static_cast<int>(static_cast<float>(mFrame) / mColumns);
 	int column = mFrame % mColumns;
 	Math::Rect rect
@@ -46,7 +46,7 @@ void Particle::Render()
 		 spriteWidth*column , spriteHeight*row,
 		 spriteWidth*column + spriteWidth, spriteHeight *row + spriteHeight
 	};
-	Graphics::SpriteRenderer::Get()->Draw(mTexture, rect, screenPos, 0.0f, mPivot, Graphics::Flip::None);
+	Graphics::BatchRender::Get()->AddSprite(mTexture, rect, screenPos, 0.0f, mPivot, Graphics::Flip::None);
 	if (mFrame == mFrameCount - 1)
 		isActive = false;
 }

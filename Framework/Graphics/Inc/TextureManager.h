@@ -18,7 +18,9 @@ namespace Angazi::Graphics
 
 		void SetRootPath(const std::filesystem::path& path);
 
-		TextureId Load(const char* fileName);
+		TextureId Load(const char* fileNameInDefaultFolder);
+		TextureId Load(const std::filesystem::path& filePath);
+
 		void Clear();
 
 		void BindVS(TextureId id, uint32_t slot = 0);

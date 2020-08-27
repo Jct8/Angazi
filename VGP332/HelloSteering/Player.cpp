@@ -8,7 +8,7 @@ using namespace Angazi::Graphics;
 
 void Player::Load()
 {
-	mTextureId.Initialize("../../Assets/Images/XEngine/survivor_handgun.png");
+	mTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/survivor_handgun.png");
 	maxSpeed = 300.0f;
 	position = {GraphicsSystem::Get()->GetBackBufferWidth()*0.5f , GraphicsSystem::Get()->GetBackBufferHeight() *0.5f };
 
@@ -84,12 +84,12 @@ void Player::Update(float deltaTime)
 void Player::Render() const
 {
 	float angle = atan2(heading.y, heading.x);
-	SpriteRenderer::Get()->Draw(mTextureId, position, angle);
+	BatchRender::Get()->AddSprite(mTextureId, position, angle);
 }
 
 void Player::Unload()
 {
-	mTextureId.Terminate();
+	mTextureId = 0;
 	mStateMachine.reset();
 }
 

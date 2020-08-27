@@ -14,8 +14,8 @@ public:
 	void Update(float deltaTime);
 	void Render();
 private:
-	Angazi::Graphics::Texture barEmpty;
-	Angazi::Graphics::Texture barRed;
+	Angazi::Graphics::TextureId barEmpty;
+	Angazi::Graphics::TextureId barRed;
 
 	float playerHealthPercent;
 };

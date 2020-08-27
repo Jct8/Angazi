@@ -23,7 +23,7 @@ void RangedWeapon::Load(std::filesystem::path fileName)
 	fscanf_s(file, "Damage:%d\n", &mDamage);
 	fscanf_s(file, "Projectiles:%d\n", &mTotalProjectiles);
 	fscanf_s(file, "%s\n", name, maxsize);
-	mSprite.Initialize("../../Assets/Images/Rougelike/" + std::string(name));
+	mSprite = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
 
 	for (int i = 0; i < total; i++)
 	{
@@ -31,7 +31,7 @@ void RangedWeapon::Load(std::filesystem::path fileName)
 		//Angazi::Graphics::Texture tex;
 		//tex.Initialize(name);
 		mAnimations.emplace_back();
-		mAnimations.back().Initialize("../../Assets/Images/Rougelike/" + std::string(name));
+		mAnimations.back() = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
 	}
 	fclose(file);
 	mAttackDelay = 1.0f;
@@ -39,17 +39,17 @@ void RangedWeapon::Load(std::filesystem::path fileName)
 
 void RangedWeapon::Unload()
 {
-	mSprite.Terminate();
+	mSprite = 0;
 	for (auto& animations : mAnimations)
-		animations.Terminate();
+		animations = 0;
 }
 
 void RangedWeapon::Render(int mFrame, Math::Vector2 screenPos, bool isFacingLeft)
 {
 	if (isFacingLeft)
-		SpriteRenderer::Get()->Draw(mAnimations[mFrame], screenPos);
+		BatchRender::Get()->AddSprite(mAnimations[mFrame], screenPos);
 	else
-		SpriteRenderer::Get()->Draw(mAnimations[mFrame], screenPos, 0.0f , Pivot::Center, Flip::Horizontal);
+		BatchRender::Get()->AddSprite(mAnimations[mFrame], screenPos, 0.0f , Pivot::Center, Flip::Horizontal);
 }
 
 void RangedWeapon::Attack(int mFrame, Math::Vector2 screenPos, bool isFacingLeft, bool isPlayer)

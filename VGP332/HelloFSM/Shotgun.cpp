@@ -6,18 +6,18 @@ using namespace Angazi::Graphics;
 
 void Shotgun::Load()
 {
-	mSurvivorTextureId.Initialize("../../Assets/Images/XEngine/survivor_shotgun.png");
-	mCrosshairTextureId.Initialize("../../Assets/Images/XEngine/crosshair_shotgun.png");
-	mTextureId.Initialize("../../Assets/Images/XEngine/bullet_shotgun.png");
+	mSurvivorTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/survivor_shotgun.png");
+	mCrosshairTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/crosshair_shotgun.png");
+	mTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/bullet_shotgun.png");
 	mDamage = 20;
 	mAmmoCount = 15;
 }
 
 void Shotgun::Unload()
 {
-	mSurvivorTextureId.Terminate();
-	mCrosshairTextureId.Terminate();
-	mTextureId.Terminate();
+	mSurvivorTextureId = 0;
+	mCrosshairTextureId = 0;
+	mTextureId =0;
 }
 
 void Shotgun::Render()
@@ -32,13 +32,13 @@ void Shotgun::Render()
 		mAmmoCount = 15;
 		mReloadDelay = time + 1.0f;
 		isReloading = false;
-		mCrosshairTextureId.Terminate();
-		mCrosshairTextureId.Initialize("../../Assets/Images/XEngine/crosshair_shotgun.png");
+		mCrosshairTextureId = 0;
+		mCrosshairTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/crosshair_shotgun.png");
 	}
 
 	for (int i = 0; i < mAmmoCount; i++)
 	{
-		SpriteRenderer::Get()->Draw(mTextureId, pos);
+		BatchRender::Get()->AddSprite(mTextureId, pos);
 		pos.x += 15.0f;
 	}
 }
@@ -81,6 +81,6 @@ void Shotgun::Reload()
 	//mAmmoCount = 15;
 	isReloading = true;
 	mReloadDelay = MainApp().GetTime() + 1.0f;
-	mCrosshairTextureId.Terminate();
-	mCrosshairTextureId.Initialize("../../Assets/Images/XEngine/reload.png");
+	mCrosshairTextureId = 0;
+	mCrosshairTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/reload.png");
 }

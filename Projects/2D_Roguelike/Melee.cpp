@@ -22,7 +22,7 @@ void MeleeWeapon::Load(std::filesystem::path fileName)
 	fscanf_s(file, "HitSize:%f,%f\n", &mHitWidth, &mHitHeight);
 	fscanf_s(file, "Damage:%d\n", &mDamage);
 	fscanf_s(file, "%s\n", name, maxsize);
-	mSprite.Initialize("../../Assets/Images/Rougelike/" + std::string(name));
+	mSprite = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
 	fscanf_s(file, "Particle:%s\n", name, maxsize);
 	mParticleName = name;
 
@@ -33,7 +33,7 @@ void MeleeWeapon::Load(std::filesystem::path fileName)
 		{
 			fscanf_s(file, "%s\n", name, maxsize);
 			mAnimationsMap[i].emplace_back();
-			mAnimationsMap[i][j].Initialize("../../Assets/Images/Rougelike/" + std::string(name));
+			mAnimationsMap[i][j] = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
 			fscanf_s(file, "%f,%f\n", &x, &y);
 			mAnimationDamageMap[i].push_back({ x , y });
 		}
@@ -46,11 +46,11 @@ void MeleeWeapon::Unload()
 {
 	for (auto& animationType : mAnimationsMap)
 		for (auto& animation : animationType.second)
-			animation.Terminate();
+			animation = 0;
 
-	mSprite.Terminate();
+	mSprite = 0;
 	for (auto& animations : mAnimations)
-		animations.Terminate();
+		animations = 0;
 }
 
 void MeleeWeapon::Render(int mFrame, Math::Vector2 screenPos, bool isFacingLeft)
@@ -60,9 +60,9 @@ void MeleeWeapon::Render(int mFrame, Math::Vector2 screenPos, bool isFacingLeft)
 		mFrame = static_cast<int>(mAnimationsMap[mCurrentAttack].size()) - 1;
 
 	if (isFacingLeft)
-		SpriteRenderer::Get()->Draw(mAnimationsMap[mCurrentAttack][mFrame], screenPos);
+		BatchRender::Get()->AddSprite(mAnimationsMap[mCurrentAttack][mFrame], screenPos);
 	else
-		SpriteRenderer::Get()->Draw(mAnimationsMap[mCurrentAttack][mFrame], screenPos, 0.0f, Pivot::Center, Flip::Horizontal);
+		BatchRender::Get()->AddSprite(mAnimationsMap[mCurrentAttack][mFrame], screenPos, 0.0f, Pivot::Center, Flip::Horizontal);
 
 	if (mFrame == mAnimationsMap[mCurrentAttack].size() - 1)
 		mCurrentAttack = (mCurrentAttack + 1) % mAnimationsMap.size();

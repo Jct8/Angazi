@@ -30,8 +30,8 @@ public:
 
 	Angazi::Math::Rect GetBoundingBox() override;
 	float GetHealthPercent() { return static_cast<float>(mHealth) / mMaxHealth; }
-	Angazi::Graphics::Texture* GetPrimaryWeaponSprite() { return mWeapon->GetSprite(); }
-	Angazi::Graphics::Texture* GetSecondaryWeaponSprite() { return mSecondaryWeapon->GetSprite(); }
+	Angazi::Graphics::TextureId GetPrimaryWeaponSprite() { return mWeapon->GetSprite(); }
+	Angazi::Graphics::TextureId GetSecondaryWeaponSprite() { return mSecondaryWeapon->GetSprite(); }
 	void Reset();
 
 	void SetDestination(Angazi::Math::Vector2 dest) { mDestination = dest; };

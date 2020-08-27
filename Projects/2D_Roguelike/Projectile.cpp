@@ -10,15 +10,15 @@ using namespace Angazi::Graphics;
 
 void Projectile::Load(std::string fileName)
 {
-	mTexture.Initialize("../../Assets/Images/Rougelike/" + fileName);
-	mBloodTexture.Initialize("../../Assets/Images/Rougelike/blood.png");
+	mTexture = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + fileName);
+	mBloodTexture = TextureManager::Get()->Load("../../Assets/Images/Rougelike/blood.png");
 	isActive = false;
 }
 
 void Projectile::Unload()
 {
-	mTexture.Terminate();
-	mBloodTexture.Terminate();
+	mTexture = 0;
+	mBloodTexture = 0;
 }
 
 void Projectile::Update(float deltaTime)
@@ -68,8 +68,9 @@ void Projectile::Render()
 {
 	if (isPlayingAnimation)
 	{
-		float spriteWidth = static_cast<float>(mBloodTexture.GetWidth() / 4.0f);
-		float spriteHeight = static_cast<float>(mBloodTexture.GetHeight() / 4.0f);
+		
+		float spriteWidth = static_cast<float>(TextureManager::Get()->GetTexture(mBloodTexture)->GetWidth() / 4.0f);
+		float spriteHeight = static_cast<float>(TextureManager::Get()->GetTexture(mBloodTexture)->GetHeight() / 4.0f);
 		int row = static_cast<int>(static_cast<float>(mFrame) / 4.0f);
 		int column = mFrame % 4;
 		Math::Rect rect
@@ -78,13 +79,13 @@ void Projectile::Render()
 			 spriteWidth*column + spriteWidth, spriteHeight *row + spriteHeight
 		};
 		auto screenPos = Camera2D::Get().ConvertToScreenPosition(mPosition);
-		SpriteRenderer::Get()->Draw(mBloodTexture, rect, screenPos, 0.0f , Pivot::Center, Flip::None);
+		BatchRender::Get()->AddSprite(mBloodTexture, rect, screenPos, 0.0f , Pivot::Center, Flip::None);
 		if (mFrame == mFrameCount - 1)
 			isActive = false;
 		return;
 	}
 	auto screenPos = Camera2D::Get().ConvertToScreenPosition(mPosition);
-	SpriteRenderer::Get()->Draw(mTexture, screenPos);
+	BatchRender::Get()->AddSprite(mTexture, screenPos);
 }
 
 void Projectile::Fire(bool isPlayer, float speed,int damage, Math::Vector2 targetPos, Math::Vector2 startingPos)

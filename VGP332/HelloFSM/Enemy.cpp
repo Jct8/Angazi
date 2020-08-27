@@ -8,6 +8,7 @@
 extern Survivor survivor;
 
 using namespace Angazi;
+using namespace Angazi::Graphics;
 
 void Enemy::Load()
 {
@@ -15,12 +16,12 @@ void Enemy::Load()
 	mStateMachine->AddState<IdleState>("Idle");
 	mStateMachine->AddState<FollowState>("Follow");
 	mStateMachine->AddState<RunState>("Run");
-	mTextureId.Initialize("../../Assets/Images/XEngine/zombie_idle.png");
+	mTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/zombie_idle.png");
 }
 
 void Enemy::Unload()
 {
-	mTextureId.Terminate();
+	mTextureId = 0;
 }
 
 void Enemy::Update(float deltaTime)
@@ -56,7 +57,7 @@ void Enemy::Update(float deltaTime)
 void Enemy::Render()
 {
 	float angle = atan2(mHeading.y, mHeading.x);
-	Graphics::SpriteRenderer::Get()->Draw(mTextureId, mPosition, angle);
+	Graphics::BatchRender::Get()->AddSprite(mTextureId, mPosition, angle);
 }
 
 void Enemy::ChangeState(std::string stateName)
@@ -69,8 +70,8 @@ void Enemy::TakeDamage(int damage)
 	mHealth -= damage;
 	if (mHealth <= 0 && isAlive)
 	{
-		mTextureId.Terminate();
-		mTextureId.Initialize("../../Assets/Images/XEngine/zombie_dead.png");
+		mTextureId = 0;
+		mTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/zombie_dead.png");
 		isAlive = false;
 		EnemyManager::Get().IncreaseDeathCount();
 		mDeathDelay = MainApp().GetTime() + 4.0f;

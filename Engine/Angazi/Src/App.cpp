@@ -33,6 +33,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	GraphicsSystem::StaticInitialize(handle, false);
 	DebugUI::StaticInitialize(handle, true, true);
 	SimpleDraw::StaticInitialize(1024 * 1024);
+	TextureManager::StaticInitialize("../../Assets/Images/");
 	SpriteRenderer::StaticInitialize();
 	BatchRender::StaticInitialize();
 
@@ -75,9 +76,7 @@ void Angazi::App::Run(AppConfig appConfig)
 		auto graphicsSystem = GraphicsSystem::Get();
 		graphicsSystem->BeginRender();
 
-		//Graphics::SpriteRenderer::Get()->BeginRender();
 		mCurrentState->Render();
-		//Graphics::SpriteRenderer::Get()->EndRender();
 
 		BatchRender::Get()->Render();
 
@@ -93,6 +92,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	//Terminate engine systems
 	BatchRender::StaticTerminate();
 	SpriteRenderer::StaticTerminate();
+	TextureManager::StaticTerminate();
 	SimpleDraw::StaticTerminate();
 	DebugUI::StaticTerminate();
 	GraphicsSystem::StaticTerminate();

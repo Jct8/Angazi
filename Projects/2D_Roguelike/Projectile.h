@@ -16,8 +16,8 @@ private:
 	Angazi::Math::Vector2 mPosition;
 	Angazi::Math::Vector2 mStartingPosition;
 	Angazi::Math::Vector2 mDirection;
-	Angazi::Graphics::Texture mTexture;
-	Angazi::Graphics::Texture mBloodTexture;
+	Angazi::Graphics::TextureId mTexture;
+	Angazi::Graphics::TextureId mBloodTexture;
 
 	int mFrame = 0;
 	int mFrameCount = 0;

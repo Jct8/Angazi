@@ -24,14 +24,11 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-	SpriteRenderer::Get()->BeginRender();
 	tileMap.Render();
-	SpriteRenderer::Get()->EndRender();
-
-	SimpleDraw::Render(mCamera);
 }
 
 void GameState::DebugUI()
 {
+	SimpleDraw::Render(mCamera);
 	tileMap.DebugUI();
 }

@@ -8,12 +8,12 @@ using namespace Angazi::Graphics;
 void TileMap::Load()
 {
 	std::string path = "../../Assets/Images/XEngine/";
-	mTextureIds[0].Initialize(path+ "grass.png");
-	mTextureIds[1].Initialize(path+ "flower.png");
-	mTextureIds[2].Initialize(path+ "tree0.png");
-	mTextureIds[3].Initialize(path+ "tree1.png");
-	mTextureIds[4].Initialize(path+ "tree2.png");
-	mTextureIds[5].Initialize(path+ "tree3.png");
+	mTextureIds[0] = TextureManager::Get()->Load(path+ "grass.png");
+	mTextureIds[1] = TextureManager::Get()->Load(path+ "flower.png");
+	mTextureIds[2] = TextureManager::Get()->Load(path+ "tree0.png");
+	mTextureIds[3] = TextureManager::Get()->Load(path+ "tree1.png");
+	mTextureIds[4] = TextureManager::Get()->Load(path+ "tree2.png");
+	mTextureIds[5] = TextureManager::Get()->Load(path+ "tree3.png");
 
 	mColumns = 25;
 	mRows = 20;
@@ -26,7 +26,7 @@ void TileMap::Unload()
 {
 	for (auto& item : mTextureIds)
 	{
-		item.Terminate();
+		item = 0;
 	}
 }
 
@@ -40,7 +40,7 @@ void TileMap::Update(float deltaTime)
 	//Check bound and make sure we are within the map
 	//Check if mouse is clicked
 	//Index into mTiles and change value
-	if (inputSystem->IsMousePressed(Input::MouseButton::LBUTTON))
+	if (inputSystem->IsMouseDown(Input::MouseButton::LBUTTON))
 	{
 		if (mChooseStart)
 		{
@@ -156,7 +156,7 @@ void TileMap::Render()
 				static_cast<float>(x)*32.0f,
 				static_cast<float>(y)*32.0f
 			};
-			SpriteRenderer::Get()->Draw(mTextureIds[mTiles[index]], { pos.x , pos.y },0.0f, Pivot::TopLeft);
+			BatchRender::Get()->AddSprite(mTextureIds[mTiles[index]], { pos.x , pos.y },0.0f, Pivot::TopLeft);
 			if (mShowGraph)
 			{
 				SimpleDraw::AddScreenCircle({ pos.x + offset , pos.y + offset }, circleRadius, Colors::DarkGray);
@@ -179,7 +179,7 @@ void TileMap::Render()
 				static_cast<float>(x)*32.0f,
 				static_cast<float>(y)*32.0f
 			};
-			SpriteRenderer::Get()->Draw(mTextureIds[mTiles[index]], { pos.x , pos.y }, 0.0f, Pivot::TopLeft);
+			BatchRender::Get()->AddSprite(mTextureIds[mTiles[index]], { pos.x , pos.y }, 0.0f, Pivot::TopLeft);
 			if (mShowGraph)
 			{
 				SimpleDraw::AddScreenCircle({ pos.x + offset , pos.y + offset }, circleRadius, Colors::DarkGray);
@@ -228,7 +228,7 @@ void TileMap::DebugUI()
 	{
 		for (int i = 0; i < (int)mTextureIds.size(); ++i)
 		{
-			if (ImGui::ImageButton(mTextureIds[i].GetShaderResourceView(), { 32.0f,32.0f }))
+			if (ImGui::ImageButton(TextureManager::Get()->GetTexture(mTextureIds[i])->GetShaderResourceView(), { 32.0f,32.0f }))
 			{
 				mCurrentTile = i;
 			}

@@ -6,18 +6,18 @@ using namespace Angazi::Graphics;
 
 void Handgun::Load()
 {
-	mSurvivorTextureId.Initialize("../../Assets/Images/XEngine/survivor_handgun.png");
-	mCrosshairTextureId.Initialize("../../Assets/Images/XEngine/crosshair_handgun.png");
-	mTextureId.Initialize("../../Assets/Images/XEngine/bullet_handgun.png");
+	mSurvivorTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/survivor_handgun.png");
+	mCrosshairTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/crosshair_handgun.png");
+	mTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/bullet_handgun.png");
 	mDamage = 50;
 	mAmmoCount = 10;
 }
 
 void Handgun::Unload()
 {
-	mSurvivorTextureId.Terminate();
-	mCrosshairTextureId.Terminate();
-	mTextureId.Terminate();
+	mSurvivorTextureId = 0;
+	mCrosshairTextureId = 0;
+	mTextureId = 0;
 }
 
 void Handgun::Render()
@@ -32,13 +32,13 @@ void Handgun::Render()
 		mAmmoCount = 10;
 		mReloadDelay = time + 1.0f;
 		isReloading = false;
-		mCrosshairTextureId.Terminate();
-		mCrosshairTextureId.Initialize("../../Assets/Images/XEngine/crosshair_shotgun.png");
+		mCrosshairTextureId = 0;
+		mCrosshairTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/crosshair_shotgun.png");
 	}
 
 	for(int i = 0;  i< mAmmoCount; i++)
 	{
-		SpriteRenderer::Get()->Draw(mTextureId,pos);
+		BatchRender::Get()->AddSprite(mTextureId,pos);
 		pos.x+= 15.0f;
 	}
 
@@ -68,6 +68,6 @@ void Handgun::Reload()
 	//mAmmoCount = 10;
 	isReloading = true;
 	mReloadDelay = MainApp().GetTime() + 1.0f;
-	mCrosshairTextureId.Terminate();
-	mCrosshairTextureId.Initialize("../../Assets/Images/XEngine/reload.png");
+	mCrosshairTextureId = 0;
+	mCrosshairTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/reload.png");
 }

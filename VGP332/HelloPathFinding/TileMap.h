@@ -26,7 +26,7 @@ private:
 
 	std::list<Angazi::AI::Coord> closedList;
 	std::vector< Angazi::AI::Coord> parentList;
-	std::array<Angazi::Graphics::Texture, 6> mTextureIds;
+	std::array<Angazi::Graphics::TextureId, 6> mTextureIds;
 	std::vector<int> mTiles;
 
 	Angazi::AI::Coord mStartPosition{ 2, 2 };

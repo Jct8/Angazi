@@ -62,7 +62,7 @@ void Enemy::Load(std::filesystem::path fileName, bool facingLeft)
 			//Angazi::Graphics::Texture tex;
 			//tex.Initialize("../../Assets/Images/Rougelike/" + std::string(name));
 			mAnimations[anim].emplace_back();
-			mAnimations[anim].back().Initialize("../../Assets/Images/Rougelike/" + std::string(name));
+			mAnimations[anim].back() = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
 		}
 	}
 	fclose(file);
@@ -87,7 +87,7 @@ void Enemy::Unload()
 {
 	for (auto& animationType : mAnimations)
 		for(auto& animation : animationType.second)
-			animation.Terminate();
+			animation = 0;
 	mWeapon->Unload();
 	mWeapon.reset();
 }
@@ -212,9 +212,9 @@ void Enemy::Render()
 	if (mCurrentAnimation == Attacking)
 		mWeapon->Render(mFrame, screenPos, isFacingLeft);
 	else if (isFacingLeft)
-		SpriteRenderer::Get()->Draw(mAnimations[mCurrentAnimation][mFrame], screenPos);
+		BatchRender::Get()->AddSprite(mAnimations[mCurrentAnimation][mFrame], screenPos);
 	else
-		SpriteRenderer::Get()->Draw(mAnimations[mCurrentAnimation][mFrame], screenPos, 0.0f , Pivot::Center, Flip::Horizontal);
+		BatchRender::Get()->AddSprite(mAnimations[mCurrentAnimation][mFrame], screenPos, 0.0f , Pivot::Center, Flip::Horizontal);
 
 	if (mFrame == mFrameCount - 1 && isAlive)
 	{

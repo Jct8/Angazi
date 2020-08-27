@@ -93,7 +93,7 @@ void TileMap::LoadTexture(std::filesystem::path fileName)
 	{
 		char buffer[256];
 		fscanf_s(file, "%s\n", buffer, static_cast<int>(std::size(buffer)));
-		mTiles[i].Initialize("../../Assets/Images/Rougelike/" + std::string(buffer));
+		mTiles[i] = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(buffer));
 	}
 
 	fclose(file);
@@ -121,7 +121,7 @@ void TileMap::Unload()
 {
 	for (size_t i = 0; i < mTiles.size(); i++)
 	{
-		mTiles[i].Terminate();
+		mTiles[i] = 0;
 	}
 	mTiles.clear();
 
@@ -228,7 +228,7 @@ void TileMap::ShowEditor()
 
 		for (int i = 0; i < (int)mTiles.size(); ++i)
 		{
-			if (ImGui::ImageButton(mTiles[i].GetShaderResourceView(), { 32.0f,32.0f }))
+			if (ImGui::ImageButton(TextureManager::Get()->GetTexture( mTiles[i])->GetShaderResourceView(), { 32.0f,32.0f }))
 			{
 				mCurrentTile = i;
 			}
@@ -368,7 +368,7 @@ void TileMap::Render()
 			Math::Vector2 screenPos = Camera2D::Get().ConvertToScreenPosition(worldPosOfTile);
 			if (screenPos.x >= -32.0f && screenPos.x < graphics->GetBackBufferWidth() && screenPos.y >= -32.0f && screenPos.y < graphics->GetBackBufferHeight())
 			{
-				SpriteRenderer::Get()->Draw(mTiles[mMap[i]], screenPos, 0.0f , Pivot::TopLeft);
+				BatchRender::Get()->AddSprite(mTiles[mMap[i]], screenPos, 0.0f , Pivot::TopLeft);
 			}
 		}
 	}
@@ -378,7 +378,7 @@ void TileMap::Render()
 
 
 	if (mEditTile)
-		SpriteRenderer::Get()->Draw(mTiles[mCurrentTile], Math::Vector2{ static_cast<float>(mouseX) , static_cast<float>(mouseY) }, 0.0f, Pivot::TopLeft);
+		BatchRender::Get()->AddSprite(mTiles[mCurrentTile], Math::Vector2{ static_cast<float>(mouseX) , static_cast<float>(mouseY) }, 0.0f, Pivot::TopLeft);
 
 }
 

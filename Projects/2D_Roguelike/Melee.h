@@ -20,7 +20,7 @@ private:
 	int mCurrentAttack = 0;
 	std::string mParticleName;
 
-	std::map<int,std::deque<Angazi::Graphics::Texture>> mAnimationsMap;
+	std::map<int,std::deque<Angazi::Graphics::TextureId>> mAnimationsMap;
 	std::map<int, std::vector<Angazi::Math::Vector2>> mAnimationDamageMap;
 };
 

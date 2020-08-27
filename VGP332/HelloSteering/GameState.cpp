@@ -60,19 +60,17 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-	SpriteRenderer::Get()->BeginRender();
 	for (auto &enemy : enemies)
 	{
 		enemy->Render();
 	}
 	mPlayer->Render();
-	SpriteRenderer::Get()->EndRender();
 
-	SimpleDraw::Render(mCamera);
 }
 
 void GameState::DebugUI()
 {
+	SimpleDraw::Render(mCamera);
 	EnemyDebugUI();
 	mPlayer->DebugUI();
 }

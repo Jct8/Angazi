@@ -39,6 +39,8 @@ namespace Angazi::Math
 	inline Vector2 Normalize(const Vector2 & v)							{ float mag = Magnitude(v); return mag > 0.0f ? v / mag : v; }
 	inline Quaternion Normalize(const Quaternion & q)					{ float mag = Magnitude(q); return mag > 0.0f ? q / Magnitude(q) : Quaternion::Identity; }
 
+	inline bool IsEmpty(const Rect& rect) { return rect.right <= rect.left || rect.bottom <= rect.top; }
+
 	inline Vector2 PerpendicularLH(const Vector2& v)					{ return Vector2(-v.y, v.x); }
 	inline Vector2 PerpendicularRH(const Vector2& v)					{ return Vector2(v.y, -v.x); }
 

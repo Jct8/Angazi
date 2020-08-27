@@ -12,7 +12,7 @@ Enemy::Enemy(AI::AIWorld& world)
 
 void Enemy::Load()
 {
-	mTextureId.Initialize("../../Assets/Images/XEngine/interceptor_09.png");
+	mTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/interceptor_09.png");
 	maxSpeed = 500.0f;
 	position = { GraphicsSystem::Get()->GetBackBufferWidth() *0.3f, GraphicsSystem::Get()->GetBackBufferHeight() *0.3f};
 
@@ -83,10 +83,10 @@ void Enemy::Update(float deltaTime)
 void Enemy::Render() const
 {
 	float angle = atan2(heading.y, heading.x);
-	SpriteRenderer::Get()->Draw(mTextureId, position, angle);
+	BatchRender::Get()->AddSprite(mTextureId, position, angle);
 }
 
 void Enemy::Unload()
 {
-	mTextureId.Terminate();
+	mTextureId = 0;
 }

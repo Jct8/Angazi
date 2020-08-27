@@ -65,7 +65,7 @@ void Player::Load(std::filesystem::path fileName, bool facingLeft)
 		{
 			fscanf_s(file, "%s\n", name, maxsize);
 			mAnimations[anim].emplace_back();
-			mAnimations[anim].back().Initialize("../../Assets/Images/Rougelike/" + std::string(name));
+			mAnimations[anim].back()= TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
 		}
 	}
 	fclose(file);
@@ -85,7 +85,7 @@ void Player::Unload()
 {
 	for (auto& animationType : mAnimations)
 		for (auto& animation : animationType.second)
-			animation.Terminate();
+			animation = 0;
 }
 
 void Player::Update(float deltaTime)
@@ -144,9 +144,9 @@ void Player::Render()
 	else if (mCurrentAnimation == Attacking && mCurrentWeapon == 2)
 		mSecondaryWeapon->Render(mFrame, screenPos, isFacingLeft);
 	else if (isFacingLeft)
-		SpriteRenderer::Get()->Draw(mAnimations[mCurrentAnimation][mFrame], screenPos);
+		BatchRender::Get()->AddSprite(mAnimations[mCurrentAnimation][mFrame], screenPos);
 	else
-		SpriteRenderer::Get()->Draw(mAnimations[mCurrentAnimation][mFrame], screenPos, 0.0f, Pivot::Center, Flip::Horizontal);
+		BatchRender::Get()->AddSprite(mAnimations[mCurrentAnimation][mFrame], screenPos, 0.0f, Pivot::Center, Flip::Horizontal);
 
 	if (mFrame == mFrameCount - 1 && mJumpState == Grounded && isAlive)
 	{

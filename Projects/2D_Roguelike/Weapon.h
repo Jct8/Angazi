@@ -14,7 +14,7 @@ public:
 
 	void SetDealtDamage(bool value) { dealtDamage = value; }
 	bool GetDealthDamage() { return dealtDamage; }
-	Angazi::Graphics::Texture* GetSprite() { return &mSprite; }
+	Angazi::Graphics::TextureId GetSprite() { return mSprite; }
 
 	virtual bool IsMelee() const = 0;
 
@@ -23,7 +23,7 @@ protected:
 	float mSpeed = 0;
 	bool dealtDamage = false;
 
-	std::deque<Angazi::Graphics::Texture> mAnimations;
+	std::deque<Angazi::Graphics::TextureId> mAnimations;
 	std::vector<Angazi::Math::Vector2> mAnimationDamage;
-	Angazi::Graphics::Texture mSprite;
+	Angazi::Graphics::TextureId mSprite;
 };

@@ -40,21 +40,24 @@ void TextureManager::SetRootPath(const std::filesystem::path& path)
 	mRootPath = path.string();
 }
 
-TextureId TextureManager::Load(const char * fileName)
+TextureId TextureManager::Load(const char * fileNameInDefaultFolder)
 {
-	std::string texturePath = mRootPath + "/" + fileName;
+	std::filesystem::path texturePath = mRootPath + "/" + fileNameInDefaultFolder;
+	return Load(texturePath);
+}
 
+TextureId TextureManager::Load(const std::filesystem::path & filePath)
+{
 	std::hash<std::string> hasher;
-	TextureId hash = hasher(texturePath);
+	TextureId hash = hasher(filePath.string());
 
 	auto result = mInventory.insert({ hash , nullptr });
 	if (result.second)
 	{
 		std::unique_ptr<Texture> texture = std::make_unique<Texture>();
-		texture->Initialize(texturePath);
+		texture->Initialize(filePath);
 		result.first->second = std::move(texture);
 	}
-
 	return hash;
 }
 
