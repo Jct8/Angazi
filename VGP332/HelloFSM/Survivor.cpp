@@ -105,7 +105,7 @@ void Survivor::Render()
 	SpriteRenderer::Get()->Draw(*mCurrentWeapon->GetCrosshairTextureId(), targetPosition);
 
 	std::string str2 = "Health :" + std::to_string(mHealth);
-	//X::DrawScreenText(str2.c_str(), 50.0f, 80.0f, 30.0f, X::Colors::Blue);
+	BatchRender::Get()->AddScreenText(str2.c_str(), 50.0f, 80.0f, 30.0f, Colors::Blue);
 
 	mCurrentWeapon->Render();
 }

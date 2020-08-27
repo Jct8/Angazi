@@ -33,7 +33,8 @@ void Angazi::App::Run(AppConfig appConfig)
 	GraphicsSystem::StaticInitialize(handle, false);
 	DebugUI::StaticInitialize(handle, true, true);
 	SimpleDraw::StaticInitialize(1024 * 1024);
-	Graphics::SpriteRenderer::StaticInitialize();
+	SpriteRenderer::StaticInitialize();
+	BatchRender::StaticInitialize();
 
 	//Initialize the starting state
 	mCurrentState = mAppStates.begin()->second.get();
@@ -78,6 +79,8 @@ void Angazi::App::Run(AppConfig appConfig)
 		mCurrentState->Render();
 		//Graphics::SpriteRenderer::Get()->EndRender();
 
+		BatchRender::Get()->Render();
+
 		DebugUI::BeginRender();
 		mCurrentState->DebugUI();
 		DebugUI::EndRender();
@@ -88,7 +91,8 @@ void Angazi::App::Run(AppConfig appConfig)
 	mCurrentState->Terminate();
 
 	//Terminate engine systems
-	Graphics::SpriteRenderer::StaticTerminate();
+	BatchRender::StaticTerminate();
+	SpriteRenderer::StaticTerminate();
 	SimpleDraw::StaticTerminate();
 	DebugUI::StaticTerminate();
 	GraphicsSystem::StaticTerminate();

@@ -63,6 +63,9 @@
     <ClInclude Include="Inc\TextureUtil.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Font.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -111,6 +114,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\TextureUtil.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Font.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

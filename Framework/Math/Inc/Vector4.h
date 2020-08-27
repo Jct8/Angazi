@@ -7,6 +7,7 @@ namespace Angazi::Math
 		union
 		{
 			struct { float x, y, z, w; };
+			struct { float r, g, b, a; };
 			std::array<float, 4> v;
 		};
 

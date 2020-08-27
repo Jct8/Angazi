@@ -7,6 +7,7 @@
 #include "ConstantBuffer.h"
 #include "DebugUI.h"
 #include "DepthStencilState.h"
+#include "Font.h"
 #include "GraphicsSystemDX11.h"
 #include "MeshBuffer.h"
 #include "PixelShader.h"

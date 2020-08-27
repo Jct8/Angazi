@@ -8,6 +8,7 @@
 #include "AnimationIO.h"
 #include "AnimationSet.h"
 #include "Animator.h"
+#include "BatchRenderer.h"
 #include "Camera.h"
 #include "Colors.h"
 #include "Effect.h"

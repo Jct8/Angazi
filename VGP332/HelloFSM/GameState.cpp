@@ -10,7 +10,6 @@ using namespace Angazi::Math;
 
 Survivor survivor;
 
-
 void GameState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::Green);
@@ -71,7 +70,8 @@ void GameState::DebugUI()
 void GameState::GameStart()
 {
 	auto input = InputSystem::Get();
-	//X::DrawScreenText("Press Enter to start", X::GetScreenWidth() *0.5f - 200.0f, X::GetScreenHeight() *0.5f, 30.0f, X::Colors::Blue);
+	BatchRender::Get()->AddScreenText("Press Enter to start", GraphicsSystem::Get()->GetBackBufferWidth() *0.5f - 200.0f,
+		GraphicsSystem::Get()->GetBackBufferWidth() *0.5f, 30.0f, Colors::Blue);
 	if (input->IsKeyPressed(Input::KeyCode::ENTER))
 		gameState = InGame;
 }
@@ -88,13 +88,13 @@ void GameState::GamePlay(float deltaTime)
 
 void GameState::GameEnd()
 {
-	//X::DrawScreenText("GameOver", ScreenWidth *0.5f - 100.0f, ScreenHeight *0.5f, 30.0f, X::Colors::Blue);
+	BatchRender::Get()->AddScreenText("GameOver", ScreenWidth *0.5f - 100.0f, ScreenHeight *0.5f, 30.0f, Colors::Blue);
 
 	std::string str = "Total zombies killed:" + std::to_string(EnemyManager::Get().GetZombieScore());
-	//X::DrawScreenText(str.c_str(), ScreenWidth *0.5f - 200.0f, ScreenHeight *0.5f + 30.0f, 30.0f, X::Colors::Blue);
+	BatchRender::Get()->AddScreenText(str.c_str(), ScreenWidth *0.5f - 200.0f, ScreenHeight *0.5f + 30.0f, 30.0f, Colors::Blue);
 
-	//X::DrawScreenText("Press Enter to go back to main Menu",
-	//	ScreenWidth *0.5f - 200.0f, ScreenHeight *0.5f + 60.0f, 30.0f, X::Colors::Blue);
+	BatchRender::Get()->AddScreenText("Press Enter to go back to main Menu",
+		ScreenWidth *0.5f - 200.0f, ScreenHeight *0.5f + 60.0f, 30.0f, Colors::Blue);
 
 	if (InputSystem::Get()->IsKeyPressed(Input::KeyCode::ENTER))
 	{

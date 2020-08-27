@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{06E6ABDE-CF57-4616-A611-454834E8C04A}</ProjectGuid>
+    <ProjectGuid>{0D034612-14E2-44E7-993A-72344A2CA7BD}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Graphics</RootNamespace>
+    <RootNamespace>FW1FontWrapper</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <SccProjectName>SAK</SccProjectName>
     <SccAuxPath>SAK</SccAuxPath>
@@ -63,25 +63,21 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\VSProps\Framework.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\VSProps\Framework.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\VSProps\Framework.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\VSProps\Framework.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -90,19 +86,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -110,6 +93,23 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>FW1Precompiled.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>FW1Precompiled.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -125,6 +125,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>FW1Precompiled.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -142,6 +144,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>FW1Precompiled.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,86 +155,54 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Src\BatchRenderer.cpp" />
-    <ClCompile Include="Src\EnvironmentMap.cpp" />
-    <ClCompile Include="Src\HdrEffect.cpp" />
-    <ClCompile Include="Src\ParticleEmitter.cpp" />
-    <ClCompile Include="Src\PbrEffect.cpp" />
-    <ClCompile Include="Src\WaterEffect.cpp" />
-    <ClInclude Include="Inc\Animation.h" />
-    <ClInclude Include="Inc\AnimationBuilder.h" />
-    <ClInclude Include="Inc\AnimationClip.h" />
-    <ClInclude Include="Inc\AnimationIO.h" />
-    <ClInclude Include="Inc\AnimationSet.h" />
-    <ClInclude Include="Inc\Animator.h" />
-    <ClInclude Include="Inc\BatchRenderer.h" />
-    <ClInclude Include="Inc\Bone.h" />
-    <ClInclude Include="Inc\Camera.h" />
-    <ClInclude Include="Inc\Colors.h" />
-    <ClInclude Include="Inc\Common.h" />
-    <ClInclude Include="Inc\Effect.h" />
-    <ClInclude Include="Inc\EnvironmentMap.h" />
-    <ClInclude Include="Inc\Graphics.h" />
-    <ClInclude Include="Inc\HdrEffect.h" />
-    <ClInclude Include="Inc\Keyframe.h" />
-    <ClInclude Include="Inc\LightTypes.h" />
-    <ClInclude Include="Inc\Material.h" />
-    <ClInclude Include="Inc\Mesh.h" />
-    <ClInclude Include="Inc\MeshBuilder.h" />
-    <ClInclude Include="Inc\MeshIO.h" />
-    <ClInclude Include="Inc\Model.h" />
-    <ClInclude Include="Inc\ObjLoader.h" />
-    <ClInclude Include="Inc\ParticleEmitter.h" />
-    <ClInclude Include="Inc\PbrEffect.h" />
-    <ClInclude Include="Inc\PostProcessingEffect.h" />
-    <ClInclude Include="Inc\ShadowEffect.h" />
-    <ClInclude Include="Inc\SimpleDraw.h" />
-    <ClInclude Include="Inc\Skeleton.h" />
-    <ClInclude Include="Inc\SkeletonIO.h" />
-    <ClInclude Include="Inc\Skybox.h" />
-    <ClInclude Include="Inc\SpriteTypes.h" />
-    <ClInclude Include="Inc\StandardEffect.h" />
-    <ClInclude Include="Inc\TextureManager.h" />
-    <ClInclude Include="Inc\VertexTypes.h" />
-    <ClInclude Include="Inc\WaterEffect.h" />
-    <ClInclude Include="Src\Precompiled.h" />
-    <ClCompile Include="Src\AnimationClip.cpp" />
-    <ClCompile Include="Src\AnimationIO.cpp" />
-    <ClCompile Include="Src\Animator.cpp" />
-    <ClCompile Include="Src\PostProcessingEffect.cpp" />
-    <ClCompile Include="Src\ShadowEffect.cpp" />
+    <ClInclude Include="Inc\CFW1ColorRGBA.h" />
+    <ClInclude Include="Inc\CFW1DWriteRenderTarget.h" />
+    <ClInclude Include="Inc\CFW1Factory.h" />
+    <ClInclude Include="Inc\CFW1FontWrapper.h" />
+    <ClInclude Include="Inc\CFW1GlyphAtlas.h" />
+    <ClInclude Include="Inc\CFW1GlyphProvider.h" />
+    <ClInclude Include="Inc\CFW1GlyphRenderStates.h" />
+    <ClInclude Include="Inc\CFW1GlyphSheet.h" />
+    <ClInclude Include="Inc\CFW1GlyphVertexDrawer.h" />
+    <ClInclude Include="Inc\CFW1Object.h" />
+    <ClInclude Include="Inc\CFW1StateSaver.h" />
+    <ClInclude Include="Inc\CFW1TextGeometry.h" />
+    <ClInclude Include="Inc\CFW1TextRenderer.h" />
+    <ClInclude Include="Inc\FW1CompileSettings.h" />
+    <ClInclude Include="Inc\FW1FontWrapper.h" />
+    <ClInclude Include="Src\FW1Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Animation.cpp" />
-    <ClCompile Include="Src\AnimationBuilder.cpp" />
-    <ClCompile Include="Src\Camera.cpp" />
-    <ClCompile Include="Src\MeshBuilder.cpp" />
-    <ClCompile Include="Src\MeshIO.cpp" />
-    <ClCompile Include="Src\Model.cpp" />
-    <ClCompile Include="Src\ObjLoader.cpp" />
-    <ClCompile Include="Src\Precompiled.cpp">
+    <ClCompile Include="Src\CFW1ColorRGBA.cpp" />
+    <ClCompile Include="Src\CFW1ColorRGBAInterface.cpp" />
+    <ClCompile Include="Src\CFW1DWriteRenderTarget.cpp" />
+    <ClCompile Include="Src\CFW1DWriteRenderTargetInterface.cpp" />
+    <ClCompile Include="Src\CFW1Factory.cpp" />
+    <ClCompile Include="Src\CFW1FactoryInterface.cpp" />
+    <ClCompile Include="Src\CFW1FontWrapper.cpp" />
+    <ClCompile Include="Src\CFW1FontWrapperInterface.cpp" />
+    <ClCompile Include="Src\CFW1GlyphAtlas.cpp" />
+    <ClCompile Include="Src\CFW1GlyphAtlasInterface.cpp" />
+    <ClCompile Include="Src\CFW1GlyphProvider.cpp" />
+    <ClCompile Include="Src\CFW1GlyphProviderInterface.cpp" />
+    <ClCompile Include="Src\CFW1GlyphRenderStates.cpp" />
+    <ClCompile Include="Src\CFW1GlyphRenderStatesInterface.cpp" />
+    <ClCompile Include="Src\CFW1GlyphSheet.cpp" />
+    <ClCompile Include="Src\CFW1GlyphSheetInterface.cpp" />
+    <ClCompile Include="Src\CFW1GlyphVertexDrawer.cpp" />
+    <ClCompile Include="Src\CFW1GlyphVertexDrawerInterface.cpp" />
+    <ClCompile Include="Src\CFW1StateSaver.cpp" />
+    <ClCompile Include="Src\CFW1TextGeometry.cpp" />
+    <ClCompile Include="Src\CFW1TextGeometryInterface.cpp" />
+    <ClCompile Include="Src\CFW1TextRenderer.cpp" />
+    <ClCompile Include="Src\CFW1TextRendererInterface.cpp" />
+    <ClCompile Include="Src\FW1FontWrapper.cpp" />
+    <ClCompile Include="Src\FW1Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Src\SimpleDraw.cpp" />
-    <ClCompile Include="Src\Skeleton.cpp" />
-    <ClCompile Include="Src\SkeletonIO.cpp" />
-    <ClCompile Include="Src\Skybox.cpp" />
-    <ClCompile Include="Src\StandardEffect.cpp" />
-    <ClCompile Include="Src\TextureManager.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.vcxproj">
-      <Project>{5bf63145-a348-4b75-8137-f3bc803343fd}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GraphicsDX11\GraphicsDX11.vcxproj">
-      <Project>{e7f4e0a5-6b93-453a-8842-cba502b27f0d}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Math\Math.vcxproj">
-      <Project>{8683af56-c8c7-4387-91b1-468616ffb20b}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

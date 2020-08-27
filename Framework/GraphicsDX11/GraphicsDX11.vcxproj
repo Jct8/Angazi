@@ -24,6 +24,7 @@
     <ClInclude Include="Inc\ConstantBuffer.h" />
     <ClInclude Include="Inc\DebugUI.h" />
     <ClInclude Include="Inc\DepthStencilState.h" />
+    <ClInclude Include="Inc\Font.h" />
     <ClInclude Include="Inc\GraphicsDX11.h" />
     <ClInclude Include="Inc\GraphicsSystemDX11.h" />
     <ClInclude Include="Inc\MeshBuffer.h" />
@@ -44,6 +45,7 @@
     <ClCompile Include="Src\D3DUtil.cpp" />
     <ClCompile Include="Src\DebugUI.cpp" />
     <ClCompile Include="Src\DepthStencilState.cpp" />
+    <ClCompile Include="Src\Font.cpp" />
     <ClCompile Include="Src\GraphicsSystemDX11.cpp" />
     <ClCompile Include="Src\MeshBuffer.cpp" />
     <ClCompile Include="Src\PixelShader.cpp" />
@@ -67,6 +69,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\External\DirectXTK\DirectXTK_Desktop_2017.vcxproj">
       <Project>{e0b52ae7-e160-4d32-bf3f-910b785e5a8e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\External\FW1FontWrapper\FW1FontWrapper.vcxproj">
+      <Project>{0d034612-14e2-44e7-993a-72344a2ca7bd}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\External\ImGui\ImGui.vcxproj">
       <Project>{9de256eb-9199-4bce-af41-ed0bdf8021ff}</Project>

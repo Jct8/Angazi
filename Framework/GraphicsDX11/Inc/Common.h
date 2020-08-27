@@ -4,6 +4,7 @@
 #include <Core/Inc/Core.h>
 #include <Math/Inc/EngineMath.h>
 
+
 #ifdef ENABLE_DIRECTX11
 
 // DirectX headers

@@ -1,8 +1,9 @@
 #pragma once
 #ifdef ENABLE_DIRECTX11
+
 #include "Graphics/Inc/Colors.h"
 
-namespace Angazi::Graphics 
+namespace Angazi::Graphics
 {
 	class GraphicsSystem
 	{
@@ -59,7 +60,7 @@ namespace Angazi::Graphics
 		DXGI_SWAP_CHAIN_DESC mSwapChainDesc{};
 		D3D11_VIEWPORT mViewport{};
 
-		Color mClearColor = Colors::White;
+		Color mClearColor = Color::One;
 		UINT mVSync = 1;
 	};
 

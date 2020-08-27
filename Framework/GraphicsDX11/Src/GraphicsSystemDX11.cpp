@@ -34,12 +34,8 @@ LRESULT CALLBACK Graphics::GraphicsSystemMessageHandler(HWND window, UINT messag
 
 void GraphicsSystem::StaticInitialize(HWND window, bool fullscreen)
 {
-	//#if ENABLE_DIRECTX
 	ASSERT(sGraphicsSystem == nullptr, "[GraphicsSystem] System already initialized!");
 	sGraphicsSystem = std::make_unique<GraphicsSystem>();
-	//#else
-		//sGraphicsSystem = std::make_unique<GraphicsSystemGL>();
-	//#endif
 
 	sGraphicsSystem->Initialize(window, fullscreen);
 }
