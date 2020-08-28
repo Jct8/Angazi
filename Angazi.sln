@@ -218,6 +218,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GeneticAlgorithm", "VGP337\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FW1FontWrapper", "External\FW1FontWrapper\FW1FontWrapper.vcxproj", "{0D034612-14E2-44E7-993A-72344A2CA7BD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Network", "Framework\Network\Network.vcxproj", "{305D19F0-5E21-44D8-8EF4-E139E1D83370}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1572,6 +1574,26 @@ Global
 		{0D034612-14E2-44E7-993A-72344A2CA7BD}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{0D034612-14E2-44E7-993A-72344A2CA7BD}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{0D034612-14E2-44E7-993A-72344A2CA7BD}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Debug|x64.ActiveCfg = Debug|x64
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Debug|x64.Build.0 = Debug|x64
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Debug|x86.ActiveCfg = Debug|Win32
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Debug|x86.Build.0 = Debug|Win32
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.MinSizeRel|x64.Build.0 = Release|x64
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.MinSizeRel|x86.Build.0 = Release|Win32
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Profile|x64.ActiveCfg = Release|x64
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Profile|x64.Build.0 = Release|x64
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Profile|x86.ActiveCfg = Release|Win32
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Profile|x86.Build.0 = Release|Win32
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Release|x64.ActiveCfg = Release|x64
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Release|x64.Build.0 = Release|x64
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Release|x86.ActiveCfg = Release|Win32
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.Release|x86.Build.0 = Release|Win32
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1646,12 +1668,13 @@ Global
 		{D0A57071-EE3E-4E11-B0AB-ABA6316107E0} = {BE4EA151-0611-48F5-9B60-F977892EAD20}
 		{C697791F-470B-4B0F-946D-3DF6364BF3C5} = {BE4EA151-0611-48F5-9B60-F977892EAD20}
 		{0D034612-14E2-44E7-993A-72344A2CA7BD} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
+		{305D19F0-5E21-44D8-8EF4-E139E1D83370} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 68
+		SccNumberOfProjects = 69
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1923,5 +1946,9 @@ Global
 		SccProjectTopLevelParentUniqueName67 = Angazi.sln
 		SccProjectName67 = External/FW1FontWrapper
 		SccLocalPath67 = External\\FW1FontWrapper
+		SccProjectUniqueName68 = Framework\\Network\\Network.vcxproj
+		SccProjectTopLevelParentUniqueName68 = Angazi.sln
+		SccProjectName68 = Framework/Network
+		SccLocalPath68 = Framework\\Network
 	EndGlobalSection
 EndGlobal
