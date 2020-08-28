@@ -30,6 +30,12 @@
     <ClInclude Include="Inc\MemoryStream.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\StreamReader.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\StreamWriter.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -45,6 +51,12 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\MemoryStream.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\StreamReader.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\StreamWriter.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

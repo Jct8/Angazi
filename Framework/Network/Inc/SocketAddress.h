@@ -9,7 +9,7 @@ namespace Angazi::Network
 		SocketAddress(const char* host, uint16_t port);
 		SocketAddress(uint16_t port);
 
-		//char * GetIPAddress() const;
+		const char * GetIPAddress() const;
 	private:
 		friend class TcpSocket;
 
@@ -23,7 +23,6 @@ namespace Angazi::Network
 		const uint16_t& GetPort() const { return *reinterpret_cast<const uint16_t*>(&GetAsSockAddrIn()->sin_port); }
 
 		size_t GetSize() const { return sizeof(sockaddr); }
-
 
 		sockaddr mSockAddr;
 	};

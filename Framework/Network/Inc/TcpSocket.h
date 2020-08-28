@@ -7,6 +7,9 @@ namespace Angazi::Network
 	class TcpSocket
 	{
 	public:
+		TcpSocket() = default;
+		~TcpSocket() = default;
+
 		bool Open();
 		void Close();
 		bool SetNoDelay(bool noDelay);
@@ -22,6 +25,9 @@ namespace Angazi::Network
 
 		const SOCKET& GetSocket() { return mSocket; };
 	private:
+		TcpSocket(const TcpSocket&) = delete;
+		TcpSocket& operator=(const TcpSocket&) = delete;
+
 		SOCKET mSocket = INVALID_SOCKET;
 	};
 }

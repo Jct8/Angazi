@@ -25,9 +25,9 @@ SocketAddress::SocketAddress(uint16_t port)
 	GetPort() = htons(port);
 }
 
-//char * SocketAddress::GetIPAddress() const
-//{
-//	char ipstr[INET_ADDRSTRLEN];
-//	inet_ntop(AF_INET, &GetAsSockAddrIn()->sin_addr, ipstr, sizeof(ipstr));
-//	return ipstr;
-//}
+const char * SocketAddress::GetIPAddress() const
+{
+	char ipstr[INET_ADDRSTRLEN];
+	inet_ntop(AF_INET, &GetAsSockAddrIn()->sin_addr, ipstr, sizeof(ipstr));
+	return ipstr;
+}

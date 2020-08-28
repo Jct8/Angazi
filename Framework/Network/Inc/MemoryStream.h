@@ -12,8 +12,10 @@ namespace Angazi::Network
 
 	public:
 		void Rewind();
+
 		const uint8_t* GetData() const { return mBuffer; }
-		uint8_t GetSize() { return mHead; }
+		uint8_t GetSize() const { return mHead; }
+		bool IsEmpty() const { return mHead == mCapacity; }
 
 	private:
 		MemoryStream(const MemoryStream&) = delete;
