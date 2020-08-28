@@ -220,6 +220,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FW1FontWrapper", "External\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Network", "Framework\Network\Network.vcxproj", "{305D19F0-5E21-44D8-8EF4-E139E1D83370}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{9DD7392A-7527-49EF-BDBC-2906779CD5F9}"
+	ProjectSection(SolutionItems) = preProject
+		Assets\Templates\fatBox.json = Assets\Templates\fatBox.json
+		Assets\Templates\longBox.json = Assets\Templates\longBox.json
+		Assets\Templates\tallBox.json = Assets\Templates\tallBox.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1669,6 +1676,7 @@ Global
 		{C697791F-470B-4B0F-946D-3DF6364BF3C5} = {BE4EA151-0611-48F5-9B60-F977892EAD20}
 		{0D034612-14E2-44E7-993A-72344A2CA7BD} = {B4A67DDD-7DE8-4B2A-B5EB-C53BFE4D52A8}
 		{305D19F0-5E21-44D8-8EF4-E139E1D83370} = {8EF9DC7F-9D9E-4069-AA75-59D5F0AE07E5}
+		{9DD7392A-7527-49EF-BDBC-2906779CD5F9} = {151081E7-6860-49B2-904A-B1EFA6CCB4D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
