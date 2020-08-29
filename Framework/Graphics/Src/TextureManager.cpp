@@ -42,7 +42,7 @@ void TextureManager::SetRootPath(const std::filesystem::path& path)
 
 TextureId TextureManager::Load(const char * fileNameInDefaultFolder)
 {
-	std::filesystem::path texturePath = mRootPath + "/" + fileNameInDefaultFolder;
+	std::filesystem::path texturePath = mRootPath + fileNameInDefaultFolder;
 	return Load(texturePath);
 }
 

@@ -395,7 +395,7 @@ void GameState::DebugUI()
 		static const char* item_current = textureNames[0].c_str();
 		if (ImGui::BeginCombo("Select Texture",item_current))
 		{
-			for (int n = 0; n < textureNames.size(); n++)
+			for (size_t n = 0; n < textureNames.size(); n++)
 			{
 				bool is_selected = (item_current == textureNames[n].c_str());
 				if (ImGui::Selectable(textureNames[n].c_str(), is_selected))

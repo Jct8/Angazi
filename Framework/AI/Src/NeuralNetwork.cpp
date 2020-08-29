@@ -9,11 +9,13 @@ namespace
 	double TransferFunction(double x)
 	{
 		return tanh(x);
+		//return 1 / (1 + exp(-x));
 	}
 
 	double TransferFunctionDerivative(double x)
 	{
 		return 1 - (x * x);
+		//return TransferFunction(x);
 	}
 }
 
