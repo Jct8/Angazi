@@ -44,7 +44,7 @@ void GameState::ProcessReceive()
 
 			Network::MemoryStream instream(buffer, byteReceived);
 			Network::StreamReader sr(instream);
-			
+
 			sr.Read(otherPlayerNum);
 			sr.Read(player_x);
 			sr.Read(player_y);
@@ -73,10 +73,10 @@ void GameState::Initialize()
 	clientSocket = std::make_unique<Network::TcpSocket>();
 
 	clientSocket->Open();
-	players[0].Initialize(0, 350.f, "Network/shooter_red.png"	, "Network/bar_red.png");
-	players[1].Initialize(1, 350.f, "Network/shooter_green.png"	, "Network/bar_green.png");
+	players[0].Initialize(0, 350.f, "Network/shooter_red.png", "Network/bar_red.png");
+	players[1].Initialize(1, 350.f, "Network/shooter_green.png", "Network/bar_green.png");
 	players[2].Initialize(2, 350.f, "Network/shooter_orange.png", "Network/bar_orange.png");
-	players[3].Initialize(3, 350.f, "Network/shooter_blue.png"	, "Network/bar_blue.png");
+	players[3].Initialize(3, 350.f, "Network/shooter_blue.png", "Network/bar_blue.png");
 
 	auto screenWidth = GraphicsSystem::Get()->GetBackBufferWidth();
 	auto screenHeight = GraphicsSystem::Get()->GetBackBufferHeight();
@@ -294,7 +294,7 @@ void GameState::ClientInit()
 	clientSocket->SetNonBlocking(true);
 	clientSocket->SetNoDelay(true);
 	stopThread = false;
-	receiveThread = std::thread(&GameState::ProcessReceive,this);
+	receiveThread = std::thread(&GameState::ProcessReceive, this);
 }
 
 void GameState::GameReset()
@@ -309,7 +309,7 @@ void GameState::GameReset()
 	Network::MemoryStream outstream(MAXRECVSIZE);
 	Network::StreamWriter sw(outstream);
 	sw.Write(ready);
-	int bytes = clientSocket->Send(outstream.GetData(),outstream.GetSize() );
+	int bytes = clientSocket->Send(outstream.GetData(), outstream.GetSize());
 
 	clientSocket->Close();
 	clientSocket->Open();
@@ -329,13 +329,13 @@ void GameState::Render()
 	switch (currentNetworkState)
 	{
 	case NetworkState::Connect:
+		break;
+	case NetworkState::GamePlay:
 		for (auto& player : players)
 		{
 			if (player.IsActive())
 				player.Render();
 		}
-		break;
-	case NetworkState::GamePlay:
 		break;
 	default:
 		break;
