@@ -152,16 +152,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Common.h" />
+    <ClInclude Include="Inc\LinkingContext.h" />
     <ClInclude Include="Inc\MemoryStream.h" />
     <ClInclude Include="Inc\Network.h" />
     <ClInclude Include="Inc\NetworkUtil.h" />
+    <ClInclude Include="Inc\ObjectFactory.h" />
     <ClInclude Include="Inc\SocketAddress.h" />
     <ClInclude Include="Inc\StreamReader.h" />
     <ClInclude Include="Inc\StreamWriter.h" />
     <ClInclude Include="Inc\TcpSocket.h" />
+    <ClInclude Include="Inc\UdpSocket.h" />
     <ClInclude Include="Src\Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\LinkingContext.cpp" />
     <ClCompile Include="Src\MemoryStream.cpp" />
     <ClCompile Include="Src\NetworkUtil.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">
@@ -174,6 +178,7 @@
     <ClCompile Include="Src\StreamReader.cpp" />
     <ClCompile Include="Src\StreamWriter.cpp" />
     <ClCompile Include="Src\TcpSocket.cpp" />
+    <ClCompile Include="Src\UdpSocket.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.vcxproj">

@@ -15,7 +15,8 @@ namespace
 	double TransferFunctionDerivative(double x)
 	{
 		return 1 - (x * x);
-		//return TransferFunction(x);
+		//double out = TransferFunction(x);
+		//return out * (1 - out);
 	}
 }
 
