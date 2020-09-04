@@ -5,6 +5,9 @@
 #include "MetaType.h"
 #include "MetaUtil.h"
 
+// -------------------------------------------------------------------------------------------------------------------
+
+////////////////////////////// Meta Type Macros /////////////////////////////
 #define META_TYPE_DECLARE(Type)\
 	template<> const Angazi::Core::Meta::MetaType* Angazi::Core::Meta::GetMetaType<Type>();
 
@@ -15,7 +18,9 @@
 		return &sMetaType;\
 	}
 
+// -------------------------------------------------------------------------------------------------------------------
 
+////////////////////////////// Meta Class Macros /////////////////////////////
 #define META_CLASS_DECLARE\
 	static const Angazi::Core::Meta::MetaClass* StaticGetMetaClass();\
 	virtual const Angazi::Core::Meta::MetaClass* GetMetaClass() const { return StaticGetMetaClass(); }
@@ -30,6 +35,7 @@
 		using Class = ClassType;\
 		const char* className = #ClassType;
 
+////////////////////////////// Meta Field Macros /////////////////////////////
 #define META_FIELD_BEGIN\
 		static const std::initializer_list<Angazi::Core::Meta::MetaField> fields {
 

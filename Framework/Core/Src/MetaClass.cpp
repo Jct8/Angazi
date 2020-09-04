@@ -37,7 +37,7 @@ const MetaField * MetaClass::GetField(size_t index) const
 	const size_t parentCount = GetParentFieldCount();
 	if (index < parentCount)
 		return mParent->GetField(index);
-	return mFields.data() + (index- parentCount);
+	return mFields.data() + (index - parentCount);
 }
 
 size_t MetaClass::GetFieldCount() const
