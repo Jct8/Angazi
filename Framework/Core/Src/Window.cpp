@@ -1,6 +1,8 @@
 #include "Precompiled.h"
 #include "Window.h"
 
+#include "DebugUtil.h"
+
 using namespace Angazi;
 using namespace Angazi::Core;
 
@@ -27,17 +29,21 @@ void Angazi::Core::Window::Initialize(HINSTANCE instance, LPCSTR appName, uint32
 	// 2) Create a window instance of the class type
 	// 3) Retrieve/ dispatch/ handle messages for this window.
 
+	HICON myIcon = (HICON) LoadImageW (nullptr, L"../../Assets/Images/Angazi_Icon.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
+
 	//Register class
 	WNDCLASSEXA classInfo{};
 	classInfo.cbSize = sizeof(WNDCLASSEXA);
 	classInfo.style = CS_HREDRAW | CS_VREDRAW;
 	classInfo.lpfnWndProc = WndProc;
 	classInfo.hInstance = instance;
-	classInfo.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+	//classInfo.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+	classInfo.hIcon = myIcon;
 	classInfo.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	classInfo.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	classInfo.lpszClassName = appName;
-	classInfo.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
+	//classInfo.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
+	classInfo.hIconSm = myIcon;
 
 	RegisterClassExA(&classInfo);
 
