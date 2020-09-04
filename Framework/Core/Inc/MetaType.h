@@ -2,6 +2,10 @@
 
 namespace Angazi::Core::Meta
 {
+	class MetaArray;
+	class MetaClass;
+	class MetaPointer;
+
 	class MetaType
 	{
 	public:
@@ -14,6 +18,10 @@ namespace Angazi::Core::Meta
 		};
 
 		MetaType(Category category, const char* name, size_t size);
+
+		const MetaArray* AsMetaArray() const;
+		const MetaClass* AsMetaClass() const;
+		const MetaPointer* AsMetaPointer() const;
 
 		Category GetCategory() const { return mCategory; }
 		const char* GetName() const { return mName.c_str(); }

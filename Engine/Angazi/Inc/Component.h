@@ -3,9 +3,12 @@
 namespace Angazi
 {
 	class GameObject;
+
 	class Component
 	{
 	public:
+		META_CLASS_DECLARE
+
 		Component(const Component&) = delete;
 		Component& operator=(const Component&) = delete;
 

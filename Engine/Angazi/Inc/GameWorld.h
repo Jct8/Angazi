@@ -23,14 +23,23 @@ namespace Angazi
 			return static_cast<ServiceType*>(newService.get());
 		}
 
-		template<class ServiceType>
-		ServiceType* GetService()
+		template <class ServiceType>
+		const ServiceType* GetService() const
 		{
-			// Hack - assume the first service is the service we want.
-			auto iter = mServices.begin();
-			return static_cast<ServiceType*>(iter->get());
+			for (auto& service : mServices)
+			{
+				if (service->GetMetaClass() == Service::StaticGetMetaClass())
+					return static_cast<const ServiceType*>(service.get());
+			}
+			return nullptr;
 		}
 
+		template <class ServiceType>
+		ServiceType* GetComponent()
+		{
+			const GameWorld* constMe = static_cast<const GameWorld*>(this);
+			return const_cast<ServiceType>(constMe->GetService<ServiceType>());
+		}
 
 		GameObjectHandle Create(const std::filesystem::path& templateFileName, std::string name);
 		GameObjectHandle Find(const std::string& name);

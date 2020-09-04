@@ -38,11 +38,21 @@ namespace Angazi
 		}
 
 		template <class ComponentType>
+		const ComponentType* GetComponent() const
+		{
+			for (auto& component : mComponents)
+			{
+				if (component->GetMetaClass() == Component::StaticGetMetaClass())
+					return static_cast<const ComponentType*>(component.get());
+			}
+			return nullptr;
+		}
+
+		template <class ComponentType>
 		ComponentType* GetComponent()
 		{
-			// Hack - assume the first component is the component we want
-			auto iter = mComponents.begin();
-			return static_cast<ComponentType*>(iter->get());
+			const GameObject* constMe = static_cast<const GameObject*>(this);
+			return const_cast<ComponentType*>(constMe->GetComponent<ComponentType>());
 		}
 
 		GameWorld& GetWorld() { return *mWorld; }

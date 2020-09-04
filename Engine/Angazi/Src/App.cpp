@@ -55,7 +55,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	mCurrentState->Initialize();
 
 	if (startTimer > TimeUtil::GetTime())
-		Sleep(3000);
+		Sleep(2000);
 
 	mRunning = true;
 	while (mRunning)

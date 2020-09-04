@@ -10,16 +10,30 @@ namespace Angazi::Core::Meta
 	namespace Detail
 	{
 		template < class DataType>
-		inline const MetaType* GetMetaType(DataType*)
+		inline const MetaType* GetMetaTypeImpl(DataType*)
 		{
 			static_assert(sizeof(DataType) == -1, "No MetaType found for this type.");
+		}
+
+		template < class DataType>
+		inline const MetaType* GetMetaTypeImpl(DataType**)
+		{
+			static const MetaPointer sMetaAarray(GetMetaType<DataType>());
+			return &sMetaAarray;
+		}
+
+		template < class DataType>
+		inline const MetaType* GetMetaTypeImpl(std::vector<DataType>*)
+		{
+			static const MetaArray sMetaAarray(GetMetaType<DataType>());
+			return &sMetaAarray;
 		}
 	}
 
 	template <class DataType>
 	inline const MetaType* GetMetaType()
 	{
-		return Detail::GetMetaType(static_cast<DataType*>(nullptr));
+		return Detail::GetMetaTypeImpl(static_cast<DataType*>(nullptr));
 	}
 
 	template <class ClassType, class DataType>
