@@ -15,6 +15,18 @@ LRESULT CALLBACK WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam
 		PostQuitMessage(0);
 		return 0;
 	}
+	case WM_SYSCOMMAND:
+		if (wParam == SC_RESTORE)
+		{
+			ShowWindow(handle, SW_RESTORE);
+			return 1;
+		}
+		if (wParam == SC_MINIMIZE)
+		{
+			ShowWindow(handle, SW_SHOWMINIMIZED);
+			return 1;
+		}
+		return 0;
 	}
 	return DefWindowProcA(handle, message, wParam, lParam);
 }

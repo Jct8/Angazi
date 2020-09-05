@@ -50,6 +50,7 @@ private:
 
 	// PostProcessing
 	Angazi::Graphics::PostProcessingEffect mPostProcessingEffect;
+	Angazi::Graphics::HdrEffect mHdrEffect;
 
 	Angazi::Graphics::Skybox mSkybox;
 
