@@ -20,37 +20,37 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{F1BD903B-178C-463B-AF72-101BAA27CCC8}</ProjectGuid>
+    <ProjectGuid>{4069BAD2-05C8-480D-9470-D52D88BA10F1}</ProjectGuid>
     <SccProjectName>SAK</SccProjectName>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
     <SccProvider>SAK</SccProvider>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>AI</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <RootNamespace>NEAT</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -63,25 +63,25 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\VSProps\Framework.props" />
+    <Import Project="..\..\VSProps\Angazi.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\VSProps\Framework.props" />
+    <Import Project="..\..\VSProps\Angazi.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\VSProps\Framework.props" />
+    <Import Project="..\..\VSProps\Angazi.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\VSProps\Framework.props" />
+    <Import Project="..\..\VSProps\Angazi.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -90,12 +90,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -103,12 +103,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -118,12 +118,12 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -135,12 +135,12 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -151,95 +151,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Inc\Agent.h" />
-    <ClInclude Include="Inc\AI.h" />
-    <ClInclude Include="Inc\AIWorld.h" />
-    <ClInclude Include="Inc\AlignmentBehavior.h" />
-    <ClInclude Include="Inc\ArriveBehavior.h" />
-    <ClInclude Include="Inc\AStar.h" />
-    <ClInclude Include="Inc\BFS.h" />
-    <ClInclude Include="Inc\CohesionBehavior.h" />
-    <ClInclude Include="Inc\Common.h" />
-    <ClInclude Include="Inc\Config.h" />
-    <ClInclude Include="Inc\DecisionModule.h" />
-    <ClInclude Include="Inc\DFS.h" />
-    <ClInclude Include="Inc\Dijkstras.h" />
-    <ClInclude Include="Inc\Entity.h" />
-    <ClInclude Include="Inc\EvadeBehavior.h" />
-    <ClInclude Include="Inc\FleeingBehavior.h" />
-    <ClInclude Include="Inc\GeneticAlgorithm.h" />
-    <ClInclude Include="Inc\Genome.h" />
-    <ClInclude Include="Inc\Goal.h" />
-    <ClInclude Include="Inc\GoalComposite.h" />
-    <ClInclude Include="Inc\Graph.h" />
-    <ClInclude Include="Inc\HidingBehavior.h" />
-    <ClInclude Include="Inc\InnovationContainer.h" />
-    <ClInclude Include="Inc\MemoryRecord.h" />
-    <ClInclude Include="Inc\NeuralNet.h" />
-    <ClInclude Include="Inc\NeuralNetwork.h" />
-    <ClInclude Include="Inc\ObstacleAvoidanceBehavior.h" />
-    <ClInclude Include="Inc\PartitionGrid.h" />
-    <ClInclude Include="Inc\PerceptionModule.h" />
-    <ClInclude Include="Inc\Population.h" />
-    <ClInclude Include="Inc\PursuitBehavior.h" />
-    <ClInclude Include="Inc\SeekingBehavior.h" />
-    <ClInclude Include="Inc\Sensor.h" />
-    <ClInclude Include="Inc\SeperationBehavior.h" />
-    <ClInclude Include="Inc\Species.h" />
-    <ClInclude Include="Inc\State.h" />
-    <ClInclude Include="Inc\StateMachine.h" />
-    <ClInclude Include="Inc\SteeringBehavior.h" />
-    <ClInclude Include="Inc\SteeringModule.h" />
-    <ClInclude Include="Inc\Strategy.h" />
-    <ClInclude Include="Inc\VisualSensor.h" />
-    <ClInclude Include="Inc\WanderBehavior.h" />
-    <ClInclude Include="Src\Precompiled.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.vcxproj">
-      <Project>{5bf63145-a348-4b75-8137-f3bc803343fd}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Graphics\Graphics.vcxproj">
-      <Project>{06e6abde-cf57-4616-a611-454834e8c04a}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Math\Math.vcxproj">
-      <Project>{8683af56-c8c7-4387-91b1-468616ffb20b}</Project>
+    <ProjectReference Include="..\..\Engine\Angazi\Angazi.vcxproj">
+      <Project>{c3204d71-84ac-46fa-8cbb-42ed98fa9e8c}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Agent.cpp" />
-    <ClCompile Include="Src\AIWorld.cpp" />
-    <ClCompile Include="Src\AlignmentBehavior.cpp" />
-    <ClCompile Include="Src\ArriveBehavior.cpp" />
-    <ClCompile Include="Src\AStar.cpp" />
-    <ClCompile Include="Src\BFS.cpp" />
-    <ClCompile Include="Src\CohesionBehavior.cpp" />
-    <ClCompile Include="Src\DFS.cpp" />
-    <ClCompile Include="Src\Dijkstras.cpp" />
-    <ClCompile Include="Src\Entity.cpp" />
-    <ClCompile Include="Src\EvadeBehavior.cpp" />
-    <ClCompile Include="Src\FleeingBehavior.cpp" />
-    <ClCompile Include="Src\GeneticAlgorithm.cpp" />
-    <ClCompile Include="Src\Graph.cpp" />
-    <ClCompile Include="Src\HidingBehavior.cpp" />
-    <ClCompile Include="Src\InnovationContainer.cpp" />
-    <ClCompile Include="Src\NeuralNet.cpp" />
-    <ClCompile Include="Src\NeuralNetwork.cpp" />
-    <ClCompile Include="Src\ObstacleAvoidanceBehavior.cpp" />
-    <ClCompile Include="Src\PerceptionModule.cpp" />
-    <ClCompile Include="Src\Population.cpp" />
-    <ClCompile Include="Src\Precompiled.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Src\PursuitBehavior.cpp" />
-    <ClCompile Include="Src\SeekingBehavior.cpp" />
-    <ClCompile Include="Src\SeperationBehavior.cpp" />
-    <ClCompile Include="Src\SteeringModule.cpp" />
-    <ClCompile Include="Src\VisualSensor.cpp" />
-    <ClCompile Include="Src\WanderBehavior.cpp" />
+    <ClCompile Include="Bird.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="WinMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bird.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="Pipe.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

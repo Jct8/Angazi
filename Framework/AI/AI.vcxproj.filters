@@ -162,6 +162,24 @@
     <ClInclude Include="Inc\NeuralNetwork.h">
       <Filter>Inc\Machine Learning</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\NeuralNet.h">
+      <Filter>Inc\Machine Learning</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Genome.h">
+      <Filter>Inc\Machine Learning</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Population.h">
+      <Filter>Inc\Machine Learning</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Config.h">
+      <Filter>Inc\Machine Learning</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Species.h">
+      <Filter>Inc\Machine Learning</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\InnovationContainer.h">
+      <Filter>Inc\Machine Learning</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -237,6 +255,15 @@
       <Filter>Src\Machine Learning</Filter>
     </ClCompile>
     <ClCompile Include="Src\NeuralNetwork.cpp">
+      <Filter>Src\Machine Learning</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\NeuralNet.cpp">
+      <Filter>Src\Machine Learning</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Population.cpp">
+      <Filter>Src\Machine Learning</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\InnovationContainer.cpp">
       <Filter>Src\Machine Learning</Filter>
     </ClCompile>
   </ItemGroup>
