@@ -25,6 +25,7 @@ private:
 	Angazi::Graphics::MeshBuffer mMeshBufferTeaPot;
 
 	Angazi::Graphics::EnvironmentMap mEnvironmentMap;
+	Angazi::Graphics::HdrEffect mHdrEffect;
 
 	Angazi::Graphics::Sampler mSampler;
 	Angazi::Math::Vector3 mRotation = 0.0f;

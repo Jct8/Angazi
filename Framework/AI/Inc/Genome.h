@@ -15,10 +15,10 @@ namespace Angazi::AI::NEAT
 
 	struct Genome
 	{
-		unsigned int fitness = 0;
-		unsigned int adjustedFitness = 0;
-		unsigned int globalRank = 0;
-		unsigned int maxNeuron;
+		size_t fitness = 0;
+		size_t adjustedFitness = 0;
+		size_t globalRank = 0;
+		size_t maxNeuron;
 
 		std::map<size_t, Gene> genes;
 

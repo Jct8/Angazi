@@ -27,12 +27,12 @@ namespace Angazi::AI::NEAT
 		double Weights(const Genome& g1, const Genome& g2);
 		bool IsSameSpecies(const Genome& g1, const Genome& g2);
 
-		// Species ranking
+		// Species Ranking
 		void RankGlobally();
 		void CalculateAverageFitness(Species& s);
 		size_t TotalAverageFitness();
 
-		// Evoluation
+		// Evolution
 		void CullSpecies(bool cut_to_one);
 		Genome BreedChild(Species& s);
 		void RemoveStaleSpecies();

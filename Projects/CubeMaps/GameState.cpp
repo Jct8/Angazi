@@ -43,10 +43,12 @@ void GameState::Initialize()
 
 	mSkybox.ChangeDefualtSkybox(1);
 	mSkybox.CreateSkybox();
+	mHdrEffect.Initialize();
 }
 
 void GameState::Terminate()
 {
+	mHdrEffect.Terminate();
 	mSkybox.Terminate();
 	mSampler.Terminate();
 
@@ -86,6 +88,8 @@ void GameState::Render()
 	auto matView = mCamera.GetViewMatrix();
 	auto matProj = mCamera.GetPerspectiveMatrix();
 
+	mHdrEffect.BeginRender();
+
 	mEnvironmentMap.Begin();
 	mEnvironmentMap.SetDirectionalLight(mDirectionalLight);
 	mEnvironmentMap.SetMaterial(mMaterial);
@@ -111,8 +115,10 @@ void GameState::Render()
 	mMeshBufferCube.Draw();
 
 	mEnvironmentMap.End();
-
 	mSkybox.Draw(mCamera);
+
+	mHdrEffect.EndRender();
+	mHdrEffect.RenderHdrQuad();
 }
 
 void GameState::DebugUI()

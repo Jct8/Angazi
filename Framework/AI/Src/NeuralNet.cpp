@@ -115,7 +115,7 @@ std::vector<double> NeuralNet::Evaluate(const std::vector<double>& input)
 		{
 			mNodes[t].visited = true;
 
-			// Add unvistied parents
+			// Add unvisted parents
 			for (auto& [index, weight] : mNodes[t].inNodes)
 			{
 				if (!mNodes[index].visited)

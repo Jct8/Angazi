@@ -49,6 +49,12 @@
     <Filter Include="Src\Machine Learning">
       <UniqueIdentifier>{8cc50991-f8d2-4859-9a98-306bfddad0be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Machine Learning\NEAT">
+      <UniqueIdentifier>{671be179-ce69-41e9-b783-b585706e25ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Machine Learning\NEAT">
+      <UniqueIdentifier>{2080204c-c965-4c34-b885-5ee139ce1d44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\AI.h">
@@ -162,23 +168,23 @@
     <ClInclude Include="Inc\NeuralNetwork.h">
       <Filter>Inc\Machine Learning</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\NeuralNet.h">
-      <Filter>Inc\Machine Learning</Filter>
+    <ClInclude Include="Inc\Config.h">
+      <Filter>Inc\Machine Learning\NEAT</Filter>
     </ClInclude>
     <ClInclude Include="Inc\Genome.h">
-      <Filter>Inc\Machine Learning</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Population.h">
-      <Filter>Inc\Machine Learning</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Config.h">
-      <Filter>Inc\Machine Learning</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\Species.h">
-      <Filter>Inc\Machine Learning</Filter>
+      <Filter>Inc\Machine Learning\NEAT</Filter>
     </ClInclude>
     <ClInclude Include="Inc\InnovationContainer.h">
-      <Filter>Inc\Machine Learning</Filter>
+      <Filter>Inc\Machine Learning\NEAT</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Species.h">
+      <Filter>Inc\Machine Learning\NEAT</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Population.h">
+      <Filter>Inc\Machine Learning\NEAT</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\NeuralNet.h">
+      <Filter>Inc\Machine Learning\NEAT</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -257,14 +263,14 @@
     <ClCompile Include="Src\NeuralNetwork.cpp">
       <Filter>Src\Machine Learning</Filter>
     </ClCompile>
-    <ClCompile Include="Src\NeuralNet.cpp">
-      <Filter>Src\Machine Learning</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Population.cpp">
-      <Filter>Src\Machine Learning</Filter>
+      <Filter>Src\Machine Learning\NEAT</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\NeuralNet.cpp">
+      <Filter>Src\Machine Learning\NEAT</Filter>
     </ClCompile>
     <ClCompile Include="Src\InnovationContainer.cpp">
-      <Filter>Src\Machine Learning</Filter>
+      <Filter>Src\Machine Learning\NEAT</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
