@@ -123,7 +123,7 @@ void Texture::InitializeHdrCube(const std::filesystem::path & filePath, const st
 	hr = CreateShaderResourceView(GetDevice(), image.GetImages(), image.GetImageCount(), image.GetMetadata(), &hdrShaderResourceView);
 	ASSERT(SUCCEEDED(hr), "[Texture] Failed to create shader resource view");
 
-	mShaderResourceView = TextureUtil::CreateCubeMapFromTexture(hdrShaderResourceView,shaderFilePath,cubeLength);
+	mShaderResourceView = TextureUtil::CreateCubeMapFromTexture(hdrShaderResourceView, shaderFilePath, cubeLength);
 
 	SafeRelease(hdrShaderResourceView);
 
@@ -140,9 +140,19 @@ void Texture::InitializeHdrCube(const std::filesystem::path & filePath, const st
 	mHeight = desc.Height;
 }
 
-void Texture::InitializeIrradiancMap(Texture & texture, const std::filesystem::path & shaderFilePath, uint32_t cubeLength)
+void Texture::InitializeCubeMap(Texture & texture, const std::filesystem::path & shaderFilePath, uint32_t cubeLength, CubeMapType type)
 {
-	mShaderResourceView = TextureUtil::CreateCubeMapFromTexture(texture.GetShaderResourceView(), shaderFilePath, cubeLength);
+	switch (type)
+	{
+	case Angazi::Graphics::Texture::IrradianceMap:
+		mShaderResourceView = TextureUtil::CreateCubeMapFromTexture(texture.GetShaderResourceView(), shaderFilePath, cubeLength);
+		break;
+	case Angazi::Graphics::Texture::PreFiltered:
+		mShaderResourceView = TextureUtil::CreatePreFilteredCubeMap(texture.GetShaderResourceView(), shaderFilePath, cubeLength);
+		break;
+	default:
+		break;
+	}
 
 	// Get Width and Height of the texture
 	ID3D11Resource* resource = nullptr;

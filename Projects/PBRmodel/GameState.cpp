@@ -12,6 +12,7 @@ namespace
 	float numColumns = 5;
 	bool normal = true;
 	bool aoMap = true;
+	bool useIBL = true;
 	float displacement = 0.0f;
 	float brightness = 1.0f;
 
@@ -72,41 +73,56 @@ void GameState::Initialize()
 
 	mDirectionalLight.direction = Normalize({ 0.0f, 0.0f,1.0f });
 	//mDirectionalLight.ambient = { 0.947f,0.888f,0.888f,0.3f };
-	mDirectionalLight.ambient = {0.0f};//{ 0.168f ,0.107f,0.107f ,0.3f };
+	mDirectionalLight.ambient = { 0.892f, 0.835f, 0.835f, 0.000f };
 	mDirectionalLight.diffuse = { 0.7f };
 	mDirectionalLight.specular = { 0.5f };
 
-	mMaterial.ambient = { 0.496f ,0.379f,0.379f ,0.3f };
+	mMaterial.ambient = {0.417f, 0.417f, 0.417f, 0.300f};
 	mMaterial.diffuse = { 0.7f };
 	mMaterial.specular = { 0.5f };
 	mMaterial.power = 80.0f;
 
-	ObjLoader::Load("../../Assets/Models/Mandalorian_Helmet/Mandalorian_Helmet.obj",0.01f, mMesh);
+	ObjLoader::Load("../../Assets/Models/Sci-Fi_Helmet/helmet.obj",1.0f, mMesh);
 	mMeshBufferHelmet.Initialize(mMesh);
+	mSphereBuffer.Initialize(MeshBuilder::CreateSphere(0.5f,64,64));
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Mirror);
 
 	mPbrEffect.Initialize();
+	mPbrEffect.useIBL(useIBL);
 	mStandardEffect.Initialize();
 
 	//mSkybox.ChangeDefualtSkybox(2);
 	//mSkybox.CreateSkybox();
-	//mSkybox.CreateSkybox("../../Assets/Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
-	mSkybox.CreateSkybox("../../Assets/Images/HdrMaps/Shiodome_Stairs/10-Shiodome_Stairs_3k.hdr");
+	mSkybox.CreateSkybox("../../Assets/Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
+	//mSkybox.CreateSkybox("../../Assets/Images/HdrMaps/Shiodome_Stairs/10-Shiodome_Stairs_3k.hdr");
 
 	mPlainTexture.Initialize("../../Assets/Images/white.jpg");
 
+	//mTextures["Helmet"]["Albedo"] = std::make_unique<Texture>();
+	//mTextures["Helmet"]["Albedo"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_BaseColor.png", true);
+	//mTextures["Helmet"]["Normal"] = std::make_unique<Texture>();
+	//mTextures["Helmet"]["Normal"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Normal.png");
+	//mTextures["Helmet"]["AO"] = std::make_unique<Texture>();
+	//mTextures["Helmet"]["AO"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_AO.png");
+	//mTextures["Helmet"]["Displacement"] = std::make_unique<Texture>();
+	//mTextures["Helmet"]["Displacement"]->Initialize("../../Assets/Models//Mandalorian_Helmet/mandalorianUV2_Helmet_Height.png");
+	//mTextures["Helmet"]["Roughness"] = std::make_unique<Texture>();
+	//mTextures["Helmet"]["Roughness"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Roughness2.png");
+	//mTextures["Helmet"]["Metallic"] = std::make_unique<Texture>();
+	//mTextures["Helmet"]["Metallic"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Metallic2.png");
+
 	mTextures["Helmet"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Albedo"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_BaseColor.png", true);
+	mTextures["Helmet"]["Albedo"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_basecolor.png", false);
 	mTextures["Helmet"]["Normal"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Normal"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Normal.png");
+	mTextures["Helmet"]["Normal"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_normal.png");
 	mTextures["Helmet"]["AO"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["AO"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_AO.png");
+	mTextures["Helmet"]["AO"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_occlusion.png");
 	mTextures["Helmet"]["Displacement"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Displacement"]->Initialize("../../Assets/Models//Mandalorian_Helmet/mandalorianUV2_Helmet_Height.png");
+	mTextures["Helmet"]["Displacement"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_emission.png");
 	mTextures["Helmet"]["Roughness"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Roughness"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Roughness2.png");
+	mTextures["Helmet"]["Roughness"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_roughness.png");
 	mTextures["Helmet"]["Metallic"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Metallic"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Metallic2.png");
+	mTextures["Helmet"]["Metallic"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_metalness.png");
 
 	for (auto &textures : mTextures)
 		textureNames.push_back(textures.first);
@@ -132,6 +148,7 @@ void GameState::Terminate()
 	mStandardEffect.Terminate();
 	mPbrEffect.Terminate();
 
+	mSphereBuffer.Terminate();
 	mMeshBufferHelmet.Terminate();
 }
 
@@ -139,7 +156,7 @@ void GameState::Update(float deltaTime)
 {
 	auto inputSystem = InputSystem::Get();
 	const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 10.0f : 3.0f;
-	const float kTurnSpeed = 10.0f * Constants::DegToRad;
+	const float kTurnSpeed = 20.0f * Constants::DegToRad;
 
 	if (inputSystem->IsKeyDown(KeyCode::W))
 		mCamera.Walk(kMoveSpeed*deltaTime);
@@ -175,19 +192,20 @@ void GameState::DrawScene()
 	mSampler.BindVS();
 	if (useTextureMap)
 	{
-		matWorld = matRot * Matrix4::Translation({ -0.3f,0.0f,0.0f });
+		matWorld = matRot * Matrix4::Translation({ -1.3f,0.0f,0.0f });
 
 		mPbrEffect.Begin();
 		mPbrEffect.SetDirectionalLight(mDirectionalLight);
 		mPbrEffect.SetMaterial(mMaterial);
 		SetPBRTextures(choosenTexture);
 		mPbrEffect.SetIrradianceMap(mSkybox.GetIrradianceMap());
+		mPbrEffect.SetPreFilterMap(mSkybox.GetPrefilteredMap());
 		mPbrEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 		mPbrEffect.UpdateSettings();
 		mMeshBufferHelmet.Draw();
 		mPbrEffect.End();
 
-		matWorld = matRot * Matrix4::Translation({ 0.3f,0.0f,0.0f });
+		matWorld = matRot * Matrix4::Translation({ 1.3f,0.0f,0.0f });
 		mStandardEffect.Begin();
 		mStandardEffect.SetDirectionalLight(mDirectionalLight);
 		mStandardEffect.SetMaterial(mMaterial);
@@ -203,6 +221,7 @@ void GameState::DrawScene()
 		mPbrEffect.SetDirectionalLight(mDirectionalLight);
 		mPbrEffect.SetMaterial(mMaterial);
 		mPbrEffect.SetIrradianceMap(mSkybox.GetIrradianceMap());
+		mPbrEffect.SetPreFilterMap(mSkybox.GetPrefilteredMap());
 		mPbrEffect.SetDiffuseTexture(&mPlainTexture);
 		float spacing = 0.5f;
 		for (int row = 0; row < numRows; ++row)
@@ -214,7 +233,7 @@ void GameState::DrawScene()
 				matWorld = Matrix4::Scaling(0.5f) * Matrix4::Translation({ (col - (numColumns / 2)) * spacing, (row - (numRows / 2)) * spacing, 0.0f });
 				mPbrEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 				mPbrEffect.UpdateSettings();
-				mMeshBufferHelmet.Draw();
+				mSphereBuffer.Draw();
 			}
 		}
 		mPbrEffect.End();
@@ -275,12 +294,12 @@ void GameState::DebugUI()
 			mPbrEffect.SetNormalMapWeight(normal ? 1.0f : 0.0f);
 		if (ImGui::Checkbox("Ambient occlusion", &aoMap))
 			mPbrEffect.SetAOWeight(aoMap ? 1.0f : 0.0f);
+		if (ImGui::Checkbox("Use Image based lighting", &useIBL))
+			mPbrEffect.useIBL(useIBL);
 		if (ImGui::DragFloat("Height Map", &displacement,0.001f, 0.0f, 1.0f))
 			mPbrEffect.SetBumpMapWeight(displacement);
 		if (ImGui::DragFloat("Brightness", &brightness, 0.01f))
-		{
 			mPbrEffect.SetBrightness(brightness);
-		}
 
 		static const char* item_current = textureNames[0].c_str();
 		if (ImGui::BeginCombo("Select Texture",item_current))

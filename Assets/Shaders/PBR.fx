@@ -61,6 +61,8 @@ Texture2D depthMap : register(t4);
 Texture2D metallicMap : register(t5);
 Texture2D roughnessMap : register(t6);
 TextureCube irradianceMap : register(t7);
+TextureCube prefilterMap : register(t8);
+Texture2D brdfLUT : register(t9);
 
 SamplerState textureSampler : register(s0);
 
@@ -73,7 +75,7 @@ static matrix Identity =
 };
 static const float PI = 3.14159265359;
 static const float EPSILON = 1e-6f;
-const float3 fDielectric = float3(0.04f, 0.04f, 0.04f);
+static const float3 fDielectric = float3(0.04f, 0.04f, 0.04f);
 
 matrix GetBoneTransform(int4 indices, float4 weights)
 {
@@ -222,6 +224,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 f0 = lerp(fDielectric, albedoColor, metallic);
 	float3 V = dirToView;
 	float3 L = dirToLight;
+	float3 R = reflect(V, normal);
 	float3 halfVector = normalize(V + L);
 	float nDotL = max(dot(normal, L), 0.0f);
 	float nDotV = max(dot(normal, V), 0.0f);
@@ -245,13 +248,18 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	if (useIBL)
 	{
 		// Diffuse
-		float3 kS = FresnalSchlick(nDotV, f0);
+		float3 kS = FresnelSchlickRoughness(nDotV, f0, roughness);
 		float3 kD = (float3(1.0f, 1.0f, 1.0f) - kS) * (1.0f - metallic);
 		float3 diffuse = irradianceMap.Sample(textureSampler, normal).rgb * albedoColor * kD;
-		ambient = float4(diffuse,1.0f);
 
 		//Specular
+		const float maxReflectionLOD = 4.0;
+		R.y = -R.y;
+		float3 prefilteredColor = prefilterMap.SampleLevel(textureSampler, R, roughness * maxReflectionLOD).rgb;
+		float2 brdf = brdfLUT.Sample(textureSampler, float2(max(dot(normal, V), 0.0), roughness)).rg;
+		float3 specular = prefilteredColor * (kS * brdf.x + brdf.y);
 
+		ambient = float4(diffuse + specular, 1.0f);
 	}
 
 	float3 color = (ambient.rgb + directLighting) * ambientOcclusion;

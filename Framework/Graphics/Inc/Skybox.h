@@ -29,6 +29,7 @@ namespace Angazi::Graphics
 
 		const Angazi::Graphics::Texture* GetSkyboxTexture() { return &mTexture; };
 		const Angazi::Graphics::Texture* GetIrradianceMap() { return &mIrradianceMap; };
+		const Angazi::Graphics::Texture* GetPrefilteredMap() { return &mPrefilterMap; };
 	private:
 		struct TransformData
 		{
@@ -48,6 +49,7 @@ namespace Angazi::Graphics
 		Angazi::Graphics::Sampler mSampler;
 		Angazi::Graphics::Texture mTexture;
 		Angazi::Graphics::Texture mIrradianceMap;
+		Angazi::Graphics::Texture mPrefilterMap;
 
 		std::map<Side,std::filesystem::path> cubeSides;
 	};

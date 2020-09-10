@@ -30,5 +30,5 @@ VS_OUTPUT VS(VS_INPUT input)
 
 float4 PS(VS_OUTPUT input) : SV_Target
 {
-	return textureMap.Sample(textureSampler, input.texCoord);
+	return textureMap.SampleLevel(textureSampler, input.texCoord,0);
 }

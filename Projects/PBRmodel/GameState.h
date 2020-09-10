@@ -28,6 +28,7 @@ private:
 
 	Angazi::Graphics::Mesh mMesh;
 	Angazi::Graphics::MeshBuffer mMeshBufferHelmet;
+	Angazi::Graphics::MeshBuffer mSphereBuffer;
 
 	Angazi::Graphics::PbrEffect mPbrEffect;
 	Angazi::Graphics::StandardEffect mStandardEffect;

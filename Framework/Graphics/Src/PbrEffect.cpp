@@ -2,6 +2,7 @@
 #include "PbrEffect.h"
 
 #include "VertexTypes.h"
+#include "MeshBuilder.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
@@ -25,9 +26,29 @@ void PbrEffect::Initialize(const std::filesystem::path & fileName)
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Wrap);
 	mBlendState.Initialize(BlendState::Mode::Opaque);
 
+	// Create BRDF Texture
+	VertexShader vertexShader;
+	PixelShader pixelShader;
+	MeshBuffer meshBuffer;
+
+	mBRDFlutTexture.Initialize(512, 512, RenderTarget::Format::RGBA_F16);
+	meshBuffer.Initialize(MeshBuilder::CreateNDCQuad());
+	vertexShader.Initialize("../../Assets/Shaders/BRDF.fx", VertexPX::Format);
+	pixelShader.Initialize("../../Assets/Shaders/BRDF.fx");
+	mBRDFlutTexture.BeginRender();
+	pixelShader.Bind();
+	vertexShader.Bind();
+	meshBuffer.Draw();
+	mBRDFlutTexture.EndRender();
+
+	meshBuffer.Terminate();
+	pixelShader.Terminate();
+	vertexShader.Terminate();
 }
 void PbrEffect::Terminate()
 {
+	mBRDFlutTexture.Terminate();
+
 	mBlendState.Terminate();
 	mSampler.Terminate();
 
@@ -52,6 +73,8 @@ void PbrEffect::Terminate()
 	mMetallicMap.Terminate();
 	mRoughnessMap.Terminate();
 	mIrradienceMap.Terminate();
+	mPreFilterMap.Terminate();
+	mBRDFlutTexture.Terminate();
 }
 void PbrEffect::Begin()
 {
@@ -79,6 +102,8 @@ void PbrEffect::Begin()
 	mMetallicMap.BindPS(5);
 	mRoughnessMap.BindPS(6);
 	mIrradienceMap.BindPS(7);
+	mPreFilterMap.BindPS(8);
+	mBRDFlutTexture.BindPS(9);
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
@@ -97,6 +122,7 @@ void PbrEffect::End()
 	mBoneTransformBuffer.UnbindVS(5);
 	mClippingConstantBuffer.UnbindVS(6);
 	mIrradienceMap.UnbindVS(7);
+	mPreFilterMap.UnbindPS();
 
 	// Textures
 	mDiffuseMap.UnbindPS(0);
@@ -183,8 +209,11 @@ void PbrEffect::SetRoughnessTexture(const std::filesystem::path& fileName)
 }
 void PbrEffect::SetIrradianceMap(const std::filesystem::path& fileName)
 {
-	mSettings.useIBL = 1;
 	mIrradienceMap.Initialize(fileName);
+}
+void PbrEffect::SetPreFilterMap(const std::filesystem::path& fileName)
+{
+	mPreFilterMap.Initialize(fileName);
 }
 
 void PbrEffect::SetDiffuseTexture(const Texture * diffuseTexture)
@@ -217,6 +246,13 @@ void PbrEffect::SetRoughnessTexture(const Texture* roughnessMap)
 }
 void PbrEffect::SetIrradianceMap(const Texture* irradianceMap)
 {
-	mSettings.useIBL = 1;
 	irradianceMap->BindPS(7);
+}
+void PbrEffect::SetPreFilterMap(const Texture* preFilterMap)
+{
+	preFilterMap->BindPS(8);
+}
+void PbrEffect::SetBRDFlutTexture(const Texture* brdfLutTexture)
+{
+	brdfLutTexture->BindPS(9);
 }

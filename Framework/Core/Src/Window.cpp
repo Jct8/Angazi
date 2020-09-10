@@ -26,7 +26,7 @@ LRESULT CALLBACK WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam
 			ShowWindow(handle, SW_SHOWMINIMIZED);
 			return 1;
 		}
-		return 0;
+		break;
 	}
 	return DefWindowProcA(handle, message, wParam, lParam);
 }

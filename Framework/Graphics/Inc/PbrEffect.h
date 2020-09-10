@@ -42,6 +42,7 @@ namespace Angazi::Graphics
 		void SetMetallicTexture(const std::filesystem::path& fileNam);
 		void SetRoughnessTexture(const std::filesystem::path& fileName);
 		void SetIrradianceMap(const std::filesystem::path& fileName);
+		void SetPreFilterMap(const std::filesystem::path& fileName);
 
 		void SetDiffuseTexture(const Texture* diffuseTexture);
 		void SetNormalTexture(const Texture* normalTexture);
@@ -51,6 +52,8 @@ namespace Angazi::Graphics
 		void SetMetallicTexture(const Texture* metallicMap);
 		void SetRoughnessTexture(const Texture* roughnessMap);
 		void SetIrradianceMap(const Texture* irradianceMap);
+		void SetPreFilterMap(const Texture* preFilterMap);
+		void SetBRDFlutTexture(const Texture* brdfLutTexture);
 
 		void SetBumpMapWeight(float weight) { mSettings.bumpMapWeight = weight; }
 		void SetNormalMapWeight(float weight) { mSettings.normalMapWeight = weight; }
@@ -134,6 +137,8 @@ namespace Angazi::Graphics
 		Angazi::Graphics::Texture mMetallicMap;
 		Angazi::Graphics::Texture mRoughnessMap;
 		Angazi::Graphics::Texture mIrradienceMap;
+		Angazi::Graphics::Texture mPreFilterMap;
+		Angazi::Graphics::RenderTarget mBRDFlutTexture;
 
 		//Shadow
 		ShadowConstantBuffer mShadowConstantBuffer;

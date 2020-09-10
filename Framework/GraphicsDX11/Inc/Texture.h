@@ -7,6 +7,12 @@ namespace Angazi::Graphics
 	class Texture
 	{
 	public:
+		enum CubeMapType
+		{
+			IrradianceMap,
+			PreFiltered
+		};
+	public:
 		Texture() = default;
 		~Texture();
 
@@ -17,7 +23,7 @@ namespace Angazi::Graphics
 		void Initialize(const std::filesystem::path& fileName, bool gammaCorrection = false);
 		void Initialize(const std::vector<std::filesystem::path>& cubeSides, bool gammaCorrection = false);
 		void InitializeHdrCube(const std::filesystem::path& filePath, const std::filesystem::path & shaderFilePath, uint32_t cubeLength);
-		void InitializeIrradiancMap(Texture& texture, const std::filesystem::path & shaderFilePath, uint32_t cubeLength);
+		void InitializeCubeMap(Texture& texture, const std::filesystem::path & shaderFilePath, uint32_t cubeLength, CubeMapType type);
 		void Terminate();
 
 		void BindVS(uint32_t slot = 0) const;
