@@ -13,6 +13,12 @@
     <Filter Include="Inc\Geometry">
       <UniqueIdentifier>{0cbe746b-326c-483e-897c-67d6c5beabe8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\Meta">
+      <UniqueIdentifier>{ac51c505-7aa6-47d7-93aa-6953f52fbfbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Meta">
+      <UniqueIdentifier>{c857ad14-519d-44b9-be4a-51d802bcf55d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Common.h">
@@ -63,6 +69,9 @@
     <ClInclude Include="Inc\2DShapes.h">
       <Filter>Inc\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\MetaRegistration.h">
+      <Filter>Inc\Meta</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\EngineMath.cpp">
@@ -70,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="Src\Precompiled.cpp">
       <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MetaRegistration.cpp">
+      <Filter>Src\Meta</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

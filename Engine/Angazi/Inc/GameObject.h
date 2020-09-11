@@ -13,6 +13,8 @@ namespace Angazi
 	class GameObject final
 	{
 	public:
+		META_CLASS_DECLARE
+
 		GameObject() = default;
 		GameObject(const GameObject&) = delete;
 		GameObject& operator=(const GameObject&) = delete;
@@ -23,6 +25,8 @@ namespace Angazi
 		virtual void Update(float deltaTime);
 		virtual void Render();
 		virtual void DebugUI();
+
+		Component* AddComponent(const Core::Meta::MetaClass* metaClass);
 
 		//template <class T, class = std::void_t<std::is_base_of<Component, T>>>
 		//template <class T, class = std::void_t<std::enable_if_t<std::is_base_of_v<Component, T>>>>
@@ -42,7 +46,7 @@ namespace Angazi
 		{
 			for (auto& component : mComponents)
 			{
-				if (component->GetMetaClass() == Component::StaticGetMetaClass())
+				if (component->GetMetaClass() == ComponentType::StaticGetMetaClass())
 					return static_cast<const ComponentType*>(component.get());
 			}
 			return nullptr;

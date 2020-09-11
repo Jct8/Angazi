@@ -9,6 +9,8 @@ namespace Angazi
 	class ColliderComponent : public Component
 	{
 	public:
+		META_CLASS_DECLARE
+
 		void Initialize() override;
 		void DebugUI() override;
 

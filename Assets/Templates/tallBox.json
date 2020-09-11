@@ -8,10 +8,9 @@
           "z": 0
         },
         "Rotation": {
-          "x": 0,
-          "y": 0,
-          "z": 0,
-          "w": 1
+          "xDegree": 0,
+          "yDegree": 0,
+          "zDegree": 0
         }
       },
       "ColliderComponent": {

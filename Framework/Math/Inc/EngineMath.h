@@ -17,6 +17,8 @@
 #include "Sphere.h"
 #include "Ray.h"
 
+#include "MetaRegistration.h"
+
 namespace Angazi::Math
 {
 	template <class T> constexpr T Min(T a, T b)						{ return (a < b) ? a : b;}

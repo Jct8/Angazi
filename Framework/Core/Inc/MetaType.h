@@ -9,6 +9,8 @@ namespace Angazi::Core::Meta
 	class MetaType
 	{
 	public:
+		using DeserializeFunc = std::function<void(void* instance, const rapidjson::Value& jsonValue)>;
+
 		enum class Category
 		{
 			Primitive,
@@ -17,7 +19,7 @@ namespace Angazi::Core::Meta
 			Pointer
 		};
 
-		MetaType(Category category, const char* name, size_t size);
+		MetaType(Category category, const char* name, size_t size, DeserializeFunc deserialize = nullptr);
 
 		const MetaArray* AsMetaArray() const;
 		const MetaClass* AsMetaClass() const;
@@ -27,9 +29,12 @@ namespace Angazi::Core::Meta
 		const char* GetName() const { return mName.c_str(); }
 		size_t GetSize() const { return mSize; }
 
+		virtual void Deserialize(void* instance, const rapidjson::Value& jsonValue) const;
+
 	private:
 		const Category mCategory;
 		const std::string mName;
 		const size_t mSize;
+		const DeserializeFunc mDeserialize;
 	};
 }

@@ -3,9 +3,9 @@
     "Components": {
       "TransformComponent": {
         "Position": {
-          "x": 5,
+          "x": 2,
           "y": 0,
-          "z": 0
+          "z": 5
         },
         "Rotation": {
           "xDegree": 0,
@@ -20,9 +20,9 @@
           "z": 0
         },
         "Extend": {
-          "x": 3,
+          "x": 0.5,
           "y": 1,
-          "z": 1
+          "z": 0.5
         }
       }
     }

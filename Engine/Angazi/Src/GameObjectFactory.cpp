@@ -9,63 +9,36 @@ using namespace Angazi;
 
 GameObject* GameObjectFactory::Create(GameObjectAllocator & allocator, std::filesystem::path templateFileName)
 {
-	auto newObject = allocator.New();
+	auto gameObject = allocator.New();
 
-	FILE *file = nullptr;
-	fopen_s(&file, templateFileName.u8string().c_str(), "r");
-
-	char readBuffer[65536];
-	rapidjson::FileReadStream is(file, readBuffer, sizeof(readBuffer));
-
-	rapidjson::Document document;
-	document.ParseStream(is);
-
-	if (document.HasMember("GameObject"))
+	if (gameObject)
 	{
-		if (document["GameObject"].HasMember("Components"))
-		{
-			auto components = document["GameObject"]["Components"].GetObjectW();
-			if (components.HasMember("TransformComponent"))
-			{
-				auto transform = newObject->AddComponent<TransformComponent>();
-				if (components["TransformComponent"].HasMember("Position"))
-				{
-					auto x = components["TransformComponent"]["Position"]["x"].GetFloat();
-					auto y = components["TransformComponent"]["Position"]["y"].GetFloat();
-					auto z = components["TransformComponent"]["Position"]["z"].GetFloat();
-					transform->position = { x , y, z };
-				}
-				if (components["TransformComponent"].HasMember("Position"))
-				{
-					auto x = components["TransformComponent"]["Rotation"]["x"].GetFloat();
-					auto y = components["TransformComponent"]["Rotation"]["y"].GetFloat();
-					auto z = components["TransformComponent"]["Rotation"]["z"].GetFloat();
-					auto w = components["TransformComponent"]["Rotation"]["w"].GetFloat();
-					transform->rotation = { x , y, z, w };
-				}
-			}
-			if (document["GameObject"]["Components"].HasMember("ColliderComponent"))
-			{
-				auto collider = newObject->AddComponent<ColliderComponent>();
-				if (components["ColliderComponent"].HasMember("Center"))
-				{
-					auto x = components["ColliderComponent"]["Center"]["x"].GetFloat();
-					auto y = components["ColliderComponent"]["Center"]["y"].GetFloat();
-					auto z = components["ColliderComponent"]["Center"]["z"].GetFloat();
-					collider->center = { x , y, z };
-				}
-				if (components["ColliderComponent"].HasMember("Extend"))
-				{
-					auto x = components["ColliderComponent"]["Extend"]["x"].GetFloat();
-					auto y = components["ColliderComponent"]["Extend"]["y"].GetFloat();
-					auto z = components["ColliderComponent"]["Extend"]["z"].GetFloat();
-					collider->extend = { x , y, z };
-				}
-			}
+		FILE *file = nullptr;
+		fopen_s(&file, templateFileName.u8string().c_str(), "r");
 
+		char readBuffer[65536];
+		rapidjson::FileReadStream is(file, readBuffer, sizeof(readBuffer));
+
+		rapidjson::Document document;
+		document.ParseStream(is);
+
+		if (document.HasMember("GameObject") && document["GameObject"].IsObject())
+		{
+			auto jsonObject = document["GameObject"].GetObjectW();
+			if (jsonObject.HasMember("Components") && jsonObject["Components"].IsObject())
+			{
+				auto components = jsonObject["Components"].GetObjectW();
+				for (auto& component : components)
+				{
+					auto metaClass = Core::Meta::FindMetaClass(component.name.GetString());
+					auto newComponent = gameObject->AddComponent(metaClass);
+					metaClass->Deserialize(newComponent, component.value);
+				}
+			}
 		}
+		fclose(file);
 	}
-	return newObject;
+	return gameObject;
 }
 
 void GameObjectFactory::Destory(GameObjectAllocator & allocator, GameObject * gameObject)

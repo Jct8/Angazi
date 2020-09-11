@@ -7,6 +7,12 @@ namespace Angazi::Core::Meta
 	template <class DataType>
 	const MetaType* GetMetaType();
 
+	template< class DataType>
+	void Deserialize(void* instance, const rapidjson::Value& value)
+	{
+		static_assert(false, "No specialization found for deserializing this type.");
+	}
+
 	namespace Detail
 	{
 		template < class DataType>

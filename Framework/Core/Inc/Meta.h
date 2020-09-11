@@ -4,6 +4,7 @@
 #include "MetaClass.h"
 #include "MetaField.h"
 #include "MetaPointer.h"
+#include "MetaRegistry.h"
 #include "MetaType.h"
 #include "MetaUtil.h"
 
@@ -16,7 +17,9 @@
 #define META_TYPE_DEFINE(Type,Name)\
 	template<> const Angazi::Core::Meta::MetaType* Angazi::Core::Meta::GetMetaType<Type>()\
 	{\
-		static const Angazi::Core::Meta::MetaType sMetaType(Angazi::Core::Meta::MetaType::Category::Primitive,#Name, sizeof(Type));\
+		static const Angazi::Core::Meta::MetaType sMetaType(\
+			Angazi::Core::Meta::MetaType::Category::Primitive,#Name, sizeof(Type),\
+			Angazi::Core::Meta::Deserialize<Type>);\
 		return &sMetaType;\
 	}
 
@@ -63,6 +66,7 @@
 #define META_CLASS_END\
 		static const Angazi::Core::Meta::MetaClass sMetaClass(\
 			className, sizeof(Class),\
-			parentMetaClass, fields);\
+			parentMetaClass, fields,\
+			[]{return new Class();});\
 		return &sMetaClass;\
 	}

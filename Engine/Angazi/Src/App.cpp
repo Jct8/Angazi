@@ -1,6 +1,8 @@
 #include "Precompiled.h"
 #include "App.h"
 
+#include "MetaRegistration.h"
+
 using namespace Angazi;
 using namespace Angazi::Core;
 using namespace Angazi::Graphics;
@@ -14,7 +16,14 @@ void Angazi::App::ChangeState(const std::string& name)
 
 void Angazi::App::Run(AppConfig appConfig)
 {
+	LOG("App -- Running ... ");
+
 	mAppConfig = std::move(appConfig);
+
+	LOG("App -- Registering meta types ... ");
+	Core::StaticMetaRegister();
+	Math::StaticMetaRegister();
+	Angazi::StaticMetaRegister();
 
 	// Initialize timer
 	TimeUtil::GetTime();

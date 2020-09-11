@@ -7,9 +7,10 @@ namespace Angazi
 	class TransformComponent : public Component
 	{
 	public:
+		META_CLASS_DECLARE
 
 		void DebugUI() override;
-		Math::Matrix4 GetTransform() { return Math::Matrix4::Transform(position, rotation, scale); }
+		Math::Matrix4 GetTransform();
 
 		Math::Vector3 position = Math::Vector3::Zero;
 		Math::Quaternion rotation = Math::Quaternion::Identity;

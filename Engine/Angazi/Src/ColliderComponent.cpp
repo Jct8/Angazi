@@ -7,6 +7,13 @@
 using namespace Angazi;
 using namespace Angazi::Graphics;
 
+META_DERIVED_BEGIN(ColliderComponent, Component)
+	META_FIELD_BEGIN
+		META_FIELD(center,"Center")
+		META_FIELD(extend,"Extend")
+	META_FIELD_END
+META_CLASS_END
+
 void Angazi::ColliderComponent::Initialize()
 {
 	mTransformComponent = GetOwner().GetComponent<TransformComponent>();

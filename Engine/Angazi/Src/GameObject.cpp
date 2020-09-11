@@ -4,6 +4,11 @@
 #include "Component.h"
 using namespace Angazi;
 
+META_CLASS_BEGIN(GameObject)
+	META_NO_FIELD
+META_CLASS_END
+
+
 void GameObject::Initialize() 
 {
 	ASSERT(!mInitialized, " GameObject -- Game object already initialized.");
@@ -31,4 +36,12 @@ void GameObject::DebugUI()
 {
 	for (auto& component : mComponents)
 		component->DebugUI();
+}
+
+Component* GameObject::AddComponent(const Core::Meta::MetaClass* metaClass)
+{
+	Component* newComponent = static_cast<Component*>(metaClass->Create());
+	newComponent->mOwner = this;
+	mComponents.emplace_back(std::unique_ptr<Component>(newComponent));
+	return newComponent;
 }
