@@ -88,6 +88,52 @@ namespace
 			AddScreenLine({ rect.left , rect.top }, { rect.left , rect.bottom }, color);
 			AddScreenLine({ rect.right , rect.top }, { rect.right , rect.bottom }, color);
 		}
+		void AddScreenArc(const Math::Vector2& center, float radius, float fromAngle, float toAngle, const Color& color)
+		{
+			// Check if we have enough space
+			if (m2DVertexCount + 32 <= mMaxVertexCount)
+			{
+				float x = center.x;
+				float y = center.y;
+				float r = radius;
+
+				// Add line
+				const float kAngle = (toAngle - fromAngle) / 16.0f;
+				for (uint32_t i = 0; i < 16; ++i)
+				{
+					const float alpha = i * kAngle + fromAngle;
+					const float beta = alpha + kAngle;
+					const float x0 = x + (r * cos(alpha));
+					const float y0 = y + (r * sin(alpha));
+					const float x1 = x + (r * cos(beta));
+					const float y1 = y + (r * sin(beta));
+					m2DLineVertices[m2DVertexCount++] = { Math::Vector3(x0, y0, 0.0f), color };
+					m2DLineVertices[m2DVertexCount++] = { Math::Vector3(x1, y1, 0.0f), color };
+				}
+			}
+
+			ASSERT(m2DVertexCount < mMaxVertexCount, "[SimpleDraw] Too many vertices!");
+		}
+		void AddScreenDiamond(const Math::Vector2& center, float size, const Color& color)
+		{
+			// Check if we have enough space
+			if (m2DVertexCount + 8 <= mMaxVertexCount)
+			{
+				m2DLineVertices[m2DVertexCount++] = { Math::Vector3(center.x, center.y - size, 0.0f), color };
+				m2DLineVertices[m2DVertexCount++] = { Math::Vector3(center.x + size, center.y, 0.0f), color };
+
+				m2DLineVertices[m2DVertexCount++] = { Math::Vector3(center.x + size, center.y, 0.0f), color };
+				m2DLineVertices[m2DVertexCount++] = { Math::Vector3(center.x, center.y + size, 0.0f), color };
+
+				m2DLineVertices[m2DVertexCount++] = { Math::Vector3(center.x, center.y + size, 0.0f), color };
+				m2DLineVertices[m2DVertexCount++] = { Math::Vector3(center.x - size, center.y, 0.0f), color };
+
+				m2DLineVertices[m2DVertexCount++] = { Math::Vector3(center.x - size, center.y, 0.0f), color };
+				m2DLineVertices[m2DVertexCount++] = { Math::Vector3(center.x, center.y - size, 0.0f), color };
+			}
+
+			ASSERT(m2DVertexCount < mMaxVertexCount, "[SimpleDraw] Too many vertices!");
+		}
 
 		void AddAABB(const Math::Vector3 & center, const Math::Vector3 & extend, const Color & color, bool fill)
 		{
@@ -571,6 +617,24 @@ void SimpleDraw::AddAABB(const Math::Vector3 & center, const Math::Vector3 & ext
 {
 	sInstance->AddAABB(center, extend, color, fill);
 }
+
+void SimpleDraw::AddScreenArc(const Math::Vector2& center, float r, float fromAngle, float toAngle, const Color& color)
+{
+	ASSERT(sInstance != nullptr, "[SimpleDraw] Not initialized.");
+	sInstance->AddScreenArc(center, r, fromAngle, toAngle, color);
+}
+
+void SimpleDraw::AddScreenDiamond(const Math::Vector2& center, float size, const Color& color)
+{
+	ASSERT(sInstance != nullptr, "[SimpleDraw] Not initialized.");
+	sInstance->AddScreenDiamond(center, size, color);
+}
+
+void SimpleDraw::AddScreenDiamond(float x, float y, float size, const Color& color)
+{
+	AddScreenDiamond(Math::Vector2(x, y), size, color);
+}
+
 
 void SimpleDraw::AddCone(float height, float radius, const Color& color, bool fill)
 {

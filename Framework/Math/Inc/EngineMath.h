@@ -53,6 +53,8 @@ namespace Angazi::Math
 	double RandomDouble();
 	double RandomDouble(double min, double max);
 
+	inline Vector2 RandomVector2() { return Vector2(RandomFloat(), RandomFloat()); }
+	inline Vector3 RandomVector3() { return Vector3(RandomFloat(), RandomFloat(), RandomFloat()); }
 	inline Vector2 RandomVector2(const Vector2& min, const Vector2& max)
 	{
 		return Math::Vector2
@@ -61,7 +63,35 @@ namespace Angazi::Math
 			RandomFloat(min.y, max.y)
 		);
 	}
-
+	inline Vector3 RandomVector3(const Vector3& min, const Vector3& max)
+	{
+		return Vector3
+		(
+			RandomFloat(min.x, max.x),
+			RandomFloat(min.y, max.y),
+			RandomFloat(min.z, max.z)
+		);
+	}
+	
+	inline Vector2 RandomUnitCircle(bool normalized = true)
+	{
+		Vector2 randVal
+		{
+			RandomFloat(-1.0f, 1.0f) + 0.001f,
+			RandomFloat(-1.0f, 1.0f)
+		};
+		if (normalized)
+			return Normalize(randVal);
+		return randVal;
+	}
+	inline Vector3 RandomUnitSphere()
+	{
+		return Normalize(Vector3(
+			RandomFloat(-1.0f, 1.0f) + 0.001f,
+			RandomFloat(-1.0f, 1.0f),
+			RandomFloat(-1.0f, 1.0f))
+		);
+	}
 	inline Vector2 Rotate(const Vector2& v, float rad)
 	{
 		const float kCosAngle = cos(rad);
