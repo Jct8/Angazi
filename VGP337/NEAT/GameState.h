@@ -14,7 +14,4 @@ public:
 
 private:
 	Angazi::Graphics::Camera mCamera;
-
-	Angazi::Graphics::TextureId mBackgroundTexture;
-
 };

@@ -4,7 +4,7 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	Angazi::MainApp().AddState<GameState>("GameState");
-	Angazi::MainApp().Run({ "NEAT" ,500, 720});
+	Angazi::MainApp().Run({ "NEAT - Flappy Bird" ,500, 720});
 
 	return 0;
 }

@@ -156,15 +156,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Bird.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="PipeManager.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Background.h" />
     <ClInclude Include="Bird.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Pipe.h" />
+    <ClInclude Include="PipeManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

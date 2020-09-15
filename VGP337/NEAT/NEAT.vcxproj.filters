@@ -5,10 +5,14 @@
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="Bird.cpp" />
     <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="Background.cpp" />
+    <ClCompile Include="PipeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Bird.h" />
     <ClInclude Include="Pipe.h" />
+    <ClInclude Include="Background.h" />
+    <ClInclude Include="PipeManager.h" />
   </ItemGroup>
 </Project>

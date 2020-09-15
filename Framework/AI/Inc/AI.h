@@ -46,3 +46,5 @@
 // Machine Learning Algorithms
 #include "NeuralNetwork.h"
 #include "GeneticAlgorithm.h"
+#include "Population.h"
+#include "NeuralNet.h"

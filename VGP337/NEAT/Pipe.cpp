@@ -5,6 +5,11 @@ using namespace Angazi::Graphics;
 using namespace Angazi::Input;
 using namespace Angazi::Math;
 
+void Pipe::Load()
+{
+	mTextureId = TextureManager::Get()->Load("FlappyBird/pipe.png");
+}
+
 void Pipe::Update(float deltaTime)
 {
 	mPosition += mVelocity * deltaTime;
@@ -12,8 +17,14 @@ void Pipe::Update(float deltaTime)
 
 void Pipe::Render()
 {
-	SimpleDraw::AddScreenRect(GetTopRect(), Colors::Green);
-	SimpleDraw::AddScreenRect(GetBottomRect(), Colors::Green);
+	auto topRect = GetTopRect();
+	auto bottomRect = GetBottomRect();
+
+	BatchRender::Get()->AddSprite(mTextureId, { topRect.left, topRect.bottom }, Pivot::BottomLeft, Flip::Vertical);
+	BatchRender::Get()->AddSprite(mTextureId, { bottomRect.left, bottomRect.top }, Pivot::TopLeft);
+
+	//SimpleDraw::AddScreenRect(GetTopRect(), Colors::Green);
+	//SimpleDraw::AddScreenRect(GetBottomRect(), Colors::Green);
 }
 
 void Pipe::Spawn(float gapSize)
@@ -28,7 +39,7 @@ Angazi::Math::Rect Pipe::GetTopRect() const
 {
 	return {
 		mPosition.x,
-		mPosition.y - mGapSize - GraphicsSystem::Get()->GetBackBufferHeight(),
+		-FLT_MAX,
 		mPosition.x + mGapSize,
 		mPosition.y - mGapSize,
 	};
@@ -40,6 +51,6 @@ Angazi::Math::Rect Pipe::GetBottomRect() const
 		mPosition.x,
 		mPosition.y + mGapSize,
 		mPosition.x + mGapSize,
-		mPosition.y + mGapSize + GraphicsSystem::Get()->GetBackBufferWidth(),
+		FLT_MAX,
 	};
 }

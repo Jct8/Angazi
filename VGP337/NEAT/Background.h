@@ -2,21 +2,16 @@
 
 #include <Angazi/Inc/Angazi.h>
 
-class Pipe
+class Background
 {
 public:
 	void Load();
+
 	void Update(float deltaTime);
 	void Render();
-
-	void Spawn(float gapSize);
-
-	Angazi::Math::Rect GetTopRect() const;
-	Angazi::Math::Rect GetBottomRect() const;
 
 private:
 	Angazi::Graphics::TextureId mTextureId;
 	Angazi::Math::Vector2 mPosition;
-	Angazi::Math::Vector2 mVelocity;
-	float mGapSize;
+	Angazi::Math::Vector2 mOffset;
 };
