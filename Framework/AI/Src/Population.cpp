@@ -2,7 +2,6 @@
 #include "Population.h"
 
 #include <queue>
-
 using namespace Angazi::AI::NEAT;
 
 Population::Population(size_t input, size_t output, size_t bias)
@@ -67,7 +66,7 @@ Genome Population::MakeFirstGenome()
 			gene.fromNode = i;
 			gene.toNode = neuralNetConfig.input_size + neuralNetConfig.bias_size + o;
 			gene.innovationNum = mInnovation.AddGene(gene);
-			gene.weight = Math::RandomDouble(-2.0, 2.0);
+			gene.weight = X::RandomDouble(-2.0, 2.0);
 			genome.genes[gene.innovationNum] = gene;
 		}
 	}
@@ -80,7 +79,7 @@ Genome Population::MakeFirstGenome()
 			gene.fromNode = neuralNetConfig.input_size + b;
 			gene.toNode = neuralNetConfig.input_size + neuralNetConfig.bias_size + o;
 			gene.innovationNum = mInnovation.AddGene(gene);
-			gene.weight = Math::RandomDouble(-2.0, 2.0);
+			gene.weight = X::RandomDouble(-2.0, 2.0);
 			genome.genes[gene.innovationNum] = gene;
 		}
 	}
@@ -95,6 +94,7 @@ Genome Population::Crossover(const Genome & g1, const Genome & g2)
 		return Crossover(g2, g1);
 
 	Genome child(g1.maxNeuron);
+
 	for (const auto&[innovNum, gene] : g1.genes)
 	{
 		const auto it2 = g2.genes.find(innovNum);
@@ -169,7 +169,7 @@ void Population::MutateLink(Genome & g, bool force_bias)
 	if (force_bias)
 		neuron1 = Math::RandomInt(
 		(int)neuralNetConfig.input_size,
-			(int)(neuralNetConfig.input_size + neuralNetConfig.bias_size) - 1);
+		(int)(neuralNetConfig.input_size + neuralNetConfig.bias_size) - 1);
 
 	// Check for recurrency using BFS
 	if (!is_bias(neuron1) && !is_input(neuron1))
@@ -278,6 +278,7 @@ void Population::Mutate(Genome & g)
 double Population::Disjoint(const Genome & g1, const Genome & g2)
 {
 	size_t disjoint_count = 0;
+
 	for (const auto&[innovNum, gene] : g1.genes)
 		if (g2.genes.find(innovNum) == g2.genes.end())
 			++disjoint_count;
@@ -386,34 +387,35 @@ void Population::RemoveStaleSpecies()
 	// Update top fitness of each species
 	for (auto& s : species)
 	{
-		auto& g = *(std::max_element(s.genomes.begin(), s.genomes.end(), [](auto& a, auto& b) {
+		auto g = std::max_element(s.genomes.begin(), s.genomes.end(), [](auto& a, auto& b) {
 			return a.fitness < b.fitness;
-		}));
+		});
 
-		if (g.fitness > s.top_fitness)
+		if (g->fitness > s.top_fitness)
 		{
-			s.top_fitness = g.fitness;
+			s.top_fitness = g->fitness;
 			s.staleness = 0;
 		}
 		else
 		{
 			++s.staleness;
 		}
-
-		// Don't remove the last species!
-		if (species.size() == 1)
-			return;
-
-		// Prune any species that have not improved for some time
-		species.remove_if([this](auto& s) {
-			return s.staleness > speciatingConfig.stale_species;
-		});
 	}
+
+	// Don't remove the last species!
+	if (species.size() == 1)
+		return;
+
+	// Prune any species that have not improved for some time
+	species.remove_if([this](auto& s) {
+		return s.staleness > speciatingConfig.stale_species;
+	});
 }
 
 void Population::RemoveWeakSpecies()
 {
 	const size_t sum = TotalAverageFitness();
+
 	auto backup = species;
 	backup.remove_if([this, sum](auto& s) {
 		return 1.0 > std::floor(1.0 * s.average_fitness / sum * speciatingConfig.population);

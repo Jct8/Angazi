@@ -17,7 +17,7 @@ namespace Angazi::AI::NEAT
 
 	struct SpeciatingConfig
 	{
-		size_t population = 300;
+		size_t population = 100;
 		double delta_disjoint = 2.0;
 		double delta_weights = 0.4;
 		double delta_threshold = 1.3;

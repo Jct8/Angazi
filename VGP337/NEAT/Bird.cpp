@@ -28,7 +28,7 @@ void Bird::Update(float deltaTime, const PipeManager& pm)
 			if (brain)
 			{
 				auto closetPipe = pm.GetClosestPipe(*this);
-				auto result = brain->Evaluate({ mPosition.y, closetPipe.GetTopRect().left, closetPipe.GetTopRect().bottom, closetPipe.GetBottomRect().top });
+				auto result = brain->Evaluate({ mPosition.y, closetPipe.GetTopRect().left ,closetPipe.GetTopRect().bottom, closetPipe.GetBottomRect().top });
 				if (result[0] > 0.5)
 					Flap();
 				fitness += deltaTime;
@@ -39,7 +39,7 @@ void Bird::Update(float deltaTime, const PipeManager& pm)
 			if (mAnimationFrame >= numFrames)
 				mAnimationFrame -= numFrames;
 
-			const float gravity = 3000.0f;
+			const float gravity = 5000.0f;
 			mVelocity.y += gravity * deltaTime;
 			mPosition += mVelocity * deltaTime;
 		}
@@ -48,7 +48,7 @@ void Bird::Update(float deltaTime, const PipeManager& pm)
 	{
 		mAnimationFrame = static_cast<float>(std::size(mTextureIds) - 1);
 
-		const float gravity = 3000.0f;
+		const float gravity = 5000.0f;
 		mVelocity.y += gravity * deltaTime;
 		mVelocity.x = -100.0f;
 		mPosition += mVelocity * deltaTime;
@@ -70,7 +70,7 @@ void Bird::Render()
 void Bird::Flap()
 {
 	if (IsAlive())
-		mVelocity.y = -500.0f;
+		mVelocity.y = -1100.0f;
 }
 
 void Bird::Spawn(const Math::Vector2 & pos)

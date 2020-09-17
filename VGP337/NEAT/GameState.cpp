@@ -15,6 +15,8 @@ PipeManager pm;
 std::vector<Bird> birds;
 std::unique_ptr<AI::NEAT::Population> population;
 size_t activeBirdCount = 0;
+float bestFitness = 0;
+
 namespace
 {
 	void Title(float deltaTime);
@@ -43,15 +45,15 @@ namespace
 			population = std::make_unique<AI::NEAT::Population>(4, 1);
 
 			AI::NEAT::MutationConfig& mutationConfig = population->mutationConfig;
-			mutationConfig.connection_mutate_chance = 0.65;
-			mutationConfig.perturb_chance = 0.9;
-			mutationConfig.crossover_chance = 0.75;
-			mutationConfig.link_mutation_chance = 0.85;
-			mutationConfig.node_mutation_chance = 0.5;
+			mutationConfig.connection_mutate_chance = 0.55;
+			mutationConfig.perturb_chance = 0.55;
+			mutationConfig.crossover_chance = 0.5;
+			mutationConfig.link_mutation_chance = 0.65;
+			mutationConfig.node_mutation_chance = 0.45;
 			mutationConfig.bias_mutation_chance = 0.2;
-			mutationConfig.step_size = 0.1;
-			mutationConfig.disable_mutation_chance = 0.2;
-			mutationConfig.enable_mutation_chance = 0.2;
+			mutationConfig.step_size = 0.2;
+			mutationConfig.disable_mutation_chance = 0.3;
+			mutationConfig.enable_mutation_chance = 0.3;
 
 			for (auto& s : population->species)
 			{
@@ -79,6 +81,13 @@ namespace
 
 	void Play(float deltaTime)
 	{
+		if (!birds[0].IsAlive())
+		{
+			birds.clear();
+			pm.Reset();
+			Tick = Title;
+		}
+
 		bg.Update(deltaTime);
 		pm.Update(deltaTime);
 
@@ -101,7 +110,11 @@ namespace
 			// Feed bird fitness back into the genome
 			for (auto& s : population->species)
 				for (auto& g : s.genomes)
+				{
+					if (birds[activeBirdCount].fitness > bestFitness)
+						bestFitness = birds[activeBirdCount].fitness;
 					g.fitness = birds[activeBirdCount++].fitness;
+				}
 
 			population->NewGeneration();
 
@@ -143,6 +156,11 @@ namespace
 		txt += "Generation: " + std::to_string(population->Generation());
 		BatchRender::Get()->AddScreenText(txt.c_str(), 10.0f, 10.0f, 20.0f, Colors::White);
 
+		txt = "Best Fitness:" + std::to_string(bestFitness);
+		BatchRender::Get()->AddScreenText(txt.c_str(), 10.0f, 30.0f, 20.0f, Colors::White);
+
+		txt = "Total Birds:" + std::to_string(activeBirdCount);
+		BatchRender::Get()->AddScreenText(txt.c_str(), 10.0f, 50.0f, 20.0f, Colors::White);
 	}
 
 	bool RunXOR(float deltaTime)
@@ -172,7 +190,7 @@ namespace
 			if (log)
 			{
 				message += ") fitness = " + std::to_string(fitness);
-				LOG("%s",message.c_str());
+				LOG("%s", message.c_str());
 			}
 
 			return fitness;

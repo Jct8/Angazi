@@ -49,6 +49,7 @@ namespace Angazi::AI::NEAT
 		void RemoveWeakSpecies();
 		void AddToSpecies(const Genome& child);
 
+	private:
 		InnovationContainer mInnovation;
 
 		size_t mGenerationNumber = 1;
