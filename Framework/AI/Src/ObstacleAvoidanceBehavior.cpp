@@ -10,7 +10,7 @@ using namespace Angazi::Graphics;
 Math::Vector2 ObstacleAvoidance::Calculate(Agent & agent)
 {
 	AIWorld::Obstacles obstacles = agent.world.GetObstacles();
-	boxLength = boxExtend.y + Math::Magnitude(agent.velocity) / agent.maxSpeed * boxExtend.y;
+	boxLength = boxExtend + Math::Magnitude(agent.velocity) / agent.maxSpeed * boxExtend;
 
 	Math::Matrix3 localToWorld = agent.LocalToWorld();
 	Math::Matrix3 worldToLocal = Math::Inverse(agent.LocalToWorld());
@@ -27,7 +27,7 @@ Math::Vector2 ObstacleAvoidance::Calculate(Agent & agent)
 		auto localPosition = Math::TransformCoord(obstacle.center, worldToLocal);
 		if (localPosition.y >= 0)
 		{
-			float newRadius = obstacle.radius + boxExtend.x;
+			float newRadius = obstacle.radius + agent.radius;
 			if (Math::Abs(localPosition.x) < newRadius)
 			{
 				float intersectionY = localPosition.y - sqrt(newRadius*newRadius - localPosition.x * localPosition.x);
@@ -61,10 +61,10 @@ Math::Vector2 ObstacleAvoidance::Calculate(Agent & agent)
 void ObstacleAvoidance::DebugDraw(Agent& agent)
 {
 	Math::Matrix3 localToWorld = agent.LocalToWorld();
-	Math::Vector2 boxExtendTLWorld = Math::TransformCoord({ boxExtend.x,0.0f }, localToWorld);
-	Math::Vector2 boxExtendTRWorld = Math::TransformCoord({ boxExtend.x , boxLength }, localToWorld);
-	Math::Vector2 boxExtendBLWorld = Math::TransformCoord({ -boxExtend.x,0.0f }, localToWorld);
-	Math::Vector2 boxExtendBRWorld = Math::TransformCoord({ -boxExtend.x ,  boxLength }, localToWorld);
+	Math::Vector2 boxExtendTLWorld = Math::TransformCoord({ agent.radius,0.0f }, localToWorld);
+	Math::Vector2 boxExtendTRWorld = Math::TransformCoord({ agent.radius , boxLength }, localToWorld);
+	Math::Vector2 boxExtendBLWorld = Math::TransformCoord({ -agent.radius,0.0f }, localToWorld);
+	Math::Vector2 boxExtendBRWorld = Math::TransformCoord({ -agent.radius ,  boxLength }, localToWorld);
 	SimpleDraw::AddScreenLine({ boxExtendTLWorld }, { boxExtendTRWorld }, Colors::AliceBlue);
 	SimpleDraw::AddScreenLine({ boxExtendBLWorld }, { boxExtendBRWorld }, Colors::AliceBlue);
 	SimpleDraw::AddScreenLine({ boxExtendTLWorld }, { boxExtendBLWorld }, Colors::AliceBlue);

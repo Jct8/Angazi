@@ -20,13 +20,13 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{4069BAD2-05C8-480D-9470-D52D88BA10F1}</ProjectGuid>
+    <ProjectGuid>{36AC9E49-D688-4FF1-90CC-D1CF8A125512}</ProjectGuid>
     <SccProjectName>SAK</SccProjectName>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
     <SccProvider>SAK</SccProvider>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>NEAT</RootNamespace>
+    <RootNamespace>Flocking</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -151,24 +151,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Engine\Angazi\Angazi.vcxproj">
-      <Project>{c3204d71-84ac-46fa-8cbb-42ed98fa9e8c}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Background.cpp" />
-    <ClCompile Include="Bird.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameState.cpp" />
-    <ClCompile Include="Pipe.cpp" />
-    <ClCompile Include="PipeManager.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Background.h" />
-    <ClInclude Include="Bird.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="Pipe.h" />
-    <ClInclude Include="PipeManager.h" />
+    <ClInclude Include="TypeId.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Engine\Angazi\Angazi.vcxproj">
+      <Project>{c3204d71-84ac-46fa-8cbb-42ed98fa9e8c}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

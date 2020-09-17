@@ -12,5 +12,5 @@ Angazi::Math::Vector2 AlignmentBehavior::Calculate(Agent & agent)
 		averageHeading += neighbor->heading;
 	}
 	averageHeading /= (agent.neighbors.size() + 1.0f);
-	return averageHeading - agent.heading;
+	return (averageHeading - agent.heading) * 50.0f;
 }

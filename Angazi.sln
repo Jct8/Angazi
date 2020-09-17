@@ -212,6 +212,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NEAT", "VGP337\NEAT\NEAT.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Perception", "VGP332\Perception\Perception.vcxproj", "{6D62BDEA-7746-4CEC-A469-59CB9F30167B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Flocking", "Projects\Flocking\Flocking.vcxproj", "{36AC9E49-D688-4FF1-90CC-D1CF8A125512}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1426,6 +1428,26 @@ Global
 		{6D62BDEA-7746-4CEC-A469-59CB9F30167B}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{6D62BDEA-7746-4CEC-A469-59CB9F30167B}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{6D62BDEA-7746-4CEC-A469-59CB9F30167B}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Debug|x64.ActiveCfg = Debug|x64
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Debug|x64.Build.0 = Debug|x64
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Debug|x86.ActiveCfg = Debug|Win32
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Debug|x86.Build.0 = Debug|Win32
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.MinSizeRel|x64.Build.0 = Release|x64
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.MinSizeRel|x86.Build.0 = Release|Win32
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Profile|x64.ActiveCfg = Release|x64
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Profile|x64.Build.0 = Release|x64
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Profile|x86.ActiveCfg = Release|Win32
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Profile|x86.Build.0 = Release|Win32
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Release|x64.ActiveCfg = Release|x64
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Release|x64.Build.0 = Release|x64
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Release|x86.ActiveCfg = Release|Win32
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.Release|x86.Build.0 = Release|Win32
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1494,12 +1516,13 @@ Global
 		{E2A4FE52-F85A-4A77-8826-6AA676B43EE5} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 		{4069BAD2-05C8-480D-9470-D52D88BA10F1} = {BE4EA151-0611-48F5-9B60-F977892EAD20}
 		{6D62BDEA-7746-4CEC-A469-59CB9F30167B} = {CD843822-043F-4D75-AD52-51A21848EF77}
+		{36AC9E49-D688-4FF1-90CC-D1CF8A125512} = {3D46D955-E7DD-4B87-A175-A830A2684EE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB10E374-558C-4E7E-ABF5-019F67E91FC8}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 61
+		SccNumberOfProjects = 62
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/timjustin
 		SccLocalPath0 = .
@@ -1743,5 +1766,9 @@ Global
 		SccProjectTopLevelParentUniqueName60 = Angazi.sln
 		SccProjectName60 = VGP332/Perception
 		SccLocalPath60 = VGP332\\Perception
+		SccProjectUniqueName61 = Projects\\Flocking\\Flocking.vcxproj
+		SccProjectTopLevelParentUniqueName61 = Angazi.sln
+		SccProjectName61 = Projects/Flocking
+		SccLocalPath61 = Projects\\Flocking
 	EndGlobalSection
 EndGlobal

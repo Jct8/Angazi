@@ -66,7 +66,7 @@ Genome Population::MakeFirstGenome()
 			gene.fromNode = i;
 			gene.toNode = neuralNetConfig.input_size + neuralNetConfig.bias_size + o;
 			gene.innovationNum = mInnovation.AddGene(gene);
-			gene.weight = X::RandomDouble(-2.0, 2.0);
+			gene.weight = Math::RandomDouble(-2.0, 2.0);
 			genome.genes[gene.innovationNum] = gene;
 		}
 	}
@@ -79,7 +79,7 @@ Genome Population::MakeFirstGenome()
 			gene.fromNode = neuralNetConfig.input_size + b;
 			gene.toNode = neuralNetConfig.input_size + neuralNetConfig.bias_size + o;
 			gene.innovationNum = mInnovation.AddGene(gene);
-			gene.weight = X::RandomDouble(-2.0, 2.0);
+			gene.weight = Math::RandomDouble(-2.0, 2.0);
 			genome.genes[gene.innovationNum] = gene;
 		}
 	}

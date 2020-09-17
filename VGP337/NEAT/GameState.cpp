@@ -113,7 +113,7 @@ namespace
 				{
 					if (birds[activeBirdCount].fitness > bestFitness)
 						bestFitness = birds[activeBirdCount].fitness;
-					g.fitness = birds[activeBirdCount++].fitness;
+					g.fitness = static_cast<size_t>(birds[activeBirdCount++].fitness);
 				}
 
 			population->NewGeneration();

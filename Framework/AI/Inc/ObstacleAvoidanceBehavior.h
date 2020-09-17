@@ -12,9 +12,10 @@ namespace Angazi::AI
 		void DebugDraw(Agent& agent) override;
 
 		Math::Vector2 Calculate(Agent& agent) override;
-		Math::Vector2 boxExtend = {30.0f,100.0f};
-		float brakingWeight = 0.8f;
-		float lateralForceScale = 5.0f;
+
+		float boxExtend = 100.0f;
+		float brakingWeight = 2.8f;
+		float lateralForceScale = 2.0f;
 	private:
 		float boxLength;
 	};

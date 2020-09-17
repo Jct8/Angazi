@@ -134,6 +134,28 @@ namespace
 
 			ASSERT(m2DVertexCount < mMaxVertexCount, "[SimpleDraw] Too many vertices!");
 		}
+		void AddScreenTriangle(const Math::Vector2 & center, const Math::Vector2 & direction, float size, const Color& color)
+		{
+			// Check if we have enough space
+			if (m2DVertexCount + 6 <= mMaxVertexCount)
+			{
+				auto dir = Math::Normalize(direction);
+				auto perpendicular = Math::PerpendicularRH(dir);
+				Math::Vector3 top((center.x + dir.x * size) , (center.y + dir.y * size), 0.0f);
+				Math::Vector3 left( center.x + perpendicular.x * size * 0.35f, center.y + perpendicular.y * size * 0.35f, 0.0f);
+				Math::Vector3 right(center.x - perpendicular.x * size * 0.35f, center.y - perpendicular.y * size * 0.35f, 0.0f);
+
+				m2DLineVertices[m2DVertexCount++] = { top , color };
+				m2DLineVertices[m2DVertexCount++] = { left , color };
+
+				m2DLineVertices[m2DVertexCount++] = { top , color };
+				m2DLineVertices[m2DVertexCount++] = { right , color };
+
+				m2DLineVertices[m2DVertexCount++] = { left, color };
+				m2DLineVertices[m2DVertexCount++] = { right, color };
+			}
+			ASSERT(m2DVertexCount < mMaxVertexCount, "[SimpleDraw] Too many vertices!");
+		}
 
 		void AddAABB(const Math::Vector3 & center, const Math::Vector3 & extend, const Color & color, bool fill)
 		{
@@ -635,6 +657,10 @@ void SimpleDraw::AddScreenDiamond(float x, float y, float size, const Color& col
 	AddScreenDiamond(Math::Vector2(x, y), size, color);
 }
 
+void SimpleDraw::AddScreenTriangle(const Math::Vector2 & center, const Math::Vector2 & direction, float size, const Color& color)
+{
+	sInstance->AddScreenTriangle(center, direction, size, color);
+}
 
 void SimpleDraw::AddCone(float height, float radius, const Color& color, bool fill)
 {

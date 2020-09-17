@@ -36,6 +36,7 @@ namespace Angazi::Graphics::SimpleDraw
 	void AddScreenArc(const Math::Vector2& center, float r, float fromAngle, float toAngle, const Math::Vector4& color);
 	void AddScreenDiamond(const Math::Vector2& center, float size, const Math::Vector4& color);
 	void AddScreenDiamond(float x, float y, float size, const Math::Vector4& color);
+	void AddScreenTriangle(const Math::Vector2& center, const Math::Vector2& direction, float size, const Color& color);
 
 	void Render(const Camera& camera, const Math::Matrix4& matWorld = Math::Matrix4::Identity);
 
