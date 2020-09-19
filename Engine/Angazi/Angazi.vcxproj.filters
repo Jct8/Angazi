@@ -37,6 +37,12 @@
     <Filter Include="Src\Meta">
       <UniqueIdentifier>{8dcce518-8147-4709-b743-4eb6a9c05552}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\Services">
+      <UniqueIdentifier>{be0659e2-4ce8-47c4-923d-05b568ce089f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Services">
+      <UniqueIdentifier>{56aa036a-1883-44fc-b431-bf909cc04d62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Angazi.h">
@@ -81,6 +87,9 @@
     <ClInclude Include="Src\MetaRegistration.h">
       <Filter>Src\Meta</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\CameraService.h">
+      <Filter>Inc\Services</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Angazi.cpp">
@@ -118,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="Src\MetaRegistration.cpp">
       <Filter>Src\Meta</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CameraService.cpp">
+      <Filter>Src\Services</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

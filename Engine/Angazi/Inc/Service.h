@@ -7,6 +7,8 @@ namespace Angazi
 	class Service
 	{
 	public:
+		META_CLASS_DECLARE
+	public:
 		Service() = default;
 		virtual ~Service() = default;
 

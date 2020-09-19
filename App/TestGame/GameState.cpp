@@ -12,12 +12,15 @@ void GameState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
-	mCamera.SetNearPlane(0.1f);
-	mCamera.SetFarPlane(300.0f);
-	mCamera.SetPosition({ 0.0f, 23.0f, -33.0f });
-	mCamera.SetDirection({ 0.0f,-0.36f, 0.92f });
-
+	mCameraService = mWorld.AddService<CameraService>();
 	mWorld.Initialize(100);
+
+	auto& camera = mCameraService->GetActiveCamera();
+	camera.SetNearPlane(0.1f);
+	camera.SetFarPlane(300.0f);
+	camera.SetPosition({ 0.0f, 10.0f, -30.0f });
+	camera.SetDirection({ 0.0f,0.0f, 1.0f });
+
 	mWorld.Create("../../Assets/Templates/test.json", "test");
 	mWorld.Create("../../Assets/Templates/tallBox.json", "tall");
 	mWorld.Create("../../Assets/Templates/longBox.json", "long");
@@ -36,18 +39,19 @@ void GameState::Update(float deltaTime)
 	const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 100.0f : 10.0f;
 	const float kTurnSpeed = 10.0f * Constants::DegToRad;
 
+	auto& camera = mCameraService->GetActiveCamera();
 	if (inputSystem->IsKeyDown(KeyCode::W))
-		mCamera.Walk(kMoveSpeed*deltaTime);
+		camera.Walk(kMoveSpeed*deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::S))
-		mCamera.Walk(-kMoveSpeed * deltaTime);
+		camera.Walk(-kMoveSpeed * deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::A))
-		mCamera.Strafe(-kMoveSpeed * deltaTime);
+		camera.Strafe(-kMoveSpeed * deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::D))
-		mCamera.Strafe(kMoveSpeed*deltaTime);
+		camera.Strafe(kMoveSpeed*deltaTime);
 	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
 	{
-		mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
-		mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+		camera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
+		camera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
 	}
 
 	mWorld.Update(deltaTime);
@@ -68,5 +72,7 @@ void GameState::DrawScene()
 	mWorld.Render();
 
 	SimpleDraw::AddGroundPlane(30);
-	SimpleDraw::Render(mCamera);
+	auto& camera = mCameraService->GetActiveCamera();
+
+	SimpleDraw::Render(camera);
 }

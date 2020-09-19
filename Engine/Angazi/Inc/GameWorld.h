@@ -15,7 +15,7 @@ namespace Angazi
 		template<class ServiceType>
 		ServiceType* AddService()
 		{
-			static_assert(std::is_base_of_v<Service>, "GameWorld -- 'ServiceType' must be derived from type 'Service'.");
+			static_assert(std::is_base_of_v<Service,ServiceType>, "GameWorld -- 'ServiceType' must be derived from type 'Service'.");
 			ASSERT(!mInitialized, "GameWorld -- cannot add service after world has already been initialized.");
 
 			auto& newService = mServices.emplace_back(std::make_unique<ServiceType>());

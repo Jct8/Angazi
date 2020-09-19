@@ -408,7 +408,7 @@ void Population::RemoveStaleSpecies()
 
 	// Prune any species that have not improved for some time
 	species.remove_if([this](auto& s) {
-		return s.staleness > speciatingConfig.stale_species;
+		return species.size() > 1 && s.staleness > speciatingConfig.stale_species;
 	});
 }
 

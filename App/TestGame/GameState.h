@@ -17,7 +17,6 @@ private:
 	void PostProcess();
 
 private:
-	Angazi::Graphics::Camera mCamera;
 	Angazi::GameWorld mWorld;
-	
+	Angazi::CameraService* mCameraService;
 };
