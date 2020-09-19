@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="Asteroid.cpp">
+      <Filter>Asteroids</Filter>
+    </ClCompile>
+    <ClCompile Include="AsteroidManager.cpp">
+      <Filter>Asteroids</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>Ship</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="Asteroid.h">
+      <Filter>Asteroids</Filter>
+    </ClInclude>
+    <ClInclude Include="AsteroidManager.h">
+      <Filter>Asteroids</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>Ship</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Asteroids">
+      <UniqueIdentifier>{e8655cf8-9888-41a4-8f10-c22a2c991a38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ship">
+      <UniqueIdentifier>{840c7693-2b62-4c9a-926d-a20f21315c3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bullet">
+      <UniqueIdentifier>{df1f3214-848a-4a25-b79c-2e053181eae3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
