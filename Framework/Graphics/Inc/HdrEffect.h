@@ -23,6 +23,8 @@ namespace Angazi::Graphics
 		void SetExposure(float exposure) { mSettings.exposure = exposure; }
 
 		void RenderHdrQuad();
+
+		void* GetRenderTargetData() { return mRenderTarget.GetShaderResourceView(); }
 	private:
 		struct Settings
 		{

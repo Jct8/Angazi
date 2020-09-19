@@ -68,6 +68,7 @@ namespace Angazi
 		GameObjectHandle GetHandle() const { return mHandle; }
 	private:
 		friend class GameWorld;
+		friend class Editor;
 
 		using Components = std::vector<std::unique_ptr<Component>>;
 

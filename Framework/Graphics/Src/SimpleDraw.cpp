@@ -161,9 +161,9 @@ namespace
 		{
 			if (mVertexCount + 24 >= mMaxVertexCount)
 				return;
-			float halfWidth = extend.y;
 			float halfLength = extend.x;
 			float halfHeight = extend.y;
+			float halfWidth = extend.z;
 
 			if (fill)
 			{

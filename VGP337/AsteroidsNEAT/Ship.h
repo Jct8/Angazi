@@ -35,7 +35,7 @@ private:
 	float mRadius = 25.0f;
 	float mSpeed = 150.0f;
 	float mShootDelay = 0.0f;
-	const float maxDistance = 500.0f;
+	const float maxDistance = 750.0f;
 
 	bool mAlive = false;
 	bool isMoving = false;

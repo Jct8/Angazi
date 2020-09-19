@@ -45,15 +45,15 @@ namespace
 			population = std::make_unique<AI::NEAT::Population>(4, 1);
 
 			AI::NEAT::MutationConfig& mutationConfig = population->mutationConfig;
-			mutationConfig.connection_mutate_chance = 0.55;
+			mutationConfig.connection_mutate_chance = 0.5 *0.5;
 			mutationConfig.perturb_chance = 0.55;
-			mutationConfig.crossover_chance = 0.5;
-			mutationConfig.link_mutation_chance = 0.65;
-			mutationConfig.node_mutation_chance = 0.45;
-			mutationConfig.bias_mutation_chance = 0.2;
-			mutationConfig.step_size = 0.2;
+			mutationConfig.crossover_chance = 0.5*0.5;
+			mutationConfig.link_mutation_chance = 0.65*0.5;
+			mutationConfig.node_mutation_chance = 0.45*0.5;
+			mutationConfig.bias_mutation_chance = 0.2*0.5;
+			mutationConfig.step_size = 0.1 *0.5;
 			mutationConfig.disable_mutation_chance = 0.3;
-			mutationConfig.enable_mutation_chance = 0.3;
+			mutationConfig.enable_mutation_chance = 0.3*0.5;
 
 			for (auto& s : population->species)
 			{

@@ -17,6 +17,7 @@
 
 // Service headers
 #include "CameraService.h"
+#include "Service.h"
 
 // Terrain headers
 #include "Terrain.h"
@@ -26,7 +27,9 @@
 #include "GameObject.h"
 #include "GameObjectFactory.h"
 #include "GameWorld.h"
-#include "Service.h"
+
+// Editor
+#include "Editor.h"
 
 namespace Angazi 
 {

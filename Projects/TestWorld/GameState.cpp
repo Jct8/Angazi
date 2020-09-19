@@ -133,6 +133,8 @@ void GameState::Render()
 
 void GameState::DebugUI()
 {
+	ImGui::ShowDemoWindow();
+
 	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Text("FPS: %.2f", Angazi::Core::TimeUtil::GetFramesPerSecond());
 	/*ImGui::Image(

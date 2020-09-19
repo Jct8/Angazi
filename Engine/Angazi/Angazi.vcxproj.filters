@@ -43,6 +43,12 @@
     <Filter Include="Src\Services">
       <UniqueIdentifier>{56aa036a-1883-44fc-b431-bf909cc04d62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\Editor">
+      <UniqueIdentifier>{4d40afd3-8c8d-4d01-b614-4fd6eeaf275d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Editor">
+      <UniqueIdentifier>{7c096bf8-238e-4673-a9f6-919ebb57043c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Angazi.h">
@@ -90,6 +96,12 @@
     <ClInclude Include="Inc\CameraService.h">
       <Filter>Inc\Services</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Editor.h">
+      <Filter>Inc\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\EditorLogView.h">
+      <Filter>Inc\Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Angazi.cpp">
@@ -130,6 +142,12 @@
     </ClCompile>
     <ClCompile Include="Src\CameraService.cpp">
       <Filter>Src\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Editor.cpp">
+      <Filter>Src\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\EditorLogView.cpp">
+      <Filter>Src\Editor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -50,6 +50,7 @@ namespace Angazi
 		void DebugUI();
 
 	private:
+		friend Editor;
 		void DestroyInternal(GameObject* gameObject); 
 		void ProcessDestroyList();
 

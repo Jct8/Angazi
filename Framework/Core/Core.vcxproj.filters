@@ -22,9 +22,6 @@
     <Filter Include="Inc\Util">
       <UniqueIdentifier>{913a9825-9e30-4048-bf33-4c0fa9e3256a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Pch">
-      <UniqueIdentifier>{501ea70e-8cbe-40d2-8e0d-58464ad5d20f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Util">
       <UniqueIdentifier>{396ad7bc-bc74-4740-885a-8e3f9b6da5af}</UniqueIdentifier>
     </Filter>
@@ -36,6 +33,9 @@
     </Filter>
     <Filter Include="Src\Meta">
       <UniqueIdentifier>{4b20500a-2c6e-4b02-909d-779941968e9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Pch">
+      <UniqueIdentifier>{501ea70e-8cbe-40d2-8e0d-58464ad5d20f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -41,7 +41,7 @@ void main()
 	if (useHDR)
 		color = vec4(1.0f) - exp(-color * exposure);
 	if (useGammaCorrection)	
-		color = pow(color, vec4(gammaInv));
+		color = pow(abs(color), vec4(gammaInv));
 	
 	FragColor = color;
 }
