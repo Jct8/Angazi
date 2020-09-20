@@ -87,7 +87,7 @@ void Enemy::Update(float deltaTime)
 void Enemy::Render() const
 {
 	float angle = atan2(heading.y, heading.x);
-	BatchRender::Get()->AddSprite(mTextureId, position, angle);
+	BatchRenderer::Get()->AddSprite(mTextureId, position, angle);
 }
 
 void Enemy::Unload()

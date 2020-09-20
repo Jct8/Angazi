@@ -57,5 +57,5 @@ void Bullet::Update(float deltaTime)
 void Bullet::Render()
 {
 	if (isActive)
-		BatchRender::Get()->AddSprite(mTextureId, mPosition);
+		BatchRenderer::Get()->AddSprite(mTextureId, mPosition);
 }

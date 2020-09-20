@@ -58,12 +58,12 @@ void Bird::Update(float deltaTime, const PipeManager& pm)
 void Bird::Render()
 {
 	//SimpleDraw::AddScreenCircle({ mPosition, mRadius }, Colors::Yellow);
-	BatchRender::Get()->AddSprite(mTextureIds[(int)mAnimationFrame], mPosition);
+	BatchRenderer::Get()->AddSprite(mTextureIds[(int)mAnimationFrame], mPosition);
 	if (brain)
 	{
 		std::string txt;
 		txt += "fitness: " + std::to_string(fitness);
-		BatchRender::Get()->AddScreenText(txt.c_str(), mPosition.x + 40.0f, mPosition.y - 30.0f, 12.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText(txt.c_str(), mPosition.x + 40.0f, mPosition.y - 30.0f, 12.0f, Colors::White);
 	}
 }
 

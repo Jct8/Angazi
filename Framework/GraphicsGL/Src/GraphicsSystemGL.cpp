@@ -60,6 +60,7 @@ GraphicsSystem::~GraphicsSystem()
 
 void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 {
+	LOG("GraphicsSystemGL -- Initializing...");
 	myWindow = window;
 	int pixelFormat;
 	PIXELFORMATDESCRIPTOR pfd;
@@ -129,6 +130,7 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 	glDisable(GL_CULL_FACE);
 	glEnable(GL_CLIP_DISTANCE0);
 
+	LOG("GraphicsSystemGL -- System initialized.");
 	LOG("OpenGL version supported by this platform: (%s)", glGetString(GL_VERSION));
 	LOG("Vendor: (%s)", glGetString(GL_VENDOR));
 	LOG("Renderor: (%s)", glGetString(GL_RENDERER));

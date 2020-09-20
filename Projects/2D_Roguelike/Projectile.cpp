@@ -79,13 +79,13 @@ void Projectile::Render()
 			 spriteWidth*column + spriteWidth, spriteHeight *row + spriteHeight
 		};
 		auto screenPos = Camera2D::Get().ConvertToScreenPosition(mPosition);
-		BatchRender::Get()->AddSprite(mBloodTexture, rect, screenPos, 0.0f , Pivot::Center, Flip::None);
+		BatchRenderer::Get()->AddSprite(mBloodTexture, rect, screenPos, 0.0f , Pivot::Center, Flip::None);
 		if (mFrame == mFrameCount - 1)
 			isActive = false;
 		return;
 	}
 	auto screenPos = Camera2D::Get().ConvertToScreenPosition(mPosition);
-	BatchRender::Get()->AddSprite(mTexture, screenPos);
+	BatchRenderer::Get()->AddSprite(mTexture, screenPos);
 }
 
 void Projectile::Fire(bool isPlayer, float speed,int damage, Math::Vector2 targetPos, Math::Vector2 startingPos)

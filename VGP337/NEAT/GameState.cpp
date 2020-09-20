@@ -28,9 +28,9 @@ namespace
 	void Title(float deltaTime)
 	{
 		bg.Render();
-		BatchRender::Get()->AddScreenText("Hit [Space] to Flap", 10.0f, 10.0f, 20.0f, Colors::White);
-		BatchRender::Get()->AddScreenText("Hit [N] to NEAT", 10.0f, 30.0f, 20.0f, Colors::White);
-		BatchRender::Get()->AddScreenText("Hit [X] to XOR Test", 10.0f, 50.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText("Hit [Space] to Flap", 10.0f, 10.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText("Hit [N] to NEAT", 10.0f, 30.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText("Hit [X] to XOR Test", 10.0f, 50.0f, 20.0f, Colors::White);
 
 		if (InputSystem::Get()->IsKeyPressed(KeyCode::SPACE))
 		{
@@ -154,13 +154,13 @@ namespace
 
 		std::string txt;
 		txt += "Generation: " + std::to_string(population->Generation());
-		BatchRender::Get()->AddScreenText(txt.c_str(), 10.0f, 10.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText(txt.c_str(), 10.0f, 10.0f, 20.0f, Colors::White);
 
 		txt = "Best Fitness:" + std::to_string(bestFitness);
-		BatchRender::Get()->AddScreenText(txt.c_str(), 10.0f, 30.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText(txt.c_str(), 10.0f, 30.0f, 20.0f, Colors::White);
 
 		txt = "Total Birds:" + std::to_string(activeBirdCount);
-		BatchRender::Get()->AddScreenText(txt.c_str(), 10.0f, 50.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText(txt.c_str(), 10.0f, 50.0f, 20.0f, Colors::White);
 	}
 
 	bool RunXOR(float deltaTime)

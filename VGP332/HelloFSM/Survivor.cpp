@@ -98,14 +98,14 @@ void Survivor::Render()
 	if (isAlive)
 	{
 		float angle = UpdateAngle();
-		BatchRender::Get()->AddSprite(mCurrentWeapon->GetSurvivorTextureId(), mPosition, angle);
+		BatchRenderer::Get()->AddSprite(mCurrentWeapon->GetSurvivorTextureId(), mPosition, angle);
 	}
 
 	Math::Vector2 targetPosition = GetTargetPosition();
-	BatchRender::Get()->AddSprite(mCurrentWeapon->GetCrosshairTextureId(), targetPosition);
+	BatchRenderer::Get()->AddSprite(mCurrentWeapon->GetCrosshairTextureId(), targetPosition);
 
 	std::string str2 = "Health :" + std::to_string(mHealth);
-	BatchRender::Get()->AddScreenText(str2.c_str(), 50.0f, 80.0f, 30.0f, Colors::Blue);
+	BatchRenderer::Get()->AddScreenText(str2.c_str(), 50.0f, 80.0f, 30.0f, Colors::Blue);
 
 	mCurrentWeapon->Render();
 }

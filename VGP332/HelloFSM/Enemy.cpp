@@ -57,7 +57,7 @@ void Enemy::Update(float deltaTime)
 void Enemy::Render()
 {
 	float angle = atan2(mHeading.y, mHeading.x);
-	Graphics::BatchRender::Get()->AddSprite(mTextureId, mPosition, angle);
+	Graphics::BatchRenderer::Get()->AddSprite(mTextureId, mPosition, angle);
 }
 
 void Enemy::ChangeState(std::string stateName)

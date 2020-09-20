@@ -56,11 +56,11 @@ void UIManager::Render()
 		1.0f * TextureManager::Get()->GetTexture(barRed)->GetHeight()
 	};
 
-	BatchRender::Get()->AddSprite(barEmpty, { 25.0f,680.0f }, 0.0f, Pivot::TopLeft);
-	BatchRender::Get()->AddSprite(barRed, rect, { 25.0f,680.0f }, 0.0f, Pivot::TopLeft, Flip::None);
+	BatchRenderer::Get()->AddSprite(barEmpty, { 25.0f,680.0f }, 0.0f, Pivot::TopLeft);
+	BatchRenderer::Get()->AddSprite(barRed, rect, { 25.0f,680.0f }, 0.0f, Pivot::TopLeft, Flip::None);
 
 	SimpleDraw::AddScreenRect(30.0f, 610.0f, 90.0f, 670.0f, Colors::AliceBlue);
 	SimpleDraw::AddScreenRect(95.0f, 610.0f, 155.0f, 670.0f, Colors::AliceBlue);
-	BatchRender::Get()->AddSprite(player.GetPrimaryWeaponSprite(), { 35.0f,620.0f }, 0.0f, Pivot::TopLeft);
-	BatchRender::Get()->AddSprite(player.GetSecondaryWeaponSprite(), { 100.0f,620.0f }, 0.0f, Pivot::TopLeft);
+	BatchRenderer::Get()->AddSprite(player.GetPrimaryWeaponSprite(), { 35.0f,620.0f }, 0.0f, Pivot::TopLeft);
+	BatchRenderer::Get()->AddSprite(player.GetSecondaryWeaponSprite(), { 100.0f,620.0f }, 0.0f, Pivot::TopLeft);
 }

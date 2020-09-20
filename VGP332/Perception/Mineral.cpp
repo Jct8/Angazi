@@ -21,8 +21,8 @@ void Mineral::Render()
 {
 	if (!collected)
 	{
-		BatchRender::Get()->AddSprite(mTextureId, position);
+		BatchRenderer::Get()->AddSprite(mTextureId, position);
 		if (seen)
-			BatchRender::Get()->AddSprite(mEyeTextureId, position + Math::Vector2{ 20.0f, -20.0f });
+			BatchRenderer::Get()->AddSprite(mEyeTextureId, position + Math::Vector2{ 20.0f, -20.0f });
 	}
 }

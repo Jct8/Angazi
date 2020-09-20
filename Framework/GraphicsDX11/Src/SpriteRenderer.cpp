@@ -86,9 +86,11 @@ SpriteRenderer::~SpriteRenderer()
 void SpriteRenderer::Initialize()
 {
 	ASSERT(mSpriteBatch == nullptr, "[SpriteRenderer] Already initialized.");
+	LOG("SpriteRenderer -- Initializing...");
 	mCommonStates = std::make_unique<DirectX::CommonStates>(GetDevice());
 	mSpriteBatch = std::make_unique<DirectX::SpriteBatch>(GetContext());
 	mTransform = Math::Matrix4::Identity;
+	LOG("SpriteRenderer -- System initialized.");
 }
 
 void SpriteRenderer::Terminate()

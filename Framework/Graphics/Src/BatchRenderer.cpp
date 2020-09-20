@@ -47,30 +47,30 @@ namespace
 		Flip flip = Flip::None;
 	};
 
-	static std::unique_ptr<BatchRender> sBatchRenderer;
+	static std::unique_ptr<BatchRenderer> sBatchRenderer;
 
 	std::vector<TextCommand> textCommands;
 	std::vector<SpriteCommand> spriteCommands;
 	Font font;
 }
 
-BatchRender* Angazi::Graphics::BatchRender::Get()
+BatchRenderer* Angazi::Graphics::BatchRenderer::Get()
 {
 	ASSERT(sBatchRenderer != nullptr, "[BatchRenderer] Bacth Renderer not initialized.");
 	return sBatchRenderer.get();
 }
 
-void BatchRender::Initialize()
+void BatchRenderer::Initialize()
 {
 	font.Initialize();
 }
 
-void BatchRender::Terminate()
+void BatchRenderer::Terminate()
 {
 	font.Terminate();
 }
 
-void BatchRender::Render()
+void BatchRenderer::Render()
 {
 	TextureId id = 0;
 	Texture* texture = nullptr;
@@ -104,7 +104,7 @@ void BatchRender::Render()
 	textCommands.clear();
 }
 
-void BatchRender::AddScreenText(const char * str, float x, float y, float size, const Color & color)
+void BatchRenderer::AddScreenText(const char * str, float x, float y, float size, const Color & color)
 {
 	int len = (int)strlen(str);
 	int sizeNeeded = MultiByteToWideChar(CP_UTF8, 0, str, len, NULL, 0);
@@ -113,35 +113,35 @@ void BatchRender::AddScreenText(const char * str, float x, float y, float size, 
 	textCommands.emplace_back(std::move(wstr), size, x, y, color);
 }
 
-void BatchRender::AddSprite(TextureId textureId, const Math::Vector2 & position, Pivot pivot, Flip flip)
+void BatchRenderer::AddSprite(TextureId textureId, const Math::Vector2 & position, Pivot pivot, Flip flip)
 {
 	spriteCommands.emplace_back(textureId, position, 0.0f, pivot, flip);
 }
 
-void BatchRender::AddSprite(TextureId textureId, const Math::Vector2 & position, float rotation, Pivot pivot, Flip flip)
+void BatchRenderer::AddSprite(TextureId textureId, const Math::Vector2 & position, float rotation, Pivot pivot, Flip flip)
 {
 	spriteCommands.emplace_back(textureId, position, rotation, pivot, flip);
 }
 
-void BatchRender::AddSprite(TextureId textureId, const Math::Rect & sourceRect, const Math::Vector2 & position, Pivot pivot, Flip flip)
+void BatchRenderer::AddSprite(TextureId textureId, const Math::Rect & sourceRect, const Math::Vector2 & position, Pivot pivot, Flip flip)
 {
 	spriteCommands.emplace_back(textureId,sourceRect, position, 0.0f, pivot, flip);
 }
 
-void BatchRender::AddSprite(TextureId textureId, const Math::Rect & sourceRect, const Math::Vector2 & position, float rotation, Pivot pivot, Flip flip)
+void BatchRenderer::AddSprite(TextureId textureId, const Math::Rect & sourceRect, const Math::Vector2 & position, float rotation, Pivot pivot, Flip flip)
 {
 	spriteCommands.emplace_back(textureId, sourceRect, position, rotation, pivot, flip);
 }
 
-void BatchRender::StaticInitialize()
+void BatchRenderer::StaticInitialize()
 {
 	ASSERT(sBatchRenderer == nullptr, "[BatchRenderer] Batch Renderer already initialized.");
-	sBatchRenderer = std::make_unique<BatchRender>();
+	sBatchRenderer = std::make_unique<BatchRenderer>();
 
 	sBatchRenderer->Initialize();
 }
 
-void BatchRender::StaticTerminate()
+void BatchRenderer::StaticTerminate()
 {
 	if (sBatchRenderer != nullptr)
 	{

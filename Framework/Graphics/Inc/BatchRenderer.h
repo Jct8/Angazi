@@ -2,12 +2,12 @@
 
 namespace Angazi::Graphics
 {
-	class BatchRender
+	class BatchRenderer
 	{
 	public:
 		static void StaticInitialize();
 		static void StaticTerminate();
-		static BatchRender* Get();
+		static BatchRenderer* Get();
 	public:
 
 		void Initialize();

@@ -38,7 +38,7 @@ void Handgun::Render()
 
 	for(int i = 0;  i< mAmmoCount; i++)
 	{
-		BatchRender::Get()->AddSprite(mTextureId,pos);
+		BatchRenderer::Get()->AddSprite(mTextureId,pos);
 		pos.x+= 15.0f;
 	}
 

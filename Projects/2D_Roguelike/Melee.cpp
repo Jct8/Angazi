@@ -60,9 +60,9 @@ void MeleeWeapon::Render(int mFrame, Math::Vector2 screenPos, bool isFacingLeft)
 		mFrame = static_cast<int>(mAnimationsMap[mCurrentAttack].size()) - 1;
 
 	if (isFacingLeft)
-		BatchRender::Get()->AddSprite(mAnimationsMap[mCurrentAttack][mFrame], screenPos);
+		BatchRenderer::Get()->AddSprite(mAnimationsMap[mCurrentAttack][mFrame], screenPos);
 	else
-		BatchRender::Get()->AddSprite(mAnimationsMap[mCurrentAttack][mFrame], screenPos, 0.0f, Pivot::Center, Flip::Horizontal);
+		BatchRenderer::Get()->AddSprite(mAnimationsMap[mCurrentAttack][mFrame], screenPos, 0.0f, Pivot::Center, Flip::Horizontal);
 
 	if (mFrame == mAnimationsMap[mCurrentAttack].size() - 1)
 		mCurrentAttack = (mCurrentAttack + 1) % mAnimationsMap.size();

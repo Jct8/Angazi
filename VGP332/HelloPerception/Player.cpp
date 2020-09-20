@@ -105,7 +105,7 @@ void Player::Update(float deltaTime)
 void Player::Render() const
 {
 	float angle = atan2(heading.y, heading.x);
-	BatchRender::Get()->AddSprite(mTextureId, position, angle);
+	BatchRenderer::Get()->AddSprite(mTextureId, position, angle);
 }
 
 void Player::Unload()

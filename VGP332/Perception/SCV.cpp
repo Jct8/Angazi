@@ -96,7 +96,7 @@ void SCV::Update(float deltaTime)
 
 			std::string score;
 			score += std::to_string(m.importance);
-			BatchRender::Get()->AddScreenText(score.c_str(), pos.x, pos.y, 12.0f, Colors::White);
+			BatchRenderer::Get()->AddScreenText(score.c_str(), pos.x, pos.y, 12.0f, Colors::White);
 		}
 	}
 	else
@@ -136,5 +136,5 @@ void SCV::Render()
 {
 	float angle = atan2(-heading.x, heading.y) + Math::Constants::Pi;
 	int frame = (int)(angle / Math::Constants::TwoPi * std::size(mTextureIds)) % std::size(mTextureIds);
-	BatchRender::Get()->AddSprite(mTextureIds[frame], position);
+	BatchRenderer::Get()->AddSprite(mTextureIds[frame], position);
 }

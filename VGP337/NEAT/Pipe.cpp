@@ -20,8 +20,8 @@ void Pipe::Render()
 	auto topRect = GetTopRect();
 	auto bottomRect = GetBottomRect();
 
-	BatchRender::Get()->AddSprite(mTextureId, { topRect.left, topRect.bottom }, Pivot::BottomLeft, Flip::Vertical);
-	BatchRender::Get()->AddSprite(mTextureId, { bottomRect.left, bottomRect.top }, Pivot::TopLeft);
+	BatchRenderer::Get()->AddSprite(mTextureId, { topRect.left, topRect.bottom }, Pivot::BottomLeft, Flip::Vertical);
+	BatchRenderer::Get()->AddSprite(mTextureId, { bottomRect.left, bottomRect.top }, Pivot::TopLeft);
 
 	//SimpleDraw::AddScreenRect(GetTopRect(), Colors::Green);
 	//SimpleDraw::AddScreenRect(GetBottomRect(), Colors::Green);

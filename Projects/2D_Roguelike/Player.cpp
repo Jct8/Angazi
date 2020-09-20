@@ -144,9 +144,9 @@ void Player::Render()
 	else if (mCurrentAnimation == Attacking && mCurrentWeapon == 2)
 		mSecondaryWeapon->Render(mFrame, screenPos, isFacingLeft);
 	else if (isFacingLeft)
-		BatchRender::Get()->AddSprite(mAnimations[mCurrentAnimation][mFrame], screenPos);
+		BatchRenderer::Get()->AddSprite(mAnimations[mCurrentAnimation][mFrame], screenPos);
 	else
-		BatchRender::Get()->AddSprite(mAnimations[mCurrentAnimation][mFrame], screenPos, 0.0f, Pivot::Center, Flip::Horizontal);
+		BatchRenderer::Get()->AddSprite(mAnimations[mCurrentAnimation][mFrame], screenPos, 0.0f, Pivot::Center, Flip::Horizontal);
 
 	if (mFrame == mFrameCount - 1 && mJumpState == Grounded && isAlive)
 	{

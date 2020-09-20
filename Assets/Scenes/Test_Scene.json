@@ -1,0 +1,20 @@
+{
+  "GameObjects": [
+    {
+      "Template": "../../Assets/Templates/test.json",
+      "Name": "Test"
+    },
+    {
+      "Template": "../../Assets/Templates/fatBox.json",
+      "Name": "Fat Box"
+    },
+    {
+      "Template": "../../Assets/Templates/longBox.json",
+      "Name": "Long Box"
+    },
+    {
+      "Template": "../../Assets/Templates/tallBox.json",
+      "Name": "Tall Box"
+    }
+  ]
+}

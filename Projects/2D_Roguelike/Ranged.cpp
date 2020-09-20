@@ -47,9 +47,9 @@ void RangedWeapon::Unload()
 void RangedWeapon::Render(int mFrame, Math::Vector2 screenPos, bool isFacingLeft)
 {
 	if (isFacingLeft)
-		BatchRender::Get()->AddSprite(mAnimations[mFrame], screenPos);
+		BatchRenderer::Get()->AddSprite(mAnimations[mFrame], screenPos);
 	else
-		BatchRender::Get()->AddSprite(mAnimations[mFrame], screenPos, 0.0f , Pivot::Center, Flip::Horizontal);
+		BatchRenderer::Get()->AddSprite(mAnimations[mFrame], screenPos, 0.0f , Pivot::Center, Flip::Horizontal);
 }
 
 void RangedWeapon::Attack(int mFrame, Math::Vector2 screenPos, bool isFacingLeft, bool isPlayer)

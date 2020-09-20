@@ -62,6 +62,8 @@ GraphicsSystem::~GraphicsSystem()
 
 void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 {
+	LOG("GraphicsSystemDX11 -- Initializing...");
+
 	RECT clientRect = {};
 	GetClientRect(window, &clientRect);
 	UINT width = (UINT)(clientRect.right - clientRect.left);
@@ -101,7 +103,7 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 		&mImmediateContext
 	);
 
-	ASSERT(SUCCEEDED(hr), "[GraphicsSystem] Failed to create device or swap chain.");
+	ASSERT(SUCCEEDED(hr), "GraphicsSystemDX11 -- Failed to create device or swap chain.");
 
 	// Cache swap chain description
 	mSwapChain->GetDesc(&mSwapChainDesc);
@@ -111,6 +113,8 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 
 	// Hook application to window's procedure
 	sWindowMessageHandler.Hook(window, GraphicsSystemMessageHandler);
+
+	LOG("GraphicsSystemDX11 -- System initialized.");
 }
 
 void GraphicsSystem::Terminate()

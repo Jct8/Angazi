@@ -113,12 +113,12 @@ void Player::Render()
 {
 	// Player Text
 	std::string playerText = "Player " + std::to_string(mPlayerNumber + 1);
-	BatchRender::Get()->AddScreenText(playerText.c_str(), playerTextPositions[mPlayerNumber].x, playerTextPositions[mPlayerNumber].y, 30.0f, Colors::AliceBlue);
+	BatchRenderer::Get()->AddScreenText(playerText.c_str(), playerTextPositions[mPlayerNumber].x, playerTextPositions[mPlayerNumber].y, 30.0f, Colors::AliceBlue);
 
 	if (isSelected)
 	{
 		playerText = "You are Player " + std::to_string(mPlayerNumber + 1);
-		BatchRender::Get()->AddScreenText(playerText.c_str(), GraphicsSystem::Get()->GetBackBufferWidth() * 0.5f - 150.0f, 25.0f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText(playerText.c_str(), GraphicsSystem::Get()->GetBackBufferWidth() * 0.5f - 150.0f, 25.0f, 30.0f, Colors::AliceBlue);
 	}
 
 	// Health bar Render
@@ -131,16 +131,16 @@ void Player::Render()
 		playerHealthPercent * TextureManager::Get()->GetTexture(healthBarFull)->GetWidth(),
 		1.0f * TextureManager::Get()->GetTexture(healthBarFull)->GetHeight()
 	};
-	BatchRender::Get()->AddSprite(healthBarEmpty, position, Pivot::TopLeft);
+	BatchRenderer::Get()->AddSprite(healthBarEmpty, position, Pivot::TopLeft);
 	if (playerHealthPercent > 0.0f)
-		BatchRender::Get()->AddSprite(healthBarFull, rect, position, Pivot::TopLeft, Flip::None);
+		BatchRenderer::Get()->AddSprite(healthBarFull, rect, position, Pivot::TopLeft, Flip::None);
 
 	if (mHealth <= 0)
 		return;
 
 	// Player Render
 	float angle = UpdateAngle();
-	BatchRender::Get()->AddSprite(mTextureId, mPosition, angle);
+	BatchRenderer::Get()->AddSprite(mTextureId, mPosition, angle);
 
 	// Bullets
 	for (auto& bullet : mBullets)

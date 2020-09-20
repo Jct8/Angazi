@@ -167,11 +167,11 @@ void InputSystem::Initialize(HWND window)
 	// Check if we have already initialized the system
 	if (mInitialized)
 	{
-		LOG("[InputSystem] System already initialized.");
+		LOG("InputSystem -- System already initialized.");
 		return;
 	}
 
-	LOG("[InputSystem] Initializing...");
+	LOG("InputSystem -- Initializing...");
 	
 	// Hook application to window's procedure
 	sWindowMessageHandler.Hook(window, InputSystemMessageHandler);
@@ -179,7 +179,7 @@ void InputSystem::Initialize(HWND window)
 	mGamePad = std::make_unique<DirectX::GamePad>();
 	mInitialized = true;
 
-	LOG("[InputSystem] System initialized.");
+	LOG("InputSystem -- System initialized.");
 }
 
 void InputSystem::Terminate()
@@ -187,7 +187,7 @@ void InputSystem::Terminate()
 	// Check if we have already terminated the system
 	if (!mInitialized)
 	{
-		LOG("[InputSystem] System already terminated.");
+		LOG("InputSystem -- System already terminated.");
 		return;
 	}
 
@@ -199,7 +199,7 @@ void InputSystem::Terminate()
 	// Restore original window's procedure
 	sWindowMessageHandler.Unhook();
 
-	LOG("[InputSystem] System terminated.");
+	LOG("InputSystem -- System terminated.");
 }
 
 void InputSystem::Update()

@@ -138,10 +138,10 @@ void GameState::RunGamePlay(float deltaTime)
 	auto inputSystem = InputSystem::Get();
 
 	Math::Vector2 bgPosition = { 0.0f, static_cast<float>(screenHeight) };
-	BatchRender::Get()->AddSprite(background, bgPosition, Pivot::BottomLeft);
+	BatchRenderer::Get()->AddSprite(background, bgPosition, Pivot::BottomLeft);
 
 	Vector2 targetPosition = { static_cast<float>(inputSystem->GetMouseScreenX()) , static_cast<float>(inputSystem->GetMouseScreenY()) };
-	BatchRender::Get()->AddSprite(mCrossHairTexture, targetPosition);
+	BatchRenderer::Get()->AddSprite(mCrossHairTexture, targetPosition);
 
 	for (auto& wall : walls)
 		SimpleDraw::AddScreenLine(wall.from, wall.to, Colors::Cyan);
@@ -198,10 +198,10 @@ void GameState::RunGamePlay(float deltaTime)
 			GameReset();
 		}
 		std::string playerText = "Player " + std::to_string(winningPlayer) + " Wins!";
-		BatchRender::Get()->AddScreenText(playerText.c_str(), screenWidth * 0.5f - 120.0f, screenHeight * 0.5f - 30.0f, 30.0f, Colors::AliceBlue);
-		BatchRender::Get()->AddScreenText("You will be disconnected from the", screenWidth * 0.5f - 250.0f, screenHeight* 0.5f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText(playerText.c_str(), screenWidth * 0.5f - 120.0f, screenHeight * 0.5f - 30.0f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText("You will be disconnected from the", screenWidth * 0.5f - 250.0f, screenHeight* 0.5f, 30.0f, Colors::AliceBlue);
 		playerText = " server in " + std::to_string((int)endDelay) + " seconds.";
-		BatchRender::Get()->AddScreenText(playerText.c_str(), screenWidth * 0.5f - 170.0f, screenHeight * 0.5f + 30.0f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText(playerText.c_str(), screenWidth * 0.5f - 170.0f, screenHeight * 0.5f + 30.0f, 30.0f, Colors::AliceBlue);
 	}
 }
 
@@ -212,32 +212,32 @@ void GameState::ConnectToServer(float deltaTime)
 	auto inputSystem = InputSystem::Get();
 
 	Vector2 bgPosition = { 0.0f, static_cast<float>(screenHeight) };
-	BatchRender::Get()->AddSprite(background, bgPosition, Pivot::BottomLeft);
+	BatchRenderer::Get()->AddSprite(background, bgPosition, Pivot::BottomLeft);
 
 	Vector2 targetPosition = { static_cast<float>(inputSystem->GetMouseScreenX()),static_cast<float>(inputSystem->GetMouseScreenY()) };
-	BatchRender::Get()->AddSprite(mCrossHairTexture, targetPosition);
+	BatchRenderer::Get()->AddSprite(mCrossHairTexture, targetPosition);
 
-	BatchRender::Get()->AddScreenText("Networked Shooter", screenWidth * 0.5f - 270.0f, screenHeight * 0.5f - 310.0f, 50.0f, Colors::AliceBlue);
-	BatchRender::Get()->AddScreenText("Last player alive wins", screenWidth * 0.5f - 140.0f, screenHeight * 0.5f - 250.0f, 20.0f, Colors::AliceBlue);
-	BatchRender::Get()->AddScreenText("2-4 players", screenWidth * 0.5f - 90.0f, screenHeight * 0.5f - 230.0f, 20.0f, Colors::AliceBlue);
-	BatchRender::Get()->AddScreenText("When all players are ready, the game will start", screenWidth * 0.5f - 280.0f, screenHeight * 0.5f - 210.0f, 20.0f, Colors::AliceBlue);
+	BatchRenderer::Get()->AddScreenText("Networked Shooter", screenWidth * 0.5f - 270.0f, screenHeight * 0.5f - 310.0f, 50.0f, Colors::AliceBlue);
+	BatchRenderer::Get()->AddScreenText("Last player alive wins", screenWidth * 0.5f - 140.0f, screenHeight * 0.5f - 250.0f, 20.0f, Colors::AliceBlue);
+	BatchRenderer::Get()->AddScreenText("2-4 players", screenWidth * 0.5f - 90.0f, screenHeight * 0.5f - 230.0f, 20.0f, Colors::AliceBlue);
+	BatchRenderer::Get()->AddScreenText("When all players are ready, the game will start", screenWidth * 0.5f - 280.0f, screenHeight * 0.5f - 210.0f, 20.0f, Colors::AliceBlue);
 
 	if (!connectedToServer)
 	{
-		BatchRender::Get()->AddScreenText("Press S to connect to the Server", screenWidth * 0.5f - 280.0f, screenHeight * 0.5f - 30.0f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText("Press S to connect to the Server", screenWidth * 0.5f - 280.0f, screenHeight * 0.5f - 30.0f, 30.0f, Colors::AliceBlue);
 	}
 	else if (connectedToServer && !isReady)
 	{
 		std::string playerText = "You are player " + std::to_string(myPlayerNumber + 1);
-		BatchRender::Get()->AddScreenText("Connected to the Server", screenWidth * 0.5f - 230.0f, screenHeight * 0.5f - 30.0f, 30.0f, Colors::AliceBlue);
-		BatchRender::Get()->AddScreenText(playerText.c_str(), screenWidth * 0.5f - 170.0f, screenHeight * 0.5f, 30.0f, Colors::AliceBlue);
-		BatchRender::Get()->AddScreenText("Press R when ready", screenWidth* 0.5f - 180.0f, screenHeight * 0.5f + 30.0f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText("Connected to the Server", screenWidth * 0.5f - 230.0f, screenHeight * 0.5f - 30.0f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText(playerText.c_str(), screenWidth * 0.5f - 170.0f, screenHeight * 0.5f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText("Press R when ready", screenWidth* 0.5f - 180.0f, screenHeight * 0.5f + 30.0f, 30.0f, Colors::AliceBlue);
 	}
 	else if (connectedToServer && isReady)
 	{
-		BatchRender::Get()->AddScreenText("You are Ready", screenWidth* 0.5f - 130.0f, screenHeight * 0.5f - 30.0f, 30.0f, Colors::AliceBlue);
-		BatchRender::Get()->AddScreenText("Waiting for all other players", screenWidth * 0.5f - 240.0f, screenHeight * 0.5f, 30.0f, Colors::AliceBlue);
-		BatchRender::Get()->AddScreenText("Game will start when all connected players are ready", screenWidth * 0.5f - 400.0f, screenHeight * 0.5f + 30.0f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText("You are Ready", screenWidth* 0.5f - 130.0f, screenHeight * 0.5f - 30.0f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText("Waiting for all other players", screenWidth * 0.5f - 240.0f, screenHeight * 0.5f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText("Game will start when all connected players are ready", screenWidth * 0.5f - 400.0f, screenHeight * 0.5f + 30.0f, 30.0f, Colors::AliceBlue);
 
 		uint8_t buffer[1024];
 		int byteReceived = clientSocket->Receive(buffer, static_cast<int>(std::size(buffer)));

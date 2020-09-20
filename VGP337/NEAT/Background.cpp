@@ -18,6 +18,6 @@ void Background::Update(float deltaTime)
 
 void Background::Render()
 {
-	BatchRender::Get()->AddSprite(mTextureId, mPosition, Pivot::TopLeft);
-	BatchRender::Get()->AddSprite(mTextureId, mPosition + mOffset, Pivot::TopLeft);
+	BatchRenderer::Get()->AddSprite(mTextureId, mPosition, Pivot::TopLeft);
+	BatchRenderer::Get()->AddSprite(mTextureId, mPosition + mOffset, Pivot::TopLeft);
 }

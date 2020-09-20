@@ -46,7 +46,7 @@ void Particle::Render()
 		 spriteWidth*column , spriteHeight*row,
 		 spriteWidth*column + spriteWidth, spriteHeight *row + spriteHeight
 	};
-	Graphics::BatchRender::Get()->AddSprite(mTexture, rect, screenPos, 0.0f, mPivot, Graphics::Flip::None);
+	Graphics::BatchRenderer::Get()->AddSprite(mTexture, rect, screenPos, 0.0f, mPivot, Graphics::Flip::None);
 	if (mFrame == mFrameCount - 1)
 		isActive = false;
 }

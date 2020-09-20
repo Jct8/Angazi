@@ -23,8 +23,8 @@ namespace
 
 	void Title(float deltaTime)
 	{
-		BatchRender::Get()->AddScreenText("Hit [Space] to Play", 10.0f, 10.0f, 20.0f, Colors::White);
-		BatchRender::Get()->AddScreenText("Hit [N] to NEAT", 10.0f, 30.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText("Hit [Space] to Play", 10.0f, 10.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText("Hit [N] to NEAT", 10.0f, 30.0f, 20.0f, Colors::White);
 
 		if (InputSystem::Get()->IsKeyPressed(KeyCode::SPACE))
 		{
@@ -139,19 +139,19 @@ namespace
 
 		std::string txt;
 		txt = "Generation: " + std::to_string(population->Generation());
-		BatchRender::Get()->AddScreenText(txt.c_str(), 10.0f, 10.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText(txt.c_str(), 10.0f, 10.0f, 20.0f, Colors::White);
 
 		txt = "Total Species:" + std::to_string(population->species.size());
-		BatchRender::Get()->AddScreenText(txt.c_str(), 10.0f, 30.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText(txt.c_str(), 10.0f, 30.0f, 20.0f, Colors::White);
 
 		txt = "Previous Generation Best Fitness: " + std::to_string(previousBest);
-		BatchRender::Get()->AddScreenText(txt.c_str(), 10.0f, 50.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText(txt.c_str(), 10.0f, 50.0f, 20.0f, Colors::White);
 
 		txt = "Best Fitness:" + std::to_string(bestFitness);
-		BatchRender::Get()->AddScreenText(txt.c_str(), 10.0f, 70.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText(txt.c_str(), 10.0f, 70.0f, 20.0f, Colors::White);
 
 		txt = "Total Ships Alive:" + std::to_string(activeShipCount);
-		BatchRender::Get()->AddScreenText(txt.c_str(), 10.0f, 90.0f, 20.0f, Colors::White);
+		BatchRenderer::Get()->AddScreenText(txt.c_str(), 10.0f, 90.0f, 20.0f, Colors::White);
 
 	}
 

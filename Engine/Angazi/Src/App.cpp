@@ -29,6 +29,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	TimeUtil::GetTime();
 
 	// Setup out application window
+	LOG("App -- Creating window ... ");
 	mWindow.Initialize(GetModuleHandle(NULL),
 		mAppConfig.appName.c_str(),
 		mAppConfig.windowWidth,
@@ -39,17 +40,17 @@ void Angazi::App::Run(AppConfig appConfig)
 	//Initialize the graphics systems
 	GraphicsSystem::StaticInitialize(handle, false);
 	TextureManager::StaticInitialize("../../Assets/Images/");
-	BatchRender::StaticInitialize();
+	BatchRenderer::StaticInitialize();
 	SpriteRenderer::StaticInitialize();
 
 	// Start Logo 
 	float startTimer = TimeUtil::GetTime() + 2.0f;
 	TextureId startTextureId;
 	startTextureId = TextureManager::Get()->Load("AngaziLogo.png");
-	BatchRender::Get()->AddSprite(startTextureId, { mAppConfig.windowWidth * 0.5f , mAppConfig.windowHeight * 0.5f });
+	BatchRenderer::Get()->AddSprite(startTextureId, { mAppConfig.windowWidth * 0.5f , mAppConfig.windowHeight * 0.5f });
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 	GraphicsSystem::Get()->BeginRender();
-	BatchRender::Get()->Render();
+	BatchRenderer::Get()->Render();
 	GraphicsSystem::Get()->EndRender();
 
 	// Initialize Remaining Systems
@@ -66,6 +67,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	if (startTimer > TimeUtil::GetTime())
 		Sleep(2000);
 
+	LOG("App -- Entering main loop ...");
 	mRunning = true;
 	while (mRunning)
 	{
@@ -104,7 +106,7 @@ void Angazi::App::Run(AppConfig appConfig)
 
 		mCurrentState->Render();
 
-		BatchRender::Get()->Render();
+		BatchRenderer::Get()->Render();
 
 		DebugUI::BeginRender();
 		mCurrentState->DebugUI();
@@ -121,7 +123,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	SimpleDraw::StaticTerminate();
 	DebugUI::StaticTerminate();
 	SpriteRenderer::StaticTerminate();
-	BatchRender::StaticTerminate();
+	BatchRenderer::StaticTerminate();
 	TextureManager::StaticTerminate();
 	GraphicsSystem::StaticTerminate();
 

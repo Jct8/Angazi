@@ -156,7 +156,7 @@ void TileMap::Render()
 				static_cast<float>(x)*32.0f,
 				static_cast<float>(y)*32.0f
 			};
-			BatchRender::Get()->AddSprite(mTextureIds[mTiles[index]], { pos.x , pos.y },0.0f, Pivot::TopLeft);
+			BatchRenderer::Get()->AddSprite(mTextureIds[mTiles[index]], { pos.x , pos.y },0.0f, Pivot::TopLeft);
 			if (mShowGraph)
 			{
 				SimpleDraw::AddScreenCircle({ pos.x + offset , pos.y + offset }, circleRadius, Colors::DarkGray);
@@ -179,7 +179,7 @@ void TileMap::Render()
 				static_cast<float>(x)*32.0f,
 				static_cast<float>(y)*32.0f
 			};
-			BatchRender::Get()->AddSprite(mTextureIds[mTiles[index]], { pos.x , pos.y }, 0.0f, Pivot::TopLeft);
+			BatchRenderer::Get()->AddSprite(mTextureIds[mTiles[index]], { pos.x , pos.y }, 0.0f, Pivot::TopLeft);
 			if (mShowGraph)
 			{
 				SimpleDraw::AddScreenCircle({ pos.x + offset , pos.y + offset }, circleRadius, Colors::DarkGray);

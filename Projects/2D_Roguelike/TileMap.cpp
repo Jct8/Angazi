@@ -368,7 +368,7 @@ void TileMap::Render()
 			Math::Vector2 screenPos = Camera2D::Get().ConvertToScreenPosition(worldPosOfTile);
 			if (screenPos.x >= -32.0f && screenPos.x < graphics->GetBackBufferWidth() && screenPos.y >= -32.0f && screenPos.y < graphics->GetBackBufferHeight())
 			{
-				BatchRender::Get()->AddSprite(mTiles[mMap[i]], screenPos, 0.0f , Pivot::TopLeft);
+				BatchRenderer::Get()->AddSprite(mTiles[mMap[i]], screenPos, 0.0f , Pivot::TopLeft);
 			}
 		}
 	}
@@ -378,7 +378,7 @@ void TileMap::Render()
 
 
 	if (mEditTile)
-		BatchRender::Get()->AddSprite(mTiles[mCurrentTile], Math::Vector2{ static_cast<float>(mouseX) , static_cast<float>(mouseY) }, 0.0f, Pivot::TopLeft);
+		BatchRenderer::Get()->AddSprite(mTiles[mCurrentTile], Math::Vector2{ static_cast<float>(mouseX) , static_cast<float>(mouseY) }, 0.0f, Pivot::TopLeft);
 
 }
 

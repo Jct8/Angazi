@@ -110,8 +110,8 @@ void GameState::RunGameStart()
 	auto x = GraphicsSystem::Get()->GetBackBufferWidth()*0.5f;
 	auto y = GraphicsSystem::Get()->GetBackBufferHeight()*0.5f;
 
-	BatchRender::Get()->AddScreenText("Jimmy's Dungeon", x - 250.0f, y - 120.0f, 60.0f, Colors::Red);
-	BatchRender::Get()->AddScreenText("Press Space to Start", x - 200.0f, y - 50.0f, 30.0f, Colors::Red);
+	BatchRenderer::Get()->AddScreenText("Jimmy's Dungeon", x - 250.0f, y - 120.0f, 60.0f, Colors::Red);
+	BatchRenderer::Get()->AddScreenText("Press Space to Start", x - 200.0f, y - 50.0f, 30.0f, Colors::Red);
 	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::SPACE))
 		gameState = GamePlay;
 }
@@ -151,9 +151,9 @@ void GameState::RunGameEnd()
 	auto y = GraphicsSystem::Get()->GetBackBufferHeight()*0.5f;
 
 	if (gameState == GameWin)
-		BatchRender::Get()->AddScreenText("You Win!\nPress Space to Restart", x - 200.0f, y - 50.0f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText("You Win!\nPress Space to Restart", x - 200.0f, y - 50.0f, 30.0f, Colors::AliceBlue);
 	else if (gameState == GameLose)
-		BatchRender::Get()->AddScreenText("You Lose!\nPress Space to Restart", x - 200.0f, y - 50.0f, 30.0f, Colors::AliceBlue);
+		BatchRenderer::Get()->AddScreenText("You Lose!\nPress Space to Restart", x - 200.0f, y - 50.0f, 30.0f, Colors::AliceBlue);
 	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::SPACE))
 	{
 		player.Reset();
@@ -181,9 +181,9 @@ void GameState::Render()
 		UIManager::Get().Render();
 		break;
 	default:
-		BatchRender::Get()->AddSprite(backgroundTex, { x , y });
-		BatchRender::Get()->AddSprite(characterTex, { x - 350.0f,y + 150.0f });
-		BatchRender::Get()->AddSprite(character2Tex, { x + 350.0f,y - 150.0f });
+		BatchRenderer::Get()->AddSprite(backgroundTex, { x , y });
+		BatchRenderer::Get()->AddSprite(characterTex, { x - 350.0f,y + 150.0f });
+		BatchRenderer::Get()->AddSprite(character2Tex, { x + 350.0f,y - 150.0f });
 		break;
 	}
 

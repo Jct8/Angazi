@@ -124,7 +124,7 @@ void Ship::Render()
 	SimpleDraw::AddScreenTriangle(mPosition, mHeading, mRadius, Colors::AliceBlue);
 	std::string txt;
 	txt += " Current Ship Fitness: " + std::to_string(fitness);
-	BatchRender::Get()->AddScreenText(txt.c_str(), 900.0f, 10.0f, 20.0f, Colors::White);
+	BatchRenderer::Get()->AddScreenText(txt.c_str(), 900.0f, 10.0f, 20.0f, Colors::White);
 
 	mBulletManager.Render();
 	mAsteroidManager.Render();

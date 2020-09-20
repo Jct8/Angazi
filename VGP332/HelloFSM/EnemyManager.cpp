@@ -89,9 +89,9 @@ void EnemyManager::Render()
 	for (auto enemy : mEnemies)
 		enemy->Render();
 	std::string str = "Spawn level :" + std::to_string(mSpawnLevel);
-	BatchRender::Get()->AddScreenText(str.c_str(), 50.0f, 20.0f, 30.0f, Colors::Blue);
+	BatchRenderer::Get()->AddScreenText(str.c_str(), 50.0f, 20.0f, 30.0f, Colors::Blue);
 	std::string str2 = "Zombies Killed :" + std::to_string(mTotalDeaths);
-	BatchRender::Get()->AddScreenText(str2.c_str(), 50.0f, 50.0f, 30.0f, Colors::Blue);
+	BatchRenderer::Get()->AddScreenText(str2.c_str(), 50.0f, 50.0f, 30.0f, Colors::Blue);
 }
 
 void EnemyManager::CheckCollision(Angazi::Math::LineSegment line, int damage)

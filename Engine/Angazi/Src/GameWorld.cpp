@@ -50,7 +50,7 @@ GameObjectHandle GameWorld::Create(const std::filesystem::path & templateFileNam
 	auto gameObject = GameObjectFactory::Create(*mGameObjectAllocator, templateFileName);
 	if (gameObject == nullptr)
 	{
-		LOG("GameWorld -- Failed to create game object from template %s",templateFileName.u8string().c_str());
+		LOG("GameWorld -- Failed to create game object from template %s", templateFileName.u8string().c_str());
 		return GameObjectHandle();
 	}
 	// Register with the handle pool
@@ -65,6 +65,31 @@ GameObjectHandle GameWorld::Create(const std::filesystem::path & templateFileNam
 	// Add game object to the update list
 	mUpdateList.push_back(gameObject);
 	return handle;
+}
+
+void GameWorld::LoadScene(const std::filesystem::path& sceneFileName)
+{
+	FILE *file = nullptr;
+	fopen_s(&file, sceneFileName.u8string().c_str(), "r");
+
+	char readBuffer[65536];
+	rapidjson::FileReadStream is(file, readBuffer, sizeof(readBuffer));
+
+	rapidjson::Document document;
+	document.ParseStream(is);
+
+	if (document["GameObjects"].IsArray())
+	{
+		auto gameObjects = document["GameObjects"].GetArray();
+		for (auto& gameObject : gameObjects)
+		{
+			auto jsonObject = gameObject.GetObjectW();
+			auto gameObjectTemplate = jsonObject["Template"].GetString();
+			auto gameObjectName = jsonObject["Name"].GetString();
+			Create(gameObjectTemplate, gameObjectName);
+		}
+	}
+	fclose(file);
 }
 
 GameObjectHandle GameWorld::Find(const std::string & name)
@@ -95,8 +120,6 @@ void GameWorld::Destroy(GameObjectHandle handle)
 		mDestroyList.push_back(gameObject);
 	else
 		DestroyInternal(gameObject);
-
-
 
 }
 

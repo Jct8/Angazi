@@ -41,6 +41,7 @@ namespace Angazi
 			return const_cast<ServiceType>(constMe->GetService<ServiceType>());
 		}
 
+		void LoadScene(const std::filesystem::path& sceneFileName);
 		GameObjectHandle Create(const std::filesystem::path& templateFileName, std::string name);
 		GameObjectHandle Find(const std::string& name);
 		void Destroy(GameObjectHandle handle);
