@@ -33,6 +33,7 @@ namespace Angazi
 		void Open();
 		void Save();
 		void SaveAs();
+		void Exit();
 
 		GameWorld& mWorld;
 

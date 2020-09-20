@@ -160,6 +160,7 @@
     <ClInclude Include="Inc\Component.h" />
     <ClInclude Include="Inc\Editor.h" />
     <ClInclude Include="Inc\EditorLogView.h" />
+    <ClInclude Include="Inc\EnvironmentService.h" />
     <ClInclude Include="Inc\GameObject.h" />
     <ClInclude Include="Inc\GameObjectFactory.h" />
     <ClInclude Include="Inc\GameWorld.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="Src\Component.cpp" />
     <ClCompile Include="Src\Editor.cpp" />
     <ClCompile Include="Src\EditorLogView.cpp" />
+    <ClCompile Include="Src\EnvironmentService.cpp" />
     <ClCompile Include="Src\GameObject.cpp" />
     <ClCompile Include="Src\GameObjectFactory.cpp" />
     <ClCompile Include="Src\GameWorld.cpp" />

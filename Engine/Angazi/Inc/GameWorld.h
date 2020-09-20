@@ -28,17 +28,17 @@ namespace Angazi
 		{
 			for (auto& service : mServices)
 			{
-				if (service->GetMetaClass() == Service::StaticGetMetaClass())
+				if (service->GetMetaClass() == ServiceType::StaticGetMetaClass())
 					return static_cast<const ServiceType*>(service.get());
 			}
 			return nullptr;
 		}
 
 		template <class ServiceType>
-		ServiceType* GetComponent()
+		ServiceType* GetService()
 		{
 			const GameWorld* constMe = static_cast<const GameWorld*>(this);
-			return const_cast<ServiceType>(constMe->GetService<ServiceType>());
+			return const_cast<ServiceType*>(constMe->GetService<ServiceType>());
 		}
 
 		void LoadScene(const std::filesystem::path& sceneFileName);

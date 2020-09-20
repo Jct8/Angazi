@@ -6,13 +6,14 @@
 #include "GameObject.h"
 #include "ImGui/Inc/imgui.h"
 #include "Service.h"
+#include "Angazi.h"
 
 using namespace Angazi;
 
 Editor::Editor(GameWorld & world)
 	:mWorld(world)
 {
-	mDebugLogHandlerId = Core::OnDebugLog +=[this](auto str) {mEditorLogView.AddLog(str.c_str());};
+	mDebugLogHandlerId = Core::OnDebugLog += [this](auto str) {mEditorLogView.AddLog(str.c_str()); };
 }
 
 Editor::~Editor()
@@ -24,6 +25,10 @@ void Editor::Show()
 {
 	ShowMenuBar();
 	ShowMainWindowWithDockSpace();
+
+	ImGui::Begin("Style");
+	ImGui::ShowStyleEditor();
+	ImGui::End();
 
 	ShowWorldView();
 	ShowInspectorView();
@@ -37,7 +42,7 @@ void Editor::ShowWorldView()
 	{
 		for (auto& service : mWorld.mServices)
 		{
-			if (ImGui::Selectable(service->GetMetaClass()->GetName(),service.get() == mSelectedService))
+			if (ImGui::Selectable(service->GetMetaClass()->GetName(), service.get() == mSelectedService))
 			{
 				mSelectedService = service.get();
 				mSelectedGameObject = nullptr;
@@ -65,7 +70,7 @@ void Editor::ShowInspectorView()
 	ImGui::Begin("Inspector");
 	if (mSelectedService)
 	{
-		mSelectedService->DebugUI();
+		mSelectedService->ShowInspectorPropeties();
 	}
 	else if (mSelectedGameObject)
 	{
@@ -79,7 +84,7 @@ void Editor::ShowInspectorView()
 					auto metaField = metaClass->GetField(i);
 					if (metaField->GetMetaType() == Core::Meta::GetMetaType<Math::Vector3>())
 					{
-						auto data = (float*) metaField->GetFieldInstance(component.get());
+						auto data = (float*)metaField->GetFieldInstance(component.get());
 						ImGui::DragFloat3(metaField->GetName(), data);
 					}
 				}
@@ -130,12 +135,15 @@ void Editor::ShowFileMenu()
 		Save();
 	if (ImGui::MenuItem("Save As..", "Ctrl+Shit+S", false, false))
 		SaveAs();
+	if (ImGui::MenuItem("Exit", false, false))
+		Exit();
 
 	ImGui::Separator();
 }
 
 void Editor::ShowEditMenu()
 {
+
 }
 
 void Editor::ShowMainWindowWithDockSpace()
@@ -176,4 +184,9 @@ void Editor::Save()
 
 void Editor::SaveAs()
 {
+}
+
+void Editor::Exit()
+{
+	Angazi::MainApp().Quit();
 }

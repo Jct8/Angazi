@@ -13,7 +13,16 @@ void EditState::Initialize()
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
 	mCameraService = mWorld.AddService<CameraService>();
+	mEnvironmentService = mWorld.AddService<EnvironmentService>();
+	mEnvironmentService->AddEnvironment("Helipad");
+	mEnvironmentService->AddEnvironment("Shiodome");
 	mWorld.Initialize(100);
+
+
+	auto skybox = mEnvironmentService->FindEnvironment("Helipad");
+	skybox->CreateSkybox("../../Assets/Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
+	skybox = mEnvironmentService->FindEnvironment("Shiodome");
+	skybox->CreateSkybox("../../Assets/Images/HdrMaps/Shiodome_Stairs/10-Shiodome_Stairs_3k.hdr");
 
 	auto& camera = mCameraService->GetActiveCamera();
 	camera.SetNearPlane(0.1f);
@@ -21,14 +30,16 @@ void EditState::Initialize()
 	camera.SetPosition({ 0.0f, 10.0f, -30.0f });
 	camera.SetDirection({ 0.0f,0.0f, 1.0f });
 
-
 	mWorld.LoadScene("../../Assets/Scenes/Test_Scene.json");
 
 	mHdrEffect.Initialize();
+	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(), 
+		GraphicsSystem::Get()->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
 }
 
 void EditState::Terminate()
 {
+	mRenderTarget.Terminate();
 	mHdrEffect.Terminate();
 	mWorld.Terminate();
 }
@@ -63,6 +74,11 @@ void EditState::Render()
 	mHdrEffect.BeginRender();
 	RenderScene();
 	mHdrEffect.EndRender();
+
+	mRenderTarget.BeginRender();
+	mHdrEffect.RenderHdrQuad();
+	mRenderTarget.EndRender();
+
 }
 
 void EditState::DebugUI()
@@ -99,8 +115,8 @@ void EditState::ShowSceneView()
 	float width = vMax.x - vMin.x;
 	float height = vMax.y - vMin.y;
 
-	ImGui::GetForegroundDrawList()->AddRect(vMin, vMax, IM_COL32(255, 255, 0, 255));
-	ImGui::Image(mHdrEffect.GetRenderTargetData(), { width, height });
+	ImGui::GetForegroundDrawList()->AddRect(vMin, vMax, IM_COL32(135, 206, 239, 255));
+	ImGui::Image(mRenderTarget.GetShaderResourceView(), { width, height });
 	auto& camera = mCameraService->GetActiveCamera();
 	camera.SetAspectRatio(width / height);
 	ImGui::CaptureMouseFromApp(!ImGui::IsItemHovered());

@@ -89,7 +89,7 @@ void Angazi::App::Run(AppConfig appConfig)
 
 		Core::TimeUtil::Update();
 
-		if (inputSystem->IsKeyPressed(KeyCode::ESCAPE))
+		if (mAppConfig.escapeToQuit && inputSystem->IsKeyPressed(KeyCode::ESCAPE))
 		{
 			Quit();
 			continue;

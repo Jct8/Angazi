@@ -9,6 +9,7 @@ namespace Angazi
 		std::string appName = "Angazi";
 		uint32_t windowWidth = 1280;
 		uint32_t windowHeight = 720;
+		bool escapeToQuit = true;
 	};
 
 	class App

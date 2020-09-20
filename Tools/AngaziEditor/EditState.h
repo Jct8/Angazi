@@ -19,8 +19,10 @@ private:
 private:
 
 	Angazi::Graphics::HdrEffect mHdrEffect;
-	
+	Angazi::Graphics::RenderTarget mRenderTarget;
+
 	Angazi::GameWorld mWorld;
 	Angazi::Editor mEditor{ mWorld };
 	Angazi::CameraService* mCameraService;
+	Angazi::EnvironmentService* mEnvironmentService;
 };

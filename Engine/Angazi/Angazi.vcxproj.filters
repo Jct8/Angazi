@@ -102,6 +102,9 @@
     <ClInclude Include="Inc\EditorLogView.h">
       <Filter>Inc\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\EnvironmentService.h">
+      <Filter>Inc\Services</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Angazi.cpp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="Src\EditorLogView.cpp">
       <Filter>Src\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\EnvironmentService.cpp">
+      <Filter>Src\Services</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

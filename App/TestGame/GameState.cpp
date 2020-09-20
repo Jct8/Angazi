@@ -21,10 +21,7 @@ void GameState::Initialize()
 	camera.SetPosition({ 0.0f, 10.0f, -30.0f });
 	camera.SetDirection({ 0.0f,0.0f, 1.0f });
 
-	mWorld.Create("../../Assets/Templates/test.json", "test");
-	mWorld.Create("../../Assets/Templates/tallBox.json", "tall");
-	mWorld.Create("../../Assets/Templates/longBox.json", "long");
-	mWorld.Create("../../Assets/Templates/fatBox.json", "fat");
+	mWorld.LoadScene("../../Assets/Scenes/Test_Scene.json");
 }
 
 void GameState::Terminate()
