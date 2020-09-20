@@ -166,8 +166,7 @@ void Player::DebugUI()
 	{
 		ImGui::SliderFloat("Lateral Force Scale", &mSteeringModule->GetBehavior<AI::ObstacleAvoidance>("ObstacleAvoid")->lateralForceScale, 0.0f, 10.0f);
 		ImGui::SliderFloat("Braking Weight", &mSteeringModule->GetBehavior<AI::ObstacleAvoidance>("ObstacleAvoid")->brakingWeight, 0.0f, 5.0f);
-		ImGui::SliderFloat("Box size x", &mSteeringModule->GetBehavior<AI::ObstacleAvoidance>("ObstacleAvoid")->boxExtend.x, 1.0f, 50.0f);
-		ImGui::SliderFloat("Box size y", &mSteeringModule->GetBehavior<AI::ObstacleAvoidance>("ObstacleAvoid")->boxExtend.y, 1.0f, 500.0f);
+		ImGui::SliderFloat("Box base y size", &mSteeringModule->GetBehavior<AI::ObstacleAvoidance>("ObstacleAvoid")->boxExtend, 1.0f, 500.0f);
 	}
 	ImGui::EndGroup();
 

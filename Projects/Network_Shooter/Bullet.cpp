@@ -1,4 +1,3 @@
-#include "..\..\VGP337\AsteroidsNEAT\Bullet.h"
 #include "Bullet.h"
 #include "Player.h"
 
