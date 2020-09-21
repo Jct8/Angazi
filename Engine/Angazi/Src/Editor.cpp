@@ -135,7 +135,7 @@ void Editor::ShowFileMenu()
 		Save();
 	if (ImGui::MenuItem("Save As..", "Ctrl+Shit+S", false, false))
 		SaveAs();
-	if (ImGui::MenuItem("Exit", false, false))
+	if (ImGui::MenuItem("Exit", nullptr, false))
 		Exit();
 
 	ImGui::Separator();

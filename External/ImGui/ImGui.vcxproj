@@ -18,6 +18,28 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Inc\imconfig.h" />
+    <ClInclude Include="Inc\imgui.h" />
+    <ClInclude Include="Inc\imgui_impl_dx11.h" />
+    <ClInclude Include="Inc\imgui_impl_opengl3.h" />
+    <ClInclude Include="Inc\imgui_impl_win32.h" />
+    <ClInclude Include="Inc\imgui_impl_win32_opengl.h" />
+    <ClInclude Include="Src\imgui_internal.h" />
+    <ClInclude Include="Src\imstb_rectpack.h" />
+    <ClInclude Include="Src\imstb_textedit.h" />
+    <ClInclude Include="Src\imstb_truetype.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\imgui.cpp" />
+    <ClCompile Include="Src\imgui_demo.cpp" />
+    <ClCompile Include="Src\imgui_draw.cpp" />
+    <ClCompile Include="Src\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Src\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Src\imgui_impl_win32.cpp" />
+    <ClCompile Include="Src\imgui_impl_win32_opengl.cpp" />
+    <ClCompile Include="Src\imgui_widgets.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{9DE256EB-9199-4BCE-AF41-ED0BDF8021FF}</ProjectGuid>
@@ -27,32 +49,32 @@
     <SccProvider>SAK</SccProvider>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ImGui</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -158,28 +180,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Inc\imconfig.h" />
-    <ClInclude Include="Inc\imgui.h" />
-    <ClInclude Include="Inc\imgui_impl_dx11.h" />
-    <ClInclude Include="Inc\imgui_impl_opengl3.h" />
-    <ClInclude Include="Inc\imgui_impl_win32.h" />
-    <ClInclude Include="Inc\imgui_impl_win32_opengl.h" />
-    <ClInclude Include="Inc\imstb_rectpack.h" />
-    <ClInclude Include="Inc\imstb_textedit.h" />
-    <ClInclude Include="Inc\imstb_truetype.h" />
-    <ClInclude Include="Src\imgui_internal.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Src\imgui.cpp" />
-    <ClCompile Include="Src\imgui_demo.cpp" />
-    <ClCompile Include="Src\imgui_draw.cpp" />
-    <ClCompile Include="Src\imgui_impl_dx11.cpp" />
-    <ClCompile Include="Src\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Src\imgui_impl_win32.cpp" />
-    <ClCompile Include="Src\imgui_impl_win32_opengl.cpp" />
-    <ClCompile Include="Src\imgui_widgets.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

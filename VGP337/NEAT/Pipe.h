@@ -15,8 +15,8 @@ public:
 	Angazi::Math::Rect GetBottomRect() const;
 
 private:
-	Angazi::Graphics::TextureId mTextureId;
-	Angazi::Math::Vector2 mPosition;
-	Angazi::Math::Vector2 mVelocity;
-	float mGapSize;
+	Angazi::Graphics::TextureId mTextureId{};
+	Angazi::Math::Vector2 mPosition{};
+	Angazi::Math::Vector2 mVelocity{};
+	float mGapSize = 0.0f;
 };

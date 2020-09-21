@@ -10,7 +10,7 @@
 #pragma once
 
 // Off by default warnings
-#pragma warning(disable : 4619 4616 4061 4265 4365 4571 4623 4625 4626 4628 4668 4710 4711 4746 4774 4820 4987 5026 5027 5031 5032 5039 5045)
+#pragma warning(disable : 4619 4616 4061 4265 4365 4571 4623 4625 4626 4628 4668 4710 4711 4746 4774 4820 4987 5026 5027 5031 5032 5039 5045 5219 26812)
 // C4619/4616 #pragma warning warnings
 // C4061 enumerator 'X' in switch of enum 'X' is not explicitly handled by a case label
 // C4265 class has virtual functions, but destructor is not virtual
@@ -32,6 +32,8 @@
 // C5031/5032 push/pop mismatches in windows headers
 // C5039 pointer or reference to potentially throwing function passed to extern C function under - EHc
 // C5045 Spectre mitigation warning
+// C5219 implicit conversion from 'int' to 'float', possible loss of data
+// 26812: The enum type 'x' is unscoped. Prefer 'enum class' over 'enum' (Enum.3).
 
 // Windows 8.1 SDK related Off by default warnings
 #pragma warning(disable : 4471 4917 4986 5029)
@@ -68,6 +70,7 @@
 #pragma clang diagnostic ignored "-Wswitch-enum"
 #pragma clang diagnostic ignored "-Wunknown-pragmas"
 #pragma clang diagnostic ignored "-Wunused-const-variable"
+#pragma clang diagnostic ignored "-Wunused-member-function"
 #endif
 
 #ifndef WIN32_LEAN_AND_MEAN
@@ -91,17 +94,12 @@
 #define _WIN32_WINNT_WIN10 0x0A00
 #endif
 
-#if defined(_XBOX_ONE) && defined(_TITLE)
+#ifdef _GAMING_XBOX
+#error This version of DirectX Tool Kit not supported for GDK
+#elif defined(_XBOX_ONE) && defined(_TITLE)
 #include <d3d11_x.h>
 #else
 #include <d3d11_1.h>
-#endif
-
-#if (defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP)) || (defined(_XBOX_ONE) && defined(_TITLE))
-#pragma warning(push)
-#pragma warning(disable: 4471)
-#include <Windows.UI.Core.h>
-#pragma warning(pop)
 #endif
 
 #define _XM_NO_XMVECTOR_OVERLOADS_
@@ -112,12 +110,14 @@
 
 #include <algorithm>
 #include <array>
+#include <cstddef>
+#include <cstdint>
 #include <exception>
 #include <list>
 #include <map>
 #include <memory>
-#include <mutex>
 #include <set>
+#include <stdexcept>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -129,12 +129,19 @@
 #pragma warning(pop)
 
 #include <malloc.h>
-#include <stddef.h>
-#include <stdint.h>
 
 #pragma warning(push)
-#pragma warning(disable : 4467 5038)
+#pragma warning(disable : 4467 5038 5204 5220)
 #include <wrl.h>
 #pragma warning(pop)
 
 #include <wincodec.h>
+
+#if (defined(WINAPI_FAMILY) && (WINAPI_FAMILY == WINAPI_FAMILY_APP)) || (defined(_XBOX_ONE) && defined(_TITLE))
+#pragma warning(push)
+#pragma warning(disable: 4471 5204)
+#include <Windows.UI.Core.h>
+#pragma warning(pop)
+#endif
+
+#include <mutex>

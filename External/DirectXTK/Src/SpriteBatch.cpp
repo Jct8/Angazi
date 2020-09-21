@@ -10,11 +10,12 @@
 #include "pch.h"
 
 #include "SpriteBatch.h"
-#include "ConstantBuffer.h"
+#include "BufferHelpers.h"
 #include "CommonStates.h"
+#include "DirectXHelpers.h"
 #include "VertexTypes.h"
-#include "SharedResourcePool.h"
 #include "AlignedNew.h"
+#include "SharedResourcePool.h"
 
 using namespace DirectX;
 using Microsoft::WRL::ComPtr;
@@ -277,9 +278,7 @@ void SpriteBatch::Impl::DeviceResources::CreateIndexBuffer(_In_ ID3D11Device* de
 
     auto indexValues = CreateIndexValues();
 
-    D3D11_SUBRESOURCE_DATA indexDataDesc = {};
-
-    indexDataDesc.pSysMem = indexValues.data();
+    D3D11_SUBRESOURCE_DATA indexDataDesc = { indexValues.data(), 0, 0 };
 
     ThrowIfFailed(
         device->CreateBuffer(&indexBufferDesc, &indexDataDesc, &indexBuffer)
@@ -533,7 +532,7 @@ void SpriteBatch::Impl::GrowSpriteQueue()
     size_t newSize = std::max(InitialQueueSize, mSpriteQueueArraySize * 2);
 
     // Allocate the new array.
-    std::unique_ptr<SpriteInfo[]> newArray(new SpriteInfo[newSize]);
+    auto newArray = std::make_unique<SpriteInfo[]>(newSize);
 
     // Copy over any existing sprites.
     for (size_t i = 0; i < mSpriteQueueCount; i++)
@@ -677,7 +676,7 @@ void SpriteBatch::Impl::SortSprites()
         case SpriteSortMode_Texture:
             // Sort by texture.
             std::sort(mSortedSprites.begin(), mSortedSprites.begin() + static_cast<int>(mSpriteQueueCount),
-                [](SpriteInfo const* x, SpriteInfo const* y) -> bool
+                [](SpriteInfo const* x, SpriteInfo const* y) noexcept -> bool
                 {
                     return x->texture < y->texture;
                 });
@@ -686,7 +685,7 @@ void SpriteBatch::Impl::SortSprites()
         case SpriteSortMode_BackToFront:
             // Sort back to front.
             std::sort(mSortedSprites.begin(), mSortedSprites.begin() + static_cast<int>(mSpriteQueueCount),
-                [](SpriteInfo const* x, SpriteInfo const* y) -> bool
+                [](SpriteInfo const* x, SpriteInfo const* y) noexcept -> bool
                 {
                     return x->originRotationDepth.w > y->originRotationDepth.w;
                 });
@@ -695,7 +694,7 @@ void SpriteBatch::Impl::SortSprites()
         case SpriteSortMode_FrontToBack:
             // Sort front to back.
             std::sort(mSortedSprites.begin(), mSortedSprites.begin() + static_cast<int>(mSpriteQueueCount),
-                [](SpriteInfo const* x, SpriteInfo const* y) -> bool
+                [](SpriteInfo const* x, SpriteInfo const* y) noexcept -> bool
                 {
                     return x->originRotationDepth.w < y->originRotationDepth.w;
                 });
@@ -1188,7 +1187,7 @@ void SpriteBatch::SetRotation(DXGI_MODE_ROTATION mode)
 }
 
 
-DXGI_MODE_ROTATION SpriteBatch::GetRotation() const
+DXGI_MODE_ROTATION SpriteBatch::GetRotation() const noexcept
 {
     return pImpl->mRotation;
 }

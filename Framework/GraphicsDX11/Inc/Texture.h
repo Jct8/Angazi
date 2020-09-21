@@ -40,8 +40,8 @@ namespace Angazi::Graphics
 		friend class SpriteRenderer;
 
 		ID3D11ShaderResourceView* mShaderResourceView = nullptr;
-		uint32_t mWidth;
-		uint32_t mHeight;
+		uint32_t mWidth = 0;
+		uint32_t mHeight = 0;
 	};
 
 } // namespace Angazi::Graphics

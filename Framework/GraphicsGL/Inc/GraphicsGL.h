@@ -7,6 +7,7 @@
 #include "BlendStateGL.h"
 #include "DebugUIGL.h"
 #include "DepthStencilStateGL.h"
+#include "FontGL.h"
 #include "GraphicsSystemGL.h"
 #include "MeshBufferGL.h"
 #include "PixelShaderGL.h"

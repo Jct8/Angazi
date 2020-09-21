@@ -57,7 +57,7 @@ namespace Angazi::Graphics
 
 		HWND myWindow;
 
-		Color mClearColor = Colors::White;
+		Color mClearColor = Color::One;
 		UINT mVSync = 1;
 	};
 

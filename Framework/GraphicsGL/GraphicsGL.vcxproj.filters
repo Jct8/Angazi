@@ -66,6 +66,12 @@
     <ClInclude Include="Inc\SpriteRendererGL.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\FontGL.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\TextureGLUtil.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -117,6 +123,12 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\SpriteRendererGL.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\FontGL.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TextureGLUtil.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

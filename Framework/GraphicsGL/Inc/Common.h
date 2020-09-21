@@ -13,4 +13,14 @@
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
 
+template <class T>
+void SafeRelease(T*& ptr) //*& otherwise copy of the pointer is passed
+{
+	if (ptr)
+	{
+		ptr->Release();
+		ptr = nullptr;
+	}
+}
+
 #endif

@@ -75,6 +75,65 @@ void Texture::Initialize(const std::vector<std::filesystem::path>& cubeSides, bo
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 }
 
+void Texture::InitializeHdrCube(const std::filesystem::path& filePath, const std::filesystem::path& shaderFilePath, uint32_t cubeLength)
+{
+	ASSERT(false, "[TextureL] Not implemented for OpenGL.");
+
+	//DirectX::ScratchImage image;
+	//ID3D11ShaderResourceView* hdrShaderResourceView;
+
+	//HRESULT hr = DirectX::LoadFromHDRFile(filePath.c_str(), nullptr, image);
+	//ASSERT(SUCCEEDED(hr), "[Texture] Failed to load texture");
+	//hr = CreateShaderResourceView(GetDevice(), image.GetImages(), image.GetImageCount(), image.GetMetadata(), &hdrShaderResourceView);
+	//ASSERT(SUCCEEDED(hr), "[Texture] Failed to create shader resource view");
+
+	//mShaderResourceView = TextureUtil::CreateCubeMapFromTexture(hdrShaderResourceView, shaderFilePath, cubeLength);
+
+	//SafeRelease(hdrShaderResourceView);
+
+	//// Get Width and Height of the texture
+	//ID3D11Resource* resource = nullptr;
+	//mShaderResourceView->GetResource(&resource);
+
+	//ID3D11Texture2D* texture = static_cast<ID3D11Texture2D*>(resource);
+	//D3D11_TEXTURE2D_DESC desc{};
+	//texture->GetDesc(&desc);
+	//SafeRelease(resource);
+
+	//mWidth = desc.Width;
+	//mHeight = desc.Height;
+}
+
+void Texture::InitializeCubeMap(Texture& texture, const std::filesystem::path& shaderFilePath, uint32_t cubeLength, CubeMapType type)
+{
+	ASSERT(false, "[TextureGL] Not implemented for OpenGL.");
+
+	//switch (type)
+	//{
+	//case Angazi::Graphics::Texture::IrradianceMap:
+	//	mShaderResourceView = TextureUtil::CreateCubeMapFromTexture(texture.GetShaderResourceView(), shaderFilePath, cubeLength);
+	//	break;
+	//case Angazi::Graphics::Texture::PreFiltered:
+	//	mShaderResourceView = TextureUtil::CreatePreFilteredCubeMap(texture.GetShaderResourceView(), shaderFilePath, cubeLength);
+	//	break;
+	//default:
+	//	break;
+	//}
+
+	//// Get Width and Height of the texture
+	//ID3D11Resource* resource = nullptr;
+	//mShaderResourceView->GetResource(&resource);
+
+	//ID3D11Texture2D* tex = static_cast<ID3D11Texture2D*>(resource);
+	//D3D11_TEXTURE2D_DESC desc{};
+	//tex->GetDesc(&desc);
+	//SafeRelease(resource);
+
+	//mWidth = desc.Width;
+	//mHeight = desc.Height;
+}
+
+
 Texture::~Texture()
 {
 	ASSERT(!glIsTexture(mTextureID), "[TextureGL] Terminate() must be called to clean up!");

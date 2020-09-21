@@ -27,32 +27,32 @@
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GraphicsGL</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -157,6 +157,7 @@
     <ClInclude Include="Inc\Common.h" />
     <ClInclude Include="Inc\DebugUIGL.h" />
     <ClInclude Include="Inc\DepthStencilStateGL.h" />
+    <ClInclude Include="Inc\FontGL.h" />
     <ClInclude Include="Inc\GraphicsGL.h" />
     <ClInclude Include="Inc\GraphicsSystemGL.h" />
     <ClInclude Include="Inc\MeshBufferGL.h" />
@@ -168,12 +169,14 @@
     <ClInclude Include="Inc\SpriteRendererGL.h" />
     <ClInclude Include="Inc\stb_image.h" />
     <ClInclude Include="Inc\TextureGL.h" />
+    <ClInclude Include="Inc\TextureGLUtil.h" />
     <ClInclude Include="Inc\UniformBuffer.h" />
     <ClInclude Include="Inc\VertexShaderGL.h" />
     <ClInclude Include="Src\GLUtil.h" />
     <ClInclude Include="Src\Precompiled.h" />
     <ClCompile Include="Src\BlendStateGL.cpp" />
     <ClCompile Include="Src\DepthStencilStateGL.cpp" />
+    <ClCompile Include="Src\FontGL.cpp" />
     <ClCompile Include="Src\GLUtil.cpp" />
     <ClCompile Include="Src\RasterizerStateGL.cpp" />
     <ClCompile Include="Src\RenderTargetGL.cpp" />
@@ -194,6 +197,7 @@
     <ClCompile Include="Src\SpriteRendererGL.cpp" />
     <ClCompile Include="Src\stb_image.cpp" />
     <ClCompile Include="Src\TextureGL.cpp" />
+    <ClCompile Include="Src\TextureGLUtil.cpp" />
     <ClCompile Include="Src\UniformBuffer.cpp" />
     <ClCompile Include="Src\VertexShaderGL.cpp" />
   </ItemGroup>
@@ -203,6 +207,12 @@
     </ProjectReference>
     <ProjectReference Include="..\..\External\ImGui\ImGui.vcxproj">
       <Project>{9de256eb-9199-4bce-af41-ed0bdf8021ff}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.vcxproj">
+      <Project>{5bf63145-a348-4b75-8137-f3bc803343fd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Math\Math.vcxproj">
+      <Project>{8683af56-c8c7-4387-91b1-468616ffb20b}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

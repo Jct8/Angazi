@@ -41,8 +41,8 @@ namespace Angazi::Graphics
 
 		ID3D11RenderTargetView* mRenderTargetView = nullptr;
 		ID3D11DepthStencilView* mDepthStencilView = nullptr;
-		D3D11_VIEWPORT mViewport;
-		D3D11_MAPPED_SUBRESOURCE mSubresource;
+		D3D11_VIEWPORT mViewport{};
+		D3D11_MAPPED_SUBRESOURCE mSubresource{};
 	};
 }
 

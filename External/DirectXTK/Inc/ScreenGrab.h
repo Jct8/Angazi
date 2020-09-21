@@ -27,13 +27,15 @@
 #include <OCIdl.h>
 #include <functional>
 
+#pragma comment(lib,"uuid.lib")
+
 
 namespace DirectX
 {
     HRESULT __cdecl SaveDDSTextureToFile(
         _In_ ID3D11DeviceContext* pContext,
         _In_ ID3D11Resource* pSource,
-        _In_z_ const wchar_t* fileName);
+        _In_z_ const wchar_t* fileName) noexcept;
 
     HRESULT __cdecl SaveWICTextureToFile(
         _In_ ID3D11DeviceContext* pContext,

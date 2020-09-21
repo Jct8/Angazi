@@ -12,32 +12,32 @@
     <ClInclude Include="Inc\imconfig.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\imstb_truetype.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\imstb_textedit.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\imstb_rectpack.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\imgui_impl_win32.h">
+    <ClInclude Include="Inc\imgui.h">
       <Filter>Inc</Filter>
     </ClInclude>
     <ClInclude Include="Inc\imgui_impl_dx11.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\imgui.h">
+    <ClInclude Include="Inc\imgui_impl_opengl3.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\imgui_impl_win32.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\imgui_impl_win32_opengl.h">
       <Filter>Inc</Filter>
     </ClInclude>
     <ClInclude Include="Src\imgui_internal.h">
       <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\imgui_impl_opengl3.h">
-      <Filter>Inc</Filter>
+    <ClInclude Include="Src\imstb_rectpack.h">
+      <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\imgui_impl_win32_opengl.h">
-      <Filter>Inc</Filter>
+    <ClInclude Include="Src\imstb_textedit.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\imstb_truetype.h">
+      <Filter>Src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -53,16 +53,16 @@
     <ClCompile Include="Src\imgui_impl_dx11.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\imgui_impl_win32.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\imgui_widgets.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
     <ClCompile Include="Src\imgui_impl_opengl3.cpp">
       <Filter>Src</Filter>
     </ClCompile>
+    <ClCompile Include="Src\imgui_impl_win32.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
     <ClCompile Include="Src\imgui_impl_win32_opengl.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\imgui_widgets.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

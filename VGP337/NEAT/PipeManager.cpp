@@ -63,5 +63,5 @@ const Pipe& PipeManager::GetClosestPipe(const Bird& bird) const
 		}
 	}
 
-	return {};
+	return Pipe();
 }

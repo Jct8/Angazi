@@ -44,9 +44,9 @@ struct SkinnedEffectTraits
 {
     using ConstantBufferType = SkinnedEffectConstants;
 
-    static const int VertexShaderCount = 18;
-    static const int PixelShaderCount = 3;
-    static const int ShaderPermutationCount = 36;
+    static constexpr int VertexShaderCount = 18;
+    static constexpr int PixelShaderCount = 3;
+    static constexpr int ShaderPermutationCount = 36;
 };
 
 
@@ -62,7 +62,7 @@ public:
 
     EffectLights lights;
 
-    int GetCurrentShaderPermutation() const;
+    int GetCurrentShaderPermutation() const noexcept;
 
     void Apply(_In_ ID3D11DeviceContext* deviceContext);
 };
@@ -292,7 +292,7 @@ SkinnedEffect::Impl::Impl(_In_ ID3D11Device* device)
 }
 
 
-int SkinnedEffect::Impl::GetCurrentShaderPermutation() const
+int SkinnedEffect::Impl::GetCurrentShaderPermutation() const noexcept
 {
     int permutation = 0;
 
