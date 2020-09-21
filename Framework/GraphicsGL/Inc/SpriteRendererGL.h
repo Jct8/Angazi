@@ -4,9 +4,19 @@
 
 #include "Graphics/Inc/SpriteTypes.h"
 
+#include "MeshBufferGL.h"
+#include "PixelShaderGL.h"
+#include "VertexShaderGL.h"
+#include "UniformBuffer.h"
+#include "BlendStateGL.h"
+
 namespace Angazi::Graphics
 {
+	//class MeshBuffer;
+	//class PixelShader;
 	class Texture;
+	//class VertexShader;
+	//class ConstantBuffer;
 
 	class SpriteRenderer
 	{
@@ -34,6 +44,11 @@ namespace Angazi::Graphics
 
 	private:
 
+		Graphics::BlendState mBlendState;
+		Graphics::ConstantBuffer mConstantBuffer;
+		Graphics::PixelShader mPixelShader;
+		Graphics::VertexShader mVertexShader;
+		Graphics::MeshBuffer mQuadMeshBuffer;
 		Math::Matrix4 mTransform;
 	};
 }

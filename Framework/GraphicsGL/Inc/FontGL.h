@@ -2,8 +2,7 @@
 
 #ifdef ENABLE_OPENGL
 
-//interface IFW1Factory;
-//interface IFW1FontWrapper;
+#include "BlendStateGL.h"
 
 namespace Angazi::Graphics
 {
@@ -11,7 +10,7 @@ namespace Angazi::Graphics
 	class Font
 	{
 	public:
-		Font();
+		Font() = default;
 		~Font();
 
 		void Initialize();
@@ -22,8 +21,8 @@ namespace Angazi::Graphics
 
 	private:
 
-		//IFW1Factory* mFW1Factory;
-		//IFW1FontWrapper* mFontWrapper;
+		Graphics::BlendState mBlendState;
+		int fontNormal = 0;
 	};
 }
 

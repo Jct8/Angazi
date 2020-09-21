@@ -4,45 +4,33 @@
 #ifdef ENABLE_OPENGL
 
 #include "Graphics/Inc/Colors.h"
-//#include <FW1FontWrapper/Inc/FW1FontWrapper.h>
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
 
 namespace
 {
-	uint32_t ToColor(const Angazi::Graphics::Color& color)
-	{
-		uint8_t r = (uint8_t)(color.r * 255);
-		uint8_t g = (uint8_t)(color.g * 255);
-		uint8_t b = (uint8_t)(color.b * 255);
-		return 0xff000000 | (b << 16) | (g << 8) | r;
-	}
-}
-Font::Font()
-	//: mFW1Factory(nullptr)
-	//, mFontWrapper(nullptr)
-{
 }
 
 Font::~Font()
 {
+	//ASSERT(fs == nullptr, "FontGL -- Terminate() must be called to clean up!");
 }
-
 
 void Font::Initialize()
 {
-
+	mBlendState.Initialize(BlendState::Mode::AlphaBlend);
 }
 
 void Font::Terminate()
 {
-
+	mBlendState.Terminate();
 }
 
 void Font::Draw(const wchar_t* str, float x, float y, float size, Color color)
 {
-	ASSERT(false, "[FontGL] Not implemented for OpenGL.");
+	mBlendState.Bind();
+	mBlendState.ClearState();
 }
 
 void Font::Draw(const wchar_t* str, const Math::Vector2& position, float size, Color color)

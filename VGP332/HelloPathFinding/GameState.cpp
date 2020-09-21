@@ -8,7 +8,7 @@ using namespace Angazi::Math;
 
 void GameState::Initialize()
 {
-	GraphicsSystem::Get()->SetClearColor(Colors::DarkGray);
+	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 	tileMap.Load();
 }
 

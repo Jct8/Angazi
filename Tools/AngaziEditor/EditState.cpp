@@ -18,7 +18,6 @@ void EditState::Initialize()
 	mEnvironmentService->AddEnvironment("Shiodome");
 	mWorld.Initialize(100);
 
-
 	auto skybox = mEnvironmentService->FindEnvironment("Helipad");
 	skybox->CreateSkybox("../../Assets/Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
 	skybox = mEnvironmentService->FindEnvironment("Shiodome");

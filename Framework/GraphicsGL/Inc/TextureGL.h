@@ -31,8 +31,11 @@ namespace Angazi::Graphics
 		void UnbindVS(uint32_t slot = 0) const;
 		void UnbindPS(uint32_t slot = 0) const;
 
+		void* GetShaderResourceView() const { return reinterpret_cast<void*>(static_cast<intptr_t>(mTextureID)); }
+		
 		uint32_t GetWidth() const { return mWidth; }
 		uint32_t GetHeight() const { return mHeight; }
+
 	private:
 		uint32_t mTextureID;
 		uint32_t mWidth;
