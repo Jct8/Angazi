@@ -106,7 +106,7 @@ void RenderTarget::Terminate()
 
 void RenderTarget::BeginRender()
 {
-	float ClearColor[4] = { 0.5f,0.5f ,0.5f ,1.0f };// RGBA
+	float ClearColor[4] = { 0.5f,0.5f ,0.5f ,1.0f }; // RGBA
 
 	auto context = GetContext();
 	context->ClearRenderTargetView(mRenderTargetView, ClearColor);

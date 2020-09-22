@@ -102,8 +102,7 @@ ID3D11ShaderResourceView* Angazi::Graphics::TextureUtil::CreateCubeMapFromTextur
 			if (sourceRegion.bottom == 0 || sourceRegion.right == 0)
 				break;
 
-			GetContext()->CopySubresourceRegion(texArray, D3D11CalcSubresource(mipLevel, x,
-				texArrayDesc.MipLevels), 0, 0, 0, resource, mipLevel, &sourceRegion);
+			GetContext()->CopySubresourceRegion(texArray, D3D11CalcSubresource(mipLevel, x, texArrayDesc.MipLevels), 0, 0, 0, resource, 0, &sourceRegion);
 		}
 	}
 	SafeRelease(resource);
@@ -132,6 +131,7 @@ ID3D11ShaderResourceView* Angazi::Graphics::TextureUtil::CreatePreFilteredCubeMa
 	const std::filesystem::path& shaderFilePath, uint32_t cubeLength)
 {
 	RenderTarget renderTarget;
+	Sampler sampler;
 	VertexShader vertexShader;
 	PixelShader pixelShader;
 	MeshBuffer meshBuffer;
@@ -150,28 +150,23 @@ ID3D11ShaderResourceView* Angazi::Graphics::TextureUtil::CreatePreFilteredCubeMa
 	pixelShader.Initialize(shaderFilePath);
 	tranformBuffer.Initialize();
 	roughnessBuffer.Initialize();
+	sampler.Initialize(Sampler::Filter::Linear, Sampler::AddressMode::Clamp);
 
 	camera.SetNearPlane(0.1f);
 	camera.SetFarPlane(10.0f);
 	camera.SetFov(90.0f * Math::Constants::DegToRad);
 	camera.SetAspectRatio(1.0f);
 
-	renderTarget.Initialize(cubeLength, cubeLength, RenderTarget::Format::RGBA_F16);
 
 	ID3D11Resource* resource;
-	renderTarget.GetShaderResourceViewPointer()->GetResource(&resource);
-
-	renderTarget.Terminate();
 
 	uint32_t maxMipLevels = 5;
-	D3D11_TEXTURE2D_DESC texElementDesc;
-	static_cast<ID3D11Texture2D*>(resource)->GetDesc(&texElementDesc);
 	D3D11_TEXTURE2D_DESC texArrayDesc;
-	texArrayDesc.Width = texElementDesc.Width;
-	texArrayDesc.Height = texElementDesc.Height;
-	texArrayDesc.MipLevels = maxMipLevels - 1;
+	texArrayDesc.Width =  cubeLength;
+	texArrayDesc.Height = cubeLength;
+	texArrayDesc.MipLevels = maxMipLevels;
 	texArrayDesc.ArraySize = 6;
-	texArrayDesc.Format = texElementDesc.Format;
+	texArrayDesc.Format = DXGI_FORMAT_R16G16B16A16_FLOAT;
 	texArrayDesc.SampleDesc.Count = 1;
 	texArrayDesc.SampleDesc.Quality = 0;
 	texArrayDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -188,10 +183,12 @@ ID3D11ShaderResourceView* Angazi::Graphics::TextureUtil::CreatePreFilteredCubeMa
 
 	pixelShader.Bind();
 	vertexShader.Bind();
+	sampler.BindVS();
+	sampler.BindPS();
 	GetContext()->PSSetShaderResources(0, 1, &texture);
 
 	// Copy Mip Map
-	for (uint32_t mipLevel = 0; mipLevel < maxMipLevels; mipLevel++)
+	for (uint32_t mipLevel = 0; mipLevel <= maxMipLevels; mipLevel++)
 	{
 		sourceRegion.left = 0;
 		sourceRegion.right = (texArrayDesc.Width >> mipLevel);
@@ -204,11 +201,11 @@ ID3D11ShaderResourceView* Angazi::Graphics::TextureUtil::CreatePreFilteredCubeMa
 		//if (sourceRegion.bottom == 0 || sourceRegion.right == 0)
 		//	break;
 
-		uint32_t mipWidth = static_cast<uint32_t>(cubeLength * std::pow(0.5f, mipLevel));
-		uint32_t mipHeight = static_cast<uint32_t>(cubeLength * std::pow(0.5f, mipLevel));
+		uint32_t mipWidth = static_cast<uint32_t>(sourceRegion.right);
+		uint32_t mipHeight = static_cast<uint32_t>(sourceRegion.right);
 		renderTarget.Initialize(mipWidth, mipHeight, RenderTarget::Format::RGBA_F16);
 
-		float roughness = static_cast<float>(mipLevel) / static_cast<float>(maxMipLevels - 1);
+		float roughness = static_cast<float>(mipLevel) / static_cast<float>(maxMipLevels);
 
 		Settings roughnessSettings;
 		roughnessSettings.roughness = roughness;
@@ -226,8 +223,7 @@ ID3D11ShaderResourceView* Angazi::Graphics::TextureUtil::CreatePreFilteredCubeMa
 			renderTarget.EndRender();
 			renderTarget.GetShaderResourceViewPointer()->GetResource(&resource);
 
-			GetContext()->CopySubresourceRegion(texArray, D3D11CalcSubresource(mipLevel, x,
-				texArrayDesc.MipLevels), 0, 0, 0, resource, mipLevel, &sourceRegion);
+			GetContext()->CopySubresourceRegion(texArray, D3D11CalcSubresource( mipLevel,x, texArrayDesc.MipLevels) ,0, 0, 0, resource, 0, &sourceRegion);
 		}
 		renderTarget.Terminate();
 
@@ -239,12 +235,13 @@ ID3D11ShaderResourceView* Angazi::Graphics::TextureUtil::CreatePreFilteredCubeMa
 	viewDesc.Format = texArrayDesc.Format;
 	viewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
 	viewDesc.TextureCube.MostDetailedMip = 0;
-	viewDesc.TextureCube.MipLevels = texArrayDesc.MipLevels;
+	viewDesc.TextureCube.MipLevels = maxMipLevels;
 
 	ID3D11ShaderResourceView* retShaderResourceView;
 	hr = GetDevice()->CreateShaderResourceView(texArray, &viewDesc, &retShaderResourceView);
 	ASSERT(SUCCEEDED(hr), "[Texture] Failed to create cube texture");
 
+	sampler.Terminate();
 	roughnessBuffer.Terminate();
 	tranformBuffer.Terminate();
 	meshBuffer.Terminate();
