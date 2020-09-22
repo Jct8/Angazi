@@ -68,7 +68,7 @@ void PixelShader::Initialize(const std::filesystem::path& filePath, const char *
 		glGetProgramInfoLog(mPixelShader, maxLength, &maxLength, &infoLog[0]);
 
 		glDeleteProgram(mPixelShader);
-		ASSERT(result, "[PixelShaderGL] - Shader failed to compile - %s:", infoLog.data());
+		ASSERT(result, "PixelShaderGL -- Shader failed to compile - %s:", infoLog.data());
 	}
 
 	GLint isLinked = 0;
@@ -82,7 +82,7 @@ void PixelShader::Initialize(const std::filesystem::path& filePath, const char *
 		glGetProgramInfoLog(mPixelShader, maxLength, &maxLength, &infoLog[0]);
 
 		glDeleteProgram(mPixelShader);
-		ASSERT(isLinked, "[PixelShaderGL] - Shader failed to link - %s", infoLog.data());
+		ASSERT(isLinked, "PixelShaderGL -- Shader failed to link - %s", infoLog.data());
 	}
 }
 

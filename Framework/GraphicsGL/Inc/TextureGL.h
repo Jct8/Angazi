@@ -23,7 +23,7 @@ namespace Angazi::Graphics
 		void Initialize(const std::filesystem::path& fileName, bool gammaCorrection = false);
 		void Initialize(const std::vector<std::filesystem::path>& cubeSides, bool gammaCorrection = false);
 		void InitializeHdrCube(const std::filesystem::path& filePath, const std::filesystem::path& shaderFilePath, uint32_t cubeLength);
-		void InitializeCubeMap(Texture& texture, const std::filesystem::path& shaderFilePath, uint32_t cubeLength, CubeMapType type);
+		void InitializeCubeMap(const Texture& texture, const std::filesystem::path& shaderFilePath, uint32_t cubeLength, CubeMapType type);
 		void Terminate();
 
 		void BindVS(uint32_t slot = 0) const;
@@ -32,6 +32,7 @@ namespace Angazi::Graphics
 		void UnbindPS(uint32_t slot = 0) const;
 
 		void* GetShaderResourceView() const { return reinterpret_cast<void*>(static_cast<intptr_t>(mTextureID)); }
+		uint32_t GetTextureID() const { return mTextureID; }
 		
 		uint32_t GetWidth() const { return mWidth; }
 		uint32_t GetHeight() const { return mHeight; }

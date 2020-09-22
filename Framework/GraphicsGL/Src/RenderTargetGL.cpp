@@ -32,7 +32,7 @@ RenderTarget::~RenderTarget()
 	ASSERT(!glIsTexture(mShaderResource), "[RenderTargetGL] Terminate() must be called to clean up!");
 	ASSERT(!glIsFramebuffer(mRenderTarget), "[RenderTargetGL] Terminate() must be called to clean up!");
 	ASSERT(!glIsTexture(mDepthStencil), "[RenderTargetGL] Terminate() must be called to clean up!");
-	//ASSERT(!glIsRenderbuffer(mDepthStencil), "[RenderTargetGL] Terminate() must be called to clean up!");
+	ASSERT(!glIsRenderbuffer(mRenderBuffer), "[RenderTargetGL] Terminate() must be called to clean up!");
 }
 
 void RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
@@ -51,10 +51,10 @@ void RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mShaderResource, 0);
 
-	//glGenRenderbuffers(1, &mDepthStencil);
-	//glBindRenderbuffer(GL_RENDERBUFFER, mDepthStencil);
-	//glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height); 
-	//glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mDepthStencil);
+	glGenRenderbuffers(1, &mRenderBuffer);
+	glBindRenderbuffer(GL_RENDERBUFFER, mRenderBuffer);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mRenderBuffer);
 
 	glCreateTextures(GL_TEXTURE_2D, 1, &mDepthStencil);
 	glBindTexture(GL_TEXTURE_2D, mDepthStencil);
@@ -73,7 +73,7 @@ void RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
 
 void RenderTarget::Terminate()
 {
-	//glDeleteRenderbuffers(1, &mDepthStencil);
+	glDeleteRenderbuffers(1, &mRenderBuffer);
 	glDeleteTextures(1, &mDepthStencil);
 	glDeleteTextures(1, &mShaderResource);
 	glDeleteFramebuffers(1, &mRenderTarget);

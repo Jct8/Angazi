@@ -1,23 +1,28 @@
-// Description: Simple shader that generates a 2D LUT from the BRDF equations
-cbuffer TransformBuffer : register(b0)
+#shader VS
+#version 450 core
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec2 aTexCoords;
+
+out vec2 outTexCoords;
+
+out gl_PerVertex
 {
-	matrix WVP;
+	vec4 gl_Position;
+};
+
+void main()
+{
+	outTexCoords = aTexCoords;
+	gl_Position = vec4(aPos, 1.0);
 }
 
-struct VS_INPUT
-{
-	float3 position : POSITION;
-	float2 texCoord : TEXCOORD;
-};
+#shader PS
+#version 450 core
+in vec2 outTexCoords;
+out vec4 FragColor;
 
-struct VS_OUTPUT
-{
-	float4 position : SV_Position;
-	float2 texCoord : TEXCOORD;
-};
-
-static const float PI = 3.14159265359f;
-static const float EPSILON = 1e-6f;
+const float PI = 3.14159265359f;
+const float EPSILON = 1e-6f;
 
 float RadicalInverse_VdC(uint bits)
 {
@@ -32,28 +37,28 @@ float RadicalInverse_VdC(uint bits)
 	return float(bits) * 2.3283064365386963e-10; // / 0x100000000
 }
 
-float2 Hammersley(uint i, uint n)
+vec2 Hammersley(uint i, uint n)
 {
-	return float2(float(i) / float(n), RadicalInverse_VdC(i));
+	return vec2(float(i) / float(n), RadicalInverse_VdC(i));
 }
-float3 ImportanceSampleGGX(float2 Xi, float3 normal, float roughness)
+vec3 ImportanceSampleGGX(vec2 Xi, vec3 normal, float roughness)
 {
 	float alpha = roughness * roughness;
-	
+
 	float phi = 2.0 * PI * Xi.x;
 	float cosTheta = sqrt((1.0 - Xi.y) / (1.0 + (alpha * alpha - 1.0) * Xi.y));
 	float sinTheta = sqrt(1.0 - cosTheta * cosTheta);
-	
+
 	// Spherical to Cartesian 
-	float3 halfway;
+	vec3 halfway;
 	halfway.x = cos(phi) * sinTheta;
 	halfway.y = sin(phi) * sinTheta;
 	halfway.z = cosTheta;
-	
+
 	// Tangent-space Halfway vector to World-Space sample vector
-	float3 up = abs(normal.z) < 0.999 ? float3(0.0, 0.0, 1.0) : float3(1.0, 0.0, 0.0);
-	float3 tangent = normalize(cross(up, normal));
-	float3 bitangent = cross(normal, tangent);
+	vec3 up = abs(normal.z) < 0.999 ? vec3(0.0, 0.0, 1.0) : vec3(1.0, 0.0, 0.0);
+	vec3 tangent = normalize(cross(up, normal));
+	vec3 bitangent = cross(normal, tangent);
 	
 	return normalize((tangent * halfway.x) + (bitangent * halfway.y) + (normal * halfway.z));
 }
@@ -61,12 +66,13 @@ float3 ImportanceSampleGGX(float2 Xi, float3 normal, float roughness)
 float GeometrySchlickGGX(float nDotV, float roughness)
 {
 	float alpha = roughness;
-	float k = (alpha * alpha) / 2.0;
+	float k = (alpha * alpha) / 2.0f;
 
-	float denom = nDotV * (1.0 - k) + k;
+	float denom = nDotV * (1.0f - k) + k;
 	return nDotV / denom;
 }
-float GeometrySmith(float3 normal, float3 viewDir, float3 lightDir, float roughness)
+
+float GeometrySmith(vec3 normal, vec3 viewDir, vec3 lightDir, float roughness)
 {
 	float nDotV = max(dot(normal, viewDir), 0.0f);
 	float nDotL = max(dot(normal, lightDir), 0.0f);
@@ -77,9 +83,9 @@ float GeometrySmith(float3 normal, float3 viewDir, float3 lightDir, float roughn
 	return ggx1 * ggx2;
 }
 
-float2 IntegrateBRDF(float nDotV, float roughness)
+vec2 IntegrateBRDF(float nDotV, float roughness)
 {
-	float3 viewDir;
+	vec3 viewDir;
 	viewDir.x = sqrt(1.0f - nDotV * nDotV);
 	viewDir.y = 0.0f;
 	viewDir.z = nDotV;
@@ -87,14 +93,14 @@ float2 IntegrateBRDF(float nDotV, float roughness)
 	float A = 0.0f;
 	float B = 0.0f;
 
-	float3 normal = float3(0.0, 0.0, 1.0);
+	vec3 normal = vec3(0.0, 0.0, 1.0);
 
 	const uint numSamples = 1024;
 	for (uint i = 0; i < numSamples; ++i)
 	{
-		float2 Xi = Hammersley(i, numSamples);
-		float3 halfway = ImportanceSampleGGX(Xi, normal, roughness);
-		float3 lightDir = normalize(2.0f * dot(viewDir, halfway) * halfway - viewDir);
+		vec2 Xi = Hammersley(i, numSamples);
+		vec3 halfway = ImportanceSampleGGX(Xi, normal, roughness);
+		vec3 lightDir = normalize(2.0f * dot(viewDir, halfway) * halfway - viewDir);
 
 		float nDotL = max(lightDir.z, 0.0f);
 		float nDotH = max(halfway.z, 0.0f);
@@ -110,19 +116,11 @@ float2 IntegrateBRDF(float nDotV, float roughness)
 			B += Fc * G_Vis;
 		}
 	}
-	return float2(A, B) / float(numSamples);
+	return vec2(A, B) / float(numSamples);
 }
 
-VS_OUTPUT VS(VS_INPUT input)
+void main()
 {
-	VS_OUTPUT output;
-	output.texCoord = input.texCoord;
-	output.position = float4(input.position, 1.0f);
-	return output;
-}
-
-float4 PS(VS_OUTPUT input) : SV_Target
-{
-	float2 integratedBRDF = IntegrateBRDF(input.texCoord.x, input.texCoord.y);
-	return float4(integratedBRDF,0.0f, 1.0f);
+	vec2 integratedBRDF = IntegrateBRDF(outTexCoords.x, outTexCoords.y);
+	FragColor = vec4(integratedBRDF,0.0f, 1.0f);
 }

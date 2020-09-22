@@ -16,12 +16,12 @@ using namespace Angazi::Math;
 
 namespace
 {
-	Math::Matrix4 cubeLookDir[] =
+	const Math::Matrix4 cubeLookDir[] =
 	{
 		Matrix4::RotationQuaternion(Quaternion::RotationLookAt({ 1.0f,  0.0f,  0.0f }, { 0.0f, -1.0f,  0.0f })),
 		Matrix4::RotationQuaternion(Quaternion::RotationLookAt({-1.0f,  0.0f,  0.0f }, { 0.0f, -1.0f,  0.0f })),
-		Matrix4::RotationQuaternion(Quaternion::RotationLookAt({ 0.0f,  1.0f,  0.0f }, { 0.0f,  0.0f, -1.0f })),
 		Matrix4::RotationQuaternion(Quaternion::RotationLookAt({ 0.0f, -1.0f,  0.0f }, { 0.0f,  0.0f,  1.0f })),
+		Matrix4::RotationQuaternion(Quaternion::RotationLookAt({ 0.0f,  1.0f,  0.0f }, { 0.0f,  0.0f, -1.0f })),
 		Matrix4::RotationQuaternion(Quaternion::RotationLookAt({ 0.0f,  0.0f, -1.0f }, { 0.0f, -1.0f,  0.0f })),
 		Matrix4::RotationQuaternion(Quaternion::RotationLookAt({ 0.0f,  0.0f,  1.0f }, { 0.0f, -1.0f,  0.0f }))
 	};
@@ -29,226 +29,152 @@ namespace
 
 uint32_t Angazi::Graphics::TextureUtil::CreateCubeMapFromTexture(uint32_t texture, const std::filesystem::path& shaderFilePath, uint32_t cubeLength)
 {
-	//RenderTarget renderTarget;
-	//VertexShader vertexShader;
-	//PixelShader pixelShader;
-	//MeshBuffer meshBuffer;
-	//TypedConstantBuffer<Math::Matrix4> tranformBuffer;
+	RenderTarget renderTarget;
+	VertexShader vertexShader;
+	PixelShader pixelShader;
+	MeshBuffer meshBuffer;
+	TypedConstantBuffer<Math::Matrix4> tranformBuffer;
 
-	//Camera camera;
+	Camera camera;
 
-	//renderTarget.Initialize(cubeLength, cubeLength, RenderTarget::Format::RGBA_F16);
-	//meshBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
-	//vertexShader.Initialize(shaderFilePath, VertexP::Format);
-	//pixelShader.Initialize(shaderFilePath);
-	//tranformBuffer.Initialize();
+	renderTarget.Initialize(cubeLength, cubeLength, RenderTarget::Format::RGBA_F16);
+	meshBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
+	vertexShader.Initialize(shaderFilePath, VertexP::Format);
+	pixelShader.Initialize(shaderFilePath);
+	tranformBuffer.Initialize();
 
-	//camera.SetNearPlane(0.1f);
-	//camera.SetFarPlane(10.0f);
-	//camera.SetFov(90.0f * Math::Constants::DegToRad);
-	//camera.SetAspectRatio(1.0f);
+	camera.SetNearPlane(0.1f);
+	camera.SetFarPlane(10.0f);
+	camera.SetFov(90.0f * Math::Constants::DegToRad);
+	camera.SetAspectRatio(1.0f);
 
-	//ID3D11Resource* resource;
-	//renderTarget.GetShaderResourceViewPointer()->GetResource(&resource);
+	uint32_t cubemap;
+	glGenTextures(1, &cubemap);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemap);
+	for (uint32_t i = 0; i < 6; ++i)
+	{
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, cubeLength, cubeLength, 0, GL_RGB, GL_FLOAT, nullptr);
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	//D3D11_TEXTURE2D_DESC texElementDesc;
-	//static_cast<ID3D11Texture2D*>(resource)->GetDesc(&texElementDesc);
-	//D3D11_TEXTURE2D_DESC texArrayDesc;
-	//texArrayDesc.Width = texElementDesc.Width;
-	//texArrayDesc.Height = texElementDesc.Height;
-	//texArrayDesc.MipLevels = texElementDesc.MipLevels;
-	//texArrayDesc.ArraySize = 6;
-	//texArrayDesc.Format = texElementDesc.Format;
-	//texArrayDesc.SampleDesc.Count = 1;
-	//texArrayDesc.SampleDesc.Quality = 0;
-	//texArrayDesc.Usage = D3D11_USAGE_DEFAULT;
-	//texArrayDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	//texArrayDesc.CPUAccessFlags = 0;
-	//texArrayDesc.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
-	//ID3D11Texture2D* texArray = 0;
-	//HRESULT hr = GetDevice()->CreateTexture2D(&texArrayDesc, 0, &texArray);
-	//ASSERT(SUCCEEDED(hr), "[Texture] Failed to create 2D texture");
+	pixelShader.Bind();
+	vertexShader.Bind();
+	auto matProj = camera.GetPerspectiveMatrix();
 
-	//// Copy individual texture elements into texture array.
-	//D3D11_BOX sourceRegion;
-	//auto matProj = camera.GetPerspectiveMatrix();
-	//// Copy Mip Map
-	//for (UINT x = 0; x < 6; x++)
-	//{
-	//	auto matView = cubeLookDir[x];
+	glBindTextureUnit(0, texture);
+	renderTarget.BeginRender();
+	for (uint32_t i = 0; i < 6; ++i)
+	{
+		auto matView = cubeLookDir[i];
 
-	//	renderTarget.BeginRender();
-	//	pixelShader.Bind();
-	//	vertexShader.Bind();
-	//	GetContext()->PSSetShaderResources(0, 1, &texture);
-	//	tranformBuffer.Set(Math::Transpose(matView * matProj));
-	//	tranformBuffer.BindVS(0);
-	//	meshBuffer.Draw();
-	//	renderTarget.EndRender();
-	//	renderTarget.GetShaderResourceViewPointer()->GetResource(&resource);
-	//	for (UINT mipLevel = 0; mipLevel < texArrayDesc.MipLevels; mipLevel++)
-	//	{
-	//		sourceRegion.left = 0;
-	//		sourceRegion.right = (texArrayDesc.Width >> mipLevel);
-	//		sourceRegion.top = 0;
-	//		sourceRegion.bottom = (texArrayDesc.Height >> mipLevel);
-	//		sourceRegion.front = 0;
-	//		sourceRegion.back = 1;
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, cubemap, 0);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//		//test for overflow
-	//		if (sourceRegion.bottom == 0 || sourceRegion.right == 0)
-	//			break;
+		tranformBuffer.Set(Math::Transpose(matView * matProj));
+		tranformBuffer.BindVS(0);
+		meshBuffer.Draw();
+	}
+	renderTarget.EndRender();
 
-	//		GetContext()->CopySubresourceRegion(texArray, D3D11CalcSubresource(mipLevel, x,
-	//			texArrayDesc.MipLevels), 0, 0, 0, resource, mipLevel, &sourceRegion);
-	//	}
-	//}
-	//SafeRelease(resource);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemap);
+	glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 
-	//// Create a resource view to the texture array.
-	//D3D11_SHADER_RESOURCE_VIEW_DESC viewDesc;
-	//viewDesc.Format = texArrayDesc.Format;
-	//viewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
-	//viewDesc.TextureCube.MostDetailedMip = 0;
-	//viewDesc.TextureCube.MipLevels = texArrayDesc.MipLevels;
+	tranformBuffer.Terminate();
+	meshBuffer.Terminate();
+	pixelShader.Terminate();
+	vertexShader.Terminate();
+	renderTarget.Terminate();
 
-	uint32_t retShaderResourceView = 0;
-	//ID3D11ShaderResourceView* retShaderResourceView;
-	//hr = GetDevice()->CreateShaderResourceView(texArray, &viewDesc, &retShaderResourceView);
-	//ASSERT(SUCCEEDED(hr), "[Texture] Failed to create cube texture");
-
-	//tranformBuffer.Terminate();
-	//meshBuffer.Terminate();
-	//pixelShader.Terminate();
-	//vertexShader.Terminate();
-	//renderTarget.Terminate();
-
-	return retShaderResourceView;
+	return cubemap;
 }
 
-uint32_t Angazi::Graphics::TextureUtil::CreatePreFilteredCubeMap(uint32_t texture,	const std::filesystem::path& shaderFilePath, uint32_t cubeLength)
+uint32_t Angazi::Graphics::TextureUtil::CreatePreFilteredCubeMap(uint32_t texture, const std::filesystem::path& shaderFilePath, uint32_t cubeLength)
 {
-	//RenderTarget renderTarget;
-	//VertexShader vertexShader;
-	//PixelShader pixelShader;
-	//MeshBuffer meshBuffer;
-	//TypedConstantBuffer<Math::Matrix4> tranformBuffer;
-	//struct Settings
-	//{
-	//	float roughness;
-	//	float padding[3];
-	//};
-	//TypedConstantBuffer<Settings> roughnessBuffer;
-	//Camera camera;
+	RenderTarget renderTarget;
+	VertexShader vertexShader;
+	PixelShader pixelShader;
+	MeshBuffer meshBuffer;
+	TypedConstantBuffer<Math::Matrix4> tranformBuffer;
+	struct Settings
+	{
+		float roughness;
+		float padding[3];
+	};
+	TypedConstantBuffer<Settings> roughnessBuffer;
+	Camera camera;
 
-	////renderTarget.Initialize(cubeLength, cubeLength, RenderTarget::Format::RGBA_F16);
-	//meshBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
-	//vertexShader.Initialize(shaderFilePath, VertexP::Format);
-	//pixelShader.Initialize(shaderFilePath);
-	//tranformBuffer.Initialize();
-	//roughnessBuffer.Initialize();
+	renderTarget.Initialize(cubeLength, cubeLength, RenderTarget::Format::RGBA_F16);
+	meshBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
+	vertexShader.Initialize(shaderFilePath, VertexP::Format);
+	pixelShader.Initialize(shaderFilePath);
+	tranformBuffer.Initialize();
+	roughnessBuffer.Initialize();
 
-	//camera.SetNearPlane(0.1f);
-	//camera.SetFarPlane(10.0f);
-	//camera.SetFov(90.0f * Math::Constants::DegToRad);
-	//camera.SetAspectRatio(1.0f);
+	camera.SetNearPlane(0.1f);
+	camera.SetFarPlane(10.0f);
+	camera.SetFov(90.0f * Math::Constants::DegToRad);
+	camera.SetAspectRatio(1.0f);
 
-	//renderTarget.Initialize(cubeLength, cubeLength, RenderTarget::Format::RGBA_F16);
+	uint32_t prefilterMap;
+	glGenTextures(1, &prefilterMap);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap);
+	for (uint32_t i = 0; i < 6; ++i)
+	{
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB16F, cubeLength, cubeLength, 0, GL_RGB, GL_FLOAT, nullptr);
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 
-	//ID3D11Resource* resource;
-	//renderTarget.GetShaderResourceViewPointer()->GetResource(&resource);
+	pixelShader.Bind();
+	vertexShader.Bind();
+	auto matProj = camera.GetPerspectiveMatrix();
 
-	//renderTarget.Terminate();
+	uint32_t maxMipLevels = 5;
+	renderTarget.BeginRender();
+	glBindTextureUnit(0, texture);
+	for (uint32_t mipLevel = 0; mipLevel < maxMipLevels; ++mipLevel)
+	{
+		uint32_t mipWidth = static_cast<uint32_t>(cubeLength * std::pow(0.5f, mipLevel));
+		uint32_t mipHeight = static_cast<uint32_t>(cubeLength * std::pow(0.5f, mipLevel));
+		renderTarget.Initialize(mipWidth, mipHeight, RenderTarget::Format::RGBA_F16);
+		float roughness = static_cast<float>(mipLevel) / static_cast<float>(maxMipLevels - 1);
 
-	//uint32_t maxMipLevels = 5;
-	//D3D11_TEXTURE2D_DESC texElementDesc;
-	//static_cast<ID3D11Texture2D*>(resource)->GetDesc(&texElementDesc);
-	//D3D11_TEXTURE2D_DESC texArrayDesc;
-	//texArrayDesc.Width = texElementDesc.Width;
-	//texArrayDesc.Height = texElementDesc.Height;
-	//texArrayDesc.MipLevels = maxMipLevels - 1;
-	//texArrayDesc.ArraySize = 6;
-	//texArrayDesc.Format = texElementDesc.Format;
-	//texArrayDesc.SampleDesc.Count = 1;
-	//texArrayDesc.SampleDesc.Quality = 0;
-	//texArrayDesc.Usage = D3D11_USAGE_DEFAULT;
-	//texArrayDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	//texArrayDesc.CPUAccessFlags = 0;
-	//texArrayDesc.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
-	//ID3D11Texture2D* texArray = 0;
-	//HRESULT hr = GetDevice()->CreateTexture2D(&texArrayDesc, 0, &texArray);
-	//ASSERT(SUCCEEDED(hr), "[Texture] Failed to create 2D texture");
+		Settings roughnessSettings;
+		roughnessSettings.roughness = roughness;
+		roughnessBuffer.Set(roughnessSettings);
+		roughnessBuffer.BindPS(1);
 
-	//// Copy individual texture elements into texture array.
-	//D3D11_BOX sourceRegion;
-	//auto matProj = camera.GetPerspectiveMatrix();
-	//// Copy Mip Map
+		renderTarget.BeginRender();
+		for (uint32_t i = 0; i < 6; ++i)
+		{
+			auto matView = cubeLookDir[i];
+			tranformBuffer.Set(Math::Transpose(matView * matProj));
+			tranformBuffer.BindVS(0);
 
-	//for (uint32_t mipLevel = 0; mipLevel < maxMipLevels; mipLevel++)
-	//{
-	//	sourceRegion.left = 0;
-	//	sourceRegion.right = (texArrayDesc.Width >> mipLevel);
-	//	sourceRegion.top = 0;
-	//	sourceRegion.bottom = (texArrayDesc.Height >> mipLevel);
-	//	sourceRegion.front = 0;
-	//	sourceRegion.back = 1;
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, prefilterMap, mipLevel);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			meshBuffer.Draw();
+		}
+		renderTarget.EndRender();
+		renderTarget.Terminate();
+	}
 
-	//	//test for overflow
-	//	//if (sourceRegion.bottom == 0 || sourceRegion.right == 0)
-	//	//	break;
+	roughnessBuffer.Terminate();
+	tranformBuffer.Terminate();
+	meshBuffer.Terminate();
+	pixelShader.Terminate();
+	vertexShader.Terminate();
+	renderTarget.Terminate();
 
-	//	uint32_t mipWidth = static_cast<uint32_t>(cubeLength * std::pow(0.5f, mipLevel));
-	//	uint32_t mipHeight = static_cast<uint32_t>(cubeLength * std::pow(0.5f, mipLevel));
-	//	renderTarget.Initialize(mipWidth, mipHeight, RenderTarget::Format::RGBA_F16);
-
-	//	float roughness = static_cast<float>(mipLevel) / static_cast<float>(maxMipLevels - 1);
-
-	//	Settings roughnessSettings;
-	//	roughnessSettings.roughness = roughness;
-	//	roughnessBuffer.Set(roughnessSettings);
-	//	roughnessBuffer.BindPS(1);
-
-	//	for (uint32_t x = 0; x < 6; x++)
-	//	{
-	//		auto matView = cubeLookDir[x];
-
-	//		renderTarget.BeginRender();
-	//		pixelShader.Bind();
-	//		vertexShader.Bind();
-	//		GetContext()->PSSetShaderResources(0, 1, &texture);
-	//		tranformBuffer.Set(Math::Transpose(matView * matProj));
-	//		tranformBuffer.BindVS(0);
-	//		meshBuffer.Draw();
-	//		renderTarget.EndRender();
-	//		renderTarget.GetShaderResourceViewPointer()->GetResource(&resource);
-
-	//		GetContext()->CopySubresourceRegion(texArray, D3D11CalcSubresource(mipLevel, x,
-	//			texArrayDesc.MipLevels), 0, 0, 0, resource, mipLevel, &sourceRegion);
-	//	}
-	//	renderTarget.Terminate();
-
-	//}
-	//SafeRelease(resource);
-
-	//// Create a resource view to the texture array.
-	//D3D11_SHADER_RESOURCE_VIEW_DESC viewDesc;
-	//viewDesc.Format = texArrayDesc.Format;
-	//viewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
-	//viewDesc.TextureCube.MostDetailedMip = 0;
-	//viewDesc.TextureCube.MipLevels = texArrayDesc.MipLevels;
-
-	uint32_t retShaderResourceView = 0;
-	//hr = GetDevice()->CreateShaderResourceView(texArray, &viewDesc, &retShaderResourceView);
-	//ASSERT(SUCCEEDED(hr), "[Texture] Failed to create cube texture");
-
-	//roughnessBuffer.Terminate();
-	//tranformBuffer.Terminate();
-	//meshBuffer.Terminate();
-	//pixelShader.Terminate();
-	//vertexShader.Terminate();
-	//renderTarget.Terminate();
-
-	return retShaderResourceView;
+	return prefilterMap;
 }
 
 #endif

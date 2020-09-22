@@ -24,7 +24,7 @@ void ConstantBuffer::Initialize(int size)
 void ConstantBuffer::Terminate()
 {
 	if(glIsBuffer(mConstantBuffer))
-		glDeleteBuffers(GL_UNIFORM_BUFFER, &mConstantBuffer);
+		glDeleteBuffers(1, &mConstantBuffer);
 }
 
 void ConstantBuffer::BindVS(uint32_t slot) const

@@ -18,7 +18,7 @@ using namespace Angazi::Math;
 
 namespace
 {
-	Math::Matrix4 cubeLookDir[] =
+	const Math::Matrix4 cubeLookDir[] =
 	{
 		Matrix4::RotationQuaternion(Quaternion::RotationLookAt({ 1.0f,  0.0f,  0.0f }, { 0.0f, -1.0f,  0.0f })),
 		Matrix4::RotationQuaternion(Quaternion::RotationLookAt({-1.0f,  0.0f,  0.0f }, { 0.0f, -1.0f,  0.0f })),
@@ -29,8 +29,8 @@ namespace
 	};
 }
 
-ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreateCubeMapFromTexture(ID3D11ShaderResourceView* texture
-	, const std::filesystem::path & shaderFilePath, uint32_t cubeLength)
+ID3D11ShaderResourceView* Angazi::Graphics::TextureUtil::CreateCubeMapFromTexture(ID3D11ShaderResourceView* texture
+	, const std::filesystem::path& shaderFilePath, uint32_t cubeLength)
 {
 	RenderTarget renderTarget;
 	VertexShader vertexShader;
@@ -75,15 +75,15 @@ ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreateCubeMapFromTextu
 	// Copy individual texture elements into texture array.
 	D3D11_BOX sourceRegion;
 	auto matProj = camera.GetPerspectiveMatrix();
+	pixelShader.Bind();
+	vertexShader.Bind();
+	GetContext()->PSSetShaderResources(0, 1, &texture);
 	// Copy Mip Map
 	for (UINT x = 0; x < 6; x++)
 	{
 		auto matView = cubeLookDir[x];
 
 		renderTarget.BeginRender();
-		pixelShader.Bind();
-		vertexShader.Bind();
-		GetContext()->PSSetShaderResources(0, 1, &texture);
 		tranformBuffer.Set(Math::Transpose(matView * matProj));
 		tranformBuffer.BindVS(0);
 		meshBuffer.Draw();
@@ -128,8 +128,8 @@ ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreateCubeMapFromTextu
 	return retShaderResourceView;
 }
 
-ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreatePreFilteredCubeMap(ID3D11ShaderResourceView * texture,
-	const std::filesystem::path & shaderFilePath, uint32_t cubeLength)
+ID3D11ShaderResourceView* Angazi::Graphics::TextureUtil::CreatePreFilteredCubeMap(ID3D11ShaderResourceView* texture,
+	const std::filesystem::path& shaderFilePath, uint32_t cubeLength)
 {
 	RenderTarget renderTarget;
 	VertexShader vertexShader;
@@ -185,8 +185,12 @@ ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreatePreFilteredCubeM
 	// Copy individual texture elements into texture array.
 	D3D11_BOX sourceRegion;
 	auto matProj = camera.GetPerspectiveMatrix();
-	// Copy Mip Map
 
+	pixelShader.Bind();
+	vertexShader.Bind();
+	GetContext()->PSSetShaderResources(0, 1, &texture);
+
+	// Copy Mip Map
 	for (uint32_t mipLevel = 0; mipLevel < maxMipLevels; mipLevel++)
 	{
 		sourceRegion.left = 0;
@@ -216,9 +220,6 @@ ID3D11ShaderResourceView * Angazi::Graphics::TextureUtil::CreatePreFilteredCubeM
 			auto matView = cubeLookDir[x];
 
 			renderTarget.BeginRender();
-			pixelShader.Bind();
-			vertexShader.Bind();
-			GetContext()->PSSetShaderResources(0, 1, &texture);
 			tranformBuffer.Set(Math::Transpose(matView * matProj));
 			tranformBuffer.BindVS(0);
 			meshBuffer.Draw();

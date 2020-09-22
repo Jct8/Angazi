@@ -10,7 +10,7 @@ using namespace Angazi::Graphics;
 
 VertexShader::~VertexShader()
 {
-	ASSERT(!glIsProgram(mVertexShader), "[VertexShaderGL] Terminate() must be called to clean up!");
+	ASSERT(!glIsProgram(mVertexShader), "VertexShaderGL -- Terminate() must be called to clean up!");
 }
 
 void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t vertextFormat, const char * shaderName)
@@ -27,7 +27,7 @@ void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t ve
 	}
 
 	std::ifstream stream(defaultFilePathName);
-	ASSERT(stream, "[VertexShaderGL] - Error Reading File");
+	ASSERT(stream, "VertexShaderGL -- Error Reading File");
 
 	std::string line;
 	std::stringstream shaderSource;
@@ -50,7 +50,7 @@ void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t ve
 	std::string shaderString = shaderSource.str();
 	auto fileCstr = static_cast<const char *>(shaderString.c_str());
 	mVertexShader = glCreateShaderProgramv(GL_VERTEX_SHADER, 1, &fileCstr);
-	ASSERT(mVertexShader != 0, "[VertexShaderGL] - Error creating vertex shader");
+	ASSERT(mVertexShader != 0, "VertexShaderGL -- Error creating vertex shader");
 
 	//mVertexShader = glCreateShader(GL_VERTEX_SHADER);
 	//const char* src = shaderString.c_str();
@@ -69,7 +69,7 @@ void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t ve
 		glGetProgramInfoLog(mVertexShader, maxLength, &maxLength, &infoLog[0]);
 
 		glDeleteProgram(mVertexShader);
-		ASSERT(result, "[VertexShaderGL] - Shader failed to compile - %s:", infoLog.data());
+		ASSERT(result, "VertexShaderGL -- Shader failed to compile - %s:", infoLog.data());
 	}
 
 	GLint isLinked = 0;
@@ -83,7 +83,7 @@ void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t ve
 		glGetProgramInfoLog(mVertexShader, maxLength, &maxLength, &infoLog[0]);
 
 		glDeleteProgram(mVertexShader);
-		ASSERT(isLinked, "[VertexShaderGL] - Shader failed to link - %s", infoLog.data());
+		ASSERT(isLinked, "VertexShaderGL -- Shader failed to link - %s", infoLog.data());
 	}
 }
 

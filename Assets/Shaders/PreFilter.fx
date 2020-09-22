@@ -35,7 +35,6 @@ float DistributionGGX(float3 normal, float3 halfVector, float roughness)
 	
 	float denominator = (nDotH * nDotH) * (alphaSquared - 1.0f) + 1.0f;
 	return alphaSquared / max(PI* denominator * denominator, EPSILON);
-	//https://seblagarde.wordpress.com/2012/01/08/pi-or-not-to-pi-in-game-lighting-equation/ //
 }
 
 float RadicalInverse_VdC(uint bits)

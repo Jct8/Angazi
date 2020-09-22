@@ -8,7 +8,7 @@
 using namespace Angazi;
 
 META_DERIVED_BEGIN(EnvironmentService, Service)
-META_NO_FIELD
+	META_NO_FIELD
 META_CLASS_END;
 
 void EnvironmentService::Terminate()
@@ -27,7 +27,7 @@ void EnvironmentService::Render()
 
 void EnvironmentService::ShowInspectorPropeties()
 {
-	if (ImGui::CollapsingHeader("Available Environments", ImGuiTreeNodeFlags_Framed))
+	if (ImGui::CollapsingHeader("Available Environments", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		for (auto&[name, skybox] : mEnvironmentMap)
 		{

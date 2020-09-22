@@ -55,6 +55,7 @@ layout(std140, binding = 3) uniform SettingsBuffer
 	float isSkinnedMesh;
 	float metallicWeight;
 	float roughnessWeight;
+	bool useIBL;
 };
 
 layout(std140, binding = 4) uniform ShadowBuffer 
@@ -98,6 +99,9 @@ layout(binding = 3) uniform sampler2D aoMap;
 layout(binding = 4) uniform sampler2D depthMap;
 layout(binding = 5) uniform sampler2D metallicMap;
 layout(binding = 6) uniform sampler2D roughnessMap;
+layout(binding = 7) uniform samplerCube irradianceMap;
+layout(binding = 8) uniform samplerCube prefilterMap;
+layout(binding = 9) uniform sampler2D brdfLUT;
 
 void main()
 {
@@ -174,6 +178,7 @@ layout(std140, binding = 3) uniform SettingsBuffer
 	float isSkinnedMesh;
 	float metallicWeight;
 	float roughnessWeight;
+	bool useIBL;
 };
 
 layout(std140, binding = 4) uniform ShadowBuffer 
@@ -198,6 +203,9 @@ layout(binding = 3) uniform sampler2D aoMap;
 layout(binding = 4) uniform sampler2D depthMap;
 layout(binding = 5) uniform sampler2D metallicMap;
 layout(binding = 6) uniform sampler2D roughnessMap;
+layout(binding = 7) uniform samplerCube irradianceMap;
+layout(binding = 8) uniform samplerCube prefilterMap;
+layout(binding = 9) uniform sampler2D brdfLUT;
 
 const float PI = 3.14159265359;
 const float EPSILON = 1e-6f;
@@ -233,7 +241,7 @@ vec3 FresnalSchlick(float cosTheta, vec3 f0)
 
 vec3 FresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness)
 {
-	return F0 + (max(vec3(1.0f - roughness, 1.0f - roughness, 1.0f - roughness), F0) - F0) * pow(1.0f - cosTheta, 5.0f);
+	return F0 + (max(vec3(1.0f - roughness), F0) - F0) * pow(1.0f - cosTheta, 5.0f);
 }
 
 void main()
@@ -284,12 +292,13 @@ void main()
 	vec3 f0 = mix(fDielectric, albedoColor, metallic);
 	vec3 V = dirToView;
 	vec3 L = dirToLight;
-	vec3 halfVector = normalize(V+L);
+	vec3 R = reflect(V, normal);
+	vec3 halfVector = normalize(V + L);
 	float nDotL = max(dot(normal, L), 0.0f);
 	float nDotV = max(dot(normal, V), 0.0f);
 
-	// ambient
-	vec4 ambient = LightAmbient * MaterialAmbient;
+	// Ambient
+	vec4 ambient = vec4(albedoColor, 1.0f)  *LightAmbient * MaterialAmbient;
 
 	// Specular
 	float D = DistributionGGX(normal, halfVector, roughness); 
@@ -299,11 +308,30 @@ void main()
 
 	// Diffuse
 	vec3 kDiffuse = (vec3(1.0f) - F) * (1.0f - metallic);
-	vec3 diffuseBRDF = kDiffuse * diffuseColor * LightDiffuse.rgb * MaterialDiffuse.rgb;
+	vec3 diffuseBRDF = kDiffuse * albedoColor * LightDiffuse.rgb * MaterialDiffuse.rgb;
 
 	vec3 directLighting = (diffuseBRDF + specularBRDF) * brightness * nDotL;
+
+	////// IBL //////
+	if (useIBL)
+	{
+		// Diffuse
+		vec3 kS = FresnelSchlickRoughness(nDotV, f0, roughness);
+		vec3 kD = (vec3(1.0f) - kS) * (1.0f - metallic);
+		vec3 diffuse = texture(irradianceMap, normal).rgb * albedoColor * kD;
+
+		//Specular
+		const float maxReflectionLOD = 4.0;
+		R.y = -R.y;
+		vec3 prefilteredColor = textureLod(prefilterMap, R, roughness * maxReflectionLOD).rgb;
+		vec2 brdf = texture(brdfLUT, vec2(max(dot(normal, V), 0.0), roughness)).rg;
+		vec3 specular = prefilteredColor * (kS * brdf.x + brdf.y);
+
+		ambient = vec4(diffuse + specular, 1.0f);
+	}
 	vec3 color = (ambient.rgb + directLighting) * ambientOcclusion;
 
+	// Shadowing
 	if (useShadow)
 	{
 		float actualDepth = 1.0f - outPositionNDC.z / outPositionNDC.w;

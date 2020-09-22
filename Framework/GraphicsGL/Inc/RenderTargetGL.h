@@ -34,10 +34,12 @@ namespace Angazi::Graphics
 		void UnbindPS(uint32_t slot) const;
 
 		void* GetShaderResourceView() const { return reinterpret_cast<void*>(static_cast<intptr_t>(mShaderResource)); }
+		uint32_t GetShaderResource() const { return mShaderResource; }
 
 	private:
 		uint32_t mRenderTarget;
 		uint32_t mShaderResource;
+		uint32_t mRenderBuffer;
 		uint32_t mDepthStencil;
 
 		uint32_t mViewportWidth;
