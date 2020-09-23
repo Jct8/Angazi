@@ -19,7 +19,7 @@ namespace Angazi
 		virtual void Render() {}
 		virtual void DebugUI() {}
 
-		virtual void ShowInspectorPropeties(){}
+		virtual void ShowInspectorProperties(){}
 
 		GameWorld& GetWorld() { return *mWorld; }
 		const GameWorld& GetWorld() const { return *mWorld; }

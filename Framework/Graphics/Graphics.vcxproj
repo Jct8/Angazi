@@ -154,6 +154,10 @@
     <ClCompile Include="Src\BatchRenderer.cpp" />
     <ClCompile Include="Src\EnvironmentMap.cpp" />
     <ClCompile Include="Src\HdrEffect.cpp" />
+    <ClCompile Include="Src\Material.cpp" />
+    <ClCompile Include="Src\MeshManager.cpp" />
+    <ClCompile Include="Src\MetaRegistration.cpp" />
+    <ClCompile Include="Src\ModelManager.cpp" />
     <ClCompile Include="Src\ParticleEmitter.cpp" />
     <ClCompile Include="Src\PbrEffect.cpp" />
     <ClCompile Include="Src\WaterEffect.cpp" />
@@ -178,7 +182,10 @@
     <ClInclude Include="Inc\Mesh.h" />
     <ClInclude Include="Inc\MeshBuilder.h" />
     <ClInclude Include="Inc\MeshIO.h" />
+    <ClInclude Include="Inc\MeshManager.h" />
+    <ClInclude Include="Inc\MetaRegistration.h" />
     <ClInclude Include="Inc\Model.h" />
+    <ClInclude Include="Inc\ModelManager.h" />
     <ClInclude Include="Inc\ObjLoader.h" />
     <ClInclude Include="Inc\ParticleEmitter.h" />
     <ClInclude Include="Inc\PbrEffect.h" />

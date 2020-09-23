@@ -7,6 +7,9 @@
 
 // Components
 #include "ColliderComponent.h"
+#include "MaterialComponent.h"
+#include "MeshComponent.h"
+#include "SkinnedMeshComponent.h"
 #include "TransformComponent.h"
 
 // Services
@@ -25,6 +28,9 @@ void Angazi::StaticMetaRegister()
 	META_REGISTER(Service);
 
 	META_REGISTER(ColliderComponent);
+	META_REGISTER(MaterialComponent);
+	META_REGISTER(MeshComponent);
+	META_REGISTER(SkinnedMeshComponent);
 	META_REGISTER(TransformComponent);
 
 	META_REGISTER(CameraService);

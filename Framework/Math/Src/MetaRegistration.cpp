@@ -34,7 +34,7 @@ namespace Angazi::Core::Meta
 		vec4->x = object.FindMember("x")->value.GetFloat();
 		vec4->y = object.FindMember("y")->value.GetFloat();
 		vec4->z = object.FindMember("z")->value.GetFloat();
-		vec4->z = object.FindMember("w")->value.GetFloat();
+		vec4->w = object.FindMember("w")->value.GetFloat();
 	}
 
 	template<>

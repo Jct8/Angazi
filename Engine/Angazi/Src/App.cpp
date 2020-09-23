@@ -23,6 +23,7 @@ void Angazi::App::Run(AppConfig appConfig)
 	LOG("App -- Registering meta types ... ");
 	Core::StaticMetaRegister();
 	Math::StaticMetaRegister();
+	Graphics::StaticMetaRegister();
 	Angazi::StaticMetaRegister();
 
 	// Initialize timer
@@ -42,6 +43,8 @@ void Angazi::App::Run(AppConfig appConfig)
 	TextureManager::StaticInitialize("../../Assets/Images/");
 	BatchRenderer::StaticInitialize();
 	SpriteRenderer::StaticInitialize();
+	ModelManager::StaticInitialize("../../Assets/Models/");
+	MeshManager::StaticInitialize("../../Assets/Models/");
 
 	// Start Logo 
 	float startTimer = TimeUtil::GetTime() + 2.0f;
@@ -122,6 +125,8 @@ void Angazi::App::Run(AppConfig appConfig)
 
 	SimpleDraw::StaticTerminate();
 	DebugUI::StaticTerminate();
+	MeshManager::StaticTerminate();
+	ModelManager::StaticTerminate();
 	SpriteRenderer::StaticTerminate();
 	BatchRenderer::StaticTerminate();
 	TextureManager::StaticTerminate();

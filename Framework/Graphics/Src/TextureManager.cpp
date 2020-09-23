@@ -10,7 +10,7 @@ namespace
 
 void TextureManager::StaticInitialize(const std::filesystem::path& root)
 {
-	ASSERT(sTextureManager == nullptr, "[TextureManager] TextureManager already initialized!");
+	ASSERT(sTextureManager == nullptr, "TextureManager -- TextureManager already initialized!");
 	sTextureManager = std::make_unique<TextureManager>();
 	sTextureManager->SetRootPath(root);
 }
@@ -26,49 +26,52 @@ void TextureManager::StaticTerminate()
 
 TextureManager * TextureManager::Get()
 {
-	ASSERT(sTextureManager != nullptr, "[TextureManager] No instance registered.");
+	ASSERT(sTextureManager != nullptr, "TextureManager -- No instance registered.");
 	return sTextureManager.get();
 }
 
 TextureManager::~TextureManager()
 {
-	ASSERT(mInventory.empty(), "[TextureManager] Clear() must be called to clean up.");
+	ASSERT(mInventory.empty(), "TextureManager -- Clear() must be called to clean up.");
 }
 
 void TextureManager::SetRootPath(const std::filesystem::path& path)
 {
-	mRootPath = path.string();
+	mRootPath = path;
 }
 
-TextureId TextureManager::Load(const char * fileNameInDefaultFolder)
+TextureId TextureManager::Load(const std::filesystem::path & filePath, bool useRootPath)
 {
-	std::filesystem::path texturePath = mRootPath + fileNameInDefaultFolder;
-	return Load(texturePath);
-}
+	std::filesystem::path texturePath = mRootPath;
+	if (useRootPath)
+		texturePath.append(filePath.c_str());
+	else
+		texturePath = filePath;
 
-TextureId TextureManager::Load(const std::filesystem::path & filePath)
-{
+	if (!std::filesystem::exists(filePath))
+		return 0;
+
 	std::hash<std::string> hasher;
-	TextureId hash = hasher(filePath.string());
+	TextureId hash = hasher(texturePath.string());
 
-	auto result = mInventory.insert({ hash , nullptr });
-	if (result.second)
+	auto [iter, successful] = mInventory.insert({ hash , nullptr });
+	if (successful)
 	{
 		std::unique_ptr<Texture> texture = std::make_unique<Texture>();
-		texture->Initialize(filePath);
-		result.first->second = std::move(texture);
+		texture->Initialize(texturePath);
+		iter->second = std::move(texture);
 	}
 	return hash;
 }
 
 void TextureManager::Clear()
 {
-	for (auto& item : mInventory)
+	for (auto& [id,model] : mInventory)
 	{
-		if (item.second)
+		if (model)
 		{
-			item.second->Terminate();
-			item.second.reset();
+			model->Terminate();
+			model.reset();
 		}
 	}
 	mInventory.clear();

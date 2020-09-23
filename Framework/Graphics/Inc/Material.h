@@ -10,6 +10,7 @@ namespace Angazi::Graphics
 		Color diffuse;
 		Color specular;
 		float power;
-		float padding[3];
+		float padding[2];
+		META_CLASS_DECLARE
 	};
 }

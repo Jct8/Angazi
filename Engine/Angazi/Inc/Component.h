@@ -20,10 +20,12 @@ namespace Angazi
 
 		virtual void Update(float deltaTime) {}
 		virtual void Render() {}
-		virtual void DebugUI() {}
 
-		GameObject& GetOwner() { return *mOwner; }
-		const GameObject& GetOwner() const { return *mOwner; }
+		virtual void DebugUI() {}
+		virtual void ShowInspectorProperties() {}
+
+		GameObject& GetGameObject() { return *mOwner; }
+		const GameObject& GetGameObject() const { return *mOwner; }
 
 	private:
 		friend class GameObject;

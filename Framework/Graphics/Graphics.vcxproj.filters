@@ -64,6 +64,12 @@
     <Filter Include="Src\VFX">
       <UniqueIdentifier>{7aa3d28b-5cb9-41fa-b608-8ab93a0153a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Meta">
+      <UniqueIdentifier>{a6ac62a5-ff93-41fd-ab31-d5626ff7cdd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Meta">
+      <UniqueIdentifier>{9be39c1a-6bfd-49eb-8c8b-7f7e511a86b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Common.h">
@@ -177,6 +183,15 @@
     <ClInclude Include="Inc\BatchRenderer.h">
       <Filter>Inc\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\ModelManager.h">
+      <Filter>Inc\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\MeshManager.h">
+      <Filter>Inc\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\MetaRegistration.h">
+      <Filter>Inc\Meta</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Camera.cpp">
@@ -253,6 +268,18 @@
     </ClCompile>
     <ClCompile Include="Src\BatchRenderer.cpp">
       <Filter>Src\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ModelManager.cpp">
+      <Filter>Src\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MeshManager.cpp">
+      <Filter>Src\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MetaRegistration.cpp">
+      <Filter>Src\Meta</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Material.cpp">
+      <Filter>Src\Material</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

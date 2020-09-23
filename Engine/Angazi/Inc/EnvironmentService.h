@@ -12,7 +12,7 @@ namespace Angazi
 		void Terminate() override;
 		
 		void Render() override;
-		void ShowInspectorPropeties() override;
+		void ShowInspectorProperties() override;
 
 		Graphics::Skybox* AddEnvironment(const char* name);
 		Graphics::Skybox* FindEnvironment(const char* name);
@@ -25,6 +25,6 @@ namespace Angazi
 	private:
 		using EnvironmentMap = std::map<std::string, Graphics::Skybox>;
 		EnvironmentMap mEnvironmentMap;
-		Graphics::Skybox* mActiveSkybox;
+		Graphics::Skybox* mActiveSkybox = nullptr;
 	};
 }

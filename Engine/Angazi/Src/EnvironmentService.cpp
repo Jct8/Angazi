@@ -13,7 +13,7 @@ META_CLASS_END;
 
 void EnvironmentService::Terminate()
 {
-	for (auto&[name, skybox] : mEnvironmentMap)
+	for (auto& [name, skybox] : mEnvironmentMap)
 		skybox.Terminate();
 }
 
@@ -25,11 +25,11 @@ void EnvironmentService::Render()
 		mActiveSkybox->Draw(camera);
 }
 
-void EnvironmentService::ShowInspectorPropeties()
+void EnvironmentService::ShowInspectorProperties()
 {
 	if (ImGui::CollapsingHeader("Available Environments", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		for (auto&[name, skybox] : mEnvironmentMap)
+		for (auto& [name, skybox] : mEnvironmentMap)
 		{
 			if (ImGui::Button(name.c_str()))
 				mActiveSkybox = &skybox;
@@ -37,7 +37,7 @@ void EnvironmentService::ShowInspectorPropeties()
 	}
 }
 
-Graphics::Skybox* EnvironmentService::AddEnvironment(const char * name)
+Graphics::Skybox* EnvironmentService::AddEnvironment(const char* name)
 {
 	auto skybox = &mEnvironmentMap[name];
 	if (!mActiveSkybox)
@@ -45,26 +45,26 @@ Graphics::Skybox* EnvironmentService::AddEnvironment(const char * name)
 	return skybox;
 }
 
-Graphics::Skybox* EnvironmentService::FindEnvironment(const char * name)
+Graphics::Skybox* EnvironmentService::FindEnvironment(const char* name)
 {
 	auto iter = mEnvironmentMap.find(name);
 	return (iter == mEnvironmentMap.end() ? nullptr : &(iter->second));
 }
 
-void EnvironmentService::SetActiveEnvironment(const char * name)
+void EnvironmentService::SetActiveEnvironment(const char* name)
 {
 	auto skybox = FindEnvironment(name);
 	if (skybox)
 		mActiveSkybox = skybox;
 }
 
-Graphics::Skybox & EnvironmentService::GetActiveEnvironment()
+Graphics::Skybox& EnvironmentService::GetActiveEnvironment()
 {
 	ASSERT(mActiveSkybox, "EnvironmentService -- No active environment!");
 	return *mActiveSkybox;
 }
 
-const Graphics::Skybox & EnvironmentService::GetActiveEnvironment() const
+const Graphics::Skybox& EnvironmentService::GetActiveEnvironment() const
 {
 	ASSERT(mActiveSkybox, "EnvironmentService -- No active environment!");
 	return *mActiveSkybox;

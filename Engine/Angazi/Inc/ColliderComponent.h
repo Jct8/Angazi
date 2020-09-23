@@ -9,10 +9,11 @@ namespace Angazi
 	class ColliderComponent : public Component
 	{
 	public:
-		META_CLASS_DECLARE
+		META_CLASS_DECLARE;
 
 		void Initialize() override;
 		void DebugUI() override;
+		void ShowInspectorProperties() override;
 
 		Math::AABB GetAABB() const;
 		Math::OBB GetOBB() const;

@@ -5,6 +5,7 @@
 namespace Angazi
 {
 	class Service;
+	class Editor;
 
 	class GameWorld
 	{

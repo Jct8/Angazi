@@ -12,8 +12,11 @@
 #include "AppState.h"
 
 // Components
-#include "TransformComponent.h"
 #include "ColliderComponent.h"
+#include "MaterialComponent.h"
+#include "MeshComponent.h"
+#include "SkinnedMeshComponent.h"
+#include "TransformComponent.h"
 
 // Service headers
 #include "CameraService.h"

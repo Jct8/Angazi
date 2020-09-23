@@ -18,8 +18,8 @@ namespace Angazi::Graphics
 
 		void SetRootPath(const std::filesystem::path& path);
 
-		TextureId Load(const char* fileNameInDefaultFolder);
-		TextureId Load(const std::filesystem::path& filePath);
+		//TextureId Load(const char* fileNameInDefaultFolder);
+		TextureId Load(const std::filesystem::path& filePath, bool useRootPath = true);
 
 		void Clear();
 
@@ -29,7 +29,7 @@ namespace Angazi::Graphics
 		Texture* GetTexture(TextureId id);
 
 	private:
-		std::string mRootPath;
+		std::filesystem::path mRootPath;
 		std::unordered_map <TextureId, std::unique_ptr<Texture>> mInventory;
 	};
 }

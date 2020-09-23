@@ -26,7 +26,7 @@ void EditState::Initialize()
 	auto& camera = mCameraService->GetActiveCamera();
 	camera.SetNearPlane(0.1f);
 	camera.SetFarPlane(300.0f);
-	camera.SetPosition({ 0.0f, 10.0f, -30.0f });
+	camera.SetPosition({ 0.0f, 5.0f, -10.0f });
 	camera.SetDirection({ 0.0f,0.0f, 1.0f });
 
 	mWorld.LoadScene("../../Assets/Scenes/Test_Scene.json");

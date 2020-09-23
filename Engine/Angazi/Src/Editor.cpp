@@ -37,7 +37,7 @@ void Editor::Show()
 
 void Editor::ShowWorldView()
 {
-	ImGui::Begin("World");
+	ImGui::Begin("Scene Hierarchy");
 	if (ImGui::TreeNode("Services"))
 	{
 		for (auto& service : mWorld.mServices)
@@ -50,6 +50,7 @@ void Editor::ShowWorldView()
 		}
 		ImGui::TreePop();
 	}
+	ImGui::SetNextItemOpen(true);
 	if (ImGui::TreeNode("Game Objects"))
 	{
 		for (auto gameObject : mWorld.mUpdateList)
@@ -70,25 +71,31 @@ void Editor::ShowInspectorView()
 	ImGui::Begin("Inspector");
 	if (mSelectedService)
 	{
-		mSelectedService->ShowInspectorPropeties();
+		mSelectedService->ShowInspectorProperties();
 	}
 	else if (mSelectedGameObject)
 	{
+		ImGui::Text(mSelectedGameObject->GetName().c_str());
+		ImGui::NewLine();
+		ImGui::Separator();
+		ImGui::Text("Components");
+		ImGui::NewLine();
 		for (auto& component : mSelectedGameObject->mComponents)
 		{
-			auto metaClass = component->GetMetaClass();
-			if (ImGui::CollapsingHeader(metaClass->GetName(), ImGuiTreeNodeFlags_DefaultOpen))
-			{
-				for (size_t i = 0; i < metaClass->GetFieldCount(); i++)
-				{
-					auto metaField = metaClass->GetField(i);
-					if (metaField->GetMetaType() == Core::Meta::GetMetaType<Math::Vector3>())
-					{
-						auto data = (float*)metaField->GetFieldInstance(component.get());
-						ImGui::DragFloat3(metaField->GetName(), data);
-					}
-				}
-			}
+			component->ShowInspectorProperties();
+			//auto metaClass = component->GetMetaClass();
+			//if (ImGui::CollapsingHeader(metaClass->GetName(), ImGuiTreeNodeFlags_DefaultOpen))
+			//{
+			//	for (size_t i = 0; i < metaClass->GetFieldCount(); i++)
+			//	{
+			//		auto metaField = metaClass->GetField(i);
+			//		if (metaField->GetMetaType() == Core::Meta::GetMetaType<Math::Vector3>())
+			//		{
+			//			auto data = (float*)metaField->GetFieldInstance(component.get());
+			//			ImGui::DragFloat3(metaField->GetName(), data);
+			//		}
+			//	}
+			//}
 		}
 	}
 	ImGui::End();

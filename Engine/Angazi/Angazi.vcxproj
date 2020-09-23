@@ -164,7 +164,10 @@
     <ClInclude Include="Inc\GameObject.h" />
     <ClInclude Include="Inc\GameObjectFactory.h" />
     <ClInclude Include="Inc\GameWorld.h" />
+    <ClInclude Include="Inc\MaterialComponent.h" />
+    <ClInclude Include="Inc\MeshComponent.h" />
     <ClInclude Include="Inc\Service.h" />
+    <ClInclude Include="Inc\SkinnedMeshComponent.h" />
     <ClInclude Include="Inc\Terrain.h" />
     <ClInclude Include="Inc\TransformComponent.h" />
     <ClInclude Include="Src\MetaRegistration.h" />
@@ -182,6 +185,8 @@
     <ClCompile Include="Src\GameObject.cpp" />
     <ClCompile Include="Src\GameObjectFactory.cpp" />
     <ClCompile Include="Src\GameWorld.cpp" />
+    <ClCompile Include="Src\MaterialComponent.cpp" />
+    <ClCompile Include="Src\MeshComponent.cpp" />
     <ClCompile Include="Src\MetaRegistration.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -190,6 +195,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Src\Service.cpp" />
+    <ClCompile Include="Src\SkinnedMeshComponent.cpp" />
     <ClCompile Include="Src\Terrain.cpp" />
     <ClCompile Include="Src\TransformComponent.cpp" />
   </ItemGroup>
