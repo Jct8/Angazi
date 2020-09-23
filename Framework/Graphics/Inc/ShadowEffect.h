@@ -8,7 +8,7 @@ namespace Angazi::Graphics
 	class ShadowEffect : public Effect
 	{
 	public:
-		ShadowEffect():Effect(ShadowType) {};
+		ShadowEffect():Effect(EffectType::ShadowType) {};
 		~ShadowEffect() = default;
 		ShadowEffect(const ShadowEffect&) = delete;
 		ShadowEffect& operator=(const ShadowEffect&) = delete;
@@ -39,7 +39,7 @@ namespace Angazi::Graphics
 		struct Settings
 		{
 			float isSkinnedMesh = 0.0f;
-			float padding[3];
+			float padding[3]{};
 		};
 
 		using DepthMapConstantBuffer = Angazi::Graphics::TypedConstantBuffer<Angazi::Math::Matrix4>;

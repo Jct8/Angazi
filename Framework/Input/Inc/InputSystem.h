@@ -3,114 +3,116 @@
 #include "InputTypes.h"
 #include <DirectXTK/Inc/GamePad.h>
 
-namespace Angazi::Input {
-
-class InputSystem
+namespace Angazi::Input 
 {
-public:
-	static void StaticInitialize(HWND window);
-	static void StaticTerminate();
-	static InputSystem* Get();
+	LRESULT CALLBACK InputSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 
-public:
-	InputSystem() = default;
-	~InputSystem();
+	class InputSystem
+	{
+	public:
+		static void StaticInitialize(HWND window);
+		static void StaticTerminate();
+		static InputSystem* Get();
 
-	InputSystem(const InputSystem&) = delete;
-	InputSystem& operator=(const InputSystem&) = delete;
+	public:
+		InputSystem() = default;
+		~InputSystem();
 
-	void Initialize(HWND window);
-	void Terminate();
+		InputSystem(const InputSystem&) = delete;
+		InputSystem& operator=(const InputSystem&) = delete;
 
-	void Update();
+		void Initialize(HWND window);
+		void Terminate();
 
-	bool IsKeyDown(KeyCode key) const;
-	bool IsKeyPressed(KeyCode key) const;
+		void Update();
 
-	bool IsMouseDown(MouseButton button) const;
-	bool IsMousePressed(MouseButton button) const;
+		bool IsKeyDown(KeyCode key) const;
+		bool IsKeyPressed(KeyCode key) const;
 
-	int GetMouseMoveX() const;
-	int GetMouseMoveY() const;
-	float GetMouseMoveZ() const;
+		bool IsMouseDown(MouseButton button) const;
+		bool IsMousePressed(MouseButton button) const;
 
-	int GetMouseScreenX() const;
-	int GetMouseScreenY() const;
+		int GetMouseMoveX() const;
+		int GetMouseMoveY() const;
+		float GetMouseMoveZ() const;
 
-	bool IsMouseLeftEdge() const;
-	bool IsMouseRightEdge() const;
-	bool IsMouseTopEdge() const;
-	bool IsMouseBottomEdge() const;
+		int GetMouseScreenX() const;
+		int GetMouseScreenY() const;
 
-	void ShowSystemCursor(bool show);
-	void SetMouseClipToWindow(bool clip);
-	bool IsMouseClipToWindow() const;
+		bool IsMouseLeftEdge() const;
+		bool IsMouseRightEdge() const;
+		bool IsMouseTopEdge() const;
+		bool IsMouseBottomEdge() const;
 
-	bool IsGamePadConnected(int player) const;
+		void ShowSystemCursor(bool show);
+		void SetMouseClipToWindow(bool clip);
+		bool IsMouseClipToWindow() const;
 
-	bool IsAPressed(int player) const;
-	bool IsBPressed(int player) const;
-	bool IsXPressed(int player) const;
-	bool IsYPressed(int player) const;
+		bool IsGamePadConnected(int player) const;
 
-	bool IsLeftShoulderPressed(int player) const;
-	bool IsLeftTriggerPressed(int player) const;
-	bool IsRightShoulderPressed(int player) const;
-	bool IsRightTriggerPressed(int player) const;
+		bool IsAPressed(int player) const;
+		bool IsBPressed(int player) const;
+		bool IsXPressed(int player) const;
+		bool IsYPressed(int player) const;
 
-	bool IsDPadUp(int player) const;
-	bool IsDPadDown(int player) const;
-	bool IsDPadLeft(int player) const;
-	bool IsDPadRight(int player) const;
+		bool IsLeftShoulderPressed(int player) const;
+		bool IsLeftTriggerPressed(int player) const;
+		bool IsRightShoulderPressed(int player) const;
+		bool IsRightTriggerPressed(int player) const;
 
-	bool IsLeftThumbStickUp(int player) const;
-	bool IsLeftThumbStickDown(int player) const;
-	bool IsLeftThumbStickLeft(int player) const;
-	bool IsLeftThumbStickRight(int player) const;
+		bool IsDPadUp(int player) const;
+		bool IsDPadDown(int player) const;
+		bool IsDPadLeft(int player) const;
+		bool IsDPadRight(int player) const;
 
-	bool IsRightThumbStickUp(int player) const;
-	bool IsRightThumbStickDown(int player) const;
-	bool IsRightThumbStickLeft(int player) const;
-	bool IsRightThumbStickRight(int player) const;
+		bool IsLeftThumbStickUp(int player) const;
+		bool IsLeftThumbStickDown(int player) const;
+		bool IsLeftThumbStickLeft(int player) const;
+		bool IsLeftThumbStickRight(int player) const;
 
-	float GetLeftAnalogX(int player) const;
-	float GetLeftAnalogY(int player) const;
-	float GetRightAnalogX(int player) const;
-	float GetRightAnalogY(int player) const;
+		bool IsRightThumbStickUp(int player) const;
+		bool IsRightThumbStickDown(int player) const;
+		bool IsRightThumbStickLeft(int player) const;
+		bool IsRightThumbStickRight(int player) const;
 
-private:
-	friend LRESULT CALLBACK InputSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
+		float GetLeftAnalogX(int player) const;
+		float GetLeftAnalogY(int player) const;
+		float GetRightAnalogX(int player) const;
+		float GetRightAnalogY(int player) const;
 
-	HWND mWindow = nullptr;
+	private:
+		friend LRESULT CALLBACK InputSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 
-	std::unique_ptr<DirectX::GamePad> mGamePad;
-	DirectX::GamePad::State mGamePadState[4]{};
+		HWND mWindow = nullptr;
 
-	bool mCurrKeys[512]{};
-	bool mPrevKeys[512]{};
-	bool mPressedKeys[512]{};
+		std::unique_ptr<DirectX::GamePad> mGamePad;
+		DirectX::GamePad::State mGamePadState[4]{};
 
-	bool mClipMouseToWindow = false;
+		bool mCurrKeys[512]{};
+		bool mPrevKeys[512]{};
+		bool mPressedKeys[512]{};
 
-	int mCurrMouseX = -1;
-	int mCurrMouseY = -1;
-	int mPrevMouseX = -1;
-	int mPrevMouseY = -1;
-	int mMouseMoveX = 0;
-	int mMouseMoveY = 0;
+		bool mClipMouseToWindow = false;
 
-	float mMouseWheel = 0.0f;
+		int mCurrMouseX = -1;
+		int mCurrMouseY = -1;
+		int mPrevMouseX = -1;
+		int mPrevMouseY = -1;
+		int mMouseMoveX = 0;
+		int mMouseMoveY = 0;
 
-	bool mCurrMouseButtons[3]{};
-	bool mPrevMouseButtons[3]{};
-	bool mPressedMouseButtons[3]{};
+		float mMouseWheel = 0.0f;
 
-	bool mMouseLeftEdge = false;
-	bool mMouseRightEdge = false;
-	bool mMouseTopEdge = false;
-	bool mMouseBottomEdge = false;
+		bool mCurrMouseButtons[3]{};
+		bool mPrevMouseButtons[3]{};
+		bool mPressedMouseButtons[3]{};
 
-	bool mInitialized = false;
-};
+		bool mMouseLeftEdge = false;
+		bool mMouseRightEdge = false;
+		bool mMouseTopEdge = false;
+		bool mMouseBottomEdge = false;
+
+		bool mInitialized = false;
+	};
 
 } // namespace Angazi::Input

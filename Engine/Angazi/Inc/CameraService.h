@@ -22,6 +22,6 @@ namespace Angazi
 	private:
 		using CameraMap = std::map<std::string, Graphics::Camera>;
 		CameraMap mCameraMap;
-		Graphics::Camera* mActiveCamera;
+		Graphics::Camera* mActiveCamera = nullptr;
 	};
 }

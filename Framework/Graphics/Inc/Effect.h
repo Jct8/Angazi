@@ -7,7 +7,7 @@ namespace Angazi::Graphics
 	class Effect
 	{
 	public:
-		enum EffectType
+		enum class EffectType
 		{
 			StandardType,
 			ShadowType,
@@ -29,6 +29,6 @@ namespace Angazi::Graphics
 		EffectType GetEffectType() const { return mType; };
 
 	protected:
-		EffectType mType = NoEffect;
+		EffectType mType = EffectType::NoEffect;
 	};
 }

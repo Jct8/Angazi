@@ -6,6 +6,8 @@
 
 namespace Angazi::Graphics
 {
+	LRESULT CALLBACK GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
+
 	class GraphicsSystem
 	{
 	public:

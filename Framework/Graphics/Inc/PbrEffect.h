@@ -9,7 +9,7 @@ namespace Angazi::Graphics
 	class PbrEffect : public Effect
 	{
 	public:
-		PbrEffect() : Effect(StandardType) {};
+		PbrEffect() : Effect(EffectType::StandardType) {};
 		~PbrEffect() = default;
 		PbrEffect(const PbrEffect&) = delete;
 		PbrEffect& operator=(const PbrEffect&) = delete;
@@ -76,7 +76,7 @@ namespace Angazi::Graphics
 			Angazi::Math::Matrix4 world;
 			Angazi::Math::Matrix4 wvp;
 			Angazi::Math::Vector3 viewPosition;
-			float padding;
+			float padding = 0.0f;
 		};
 
 		struct Settings
@@ -91,7 +91,7 @@ namespace Angazi::Graphics
 			float metallicWeight = -1.0f;
 			float roughnessWeight = -1.0f;
 			int useIBL = 0;
-			float padding[2];
+			float padding[2]{};
 		};
 
 		struct BoneTransform

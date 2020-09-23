@@ -9,7 +9,7 @@ namespace Angazi::Graphics
 	class StandardEffect : public Effect
 	{
 	public:
-		StandardEffect() :Effect(StandardType) {};
+		StandardEffect() :Effect(EffectType::StandardType) {};
 		~StandardEffect() = default;
 		StandardEffect(const StandardEffect&) = delete;
 		StandardEffect& operator=(const StandardEffect&) = delete;
@@ -67,7 +67,7 @@ namespace Angazi::Graphics
 			Angazi::Math::Matrix4 world;
 			Angazi::Math::Matrix4 wvp;
 			Angazi::Math::Vector3 viewPosition;
-			float padding;
+			float padding = 0.0f;
 		};
 
 		struct Settings
