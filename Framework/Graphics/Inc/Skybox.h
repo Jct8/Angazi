@@ -27,9 +27,9 @@ namespace Angazi::Graphics
 		void ChangeDefualtSkybox(int skyboxNumber);
 		void Draw(const Angazi::Graphics::Camera& camera);
 
-		const Angazi::Graphics::Texture* GetSkyboxTexture() { return &mTexture; };
-		const Angazi::Graphics::Texture* GetIrradianceMap() { return &mIrradianceMap; };
-		const Angazi::Graphics::Texture* GetPrefilteredMap() { return &mPrefilterMap; };
+		const Angazi::Graphics::Texture* GetSkyboxTexture() const { return &mTexture; };
+		const Angazi::Graphics::Texture* GetIrradianceMap() const { return &mIrradianceMap; };
+		const Angazi::Graphics::Texture* GetPrefilteredMap()const { return &mPrefilterMap; };
 	private:
 		struct TransformData
 		{

@@ -49,13 +49,13 @@ void Angazi::Core::Window::Initialize(HINSTANCE instance, LPCSTR appName, uint32
 	classInfo.style = CS_HREDRAW | CS_VREDRAW;
 	classInfo.lpfnWndProc = WndProc;
 	classInfo.hInstance = instance;
-	//classInfo.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
 	classInfo.hIcon = myIcon;
 	classInfo.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	classInfo.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	classInfo.lpszClassName = appName;
-	//classInfo.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
 	classInfo.hIconSm = myIcon;
+	//classInfo.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+	//classInfo.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
 
 	RegisterClassExA(&classInfo);
 

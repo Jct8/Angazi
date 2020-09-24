@@ -13,6 +13,7 @@ void TextureManager::StaticInitialize(const std::filesystem::path& root)
 	ASSERT(sTextureManager == nullptr, "TextureManager -- TextureManager already initialized!");
 	sTextureManager = std::make_unique<TextureManager>();
 	sTextureManager->SetRootPath(root);
+	sTextureManager->defaultTexture = sTextureManager->Load("Empty.png");
 }
 
 void TextureManager::StaticTerminate()
@@ -48,7 +49,7 @@ TextureId TextureManager::Load(const std::filesystem::path & filePath,bool useGa
 	else
 		texturePath = filePath;
 
-	if (!std::filesystem::exists(filePath))
+	if (!std::filesystem::exists(texturePath))
 		return 0;
 
 	std::hash<std::string> hasher;
@@ -94,5 +95,8 @@ void TextureManager::BindPS(TextureId id, uint32_t slot)
 Texture * TextureManager::GetTexture(TextureId id)
 {
 	auto iter = mInventory.find(id);
-	return iter != mInventory.end() ? iter->second.get() : nullptr;
+	if (iter != mInventory.end())
+		return iter->second.get();
+	auto defaultIter = mInventory.find(defaultTexture);
+	return defaultIter != mInventory.end() ? defaultIter->second.get() : nullptr;
 }

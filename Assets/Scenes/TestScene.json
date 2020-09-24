@@ -1,0 +1,12 @@
+{
+  "GameObjects": [
+	{
+      "Template": "../../Assets/Templates/Sci-Fi_Helmet.json",
+      "Name": "Sci-Fi Helmet"
+    },
+	{
+      "Template": "../../Assets/Templates/JamesModel.json",
+      "Name": "James Model"
+    }
+  ]
+}

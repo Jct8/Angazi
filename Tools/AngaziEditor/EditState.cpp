@@ -15,8 +15,9 @@ void EditState::Initialize()
 	mCameraService = mWorld.AddService<CameraService>();
 	mEnvironmentService = mWorld.AddService<EnvironmentService>();
 	mShaderService = mWorld.AddService<ShaderService>();
-	mLightService= mWorld.AddService<LightService>();
-	mShaderService->AddShader<PbrEffect>("PBR");
+	mLightService = mWorld.AddService<LightService>();
+	mShaderService->AddShader<PbrEffect>();
+	mShaderService->AddShader<StandardEffect>();
 
 	mEnvironmentService->AddEnvironment("Helipad");
 	mEnvironmentService->AddEnvironment("Shiodome");
@@ -30,20 +31,21 @@ void EditState::Initialize()
 	auto& camera = mCameraService->GetActiveCamera();
 	camera.SetNearPlane(0.1f);
 	camera.SetFarPlane(300.0f);
-	camera.SetPosition({ 0.0f, 5.0f, -10.0f });
+	camera.SetPosition({ 0.0f, 2.0f, -5.0f });
 	camera.SetDirection({ 0.0f,0.0f, 1.0f });
 
 	auto& light = mLightService->GetActiveLight();
 	light.direction = Math::Normalize({ 0.0f, 0.0f,1.0f });
-	light.ambient = { 0.892f, 0.835f, 0.835f, 0.000f };
+	//light.ambient = { 0.892f, 0.835f, 0.835f, 0.000f };
+	light.ambient = { 0.292f, 0.235f, 0.235f, 0.000f };
 	light.diffuse = { 0.7f };
-	light.specular = { 0.5f };
+	light.specular = { 0.0f };
 
-	mWorld.LoadScene("../../Assets/Scenes/Test_Scene.json");
+	mWorld.LoadScene("../../Assets/Scenes/TestScene.json");
 
 	mHdrEffect.Initialize();
-	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(), 
-		GraphicsSystem::Get()->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
+	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(),
+		GraphicsSystem::Get()->GetBackBufferHeight(), RenderTarget::Format::RGBA_F16);
 
 }
 
@@ -63,17 +65,17 @@ void EditState::Update(float deltaTime)
 
 	auto& camera = mCameraService->GetActiveCamera();
 	if (inputSystem->IsKeyDown(KeyCode::W))
-		camera.Walk(kMoveSpeed*deltaTime);
+		camera.Walk(kMoveSpeed * deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::S))
 		camera.Walk(-kMoveSpeed * deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::A))
 		camera.Strafe(-kMoveSpeed * deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::D))
-		camera.Strafe(kMoveSpeed*deltaTime);
+		camera.Strafe(kMoveSpeed * deltaTime);
 	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
 	{
-		camera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
-		camera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+		camera.Yaw(inputSystem->GetMouseMoveX() * kTurnSpeed * deltaTime);
+		camera.Pitch(inputSystem->GetMouseMoveY() * kTurnSpeed * deltaTime);
 	}
 
 	mWorld.Update(deltaTime);
@@ -124,11 +126,10 @@ void EditState::ShowSceneView()
 
 	float width = vMax.x - vMin.x;
 	float height = vMax.y - vMin.y;
+	mCameraService->GetActiveCamera().SetAspectRatio(width / height);
 
 	ImGui::GetForegroundDrawList()->AddRect(vMin, vMax, IM_COL32(135, 206, 239, 255));
 	ImGui::Image(mRenderTarget.GetShaderResourceView(), { width, height });
-	auto& camera = mCameraService->GetActiveCamera();
-	camera.SetAspectRatio(width / height);
 	ImGui::CaptureMouseFromApp(!ImGui::IsItemHovered());
 	ImGui::End();
 }

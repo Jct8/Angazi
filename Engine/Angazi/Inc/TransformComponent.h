@@ -9,34 +9,29 @@ namespace Angazi
 	public:
 		META_CLASS_DECLARE;
 
+		void Initialize() override;
 		void DebugUI() override;
 		void ShowInspectorProperties() override;
 
 		Math::Matrix4 GetTransform() const;
 
+		void RotateX(float degree) { rotationDeg.x += degree; UpdateRotationQuaternion(); }
+		void RotateY(float degree) { rotationDeg.y += degree; UpdateRotationQuaternion(); }
+		void RotateZ(float degree) { rotationDeg.x += degree; UpdateRotationQuaternion(); }
+		void SetRotation(const Math::Vector3& rotation) { rotationDeg = rotation; UpdateRotationQuaternion(); }
+		void SetRotation(const Math::Quaternion& rotationQuat) { rotation = rotationQuat; UpdateRotationVec(); }
+
+		Math::Vector3 GetRotation() { return rotationDeg; }
+		Math::Quaternion GetRotationQuaternion() { return rotation; }
+
 		Math::Vector3 position = Math::Vector3::Zero;
-		Math::Quaternion rotation = Math::Quaternion::Identity;
 		Math::Vector3 scale = Math::Vector3::One;
-		//Math::Vector3 rotation = Math::Vector3::Zero;
 
-		//void SetPosition(const Math::Vector3& position) { mPosition = position; }
-		//void SetRotation(const Math::Vector3& rotation) { mRotation = rotation; }
-		//void SetScale(const Math::Vector3& scale) { mScale = scale; }
+	private:
+		void UpdateRotationQuaternion();
+		void UpdateRotationVec();
 
-		//Math::Vector3 GetPosition() { return mPosition; }
-		//Math::Vector3 GetRotation() { return mRotation; }
-		//Math::Vector3 GetScale() { return mScale; }
-
-		//void TranslateX(float value) { mPosition.x += value; }
-		//void TranslateY(float value) { mPosition.y += value; }
-		//void TranslateZ(float value) { mPosition.x += value; }
-
-		//void RotateX(float degree) { mRotation.x += degree; }
-		//void RotateY(float degree) { mRotation.y += degree; }
-		//void RotateZ(float degree) { mRotation.x += degree; }
-
-		//void ScaleX(float s) { mScale.x += s; }
-		//void ScaleY(float s) { mScale.y += s; }
-		//void ScaleZ(float s) { mScale.x += s; }
+		Math::Quaternion rotation = Math::Quaternion::Identity;
+		Math::Vector3 rotationDeg = Math::Vector3::Zero;
 	};
 }

@@ -6,6 +6,7 @@
 
 #include "CameraService.h"
 #include "LightService.h"
+#include "ShaderService.h"
 
 #include "ImGui/Inc/imgui.h"
 #include "TransformComponent.h"
@@ -25,11 +26,6 @@ void SkinnedMeshComponent::Initialize()
 	mModelId = ModelManager::Get()->LoadModel(mModelFileName);
 	mTransformComponent = GetGameObject().GetComponent<TransformComponent>();
 	mMaterialComponent = GetGameObject().GetComponent<MaterialComponent>();
-
-	mModelStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
-	mModelStandardEffect.UseShadow(false);
-	mModelStandardEffect.SetNormalMapWeight(1.0f);
-	mModelStandardEffect.SetSkinnedMesh(false);
 }
 
 void SkinnedMeshComponent::Render()
@@ -37,20 +33,18 @@ void SkinnedMeshComponent::Render()
 	auto model = ModelManager::Get()->GetModel(mModelId);
 	const auto& camera = GetGameObject().GetWorld().GetService<CameraService>()->GetActiveCamera();
 	const auto& light = GetGameObject().GetWorld().GetService<LightService>()->GetActiveLight();
+	const auto& shader = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<StandardEffect>();
 
+	shader->UseShadow(false);
+	shader->SetSkinnedMesh(false);
 	auto matWorld = mTransformComponent->GetTransform();
-	mModelStandardEffect.Begin();
-	mModelStandardEffect.SetMaterial(mMaterialComponent->material);
-	mModelStandardEffect.SetDirectionalLight(light);
-	mModelStandardEffect.SetTransformData(matWorld, camera.GetViewMatrix(), camera.GetPerspectiveMatrix(), camera.GetPosition());
-	mModelStandardEffect.UpdateSettings();
-	model->Draw(&mModelStandardEffect);
-	mModelStandardEffect.End();
-}
-
-void SkinnedMeshComponent::Terminate()
-{
-	mModelStandardEffect.Terminate();
+	shader->Begin();
+	shader->SetMaterial(mMaterialComponent->material);
+	shader->SetDirectionalLight(light);
+	shader->SetTransformData(matWorld, camera.GetViewMatrix(), camera.GetPerspectiveMatrix(), camera.GetPosition());
+	shader->UpdateSettings();
+	model->Draw(shader);
+	shader->End();
 }
 
 void SkinnedMeshComponent::ShowInspectorProperties()

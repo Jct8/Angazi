@@ -31,10 +31,7 @@ void Angazi::App::Run(AppConfig appConfig)
 
 	// Setup out application window
 	LOG("App -- Creating window ... ");
-	mWindow.Initialize(GetModuleHandle(NULL),
-		mAppConfig.appName.c_str(),
-		mAppConfig.windowWidth,
-		mAppConfig.windowHeight);
+	mWindow.Initialize(GetModuleHandle(NULL), mAppConfig.appName.c_str(), mAppConfig.windowWidth, mAppConfig.windowHeight);
 
 	auto handle = mWindow.GetWindowHandle();
 

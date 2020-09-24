@@ -24,9 +24,7 @@ namespace Angazi::Graphics
 		Effect(const Effect&) = delete;
 		Effect& operator=(const Effect&) = delete;
 
-		Effect(Effect&&) = default;
-
-		virtual void Initialize(const std::filesystem::path& fileName) {};
+		virtual void Initialize(const std::filesystem::path& fileName = "NONE") {};
 		virtual void Terminate() {}
 
 		virtual void Begin() {};

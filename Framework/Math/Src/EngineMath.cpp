@@ -303,12 +303,13 @@ Quaternion Angazi::Math::Slerp(const Quaternion& q1, const Quaternion& q2, float
 Quaternion Quaternion::RotationAxis(const Vector3& axis, float radian)
 {
 	const Vector3 a = Normalize(axis);
+	float theta = radian * 0.5f;
 	return Quaternion
 	(
-		a.x* sinf(radian / 2.0f),
-		a.y* sinf(radian / 2.0f),
-		a.z* sinf(radian / 2.0f),
-		cosf(radian / 2.0f)
+		a.x* sinf(theta),
+		a.y* sinf(theta),
+		a.z* sinf(theta),
+		cosf(theta)
 	);
 }
 Quaternion Quaternion::RotationMatrix(const Matrix4& input)
@@ -434,4 +435,27 @@ Matrix4 Matrix4::Transform(const Vector3 &translation, const Quaternion &rotatio
 	transform._43 = translation.z;
 	return transform;
 	//return Matrix4::RotationQuaternion(rotation) * Matrix4::Scaling(scale) * Matrix4::Translation(translation);
+}
+Vector3 Vector3::ToEulerAngle(const Quaternion& q)
+{
+	Vector3 eulerAngle;
+
+	// X
+	float sinX = 2.0f * (q.w * q.x + q.y * q.z);
+	float cosX = 1.0f - 2.0f * (q.x * q.x + q.y * q.y);
+	eulerAngle.x = atan2f(sinX, cosX);
+
+	// Y
+	float sinY = 2.0f * (q.w * q.y - q.z * q.x);
+	if (fabsf(sinY) >= 1.0f)
+		eulerAngle.y = std::copysign(Constants::Pi * 0.5f, sinY);
+	else
+		eulerAngle.y = asinf(sinY);
+
+	// Z
+	float sinZ = 2.0f * (q.w * q.z + q.x * q.y);
+	float cosZ = 1.0f - 2.0f * (q.y * q.y + q.z * q.z);
+	eulerAngle.z = atan2f(sinZ, sinZ);
+
+	return eulerAngle;
 }

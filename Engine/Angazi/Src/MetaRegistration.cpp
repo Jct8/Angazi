@@ -16,6 +16,7 @@
 #include "CameraService.h"
 #include "EnvironmentService.h"
 #include "LightService.h"
+#include "ShaderService.h"
 
 using namespace Angazi;
 
@@ -37,4 +38,5 @@ void Angazi::StaticMetaRegister()
 	META_REGISTER(CameraService);
 	META_REGISTER(EnvironmentService);
 	META_REGISTER(LightService);
+	META_REGISTER(ShaderService);
 }

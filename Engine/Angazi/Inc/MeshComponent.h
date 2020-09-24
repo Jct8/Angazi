@@ -22,7 +22,5 @@ namespace Angazi
 		const MaterialComponent* mMaterialComponent = nullptr;
 		std::string mMeshFileName;
 		Graphics::MeshId mMeshId = 0;
-
-		Graphics::StandardEffect mStandardEffect;
 	};
 }

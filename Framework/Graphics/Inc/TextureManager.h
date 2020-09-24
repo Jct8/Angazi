@@ -30,6 +30,7 @@ namespace Angazi::Graphics
 
 	private:
 		std::filesystem::path mRootPath;
+		TextureId defaultTexture = 0;
 		std::unordered_map <TextureId, std::unique_ptr<Texture>> mInventory;
 	};
 }

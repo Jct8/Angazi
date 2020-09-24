@@ -21,7 +21,7 @@ void GameState::Initialize()
 	camera.SetPosition({ 0.0f, 10.0f, -30.0f });
 	camera.SetDirection({ 0.0f,0.0f, 1.0f });
 
-	mWorld.LoadScene("../../Assets/Scenes/Test_Scene.json");
+	mWorld.LoadScene("../../Assets/Scenes/TestScene.json");
 }
 
 void GameState::Terminate()

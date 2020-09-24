@@ -14,7 +14,6 @@ namespace Angazi
 
 		void Initialize() override;
 		void Render() override;
-		void Terminate() override;
 
 		void ShowInspectorProperties() override;
 
@@ -23,7 +22,5 @@ namespace Angazi
 		const MaterialComponent* mMaterialComponent = nullptr;
 		std::filesystem::path mModelFileName;
 		Graphics::ModelId mModelId;
-
-		Graphics::StandardEffect mModelStandardEffect;
 	};
 }

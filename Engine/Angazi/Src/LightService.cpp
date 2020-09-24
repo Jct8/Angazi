@@ -24,7 +24,7 @@ void LightService::ShowInspectorProperties()
 			ImGui::ColorEdit4("Ambient Light", &light.ambient.r);
 			ImGui::ColorEdit4("Diffuse Light", &light.diffuse.r);
 			ImGui::ColorEdit4("Specular Light", &light.specular.r);
-			ImGui::DragFloat3("Light Direction", &light.direction.x);
+			ImGui::DragFloat3("Light Direction", &light.direction.x,0.01f,-1.0f,1.0f);
 			if (ImGui::Button("Set as active light"))
 				mActiveLight = &light;
 			ImGui::Separator();

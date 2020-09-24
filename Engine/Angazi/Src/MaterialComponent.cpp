@@ -15,7 +15,7 @@ META_CLASS_BEGIN(Material)
 	META_FIELD_BEGIN
 		META_FIELD(ambient, "Ambient")
 		META_FIELD(diffuse, "Diffuse")
-		META_FIELD(specular,"Specular")
+		META_FIELD(specular, "Specular")
 		META_FIELD(power, "Power")
 	META_FIELD_END
 META_CLASS_END;
@@ -35,7 +35,7 @@ META_CLASS_END;
 
 void MaterialComponent::Initialize()
 {
-	diffuseId = TextureManager::Get()->Load(mDiffuseFilePath,false,false);
+	diffuseId = TextureManager::Get()->Load(mDiffuseFilePath, false, false);
 	normalId = TextureManager::Get()->Load(mNormalFilePath, false, false);
 	specularId = TextureManager::Get()->Load(mSpecularFilePath, false, false);
 	displacementId = TextureManager::Get()->Load(mDisplacementFilePath, false, false);
@@ -57,7 +57,10 @@ void MaterialComponent::ShowInspectorProperties()
 		constexpr float imageSize = 50.0f;
 		ImGui::Image(textureManager->GetTexture(diffuseId)->GetShaderResourceView(), { imageSize,imageSize });
 		ImGui::Image(textureManager->GetTexture(normalId)->GetShaderResourceView(), { imageSize,imageSize });
-		ImGui::Image(textureManager->GetTexture(displacementId)->GetShaderResourceView(), { imageSize,imageSize});
+		ImGui::Image(textureManager->GetTexture(displacementId)->GetShaderResourceView(), { imageSize,imageSize });
 		ImGui::Image(textureManager->GetTexture(ambientOcculsionId)->GetShaderResourceView(), { imageSize,imageSize });
+		ImGui::Image(textureManager->GetTexture(specularId)->GetShaderResourceView(), { imageSize,imageSize });
+		ImGui::Image(textureManager->GetTexture(roughnessId)->GetShaderResourceView(), { imageSize,imageSize });
+		ImGui::Image(textureManager->GetTexture(metallicId)->GetShaderResourceView(), { imageSize,imageSize });
 	}
 }
