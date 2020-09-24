@@ -40,7 +40,7 @@ void TextureManager::SetRootPath(const std::filesystem::path& path)
 	mRootPath = path;
 }
 
-TextureId TextureManager::Load(const std::filesystem::path & filePath, bool useRootPath)
+TextureId TextureManager::Load(const std::filesystem::path & filePath,bool useGammaCorrection, bool useRootPath)
 {
 	std::filesystem::path texturePath = mRootPath;
 	if (useRootPath)

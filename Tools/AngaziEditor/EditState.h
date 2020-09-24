@@ -25,4 +25,6 @@ private:
 	Angazi::Editor mEditor{ mWorld };
 	Angazi::CameraService* mCameraService;
 	Angazi::EnvironmentService* mEnvironmentService;
+	Angazi::ShaderService* mShaderService;
+	Angazi::LightService* mLightService;
 };

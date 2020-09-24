@@ -14,6 +14,10 @@ void EditState::Initialize()
 
 	mCameraService = mWorld.AddService<CameraService>();
 	mEnvironmentService = mWorld.AddService<EnvironmentService>();
+	mShaderService = mWorld.AddService<ShaderService>();
+	mLightService= mWorld.AddService<LightService>();
+	mShaderService->AddShader<PbrEffect>("PBR");
+
 	mEnvironmentService->AddEnvironment("Helipad");
 	mEnvironmentService->AddEnvironment("Shiodome");
 	mWorld.Initialize(100);
@@ -29,11 +33,18 @@ void EditState::Initialize()
 	camera.SetPosition({ 0.0f, 5.0f, -10.0f });
 	camera.SetDirection({ 0.0f,0.0f, 1.0f });
 
+	auto& light = mLightService->GetActiveLight();
+	light.direction = Math::Normalize({ 0.0f, 0.0f,1.0f });
+	light.ambient = { 0.892f, 0.835f, 0.835f, 0.000f };
+	light.diffuse = { 0.7f };
+	light.specular = { 0.5f };
+
 	mWorld.LoadScene("../../Assets/Scenes/Test_Scene.json");
 
 	mHdrEffect.Initialize();
 	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(), 
 		GraphicsSystem::Get()->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
+
 }
 
 void EditState::Terminate()

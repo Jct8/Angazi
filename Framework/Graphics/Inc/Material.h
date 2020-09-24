@@ -9,8 +9,8 @@ namespace Angazi::Graphics
 		Color ambient;
 		Color diffuse;
 		Color specular;
-		float power;
-		float padding[2];
+		float power = 0.0f;
+		float padding[2]{};
 		META_CLASS_DECLARE
 	};
 }

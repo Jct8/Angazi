@@ -5,6 +5,7 @@
 namespace Angazi
 {
 	class TransformComponent;
+	class MaterialComponent;
 
 	class MeshComponent : public Component
 	{
@@ -18,11 +19,10 @@ namespace Angazi
 
 	private:
 		const TransformComponent* mTransformComponent = nullptr;
+		const MaterialComponent* mMaterialComponent = nullptr;
 		std::string mMeshFileName;
-		Graphics::MeshId mMeshId;
+		Graphics::MeshId mMeshId = 0;
 
 		Graphics::StandardEffect mStandardEffect;
-		Graphics::DirectionalLight mDirectionalLight;
-		Graphics::Material mMaterial;
 	};
 }

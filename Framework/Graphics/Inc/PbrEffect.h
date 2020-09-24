@@ -9,6 +9,8 @@ namespace Angazi::Graphics
 	class PbrEffect : public Effect
 	{
 	public:
+		META_CLASS_DECLARE;
+
 		PbrEffect() : Effect(EffectType::StandardType) {};
 		~PbrEffect() = default;
 		PbrEffect(const PbrEffect&) = delete;

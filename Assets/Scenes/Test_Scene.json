@@ -1,12 +1,8 @@
 {
   "GameObjects": [
 	{
-      "Template": "../../Assets/Templates/model.json",
-      "Name": "Model"
-    },
-    {
-      "Template": "../../Assets/Templates/test.json",
-      "Name": "Test"
+      "Template": "../../Assets/Templates/meshTest.json",
+      "Name": "Mesh"
     },
     {
       "Template": "../../Assets/Templates/fatBox.json",

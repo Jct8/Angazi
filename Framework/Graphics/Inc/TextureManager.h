@@ -19,7 +19,7 @@ namespace Angazi::Graphics
 		void SetRootPath(const std::filesystem::path& path);
 
 		//TextureId Load(const char* fileNameInDefaultFolder);
-		TextureId Load(const std::filesystem::path& filePath, bool useRootPath = true);
+		TextureId Load(const std::filesystem::path& filePath, bool useGammaCorrection = false, bool useRootPath = true);
 
 		void Clear();
 

@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\BatchRenderer.cpp" />
+    <ClCompile Include="Src\Effect.cpp" />
     <ClCompile Include="Src\EnvironmentMap.cpp" />
     <ClCompile Include="Src\HdrEffect.cpp" />
     <ClCompile Include="Src\Material.cpp" />

@@ -21,7 +21,9 @@
 // Service headers
 #include "CameraService.h"
 #include "EnvironmentService.h"
+#include "LightService.h"
 #include "Service.h"
+#include "ShaderService.h"
 
 // Terrain headers
 #include "Terrain.h"

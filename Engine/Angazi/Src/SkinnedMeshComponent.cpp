@@ -1,9 +1,12 @@
 #include "Precompiled.h"
 #include "SkinnedMeshComponent.h"
 
-#include "CameraService.h"
 #include "GameObject.h"
 #include "GameWorld.h"
+
+#include "CameraService.h"
+#include "LightService.h"
+
 #include "ImGui/Inc/imgui.h"
 #include "TransformComponent.h"
 #include "MaterialComponent.h"
@@ -27,23 +30,18 @@ void SkinnedMeshComponent::Initialize()
 	mModelStandardEffect.UseShadow(false);
 	mModelStandardEffect.SetNormalMapWeight(1.0f);
 	mModelStandardEffect.SetSkinnedMesh(false);
-
-	mDirectionalLight.direction = Math::Normalize({ 0.327f,-0.382f, 0.864f });
-	mDirectionalLight.ambient = { 0.8f,0.8f,0.8f ,1.0f };
-	mDirectionalLight.diffuse = { 0.75f,0.75f,0.75f ,1.0f };
-	mDirectionalLight.specular = { 0.5f,0.5f,0.5f ,1.0f };
-
 }
 
 void SkinnedMeshComponent::Render()
 {
 	auto model = ModelManager::Get()->GetModel(mModelId);
-	auto camera = GetGameObject().GetWorld().GetService<CameraService>()->GetActiveCamera();
-	
+	const auto& camera = GetGameObject().GetWorld().GetService<CameraService>()->GetActiveCamera();
+	const auto& light = GetGameObject().GetWorld().GetService<LightService>()->GetActiveLight();
+
 	auto matWorld = mTransformComponent->GetTransform();
 	mModelStandardEffect.Begin();
 	mModelStandardEffect.SetMaterial(mMaterialComponent->material);
-	mModelStandardEffect.SetDirectionalLight(mDirectionalLight);
+	mModelStandardEffect.SetDirectionalLight(light);
 	mModelStandardEffect.SetTransformData(matWorld, camera.GetViewMatrix(), camera.GetPerspectiveMatrix(), camera.GetPosition());
 	mModelStandardEffect.UpdateSettings();
 	model->Draw(&mModelStandardEffect);

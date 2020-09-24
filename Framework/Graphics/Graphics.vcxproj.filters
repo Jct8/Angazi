@@ -281,5 +281,8 @@
     <ClCompile Include="Src\Material.cpp">
       <Filter>Src\Material</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Effect.cpp">
+      <Filter>Src\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

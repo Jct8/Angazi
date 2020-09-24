@@ -7,6 +7,8 @@ namespace Angazi::Graphics
 	class Effect
 	{
 	public:
+		META_CLASS_DECLARE;
+
 		enum class EffectType
 		{
 			StandardType,
@@ -15,17 +17,20 @@ namespace Angazi::Graphics
 			NoEffect
 		};
 	public:
-		Effect() = delete;
+		Effect() = default;
 		Effect(EffectType type) : mType(type) {};
 		virtual ~Effect() = default;
+
 		Effect(const Effect&) = delete;
 		Effect& operator=(const Effect&) = delete;
 
-		virtual void Initialize(const std::filesystem::path& fileName) = 0;
-		virtual void Terminate() = 0;
+		Effect(Effect&&) = default;
 
-		virtual void Begin() = 0;
-		virtual void End() = 0;
+		virtual void Initialize(const std::filesystem::path& fileName) {};
+		virtual void Terminate() {}
+
+		virtual void Begin() {};
+		virtual void End() {};
 		EffectType GetEffectType() const { return mType; };
 
 	protected:

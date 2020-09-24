@@ -3,10 +3,15 @@
 
 using namespace Angazi;
 
-#include "TransformComponent.h"
+
+#include "CameraService.h"
+#include "EnvironmentService.h"
+#include "LightService.h"
+
 #include "GameObject.h"
 #include "GameWorld.h"
-#include "CameraService.h"
+#include "MaterialComponent.h"
+#include "TransformComponent.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
@@ -21,31 +26,35 @@ void MeshComponent::Initialize()
 {
 	mMeshId = MeshManager::Get()->LoadMesh(mMeshFileName);
 	mTransformComponent = GetGameObject().GetComponent<TransformComponent>();
+	mMaterialComponent = GetGameObject().GetComponent<MaterialComponent>();
 
-	mStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
-	mStandardEffect.UseShadow(false);
-	mStandardEffect.SetSkinnedMesh(false);
-
-	mDirectionalLight.direction = Math::Normalize({ 0.327f,-0.382f, 0.864f });
-	mDirectionalLight.ambient = { 0.8f,0.8f,0.8f ,1.0f };
-	mDirectionalLight.diffuse = { 0.75f,0.75f,0.75f ,1.0f };
-	mDirectionalLight.specular = { 0.5f,0.5f,0.5f ,1.0f };
-
-	mMaterial.ambient = { 0.8f,0.8f,0.8f ,1.0f };
-	mMaterial.diffuse = { 0.8f,0.8f,0.8f ,1.0f };
-	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
-	mMaterial.power = 80.0f;
+	mStandardEffect.Initialize();
 }
 
 void MeshComponent::Render()
 {
 	auto meshBuffer = MeshManager::Get()->GetModel(mMeshId);
-	auto camera = GetGameObject().GetWorld().GetService<CameraService>()->GetActiveCamera();
+	const auto& camera = GetGameObject().GetWorld().GetService<CameraService>()->GetActiveCamera();
+	const auto& light = GetGameObject().GetWorld().GetService<LightService>()->GetActiveLight();
+	auto& env = GetGameObject().GetWorld().GetService<EnvironmentService>()->GetActiveEnvironment();
 
 	auto matWorld = mTransformComponent->GetTransform();
+	auto texManager = TextureManager::Get();
+
 	mStandardEffect.Begin();
-	mStandardEffect.SetMaterial(mMaterial);
-	mStandardEffect.SetDirectionalLight(mDirectionalLight);
+	mStandardEffect.SetMaterial(mMaterialComponent->material);
+	mStandardEffect.SetDirectionalLight(light);
+
+	mStandardEffect.SetDiffuseTexture(texManager->GetTexture(mMaterialComponent->diffuseId));
+	mStandardEffect.SetNormalTexture(texManager->GetTexture(mMaterialComponent->normalId));
+	mStandardEffect.SetDisplacementTexture(texManager->GetTexture(mMaterialComponent->displacementId));
+	mStandardEffect.SetAOTexture(texManager->GetTexture(mMaterialComponent->ambientOcculsionId));
+	mStandardEffect.SetSpecularTexture(texManager->GetTexture(mMaterialComponent->specularId));
+	//mStandardEffect.SetRoughnessTexture(texManager->GetTexture(mMaterialComponent->roughnessId));
+	//mStandardEffect.SetMetallicTexture(texManager->GetTexture(mMaterialComponent->metallicId));
+	//mStandardEffect.SetPreFilterMap(env.GetPrefilteredMap());
+	//mStandardEffect.SetIrradianceMap(env.GetIrradianceMap());
+
 	mStandardEffect.SetTransformData(matWorld, camera.GetViewMatrix(), camera.GetPerspectiveMatrix(), camera.GetPosition());
 	mStandardEffect.UpdateSettings();
 	meshBuffer->Draw();

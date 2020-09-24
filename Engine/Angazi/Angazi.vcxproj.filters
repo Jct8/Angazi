@@ -114,6 +114,12 @@
     <ClInclude Include="Inc\MaterialComponent.h">
       <Filter>Inc\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\ShaderService.h">
+      <Filter>Inc\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\LightService.h">
+      <Filter>Inc\Services</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Angazi.cpp">
@@ -172,6 +178,12 @@
     </ClCompile>
     <ClCompile Include="Src\MaterialComponent.cpp">
       <Filter>Src\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ShaderService.cpp">
+      <Filter>Src\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LightService.cpp">
+      <Filter>Src\Services</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,6 +9,8 @@ namespace Angazi::Graphics
 	class StandardEffect : public Effect
 	{
 	public:
+		META_CLASS_DECLARE;
+
 		StandardEffect() :Effect(EffectType::StandardType) {};
 		~StandardEffect() = default;
 		StandardEffect(const StandardEffect&) = delete;

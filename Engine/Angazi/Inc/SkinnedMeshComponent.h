@@ -25,6 +25,5 @@ namespace Angazi
 		Graphics::ModelId mModelId;
 
 		Graphics::StandardEffect mModelStandardEffect;
-		Graphics::DirectionalLight mDirectionalLight;
 	};
 }

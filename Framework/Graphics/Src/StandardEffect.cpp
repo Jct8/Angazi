@@ -7,7 +7,11 @@
 using namespace Angazi;
 using namespace Angazi::Graphics;
 
-void StandardEffect::Initialize(const std::filesystem::path & fileName)
+META_DERIVED_BEGIN(StandardEffect, Effect)
+	META_NO_FIELD
+META_CLASS_END
+
+void StandardEffect::Initialize(const std::filesystem::path& fileName)
 {
 	// Constant Buffers
 	mTransformBuffer.Initialize();
@@ -93,9 +97,15 @@ void StandardEffect::End()
 	mDisplacementMap.UnbindVS(2);
 	mNormalMap.UnbindPS(3);
 	mAmbientOcclusionMap.UnbindPS(4);
+
+	//mSettings.aoMapWeight = 0.0f;
+	//mSettings.specularMapWeight = 0.0f;
+	//mSettings.bumpMapWeight = 0.0f;
+	//mSettings.normalMapWeight = 0.0f;
+
 }
 
-void StandardEffect::SetWorldMatrix(const Math::Matrix4 & world)
+void StandardEffect::SetWorldMatrix(const Math::Matrix4& world)
 {
 	transformData.world = Math::Transpose(world);
 	mTransformBuffer.Update(&transformData);
@@ -105,13 +115,13 @@ void StandardEffect::SetWVPMatrix(const Math::Matrix4& world, const Math::Matrix
 	transformData.wvp = Math::Transpose(world * view * projection);
 	mTransformBuffer.Update(&transformData);
 }
-void StandardEffect::SetViewPosition(const Math::Vector3 & viewPosition)
+void StandardEffect::SetViewPosition(const Math::Vector3& viewPosition)
 {
 	transformData.viewPosition = viewPosition;
 	mTransformBuffer.Update(&transformData);
 }
 
-void StandardEffect::SetTransformData(const Math::Matrix4 & world, const Math::Matrix4 & view, const Math::Matrix4 & projection, const Math::Vector3 & viewPosition)
+void StandardEffect::SetTransformData(const Math::Matrix4& world, const Math::Matrix4& view, const Math::Matrix4& projection, const Math::Vector3& viewPosition)
 {
 	transformData.world = Math::Transpose(world);
 	transformData.wvp = Math::Transpose(world * view * projection);
@@ -119,11 +129,11 @@ void StandardEffect::SetTransformData(const Math::Matrix4 & world, const Math::M
 	mTransformBuffer.Update(&transformData);
 }
 
-void StandardEffect::SetDirectionalLight(const DirectionalLight & light)
+void StandardEffect::SetDirectionalLight(const DirectionalLight& light)
 {
 	mLightBuffer.Update(&light);
 }
-void StandardEffect::SetMaterial(const Material & material)
+void StandardEffect::SetMaterial(const Material& material)
 {
 	mMaterialBuffer.Update(&material);
 }
@@ -135,62 +145,69 @@ void StandardEffect::SetBoneTransforms(const std::vector<Math::Matrix4>& boneTra
 	mBoneTransformBuffer.Set(mBoneTransform);
 }
 
-void StandardEffect::SetClippingPlane(const Math::Vector4& plane) 
-{ 
-	mClipping.plane = plane; 
+void StandardEffect::SetClippingPlane(const Math::Vector4& plane)
+{
+	mClipping.plane = plane;
 	mClippingConstantBuffer.Set(mClipping);
 }
 
-void StandardEffect::SetDiffuseTexture(const std::filesystem::path & fileName)
+void StandardEffect::SetDiffuseTexture(const std::filesystem::path& fileName)
 {
-	mDiffuseMap.Initialize(fileName,true);
+	mDiffuseMap.Initialize(fileName, true);
 }
-void StandardEffect::SetNormalTexture(const std::filesystem::path & fileName)
+void StandardEffect::SetNormalTexture(const std::filesystem::path& fileName)
 {
 	mSettings.normalMapWeight = 1.0f;
 	mNormalMap.Initialize(fileName);
 }
-void StandardEffect::SetSpecularTexture(const std::filesystem::path & fileName)
+void StandardEffect::SetSpecularTexture(const std::filesystem::path& fileName)
 {
 	mSettings.specularMapWeight = 1.0f;
 	mSpecularMap.Initialize(fileName);
 }
-void StandardEffect::SetDisplacementTexture(const std::filesystem::path & fileName)
+void StandardEffect::SetDisplacementTexture(const std::filesystem::path& fileName)
 {
 	mSettings.bumpMapWeight = 1.0f;
 	mDisplacementMap.Initialize(fileName);
 }
-void StandardEffect::SetAOTexture(const std::filesystem::path & fileName)
+void StandardEffect::SetAOTexture(const std::filesystem::path& fileName)
 {
 	mSettings.aoMapWeight = 1.0f;
 	mAmbientOcclusionMap.Initialize(fileName);
 }
-void StandardEffect::SetDepthTexture(const RenderTarget * target)
+void StandardEffect::SetDepthTexture(const RenderTarget* target)
 {
 	target->BindPS(5);
 }
 
-void StandardEffect::SetDiffuseTexture(const Texture * diffuseTexture)
+void StandardEffect::SetDiffuseTexture(const Texture* diffuseTexture)
 {
 	diffuseTexture->BindPS(0);
 }
-void StandardEffect::SetNormalTexture(const Texture * normalTexture)
+void StandardEffect::SetNormalTexture(const Texture* normalTexture)
 {
+	mSettings.normalMapWeight = 1.0f;
 	normalTexture->BindPS(3);
 }
-void StandardEffect::SetSpecularTexture(const Texture * specularTexture)
+void StandardEffect::SetSpecularTexture(const Texture* specularTexture)
 {
-	specularTexture->BindPS(1);
+	if (specularTexture)
+	{
+		mSettings.specularMapWeight = 1.0f;
+		specularTexture->BindPS(1);
+	}
 }
-void StandardEffect::SetDisplacementTexture(const Texture * displacementTexture)
+void StandardEffect::SetDisplacementTexture(const Texture* displacementTexture)
 {
+	mSettings.bumpMapWeight =0.0f;
 	displacementTexture->BindVS(2);
 }
-void StandardEffect::SetAOTexture(const Texture * aoTexture)
+void StandardEffect::SetAOTexture(const Texture* aoTexture)
 {
+	mSettings.aoMapWeight = 1.0f;
 	aoTexture->BindPS(4);
 }
-void StandardEffect::SetDepthTexture(const Texture * depthTexture)
+void StandardEffect::SetDepthTexture(const Texture* depthTexture)
 {
 	depthTexture->BindPS(5);
 }

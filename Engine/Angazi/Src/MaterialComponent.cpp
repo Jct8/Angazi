@@ -35,13 +35,13 @@ META_CLASS_END;
 
 void MaterialComponent::Initialize()
 {
-	diffuseId = TextureManager::Get()->Load(mDiffuseFilePath);
-	normalId = TextureManager::Get()->Load(mNormalFilePath);
-	specularId = TextureManager::Get()->Load(mSpecularFilePath);
-	displacementId = TextureManager::Get()->Load(mDisplacementFilePath);
-	ambientOcculsionId = TextureManager::Get()->Load(mAmbientOcculsionFilePath);
-	metallicId = TextureManager::Get()->Load(mMetallicFilePath);
-	roughnessId = TextureManager::Get()->Load(mRoughnessFilePath);
+	diffuseId = TextureManager::Get()->Load(mDiffuseFilePath,false,false);
+	normalId = TextureManager::Get()->Load(mNormalFilePath, false, false);
+	specularId = TextureManager::Get()->Load(mSpecularFilePath, false, false);
+	displacementId = TextureManager::Get()->Load(mDisplacementFilePath, false, false);
+	ambientOcculsionId = TextureManager::Get()->Load(mAmbientOcculsionFilePath, false, false);
+	metallicId = TextureManager::Get()->Load(mMetallicFilePath, false, false);
+	roughnessId = TextureManager::Get()->Load(mRoughnessFilePath, false, false);
 }
 
 void MaterialComponent::ShowInspectorProperties()
@@ -52,5 +52,12 @@ void MaterialComponent::ShowInspectorProperties()
 		ImGui::ColorEdit4("Diffuse##Material", &material.diffuse.x);
 		ImGui::ColorEdit4("Specular##Material", &material.specular.x);
 		ImGui::DragFloat("Power##Material", &material.power, 1.0f, 1.0f, 100.0f);
+
+		auto textureManager = TextureManager::Get();
+		constexpr float imageSize = 50.0f;
+		ImGui::Image(textureManager->GetTexture(diffuseId)->GetShaderResourceView(), { imageSize,imageSize });
+		ImGui::Image(textureManager->GetTexture(normalId)->GetShaderResourceView(), { imageSize,imageSize });
+		ImGui::Image(textureManager->GetTexture(displacementId)->GetShaderResourceView(), { imageSize,imageSize});
+		ImGui::Image(textureManager->GetTexture(ambientOcculsionId)->GetShaderResourceView(), { imageSize,imageSize });
 	}
 }

@@ -19,7 +19,6 @@ void EnvironmentService::Terminate()
 
 void EnvironmentService::Render()
 {
-	auto ser = GetWorld().GetService<CameraService>();
 	auto& camera = GetWorld().GetService<CameraService>()->GetActiveCamera();
 	if (mActiveSkybox)
 		mActiveSkybox->Draw(camera);
