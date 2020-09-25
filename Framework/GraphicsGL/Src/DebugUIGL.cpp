@@ -60,12 +60,12 @@ namespace
 		/// 0 = FLAT APPEARENCE
 		/// 1 = MORE "3D" LOOK
 		int is3D = 1;
-
+		int is3D = 1;
 		colors[ImGuiCol_Text] = ImVec4(0.53f, 0.81f, 0.94f, 1.00f);
-		colors[ImGuiCol_TextDisabled] = ImVec4(0.40f, 0.40f, 0.40f, 1.00f);
+		colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.58f, 0.58f, 1.00f);
 		colors[ImGuiCol_ChildBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
 		colors[ImGuiCol_WindowBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
-		colors[ImGuiCol_PopupBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
+		colors[ImGuiCol_PopupBg] = ImVec4(0.22f, 0.20f, 0.20f, 1.00f);
 		colors[ImGuiCol_Border] = ImVec4(0.12f, 0.12f, 0.12f, 0.71f);
 		colors[ImGuiCol_BorderShadow] = ImVec4(1.00f, 1.00f, 1.00f, 0.06f);
 		colors[ImGuiCol_FrameBg] = ImVec4(0.42f, 0.42f, 0.42f, 0.54f);
@@ -88,9 +88,9 @@ namespace
 		colors[ImGuiCol_Header] = ImVec4(0.38f, 0.38f, 0.38f, 1.00f);
 		colors[ImGuiCol_HeaderHovered] = ImVec4(0.47f, 0.47f, 0.47f, 1.00f);
 		colors[ImGuiCol_HeaderActive] = ImVec4(0.76f, 0.76f, 0.76f, 0.77f);
-		colors[ImGuiCol_Separator] = ImVec4(0.000f, 0.000f, 0.000f, 0.137f);
-		colors[ImGuiCol_SeparatorHovered] = ImVec4(0.700f, 0.671f, 0.600f, 0.290f);
-		colors[ImGuiCol_SeparatorActive] = ImVec4(0.702f, 0.671f, 0.600f, 0.674f);
+		colors[ImGuiCol_Separator] = ImVec4(0.82f, 0.79f, 0.79f, 0.33f);
+		colors[ImGuiCol_SeparatorHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.29f);
+		colors[ImGuiCol_SeparatorActive] = ImVec4(1.00f, 1.00f, 1.00f, 0.67f);
 		colors[ImGuiCol_ResizeGrip] = ImVec4(0.26f, 0.59f, 0.98f, 0.25f);
 		colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.26f, 0.59f, 0.98f, 0.67f);
 		colors[ImGuiCol_ResizeGripActive] = ImVec4(0.26f, 0.59f, 0.98f, 0.95f);
@@ -98,7 +98,7 @@ namespace
 		colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 1.00f);
 		colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
 		colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
-		colors[ImGuiCol_TextSelectedBg] = ImVec4(0.73f, 0.73f, 0.73f, 0.35f);
+		colors[ImGuiCol_TextSelectedBg] = ImVec4(0.73f, 0.73f, 0.73f, 1.35f);
 		colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
 		colors[ImGuiCol_DragDropTarget] = ImVec4(1.00f, 1.00f, 0.00f, 0.90f);
 		colors[ImGuiCol_NavHighlight] = ImVec4(0.26f, 0.59f, 0.98f, 1.00f);
@@ -106,17 +106,21 @@ namespace
 		colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
 
 		style.PopupRounding = 3;
-		style.Alpha = 0.8f;
-		style.WindowPadding = ImVec2(4, 4);
+		style.Alpha = 1.0f;
+		style.WindowPadding = ImVec2(10, 4);
 		style.FramePadding = ImVec2(6, 4);
 		style.ItemSpacing = ImVec2(6, 2);
+		style.ItemInnerSpacing = ImVec2(0.0f, 3.0f);
 
+		style.IndentSpacing = 30.0f;
 		style.ScrollbarSize = 18;
 
 		style.WindowBorderSize = 1;
 		style.ChildBorderSize = 1;
 		style.PopupBorderSize = 1;
 		style.FrameBorderSize = static_cast<float>(is3D);
+
+		style.ButtonTextAlign = ImVec2(0.1f, 0.0f);
 
 		style.WindowRounding = 5.0f;
 		style.ChildRounding = 3;

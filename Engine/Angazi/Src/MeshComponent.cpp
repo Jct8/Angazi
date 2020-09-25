@@ -13,6 +13,7 @@ using namespace Angazi;
 #include "GameWorld.h"
 #include "MaterialComponent.h"
 #include "TransformComponent.h"
+#include "ImGui/Inc/imgui.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;
@@ -62,8 +63,10 @@ void MeshComponent::Render()
 	shader->End();
 }
 
-void MeshComponent::Terminate()
+void MeshComponent::ShowInspectorProperties()
 {
+	if (ImGui::CollapsingHeader("Mesh Renderer", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+	}
 }
-
 

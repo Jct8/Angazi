@@ -46,7 +46,6 @@ void EditState::Initialize()
 	mHdrEffect.Initialize();
 	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(),
 		GraphicsSystem::Get()->GetBackBufferHeight(), RenderTarget::Format::RGBA_F16);
-
 }
 
 void EditState::Terminate()
@@ -112,9 +111,11 @@ void EditState::RenderScene()
 
 void EditState::ShowSceneView()
 {
+	ImGui::SetNextWindowBgAlpha(1.0f);
+	ImGui::PushStyleColor(ImGuiCol_ChildBg, { 0.0f,0.0f,0.0f,1.0f });
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, { 0.0f,0.0f,0.0f,1.0f });
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("Scene");
-	ImGui::PopStyleVar(1);
 
 	ImVec2 vMin = ImGui::GetWindowContentRegionMin();
 	ImVec2 vMax = ImGui::GetWindowContentRegionMax();
@@ -123,13 +124,15 @@ void EditState::ShowSceneView()
 	vMin.y += ImGui::GetWindowPos().y;
 	vMax.x += ImGui::GetWindowPos().x;
 	vMax.y += ImGui::GetWindowPos().y;
-
+	
 	float width = vMax.x - vMin.x;
 	float height = vMax.y - vMin.y;
 	mCameraService->GetActiveCamera().SetAspectRatio(width / height);
 
 	ImGui::GetForegroundDrawList()->AddRect(vMin, vMax, IM_COL32(135, 206, 239, 255));
-	ImGui::Image(mRenderTarget.GetShaderResourceView(), { width, height });
+	ImGui::Image(mRenderTarget.GetShaderResourceView(), { width, height }, { 0.0f,0.0f }, { 1.0f,1.0f }, { 1.0f,1.0f,1.0f,1.0f });
 	ImGui::CaptureMouseFromApp(!ImGui::IsItemHovered());
 	ImGui::End();
+	ImGui::PopStyleVar(1);
+	ImGui::PopStyleColor(2);
 }

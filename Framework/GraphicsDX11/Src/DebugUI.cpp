@@ -86,9 +86,9 @@ namespace
 		colors[ImGuiCol_Header] = ImVec4(0.38f, 0.38f, 0.38f, 1.00f);
 		colors[ImGuiCol_HeaderHovered] = ImVec4(0.47f, 0.47f, 0.47f, 1.00f);
 		colors[ImGuiCol_HeaderActive] = ImVec4(0.76f, 0.76f, 0.76f, 0.77f);
-		colors[ImGuiCol_Separator] = ImVec4(0.000f, 0.000f, 0.000f, 0.137f);
-		colors[ImGuiCol_SeparatorHovered] = ImVec4(0.700f, 0.671f, 0.600f, 0.290f);
-		colors[ImGuiCol_SeparatorActive] = ImVec4(0.702f, 0.671f, 0.600f, 0.674f);
+		colors[ImGuiCol_Separator] = ImVec4(0.82f, 0.79f, 0.79f, 0.33f);
+		colors[ImGuiCol_SeparatorHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.29f);
+		colors[ImGuiCol_SeparatorActive] = ImVec4(1.00f, 1.00f, 1.00f, 0.67f);
 		colors[ImGuiCol_ResizeGrip] = ImVec4(0.26f, 0.59f, 0.98f, 0.25f);
 		colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.26f, 0.59f, 0.98f, 0.67f);
 		colors[ImGuiCol_ResizeGripActive] = ImVec4(0.26f, 0.59f, 0.98f, 0.95f);
@@ -104,11 +104,13 @@ namespace
 		colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
 
 		style.PopupRounding = 3;
-		style.Alpha = 0.8f;
-		style.WindowPadding = ImVec2(4, 4);
+		style.Alpha = 1.0f;
+		style.WindowPadding = ImVec2(10, 4);
 		style.FramePadding = ImVec2(6, 4);
 		style.ItemSpacing = ImVec2(6, 2);
+		style.ItemInnerSpacing = ImVec2(0.0f, 3.0f);
 
+		style.IndentSpacing = 30.0f;
 		style.ScrollbarSize = 18;
 
 		style.WindowBorderSize = 1;
@@ -116,11 +118,14 @@ namespace
 		style.PopupBorderSize = 1;
 		style.FrameBorderSize = static_cast<float>(is3D);
 
+		style.ButtonTextAlign = ImVec2(0.1f, 0.0f);
+
 		style.WindowRounding = 5.0f;
 		style.ChildRounding = 3;
 		style.FrameRounding = 3;
 		style.ScrollbarRounding = 2;
 		style.GrabRounding = 3;
+
 
 #ifdef IMGUI_HAS_DOCK 
 		style.TabBorderSize = static_cast<float>(is3D);

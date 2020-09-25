@@ -14,8 +14,7 @@ namespace Angazi
 
 		void Initialize() override;
 		void Render() override;
-
-		void Terminate() override;
+		void ShowInspectorProperties() override;
 
 	private:
 		const TransformComponent* mTransformComponent = nullptr;

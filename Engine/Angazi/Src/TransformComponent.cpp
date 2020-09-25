@@ -30,11 +30,25 @@ void TransformComponent::ShowInspectorProperties()
 {
 	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::DragFloat3("Position", &position.x);
-		if (ImGui::DragFloat3("Rotation", &rotationDeg.x))
+		ImGui::Columns(2, "Transform");
+
+		ImGui::Text("Position");
+		ImGui::NextColumn();
+		ImGui::DragFloat3("##TransformPosition", &position.x);
+		ImGui::NextColumn();
+
+		ImGui::Text("Rotation");
+		ImGui::NextColumn();
+		if (ImGui::DragFloat3("##TransformRotation", &rotationDeg.x))
 			UpdateRotationQuaternion();
-		ImGui::DragFloat3("Scale", &scale.x);
+		ImGui::NextColumn();
+
+		ImGui::Text("Scale");
+		ImGui::NextColumn();
+		ImGui::DragFloat3("##TransformScale", &scale.x);
+		ImGui::NextColumn();
 	}
+	ImGui::Columns(1);
 }
 
 Math::Matrix4 TransformComponent::GetTransform() const
