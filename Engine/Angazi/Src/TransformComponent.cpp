@@ -9,9 +9,9 @@ using namespace Angazi::Graphics;
 
 META_DERIVED_BEGIN(TransformComponent, Component)
 	META_FIELD_BEGIN
-		META_FIELD(position,"Position")
-		META_FIELD(rotation,"Rotation")
-		META_FIELD(scale,"Scale")
+		META_FIELD(position, "Position")
+		META_FIELD(rotation, "Rotation")
+		META_FIELD(scale, "Scale")
 	META_FIELD_END
 META_CLASS_END;
 
@@ -49,20 +49,20 @@ void TransformComponent::ShowInspectorProperties()
 		ImGui::NextColumn();
 		ImGui::DragFloat3("##TransformScale", &scale.x);
 		ImGui::NextColumn();
+		ImGui::Columns(1);
 	}
-	ImGui::Columns(1);
 }
 
 Math::Matrix4 TransformComponent::GetTransform() const
 {
-	return Math::Matrix4::Transform(position, Math::Normalize(rotation), scale); 
+	return Math::Matrix4::Transform(position, Math::Normalize(rotation), scale);
 }
 
 void TransformComponent::UpdateRotationQuaternion()
 {
-	rotation  = Quaternion::RotationAxis(Vector3::XAxis, rotationDeg.x * Constants::DegToRad)*
-				Quaternion::RotationAxis(Vector3::YAxis, rotationDeg.y * Constants::DegToRad)*
-				Quaternion::RotationAxis(Vector3::ZAxis, rotationDeg.z * Constants::DegToRad);
+	rotation = Quaternion::RotationAxis(Vector3::XAxis, rotationDeg.x * Constants::DegToRad) *
+		Quaternion::RotationAxis(Vector3::YAxis, rotationDeg.y * Constants::DegToRad) *
+		Quaternion::RotationAxis(Vector3::ZAxis, rotationDeg.z * Constants::DegToRad);
 	rotation = Normalize(rotation);
 }
 

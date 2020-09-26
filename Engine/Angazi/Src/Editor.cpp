@@ -58,11 +58,15 @@ void Editor::ShowWorldView()
 	{
 		for (auto gameObject : mWorld.mUpdateList)
 		{
+			if (!gameObject->mEnabled)
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.46f, 0.46f, 0.46f, 1.00f));
 			if (ImGui::Selectable(gameObject->GetName().c_str(), gameObject == mSelectedGameObject))
 			{
 				mSelectedGameObject = gameObject;
 				mSelectedService = nullptr;
 			}
+			if (!gameObject->mEnabled)
+				ImGui::PopStyleColor(1);
 		}
 		ImGui::TreePop();
 	}
@@ -78,14 +82,14 @@ void Editor::ShowInspectorView()
 	}
 	else if (mSelectedGameObject)
 	{
-		ImGui::Text(mSelectedGameObject->GetName().c_str());
+		ImGui::Checkbox(mSelectedGameObject->GetName().c_str(), &mSelectedGameObject->mEnabled);
 		ImGui::NewLine();
 		ImGui::Separator();
-		ImGui::Text("Components");
 		ImGui::NewLine();
 		for (auto& component : mSelectedGameObject->mComponents)
 		{
 			component->ShowInspectorProperties();
+			//ImGui::NewLine();
 			//auto metaClass = component->GetMetaClass();
 			//if (ImGui::CollapsingHeader(metaClass->GetName(), ImGuiTreeNodeFlags_DefaultOpen))
 			//{
@@ -138,7 +142,7 @@ void Editor::ShowMenuBar()
 void Editor::ShowFileMenu()
 {
 	if (ImGui::MenuItem("New Scene", "Ctrl+N", false, true))
-		showMessageBoxNew= true;
+		showMessageBoxNew = true;
 	if (ImGui::MenuItem("Open Scene", "Ctrl+O", false, true))
 		showMessageBoxOpen = true;
 	if (ImGui::MenuItem("Save", "Ctrl+S", false, true))

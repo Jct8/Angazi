@@ -76,11 +76,13 @@ namespace Angazi
 		using Components = std::vector<std::unique_ptr<Component>>;
 
 		GameWorld* mWorld = nullptr;
-		std::string mName = "NoName";
 		GameObjectHandle mHandle;
 		Components mComponents;
+		
+		std::string mName = "NoName";
 		std::filesystem::path mFilePath = "NoFilePath";
 
+		bool mEnabled = true;
 		bool mInitialized = false;
 	};
 }

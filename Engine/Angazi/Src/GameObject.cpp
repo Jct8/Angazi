@@ -5,7 +5,7 @@
 using namespace Angazi;
 
 META_CLASS_BEGIN(GameObject)
-META_NO_FIELD
+	META_NO_FIELD
 META_CLASS_END
 
 

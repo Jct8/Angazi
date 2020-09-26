@@ -89,7 +89,9 @@ void GameWorld::LoadScene(const std::filesystem::path& sceneFileName)
 			auto jsonObject = gameObject.GetObjectW();
 			auto gameObjectTemplate = jsonObject["Template"].GetString();
 			auto gameObjectName = jsonObject["Name"].GetString();
-			Create(gameObjectTemplate, gameObjectName);
+			auto gameObjectEnabaled = jsonObject["Enabled"].GetBool();
+			auto gameObjecHandle = Create(gameObjectTemplate, gameObjectName);
+			gameObjecHandle.Get()->mEnabled = gameObjectEnabaled;
 		}
 	}
 	fclose(file);
@@ -150,6 +152,9 @@ void GameWorld::SaveScene(const std::filesystem::path& sceneFilePath) const
 		val.SetString(gameObject->mName.c_str(), allocator);
 		obj.AddMember("Name", val, allocator);
 
+		val.SetBool(gameObject->mEnabled);
+		obj.AddMember("Enabled", val, allocator);
+
 		gameObjects.PushBack(obj, allocator);
 	}
 	document.AddMember("GameObjects", gameObjects, allocator);
@@ -193,7 +198,7 @@ void GameWorld::Update(float deltaTime)
 	for (size_t i = 0; i < mUpdateList.size(); ++i)
 	{
 		GameObject* gameObject = mUpdateList[i];
-		if (gameObject->GetHandle().IsValid())
+		if (gameObject->GetHandle().IsValid() && gameObject->mEnabled)
 			gameObject->Update(deltaTime);
 	}
 
@@ -209,7 +214,8 @@ void GameWorld::Render()
 	for (auto& service : mServices)
 		service->Render();
 	for (auto gameObject : mUpdateList)
-		gameObject->Render();
+		if (gameObject->mEnabled)
+			gameObject->Render();
 }
 
 void GameWorld::DebugUI()
@@ -217,7 +223,8 @@ void GameWorld::DebugUI()
 	for (auto& service : mServices)
 		service->DebugUI();
 	for (auto gameObject : mUpdateList)
-		gameObject->DebugUI();
+		if (gameObject->mEnabled)
+			gameObject->DebugUI();
 }
 
 void GameWorld::DestroyInternal(GameObject* gameObject)

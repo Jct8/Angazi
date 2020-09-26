@@ -109,7 +109,7 @@ namespace
 		style.Alpha = 1.0f;
 		style.WindowPadding = ImVec2(10, 4);
 		style.FramePadding = ImVec2(6, 4);
-		style.ItemSpacing = ImVec2(6, 2);
+		style.ItemSpacing = ImVec2(6, 4);
 		style.ItemInnerSpacing = ImVec2(0.0f, 3.0f);
 
 		style.IndentSpacing = 30.0f;

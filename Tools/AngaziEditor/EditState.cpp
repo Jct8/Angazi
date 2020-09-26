@@ -63,19 +63,28 @@ void EditState::Update(float deltaTime)
 	const float kTurnSpeed = 10.0f * Constants::DegToRad;
 
 	auto& camera = mCameraService->GetActiveCamera();
-	if (inputSystem->IsKeyDown(KeyCode::W))
-		camera.Walk(kMoveSpeed * deltaTime);
-	if (inputSystem->IsKeyDown(KeyCode::S))
-		camera.Walk(-kMoveSpeed * deltaTime);
-	if (inputSystem->IsKeyDown(KeyCode::A))
-		camera.Strafe(-kMoveSpeed * deltaTime);
-	if (inputSystem->IsKeyDown(KeyCode::D))
-		camera.Strafe(kMoveSpeed * deltaTime);
-	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
+
+	if (inputSystem->IsMouseDown(MouseButton::RBUTTON) && mIsSceneHovered)
+		mIsUsingCameraControl = true;
+	if (!inputSystem->IsMouseDown(MouseButton::RBUTTON))
+		mIsUsingCameraControl = false;
+
+	if (mIsUsingCameraControl)
 	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+		if (inputSystem->IsKeyDown(KeyCode::W))
+			camera.Walk(kMoveSpeed * deltaTime);
+		if (inputSystem->IsKeyDown(KeyCode::S))
+			camera.Walk(-kMoveSpeed * deltaTime);
+		if (inputSystem->IsKeyDown(KeyCode::A))
+			camera.Strafe(-kMoveSpeed * deltaTime);
+		if (inputSystem->IsKeyDown(KeyCode::D))
+			camera.Strafe(kMoveSpeed * deltaTime);
 		camera.Yaw(inputSystem->GetMouseMoveX() * kTurnSpeed * deltaTime);
 		camera.Pitch(inputSystem->GetMouseMoveY() * kTurnSpeed * deltaTime);
 	}
+	else
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Arrow);
 
 	mWorld.Update(deltaTime);
 }
@@ -89,7 +98,6 @@ void EditState::Render()
 	mRenderTarget.BeginRender();
 	mHdrEffect.RenderHdrQuad();
 	mRenderTarget.EndRender();
-
 }
 
 void EditState::DebugUI()
@@ -124,14 +132,14 @@ void EditState::ShowSceneView()
 	vMin.y += ImGui::GetWindowPos().y;
 	vMax.x += ImGui::GetWindowPos().x;
 	vMax.y += ImGui::GetWindowPos().y;
-	
+
 	float width = vMax.x - vMin.x;
 	float height = vMax.y - vMin.y;
 	mCameraService->GetActiveCamera().SetAspectRatio(width / height);
 
 	ImGui::GetForegroundDrawList()->AddRect(vMin, vMax, IM_COL32(135, 206, 239, 255));
-	ImGui::Image(mRenderTarget.GetShaderResourceView(), { width, height }, { 0.0f,0.0f }, { 1.0f,1.0f }, { 1.0f,1.0f,1.0f,1.0f });
-	ImGui::CaptureMouseFromApp(!ImGui::IsItemHovered());
+	ImGui::Image(mRenderTarget.GetShaderResourceView(), { width, height }, { 0.0f,0.0f }, { 1.0f,1.0f });
+	mIsSceneHovered = ImGui::IsItemHovered();
 	ImGui::End();
 	ImGui::PopStyleVar(1);
 	ImGui::PopStyleColor(2);

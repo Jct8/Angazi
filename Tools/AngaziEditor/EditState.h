@@ -27,4 +27,7 @@ private:
 	Angazi::EnvironmentService* mEnvironmentService;
 	Angazi::ShaderService* mShaderService;
 	Angazi::LightService* mLightService;
+
+	bool mIsSceneHovered = false;
+	bool mIsUsingCameraControl = false;
 };

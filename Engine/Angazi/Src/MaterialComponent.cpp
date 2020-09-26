@@ -76,6 +76,7 @@ void MaterialComponent::ShowInspectorProperties()
 		constexpr float imageSize = 30.0f;
 		if (ImGui::TreeNode("Textures"))
 		{
+			ImGui::NewLine();
 			ImGui::Columns(2, "Textures");
 
 			ImGui::Text("Albedo");

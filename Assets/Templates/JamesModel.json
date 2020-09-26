@@ -9,7 +9,7 @@
                 },
                 "Rotation": {
                     "xDegree": -0.0,
-                    "yDegree": 0.0,
+                    "yDegree": 1.0,
                     "zDegree": -0.0
                 },
                 "Scale": {
@@ -21,13 +21,13 @@
             "ColliderComponent": {
                 "Center": {
                     "x": 0.0,
-                    "y": 3.0,
+                    "y": 2.0,
                     "z": 0.0
                 },
                 "Extend": {
                     "x": 0.5,
-                    "y": 1.0,
-                    "z": 0.5
+                    "y": 2.0,
+                    "z": -0.5
                 }
             },
             "SkinnedMeshComponent": {
@@ -60,7 +60,7 @@
                         "z": 0.5,
                         "w": 1.0
                     },
-                    "Power": 80.0
+                    "Power": 1.0
                 }
             }
         }

@@ -2,11 +2,13 @@
     "GameObjects": [
         {
             "Template": "../../Assets/Templates/Sci-Fi_Helmet.json",
-            "Name": "Sci-Fi Helmet"
+            "Name": "Sci-Fi Helmet",
+            "Enabled": true
         },
         {
             "Template": "../../Assets/Templates/JamesModel.json",
-            "Name": "James Model"
+            "Name": "James Model",
+            "Enabled": true
         }
     ]
 }

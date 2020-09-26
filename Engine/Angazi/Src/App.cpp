@@ -67,6 +67,9 @@ void Angazi::App::Run(AppConfig appConfig)
 	if (startTimer > TimeUtil::GetTime())
 		Sleep(2000);
 
+	if(mAppConfig.maximizeWindow)
+		ShowWindow(mWindow.GetWindowHandle(), SW_MAXIMIZE);
+
 	LOG("App -- Entering main loop ...");
 	mRunning = true;
 	while (mRunning)
