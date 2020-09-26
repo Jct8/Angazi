@@ -8,8 +8,8 @@
 
 using namespace Angazi::Core::Meta;
 
-MetaType::MetaType(Category category, const char * name, size_t size, DeserializeFunc deserialize)
-	:mCategory(category), mName(name), mSize(size), mDeserialize(std::move(deserialize))
+MetaType::MetaType(Category category, const char * name, size_t size, DeserializeFunc deserialize, SerializeFunc serialize)
+	:mCategory(category), mName(name), mSize(size), mDeserialize(std::move(deserialize)), mSerialize(std::move(serialize))
 {
 }
 
@@ -35,4 +35,10 @@ void MetaType::Deserialize(void * instance, const rapidjson::Value & jsonValue) 
 {
 	ASSERT(mDeserialize, "MetaType -- no deserialize callable registered for '%s'.", GetName());
 	mDeserialize(instance, jsonValue);
+}
+
+void MetaType::Serialize(const void* instance, rapidjson::Value& jsonValue, rapidjson::Document& document) const
+{
+	ASSERT(mSerialize, "MetaType -- no serialize callable registered for '%s'.", GetName());
+	mSerialize(instance, jsonValue,document);
 }

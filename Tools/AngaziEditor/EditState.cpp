@@ -45,7 +45,7 @@ void EditState::Initialize()
 
 	mHdrEffect.Initialize();
 	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(),
-		GraphicsSystem::Get()->GetBackBufferHeight(), RenderTarget::Format::RGBA_F16);
+		GraphicsSystem::Get()->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
 }
 
 void EditState::Terminate()

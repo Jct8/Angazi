@@ -12,3 +12,8 @@ void * MetaField::GetFieldInstance(void * classInstance) const
 {
 	return static_cast<uint8_t*>(classInstance) + mOffset;
 }
+
+const void* MetaField::GetFieldInstance(const void* classInstance) const
+{
+	return static_cast<const uint8_t*>(classInstance) + mOffset;
+}

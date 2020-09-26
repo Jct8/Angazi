@@ -66,6 +66,9 @@ namespace Angazi
 		const std::string& GetName() const { return mName ; }
 
 		GameObjectHandle GetHandle() const { return mHandle; }
+
+		void SaveGameObject() const;
+
 	private:
 		friend class GameWorld;
 		friend class Editor;
@@ -76,6 +79,8 @@ namespace Angazi
 		std::string mName = "NoName";
 		GameObjectHandle mHandle;
 		Components mComponents;
+		std::filesystem::path mFilePath = "NoFilePath";
+
 		bool mInitialized = false;
 	};
 }

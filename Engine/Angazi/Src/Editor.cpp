@@ -10,7 +10,7 @@
 
 using namespace Angazi;
 
-Editor::Editor(GameWorld & world)
+Editor::Editor(GameWorld& world)
 	:mWorld(world)
 {
 	mDebugLogHandlerId = Core::OnDebugLog += [this](auto str) {mEditorLogView.AddLog(str.c_str()); };
@@ -24,6 +24,7 @@ Editor::~Editor()
 void Editor::Show()
 {
 	ShowMenuBar();
+	ShowModals();
 	ShowMainWindowWithDockSpace();
 
 	ImGui::Begin("Style");
@@ -33,6 +34,8 @@ void Editor::Show()
 	ShowWorldView();
 	ShowInspectorView();
 	ShowLogView();
+
+
 }
 
 void Editor::ShowWorldView()
@@ -134,16 +137,16 @@ void Editor::ShowMenuBar()
 
 void Editor::ShowFileMenu()
 {
-	if (ImGui::MenuItem("New", nullptr, false, false))
-		New();
-	if (ImGui::MenuItem("Open", "Ctrl+O", false, false))
-		Open();
-	if (ImGui::MenuItem("Save", "Ctrl+S", false, false))
+	if (ImGui::MenuItem("New Scene", "Ctrl+N", false, true))
+		showMessageBoxNew= true;
+	if (ImGui::MenuItem("Open Scene", "Ctrl+O", false, true))
+		showMessageBoxOpen = true;
+	if (ImGui::MenuItem("Save", "Ctrl+S", false, true))
 		Save();
-	if (ImGui::MenuItem("Save As..", "Ctrl+Shit+S", false, false))
+	if (ImGui::MenuItem("Save As..", "Ctrl+Shit+S", false, true))
 		SaveAs();
 	if (ImGui::MenuItem("Exit", nullptr, false))
-		Exit();
+		showMessageBoxExit = true;
 
 	ImGui::Separator();
 }
@@ -177,23 +180,160 @@ void Editor::ShowMainWindowWithDockSpace()
 	ImGui::PopStyleVar(3);
 }
 
+void Editor::ShowModals()
+{
+	if (showMessageBoxExit)
+	{
+		ImGui::OpenPopup("Quit?");
+		showMessageBoxExit = false;
+	}
+	if (showMessageBoxNew)
+	{
+		ImGui::OpenPopup("New?");
+		showMessageBoxNew = false;
+	}
+	if (showMessageBoxOpen)
+	{
+		ImGui::OpenPopup("Open?");
+		showMessageBoxOpen = false;
+	}
+
+
+	ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+	ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+	if (ImGui::BeginPopupModal("Quit?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to save\nbefore exiting?");
+		ImGui::Separator();
+
+		if (ImGui::Button("Yes", ImVec2(50, 0)))
+		{
+			Save();
+			Angazi::MainApp().Quit();
+		}
+		ImGui::SetItemDefaultFocus();
+
+		ImGui::SameLine();
+		if (ImGui::Button("No", ImVec2(50, 0)))
+		{
+			ImGui::CloseCurrentPopup();
+			Angazi::MainApp().Quit();
+		}
+		ImGui::SetItemDefaultFocus();
+
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(50, 0)))
+		{
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndPopup();
+	}
+
+	if (ImGui::BeginPopupModal("New?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to save\nbefore creating a new scene?");
+		ImGui::Separator();
+
+		if (ImGui::Button("Yes", ImVec2(50, 0)))
+		{
+			Save();
+			New();
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SetItemDefaultFocus();
+
+		ImGui::SameLine();
+		if (ImGui::Button("No", ImVec2(50, 0)))
+		{
+			ImGui::CloseCurrentPopup();
+			New();
+		}
+		ImGui::SetItemDefaultFocus();
+
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(50, 0)))
+		{
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndPopup();
+	}
+
+	if (ImGui::BeginPopupModal("Open?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to save\nbefore opening a new scene?");
+		ImGui::Separator();
+
+		if (ImGui::Button("Yes", ImVec2(50, 0)))
+		{
+			Save();
+			Open();
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SetItemDefaultFocus();
+
+		ImGui::SameLine();
+		if (ImGui::Button("No", ImVec2(50, 0)))
+		{
+			ImGui::CloseCurrentPopup();
+			Open();
+		}
+		ImGui::SetItemDefaultFocus();
+
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(50, 0)))
+		{
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndPopup();
+	}
+}
+
 void Editor::New()
 {
+	mWorld.UnloadScene();
 }
 
 void Editor::Open()
 {
+	char filePath[MAX_PATH]{};
+	const char* title = "Open Scene";
+	const char* filter = "Json Files (*.json)\0*.json";
+	if (MainApp().OpenFileDialog(filePath, title, filter))
+	{
+		std::filesystem::path openPath = filePath;
+		if (std::filesystem::exists(openPath))
+		{
+			mWorld.UnloadScene();
+			mWorld.LoadScene(openPath);
+		}
+	}
 }
 
 void Editor::Save()
 {
+	if (std::filesystem::exists(mWorld.mSceneFilePath))
+		mWorld.SaveScene();
+	else
+		SaveAs();
 }
 
 void Editor::SaveAs()
 {
+	char filePath[MAX_PATH]{};
+	const char* title = "Save Scene";
+	const char* filter = "Json Files (*.json)\0*.json";
+	if (MainApp().SaveFileDialog(filePath, title, filter))
+	{
+		std::filesystem::path savePath = filePath;
+		if (savePath.extension().empty())
+			savePath += ".json";
+		mWorld.SaveScene(savePath);
+	}
 }
 
 void Editor::Exit()
 {
+	ImGui::OpenPopup("Quit?");
 	Angazi::MainApp().Quit();
 }

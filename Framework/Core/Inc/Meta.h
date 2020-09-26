@@ -19,7 +19,8 @@
 	{\
 		static const Angazi::Core::Meta::MetaType sMetaType(\
 			Angazi::Core::Meta::MetaType::Category::Primitive,#Name, sizeof(Type),\
-			Angazi::Core::Meta::Deserialize<Type>);\
+			Angazi::Core::Meta::Deserialize<Type>,\
+			Angazi::Core::Meta::Serialize<Type>);\
 		return &sMetaType;\
 	}
 

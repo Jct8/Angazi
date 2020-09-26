@@ -38,3 +38,4 @@
 #include <RapidJSON/Inc/document.h>
 #include <RapidJSON/Inc/filereadstream.h>
 #include <RapidJSON/Inc/filewritestream.h>
+#include "RapidJSON/Inc/prettywriter.h"

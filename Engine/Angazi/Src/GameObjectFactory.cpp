@@ -10,7 +10,6 @@ using namespace Angazi;
 GameObject* GameObjectFactory::Create(GameObjectAllocator & allocator, std::filesystem::path templateFileName)
 {
 	auto gameObject = allocator.New();
-
 	if (gameObject)
 	{
 		FILE *file = nullptr;

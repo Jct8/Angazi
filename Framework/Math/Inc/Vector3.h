@@ -34,7 +34,7 @@ namespace Angazi::Math
 		Vector3& operator*=(float s)			{ x *= s; y *= s; z *= s; return *this; }
 		Vector3& operator/=(float s)			{ x /= s; y /= s; z /= s; return *this; }
 
-		static Vector3 ToEulerAngle(const Quaternion& q);
+		static Vector3 ToEulerAngleXYZ(const Quaternion& q);
 	};
 	 
 }

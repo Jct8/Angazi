@@ -10,6 +10,7 @@ namespace Angazi::Core::Meta
 	{
 	public:
 		using DeserializeFunc = std::function<void(void* instance, const rapidjson::Value& jsonValue)>;
+		using SerializeFunc = std::function<void(const void* instance, rapidjson::Value& jsonValue, rapidjson::Document& document)>;
 
 		enum class Category
 		{
@@ -19,7 +20,7 @@ namespace Angazi::Core::Meta
 			Pointer
 		};
 
-		MetaType(Category category, const char* name, size_t size, DeserializeFunc deserialize = nullptr);
+		MetaType(Category category, const char* name, size_t size, DeserializeFunc deserialize = nullptr, SerializeFunc serialize = nullptr);
 
 		const MetaArray* AsMetaArray() const;
 		const MetaClass* AsMetaClass() const;
@@ -30,11 +31,13 @@ namespace Angazi::Core::Meta
 		size_t GetSize() const { return mSize; }
 
 		virtual void Deserialize(void* instance, const rapidjson::Value& jsonValue) const;
+		virtual void Serialize(const void* instance, rapidjson::Value& jsonValue, rapidjson::Document& document) const;
 
 	private:
 		const Category mCategory;
 		const std::string mName;
 		const size_t mSize;
 		const DeserializeFunc mDeserialize;
+		const SerializeFunc mSerialize;
 	};
 }

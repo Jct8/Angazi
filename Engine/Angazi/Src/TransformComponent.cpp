@@ -17,7 +17,9 @@ META_CLASS_END;
 
 void TransformComponent::Initialize()
 {
+	rotation = Normalize(rotation);
 	UpdateRotationVec();
+
 }
 
 void TransformComponent::DebugUI()
@@ -61,10 +63,11 @@ void TransformComponent::UpdateRotationQuaternion()
 	rotation  = Quaternion::RotationAxis(Vector3::XAxis, rotationDeg.x * Constants::DegToRad)*
 				Quaternion::RotationAxis(Vector3::YAxis, rotationDeg.y * Constants::DegToRad)*
 				Quaternion::RotationAxis(Vector3::ZAxis, rotationDeg.z * Constants::DegToRad);
+	rotation = Normalize(rotation);
 }
 
 void TransformComponent::UpdateRotationVec()
 {
-	rotationDeg = Vector3::ToEulerAngle(rotation);
+	rotationDeg = Vector3::ToEulerAngleXYZ(rotation) * Constants::RadToDeg;
 }
 

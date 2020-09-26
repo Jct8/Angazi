@@ -3,34 +3,58 @@
 
 namespace Angazi::Core::Meta
 {
+	// Deserialize
 	template<>
 	void Deserialize<int>(void* instance, const rapidjson::Value& value)
 	{
 		*(int*)instance = value.GetInt();
 	}
-
 	template<>
 	void Deserialize<float>(void* instance, const rapidjson::Value& value)
 	{
 		*(float*)instance = value.GetFloat();
 	}
-
 	template<>
 	void Deserialize<bool>(void* instance, const rapidjson::Value& value)
 	{
 		*(bool*)instance = value.GetBool();
 	}
-
 	template<>
 	void Deserialize<std::string>(void* instance, const rapidjson::Value& value)
 	{
 		*(std::string*)(instance) = value.GetString();
 	}
-
 	template<>
 	void Deserialize<std::filesystem::path>(void* instance, const rapidjson::Value& value)
 	{
 		*(std::filesystem::path*)(instance) = value.GetString();
+	}
+
+	// Serialize
+	template<>
+	void Serialize<int>(const void* instance, rapidjson::Value& value, rapidjson::Document& document)
+	{
+		value.SetInt(*(int*)instance);
+	}
+	template<>
+	void Serialize<float>(const void* instance, rapidjson::Value& value, rapidjson::Document& document)
+	{
+		value.SetFloat(*(float*)instance);
+	}
+	template<>
+	void Serialize<bool>(const void* instance, rapidjson::Value& value, rapidjson::Document& document)
+	{
+		value.SetBool(*(bool*)instance);
+	}
+	template<>
+	void Serialize<std::string>(const void* instance, rapidjson::Value& value, rapidjson::Document& document)
+	{
+		value.SetString((*(std::string*)(instance)).c_str(),document.GetAllocator());
+	}
+	template<>
+	void Serialize<std::filesystem::path>(const void* instance, rapidjson::Value& value, rapidjson::Document& document)
+	{
+		value.SetString((*(std::filesystem::path*)(instance)).u8string().c_str(),document.GetAllocator());
 	}
 }
 

@@ -20,6 +20,7 @@ namespace Angazi::Core::Meta
 
 		void* Create() const;
 		void Deserialize(void* classInstance, const rapidjson::Value& jsonValue) const;
+		void Serialize(const void* classInstance, rapidjson::Value& jsonValue, rapidjson::Document& document) const;
 
 	private:
 		size_t GetParentFieldCount() const;

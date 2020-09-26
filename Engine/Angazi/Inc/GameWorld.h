@@ -42,9 +42,13 @@ namespace Angazi
 			return const_cast<ServiceType*>(constMe->GetService<ServiceType>());
 		}
 
-		void LoadScene(const std::filesystem::path& sceneFileName);
 		GameObjectHandle Create(const std::filesystem::path& templateFileName, std::string name);
 		GameObjectHandle Find(const std::string& name);
+
+		void LoadScene(const std::filesystem::path& sceneFileName);
+		void UnloadScene();
+		void SaveScene(const std::filesystem::path& sceneFilePath = "") const;
+
 		void Destroy(GameObjectHandle handle);
 
 		void Update(float deltaTime);
@@ -67,8 +71,11 @@ namespace Angazi
 		GameObjectList mUpdateList;
 		GameObjectList mDestroyList;
 
+		std::filesystem::path mSceneFilePath = "";
+
 		bool mInitialized = false;
 		bool mUpdating = false;
+		bool mUnload = false;
 	};
 }
 

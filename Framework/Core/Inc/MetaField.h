@@ -10,6 +10,7 @@ namespace Angazi::Core::Meta
 		MetaField(const MetaType* type, const char* name, size_t offset);
 
 		void* GetFieldInstance(void* classInstance) const;
+		const void* GetFieldInstance(const void* classInstance) const;
 
 		const MetaType* GetMetaType() const { return mType; }
 		const char* GetName() const { return mName.c_str(); }

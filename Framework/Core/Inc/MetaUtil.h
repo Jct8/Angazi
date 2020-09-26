@@ -12,6 +12,11 @@ namespace Angazi::Core::Meta
 	{
 		static_assert(false, "No specialization found for deserializing this type.");
 	}
+	template< class DataType>
+	void Serialize(const void* instance, rapidjson::Value& value, rapidjson::Document& document)
+	{
+		static_assert(false, "No specialization found for serializing this type.");
+	}
 
 	namespace Detail
 	{

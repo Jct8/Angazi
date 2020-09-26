@@ -49,6 +49,12 @@
     <Filter Include="Src\Editor">
       <UniqueIdentifier>{7c096bf8-238e-4673-a9f6-919ebb57043c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\Util">
+      <UniqueIdentifier>{7225f914-ab76-47c0-9726-511f033afa20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Util">
+      <UniqueIdentifier>{53b29f20-a642-45f3-ba15-7af6dde71457}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Angazi.h">

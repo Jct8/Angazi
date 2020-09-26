@@ -29,6 +29,8 @@ namespace Angazi
 
 		void ShowMainWindowWithDockSpace();
 
+		void ShowModals();
+
 		void New();
 		void Open();
 		void Save();
@@ -44,6 +46,9 @@ namespace Angazi
 		Core::EventHandlerId mDebugLogHandlerId = 0;
 
 		bool mRequestQuit = false;
+		bool showMessageBoxOpen = false;
+		bool showMessageBoxNew = false;
+		bool showMessageBoxExit = false;
 	};
 
 }

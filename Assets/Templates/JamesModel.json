@@ -1,57 +1,68 @@
 {
-  "GameObject": {
-    "Components": {
-      "TransformComponent": {
-        "Position": {
-          "x": 2,
-          "y": 0,
-          "z": -1
-        },
-        "Rotation": {
-          "xDegree": 0,
-          "yDegree": 0,
-          "zDegree": 0
+    "GameObject": {
+        "Components": {
+            "TransformComponent": {
+                "Position": {
+                    "x": 2.0,
+                    "y": 0.0,
+                    "z": -2.049999952316284
+                },
+                "Rotation": {
+                    "xDegree": -0.0,
+                    "yDegree": 0.0,
+                    "zDegree": -0.0
+                },
+                "Scale": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                }
+            },
+            "ColliderComponent": {
+                "Center": {
+                    "x": 0.0,
+                    "y": 3.0,
+                    "z": 0.0
+                },
+                "Extend": {
+                    "x": 0.5,
+                    "y": 1.0,
+                    "z": 0.5
+                }
+            },
+            "SkinnedMeshComponent": {
+                "ModelFileName": "James/James.model"
+            },
+            "MaterialComponent": {
+                "DiffuseFilePath": "",
+                "NormalFilePath": "",
+                "SpecularFilePath": "",
+                "DisplacementFilePath": "",
+                "AmbientOcculsionFilePath": "",
+                "MetallicFilePath": "",
+                "RoughnessFilePath": "",
+                "Material": {
+                    "Ambient": {
+                        "x": 0.800000011920929,
+                        "y": 0.800000011920929,
+                        "z": 0.800000011920929,
+                        "w": 1.0
+                    },
+                    "Diffuse": {
+                        "x": 0.800000011920929,
+                        "y": 0.800000011920929,
+                        "z": 0.800000011920929,
+                        "w": 1.0
+                    },
+                    "Specular": {
+                        "x": 0.5,
+                        "y": 0.5,
+                        "z": 0.5,
+                        "w": 1.0
+                    },
+                    "Power": 80.0
+                }
+            }
         }
-      },
-      "ColliderComponent": {
-        "Center": {
-          "x": 0,
-          "y": 1,
-          "z": 0
-        },
-        "Extend": {
-          "x": 0.5,
-          "y": 1,
-          "z": 0.5
-        }
-      },
-      "SkinnedMeshComponent": {
-        "ModelFileName": "James/James.model"
-      },
-      "MaterialComponent": {
-        "Material": {
-
-          "Diffuse": {
-            "x": 0.8,
-            "y": 0.8,
-            "z": 0.8,
-            "w": 1.0
-          },
-          "Ambient": {
-            "x": 0.8,
-            "y": 0.8,
-            "z": 0.8,
-            "w": 1.0
-          },
-          "Specular": {
-            "x": 0.5,
-            "y": 0.5,
-            "z": 0.5,
-            "w": 1.0
-          },
-          "Power": 80
-        }
-      }
     }
-  }
 }

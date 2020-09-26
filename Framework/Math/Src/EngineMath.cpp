@@ -31,8 +31,8 @@ const Vector4 Vector4::ZAxis{ 0.0f , 0.0f, 1.0f, 0.0f };
 const Vector4 Vector4::WAxis{ 0.0f , 0.0f, 0.0f, 1.0f };
 
 // Quaternion Definition
-const Quaternion Quaternion::Zero	 { 0.0f , 0.0f , 0.0f , 0.0f};
-const Quaternion Quaternion::Identity{ 0.0f , 0.0f , 0.0f , 1.0f};
+const Quaternion Quaternion::Zero{ 0.0f , 0.0f , 0.0f , 0.0f };
+const Quaternion Quaternion::Identity{ 0.0f , 0.0f , 0.0f , 1.0f };
 
 const Matrix4 Matrix4::Identity
 {
@@ -153,7 +153,7 @@ bool Angazi::Math::Intersect(const Ray& ray, const Plane& plane, float& distance
 	return true;
 }
 
-bool Angazi::Math::IsContained(const Vector3 & point, const AABB & aabb)
+bool Angazi::Math::IsContained(const Vector3& point, const AABB& aabb)
 {
 	auto min = aabb.Min();
 	auto max = aabb.Max();
@@ -163,7 +163,7 @@ bool Angazi::Math::IsContained(const Vector3 & point, const AABB & aabb)
 		return false;
 	return true;
 }
-bool Angazi::Math::IsContained(const Vector3 & point, const OBB & obb)
+bool Angazi::Math::IsContained(const Vector3& point, const OBB& obb)
 {
 	// Compute the world-to-local matrices
 	Math::Matrix4 matTrans = Math::Matrix4::Translation(obb.center);
@@ -186,7 +186,7 @@ bool Angazi::Math::PointInRect(const Vector2& point, const Rect& rect)
 bool Angazi::Math::PointInCircle(const Vector2& point, const Circle& circle)
 {
 	float distance = DistanceSqr(point, circle.center);
-	return distance < circle.radius * circle.radius;
+	return distance < circle.radius* circle.radius;
 }
 
 bool Angazi::Math::Intersect(const LineSegment& a, const LineSegment& b)
@@ -224,7 +224,7 @@ bool Angazi::Math::Intersect(const Circle& c0, const Circle& c1)
 {
 	float combinedRadius = c0.radius + c1.radius;
 	float distanceSquared = DistanceSqr(c0.center, c1.center);
-	return distanceSquared < combinedRadius*combinedRadius;
+	return distanceSquared < combinedRadius* combinedRadius;
 }
 bool Angazi::Math::Intersect(const Rect& r0, const Rect& r1)
 {
@@ -286,7 +286,7 @@ Quaternion Angazi::Math::Slerp(const Quaternion& q1, const Quaternion& q2, float
 {
 	float dot = Dot(q1, q2);
 	Quaternion newQ2 = q2;
-	
+
 	// Determine the direction of the rotation.
 	if (dot < 0.0f)
 	{
@@ -296,9 +296,9 @@ Quaternion Angazi::Math::Slerp(const Quaternion& q1, const Quaternion& q2, float
 	else if (dot > 0.999f)
 		return Normalize(Lerp(q1, newQ2, t));
 	float theta = acosf(dot);
-	float c1 = sinf(theta*(1.0f - t)) / sinf(theta);
-	float c2 = sinf(theta*t) / sinf(theta);
-	return q1*c1 + newQ2 *c2;
+	float c1 = sinf(theta * (1.0f - t)) / sinf(theta);
+	float c2 = sinf(theta * t) / sinf(theta);
+	return q1 * c1 + newQ2 * c2;
 }
 Quaternion Quaternion::RotationAxis(const Vector3& axis, float radian)
 {
@@ -306,9 +306,9 @@ Quaternion Quaternion::RotationAxis(const Vector3& axis, float radian)
 	float theta = radian * 0.5f;
 	return Quaternion
 	(
-		a.x* sinf(theta),
-		a.y* sinf(theta),
-		a.z* sinf(theta),
+		a.x * sinf(theta),
+		a.y * sinf(theta),
+		a.z * sinf(theta),
 		cosf(theta)
 	);
 }
@@ -319,15 +319,15 @@ Quaternion Quaternion::RotationMatrix(const Matrix4& input)
 
 	float tr = m._11 + m._22 + m._33;
 
-	if (tr > 0) 
+	if (tr > 0)
 	{
-		float w = sqrt(tr + 1.0f) * 2.0f; 
+		float w = sqrt(tr + 1.0f) * 2.0f;
 		qw = 0.25f * w;
 		qx = (m._32 - m._23) / w;
 		qy = (m._13 - m._31) / w;
 		qz = (m._21 - m._12) / w;
 	}
-	else if ((m._11 > m._22)&(m._11 > m._33)) 
+	else if ((m._11 > m._22) & (m._11 > m._33))
 	{
 		float w = sqrt(1.0f + m._11 - m._22 - m._33) * 2.0f;
 		qw = (m._32 - m._23) / w;
@@ -335,7 +335,7 @@ Quaternion Quaternion::RotationMatrix(const Matrix4& input)
 		qy = (m._12 + m._21) / w;
 		qz = (m._13 + m._31) / w;
 	}
-	else if (m._22 > m._33) 
+	else if (m._22 > m._33)
 	{
 		float w = sqrt(1.0f + m._22 - m._11 - m._33) * 2.0f;
 		qw = (m._13 - m._31) / w;
@@ -343,7 +343,7 @@ Quaternion Quaternion::RotationMatrix(const Matrix4& input)
 		qy = 0.25f * w;
 		qz = (m._23 + m._32) / w;
 	}
-	else 
+	else
 	{
 		float w = sqrt(1.0f + m._33 - m._11 - m._22) * 2.0f;
 		qw = (m._21 - m._12) / w;
@@ -356,7 +356,7 @@ Quaternion Quaternion::RotationMatrix(const Matrix4& input)
 Quaternion Quaternion::RotationFromTo(const Vector3& from, const Vector3& to)
 {
 	Vector3 a = Cross(from, to);
-	float w = Sqrt(Magnitude(from)* Magnitude(from)
+	float w = Sqrt(Magnitude(from) * Magnitude(from)
 		* Magnitude(to) * Magnitude(to)) + Dot(from, to);
 	return Normalize(Quaternion(a.x, a.y, a.z, w));
 }
@@ -400,7 +400,7 @@ Matrix4 Matrix4::RotationQuaternion(const Quaternion& q)
 		1.0f
 	};
 }
-Matrix4 Matrix4::RotationAxis(const Vector3 & axis, float radian)
+Matrix4 Matrix4::RotationAxis(const Vector3& axis, float radian)
 {
 	float cos = cosf(radian);
 	float sin = sinf(radian);
@@ -411,20 +411,20 @@ Matrix4 Matrix4::RotationAxis(const Vector3 & axis, float radian)
 
 	return
 	{
-		cos + wx * wx*(1.0f - cos)   , wz*sin + wx * wy*(1.0f - cos)  , -wy * sin + wx*wz*(1.0f - cos) , 0.0f,
-		wx*wy*(1.0f - cos) - wz * sin, cos + wy * wy*(1.0f - cos)     , wx*sin + wy * wz*(1.0f - cos)  , 0.0f,
-		wy*sin + wx * wz*(1.0f - cos),-wx * sin + wy * wz*(1.0f - cos), cos + wz * wz*(1.0f - cos)     , 0.0f,
+		cos + wx * wx * (1.0f - cos)   , wz * sin + wx * wy * (1.0f - cos)  , -wy * sin + wx * wz * (1.0f - cos) , 0.0f,
+		wx * wy * (1.0f - cos) - wz * sin, cos + wy * wy * (1.0f - cos)     , wx * sin + wy * wz * (1.0f - cos)  , 0.0f,
+		wy * sin + wx * wz * (1.0f - cos),-wx * sin + wy * wz * (1.0f - cos), cos + wz * wz * (1.0f - cos)     , 0.0f,
 		0.0f, 0.0f, 0.0f, 1.0f
 	};
 }
 
-Matrix4 Matrix4::Transform(const Vector3 &translation, const Vector3 &rotation, const Vector3 &scale)
+Matrix4 Matrix4::Transform(const Vector3& translation, const Vector3& rotation, const Vector3& scale)
 {
 	Matrix4 rot = Matrix4::RotationX(rotation.x) * Matrix4::RotationY(rotation.y) * Matrix4::RotationZ(rotation.z);
 	return rot * Matrix4::Scaling(scale) * Matrix4::Translation(translation);
 }
 
-Matrix4 Matrix4::Transform(const Vector3 &translation, const Quaternion &rotation, const Vector3 &scale)
+Matrix4 Matrix4::Transform(const Vector3& translation, const Quaternion& rotation, const Vector3& scale)
 {
 	Matrix4 transform = Matrix4::RotationQuaternion(rotation) * Matrix4::Scaling(scale);
 	transform._41 = translation.x;
@@ -433,26 +433,18 @@ Matrix4 Matrix4::Transform(const Vector3 &translation, const Quaternion &rotatio
 	return transform;
 }
 
-Vector3 Vector3::ToEulerAngle(const Quaternion& q)
+Vector3 Vector3::ToEulerAngleXYZ(const Quaternion& q)
 {
 	Vector3 eulerAngle;
+	float r11 = -2.0f * (q.y * q.z - q.w * q.x);
+	float r12 = q.w * q.w - q.x * q.x - q.y * q.y + q.z * q.z;
+	float r21 = 2.0f * (q.x * q.z + q.w * q.y);
+	float r31 = 2.0f * (q.x * q.y - q.w * q.z);
+	float r32 = q.w * q.w + q.x * q.x - q.y * q.y - q.z * q.z;
 
-	// X
-	float sinX = 2.0f * (q.w * q.x + q.y * q.z);
-	float cosX = 1.0f - 2.0f * (q.x * q.x + q.y * q.y);
-	eulerAngle.x = atan2f(sinX, cosX);
-
-	// Y
-	float sinY = 2.0f * (q.w * q.y - q.z * q.x);
-	if (fabsf(sinY) >= 1.0f)
-		eulerAngle.y = std::copysign(Constants::Pi * 0.5f, sinY);
-	else
-		eulerAngle.y = asinf(sinY);
-
-	// Z
-	float sinZ = 2.0f * (q.w * q.z + q.x * q.y);
-	float cosZ = 1.0f - 2.0f * (q.y * q.y + q.z * q.z);
-	eulerAngle.z = atan2f(sinZ, sinZ);
+	eulerAngle.x = atan2(r11, r12);
+	eulerAngle.y = asin(r21);
+	eulerAngle.z = atan2(-r31, r32);
 
 	return eulerAngle;
 }

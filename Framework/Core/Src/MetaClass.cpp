@@ -62,6 +62,22 @@ void MetaClass::Deserialize(void* classInstance, const rapidjson::Value& jsonVal
 	{
 		auto metaField = FindField(member.name.GetString());
 		auto metaType = metaField->GetMetaType();
-		metaType->Deserialize(metaField->GetFieldInstance(classInstance),member.value);
+		metaType->Deserialize(metaField->GetFieldInstance(classInstance), member.value);
+	}
+}
+
+void MetaClass::Serialize(const void* classInstance, rapidjson::Value& jsonValue, rapidjson::Document& document) const
+{
+	for (auto& metaField : mFields)
+	{
+		rapidjson::Value fieldName(rapidjson::kObjectType);
+		rapidjson::Value fieldProperties(rapidjson::kObjectType);
+
+		auto name = metaField.GetName();
+		fieldName.SetString(metaField.GetName(), document.GetAllocator());
+		
+		auto metaType = metaField.GetMetaType();
+		metaType->Serialize(metaField.GetFieldInstance(classInstance), fieldProperties, document);
+		jsonValue.AddMember(fieldName, fieldProperties,document.GetAllocator());
 	}
 }

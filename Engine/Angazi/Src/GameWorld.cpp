@@ -45,7 +45,7 @@ void GameWorld::Terminate()
 	mInitialized = false;
 }
 
-GameObjectHandle GameWorld::Create(const std::filesystem::path & templateFileName, std::string name)
+GameObjectHandle GameWorld::Create(const std::filesystem::path& templateFileName, std::string name)
 {
 	auto gameObject = GameObjectFactory::Create(*mGameObjectAllocator, templateFileName);
 	if (gameObject == nullptr)
@@ -59,6 +59,7 @@ GameObjectHandle GameWorld::Create(const std::filesystem::path & templateFileNam
 	// Initialize the game object
 	gameObject->mWorld = this;
 	gameObject->mName = std::move(name);
+	gameObject->mFilePath = templateFileName;
 	gameObject->mHandle = handle;
 	gameObject->Initialize();
 
@@ -69,7 +70,9 @@ GameObjectHandle GameWorld::Create(const std::filesystem::path & templateFileNam
 
 void GameWorld::LoadScene(const std::filesystem::path& sceneFileName)
 {
-	FILE *file = nullptr;
+	mSceneFilePath = sceneFileName;
+
+	FILE* file = nullptr;
 	fopen_s(&file, sceneFileName.u8string().c_str(), "r");
 
 	char readBuffer[65536];
@@ -92,7 +95,14 @@ void GameWorld::LoadScene(const std::filesystem::path& sceneFileName)
 	fclose(file);
 }
 
-GameObjectHandle GameWorld::Find(const std::string & name)
+void GameWorld::UnloadScene()
+{
+	mDestroyList = mUpdateList;
+	mInitialized = false;
+	mSceneFilePath = "";
+}
+
+GameObjectHandle GameWorld::Find(const std::string& name)
 {
 	auto iter = std::find_if(mUpdateList.begin(), mUpdateList.end(), [&name](auto gameObject)
 	{
@@ -102,6 +112,51 @@ GameObjectHandle GameWorld::Find(const std::string & name)
 		return (*iter)->GetHandle();
 
 	return GameObjectHandle();
+}
+
+void GameWorld::SaveScene(const std::filesystem::path& sceneFilePath) const
+{
+	if (mUpdateList.empty())
+		return;
+
+	std::filesystem::path savePath;
+	if (sceneFilePath == "")
+		savePath = mSceneFilePath;
+	else
+		savePath = sceneFilePath;
+
+	FILE* file = nullptr;
+	fopen_s(&file, savePath.u8string().c_str(), "wb");
+
+	using namespace rapidjson;
+
+	char readBuffer[65536];
+	rapidjson::FileWriteStream os(file, readBuffer, sizeof(readBuffer));
+
+	rapidjson::Document document;
+	rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+	document.SetObject();
+
+	Value gameObjects(kArrayType);
+	Value val(kObjectType);
+	for (auto& gameObject : mUpdateList)
+	{
+		gameObject->SaveGameObject();
+
+		Value obj(kObjectType);
+		val.SetString(gameObject->mFilePath.u8string().c_str(), allocator);
+		obj.AddMember("Template", val, allocator);
+
+		val.SetString(gameObject->mName.c_str(), allocator);
+		obj.AddMember("Name", val, allocator);
+
+		gameObjects.PushBack(obj, allocator);
+	}
+	document.AddMember("GameObjects", gameObjects, allocator);
+
+	rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
+	document.Accept(writer);
+	fclose(file);
 }
 
 void GameWorld::Destroy(GameObjectHandle handle)
@@ -165,7 +220,7 @@ void GameWorld::DebugUI()
 		gameObject->DebugUI();
 }
 
-void Angazi::GameWorld::DestroyInternal(GameObject * gameObject)
+void GameWorld::DestroyInternal(GameObject* gameObject)
 {
 	ASSERT(!mUpdating, "GameWorld -- Cannot destroy game objects during the update.");
 
@@ -185,7 +240,7 @@ void Angazi::GameWorld::DestroyInternal(GameObject * gameObject)
 	GameObjectFactory::Destory(*mGameObjectAllocator, gameObject);
 }
 
-void Angazi::GameWorld::ProcessDestroyList()
+void GameWorld::ProcessDestroyList()
 {
 	for (auto gameObject : mDestroyList)
 		DestroyInternal(gameObject);
