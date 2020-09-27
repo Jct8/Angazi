@@ -34,6 +34,9 @@ void MeshComponent::Initialize()
 void MeshComponent::Render()
 {
 	auto meshBuffer = MeshManager::Get()->GetModel(mMeshId);
+	if (!meshBuffer)
+		return;
+
 	const auto& camera = GetGameObject().GetWorld().GetService<CameraService>()->GetActiveCamera();
 	const auto& light = GetGameObject().GetWorld().GetService<LightService>()->GetActiveLight();
 	const auto& env = GetGameObject().GetWorld().GetService<EnvironmentService>()->GetActiveEnvironment();
@@ -67,6 +70,14 @@ void MeshComponent::ShowInspectorProperties()
 {
 	if (ImGui::CollapsingHeader("Mesh Renderer", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		ImGui::Columns(2, "MeshRenderer");
+		ImGui::SetColumnWidth(0, 80.f);
+
+		ImGui::Text("File Path");
+		ImGui::NextColumn();
+		ImGui::Text("%s",mMeshFileName.c_str());
+		ImGui::NextColumn();
+		ImGui::Columns(1);
 	}
 }
 

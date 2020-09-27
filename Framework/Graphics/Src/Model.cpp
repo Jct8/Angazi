@@ -1,10 +1,12 @@
 #include "Precompiled.h"
-#include "Material.h"
 #include "Model.h"
+
+#include "AnimationIO.h"
+#include "Material.h"
 #include "MeshIO.h"
 #include "SkeletonIO.h"
-#include "AnimationIO.h"
 #include "StandardEffect.h"
+#include "TextureManager.h"
 
 using namespace Angazi;
 using namespace Angazi::Graphics;

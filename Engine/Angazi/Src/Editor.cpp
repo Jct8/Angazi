@@ -9,6 +9,7 @@
 #include "Angazi.h"
 
 using namespace Angazi;
+using namespace Angazi::Input;
 
 Editor::Editor(GameWorld& world)
 	:mWorld(world)
@@ -26,21 +27,21 @@ void Editor::Show()
 	ShowMenuBar();
 	ShowModals();
 	ShowMainWindowWithDockSpace();
-
-	ImGui::Begin("Style");
-	ImGui::ShowStyleEditor();
-	ImGui::End();
+	ShowStatsMenu();
 
 	ShowWorldView();
 	ShowInspectorView();
 	ShowLogView();
 
-
+	ImGui::Begin("Style");
+	ImGui::ShowStyleEditor();
+	ImGui::End();
 }
 
 void Editor::ShowWorldView()
 {
 	ImGui::Begin("Scene Hierarchy");
+
 	if (ImGui::TreeNode("Services"))
 	{
 		for (auto& service : mWorld.mServices)
@@ -58,6 +59,8 @@ void Editor::ShowWorldView()
 	{
 		for (auto gameObject : mWorld.mUpdateList)
 		{
+			ImGui::PushID(gameObject);
+
 			if (!gameObject->mEnabled)
 				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.46f, 0.46f, 0.46f, 1.00f));
 			if (ImGui::Selectable(gameObject->GetName().c_str(), gameObject == mSelectedGameObject))
@@ -67,17 +70,34 @@ void Editor::ShowWorldView()
 			}
 			if (!gameObject->mEnabled)
 				ImGui::PopStyleColor(1);
+
+			ImGui::PopID();
 		}
 		ImGui::TreePop();
+	}
+	if (InputSystem::Get()->IsMouseDown(MouseButton::RBUTTON) && ImGui::IsWindowHovered())
+		ImGui::OpenPopup("Add_GameObject");
+
+	if (ImGui::BeginPopup("Add_GameObject"))
+	{
+		if (ImGui::Selectable("Add Empty GameObject"))
+			mWorld.CreateEmpty();
+
+		ImGui::EndPopup();
 	}
 	ImGui::End();
 }
 
 void Editor::ShowInspectorView()
 {
-	ImGui::Begin("Inspector");
+	ImGui::Begin("Properties");
 	if (mSelectedService)
 	{
+		ImGui::Checkbox(mSelectedService->GetMetaClass()->GetName(), &mSelectedService->mEnabled);
+		ImGui::NewLine();
+		ImGui::Separator();
+		ImGui::NewLine();
+
 		mSelectedService->ShowInspectorProperties();
 	}
 	else if (mSelectedGameObject)
@@ -160,6 +180,13 @@ void Editor::ShowEditMenu()
 
 }
 
+void Editor::ShowStatsMenu()
+{
+	ImGui::Begin("Stats");
+	ImGui::Text("FPS: %.2f", Core::TimeUtil::GetFramesPerSecond());
+	ImGui::End();
+}
+
 void Editor::ShowMainWindowWithDockSpace()
 {
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -202,10 +229,9 @@ void Editor::ShowModals()
 		showMessageBoxOpen = false;
 	}
 
-
 	ImVec2 center = ImGui::GetMainViewport()->GetCenter();
 	ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-
+	
 	if (ImGui::BeginPopupModal("Quit?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		ImGui::Text("Do you want to save\nbefore exiting?");
@@ -338,6 +364,5 @@ void Editor::SaveAs()
 
 void Editor::Exit()
 {
-	ImGui::OpenPopup("Quit?");
 	Angazi::MainApp().Quit();
 }

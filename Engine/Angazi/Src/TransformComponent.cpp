@@ -36,18 +36,21 @@ void TransformComponent::ShowInspectorProperties()
 
 		ImGui::Text("Position");
 		ImGui::NextColumn();
-		ImGui::DragFloat3("##TransformPosition", &position.x);
+		ImGui::PushItemWidth(115);
+		ImGui::DragFloat3("##TransformPosition", &position.x, 0.2f, 0.0f, 0.0f, "%.2f");
 		ImGui::NextColumn();
 
 		ImGui::Text("Rotation");
 		ImGui::NextColumn();
-		if (ImGui::DragFloat3("##TransformRotation", &rotationDeg.x))
+		ImGui::PushItemWidth(115);
+		if (ImGui::DragFloat3("##TransformRotation", &rotationDeg.x, 0.2f, 0.0f, 0.0f, "%.2f"))
 			UpdateRotationQuaternion();
 		ImGui::NextColumn();
 
 		ImGui::Text("Scale");
 		ImGui::NextColumn();
-		ImGui::DragFloat3("##TransformScale", &scale.x);
+		ImGui::PushItemWidth(115);
+		ImGui::DragFloat3("##TransformScale", &scale.x,0.2f,0.0f, 0.0f,"%.2f");
 		ImGui::NextColumn();
 		ImGui::Columns(1);
 	}

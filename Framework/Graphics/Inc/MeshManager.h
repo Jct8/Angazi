@@ -25,7 +25,10 @@ namespace Angazi::Graphics
 		void Clear();
 
 	private:
+		void LoadPrimitiveMesh(const std::string& type);
+
 		std::filesystem::path mRootPath;
 		std::unordered_map <MeshId, std::unique_ptr<MeshBuffer>> mInventory;
+		std::unordered_map<std::string, MeshId> mPrimitiveMeshes;
 	};
 }

@@ -1,6 +1,7 @@
 #include "Precompiled.h"
 #include "MeshManager.h"
 
+#include "MeshBuilder.h"
 #include "ObjLoader.h"
 
 using namespace Angazi::Graphics;
@@ -50,15 +51,24 @@ MeshId MeshManager::LoadMesh(const std::filesystem::path& filePath, bool useRoot
 	else
 		modelPath = filePath;
 
+	if (!std::filesystem::exists(modelPath))
+	{
+		auto iter = mPrimitiveMeshes.find(filePath.u8string());
+		if (iter == mPrimitiveMeshes.end())
+			LoadPrimitiveMesh(filePath.u8string());
+		iter = mPrimitiveMeshes.find(filePath.u8string());
+		return iter != mPrimitiveMeshes.end() ? iter->second : 0;
+	}
+
 	std::hash<std::string> hasher;
-	TextureId hash = hasher(modelPath.string());
+	MeshId hash = hasher(modelPath.string());
 
 	auto [iter, successful] = mInventory.insert({ hash , nullptr });
 	if (successful)
 	{
 		std::unique_ptr<MeshBuffer> meshBuffer = std::make_unique<MeshBuffer>();
 		Mesh mesh;
-		ObjLoader::Load(modelPath,1.0f,mesh);
+		ObjLoader::Load(modelPath, 1.0f, mesh);
 		meshBuffer->Initialize(mesh);
 		iter->second = std::move(meshBuffer);
 	}
@@ -83,3 +93,28 @@ void MeshManager::Clear()
 	}
 	mInventory.clear();
 }
+
+void MeshManager::LoadPrimitiveMesh(const std::string& type)
+{
+	Mesh mesh;
+	if (type == "Sphere")
+		mesh = MeshBuilder::CreateSphere(0.5f, 32, 32);
+	else if (type == "Plane")
+		mesh = MeshBuilder::CreatePlane(10.0f, 32, 32);
+	else if (type == "Cube")
+		mesh = MeshBuilder::CreateCube();
+	else
+		return;
+
+	std::hash<std::string> hasher;
+	MeshId hash = hasher(type);
+	auto [iter, successful] = mInventory.insert({ hash , nullptr });
+	if (successful)
+	{
+		std::unique_ptr<MeshBuffer> meshBuffer = std::make_unique<MeshBuffer>();
+		meshBuffer->Initialize(mesh);
+		iter->second = std::move(meshBuffer);
+		mPrimitiveMeshes.emplace(type, hash);
+	}
+}
+

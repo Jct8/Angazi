@@ -6,7 +6,7 @@
 using namespace Angazi;
 
 META_DERIVED_BEGIN(LightService, Service)
-META_NO_FIELD
+	META_NO_FIELD
 META_CLASS_END
 
 void LightService::Initialize()
@@ -21,6 +21,14 @@ void LightService::ShowInspectorProperties()
 		for (auto& [name, light] : mLightMap)
 		{
 			ImGui::Text(name.c_str());
+			bool active = false;
+			if (&light == mActiveLight)
+				active = true;
+			ImGui::PushID(name.c_str());
+
+			if (ImGui::Checkbox("Active", &active) && active)
+				mActiveLight = &light;
+
 			ImGui::Columns(2, "DirectionalLights");
 
 			ImGui::Text("Ambient Light Color");
@@ -54,8 +62,7 @@ void LightService::ShowInspectorProperties()
 			ImGui::NextColumn();
 
 			ImGui::Columns(1);
-			if (ImGui::Button("Set as active light"))
-				mActiveLight = &light;
+			ImGui::PopID();
 			ImGui::Separator();
 		}
 	}

@@ -9,10 +9,10 @@ using namespace Angazi;
 using namespace Angazi::Graphics;
 
 META_DERIVED_BEGIN(ColliderComponent, Component)
-META_FIELD_BEGIN
-META_FIELD(center, "Center")
-META_FIELD(extend, "Extend")
-META_FIELD_END
+	META_FIELD_BEGIN
+		META_FIELD(center, "Center")
+		META_FIELD(extend, "Extend")
+	META_FIELD_END
 META_CLASS_END;
 
 void Angazi::ColliderComponent::Initialize()
@@ -35,12 +35,14 @@ void ColliderComponent::ShowInspectorProperties()
 
 		ImGui::Text("Center");
 		ImGui::NextColumn();
-		ImGui::DragFloat3("##ColliderCenter", &center.x);
+		ImGui::PushItemWidth(115);
+		ImGui::DragFloat3("##ColliderCenter", &center.x, 0.2f, 0.0f, 0.0f, "%.2f");
 		ImGui::NextColumn();
 
 		ImGui::Text("Scale");
 		ImGui::NextColumn();
-		ImGui::DragFloat3("##ColliderScale", &extend.x);
+		ImGui::PushItemWidth(115);
+		ImGui::DragFloat3("##ColliderScale", &extend.x, 0.2f, 0.0f, 0.0f, "%.2f");
 		ImGui::NextColumn();
 		ImGui::Columns(1);
 	}

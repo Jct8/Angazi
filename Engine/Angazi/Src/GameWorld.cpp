@@ -68,6 +68,11 @@ GameObjectHandle GameWorld::Create(const std::filesystem::path& templateFileName
 	return handle;
 }
 
+GameObjectHandle Angazi::GameWorld::CreateEmpty()
+{
+	return Create("Empty","Empty GameObject");
+}
+
 void GameWorld::LoadScene(const std::filesystem::path& sceneFileName)
 {
 	mSceneFilePath = sceneFileName;

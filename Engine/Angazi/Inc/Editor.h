@@ -26,6 +26,7 @@ namespace Angazi
 		void ShowMenuBar();
 		void ShowFileMenu();
 		void ShowEditMenu();
+		void ShowStatsMenu();
 
 		void ShowMainWindowWithDockSpace();
 

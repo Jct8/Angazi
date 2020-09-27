@@ -13,6 +13,9 @@ void EditState::Initialize()
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
 	mCameraService = mWorld.AddService<CameraService>();
+	mCameraService->AddCamera("Camera 1");
+	mCameraService->AddCamera("Camera 2");
+
 	mEnvironmentService = mWorld.AddService<EnvironmentService>();
 	mShaderService = mWorld.AddService<ShaderService>();
 	mLightService = mWorld.AddService<LightService>();
@@ -41,7 +44,7 @@ void EditState::Initialize()
 	light.diffuse = { 0.7f };
 	light.specular = { 0.0f };
 
-	mWorld.LoadScene("../../Assets/Scenes/TestScene.json");
+	//mWorld.LoadScene("../../Assets/Scenes/TestScene.json");
 
 	mHdrEffect.Initialize();
 	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(),
@@ -59,10 +62,6 @@ void EditState::Update(float deltaTime)
 {
 	auto inputSystem = InputSystem::Get();
 
-	const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 100.0f : 10.0f;
-	const float kTurnSpeed = 10.0f * Constants::DegToRad;
-
-	auto& camera = mCameraService->GetActiveCamera();
 
 	if (inputSystem->IsMouseDown(MouseButton::RBUTTON) && mIsSceneHovered)
 		mIsUsingCameraControl = true;
@@ -71,6 +70,10 @@ void EditState::Update(float deltaTime)
 
 	if (mIsUsingCameraControl)
 	{
+		const float kMoveSpeed = inputSystem->IsKeyDown(KeyCode::LSHIFT) ? 100.0f : 10.0f;
+		const float kTurnSpeed = 10.0f * Constants::DegToRad;
+
+		auto& camera = mCameraService->GetActiveCamera();
 		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
 		if (inputSystem->IsKeyDown(KeyCode::W))
 			camera.Walk(kMoveSpeed * deltaTime);
@@ -139,7 +142,7 @@ void EditState::ShowSceneView()
 
 	ImGui::GetForegroundDrawList()->AddRect(vMin, vMax, IM_COL32(135, 206, 239, 255));
 	ImGui::Image(mRenderTarget.GetShaderResourceView(), { width, height }, { 0.0f,0.0f }, { 1.0f,1.0f });
-	mIsSceneHovered = ImGui::IsItemHovered();
+	mIsSceneHovered = ImGui::IsWindowHovered();
 	ImGui::End();
 	ImGui::PopStyleVar(1);
 	ImGui::PopStyleColor(2);

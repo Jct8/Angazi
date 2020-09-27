@@ -26,7 +26,10 @@ namespace Angazi
 
 	private:
 		friend class GameWorld;
+		friend class Editor;
+
 		GameWorld* mWorld = nullptr;
+		bool mEnabled = true;
 	};
 }
 

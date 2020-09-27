@@ -43,6 +43,7 @@ namespace Angazi
 		}
 
 		GameObjectHandle Create(const std::filesystem::path& templateFileName, std::string name);
+		GameObjectHandle CreateEmpty();
 		GameObjectHandle Find(const std::string& name);
 
 		void LoadScene(const std::filesystem::path& sceneFileName);

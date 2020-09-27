@@ -26,13 +26,26 @@ void EnvironmentService::Render()
 
 void EnvironmentService::ShowInspectorProperties()
 {
-	if (ImGui::CollapsingHeader("Available Environments", ImGuiTreeNodeFlags_DefaultOpen))
+	for (auto& [name, camera] : mEnvironmentMap)
 	{
-		for (auto& [name, skybox] : mEnvironmentMap)
+		bool active = false;
+		ImGui::PushID(name.c_str());
+		std::string headerName = name;
+		if (&camera == mActiveSkybox)
 		{
-			if (ImGui::Button(name.c_str()))
-				mActiveSkybox = &skybox;
+			active = true;
+			headerName.append(" (Active)");
 		}
+
+		if (ImGui::CollapsingHeader(headerName.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			if (ImGui::Checkbox("Active", &active) && active)
+				mActiveSkybox = &camera;
+
+			ImGui::Columns(2, "EnvironmentService");
+			ImGui::Columns(1);
+		}
+		ImGui::PopID();
 	}
 }
 

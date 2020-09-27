@@ -17,7 +17,6 @@ private:
 	void ShowSceneView();
 
 private:
-
 	Angazi::Graphics::HdrEffect mHdrEffect;
 	Angazi::Graphics::RenderTarget mRenderTarget;
 

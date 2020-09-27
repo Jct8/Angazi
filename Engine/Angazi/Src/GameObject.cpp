@@ -8,7 +8,6 @@ META_CLASS_BEGIN(GameObject)
 	META_NO_FIELD
 META_CLASS_END
 
-
 void GameObject::Initialize()
 {
 	ASSERT(!mInitialized, " GameObject -- Game object already initialized.");

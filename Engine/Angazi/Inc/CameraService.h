@@ -10,6 +10,7 @@ namespace Angazi
 		META_CLASS_DECLARE;
 
 		void Initialize() override;
+		void ShowInspectorProperties() override;
 
 		Graphics::Camera* AddCamera(const char* name);
 		Graphics::Camera* FindCamera(const char* name);

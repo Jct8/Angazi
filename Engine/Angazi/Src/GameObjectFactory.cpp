@@ -3,14 +3,13 @@
 
 #include "Component.h"
 #include "TransformComponent.h"
-#include "ColliderComponent.h"
 
 using namespace Angazi;
 
 GameObject* GameObjectFactory::Create(GameObjectAllocator & allocator, std::filesystem::path templateFileName)
 {
 	auto gameObject = allocator.New();
-	if (gameObject)
+	if (gameObject && std::filesystem::exists(templateFileName))
 	{
 		FILE *file = nullptr;
 		fopen_s(&file, templateFileName.u8string().c_str(), "r");
@@ -37,6 +36,8 @@ GameObject* GameObjectFactory::Create(GameObjectAllocator & allocator, std::file
 		}
 		fclose(file);
 	}
+	if (gameObject && !gameObject->GetComponent<TransformComponent>())
+		gameObject->AddComponent<TransformComponent>();
 	return gameObject;
 }
 

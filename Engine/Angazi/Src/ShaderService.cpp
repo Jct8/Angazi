@@ -20,7 +20,11 @@ void ShaderService::Terminate()
 
 void ShaderService::ShowInspectorProperties()
 {
-	if (ImGui::CollapsingHeader("Available Shaders", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Shaders Loaded", ImGuiTreeNodeFlags_DefaultOpen))
 	{
+		for (auto& shader : mShaders)
+		{
+			ImGui::Text(shader->GetMetaClass()->GetName());
+		}
 	}
 }
