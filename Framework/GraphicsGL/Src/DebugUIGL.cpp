@@ -60,7 +60,6 @@ namespace
 		/// 0 = FLAT APPEARENCE
 		/// 1 = MORE "3D" LOOK
 		int is3D = 1;
-		int is3D = 1;
 		colors[ImGuiCol_Text] = ImVec4(0.53f, 0.81f, 0.94f, 1.00f);
 		colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.58f, 0.58f, 1.00f);
 		colors[ImGuiCol_ChildBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);

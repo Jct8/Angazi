@@ -44,7 +44,7 @@ void EditState::Initialize()
 	light.diffuse = { 0.7f };
 	light.specular = { 0.0f };
 
-	//mWorld.LoadScene("../../Assets/Scenes/TestScene.json");
+	mWorld.LoadScene("../../Assets/Scenes/TestScene.json");
 
 	mHdrEffect.Initialize();
 	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(),
