@@ -34,7 +34,9 @@ namespace Angazi
 		ComponentType* AddComponent()
 		{
 			static_assert(std::is_base_of_v<Component, ComponentType>,"GameObject -- Cannot add type T which is not derived from Component.");
-			ASSERT(!mInitialized, " GameObject -- Cannot add new components once the game object is already initialized.");
+			//ASSERT(!mInitialized, " GameObject -- Cannot add new components once the game object is already initialized.");
+			for (auto& component : mComponents)
+				if (component->GetMetaClass() == ComponentType::StaticGetMetaClass()) return nullptr;
 
 			auto& newComponent = mComponents.emplace_back(std::make_unique<ComponentType>());
 			newComponent->mOwner = this;

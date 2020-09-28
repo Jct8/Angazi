@@ -40,6 +40,7 @@ void Editor::Show()
 
 void Editor::ShowWorldView()
 {
+	bool gameobjectflag = false;
 	ImGui::Begin("Scene Hierarchy");
 
 	if (ImGui::TreeNode("Services"))
@@ -71,18 +72,34 @@ void Editor::ShowWorldView()
 			if (!gameObject->mEnabled)
 				ImGui::PopStyleColor(1);
 
+			if (ImGui::IsItemHovered() && ImGui::IsMouseDown(ImGuiMouseButton_Right))
+				ImGui::OpenPopup("GameObject_options");
+
+			if (ImGui::BeginPopup("GameObject_options") )
+			{
+				gameobjectflag = true;
+				std::string deleteText = "Delete " +gameObject->GetName();
+				if (ImGui::Selectable(deleteText.c_str()))
+				{
+					mWorld.Destroy(gameObject->GetHandle());
+					mSelectedGameObject = nullptr;
+				}
+				ImGui::EndPopup();
+			}
 			ImGui::PopID();
 		}
 		ImGui::TreePop();
 	}
-	if (InputSystem::Get()->IsMouseDown(MouseButton::RBUTTON) && ImGui::IsWindowHovered())
+	if (InputSystem::Get()->IsMousePressed(MouseButton::RBUTTON) && ImGui::IsWindowHovered() && !gameobjectflag)
 		ImGui::OpenPopup("Add_GameObject");
 
 	if (ImGui::BeginPopup("Add_GameObject"))
 	{
 		if (ImGui::Selectable("Add Empty GameObject"))
-			mWorld.CreateEmpty();
-
+		{
+			auto go = mWorld.CreateEmpty();
+			mSelectedGameObject = go.Get();
+		}
 		ImGui::EndPopup();
 	}
 	ImGui::End();
@@ -102,28 +119,45 @@ void Editor::ShowInspectorView()
 	}
 	else if (mSelectedGameObject)
 	{
-		ImGui::Checkbox(mSelectedGameObject->GetName().c_str(), &mSelectedGameObject->mEnabled);
+		char buffer[128];
+		ImGui::PushID(mSelectedGameObject);
+		ImGui::Checkbox("", &mSelectedGameObject->mEnabled);
+		ImGui::SameLine();
+		strcpy_s(buffer, mSelectedGameObject->GetName().c_str());
+		if (ImGui::InputText("##namebuffer", buffer, IM_ARRAYSIZE(buffer)))
+			mSelectedGameObject->SetName(buffer);
+		
 		ImGui::NewLine();
 		ImGui::Separator();
 		ImGui::NewLine();
 		for (auto& component : mSelectedGameObject->mComponents)
-		{
 			component->ShowInspectorProperties();
-			//ImGui::NewLine();
-			//auto metaClass = component->GetMetaClass();
-			//if (ImGui::CollapsingHeader(metaClass->GetName(), ImGuiTreeNodeFlags_DefaultOpen))
-			//{
-			//	for (size_t i = 0; i < metaClass->GetFieldCount(); i++)
-			//	{
-			//		auto metaField = metaClass->GetField(i);
-			//		if (metaField->GetMetaType() == Core::Meta::GetMetaType<Math::Vector3>())
-			//		{
-			//			auto data = (float*)metaField->GetFieldInstance(component.get());
-			//			ImGui::DragFloat3(metaField->GetName(), data);
-			//		}
-			//	}
-			//}
+
+		ImGui::NewLine();
+		ImGui::Separator();
+		ImGui::NewLine();
+
+		if (ImGui::Button("Add Component"))
+			ImGui::OpenPopup("Add_Component");
+
+		if (ImGui::BeginPopup("Add_Component"))
+		{
+			auto metaClasses = Angazi::Core::Meta::GetAllMetaClasses();
+			for (auto& [name, metaClass] : metaClasses)
+			{
+				if (metaClass->GetParent() == Component::StaticGetMetaClass())
+				{
+					if (ImGui::Selectable(name.c_str()))
+					{
+						auto component = mSelectedGameObject->AddComponent(metaClass);
+						if(component)
+							component->Initialize();
+					}
+				}
+			}
+			ImGui::EndPopup();
 		}
+		ImGui::PopID();
 	}
 	ImGui::End();
 }
@@ -231,7 +265,7 @@ void Editor::ShowModals()
 
 	ImVec2 center = ImGui::GetMainViewport()->GetCenter();
 	ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-	
+
 	if (ImGui::BeginPopupModal("Quit?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		ImGui::Text("Do you want to save\nbefore exiting?");
@@ -366,3 +400,18 @@ void Editor::Exit()
 {
 	Angazi::MainApp().Quit();
 }
+
+//ImGui::NewLine();
+//auto metaClass = component->GetMetaClass();
+//if (ImGui::CollapsingHeader(metaClass->GetName(), ImGuiTreeNodeFlags_DefaultOpen))
+//{
+//	for (size_t i = 0; i < metaClass->GetFieldCount(); i++)
+//	{
+//		auto metaField = metaClass->GetField(i);
+//		if (metaField->GetMetaType() == Core::Meta::GetMetaType<Math::Vector3>())
+//		{
+//			auto data = (float*)metaField->GetFieldInstance(component.get());
+//			ImGui::DragFloat3(metaField->GetName(), data);
+//		}
+//	}
+//}

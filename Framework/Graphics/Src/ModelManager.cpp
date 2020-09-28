@@ -48,6 +48,9 @@ ModelId ModelManager::LoadModel(const std::filesystem::path& filePath, bool useR
 	else
 		modelPath = filePath;
 
+	if (filePath == "None")
+		return 0;
+
 	std::hash<std::string> hasher;
 	TextureId hash = hasher(modelPath.string());
 

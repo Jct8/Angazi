@@ -27,3 +27,8 @@ const Meta::MetaClass * Meta::FindMetaClass(const char* className)
 	ASSERT(iter != GetRegistry().end(), "MetaRegistry -- Meta class for %s not found.",className);
 	return iter->second;
 }
+
+const std::map<std::string, const Meta::MetaClass*> Angazi::Core::Meta::GetAllMetaClasses()
+{
+	return GetRegistry();
+}

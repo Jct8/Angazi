@@ -39,6 +39,9 @@ void GameObject::DebugUI()
 
 Component* GameObject::AddComponent(const Core::Meta::MetaClass* metaClass)
 {
+	for (auto& component : mComponents)
+		if (component->GetMetaClass() == metaClass) return nullptr;
+
 	Component* newComponent = static_cast<Component*>(metaClass->Create());
 	newComponent->mOwner = this;
 	mComponents.emplace_back(std::unique_ptr<Component>(newComponent));

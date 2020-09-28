@@ -51,7 +51,7 @@ MeshId MeshManager::LoadMesh(const std::filesystem::path& filePath, bool useRoot
 	else
 		modelPath = filePath;
 
-	if (!std::filesystem::exists(modelPath))
+	if (!std::filesystem::exists(modelPath) || filePath == "None")
 	{
 		auto iter = mPrimitiveMeshes.find(filePath.u8string());
 		if (iter == mPrimitiveMeshes.end())

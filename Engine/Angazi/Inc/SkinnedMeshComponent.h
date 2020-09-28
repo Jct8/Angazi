@@ -20,7 +20,7 @@ namespace Angazi
 	private:
 		const TransformComponent* mTransformComponent = nullptr;
 		const MaterialComponent* mMaterialComponent = nullptr;
-		std::filesystem::path mModelFileName;
+		std::filesystem::path mModelFileName = "None";
 		Graphics::ModelId mModelId;
 	};
 }

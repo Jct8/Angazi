@@ -29,6 +29,8 @@ void MeshComponent::Initialize()
 	mMeshId = MeshManager::Get()->LoadMesh(mMeshFileName);
 	mTransformComponent = GetGameObject().GetComponent<TransformComponent>();
 	mMaterialComponent = GetGameObject().GetComponent<MaterialComponent>();
+	if (!mMaterialComponent)
+		GetGameObject().AddComponent<MaterialComponent>();
 }
 
 void MeshComponent::Render()

@@ -9,6 +9,8 @@ namespace Angazi::Core::Meta
 
 	// Look up meta class by name
 	const MetaClass* FindMetaClass(const char* className);
+
+	const std::map<std::string, const Meta::MetaClass*> GetAllMetaClasses();
 }
 
 #define META_REGISTER(Class)\

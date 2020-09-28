@@ -76,7 +76,6 @@ namespace Angazi
 
 		bool mInitialized = false;
 		bool mUpdating = false;
-		bool mUnload = false;
 	};
 }
 

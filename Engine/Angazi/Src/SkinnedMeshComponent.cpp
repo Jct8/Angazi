@@ -26,11 +26,16 @@ void SkinnedMeshComponent::Initialize()
 	mModelId = ModelManager::Get()->LoadModel(mModelFileName);
 	mTransformComponent = GetGameObject().GetComponent<TransformComponent>();
 	mMaterialComponent = GetGameObject().GetComponent<MaterialComponent>();
+	if (!mMaterialComponent)
+		GetGameObject().AddComponent<MaterialComponent>();
 }
 
 void SkinnedMeshComponent::Render()
 {
 	auto model = ModelManager::Get()->GetModel(mModelId);
+	if (!model)
+		return;
+
 	const auto& camera = GetGameObject().GetWorld().GetService<CameraService>()->GetActiveCamera();
 	const auto& light = GetGameObject().GetWorld().GetService<LightService>()->GetActiveLight();
 	const auto& shader = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<StandardEffect>();
