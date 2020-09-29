@@ -40,7 +40,7 @@ void GameObject::DebugUI()
 Component* GameObject::AddComponent(const Core::Meta::MetaClass* metaClass)
 {
 	for (auto& component : mComponents)
-		if (component->GetMetaClass() == metaClass) return nullptr;
+		if (component->GetMetaClass() == metaClass) return component.get();
 
 	Component* newComponent = static_cast<Component*>(metaClass->Create());
 	newComponent->mOwner = this;
@@ -48,7 +48,7 @@ Component* GameObject::AddComponent(const Core::Meta::MetaClass* metaClass)
 	return newComponent;
 }
 
-void GameObject::SaveGameObject() const
+void GameObject::SaveTemplate() const
 {
 	FILE* file = nullptr;
 	fopen_s(&file, mFilePath.u8string().c_str(), "wb");
@@ -58,12 +58,23 @@ void GameObject::SaveGameObject() const
 	rapidjson::FileWriteStream os(file, readBuffer, sizeof(readBuffer));
 
 	rapidjson::Document document;
-	rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
 	document.SetObject();
 
 	Value gameObject(kObjectType);
-
 	Value componentsObj(kObjectType);
+	SaveGameObject(componentsObj, document);
+
+	gameObject.AddMember("Components", componentsObj, document.GetAllocator());
+	document.AddMember("GameObject", gameObject, document.GetAllocator());
+
+	rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
+	document.Accept(writer);
+	fclose(file);
+}
+
+void Angazi::GameObject::SaveGameObject(rapidjson::Value& componentValue, rapidjson::Document& document) const
+{
+	using namespace rapidjson;
 	for (auto& component : mComponents)
 	{
 		Value componentName(kObjectType);
@@ -72,14 +83,21 @@ void GameObject::SaveGameObject() const
 		auto metaClass = component->GetMetaClass();
 		metaClass->Serialize(component.get(), componentsFields, document);
 
-		componentName.SetString(component->GetMetaClass()->GetName(),allocator);
-		componentsObj.AddMember(componentName, componentsFields, allocator);
+		componentName.SetString(component->GetMetaClass()->GetName(), document.GetAllocator());
+		componentValue.AddMember(componentName, componentsFields, document.GetAllocator());
 	}
+}
 
-	gameObject.AddMember("Components", componentsObj, allocator);
-	document.AddMember("GameObject", gameObject, allocator);
-
-	rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
-	document.Accept(writer);
-	fclose(file);
+void GameObject::Deserialize(rapidjson::GenericObject<false,rapidjson::Value>& jsonObject)
+{
+	if (jsonObject.HasMember("Components") && jsonObject["Components"].IsObject())
+	{
+		auto components = jsonObject["Components"].GetObjectW();
+		for (auto& component : components)
+		{
+			auto metaClass = Core::Meta::FindMetaClass(component.name.GetString());
+			auto newComponent = AddComponent(metaClass);
+			metaClass->Deserialize(newComponent, component.value);
+		}
+	}
 }

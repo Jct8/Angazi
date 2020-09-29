@@ -24,18 +24,19 @@ Editor::~Editor()
 
 void Editor::Show()
 {
+
 	ShowMenuBar();
 	ShowModals();
 	ShowMainWindowWithDockSpace();
-	ShowStatsMenu();
-
-	ShowWorldView();
-	ShowInspectorView();
-	ShowLogView();
-
+	
 	ImGui::Begin("Style");
 	ImGui::ShowStyleEditor();
 	ImGui::End();
+
+	ShowStatsMenu();
+	ShowWorldView();
+	ShowInspectorView();
+	ShowLogView();
 }
 
 void Editor::ShowWorldView()

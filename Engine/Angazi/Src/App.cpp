@@ -135,7 +135,6 @@ void Angazi::App::Run(AppConfig appConfig)
 	//Terminate window
 	mWindow.Terminate();
 }
-
 bool Angazi::App::OpenFileDialog(char fileName[MAX_PATH], const char * title, const char * filter)
 {
 	OPENFILENAMEA ofn = {};
@@ -145,6 +144,8 @@ bool Angazi::App::OpenFileDialog(char fileName[MAX_PATH], const char * title, co
 	ofn.lpstrFile = fileName;
 	ofn.nMaxFile = MAX_PATH;
 	ofn.lpstrTitle = title;
+	ofn.Flags = OFN_NOCHANGEDIR;
+	
 	return GetOpenFileNameA(&ofn);
 }
 
@@ -157,6 +158,7 @@ bool Angazi::App::SaveFileDialog(char fileName[MAX_PATH], const char * title, co
 	ofn.lpstrFile = fileName;
 	ofn.nMaxFile = MAX_PATH;
 	ofn.lpstrTitle = title;
+	ofn.Flags = OFN_NOCHANGEDIR;
 	return GetSaveFileNameA(&ofn);
 }
 

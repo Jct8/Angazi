@@ -29,6 +29,8 @@ namespace Angazi
 		void Run(AppConfig appConfig);
 		void Quit() { mRunning = false; };
 
+		// filter string has format "<Description>\0*.<extension>\0", with multiple entries separated by ;
+		// "PNG Files (*.png)\0*.png;\0JPG Files (*.jpg)\0*.jpg"
 		bool OpenFileDialog(char fileName[MAX_PATH], const char* title, const char* filter);
 		bool SaveFileDialog(char fileName[MAX_PATH], const char* title, const char* filter);
 		float GetTime();

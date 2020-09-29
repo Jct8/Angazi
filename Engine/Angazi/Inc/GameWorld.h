@@ -48,7 +48,7 @@ namespace Angazi
 
 		void LoadScene(const std::filesystem::path& sceneFileName);
 		void UnloadScene();
-		void SaveScene(const std::filesystem::path& sceneFilePath = "") const;
+		void SaveScene(const std::filesystem::path& sceneFilePath = "");
 
 		void Destroy(GameObjectHandle handle);
 

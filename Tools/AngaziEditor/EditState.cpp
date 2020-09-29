@@ -33,7 +33,7 @@ void EditState::Initialize()
 
 	auto& camera = mCameraService->GetActiveCamera();
 	camera.SetNearPlane(0.1f);
-	camera.SetFarPlane(300.0f);
+	camera.SetFarPlane(10000.0f);
 	camera.SetPosition({ 0.0f, 2.0f, -5.0f });
 	camera.SetDirection({ 0.0f,0.0f, 1.0f });
 
@@ -44,7 +44,7 @@ void EditState::Initialize()
 	light.diffuse = { 0.7f };
 	light.specular = { 0.0f };
 
-	mWorld.LoadScene("../../Assets/Scenes/TestScene.json");
+	mWorld.LoadScene("../../Assets/Scenes/Scene1.json");
 
 	mHdrEffect.Initialize();
 	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(),

@@ -61,16 +61,16 @@ GameObjectHandle GameWorld::Create(const std::filesystem::path& templateFileName
 	gameObject->mName = std::move(name);
 	gameObject->mFilePath = templateFileName;
 	gameObject->mHandle = handle;
-	gameObject->Initialize();
+	//gameObject->Initialize();
 
 	// Add game object to the update list
 	mUpdateList.push_back(gameObject);
 	return handle;
 }
 
-GameObjectHandle Angazi::GameWorld::CreateEmpty()
+GameObjectHandle GameWorld::CreateEmpty()
 {
-	return Create("Empty","Empty GameObject");
+	return Create("NoTemplate","Empty GameObject");
 }
 
 void GameWorld::LoadScene(const std::filesystem::path& sceneFileName)
@@ -96,7 +96,10 @@ void GameWorld::LoadScene(const std::filesystem::path& sceneFileName)
 			auto gameObjectName = jsonObject["Name"].GetString();
 			auto gameObjectEnabaled = jsonObject["Enabled"].GetBool();
 			auto gameObjecHandle = Create(gameObjectTemplate, gameObjectName);
+
 			gameObjecHandle.Get()->mEnabled = gameObjectEnabaled;
+			gameObjecHandle.Get()->Deserialize(jsonObject);
+			gameObjecHandle.Get()->Initialize();
 		}
 	}
 	fclose(file);
@@ -121,19 +124,16 @@ GameObjectHandle GameWorld::Find(const std::string& name)
 	return GameObjectHandle();
 }
 
-void GameWorld::SaveScene(const std::filesystem::path& sceneFilePath) const
+void GameWorld::SaveScene(const std::filesystem::path& sceneFilePath)
 {
 	if (mUpdateList.empty())
 		return;
 
-	std::filesystem::path savePath;
-	if (sceneFilePath == "")
-		savePath = mSceneFilePath;
-	else
-		savePath = sceneFilePath;
+	if (sceneFilePath != "")
+		mSceneFilePath = sceneFilePath;
 
 	FILE* file = nullptr;
-	fopen_s(&file, savePath.u8string().c_str(), "wb");
+	fopen_s(&file, mSceneFilePath.u8string().c_str(), "wb");
 
 	using namespace rapidjson;
 
@@ -148,8 +148,6 @@ void GameWorld::SaveScene(const std::filesystem::path& sceneFilePath) const
 	Value val(kObjectType);
 	for (auto& gameObject : mUpdateList)
 	{
-		gameObject->SaveGameObject();
-
 		Value obj(kObjectType);
 		val.SetString(gameObject->mFilePath.u8string().c_str(), allocator);
 		obj.AddMember("Template", val, allocator);
@@ -159,6 +157,11 @@ void GameWorld::SaveScene(const std::filesystem::path& sceneFilePath) const
 
 		val.SetBool(gameObject->mEnabled);
 		obj.AddMember("Enabled", val, allocator);
+
+		// Overrides
+		Value componentsObj(kObjectType);
+		gameObject->SaveGameObject(componentsObj, document);
+		obj.AddMember("Components", componentsObj, allocator);
 
 		gameObjects.PushBack(obj, allocator);
 	}

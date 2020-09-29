@@ -27,6 +27,8 @@ namespace Angazi
 		GameObject& GetGameObject() { return *mOwner; }
 		const GameObject& GetGameObject() const { return *mOwner; }
 
+	protected:
+		bool mInitialized = false;
 	private:
 		friend class GameObject;
 		GameObject* mOwner = nullptr;

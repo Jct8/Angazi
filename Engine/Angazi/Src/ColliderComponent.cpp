@@ -17,7 +17,10 @@ META_CLASS_END;
 
 void Angazi::ColliderComponent::Initialize()
 {
+	if (mInitialized)
+		return;
 	mTransformComponent = GetGameObject().GetComponent<TransformComponent>();
+	mInitialized = true;
 }
 
 void ColliderComponent::DebugUI()

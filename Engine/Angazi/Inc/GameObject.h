@@ -69,7 +69,9 @@ namespace Angazi
 
 		GameObjectHandle GetHandle() const { return mHandle; }
 
-		void SaveGameObject() const;
+		void SaveTemplate() const;
+		void SaveGameObject(rapidjson::Value& componentValue, rapidjson::Document& document) const;
+		void Deserialize(rapidjson::GenericObject<false, rapidjson::Value>& object);
 
 	private:
 		friend class GameWorld;

@@ -3,6 +3,7 @@
 
 using namespace Angazi;
 
+#include "Angazi.h"
 
 #include "CameraService.h"
 #include "EnvironmentService.h"
@@ -24,13 +25,31 @@ META_DERIVED_BEGIN(MeshComponent, Component)
 	META_FIELD_END
 META_CLASS_END;
 
+namespace
+{
+	void ChangeMesh(const char* title, MeshId& meshId, std::filesystem::path& originalPath)
+	{
+		char filePath[MAX_PATH]{};
+		const char* filter = "Obj Files (*.obj)\0*.obj";
+		if (MainApp().OpenFileDialog(filePath, title, filter))
+		{
+			std::string x = filePath;
+			originalPath = "..\\..\\" + x.substr(x.find("\\Assets\\") + 1);
+			meshId = MeshManager::Get()->LoadMesh(originalPath);
+		}
+	}
+}
+
 void MeshComponent::Initialize()
 {
+	if (mInitialized)
+		return;
 	mMeshId = MeshManager::Get()->LoadMesh(mMeshFileName);
 	mTransformComponent = GetGameObject().GetComponent<TransformComponent>();
 	mMaterialComponent = GetGameObject().GetComponent<MaterialComponent>();
 	if (!mMaterialComponent)
-		GetGameObject().AddComponent<MaterialComponent>();
+		mMaterialComponent = GetGameObject().AddComponent<MaterialComponent>();
+	mInitialized = true;
 }
 
 void MeshComponent::Render()
@@ -77,9 +96,11 @@ void MeshComponent::ShowInspectorProperties()
 
 		ImGui::Text("File Path");
 		ImGui::NextColumn();
-		ImGui::Text("%s",mMeshFileName.c_str());
+		ImGui::Text("%s",mMeshFileName.u8string().c_str());
 		ImGui::NextColumn();
 		ImGui::Columns(1);
+		if (ImGui::Button("Change Mesh"))
+			ChangeMesh("Change Mesh",mMeshId,mMeshFileName);
 	}
 }
 

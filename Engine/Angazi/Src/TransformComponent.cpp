@@ -17,9 +17,11 @@ META_CLASS_END;
 
 void TransformComponent::Initialize()
 {
+	if (mInitialized)
+		return;
 	rotation = Normalize(rotation);
 	UpdateRotationVec();
-
+	mInitialized = true;
 }
 
 void TransformComponent::DebugUI()

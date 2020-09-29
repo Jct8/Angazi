@@ -19,7 +19,7 @@ namespace Angazi
 	private:
 		const TransformComponent* mTransformComponent = nullptr;
 		const MaterialComponent* mMaterialComponent = nullptr;
-		std::string mMeshFileName = "None";
+		std::filesystem::path mMeshFileName = "None";
 		Graphics::MeshId mMeshId = 0;
 	};
 }
