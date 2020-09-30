@@ -14,13 +14,20 @@ namespace Angazi
 
 		void Initialize() override;
 		void Render() override;
-
+		void Update(float deltaTime) override;
 		void ShowInspectorProperties() override;
 
 	private:
 		const TransformComponent* mTransformComponent = nullptr;
 		const MaterialComponent* mMaterialComponent = nullptr;
 		std::filesystem::path mModelFileName = "None";
+
 		Graphics::ModelId mModelId;
+
+		int currentAnimation = 0;
+		Graphics::Animator animator;
+
+		bool showSkeleton = false;
+
 	};
 }

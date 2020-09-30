@@ -104,7 +104,7 @@
                     }
                 },
                 "SkinnedMeshComponent": {
-                    "ModelFileName": "James/James.model"
+                    "ModelFileName": "SwatRun/SwatRun.model"
                 },
                 "MaterialComponent": {
                     "DiffuseFilePath": "",
