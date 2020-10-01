@@ -7,6 +7,10 @@
 using namespace Angazi;
 using namespace Angazi::Graphics;
 
+META_DERIVED_BEGIN(ShadowEffect, Effect)
+	META_NO_FIELD
+META_CLASS_END
+
 namespace
 {
 	void SimpleDrawCamera(const Camera& camera)

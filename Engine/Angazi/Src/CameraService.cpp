@@ -28,10 +28,13 @@ void CameraService::ShowInspectorProperties()
 
 		if (ImGui::CollapsingHeader(headerName.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			if (ImGui::Checkbox("Active",&active) && active)
-				mActiveCamera = &camera;
-
 			ImGui::Columns(2, "CameraService");
+
+			ImGui::Text("Active");
+			ImGui::NextColumn();
+			if (ImGui::Checkbox("##Active",&active) && active)
+				mActiveCamera = &camera;
+			ImGui::NextColumn();
 
 			ImGui::Text("FOV");
 			ImGui::NextColumn();

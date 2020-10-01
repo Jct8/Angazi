@@ -20,6 +20,7 @@ namespace Angazi
 
 		virtual void Update(float deltaTime) {}
 		virtual void Render() {}
+		virtual void RenderShadow() {}
 
 		virtual void DebugUI() {}
 		virtual void ShowInspectorProperties() {}

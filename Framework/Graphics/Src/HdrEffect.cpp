@@ -6,6 +6,10 @@
 using namespace Angazi;
 using namespace Angazi::Graphics;
 
+META_DERIVED_BEGIN(HdrEffect, Effect)
+	META_NO_FIELD
+META_CLASS_END
+
 void HdrEffect::Initialize(const std::filesystem::path& fileName, const char* vshaderName, const char* pshaderName)
 {
 	auto graphicsSystem = GraphicsSystem::Get();

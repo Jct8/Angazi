@@ -8,6 +8,8 @@ namespace Angazi::Graphics
 	class ShadowEffect : public Effect
 	{
 	public:
+		META_CLASS_DECLARE;
+
 		ShadowEffect():Effect(EffectType::ShadowType) {};
 		~ShadowEffect() = default;
 		ShadowEffect(const ShadowEffect&) = delete;

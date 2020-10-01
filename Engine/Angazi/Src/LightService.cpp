@@ -26,10 +26,13 @@ void LightService::ShowInspectorProperties()
 				active = true;
 			ImGui::PushID(name.c_str());
 
-			if (ImGui::Checkbox("Active", &active) && active)
-				mActiveLight = &light;
-
 			ImGui::Columns(2, "DirectionalLights");
+
+			ImGui::Text("Active");
+			ImGui::NextColumn();
+			if (ImGui::Checkbox("##Active", &active) && active)
+				mActiveLight = &light;
+			ImGui::NextColumn();
 
 			ImGui::Text("Ambient Light Color");
 			ImGui::NextColumn();

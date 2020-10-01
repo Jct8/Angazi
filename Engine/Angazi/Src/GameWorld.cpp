@@ -2,7 +2,12 @@
 #include "GameWorld.h"
 #include "Service.h"
 
+#include "ShaderService.h"
+#include "LightService.h"
+#include "CameraService.h"
+
 using namespace Angazi;
+using namespace Angazi::Graphics;
 
 void GameWorld::Initialize(size_t capacity)
 {
@@ -233,6 +238,23 @@ void GameWorld::DebugUI()
 	for (auto gameObject : mUpdateList)
 		if (gameObject->mEnabled)
 			gameObject->DebugUI();
+}
+
+void GameWorld::RenderShadowMap()
+{
+	const auto& shadowEffect = GetService<ShaderService>()->GetShader<ShadowEffect>();
+	if (shadowEffect)
+	{
+		const auto& camera = GetService<CameraService>()->GetActiveCamera();
+		const auto& light = GetService<LightService>()->GetActiveLight();
+
+		shadowEffect->Begin();
+		shadowEffect->SetLightDirection(light.direction, camera);
+		for (auto gameObject : mUpdateList)
+			if (gameObject->mEnabled)
+				gameObject->RenderShadows();
+		shadowEffect->End();
+	}
 }
 
 void GameWorld::DestroyInternal(GameObject* gameObject)

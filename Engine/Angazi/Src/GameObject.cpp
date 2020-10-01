@@ -37,6 +37,12 @@ void GameObject::DebugUI()
 		component->DebugUI();
 }
 
+void Angazi::GameObject::RenderShadows()
+{
+	for (auto& component : mComponents)
+		component->RenderShadow();
+}
+
 Component* GameObject::AddComponent(const Core::Meta::MetaClass* metaClass)
 {
 	for (auto& component : mComponents)

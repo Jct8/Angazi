@@ -14,6 +14,7 @@ namespace Angazi
 
 		void Initialize() override;
 		void Render() override;
+		void RenderShadow() override;
 		void ShowInspectorProperties() override;
 
 	private:
@@ -21,5 +22,8 @@ namespace Angazi
 		const MaterialComponent* mMaterialComponent = nullptr;
 		std::filesystem::path mMeshFileName = "None";
 		Graphics::MeshId mMeshId = 0;
+
+		bool mIsCastingShadow = false;
+		bool mIsReceivingShadows= false;
 	};
 }

@@ -6,8 +6,6 @@
 
 using namespace Angazi;
 
-
-
 META_DERIVED_BEGIN(ShaderService, Service)
 	META_NO_FIELD
 META_CLASS_END;

@@ -25,12 +25,16 @@ void Animator::Terminate()
 
 void Animator::ComputeBindPose()
 {
-	ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	//ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	if (!mModel)
+		return;
 	UpdateBoneMatrices(mModel->skeleton.root, mBoneMatrices,!isSkeletalAnimation);
 }
 void Animator::SetClipLooping(int index, bool looping)
 {
-	ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	//ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	if (!mModel)
+		return;
 	ASSERT(index < static_cast<int>(mModel->animationSet.clips.size()), "[Animator] - Model does not have clip index.");
 	for (size_t i = 0; i < mModel->animationSet.clips[index]->boneAnimations.size(); i++)
 	{
@@ -40,7 +44,9 @@ void Animator::SetClipLooping(int index, bool looping)
 }
 void Animator::PlayAnimation(int index)
 {
-	ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	//ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	if (!mModel)
+		return;
 	ASSERT(index < static_cast<int>(mModel->animationSet.clips.size()), "[Animator] - Model does not have clip index.");
 	mClipIndex = index;
 	isSkeletalAnimation = false;
@@ -48,7 +54,9 @@ void Animator::PlayAnimation(int index)
 }
 void Animator::PlaySkeletalAnimation(int index)
 {
-	ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	//ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	if (!mModel)
+		return;
 	ASSERT(index < static_cast<int>(mModel->animationSet.clips.size()), "[Animator] - Model does not have clip index.");
 	mClipIndex = index;
 	isSkeletalAnimation = true;
@@ -57,7 +65,9 @@ void Animator::PlaySkeletalAnimation(int index)
 
 void Animator::BlendTo(int index, float duration)
 {
-	ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	//ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	if (!mModel)
+		return;
 	ASSERT(index < static_cast<int>(mModel->animationSet.clips.size()), "[Animator] - Model does not have clip index.");
 	if (mBlendIndex == index)
 		return;
@@ -68,7 +78,9 @@ void Animator::BlendTo(int index, float duration)
 }
 void Animator::Update(float deltaTime)
 {
-	ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	//ASSERT(mModel != nullptr, "[Animator] - Animator has no model.");
+	if (!mModel)
+		return;
 	AnimationClip* clip = mModel->animationSet.clips[mClipIndex].get();
 	mTimer += mAnimationSpeed * clip->ticksPerSecond *0.5f * deltaTime;
 

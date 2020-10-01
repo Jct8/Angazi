@@ -13,11 +13,15 @@ namespace Angazi
 		META_CLASS_DECLARE;
 
 		void Initialize() override;
+		void Terminate() override;
 		void Render() override;
+		void RenderShadow() override;
 		void Update(float deltaTime) override;
 		void ShowInspectorProperties() override;
 
 	private:
+		void InitializeAnimator();
+
 		const TransformComponent* mTransformComponent = nullptr;
 		const MaterialComponent* mMaterialComponent = nullptr;
 		std::filesystem::path mModelFileName = "None";
@@ -27,7 +31,8 @@ namespace Angazi
 		int currentAnimation = 0;
 		Graphics::Animator animator;
 
-		bool showSkeleton = false;
-
+		bool mShowSkeleton = false;
+		bool mIsCastingShadow = true;
+		bool mIsReceivingShadows = true;
 	};
 }

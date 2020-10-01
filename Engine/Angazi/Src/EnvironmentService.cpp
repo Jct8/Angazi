@@ -4,8 +4,11 @@
 #include "GameWorld.h"
 #include "CameraService.h"
 #include "ImGui/Inc/imgui.h"
+#include "ShaderService.h"
+#include "LightService.h"
 
 using namespace Angazi;
+using namespace Angazi::Graphics;
 
 META_DERIVED_BEGIN(EnvironmentService, Service)
 	META_NO_FIELD
@@ -26,8 +29,45 @@ void EnvironmentService::Render()
 
 void EnvironmentService::ShowInspectorProperties()
 {
+	if (ImGui::CollapsingHeader("Environment Settings", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		const auto& shaderService = GetWorld().GetService<ShaderService>();
+		const auto& hdrEffect = shaderService != nullptr ? shaderService->GetShader<HdrEffect>() : nullptr;
+
+		ImGui::Columns(2, "EnvironmentService");
+
+		ImGui::Text("Enable HDR");
+		ImGui::NextColumn();
+		if (ImGui::Checkbox("##EnableHDR", &useHDR))
+		{
+			if(hdrEffect)
+				hdrEffect->EnableHDR(useHDR);
+		}
+		ImGui::NextColumn();
+
+		ImGui::Text("Enable Gamma Correction");
+		ImGui::NextColumn();
+		if (ImGui::Checkbox("##EnableGammaCorrection", &useGammaCorrection))
+		{
+			if (hdrEffect)
+				hdrEffect->EnableGammaCorrection(useGammaCorrection);
+		}
+		ImGui::NextColumn();
+
+		ImGui::Text("Exposure");
+		ImGui::NextColumn();
+		if (ImGui::SliderFloat("##Exposure", &exposure, 0.0f, 10.0f))
+		{
+			if (hdrEffect)
+				hdrEffect->SetExposure(exposure);
+		}
+		ImGui::NextColumn();
+
+		ImGui::Columns(1);
+	}
 	for (auto& [name, camera] : mEnvironmentMap)
 	{
+
 		bool active = false;
 		ImGui::PushID(name.c_str());
 		std::string headerName = name;
@@ -39,10 +79,14 @@ void EnvironmentService::ShowInspectorProperties()
 
 		if (ImGui::CollapsingHeader(headerName.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			if (ImGui::Checkbox("Active", &active) && active)
-				mActiveSkybox = &camera;
+			ImGui::Columns(2, "Skybox");
 
-			ImGui::Columns(2, "EnvironmentService");
+			ImGui::Text("Active");
+			ImGui::NextColumn();
+			if (ImGui::Checkbox("##ActiveSkybox", &active) && active)
+				mActiveSkybox = &camera;
+			ImGui::NextColumn();
+
 			ImGui::Columns(1);
 		}
 		ImGui::PopID();

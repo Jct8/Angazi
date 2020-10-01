@@ -1,19 +1,27 @@
 #pragma once
 
 #include "Mesh.h"
+#include "Effect.h"
 
 namespace Angazi::Graphics
 {
-	class HdrEffect
+	class HdrEffect : public Effect
 	{
 	public:
-		HdrEffect() = default;
+		META_CLASS_DECLARE;
+
+		HdrEffect() : Effect(EffectType::PbrType) {}
 		~HdrEffect() = default;
 		HdrEffect(const HdrEffect&) = delete;
 		HdrEffect& operator=(const HdrEffect&) = delete;
 	public:
-		void Initialize(const std::filesystem::path& fileName = "../../Assets/Shaders/HDR.fx", const char* vshaderName = "VS", const char* pshaderName = "PS");
-		void Terminate();
+		void Initialize(const std::filesystem::path& fileName, const char* vshaderName, const char* pshaderName );
+		void Initialize(const std::filesystem::path& fileName = "../../Assets/Shaders/HDR.fx") override { Initialize(fileName,"VS","PS"); }
+
+		void Terminate() override;
+
+		void Begin() override { BeginRender(); }
+		void End() override { EndRender(); }
 
 		void BeginRender();
 		void EndRender();

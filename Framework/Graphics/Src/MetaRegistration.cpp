@@ -2,8 +2,10 @@
 #include "MetaRegistration.h"
 
 #include "Effect.h"
+#include "HdrEffect.h"
 #include "Material.h"
 #include "StandardEffect.h"
+#include "ShadowEffect.h"
 #include "PbrEffect.h"
 
 
@@ -20,6 +22,8 @@ void Angazi::Graphics::StaticMetaRegister()
 	META_REGISTER(Effect);
 	META_REGISTER(Material);
 
-	META_REGISTER(StandardEffect);
+	META_REGISTER(HdrEffect);
 	META_REGISTER(PbrEffect);
+	META_REGISTER(StandardEffect);
+	META_REGISTER(ShadowEffect);
 }

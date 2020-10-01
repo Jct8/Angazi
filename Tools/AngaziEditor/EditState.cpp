@@ -21,24 +21,26 @@ void EditState::Initialize()
 	mLightService = mWorld.AddService<LightService>();
 	mShaderService->AddShader<PbrEffect>();
 	mShaderService->AddShader<StandardEffect>();
+	mShaderService->AddShader<HdrEffect>();
+	mShaderService->AddShader<ShadowEffect>();
 
-	mEnvironmentService->AddEnvironment("Helipad");
-	mEnvironmentService->AddEnvironment("Shiodome");
+	mEnvironmentService->AddEnvironment("Helipad HDR");
+	mEnvironmentService->AddEnvironment("Shiodome HDR");
 	mWorld.Initialize(100);
 
-	auto skybox = mEnvironmentService->FindEnvironment("Helipad");
+	auto skybox = mEnvironmentService->FindEnvironment("Helipad HDR");
 	skybox->CreateSkybox("../../Assets/Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
-	skybox = mEnvironmentService->FindEnvironment("Shiodome");
+	skybox = mEnvironmentService->FindEnvironment("Shiodome HDR");
 	skybox->CreateSkybox("../../Assets/Images/HdrMaps/Shiodome_Stairs/10-Shiodome_Stairs_3k.hdr");
 
 	auto& camera = mCameraService->GetActiveCamera();
 	camera.SetNearPlane(0.1f);
-	camera.SetFarPlane(10000.0f);
+	camera.SetFarPlane(100.0f);
 	camera.SetPosition({ 0.0f, 2.0f, -5.0f });
 	camera.SetDirection({ 0.0f,0.0f, 1.0f });
 
 	auto& light = mLightService->GetActiveLight();
-	light.direction = Math::Normalize({ 0.0f, 0.0f,1.0f });
+	light.direction = Math::Normalize({ 1.0f, -0.7f,1.0f });
 	//light.ambient = { 0.892f, 0.835f, 0.835f, 0.000f };
 	light.ambient = { 0.292f, 0.235f, 0.235f, 0.000f };
 	light.diffuse = { 0.7f };
@@ -46,7 +48,6 @@ void EditState::Initialize()
 
 	mWorld.LoadScene("../../Assets/Scenes/Scene1.json");
 
-	mHdrEffect.Initialize();
 	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(),
 		GraphicsSystem::Get()->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
 }
@@ -54,14 +55,12 @@ void EditState::Initialize()
 void EditState::Terminate()
 {
 	mRenderTarget.Terminate();
-	mHdrEffect.Terminate();
 	mWorld.Terminate();
 }
 
 void EditState::Update(float deltaTime)
 {
 	auto inputSystem = InputSystem::Get();
-
 
 	if (inputSystem->IsMouseDown(MouseButton::RBUTTON) && mIsSceneHovered)
 		mIsUsingCameraControl = true;
@@ -94,13 +93,26 @@ void EditState::Update(float deltaTime)
 
 void EditState::Render()
 {
-	mHdrEffect.BeginRender();
-	RenderScene();
-	mHdrEffect.EndRender();
+	mWorld.RenderShadowMap();
 
-	mRenderTarget.BeginRender();
-	mHdrEffect.RenderHdrQuad();
-	mRenderTarget.EndRender();
+	auto hdrEffect = mShaderService->GetShader<HdrEffect>();
+	if (hdrEffect)
+	{
+		hdrEffect->BeginRender();
+		RenderScene();
+		hdrEffect->EndRender();
+
+		mRenderTarget.BeginRender();
+		hdrEffect->RenderHdrQuad();
+		mRenderTarget.EndRender();
+	}
+	else
+	{
+		mRenderTarget.BeginRender();
+		RenderScene();
+		mRenderTarget.EndRender();
+	}
+
 }
 
 void EditState::DebugUI()
@@ -108,6 +120,18 @@ void EditState::DebugUI()
 	mWorld.DebugUI();
 	mEditor.Show();
 	ShowSceneView();
+
+	ImGui::Begin("Shadow");
+	const auto& shadowShader = mWorld.GetService<ShaderService>()->GetShader<ShadowEffect>();
+	ImGui::Image(
+		shadowShader->GetRenderTarget()->GetShaderResourceView(),
+		{ 150.0f,150.0f },
+		{ 0.0f,0.0f },
+		{ 1.0f,1.0f },
+		{ 1.0f,1.0f ,1.0f,1.0f },
+		{ 1.0f,1.0f ,1.0f,1.0f }
+	);
+	ImGui::End();
 }
 
 void EditState::RenderScene()

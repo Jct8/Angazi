@@ -24,7 +24,6 @@ Editor::~Editor()
 
 void Editor::Show()
 {
-
 	ShowMenuBar();
 	ShowModals();
 	ShowMainWindowWithDockSpace();

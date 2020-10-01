@@ -26,5 +26,10 @@ namespace Angazi
 		using EnvironmentMap = std::map<std::string, Graphics::Skybox>;
 		EnvironmentMap mEnvironmentMap;
 		Graphics::Skybox* mActiveSkybox = nullptr;
+
+		float exposure = 1.0f;
+		bool useHDR = true;
+		bool useGammaCorrection = true;
+
 	};
 }

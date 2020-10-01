@@ -18,9 +18,12 @@ using namespace Angazi;
 using namespace Angazi::Graphics;
 
 META_DERIVED_BEGIN(SkinnedMeshComponent, Component)
-META_FIELD_BEGIN
-META_FIELD(mModelFileName, "ModelFileName")
-META_FIELD_END
+	META_FIELD_BEGIN
+		META_FIELD(mModelFileName, "ModelFileName")
+		META_FIELD(mIsCastingShadow, "CastingShadow")
+		META_FIELD(mIsReceivingShadows, "ReceivingShadows")
+		META_FIELD(mShowSkeleton, "ShowSkeleton")
+	META_FIELD_END
 META_CLASS_END;
 
 namespace
@@ -47,16 +50,14 @@ void SkinnedMeshComponent::Initialize()
 	mMaterialComponent = GetGameObject().GetComponent<MaterialComponent>();
 	if (!mMaterialComponent)
 		mMaterialComponent = GetGameObject().AddComponent<MaterialComponent>();
-	auto model = ModelManager::Get()->GetModel(mModelId);
+	InitializeAnimator();
 
-	if (model)
-	{
-		animator.Initialize(*model);
-		for (int n = 0; n < model->animationSet.clips.size(); n++)
-			animator.SetClipLooping(n, true);
-		animator.PlayAnimation(0);
-	}
 	mInitialized = true;
+}
+
+void SkinnedMeshComponent::Terminate()
+{
+	animator.Terminate();
 }
 
 void SkinnedMeshComponent::Render()
@@ -68,25 +69,51 @@ void SkinnedMeshComponent::Render()
 	const auto& camera = GetGameObject().GetWorld().GetService<CameraService>()->GetActiveCamera();
 	const auto& light = GetGameObject().GetWorld().GetService<LightService>()->GetActiveLight();
 	const auto& shader = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<StandardEffect>();
+	const auto& shadowShader = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<ShadowEffect>();
 
 	SimpleDraw::Render(camera);
-	shader->UseShadow(false);
-	shader->SetSkinnedMesh(true);
+
 	auto matWorld = mTransformComponent->GetTransform();
+	auto boneMat = animator.GetBoneMatrices();
+
+	auto lightVP = shadowShader->GetVPMatrix();
+	auto wvpLight = Transpose(matWorld * lightVP);
+
+	shader->UpdateShadowBuffer(wvpLight);
+	shader->SetSkinnedMesh(true);
+	shader->SetDepthTexture(shadowShader->GetRenderTarget());
+	shader->UseShadow(mIsReceivingShadows);
 	shader->Begin();
 	shader->SetMaterial(mMaterialComponent->material);
 	shader->SetDirectionalLight(light);
 	shader->SetTransformData(matWorld, camera.GetViewMatrix(), camera.GetPerspectiveMatrix(), camera.GetPosition());
-	auto boneMat = animator.GetBoneMatrices();
 	shader->SetBoneTransforms(boneMat);
 	shader->UpdateSettings();
 
-	if (showSkeleton)
+	if (mShowSkeleton)
 		DrawSkeleton(model->skeleton, animator.GetBoneMatrices(), 3.0f);
 	else
 		model->Draw(shader);
 	shader->End();
 	SimpleDraw::Render(camera, matWorld);
+}
+
+void SkinnedMeshComponent::RenderShadow()
+{
+	if (mIsCastingShadow && !mShowSkeleton)
+	{
+		const auto& shadowEffect = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<ShadowEffect>();
+		const auto& matWorld = mTransformComponent->GetTransform();
+		const auto& model = ModelManager::Get()->GetModel(mModelId);
+		if (!model)
+			return;
+
+		shadowEffect->SetWorldMatrix(matWorld);
+		shadowEffect->SetBoneTransforms(animator.GetBoneMatrices());
+		shadowEffect->SetSkinnedMesh(true);
+		shadowEffect->UpdateSettings();
+		model->Draw(shadowEffect);
+	}
 }
 
 void SkinnedMeshComponent::Update(float deltaTime)
@@ -112,38 +139,68 @@ void SkinnedMeshComponent::ShowInspectorProperties()
 		ImGui::Text("Change Model");
 		ImGui::NextColumn();
 		if (ImGui::Button("Change"))
+		{
 			ChangeSkinnedMesh("Change Model", mModelId, mModelFileName);
+			InitializeAnimator();
+		}
 		ImGui::NextColumn();
 
 		auto model = ModelManager::Get()->GetModel(mModelId);
 
 		ImGui::Text("Animation");
 		ImGui::NextColumn();
-		const char* combo_label = model->animationSet.clips[currentAnimation]->name.c_str();
+		const char* combo_label = model != nullptr ? model->animationSet.clips[currentAnimation]->name.c_str() : "No Model";
 		if (ImGui::BeginCombo("##Animations", combo_label))
 		{
-			for (int n = 0; n < model->animationSet.clips.size(); n++)
+			if (model)
 			{
-				ImGui::PushID(&model->animationSet.clips[n]);
-				const bool is_selected = (currentAnimation == n);
-				if (ImGui::Selectable(model->animationSet.clips[n]->name.c_str(), is_selected))
+				for (size_t n = 0; n < model->animationSet.clips.size(); n++)
 				{
-					currentAnimation = n;
-					animator.BlendTo(currentAnimation, 0.5f);
+					ImGui::PushID(&model->animationSet.clips[n]);
+					const bool is_selected = (currentAnimation == n);
+					if (ImGui::Selectable(model->animationSet.clips[n]->name.c_str(), is_selected))
+					{
+						currentAnimation = n;
+						animator.BlendTo(currentAnimation, 0.5f);
+					}
+					ImGui::PopID();
+					if (is_selected)
+						ImGui::SetItemDefaultFocus();
 				}
-				ImGui::PopID();
-				if (is_selected)
-					ImGui::SetItemDefaultFocus();
 			}
 			ImGui::EndCombo();
 		}
 		ImGui::NextColumn();
 
+		ImGui::Text("Cast Shadows"); ImGui::SameLine();
+		ImGui::NextColumn();
+		ImGui::Checkbox("##CastShadow", &mIsCastingShadow);
+		ImGui::NextColumn();
+
+		ImGui::Text("Recieve Shadows"); ImGui::SameLine();
+		ImGui::NextColumn();
+		ImGui::Checkbox("##RecieveShadow", &mIsReceivingShadows);
+		ImGui::NextColumn();
+
+		ImGui::Text("Show Bones"); ImGui::SameLine();
+		ImGui::NextColumn();
+		if (ImGui::Checkbox("##ShowBones", &mShowSkeleton))
+			animator.SetShowSkeleton(mShowSkeleton);
+		ImGui::NextColumn();
+
 		ImGui::Columns(1);
+	}
+}
 
-		if (ImGui::Checkbox("Show Bones", &showSkeleton))
-			animator.SetShowSkeleton(showSkeleton);
-
+void SkinnedMeshComponent::InitializeAnimator()
+{
+	auto model = ModelManager::Get()->GetModel(mModelId);
+	if (model)
+	{
+		animator.Initialize(*model);
+		for (size_t n = 0; n < model->animationSet.clips.size(); n++)
+			animator.SetClipLooping(n, true);
+		animator.PlayAnimation(0);
 	}
 }
 

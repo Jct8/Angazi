@@ -26,6 +26,8 @@ namespace Angazi
 		virtual void Render();
 		virtual void DebugUI();
 
+		void RenderShadows();
+
 		Component* AddComponent(const Core::Meta::MetaClass* metaClass);
 
 		//template <class T, class = std::void_t<std::is_base_of<Component, T>>>

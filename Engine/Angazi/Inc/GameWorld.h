@@ -56,6 +56,8 @@ namespace Angazi
 		void Render();
 		void DebugUI();
 
+		void RenderShadowMap();
+
 	private:
 		friend Editor;
 		void DestroyInternal(GameObject* gameObject); 
