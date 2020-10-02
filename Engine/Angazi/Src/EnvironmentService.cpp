@@ -67,7 +67,6 @@ void EnvironmentService::ShowInspectorProperties()
 	}
 	for (auto& [name, camera] : mEnvironmentMap)
 	{
-
 		bool active = false;
 		ImGui::PushID(name.c_str());
 		std::string headerName = name;

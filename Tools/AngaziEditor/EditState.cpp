@@ -12,6 +12,8 @@ void EditState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
+	//mWorld.AddService<TerrainService>();
+
 	mCameraService = mWorld.AddService<CameraService>();
 	mCameraService->AddCamera("Camera 1");
 	mCameraService->AddCamera("Camera 2");
@@ -138,7 +140,7 @@ void EditState::RenderScene()
 {
 	mWorld.Render();
 
-	SimpleDraw::AddGroundPlane(30);
+	//SimpleDraw::AddGroundPlane(30);
 	auto& camera = mCameraService->GetActiveCamera();
 
 	SimpleDraw::Render(camera);

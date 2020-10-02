@@ -171,6 +171,7 @@
     <ClInclude Include="Inc\ShaderService.h" />
     <ClInclude Include="Inc\SkinnedMeshComponent.h" />
     <ClInclude Include="Inc\Terrain.h" />
+    <ClInclude Include="Inc\TerrainService.h" />
     <ClInclude Include="Inc\TransformComponent.h" />
     <ClInclude Include="Src\MetaRegistration.h" />
     <ClInclude Include="Src\Precompiled.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="Src\ShaderService.cpp" />
     <ClCompile Include="Src\SkinnedMeshComponent.cpp" />
     <ClCompile Include="Src\Terrain.cpp" />
+    <ClCompile Include="Src\TerrainService.cpp" />
     <ClCompile Include="Src\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>

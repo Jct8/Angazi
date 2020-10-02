@@ -6,11 +6,11 @@ namespace Angazi::Graphics
 {
 	struct Material
 	{
+		META_CLASS_DECLARE;
+		float padding[2]{};
+		float power = 0.0f;
 		Color ambient;
 		Color diffuse;
 		Color specular;
-		float power = 0.0f;
-		float padding[2]{};
-		META_CLASS_DECLARE
 	};
 }

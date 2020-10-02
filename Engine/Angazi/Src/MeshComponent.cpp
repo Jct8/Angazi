@@ -63,36 +63,72 @@ void MeshComponent::Render()
 	const auto& camera = GetGameObject().GetWorld().GetService<CameraService>()->GetActiveCamera();
 	const auto& light = GetGameObject().GetWorld().GetService<LightService>()->GetActiveLight();
 	const auto& env = GetGameObject().GetWorld().GetService<EnvironmentService>()->GetActiveEnvironment();
-	const auto& shader = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<PbrEffect>();
+	const auto& shader = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<StandardEffect>();
+	const auto& pbrShader = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<PbrEffect>();
 	const auto& shadowShader = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<ShadowEffect>();
 
 	auto matWorld = mTransformComponent->GetTransform();
 	auto texManager = TextureManager::Get();
-
-	shader->useIBL(true);
-	shader->UseShadow(mIsReceivingShadows);
-	shader->SetSkinnedMesh(false);
-	shader->Begin();
-	shader->SetMaterial(mMaterialComponent->material);
-	shader->SetDirectionalLight(light);
-	shader->SetDepthTexture(shadowShader->GetRenderTarget());
-
-	shader->SetDiffuseTexture(texManager->GetTexture(mMaterialComponent->diffuseId));
-	shader->SetNormalTexture(texManager->GetTexture(mMaterialComponent->normalId));
-	shader->SetDisplacementTexture(texManager->GetTexture(mMaterialComponent->displacementId));
-	shader->SetAOTexture(texManager->GetTexture(mMaterialComponent->ambientOcculsionId));
-	//shader->SetSpecularTexture(texManager->GetTexture(mMaterialComponent->specularId));
-	shader->SetRoughnessTexture(texManager->GetTexture(mMaterialComponent->roughnessId));
-	shader->SetMetallicTexture(texManager->GetTexture(mMaterialComponent->metallicId));
-	shader->SetPreFilterMap(env.GetPrefilteredMap());
-	shader->SetIrradianceMap(env.GetIrradianceMap());
 	auto lightVP = shadowShader->GetVPMatrix();
 	auto wvpLight = Transpose(matWorld * lightVP);
-	shader->UpdateShadowBuffer(wvpLight);
-	shader->SetTransformData(matWorld, camera.GetViewMatrix(), camera.GetPerspectiveMatrix(), camera.GetPosition());
-	shader->UpdateSettings();
-	meshBuffer->Draw();
-	shader->End();
+
+	if (mMaterialComponent->roughnessId != 0 && mMaterialComponent->metallicId != 0)
+	{
+		pbrShader->Begin();
+
+		pbrShader->SetMaterial(mMaterialComponent->material);
+		pbrShader->SetDirectionalLight(light);
+		pbrShader->SetDepthTexture(shadowShader->GetRenderTarget());
+
+		pbrShader->SetDiffuseTexture(texManager->GetTexture(mMaterialComponent->diffuseId));
+		if(mMaterialComponent->normalId != 0)
+			pbrShader->SetNormalTexture(texManager->GetTexture(mMaterialComponent->normalId));
+		if (mMaterialComponent->displacementId != 0)
+			pbrShader->SetDisplacementTexture(texManager->GetTexture(mMaterialComponent->displacementId));
+		if (mMaterialComponent->ambientOcculsionId != 0)
+			pbrShader->SetAOTexture(texManager->GetTexture(mMaterialComponent->ambientOcculsionId));
+		if (mMaterialComponent->roughnessId != 0)
+			pbrShader->SetRoughnessTexture(texManager->GetTexture(mMaterialComponent->roughnessId));
+		if (mMaterialComponent->metallicId != 0)
+			pbrShader->SetMetallicTexture(texManager->GetTexture(mMaterialComponent->metallicId));
+		pbrShader->SetPreFilterMap(env.GetPrefilteredMap());
+		pbrShader->SetIrradianceMap(env.GetIrradianceMap());
+
+		pbrShader->useIBL(true);
+		pbrShader->UseShadow(mIsReceivingShadows);
+		pbrShader->SetSkinnedMesh(false);
+		pbrShader->SetTransformData(matWorld, camera.GetViewMatrix(), camera.GetPerspectiveMatrix(), camera.GetPosition());
+		pbrShader->UpdateShadowBuffer(wvpLight);
+		pbrShader->UpdateSettings();
+
+		meshBuffer->Draw();
+		pbrShader->End();
+	}
+	else
+	{
+		shader->Begin();
+
+		shader->SetMaterial(mMaterialComponent->material);
+		shader->SetDirectionalLight(light);
+		shader->SetDepthTexture(shadowShader->GetRenderTarget());
+
+		shader->SetDiffuseTexture(texManager->GetTexture(mMaterialComponent->diffuseId));
+		if (mMaterialComponent->displacementId != 0)
+			shader->SetDisplacementTexture(texManager->GetTexture(mMaterialComponent->displacementId));
+		if (mMaterialComponent->ambientOcculsionId != 0)
+			shader->SetAOTexture(texManager->GetTexture(mMaterialComponent->ambientOcculsionId));
+		if (mMaterialComponent->specularId != 0)
+			shader->SetSpecularTexture(texManager->GetTexture(mMaterialComponent->specularId));
+
+		shader->SetSkinnedMesh(false);
+		shader->UseShadow(mIsReceivingShadows);
+		shader->SetTransformData(matWorld, camera.GetViewMatrix(), camera.GetPerspectiveMatrix(), camera.GetPosition());
+		shader->UpdateShadowBuffer(wvpLight);
+		shader->UpdateSettings();
+
+		meshBuffer->Draw();
+		shader->End();
+	}
 }
 
 void MeshComponent::RenderShadow()
@@ -120,7 +156,7 @@ void MeshComponent::ShowInspectorProperties()
 
 		ImGui::Text("File Path"); ImGui::SameLine();
 		ImGui::NextColumn();
-		ImGui::Text("%s",mMeshFileName.u8string().c_str());
+		ImGui::Text("%s", mMeshFileName.u8string().c_str());
 		ImGui::NextColumn();
 
 		ImGui::Text("Change Mesh"); ImGui::SameLine();
@@ -139,8 +175,6 @@ void MeshComponent::ShowInspectorProperties()
 		ImGui::Checkbox("##RecieveShadow", &mIsReceivingShadows);
 		ImGui::NextColumn();
 		ImGui::Columns(1);
-
-		
 	}
 }
 

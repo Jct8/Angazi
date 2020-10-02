@@ -14,7 +14,7 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 0.0f,-3.5f });
 	mCamera.SetDirection({ 0.0f,0.0f,1.0f });
 
-	mMesh = MeshBuilder::CreateSphere(1.0f,256,256);
+	mMesh = MeshBuilder::CreateSphere(1.0f, 256, 256);
 	mMeshBuffer.Initialize(mMesh);
 
 	mTransformBuffer.Initialize();
@@ -48,7 +48,7 @@ void GameState::Initialize()
 	mClouds.Initialize("../../Assets/Images/Earth/earth_clouds.jpg");
 
 	mBlendState.Initialize(BlendState::Mode::Additive);
-	
+
 }
 
 void GameState::Terminate()
@@ -79,28 +79,28 @@ void GameState::Update(float deltaTime)
 
 	auto inputSystem = InputSystem::Get();
 	if (inputSystem->IsKeyDown(KeyCode::W))
-		mCamera.Walk(kMoveSpeed*deltaTime);
+		mCamera.Walk(kMoveSpeed * deltaTime);
 	if (inputSystem->IsKeyDown(KeyCode::S))
 		mCamera.Walk(-kMoveSpeed * deltaTime);
 	if (inputSystem->IsMouseDown(MouseButton::RBUTTON))
 	{
-		mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
-		mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
+		mCamera.Yaw(inputSystem->GetMouseMoveX() * kTurnSpeed * deltaTime);
+		mCamera.Pitch(inputSystem->GetMouseMoveY() * kTurnSpeed * deltaTime);
 	}
 
 	if (inputSystem->IsKeyDown(KeyCode::A))
 		mCamera.Strafe(-kMoveSpeed * deltaTime);
 	//mRotation += deltaTime;
 	if (inputSystem->IsKeyDown(KeyCode::D))
-		mCamera.Strafe(kMoveSpeed*deltaTime);
+		mCamera.Strafe(kMoveSpeed * deltaTime);
 	//mRotation -= deltaTime;
 
-	mCloudRotation += deltaTime *0.005f;
+	mCloudRotation += deltaTime * 0.005f;
 }
 
 void GameState::Render()
 {
-	auto matTrans = Matrix4::Translation({-1.0f,0.0f,0.0f});
+	auto matTrans = Matrix4::Translation({ -1.0f,0.0f,0.0f });
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 	auto matWorld = matRot * matTrans;
 	auto matView = mCamera.GetViewMatrix();
@@ -130,9 +130,9 @@ void GameState::Render()
 	mSettingsBuffer.Update(&mSettings);
 	mSettingsBuffer.BindVS(3);
 	mSettingsBuffer.BindPS(3);
-	
+
 	transformData.world = Transpose(matWorld);
-	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.wvp = Transpose(matWorld * matView * matProj);
 	transformData.viewPosition = mCamera.GetPosition();
 	mTransformBuffer.Update(&transformData);
 
@@ -144,7 +144,7 @@ void GameState::Render()
 
 	//Cloud Sphere
 	matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y + mCloudRotation) * Matrix4::RotationZ(mRotation.z);
-	matWorld = Matrix4::Scaling(1.0f) *  matRot * matTrans;
+	matWorld = Matrix4::Scaling(1.0f) * matRot * matTrans;
 
 	mCloudShadingVertexShader.Bind();
 	mCloudShadingPixelShader.Bind();
@@ -154,7 +154,7 @@ void GameState::Render()
 	mSettingsBuffer.BindPS(3);
 
 	transformData.world = Transpose(matWorld);
-	transformData.wvp = Transpose(matWorld * matView *matProj);
+	transformData.wvp = Transpose(matWorld * matView * matProj);
 	transformData.viewPosition = mCamera.GetPosition();
 	mTransformBuffer.Update(&transformData);
 
@@ -166,8 +166,8 @@ void GameState::Render()
 
 void GameState::DebugUI()
 {
-	ImGui::Begin("Setting",nullptr,ImGuiWindowFlags_AlwaysAutoResize);
-	if (ImGui::CollapsingHeader("Light",ImGuiTreeNodeFlags_DefaultOpen))
+	ImGui::Begin("Setting", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		bool directionChanged = false;
 		directionChanged |= ImGui::DragFloat("Direction X##Light", &mDirectionalLight.direction.x, 0.01f, -2.0f, 2.0f);
@@ -193,13 +193,13 @@ void GameState::DebugUI()
 		static bool normal = true;
 		static bool specular = true;
 		ImGui::SliderFloat("Displacement", &mSettings.bumpMapWeight, 0.0f, 1.0f);
-		if(ImGui::Checkbox("Normal Map", &normal))
+		if (ImGui::Checkbox("Normal Map", &normal))
 		{
 			mSettings.normalMapWeight = normal ? 1.0f : 0.0f;
 		}
 		if (ImGui::Checkbox("Specular Map", &specular))
 		{
-			mSettings.specularMapWeight = specular? 1.0f : 0.0f;
+			mSettings.specularMapWeight = specular ? 1.0f : 0.0f;
 		}
 
 	}

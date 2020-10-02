@@ -43,6 +43,7 @@ void Editor::ShowWorldView()
 	bool gameobjectflag = false;
 	ImGui::Begin("Scene Hierarchy");
 
+	ImGui::SetNextItemOpen(true);
 	if (ImGui::TreeNode("Services"))
 	{
 		for (auto& service : mWorld.mServices)

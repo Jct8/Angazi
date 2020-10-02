@@ -66,7 +66,7 @@
                             "z": 0.5,
                             "w": 1.0
                         },
-                        "Power": 80.0
+                        "Power": 99.0
                     }
                 }
             }
@@ -138,7 +138,7 @@
                             "z": 0.5,
                             "w": 1.0
                         },
-                        "Power": 1.0
+                        "Power": 80.0
                     }
                 }
             }
@@ -175,14 +175,14 @@
                     "NormalFilePath": "..\\..\\Assets\\Images\\Floor\\Stone_Tiles_004_normal.jpg",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "..\\..\\Assets\\Images\\Floor\\Stone_Tiles_004_height.png",
-                    "AmbientOcculsionFilePath": "",
+                    "AmbientOcculsionFilePath": "..\\..\\Assets\\Images\\Floor\\Stone_Tiles_004_ao.jpg",
                     "MetallicFilePath": "",
                     "RoughnessFilePath": "",
                     "Material": {
                         "Ambient": {
-                            "x": 0.800000011920929,
-                            "y": 0.800000011920929,
-                            "z": 0.800000011920929,
+                            "x": 1.0,
+                            "y": 0.9999899864196777,
+                            "z": 0.9999899864196777,
                             "w": 1.0
                         },
                         "Diffuse": {
@@ -192,12 +192,12 @@
                             "w": 1.0
                         },
                         "Specular": {
-                            "x": 0.5,
-                            "y": 0.5,
-                            "z": 0.5,
+                            "x": 1.0,
+                            "y": 0.9999899864196777,
+                            "z": 0.9999899864196777,
                             "w": 1.0
                         },
-                        "Power": 1.0
+                        "Power": 80.0
                     }
                 }
             }

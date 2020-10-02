@@ -5,6 +5,11 @@ namespace Angazi::Core::Meta
 {
 	// Deserialize
 	template<>
+	void Deserialize<uint32_t>(void* instance, const rapidjson::Value& value)
+	{
+		*(uint32_t*)instance = value.GetUint();
+	}
+	template<>
 	void Deserialize<int>(void* instance, const rapidjson::Value& value)
 	{
 		*(int*)instance = value.GetInt();
@@ -31,6 +36,11 @@ namespace Angazi::Core::Meta
 	}
 
 	// Serialize
+	template<>
+	void Serialize<uint32_t>(const void* instance, rapidjson::Value& value, rapidjson::Document& document)
+	{
+		value.SetUint(*(uint32_t*)instance);
+	}
 	template<>
 	void Serialize<int>(const void* instance, rapidjson::Value& value, rapidjson::Document& document)
 	{

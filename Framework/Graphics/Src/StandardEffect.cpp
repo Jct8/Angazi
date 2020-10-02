@@ -74,6 +74,11 @@ void StandardEffect::Begin()
 	mNormalMap.BindPS(3);
 	mAmbientOcclusionMap.BindPS(4);
 
+	mSettings.aoMapWeight = 0.0f;
+	mSettings.specularMapWeight = 0.0f;
+	mSettings.bumpMapWeight = 0.0f;
+	mSettings.normalMapWeight = 0.0f;
+
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 }
@@ -97,11 +102,6 @@ void StandardEffect::End()
 	mDisplacementMap.UnbindVS(2);
 	mNormalMap.UnbindPS(3);
 	mAmbientOcclusionMap.UnbindPS(4);
-
-	//mSettings.aoMapWeight = 0.0f;
-	//mSettings.specularMapWeight = 0.0f;
-	//mSettings.bumpMapWeight = 0.0f;
-	//mSettings.normalMapWeight = 0.0f;
 
 }
 
@@ -191,7 +191,7 @@ void StandardEffect::SetNormalTexture(const Texture* normalTexture)
 }
 void StandardEffect::SetSpecularTexture(const Texture* specularTexture)
 {
-	if (specularTexture)
+	//if (specularTexture)
 	{
 		mSettings.specularMapWeight = 1.0f;
 		specularTexture->BindPS(1);
@@ -199,7 +199,7 @@ void StandardEffect::SetSpecularTexture(const Texture* specularTexture)
 }
 void StandardEffect::SetDisplacementTexture(const Texture* displacementTexture)
 {
-	mSettings.bumpMapWeight =0.0f;
+	mSettings.bumpMapWeight = 0.0f;
 	displacementTexture->BindVS(2);
 }
 void StandardEffect::SetAOTexture(const Texture* aoTexture)

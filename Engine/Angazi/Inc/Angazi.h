@@ -24,6 +24,7 @@
 #include "LightService.h"
 #include "Service.h"
 #include "ShaderService.h"
+#include "TerrainService.h"
 
 // Terrain headers
 #include "Terrain.h"

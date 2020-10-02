@@ -126,6 +126,9 @@
     <ClInclude Include="Inc\LightService.h">
       <Filter>Inc\Services</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\TerrainService.h">
+      <Filter>Inc\Services</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Angazi.cpp">
@@ -189,6 +192,9 @@
       <Filter>Src\Services</Filter>
     </ClCompile>
     <ClCompile Include="Src\LightService.cpp">
+      <Filter>Src\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TerrainService.cpp">
       <Filter>Src\Services</Filter>
     </ClCompile>
   </ItemGroup>

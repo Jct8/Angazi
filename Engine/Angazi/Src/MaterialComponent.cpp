@@ -54,7 +54,7 @@ void MaterialComponent::Initialize()
 {
 	if (mInitialized)
 		return;
-	diffuseId = TextureManager::Get()->Load(mDiffuseFilePath, false, false);
+	diffuseId = TextureManager::Get()->Load(mDiffuseFilePath, true, false);
 	normalId = TextureManager::Get()->Load(mNormalFilePath, false, false);
 	specularId = TextureManager::Get()->Load(mSpecularFilePath, false, false);
 	displacementId = TextureManager::Get()->Load(mDisplacementFilePath, false, false);

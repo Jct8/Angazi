@@ -38,7 +38,7 @@ namespace Angazi::Graphics
 		{
 			int useHDR = true;
 			int useGammaCorrection = true;
-			float exposure = 1.0f;
+			float exposure = 2.0f;
 			float padding;
 		};
 

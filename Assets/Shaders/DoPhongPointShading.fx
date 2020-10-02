@@ -17,10 +17,11 @@ cbuffer LightBuffer : register(b1)
 
 cbuffer MaterialBuffer : register(b2)
 {
+	float3 padding;
+	float  MaterialPower; //shininess
 	float4 MaterialAmbient;
 	float4 MaterialDiffuse;
 	float4 MaterialSpecular;
-	float  MaterialPower; //shininess
 }
 
 Texture2D diffuseMap : register(t0);

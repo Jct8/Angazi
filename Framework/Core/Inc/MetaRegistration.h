@@ -3,6 +3,7 @@
 #include "Meta.h"
 
 // Primitive Type Declarations
+META_TYPE_DECLARE(uint32_t)
 META_TYPE_DECLARE(int)
 META_TYPE_DECLARE(float)
 META_TYPE_DECLARE(bool)

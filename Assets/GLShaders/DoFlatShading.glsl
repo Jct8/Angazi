@@ -29,10 +29,11 @@ layout(std140, binding = 1) uniform LightBuffer
 
 layout(std140, binding = 2) uniform MaterialBuffer 
 {
+	vec3 padding;
+	float MaterialPower;
 	vec4 MaterialAmbient;
 	vec4 MaterialDiffuse;
 	vec4 MaterialSpecular;
-	float MaterialPower;
 };
 
 void main()
