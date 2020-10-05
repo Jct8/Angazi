@@ -16,8 +16,12 @@
 * [Engine Features](#engine-features)
   * [Graphics](#graphics)
   * [Memory Management](#memory-management)
+  * [Meta Reflection System](#meta-reflection-system)
+  * [Component System](#component-system)
+  * [Networking](#networking)
   * [Artificial Intelligence](#artificial-intelligence)
   * [Math and Physics](#math-and-physics)
+  * [Level Editor](#editor)
 * [Contact](#contact)
 * [External Libraries](#external-libraries)
 * [Acknowledgements](#acknowledgements)
@@ -39,7 +43,7 @@ with the OpenGL library designed to follow the same format. The Engine supports 
 
 ### Prerequisites
 
-Visual Studio 2017
+Visual Studio 2019
 
 ### Usage
 
@@ -97,6 +101,26 @@ Rendering features include:
 2. Typed Allocator - Allows the user to specify the type of memory used in the block allocator
 3. Handle Pool - Handles the validity of pointers to objects 
 
+### Meta Reflection System
+1.  The meta system allows for run-time inspection of classes and fields declared in the system
+2.  Meta information can be looked up from a string name in the centralized meta registry
+3.  The engine uses the system for generic serialization and deserialization of scene, gameobject and component data
+3.  The system supports the following:
+    1. Meta Classes
+    2. Meta Fields
+    3. Meta Pointers
+    4. Meta Arrays
+    5. Meta Types
+
+### Component System
+1. The engine supports a components based system for game objects
+2. The scene, game objects and components can be serialized and deserialized using the meta system
+
+### Networking
+1. TCP and UDP sockets classes that allow for easier use, creation, and deletion of sockets
+2. Packets can be serialized and deserialized using the Memory Stream, Stream Reader and Writer
+3. Uses a network system helper class that refers object instances across a network to their network ids
+
 ### Artificial Intelligence 
 1. Finite State Machine
 2. Goal-driven behaviour
@@ -111,12 +135,18 @@ Rendering features include:
     3. Quaternions
 2. Particle system simulations using Verlet Integration
 
+### Level Editor
+1. The Angazi Editor allows for adding and removing game objects in the scene
+2. Components that are registered in the meta system can be added, removed or modified
+3. The Editor can save and load scenes
+
+
 <!-- CONTACT -->
 ## Contact
 
 Justin - tim.justin8@gmail.com
 
-Project Link: [https://github.com/Jct8/Angazi](https://github.com/Jct8/Angazi)
+<!--Project Link: [https://github.com/Jct8/Angazi](https://github.com/Jct8/Angazi) -->
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -124,8 +154,10 @@ Project Link: [https://github.com/Jct8/Angazi](https://github.com/Jct8/Angazi)
 * [Assimp](https://www.assimp.org/)
 * [DirectXTK](https://github.com/microsoft/DirectXTK)
 * [DirectXTex](https://github.com/microsoft/DirectXTex)
+* [FW1FontWrapper](https://github.com/gamelaster/FW1FontWrapper)
 * [GLEW](http://glew.sourceforge.net/)
 * [Imgui](https://github.com/ocornut/imgui)
+* [RapidJson](https://github.com/Tencent/rapidjson/)
 
 ## Acknowledgements
 * Peter Chan
