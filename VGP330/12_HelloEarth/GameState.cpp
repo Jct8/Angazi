@@ -39,12 +39,11 @@ void GameState::Initialize()
 	mCloudShadingPixelShader.Initialize("../../Assets/Shaders/Earth.fx", "PSCloud");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mTexture.Initialize("../../Assets/Images/Earth/8k_earth.jpg");
-	mSpecularTexture.Initialize("../../Assets//Images/Earth/earth_spec.jpg");
+	mTexture.Initialize("../../Assets/Images/Earth/10k_earth.jpg");
+	mSpecularTexture.Initialize("../../Assets//Images/Earth/10k_earth_spec.jpg");
 	mDisplacementTexture.Initialize("../../Assets/Images/Earth/earth_bump.jpg");
 	mNormalMap.Initialize("../../Assets/Images/Earth/earth_normal.jpg");
-	//mNightMap.Initialize("../../Assets/Images/Earth/earth_lights.jpg");
-	mNightMap.Initialize("../../Assets/Images/Earth/8k_earth_nightmap.jpg");
+	mNightMap.Initialize("../../Assets/Images/Earth/10k_earth_nightmap.jpg");
 	mClouds.Initialize("../../Assets/Images/Earth/earth_clouds.jpg");
 
 	mBlendState.Initialize(BlendState::Mode::Additive);

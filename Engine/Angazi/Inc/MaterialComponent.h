@@ -14,13 +14,13 @@ namespace Angazi
 		void Initialize() override;
 		void ShowInspectorProperties() override;
 
-		Graphics::TextureId diffuseId = 0;
-		Graphics::TextureId normalId = 0;
-		Graphics::TextureId specularId = 0;
-		Graphics::TextureId displacementId = 0;
-		Graphics::TextureId ambientOcculsionId = 0;
-		Graphics::TextureId metallicId = 0;
-		Graphics::TextureId roughnessId = 0;
+		std::vector<Graphics::TextureId> diffuseId;
+		std::vector<Graphics::TextureId> normalId;
+		std::vector<Graphics::TextureId> specularId;
+		std::vector<Graphics::TextureId> displacementId;
+		std::vector<Graphics::TextureId> ambientOcculsionId;
+		std::vector<Graphics::TextureId> metallicId;
+		std::vector<Graphics::TextureId> roughnessId;
 		Graphics::Material material;
 
 	private:

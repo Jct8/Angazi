@@ -81,7 +81,7 @@ void AnimationIO::Write(FILE * file, const AnimationClip & animationClip)
 void AnimationIO::Read(FILE * file, AnimationClip & animationClip)
 {
 	char buffer[128];
-	fscanf_s(file, "Name: %s\n", buffer, std::size(buffer));
+	fscanf_s(file, "Name: %s\n", buffer, (uint32_t) std::size(buffer));
 	animationClip.name = buffer;
 
 	fscanf_s(file, "Duration: %f\n", &animationClip.duration);
@@ -92,7 +92,7 @@ void AnimationIO::Read(FILE * file, AnimationClip & animationClip)
 	animationClip.boneAnimations.resize(totalAnimations);
 	for (uint32_t i = 0; i < totalAnimations; i++)
 	{
-		fscanf_s(file, "%s\n", buffer, std::size(buffer));
+		fscanf_s(file, "%s\n", buffer, (uint32_t) std::size(buffer));
 		if (std::string(buffer) == "[Animation]")
 		{
 			animationClip.boneAnimations[i] = std::make_unique<Animation>();

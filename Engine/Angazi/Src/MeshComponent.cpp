@@ -29,15 +29,18 @@ META_CLASS_END;
 
 namespace
 {
-	void ChangeMesh(const char* title, MeshId& meshId, std::filesystem::path& originalPath)
+	void ChangeMesh(const char* title, std::vector<MeshId>& meshIds, std::filesystem::path& originalPath)
 	{
 		char filePath[MAX_PATH]{};
-		const char* filter = "Obj Files (*.obj)\0*.obj";
+		const char* filter = "Obj Files (*.obj)\0*.obj;\0FBX Files (*.fbx)\0*.fbx";
 		if (MainApp().OpenFileDialog(filePath, title, filter))
 		{
 			std::string x = filePath;
 			originalPath = "..\\..\\" + x.substr(x.find("\\Assets\\") + 1);
-			meshId = MeshManager::Get()->LoadMesh(originalPath);
+			meshIds.clear();
+			MeshLoader::Load(originalPath, 1.0f, meshIds);
+			if (meshIds.empty())
+				meshIds.emplace_back(MeshManager::Get()->LoadMesh(originalPath));
 		}
 	}
 }
@@ -46,17 +49,22 @@ void MeshComponent::Initialize()
 {
 	if (mInitialized)
 		return;
-	mMeshId = MeshManager::Get()->LoadMesh(mMeshFileName);
+	
 	mTransformComponent = GetGameObject().GetComponent<TransformComponent>();
 	mMaterialComponent = GetGameObject().GetComponent<MaterialComponent>();
 	if (!mMaterialComponent)
 		mMaterialComponent = GetGameObject().AddComponent<MaterialComponent>();
+
+	MeshLoader::Load(mMeshFileName, 1.0f, mMeshIds);
+	if (mMeshIds.empty())
+		mMeshIds.emplace_back(MeshManager::Get()->LoadMesh(mMeshFileName));
+
 	mInitialized = true;
 }
 
 void MeshComponent::Render()
 {
-	auto meshBuffer = MeshManager::Get()->GetModel(mMeshId);
+	auto meshBuffer = MeshManager::Get()->GetModel(mMeshIds.front());
 	if (!meshBuffer)
 		return;
 
@@ -72,7 +80,7 @@ void MeshComponent::Render()
 	auto lightVP = shadowShader->GetVPMatrix();
 	auto wvpLight = Transpose(matWorld * lightVP);
 
-	if (mMaterialComponent->roughnessId != 0 && mMaterialComponent->metallicId != 0)
+	if (mMaterialComponent->roughnessId[0] != 0 && mMaterialComponent->metallicId[0] != 0)
 	{
 		pbrShader->Begin();
 
@@ -80,17 +88,17 @@ void MeshComponent::Render()
 		pbrShader->SetDirectionalLight(light);
 		pbrShader->SetDepthTexture(shadowShader->GetRenderTarget());
 
-		pbrShader->SetDiffuseTexture(texManager->GetTexture(mMaterialComponent->diffuseId));
-		if(mMaterialComponent->normalId != 0)
-			pbrShader->SetNormalTexture(texManager->GetTexture(mMaterialComponent->normalId));
-		if (mMaterialComponent->displacementId != 0)
-			pbrShader->SetDisplacementTexture(texManager->GetTexture(mMaterialComponent->displacementId));
-		if (mMaterialComponent->ambientOcculsionId != 0)
-			pbrShader->SetAOTexture(texManager->GetTexture(mMaterialComponent->ambientOcculsionId));
-		if (mMaterialComponent->roughnessId != 0)
-			pbrShader->SetRoughnessTexture(texManager->GetTexture(mMaterialComponent->roughnessId));
-		if (mMaterialComponent->metallicId != 0)
-			pbrShader->SetMetallicTexture(texManager->GetTexture(mMaterialComponent->metallicId));
+		pbrShader->SetDiffuseTexture(texManager->GetTexture(mMaterialComponent->diffuseId[0]));
+		if(mMaterialComponent->normalId[0] != 0)
+			pbrShader->SetNormalTexture(texManager->GetTexture(mMaterialComponent->normalId[0]));
+		if (mMaterialComponent->displacementId[0] != 0)
+			pbrShader->SetDisplacementTexture(texManager->GetTexture(mMaterialComponent->displacementId[0]));
+		if (mMaterialComponent->ambientOcculsionId[0] != 0)
+			pbrShader->SetAOTexture(texManager->GetTexture(mMaterialComponent->ambientOcculsionId[0]));
+		if (mMaterialComponent->roughnessId[0] != 0)
+			pbrShader->SetRoughnessTexture(texManager->GetTexture(mMaterialComponent->roughnessId[0]));
+		if (mMaterialComponent->metallicId[0] != 0)
+			pbrShader->SetMetallicTexture(texManager->GetTexture(mMaterialComponent->metallicId[0]));
 		pbrShader->SetPreFilterMap(env.GetPrefilteredMap());
 		pbrShader->SetIrradianceMap(env.GetIrradianceMap());
 
@@ -101,7 +109,12 @@ void MeshComponent::Render()
 		pbrShader->UpdateShadowBuffer(wvpLight);
 		pbrShader->UpdateSettings();
 
-		meshBuffer->Draw();
+		for (auto& meshId : mMeshIds)
+		{
+			auto mesh = MeshManager::Get()->GetModel(meshId);
+			if(mesh)
+				mesh->Draw();
+		}
 		pbrShader->End();
 	}
 	else
@@ -112,13 +125,13 @@ void MeshComponent::Render()
 		shader->SetDirectionalLight(light);
 		shader->SetDepthTexture(shadowShader->GetRenderTarget());
 
-		shader->SetDiffuseTexture(texManager->GetTexture(mMaterialComponent->diffuseId));
-		if (mMaterialComponent->displacementId != 0)
-			shader->SetDisplacementTexture(texManager->GetTexture(mMaterialComponent->displacementId));
-		if (mMaterialComponent->ambientOcculsionId != 0)
-			shader->SetAOTexture(texManager->GetTexture(mMaterialComponent->ambientOcculsionId));
-		if (mMaterialComponent->specularId != 0)
-			shader->SetSpecularTexture(texManager->GetTexture(mMaterialComponent->specularId));
+		shader->SetDiffuseTexture(texManager->GetTexture(mMaterialComponent->diffuseId[0]));
+		if (mMaterialComponent->displacementId[0] != 0)
+			shader->SetDisplacementTexture(texManager->GetTexture(mMaterialComponent->displacementId[0]));
+		if (mMaterialComponent->ambientOcculsionId[0] != 0)
+			shader->SetAOTexture(texManager->GetTexture(mMaterialComponent->ambientOcculsionId[0]));
+		if (mMaterialComponent->specularId[0] != 0)
+			shader->SetSpecularTexture(texManager->GetTexture(mMaterialComponent->specularId[0]));
 
 		shader->SetSkinnedMesh(false);
 		shader->UseShadow(mIsReceivingShadows);
@@ -126,7 +139,12 @@ void MeshComponent::Render()
 		shader->UpdateShadowBuffer(wvpLight);
 		shader->UpdateSettings();
 
-		meshBuffer->Draw();
+		for (auto& meshId : mMeshIds)
+		{
+			auto mesh = MeshManager::Get()->GetModel(meshId);
+			if (mesh)
+				mesh->Draw();
+		}
 		shader->End();
 	}
 }
@@ -137,14 +155,19 @@ void MeshComponent::RenderShadow()
 	{
 		const auto& shadowEffect = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<ShadowEffect>();
 		const auto& matWorld = mTransformComponent->GetTransform();
-		const auto& meshBuffer = MeshManager::Get()->GetModel(mMeshId);
+		const auto& meshBuffer = MeshManager::Get()->GetModel(mMeshIds.front());
 		if (!meshBuffer)
 			return;
 
 		shadowEffect->SetWorldMatrix(matWorld);
 		shadowEffect->SetSkinnedMesh(false);
 		shadowEffect->UpdateSettings();
-		meshBuffer->Draw();
+		for (auto& meshId : mMeshIds)
+		{
+			auto mesh = MeshManager::Get()->GetModel(meshId);
+			if (mesh)
+				mesh->Draw();
+		}
 	}
 }
 
@@ -162,7 +185,7 @@ void MeshComponent::ShowInspectorProperties()
 		ImGui::Text("Change Mesh"); ImGui::SameLine();
 		ImGui::NextColumn();
 		if (ImGui::Button("Change"))
-			ChangeMesh("Change Mesh", mMeshId, mMeshFileName);
+			ChangeMesh("Change Mesh", mMeshIds, mMeshFileName);
 		ImGui::NextColumn();
 
 		ImGui::Text("Cast Shadows"); ImGui::SameLine();

@@ -11,25 +11,25 @@ using namespace Angazi;
 using namespace Angazi::Graphics;
 
 META_CLASS_BEGIN(Material)
-	META_FIELD_BEGIN
-		META_FIELD(ambient, "Ambient")
-		META_FIELD(diffuse, "Diffuse")
-		META_FIELD(specular, "Specular")
-		META_FIELD(power, "Power")
-	META_FIELD_END
+META_FIELD_BEGIN
+META_FIELD(ambient, "Ambient")
+META_FIELD(diffuse, "Diffuse")
+META_FIELD(specular, "Specular")
+META_FIELD(power, "Power")
+META_FIELD_END
 META_CLASS_END;
 
 META_DERIVED_BEGIN(MaterialComponent, Component)
-	META_FIELD_BEGIN
-		META_FIELD(mDiffuseFilePath, "DiffuseFilePath")
-		META_FIELD(mNormalFilePath, "NormalFilePath")
-		META_FIELD(mSpecularFilePath, "SpecularFilePath")
-		META_FIELD(mDisplacementFilePath, "DisplacementFilePath")
-		META_FIELD(mAmbientOcculsionFilePath, "AmbientOcculsionFilePath")
-		META_FIELD(mMetallicFilePath, "MetallicFilePath")
-		META_FIELD(mRoughnessFilePath, "RoughnessFilePath")
-		META_FIELD(material, "Material")
-	META_FIELD_END
+META_FIELD_BEGIN
+META_FIELD(mDiffuseFilePath, "DiffuseFilePath")
+META_FIELD(mNormalFilePath, "NormalFilePath")
+META_FIELD(mSpecularFilePath, "SpecularFilePath")
+META_FIELD(mDisplacementFilePath, "DisplacementFilePath")
+META_FIELD(mAmbientOcculsionFilePath, "AmbientOcculsionFilePath")
+META_FIELD(mMetallicFilePath, "MetallicFilePath")
+META_FIELD(mRoughnessFilePath, "RoughnessFilePath")
+META_FIELD(material, "Material")
+META_FIELD_END
 META_CLASS_END;
 
 namespace
@@ -54,13 +54,13 @@ void MaterialComponent::Initialize()
 {
 	if (mInitialized)
 		return;
-	diffuseId = TextureManager::Get()->Load(mDiffuseFilePath, true, false);
-	normalId = TextureManager::Get()->Load(mNormalFilePath, false, false);
-	specularId = TextureManager::Get()->Load(mSpecularFilePath, false, false);
-	displacementId = TextureManager::Get()->Load(mDisplacementFilePath, false, false);
-	ambientOcculsionId = TextureManager::Get()->Load(mAmbientOcculsionFilePath, false, false);
-	metallicId = TextureManager::Get()->Load(mMetallicFilePath, false, false);
-	roughnessId = TextureManager::Get()->Load(mRoughnessFilePath, false, false);
+	diffuseId.emplace_back(TextureManager::Get()->Load(mDiffuseFilePath, true, false));
+	normalId.emplace_back(TextureManager::Get()->Load(mNormalFilePath, false, false));
+	specularId.emplace_back(TextureManager::Get()->Load(mSpecularFilePath, false, false));
+	displacementId.emplace_back(TextureManager::Get()->Load(mDisplacementFilePath, false, false));
+	ambientOcculsionId.emplace_back(TextureManager::Get()->Load(mAmbientOcculsionFilePath, false, false));
+	metallicId.emplace_back(TextureManager::Get()->Load(mMetallicFilePath, false, false));
+	roughnessId.emplace_back(TextureManager::Get()->Load(mRoughnessFilePath, false, false));
 	mInitialized = true;
 }
 
@@ -68,7 +68,7 @@ void MaterialComponent::ShowInspectorProperties()
 {
 	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::Columns(2,"Materials");
+		ImGui::Columns(2, "Materials");
 
 		ImGui::Text("Ambient Color");
 		ImGui::NextColumn();
@@ -91,86 +91,92 @@ void MaterialComponent::ShowInspectorProperties()
 		ImGui::NextColumn();
 
 		ImGui::Columns(1);
-
-		auto textureManager = TextureManager::Get();
-		constexpr float imageSize = 30.0f;
-		if (ImGui::TreeNode("Textures"))
+		for (size_t i = 0; i < diffuseId.size(); i++)
 		{
-			ImGui::NewLine();
-			ImGui::Columns(2, "Textures");
+			if (ImGui::TreeNode("Material number" + i ))
+			{
+				auto textureManager = TextureManager::Get();
+				constexpr float imageSize = 30.0f;
+				if (ImGui::TreeNode("Textures"))
+				{
+					ImGui::NewLine();
+					ImGui::Columns(2, "Textures");
 
-			ImGui::PushID("Albedo");
-			ImGui::Text("Albedo");
-			ImGui::NextColumn();
-			if (ImGui::ImageButton(textureManager->GetTexture(diffuseId)->GetShaderResourceView(), { imageSize, imageSize }, {}, {1,1}, 0))
-				ChangeTextureId("Change Albedo Texture",diffuseId,mDiffuseFilePath);
-			if (ImGui::IsItemHovered()) 
-				ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-			ImGui::NextColumn();
-			ImGui::PopID();
+					ImGui::PushID("Albedo");
+					ImGui::Text("Albedo");
+					ImGui::NextColumn();
+					if (ImGui::ImageButton(textureManager->GetTexture(diffuseId[i])->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
+						ChangeTextureId("Change Albedo Texture", diffuseId[i], mDiffuseFilePath);
+					if (ImGui::IsItemHovered())
+						ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+					ImGui::NextColumn();
+					ImGui::PopID();
 
-			ImGui::PushID("Normal");
-			ImGui::Text("Normal Map");
-			ImGui::NextColumn();
-			if(ImGui::ImageButton(textureManager->GetTexture(normalId)->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
-				ChangeTextureId("Change Normal Texture", normalId, mNormalFilePath);
-			if (ImGui::IsItemHovered()) 
-				ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-			ImGui::NextColumn();
-			ImGui::PopID();
+					ImGui::PushID("Normal");
+					ImGui::Text("Normal Map");
+					ImGui::NextColumn();
+					if (ImGui::ImageButton(textureManager->GetTexture(normalId[i])->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
+						ChangeTextureId("Change Normal Texture", normalId[i], mNormalFilePath);
+					if (ImGui::IsItemHovered())
+						ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+					ImGui::NextColumn();
+					ImGui::PopID();
 
-			ImGui::PushID("Displacement");
-			ImGui::Text("Displacement Map");
-			ImGui::NextColumn();
-			if (ImGui::ImageButton(textureManager->GetTexture(displacementId)->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
-				ChangeTextureId("Change Displacement Texture", displacementId, mDisplacementFilePath);
-			if (ImGui::IsItemHovered()) 
-				ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-			ImGui::NextColumn();
-			ImGui::PopID();
+					ImGui::PushID("Displacement");
+					ImGui::Text("Displacement Map");
+					ImGui::NextColumn();
+					if (ImGui::ImageButton(textureManager->GetTexture(displacementId[i])->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
+						ChangeTextureId("Change Displacement Texture", displacementId[i], mDisplacementFilePath);
+					if (ImGui::IsItemHovered())
+						ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+					ImGui::NextColumn();
+					ImGui::PopID();
 
-			ImGui::PushID("Ambient Occulsion");
-			ImGui::Text("Ambient Occulsion");
-			ImGui::NextColumn();
-			if (ImGui::ImageButton(textureManager->GetTexture(ambientOcculsionId)->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
-				ChangeTextureId("Change Ambient Occulsion Texture", ambientOcculsionId, mAmbientOcculsionFilePath);
-			if (ImGui::IsItemHovered())
-				ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-			ImGui::NextColumn();
-			ImGui::PopID();
+					ImGui::PushID("Ambient Occulsion");
+					ImGui::Text("Ambient Occulsion");
+					ImGui::NextColumn();
+					if (ImGui::ImageButton(textureManager->GetTexture(ambientOcculsionId[i])->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
+						ChangeTextureId("Change Ambient Occulsion Texture", ambientOcculsionId[i], mAmbientOcculsionFilePath);
+					if (ImGui::IsItemHovered())
+						ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+					ImGui::NextColumn();
+					ImGui::PopID();
 
-			ImGui::PushID("Specular Map");
-			ImGui::Text("Specular Map");
-			ImGui::NextColumn();
-			if (ImGui::ImageButton(textureManager->GetTexture(specularId)->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
-				ChangeTextureId("Change Specular Texture", specularId, mSpecularFilePath);
-			if (ImGui::IsItemHovered()) 
-				ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-			ImGui::NextColumn();
-			ImGui::PopID();
+					ImGui::PushID("Specular Map");
+					ImGui::Text("Specular Map");
+					ImGui::NextColumn();
+					if (ImGui::ImageButton(textureManager->GetTexture(specularId[i])->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
+						ChangeTextureId("Change Specular Texture", specularId[i], mSpecularFilePath);
+					if (ImGui::IsItemHovered())
+						ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+					ImGui::NextColumn();
+					ImGui::PopID();
 
-			ImGui::PushID("Roughness");
-			ImGui::Text("Roughness");
-			ImGui::NextColumn();
-			if (ImGui::ImageButton(textureManager->GetTexture(roughnessId)->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
-				ChangeTextureId("Change Roughness Texture", roughnessId, mRoughnessFilePath);
-			if (ImGui::IsItemHovered()) 
-				ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-			ImGui::NextColumn();
-			ImGui::PopID();
+					ImGui::PushID("Roughness");
+					ImGui::Text("Roughness");
+					ImGui::NextColumn();
+					if (ImGui::ImageButton(textureManager->GetTexture(roughnessId[i])->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
+						ChangeTextureId("Change Roughness Texture", roughnessId[i], mRoughnessFilePath);
+					if (ImGui::IsItemHovered())
+						ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+					ImGui::NextColumn();
+					ImGui::PopID();
 
-			ImGui::PushID("Metallic");
-			ImGui::Text("Metallic");
-			ImGui::NextColumn();
-			if (ImGui::ImageButton(textureManager->GetTexture(metallicId)->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
-				ChangeTextureId("Change Metallic Texture", metallicId, mMetallicFilePath);
-			if (ImGui::IsItemHovered()) 
-				ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-			ImGui::NextColumn();
-			ImGui::PopID();
+					ImGui::PushID("Metallic");
+					ImGui::Text("Metallic");
+					ImGui::NextColumn();
+					if (ImGui::ImageButton(textureManager->GetTexture(metallicId[i])->GetShaderResourceView(), { imageSize, imageSize }, {}, { 1,1 }, 0))
+						ChangeTextureId("Change Metallic Texture", metallicId[i], mMetallicFilePath);
+					if (ImGui::IsItemHovered())
+						ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+					ImGui::NextColumn();
+					ImGui::PopID();
 
-			ImGui::Columns(1);
-			ImGui::TreePop();
+					ImGui::Columns(1);
+					ImGui::TreePop();
+				}
+				ImGui::TreePop();
+			}
 		}
 	}
 }

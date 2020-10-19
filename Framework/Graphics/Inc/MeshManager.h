@@ -1,4 +1,5 @@
 #pragma once
+#include "Mesh.h"
 
 namespace Angazi::Graphics
 {
@@ -18,8 +19,10 @@ namespace Angazi::Graphics
 		MeshManager& operator=(const MeshManager) = delete;
 
 		void SetRootPath(const std::filesystem::path& path);
+		const std::filesystem::path& GetRootPath() { return mRootPath; };
 
 		MeshId LoadMesh(const std::filesystem::path& filePath, bool useRootPath = true);
+		MeshId LoadMesh(const Mesh& mesh);
 		MeshBuffer* GetModel(MeshId id);
 
 		void Clear();

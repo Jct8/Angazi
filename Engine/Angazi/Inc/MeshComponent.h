@@ -21,7 +21,7 @@ namespace Angazi
 		const TransformComponent* mTransformComponent = nullptr;
 		const MaterialComponent* mMaterialComponent = nullptr;
 		std::filesystem::path mMeshFileName = "None";
-		Graphics::MeshId mMeshId = 0;
+		std::vector<Graphics::MeshId> mMeshIds;
 
 		bool mIsCastingShadow = false;
 		bool mIsReceivingShadows= false;

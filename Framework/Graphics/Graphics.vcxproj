@@ -64,18 +64,22 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\VSProps\Framework.props" />
+    <Import Project="..\..\External\assimp-5.0.1\VSProps\Assimp-5.0.1.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\VSProps\Framework.props" />
+    <Import Project="..\..\External\assimp-5.0.1\VSProps\Assimp-5.0.1.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\VSProps\Framework.props" />
+    <Import Project="..\..\External\assimp-5.0.1\VSProps\Assimp-5.0.1.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\VSProps\Framework.props" />
+    <Import Project="..\..\External\assimp-5.0.1\VSProps\Assimp-5.0.1.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -156,6 +160,7 @@
     <ClCompile Include="Src\EnvironmentMap.cpp" />
     <ClCompile Include="Src\HdrEffect.cpp" />
     <ClCompile Include="Src\Material.cpp" />
+    <ClCompile Include="Src\MeshLoader.cpp" />
     <ClCompile Include="Src\MeshManager.cpp" />
     <ClCompile Include="Src\MetaRegistration.cpp" />
     <ClCompile Include="Src\ModelManager.cpp" />
@@ -183,6 +188,7 @@
     <ClInclude Include="Inc\Mesh.h" />
     <ClInclude Include="Inc\MeshBuilder.h" />
     <ClInclude Include="Inc\MeshIO.h" />
+    <ClInclude Include="Inc\MeshLoader.h" />
     <ClInclude Include="Inc\MeshManager.h" />
     <ClInclude Include="Inc\MetaRegistration.h" />
     <ClInclude Include="Inc\Model.h" />

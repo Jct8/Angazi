@@ -192,6 +192,9 @@
     <ClInclude Include="Inc\MetaRegistration.h">
       <Filter>Inc\Meta</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\MeshLoader.h">
+      <Filter>Inc\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Camera.cpp">
@@ -283,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="Src\Effect.cpp">
       <Filter>Src\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MeshLoader.cpp">
+      <Filter>Src\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

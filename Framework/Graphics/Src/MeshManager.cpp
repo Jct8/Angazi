@@ -75,6 +75,24 @@ MeshId MeshManager::LoadMesh(const std::filesystem::path& filePath, bool useRoot
 	return hash;
 }
 
+MeshId MeshManager::LoadMesh(const Mesh& mesh)
+{
+	MeshId hash = 0;
+	while (true)
+	{
+		hash = Math::RandomInt(1, 10000);
+		auto [iter, successful] = mInventory.insert({ hash , nullptr });
+		if (successful)
+		{
+			std::unique_ptr<MeshBuffer> meshBuffer = std::make_unique<MeshBuffer>();
+			meshBuffer->Initialize(mesh);
+			iter->second = std::move(meshBuffer);
+			break;
+		}
+	}
+	return hash;
+}
+
 MeshBuffer* MeshManager::GetModel(MeshId id)
 {
 	auto iter = mInventory.find(id);

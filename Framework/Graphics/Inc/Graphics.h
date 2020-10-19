@@ -19,6 +19,7 @@
 #include "Material.h"
 #include "Mesh.h"
 #include "MeshBuilder.h"
+#include "MeshLoader.h"
 #include "MeshManager.h"
 #include "MeshIO.h"
 #include "MetaRegistration.h"
