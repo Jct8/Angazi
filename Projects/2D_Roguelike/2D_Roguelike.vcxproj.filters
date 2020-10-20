@@ -239,5 +239,17 @@
     <Text Include="path.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="SkeletonTextures.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="SkeletonWeapon.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="EnemyBowTextures.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="EnemyBowWeapon.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -1,0 +1,17 @@
+Total:11
+Offset:3,-15
+Speed:2000
+Damage:2
+Projectiles:1
+Bow.png
+EnemyBow_Attack_00.png
+EnemyBow_Attack_01.png
+EnemyBow_Attack_02.png
+EnemyBow_Attack_03.png
+EnemyBow_Attack_04.png
+EnemyBow_Attack_05.png
+EnemyBow_Attack_06.png
+EnemyBow_Attack_07.png
+EnemyBow_Attack_08.png
+EnemyBow_Attack_09.png
+EnemyBow_Attack_10.png

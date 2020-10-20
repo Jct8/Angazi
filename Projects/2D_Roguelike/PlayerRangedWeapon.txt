@@ -3,7 +3,7 @@ Offset:3,0
 Speed:2000
 Damage:20
 Projectiles:1
-Bow.png
+bow_03b.png
 AdventurerBow_0.png
 AdventurerBow_1.png
 AdventurerBow_2.png

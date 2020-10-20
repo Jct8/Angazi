@@ -110,7 +110,7 @@ void GameState::RunGameStart()
 	auto x = GraphicsSystem::Get()->GetBackBufferWidth()*0.5f;
 	auto y = GraphicsSystem::Get()->GetBackBufferHeight()*0.5f;
 
-	BatchRenderer::Get()->AddScreenText("Jimmy's Dungeon", x - 250.0f, y - 120.0f, 60.0f, Colors::Red);
+	BatchRenderer::Get()->AddScreenText("Rougelike Dungeon", x - 250.0f, y - 120.0f, 60.0f, Colors::Red);
 	BatchRenderer::Get()->AddScreenText("Press Space to Start", x - 200.0f, y - 50.0f, 30.0f, Colors::Red);
 	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::SPACE))
 		gameState = GamePlay;

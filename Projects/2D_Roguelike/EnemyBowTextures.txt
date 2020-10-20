@@ -1,0 +1,31 @@
+Total:5
+Width:17
+Height:60
+FollowRange:250
+StoppingRange:200
+Ranged
+EnemyBowWeapon.txt
+Idle 2 0.5
+EnemyBow_Idle_0.png
+EnemyBow_Idle_1.png
+Running 8 0.8
+EnemyBow_Run_0.png
+EnemyBow_Run_1.png
+EnemyBow_Run_2.png
+EnemyBow_Run_3.png
+EnemyBow_Run_4.png
+EnemyBow_Run_5.png
+EnemyBow_Run_6.png
+EnemyBow_Run_7.png
+Death 10 0.5
+EnemyBow_Dead_00.png
+EnemyBow_Dead_01.png
+EnemyBow_Dead_02.png
+EnemyBow_Dead_03.png
+EnemyBow_Dead_04.png
+EnemyBow_Dead_05.png
+EnemyBow_Dead_06.png
+EnemyBow_Dead_07.png
+EnemyBow_Dead_08.png
+EnemyBow_Dead_09.png
+Attacking 0 0.5

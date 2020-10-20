@@ -1,4 +1,4 @@
 Total:3
-! LightBanditTextures.txt
-? KnightRangedTextures.txt
-> KnightMeleeTextures.txt
+! SkeletonTextures.txt
+? EnemyBowTextures.txt
+> SkeletonTextures.txt

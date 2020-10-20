@@ -1,7 +1,7 @@
 TotalAnimations:4
 HitSize:60,40
 Damage:30
-Sword.png
+scithersword.png
 Particle:None
 Subtotal:5
 AdventurerAttack1_0.png

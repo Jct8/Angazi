@@ -203,6 +203,8 @@
   <ItemGroup>
     <Text Include="AdventurerRangedWeapon.txt" />
     <Text Include="AdventurerTextures.txt" />
+    <Text Include="EnemyBowTextures.txt" />
+    <Text Include="EnemyBowWeapon.txt" />
     <Text Include="EnemyList.txt" />
     <Text Include="KnightMeleeTextures.txt" />
     <Text Include="KnightMeleeWeapon.txt" />
@@ -222,6 +224,8 @@
     <Text Include="PlayerWeapon.txt" />
     <Text Include="Player2Weapon.txt" />
     <Text Include="PlayerWeapon2.txt" />
+    <Text Include="SkeletonTextures.txt" />
+    <Text Include="SkeletonWeapon.txt" />
     <Text Include="tileset_01.txt" />
     <Text Include="tileset_02.txt" />
     <Text Include="WeaponList.txt" />

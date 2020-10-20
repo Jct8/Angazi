@@ -79,6 +79,8 @@ void Player::Load(std::filesystem::path fileName, bool facingLeft)
 
 	mSecondaryWeapon = WeaponManager::Get().GetWeapon("Weapon2").get();
 	mWeapon = WeaponManager::Get().GetWeapon("Weapon1").get();
+	mTargetEnemyTexture = TextureManager::Get()->Load("Rougelike/skull.png");
+	mDetectedTexture = TextureManager::Get()->Load("Rougelike/detected.png");
 }
 
 void Player::Unload()
@@ -86,6 +88,8 @@ void Player::Unload()
 	for (auto& animationType : mAnimations)
 		for (auto& animation : animationType.second)
 			animation = 0;
+	mTargetEnemyTexture = 0;
+	mDetectedTexture = 0;
 }
 
 void Player::Update(float deltaTime)
@@ -160,6 +164,7 @@ void Player::Render()
 	if (usingDebug)
 	{
 		float offset = 32.0f * 0.5f;
+		AI::MemoryRecords memoryRecords = mPerceptionModule->GetMemoryRecords();
 		//Hitbox
 		//X::Math::Rect rect = Camera::Get().ConvertToScreenPosition(GetBoundingBox());
 		//X::DrawScreenRect(rect, X::Colors::Green);
@@ -174,7 +179,9 @@ void Player::Render()
 		SimpleDraw::AddScreenCircle({ screenPosDestination.x, screenPosDestination.y - offset }, 10.0f, Colors::Green);
 
 		Math::Vector2 screenPosEnemy = Camera2D::Get().ConvertToScreenPosition(Math::Vector2{ enemyDestination.x ,enemyDestination.y });
-		SimpleDraw::AddScreenCircle({ screenPosEnemy.x, screenPosEnemy.y - offset }, 10.0f, Colors::Red);
+		//SimpleDraw::AddScreenCircle({ screenPosEnemy.x, screenPosEnemy.y - offset }, 10.0f, Colors::Red);
+		if(!memoryRecords.empty())
+			BatchRenderer::Get()->AddSprite(mTargetEnemyTexture, { screenPosEnemy.x - offset, screenPosEnemy.y - offset - 120.0f });
 
 		if (!path.empty())
 		{
@@ -182,7 +189,17 @@ void Player::Render()
 			{
 				Math::Vector2 screenPos = Camera2D::Get().ConvertToScreenPosition(Math::Vector2{ static_cast<float>(path[i].x)*32.0f , static_cast<float>(path[i].y*32.0f) });
 				Math::Vector2 screenPos2 = Camera2D::Get().ConvertToScreenPosition(Math::Vector2{ static_cast<float>(path[i + 1].x)*32.0f , static_cast<float>(path[i + 1].y)*32.0f });
-				SimpleDraw::AddScreenLine(screenPos.x + offset, screenPos.y + offset, screenPos2.x + offset, screenPos2.y + offset, Colors::AliceBlue);
+				SimpleDraw::AddScreenLine(screenPos.x + offset, screenPos.y + offset, screenPos2.x + offset, screenPos2.y + offset, Colors::Green);
+			}
+		}
+
+		if (!memoryRecords.empty())
+		{
+			for (auto record : memoryRecords)
+			{
+				auto enemyPosition = std::get<Math::Vector2>(record.properties["lastSeenPosition"]);
+				auto screenPosEnemy = Camera2D::Get().ConvertToScreenPosition(Math::Vector2{ enemyPosition.x ,enemyPosition.y });
+				BatchRenderer::Get()->AddSprite(mDetectedTexture, { screenPosEnemy.x + offset, screenPosEnemy.y - offset - 120.0f });
 			}
 		}
 
@@ -253,6 +270,12 @@ void Player::AIControl(float deltaTime)
 			mStateMachine->ChangeState("MoveState");
 		}
 		enemyDestination = newDest;
+		for (auto record : memoryRecords)
+		{
+			auto enemyPosition = std::get<Math::Vector2>(record.properties["lastSeenPosition"]);
+			auto screenPosEnemy = Camera2D::Get().ConvertToScreenPosition(Math::Vector2{ enemyPosition.x ,enemyPosition.y });
+			BatchRenderer::Get()->AddSprite(mDetectedTexture, { screenPosEnemy.x, screenPosEnemy.y  - 120.0f });
+		}
 	}
 	else if (!mCalculatedFinalDestination)
 	{

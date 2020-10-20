@@ -61,6 +61,6 @@ void UIManager::Render()
 
 	SimpleDraw::AddScreenRect(30.0f, 610.0f, 90.0f, 670.0f, Colors::AliceBlue);
 	SimpleDraw::AddScreenRect(95.0f, 610.0f, 155.0f, 670.0f, Colors::AliceBlue);
-	BatchRenderer::Get()->AddSprite(player.GetPrimaryWeaponSprite(), { 35.0f,620.0f }, 0.0f, Pivot::TopLeft);
-	BatchRenderer::Get()->AddSprite(player.GetSecondaryWeaponSprite(), { 100.0f,620.0f }, 0.0f, Pivot::TopLeft);
+	BatchRenderer::Get()->AddSprite(player.GetPrimaryWeaponSprite(), { 35.0f,615.0f }, 0.0f, Pivot::TopLeft);
+	BatchRenderer::Get()->AddSprite(player.GetSecondaryWeaponSprite(), { 100.0f,615.0f }, 0.0f, Pivot::TopLeft);
 }

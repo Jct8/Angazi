@@ -4,6 +4,6 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	Angazi::MainApp().AddState<GameState>("GameState");
-	Angazi::MainApp().Run({ "Jimmy's Dungeon" ,1080, 720 });
+	Angazi::MainApp().Run({ "Rougelike Dungeon" ,1080, 720 });
 	return 0;
 }

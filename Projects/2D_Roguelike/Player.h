@@ -55,6 +55,8 @@ private:
 	void CalculatePath(Angazi::Math::Vector2 destination);
 
 	int mCurrentWeapon = 0;
+	Angazi::Graphics::TextureId mTargetEnemyTexture = 0;
+	Angazi::Graphics::TextureId mDetectedTexture = 0;
 
 	//std::shared_ptr<Weapon> mSecondaryWeapon;
 	Weapon* mSecondaryWeapon;

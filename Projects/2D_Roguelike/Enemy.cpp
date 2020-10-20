@@ -115,7 +115,7 @@ void Enemy::Update(float deltaTime)
 	//Movement
 	Math::LineSegment visionLine{ mPosition.x - mDetectRange, mPosition.y,mPosition.x + mDetectRange, mPosition.y };
 	Math::LineSegment line = Camera2D::Get().ConvertToScreenPosition(visionLine);
-	SimpleDraw::AddScreenLine(line.from, line.to, Colors::AliceBlue);
+	//SimpleDraw::AddScreenLine(line.from, line.to, Colors::AliceBlue);
 
 	Math::Rect playerBox = player.GetBoundingBox();
 	if (visionLine.to.y > playerBox.top && visionLine.to.y < playerBox.bottom
@@ -226,7 +226,7 @@ void Enemy::Render()
 	{
 		Math::Vector2 screenPos2 = Camera2D::Get().ConvertToScreenPosition(Math::Vector2{ position.x ,position.y });
 		float offset = 32.0f * 0.5f;
-		SimpleDraw::AddScreenCircle({ screenPos2.x, screenPos2.y - offset }, 10.0f, Colors::AliceBlue);
+		//SimpleDraw::AddScreenCircle({ screenPos2.x, screenPos2.y - offset }, 10.0f, Colors::AliceBlue);
 
 		//Hitbox
 		//X::Math::Rect rect = Camera::Get().ConvertToScreenPosition(GetBoundingBox());
