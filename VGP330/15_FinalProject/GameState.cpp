@@ -50,7 +50,7 @@ void GameState::Initialize()
 	mTankPosition = { 18.0f,3.8f,40.2f };
 
 	mGroundEffect.Initialize("../../Assets/Shaders/Standard.fx");
-	mGroundEffect.SetDiffuseTexture("../../Assets/Images/grass.jpg");
+	mGroundEffect.SetDiffuseTexture("../../Assets/Images/MountainRock.png");
 
 	mTankEffect.Initialize("../../Assets/Shaders/Standard.fx");
 	mTankEffect.SetDiffuseTexture("../../Assets/Models/Tank/tank_diffuse.jpg");

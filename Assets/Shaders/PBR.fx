@@ -276,7 +276,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 			float savedDepth = depthMap.Sample(textureSampler, shadowUV).r;
 			if (savedDepth > actualDepth + depthBias)
 			{
-				color = ambient * float4(albedoColor, 1.0);
+				color = (ambient * float4(albedoColor, 1.0)).rgb;
 			}
 		}
 	}

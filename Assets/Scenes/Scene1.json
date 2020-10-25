@@ -106,7 +106,7 @@
                     }
                 },
                 "SkinnedMeshComponent": {
-                    "ModelFileName": "SwatRun/SwatRun.model",
+                    "ModelFileName": "James/James.model",
                     "CastingShadow": true,
                     "ReceivingShadows": false,
                     "ShowSkeleton": false

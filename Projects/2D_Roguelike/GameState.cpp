@@ -192,7 +192,7 @@ void GameState::Render()
 void GameState::DebugUI()
 {
 	SimpleDraw::Render(mCamera);
-	TileMap::Get().ShowEditor();
+	//TileMap::Get().ShowEditor();
 	player.DebugUI();
-	EnemyManager::Get().DebugUI();
+	//EnemyManager::Get().DebugUI();
 }

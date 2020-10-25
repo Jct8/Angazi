@@ -36,4 +36,4 @@ AdventurerRoll_5.png
 AdventurerRoll_6.png
 Fall 1 0.5
 AdventurerFall_0.png
-Attacking 0 0.35
+Attacking 0 0.42

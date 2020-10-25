@@ -88,13 +88,21 @@ Rendering features include:
     6. Shadow Mapping
 6. PBR shader techniques
     1. Cook-Torrance BRDF
-    2. Image-based lighting - Currently only diffuse lighting
+    2. Image-based lighting
 7. Other shader techniques:
     1. Deferred HDR pipeline
     2. Gamma Correction
     3. Cube and Environment Mapping
     4. Water effect
     5. Post Processing
+
+<p align="center">
+    <img src="Assets/Images/ReadMe/Pbr.png" alt="Logo" width="960" height="600">
+</p>
+
+<p align="center">
+    <img src="Assets/Images/ReadMe/PbrModel.png" alt="Logo" width="960" height="600">
+</p>
 
 ### Memory Management
 1. Block Allocator - Pre-allocated memory that serves to avoid memory fragmentation
@@ -104,7 +112,7 @@ Rendering features include:
 ### Meta Reflection System
 1.  The meta system allows for run-time inspection of classes and fields declared in the system
 2.  Meta information can be looked up from a string name in the centralized meta registry
-3.  The engine uses the system for generic serialization and deserialization of scene, gameobject and component data
+3.  The engine uses the system for generic serialization and deserialization of scene, gameobjects, and component data
 3.  The system supports the following:
     1. Meta Classes
     2. Meta Fields
@@ -114,11 +122,11 @@ Rendering features include:
 
 ### Component System
 1. The engine supports a components based system for game objects
-2. The scene, game objects and components can be serialized and deserialized using the meta system
+2. The scene, game objects, and components can be serialized and deserialized using the meta system
 
 ### Networking
 1. TCP and UDP sockets classes that allow for easier use, creation, and deletion of sockets
-2. Packets can be serialized and deserialized using the Memory Stream, Stream Reader and Writer
+2. Packets can be serialized and deserialized using the Memory Stream, Stream Reader, and Writer
 3. Uses a network system helper class that refers object instances across a network to their network ids
 
 ### Artificial Intelligence 
@@ -137,9 +145,12 @@ Rendering features include:
 
 ### Level Editor
 1. The Angazi Editor allows for adding and removing game objects in the scene
-2. Components that are registered in the meta system can be added, removed or modified
+2. Components that are registered in the meta system can be added, removed, or modified
 3. The Editor can save and load scenes
 
+<p align="center">
+    <img src="Assets/Images/ReadMe/Editor.png" alt="Logo" width="960" height="600">
+</p>
 
 <!-- CONTACT -->
 ## Contact

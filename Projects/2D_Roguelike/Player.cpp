@@ -695,30 +695,32 @@ void Player::CalculatePath(Math::Vector2 destination)
 
 void Player::DebugUI()
 {
-	ImGui::Begin("Settings Editor", nullptr);
+	ImGui::Begin("Settings", nullptr);
 
 	if (ImGui::CollapsingHeader("Player:",ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::SliderFloat("Player Speed", &maxSpeed, 0.0f, 1000.0f);
-		if (ImGui::SliderFloat("View Range", &mViewRange, 0.0f, 700.0f))
+		ImGui::PushItemWidth(ImGui::GetWindowWidth() * 0.4f);
+		ImGui::DragFloat("Player Speed", &maxSpeed, 1.0f , 0.0f, 1000.0f);
+		if (ImGui::DragFloat("View Range", &mViewRange, 1.0f, 0.0f, 700.0f))
 		{
 			mPerceptionModule->GetSensor<SightSensor>("SightSensor")->viewRange = mViewRange;
 		}
-		if (ImGui::SliderFloat("Detect Range", &mDetectRange, 0.0f, 700.0f))
-		{
-			mPerceptionModule->GetSensor<SightSensor>("SightSensor")->neighborhoodRadius = mDetectRange;
-		}
-		if (ImGui::SliderFloat("Memory Span", &mMemorySpan, 0.0f, 180.0f))
+		//if (ImGui::SliderFloat("Detect Range", &mDetectRange, 0.0f, 700.0f))
+		//{
+		//	mPerceptionModule->GetSensor<SightSensor>("SightSensor")->neighborhoodRadius = mDetectRange;
+		//}
+		if (ImGui::DragFloat("Memory Span", &mMemorySpan, 0.1f,0.0f, 180.0f))
 		{
 			mPerceptionModule->SetMemorySpan(mMemorySpan);
 		}
-		ImGui::Checkbox("Use Free Movement", &freeMovement);
+		//ImGui::Checkbox("Use Free Movement", &freeMovement);
 		ImGui::Checkbox("Use AI", &isUsingAi);
 		ImGui::Checkbox("Debug UI", &usingDebug);
-		if (ImGui::Button("Place Destination Position"))
-		{
-			mChooseDestination = true;
-		}
+		//if (ImGui::Button("Place Destination Position"))
+		//{
+		//	mChooseDestination = true;
+		//}
+		ImGui::PopItemWidth();
 	}
 
 	ImGui::End();
