@@ -46,7 +46,6 @@ layout(std140, binding = 3) uniform SettingsBuffer
 	float specularMapWeight;
 	float bumpMapWeight;
 	float normalMapWeight;
-	float padding;
 };
 
 layout(binding = 0) uniform sampler2D diffuseMap;
