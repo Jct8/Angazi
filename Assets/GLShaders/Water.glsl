@@ -173,11 +173,15 @@ void main()
 	displacementCoords += (texture(displacementMap, vec2(xCoord, yCoord), 1).rg * 2.0f - 1.0f) * movementSpeed;
 	displacementCoords *= clamp(waterDepth,0.0f,1.0f);
 
+	vec2 displacementCoords2 = (texture(displacementMap, vec2(xCoord, outTexCoord.y), 1).rg * 2.0f - 1.0f) * normalMapWeight;
+	displacementCoords2 += (texture(displacementMap, vec2(xCoord, yCoord), 1).rg * 2.0f - 1.0f) * normalMapWeight;
+	displacementCoords2 *= clamp(waterDepth,0.0f,1.0f);
+
 	vec3 normal = worldNormal;
 	if (normalMapWeight != 0.0f)
 	{
 		mat3x3 TBNW = { worldTangent, worldBinormal, worldNormal};
-		vec4 normalColor = texture(normalMap, displacementCoords+0.09);
+		vec4 normalColor = texture(normalMap, displacementCoords2 * 0.5f +0.09);
 		vec3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
 		normal = TBNW *normalSampled ;
 	}
@@ -198,7 +202,7 @@ void main()
 	UVRefraction = clamp(UVRefraction + displacementCoords,0.0,1.0);
 	UVReflect = clamp(UVReflect + displacementCoords,0.0,1.0);
 
-	vec4 texColor = texture(diffuseMap, displacementCoords);
+	vec4 texColor = texture(diffuseMap, outTexCoord + displacementCoords);
 	vec4 texColorRefraction = texture(refractionMap, UVRefraction);
 	vec4 texColorReflection = texture(reflectionMap, UVReflect);
 
@@ -208,7 +212,7 @@ void main()
 	reflectionFactor = pow(reflectionFactor,reflectivePower);
 	
 	vec4 waterColor = mix(texColorReflection, texColorRefraction, reflectionFactor);
-	texColor = mix(texColor, waterColor, 0.77f);
+	texColor = mix(texColor, waterColor, 0.9f);
 
 	vec4 color = (ambient + diffuse) * texColor * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
 	color.a = clamp(waterDepth,0.0f,1.0f);

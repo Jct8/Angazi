@@ -29,6 +29,7 @@ layout(std140, binding = 0) uniform TransformBuffer
 };
 
 layout(binding = 0) uniform sampler2D diffuseMap;
+layout(binding = 1) uniform sampler2D normalMap;
 
 void main()
 {
@@ -65,12 +66,21 @@ layout(std140, binding = 0) uniform TransformBuffer
 };
 
 layout(binding = 0) uniform sampler2D diffuseMap;
+layout(binding = 1) uniform sampler2D normalMap;
 
 void main()
 {
 	vec3 normal = normalize(outWorldNormal);
 	vec3 dirToLight = normalize(-LightDirection.xyz);
 	vec3 dirToView = normalize(outDirToView);
+
+	vec3 worldNormal = normalize(outWorldNormal);
+	vec3 worldTangent = normalize(outWorldTangent);
+	vec3 worldBinormal = normalize(cross(worldNormal,worldTangent));
+	mat3x3 TBNW = { worldTangent, worldBinormal, worldNormal};
+	vec4 normalColor = texture(normalMap, outTexCoord);
+	vec3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
+	normal = TBNW * normalSampled;
 
 	vec4 ambient = LightAmbient;
 	vec4 diffuse = LightDiffuse * clamp(dot(normal,dirToLight),0.0,1.0);

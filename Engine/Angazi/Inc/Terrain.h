@@ -35,7 +35,8 @@ namespace Angazi
 		Graphics::PixelShader mTerrainPixelShader;
 
 		Graphics::Sampler mSampler;
-		Graphics::Texture mGrassTexture;
+		Graphics::Texture mDiffuseTexture;
+		Graphics::Texture mNormalTexture;
 
 		Graphics::Mesh mMesh;
 		Graphics::MeshBuffer mMeshBuffer;

@@ -63,6 +63,11 @@ void GameState::SetStandardTextures(std::string textureName)
 		mStandardEffect.SetDisplacementTexture(mTextures[textureName]["Displacement"].get());
 		mStandardEffect.SetBumpMapWeight(displacement);
 	}
+	if (mTextures[textureName].count("Specular") == 1)
+	{
+		mStandardEffect.SetSpecularTexture(mTextures[textureName]["Specular"].get());
+		mStandardEffect.SetSpecularMapWeight(1.0f);
+	}
 }
 void GameState::Initialize()
 {
@@ -82,8 +87,13 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f };
 	mMaterial.power = 80.0f;
 
-	ObjLoader::Load("../../Assets/Models/Sci-Fi_Helmet/helmet.obj",1.0f, mMesh);
+	Mesh mMesh;
+	ObjLoader::Load("../../Assets/Models/Mandalorian_Helmet/Mandalorian_Helmet.obj",0.02f, mMesh);
 	mMeshBufferHelmet.Initialize(mMesh);
+	Mesh mesh;
+	ObjLoader::Load("../../Assets/Models/Sci-Fi_Helmet/helmet.obj",1.0f, mesh);
+	mMeshBufferSciFiHelmet.Initialize(mesh);
+
 	mSphereBuffer.Initialize(MeshBuilder::CreateSphere(0.5f,64,64));
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Mirror);
 
@@ -98,31 +108,33 @@ void GameState::Initialize()
 
 	mPlainTexture.Initialize("../../Assets/Images/white.jpg");
 
-	//mTextures["Helmet"]["Albedo"] = std::make_unique<Texture>();
-	//mTextures["Helmet"]["Albedo"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_BaseColor.png", true);
-	//mTextures["Helmet"]["Normal"] = std::make_unique<Texture>();
-	//mTextures["Helmet"]["Normal"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Normal.png");
-	//mTextures["Helmet"]["AO"] = std::make_unique<Texture>();
-	//mTextures["Helmet"]["AO"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_AO.png");
-	//mTextures["Helmet"]["Displacement"] = std::make_unique<Texture>();
-	//mTextures["Helmet"]["Displacement"]->Initialize("../../Assets/Models//Mandalorian_Helmet/mandalorianUV2_Helmet_Height.png");
-	//mTextures["Helmet"]["Roughness"] = std::make_unique<Texture>();
-	//mTextures["Helmet"]["Roughness"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Roughness2.png");
-	//mTextures["Helmet"]["Metallic"] = std::make_unique<Texture>();
-	//mTextures["Helmet"]["Metallic"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Metallic2.png");
-
 	mTextures["Helmet"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Albedo"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_basecolor.png", false);
+	mTextures["Helmet"]["Albedo"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_BaseColor.png", true);
 	mTextures["Helmet"]["Normal"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Normal"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_normal.png");
+	mTextures["Helmet"]["Normal"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Normal.png");
 	mTextures["Helmet"]["AO"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["AO"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_occlusion.png");
+	mTextures["Helmet"]["AO"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_AO.png");
 	mTextures["Helmet"]["Displacement"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Displacement"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_emission.png");
+	mTextures["Helmet"]["Displacement"]->Initialize("../../Assets/Models//Mandalorian_Helmet/mandalorianUV2_Helmet_Cavity.png");
 	mTextures["Helmet"]["Roughness"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Roughness"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_roughness.png");
+	mTextures["Helmet"]["Roughness"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Roughness2.png");
 	mTextures["Helmet"]["Metallic"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Metallic"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_metalness.png");
+	mTextures["Helmet"]["Metallic"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Metallic2.png");
+	//mTextures["Helmet"]["Specular"] = std::make_unique<Texture>();
+	//mTextures["Helmet"]["Specular"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Metallic2.png");
+
+	mTextures["SciFi_Helmet"]["Albedo"] = std::make_unique<Texture>();
+	mTextures["SciFi_Helmet"]["Albedo"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_basecolor.png", true);
+	mTextures["SciFi_Helmet"]["Normal"] = std::make_unique<Texture>();
+	mTextures["SciFi_Helmet"]["Normal"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_normal.png");
+	mTextures["SciFi_Helmet"]["AO"] = std::make_unique<Texture>();
+	mTextures["SciFi_Helmet"]["AO"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_occlusion.png");
+	mTextures["SciFi_Helmet"]["Displacement"] = std::make_unique<Texture>();
+	mTextures["SciFi_Helmet"]["Displacement"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_emission.png");
+	mTextures["SciFi_Helmet"]["Roughness"] = std::make_unique<Texture>();
+	mTextures["SciFi_Helmet"]["Roughness"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_roughness.png");
+	mTextures["SciFi_Helmet"]["Metallic"] = std::make_unique<Texture>();
+	mTextures["SciFi_Helmet"]["Metallic"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_metalness.png");
 
 	for (auto &textures : mTextures)
 		textureNames.push_back(textures.first);
@@ -149,6 +161,7 @@ void GameState::Terminate()
 	mPbrEffect.Terminate();
 
 	mSphereBuffer.Terminate();
+	mMeshBufferSciFiHelmet.Terminate();
 	mMeshBufferHelmet.Terminate();
 }
 
@@ -171,6 +184,10 @@ void GameState::Update(float deltaTime)
 		mCamera.Yaw(inputSystem->GetMouseMoveX() *kTurnSpeed*deltaTime);
 		mCamera.Pitch(inputSystem->GetMouseMoveY() *kTurnSpeed*deltaTime);
 	}
+	if (inputSystem->IsKeyDown(KeyCode::LEFT))
+		mRotation.y -= deltaTime* 0.7f;
+	if (inputSystem->IsKeyDown(KeyCode::RIGHT))
+		mRotation.y += deltaTime * 0.7f;
 }
 
 void GameState::Render()
@@ -192,8 +209,7 @@ void GameState::DrawScene()
 	mSampler.BindVS();
 	if (useTextureMap)
 	{
-		matWorld = matRot * Matrix4::Translation({ -1.3f,0.0f,0.0f });
-
+		matWorld = matRot * Matrix4::Translation({ -distance, 0.0f,0.0f });
 		mPbrEffect.Begin();
 		mPbrEffect.SetDirectionalLight(mDirectionalLight);
 		mPbrEffect.SetMaterial(mMaterial);
@@ -202,17 +218,23 @@ void GameState::DrawScene()
 		mPbrEffect.SetPreFilterMap(mSkybox.GetPrefilteredMap());
 		mPbrEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 		mPbrEffect.UpdateSettings();
-		mMeshBufferHelmet.Draw();
+		if (choosenTexture == "Helmet")
+			mMeshBufferHelmet.Draw();
+		else if (choosenTexture == "SciFi_Helmet")
+			mMeshBufferSciFiHelmet.Draw();
 		mPbrEffect.End();
 
-		matWorld = matRot * Matrix4::Translation({ 1.3f,0.0f,0.0f });
+		matWorld = matRot * Matrix4::Translation({ distance, 0.0f,0.0f });
 		mStandardEffect.Begin();
 		mStandardEffect.SetDirectionalLight(mDirectionalLight);
 		mStandardEffect.SetMaterial(mMaterial);
 		SetStandardTextures(choosenTexture);
 		mStandardEffect.SetTransformData(matWorld, matView, matProj, mCamera.GetPosition());
 		mStandardEffect.UpdateSettings();
-		mMeshBufferHelmet.Draw();
+		if (choosenTexture == "Helmet")
+			mMeshBufferHelmet.Draw();
+		else if (choosenTexture == "SciFi_Helmet")
+			mMeshBufferSciFiHelmet.Draw();
 		mStandardEffect.End();
 	}
 	else
@@ -244,7 +266,7 @@ void GameState::DrawScene()
 void GameState::DebugUI()
 {
 	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-	ImGui::Text("FPS: %.2f", Angazi::Core::TimeUtil::GetFramesPerSecond());
+	//ImGui::Text("FPS: %.2f", Angazi::Core::TimeUtil::GetFramesPerSecond());
 	if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		bool directionChanged = false;
@@ -268,41 +290,41 @@ void GameState::DebugUI()
 	}
 	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::DragFloat3("Rotation##Transform", &mRotation.x, 0.01f);
+		ImGui::DragFloat3("Rotation##Transform", &mRotation.x, 0.1f);
 	}
-	if (ImGui::CollapsingHeader("PBR Settings Map", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("PBR Settings", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 
-		if (ImGui::Checkbox("Show Texture Map", &useTextureMap))
-		{
-			if (useTextureMap)
-			{
-				mPbrEffect.SetRoughnessWeight(-1.0f);
-				mPbrEffect.SetMetallicWeight(-1.0f);
-				mPbrEffect.SetNormalMapWeight(1.0f);
-				mPbrEffect.SetAOWeight(1.0f);
-				mPbrEffect.SetBumpMapWeight(displacement);
-			}
-			else
-			{
-				mPbrEffect.SetNormalMapWeight(0.0f);
-				mPbrEffect.SetAOWeight(0.0f);
-				mPbrEffect.SetBumpMapWeight(displacement);
-			}
-		}
+		//if (ImGui::Checkbox("Show Texture Map", &useTextureMap))
+		//{
+		//	if (useTextureMap)
+		//	{
+		//		mPbrEffect.SetRoughnessWeight(-1.0f);
+		//		mPbrEffect.SetMetallicWeight(-1.0f);
+		//		mPbrEffect.SetNormalMapWeight(1.0f);
+		//		mPbrEffect.SetAOWeight(1.0f);
+		//		mPbrEffect.SetBumpMapWeight(displacement);
+		//	}
+		//	else
+		//	{
+		//		mPbrEffect.SetNormalMapWeight(0.0f);
+		//		mPbrEffect.SetAOWeight(0.0f);
+		//		mPbrEffect.SetBumpMapWeight(displacement);
+		//	}
+		//}
 		if (ImGui::Checkbox("Normal Map", &normal))
 			mPbrEffect.SetNormalMapWeight(normal ? 1.0f : 0.0f);
 		if (ImGui::Checkbox("Ambient occlusion", &aoMap))
 			mPbrEffect.SetAOWeight(aoMap ? 1.0f : 0.0f);
 		if (ImGui::Checkbox("Use Image based lighting", &useIBL))
 			mPbrEffect.useIBL(useIBL);
-		if (ImGui::DragFloat("Height Map", &displacement,0.001f, 0.0f, 1.0f))
-			mPbrEffect.SetBumpMapWeight(displacement);
-		if (ImGui::DragFloat("Brightness", &brightness, 0.01f))
-			mPbrEffect.SetBrightness(brightness);
+		//if (ImGui::DragFloat("Height Map", &displacement,0.001f, 0.0f, 1.0f))
+		//	mPbrEffect.SetBumpMapWeight(displacement);
+		//if (ImGui::DragFloat("Brightness", &brightness, 0.01f))
+		//	mPbrEffect.SetBrightness(brightness);
 
 		static const char* item_current = textureNames[0].c_str();
-		if (ImGui::BeginCombo("Select Texture",item_current))
+		if (ImGui::BeginCombo("Select Model",item_current))
 		{
 			for (size_t n = 0; n < textureNames.size(); n++)
 			{
@@ -315,6 +337,10 @@ void GameState::DebugUI()
 				if (is_selected)
 					ImGui::SetItemDefaultFocus();
 			}
+			if (choosenTexture == "Helmet")
+				distance = 0.6f;
+			else if (choosenTexture == "SciFi_Helmet")
+				distance = 0.8f;
 			ImGui::EndCombo();
 		}
 

@@ -13,6 +13,7 @@ cbuffer TransformBuffer : register(b0)
 }
 
 Texture2D diffuseMap : register(t0);
+Texture2D normalMap : register(t1);
 SamplerState textureSampler : register(s0);
 
 struct VS_INPUT
@@ -50,6 +51,14 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float3 normal = normalize(input.worldNormal);
 	float3 dirToLight = normalize(-LightDirection.xyz);
 	float3 dirToView = normalize(input.dirToView);
+
+	float3 worldNormal = normal;
+	float3 worldTangent = normalize(input.worldTangent);
+	float3 worldBinormal = normalize(cross(worldNormal, worldTangent));
+	float3x3 TBNW = { worldTangent, worldBinormal, worldNormal };
+	float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
+	float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
+	normal = mul(normalSampled, TBNW);
 
 	float4 ambient = LightAmbient;
 	float4 diffuse = LightDiffuse * saturate(dot(normal,dirToLight));

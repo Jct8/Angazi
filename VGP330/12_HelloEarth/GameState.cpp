@@ -39,19 +39,27 @@ void GameState::Initialize()
 	mCloudShadingPixelShader.Initialize("../../Assets/Shaders/Earth.fx", "PSCloud");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mTexture.Initialize("../../Assets/Images/Earth/10k_earth.jpg");
+	mTexture.Initialize("../../Assets/Images/Earth/10k_earth.jpg",true);
 	mSpecularTexture.Initialize("../../Assets//Images/Earth/10k_earth_spec.jpg");
 	mDisplacementTexture.Initialize("../../Assets/Images/Earth/earth_bump.jpg");
 	mNormalMap.Initialize("../../Assets/Images/Earth/earth_normal.jpg");
 	mNightMap.Initialize("../../Assets/Images/Earth/10k_earth_nightmap.jpg");
-	mClouds.Initialize("../../Assets/Images/Earth/earth_clouds.jpg");
+	mClouds.Initialize("../../Assets/Images/Earth/8k_earth_clouds.jpg");
 
 	mBlendState.Initialize(BlendState::Mode::Additive);
 
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/back.png", Skybox::Back);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/front.png", Skybox::Front);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/left.png", Skybox::Left);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/right.png", Skybox::Right);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/top.png", Skybox::Top);
+	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/bottom.png", Skybox::Bottom);
+	mSkybox.CreateSkybox();
 }
 
 void GameState::Terminate()
 {
+	mSkybox.Terminate();
 	mBlendState.Terminate();
 	mClouds.Terminate();
 	mNightMap.Terminate();
@@ -94,12 +102,12 @@ void GameState::Update(float deltaTime)
 		mCamera.Strafe(kMoveSpeed * deltaTime);
 	//mRotation -= deltaTime;
 
-	mCloudRotation += deltaTime * 0.005f;
+	mCloudRotation += deltaTime * 0.05f;
 }
 
 void GameState::Render()
 {
-	auto matTrans = Matrix4::Translation({ -1.0f,0.0f,0.0f });
+	auto matTrans = Matrix4::Translation({ 0.7f,0.0f,0.0f });
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 	auto matWorld = matRot * matTrans;
 	auto matView = mCamera.GetViewMatrix();
@@ -161,6 +169,7 @@ void GameState::Render()
 	mClouds.BindPS(5);
 	mMeshBuffer.Draw();
 
+	mSkybox.Draw(mCamera);
 }
 
 void GameState::DebugUI()

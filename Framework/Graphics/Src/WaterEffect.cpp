@@ -28,10 +28,10 @@ void WaterEffect::Initialize(const std::filesystem::path & fileName)
 	mPixelShader.Initialize(fileName);
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mBlendState.Initialize(BlendState::Mode::AlpahPremultiplied);
+	mBlendState.Initialize(BlendState::Mode::AlphaBlend);
 
 	// Textures
-	SetDiffuseTexture("../../Assets/Images/Water/water2.jpg");
+	SetDiffuseTexture("../../Assets/Images/Water/water.jpg");
 	SetSpecularTexture("../../Assets/Images/Water/waterSpec.jpg");
 	SetDisplacementTexture("../../Assets/Images/Water/waterdudv.png");
 	SetNormalTexture("../../Assets/Images/Water/waterNormal.png");

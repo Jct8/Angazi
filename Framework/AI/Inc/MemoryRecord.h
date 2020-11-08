@@ -2,13 +2,13 @@
 
 namespace Angazi::AI
 {
-	using Propery = std::variant<int, float, Math::Vector2>;
+	using Property = std::variant<int, float, Math::Vector2>;
 
 	//template<class...Property>
 	struct MemoryRecord
 	{
 		//std::unordered_map<std::string, std::variant<Property>> properties;
-		std::unordered_map<std::string, Propery> properties;
+		std::unordered_map<std::string, Property> properties;
 		uint64_t entityId = 0;
 		float lastRecordTime = 0.0f;
 		float importance = 0.0f;

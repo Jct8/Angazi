@@ -109,6 +109,13 @@ void PbrEffect::Begin()
 	mPreFilterMap.BindPS(8);
 	mBRDFlutTexture.BindPS(9);
 
+	if (!mAmbientOcclusionMap.GetShaderResourceView())
+		mSettings.aoMapWeight = 0.0f;
+	if (!mDisplacementMap.GetShaderResourceView())
+		mSettings.bumpMapWeight = 0.0f;
+	if (!mNormalMap.GetShaderResourceView())
+		mSettings.normalMapWeight = 0.0f;
+
 	mVertexShader.Bind();
 	mPixelShader.Bind();
 }
@@ -226,6 +233,7 @@ void PbrEffect::SetDiffuseTexture(const Texture * diffuseTexture)
 }
 void PbrEffect::SetNormalTexture(const Texture * normalTexture)
 {
+	mSettings.normalMapWeight = 1.0f;
 	normalTexture->BindPS(2);
 }
 void PbrEffect::SetDisplacementTexture(const Texture * displacementTexture)
@@ -234,6 +242,7 @@ void PbrEffect::SetDisplacementTexture(const Texture * displacementTexture)
 }
 void PbrEffect::SetAOTexture(const Texture * aoTexture)
 {
+	mSettings.aoMapWeight = 1.0f;
 	aoTexture->BindPS(3);
 }
 void PbrEffect::SetDepthTexture(const Texture * depthTexture)

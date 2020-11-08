@@ -386,9 +386,9 @@ Mesh MeshBuilder::CreateSphere(float radius, int rings, int slices, int repeated
 		phi += phiIncrement;
 	}
 
-	for (int y = 0; y <= rings; y++)
+	for (int y = 0; y < rings; y++)
 	{
-		for (int x = 0; x <= slices; x++)
+		for (int x = 0; x < slices; x++)
 		{
 			retMesh.indices.push_back(y * slices + x);
 			retMesh.indices.push_back((y + 1) * slices + x + 1);

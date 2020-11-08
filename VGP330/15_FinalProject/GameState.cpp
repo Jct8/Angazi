@@ -10,8 +10,8 @@ void GameState::Initialize()
 {
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
-	mCamera.SetPosition({ 0.0f,3.0f,-5.0f });
-	mCamera.SetDirection({ 0.0f,0.0f, 1.0f });
+	mCamera.SetPosition({ -52.6286125f,-14.4062014f,-25.0168896f });
+	mCamera.SetDirection({ 0.300396204f, 0.183217078f ,-0.936052144f  });
 
 	mPlaneMeshBuffer.Initialize(MeshBuilder::CreatePlane(200.0f, 20, 20));
 
@@ -26,38 +26,46 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
 	mMaterial.power = 80.0f;
 
+	mModelMaterial.ambient = { 0.8f,0.8f,0.8f ,1.0f };
+	mModelMaterial.diffuse = { 1.0f,1.0f,1.0f ,1.0f };
+	mModelMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
+	mModelMaterial.power = 80.0f;
+
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 
 	// Post Processing
 	auto graphicsSystem = GraphicsSystem::Get();
-	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
+	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_F16);
 	mScreenQuadBuffer.Initialize(MeshBuilder::CreateNDCQuad());
 
 	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
 	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
 
-	// Tank
-	mTankPosition = { 0.0f,3.5f,0.0f };
-	ObjLoader::Load("../../Assets/Models/Tank/tank.obj", 0.001f, mTankMesh);
-	mTankMeshBuffer.Initialize(mTankMesh);
+	// Boat
+	mBoatPosition = { 0.0f,3.5f,0.0f };
+	ObjLoader::Load("../../Assets/Models/OldBoat/OldBoat.obj", 0.5f, mBoatMesh);
+	mBoatMeshBuffer.Initialize(mBoatMesh);
 
 	// Terrain
-	mTerrain.Initialize(200, 200, 1.0f);
-	mTerrain.SetHeightScale(30.0f);
-	mTerrain.LoadHeightmap("../../Assets/Heightmaps/heightmap_200x200.raw");
+	ObjLoader::Load("../../Assets/Models/Terrain/terrain_01.obj", 0.01f, mRockyTerrain);
+	mRockyTerrainBuffer.Initialize(mRockyTerrain);
 
-	mTranslation = { 21.3f,2.1f,43.5f };
-	mTankPosition = { 18.0f,3.8f,40.2f };
+	//mTranslation = { 21.3f,2.1f,43.5f };
+	//mBoatPosition = { 20.4f,2.1f,40.8f };
+	mTranslation = { 0.0f,-16.5f,-64.5f };
+	mBoatPosition = { -48.0f,-16.8f,-34.8f };
+	mRotation = { 0.0f,0.5f ,0.0f };
 
-	mGroundEffect.Initialize("../../Assets/Shaders/Standard.fx");
-	mGroundEffect.SetDiffuseTexture("../../Assets/Images/MountainRock.png");
+	mGroundEffect.Initialize();
+	mGroundEffect.SetDiffuseTexture("../../Assets/Models/Terrain/textures/base.png");
+	mGroundEffect.SetNormalTexture("../../Assets/Models/Terrain/textures/Normal2.png");
+	mGroundEffect.SetMetallicTexture("../../Assets/Models/Terrain/textures/metallic.png");
+	mGroundEffect.SetRoughnessTexture("../../Assets/Models/Terrain/textures/roughness.png");
 
-	mTankEffect.Initialize("../../Assets/Shaders/Standard.fx");
-	mTankEffect.SetDiffuseTexture("../../Assets/Models/Tank/tank_diffuse.jpg");
-	mTankEffect.SetSpecularTexture("../../Assets/Models/Tank/tank_specular.jpg");
-	mTankEffect.SetNormalTexture("../../Assets/Models/Tank/tank_normal.jpg");
-	mTankEffect.SetAOTexture("../../Assets/Models/Tank/tank_ao.jpg");
-	mTankEffect.SetBrightness(1.0f);
+	mBoatEffect.Initialize("../../Assets/Shaders/Standard.fx");
+	mBoatEffect.SetDiffuseTexture("../../Assets/Models/OldBoat/boattex2.jpg");
+	mBoatEffect.SetNormalTexture("../../Assets/Models/OldBoat/boattexnm.jpg");
+	mBoatEffect.SetBrightness(2.5f);
 
 	mWaterEffect.Initialize("../../Assets/Shaders/Water.fx");
 	mWaterEffect.SetBrightness(waterBrightness);
@@ -66,9 +74,10 @@ void GameState::Initialize()
 	mWaterEffect.SetReflectivePower(waterReflectionPower);
 
 	mHdrEffect.Initialize();
-	mHdrEffect.EnableHDR(true);
-	mHdrEffect.EnableGammaCorrection(true);
+	mHdrEffect.EnableHDR(false);
+	mHdrEffect.EnableGammaCorrection(false);
 
+	mSkybox.ChangeDefualtSkybox(2);
 	mSkybox.CreateSkybox();
 }
 
@@ -78,11 +87,11 @@ void GameState::Terminate()
 
 	mHdrEffect.Terminate();
 	mWaterEffect.Terminate();
-	mTankEffect.Terminate();
+	mBoatEffect.Terminate();
 	mGroundEffect.Terminate();
 
-	mTerrain.Terminate();
-	mTankMeshBuffer.Terminate();
+	mRockyTerrainBuffer.Terminate();
+	mBoatMeshBuffer.Terminate();
 
 	mPostProcessingPixelShader.Terminate();
 	mPostProcessingVertexShader.Terminate();
@@ -131,7 +140,6 @@ void GameState::Render()
 	DrawScene(RenderType::Reflection);
 	mWaterEffect.EndReflection(mCamera);
 
-
 	/////Normal///////
 	mRenderTarget.BeginRender();
 	DrawScene(RenderType::Normal);
@@ -153,7 +161,7 @@ void GameState::DebugUI()
 	{
 		ImGui::Image(
 			mWaterEffect.GetRefractionTexture(),
-			{ 150.0f,150.0f },
+			{ 100.0f,100.0f },
 			{ 0.0f,0.0f },
 			{ 1.0f,1.0f },
 			{ 1.0f,1.0f ,1.0f,1.0f },
@@ -164,7 +172,7 @@ void GameState::DebugUI()
 	{
 		ImGui::Image(
 			mWaterEffect.GetReflectionTexture(),
-			{ 150.0f,150.0f },
+			{ 100.0f,100.0f },
 			{ 0.0f,0.0f },
 			{ 1.0f,1.0f },
 			{ 1.0f,1.0f ,1.0f,1.0f },
@@ -197,31 +205,35 @@ void GameState::DebugUI()
 		static bool normal = true;
 		static bool specular = true;
 		static bool aoMap = true;
+		static float normalWeight = 1.5f;
 		if (ImGui::Checkbox("Normal Map", &normal))
-			mWaterEffect.SetNormalMapWeight(normal ? 1.0f : 0.0f);
-		if (ImGui::Checkbox("Specular Map", &specular))
-			mWaterEffect.SetSpecularMapWeight(specular ? 1.0f : 0.0f);
+			mWaterEffect.SetNormalMapWeight(normal ? normalWeight : 0.0f);
+		if(ImGui::SliderFloat("Normal Map Weight", &normalWeight, 0.0f, 50.f))
+			mWaterEffect.SetNormalMapWeight(normalWeight);
+		//if (ImGui::Checkbox("Specular Map", &specular))
+		//	mWaterEffect.SetSpecularMapWeight(specular ? 1.0f : 0.0f);
 		if(ImGui::SliderFloat("Displacement", &waterDisplacement, 0.0f, 1.0f))
 			mWaterEffect.SetWaterDisplacement(waterDisplacement);
-		if(ImGui::SliderFloat("Brightness", &waterBrightness, 0.0f, 10.f))
-			mWaterEffect.SetBrightness(waterBrightness);
+		//if(ImGui::SliderFloat("Brightness", &waterBrightness, 0.0f, 10.f))
+		//	mWaterEffect.SetBrightness(waterBrightness);
 		if (ImGui::SliderFloat("Movement Speed", &waterMovementSpeed, 0.0001f, 0.1f))
 			mWaterEffect.SetMovementSpeed(waterMovementSpeed);
-		if (ImGui::SliderFloat("Reflective Factor", &waterReflectionPower, 0.0f, 10.0f))
+		if (ImGui::SliderFloat("Reflective Factor", &waterReflectionPower, 0.0f, 1.0f))
 			mWaterEffect.SetReflectivePower(waterReflectionPower);
+		ImGui::NewLine();
 	}
-	if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Transforms"))
 	{
 		ImGui::DragFloat3("Rotation##Transform", &mRotation.x, 0.01f);
 		ImGui::DragFloat3("WaterTranslation##Transform", &mTranslation.x, 0.3f);
-		ImGui::DragFloat3("TankTranslation##Transform", &mTankPosition.x, 0.3f);
+		ImGui::DragFloat3("BoatTranslation##Transform", &mBoatPosition.x, 0.3f);
 		ImGui::DragFloat3("GroundTranslation##Transform", &mGroundTranslation.x, 0.3f);
 	}
 	static float exposure = 1.0f;
-	if (ImGui::SliderFloat("Exposure", &exposure, 0.0f, 10.0f))
-	{
-		mHdrEffect.SetExposure(exposure);
-	}
+	//if (ImGui::SliderFloat("Exposure", &exposure, 0.0f, 10.0f))
+	//{
+	//	mHdrEffect.SetExposure(exposure);
+	//}
 	ImGui::End();
 }
 
@@ -240,26 +252,65 @@ void GameState::DrawScene(RenderType rendertype)
 		mClippingPlane = { 0.0f, 1.0f,0.0f, -mTranslation.y + 0.4f }; // Cull Down
 		break;
 	case GameState::Refraction:
-		mClippingPlane = { 0.0f, -1.0f,0.0f, mTranslation.y + 0.4f }; // Cull Up
+		mClippingPlane = { 0.0f, -1.0f,0.0f, mTranslation.y +0.4f}; // Cull Up
 		break;
 	default:
 		mClippingPlane = { 0.0f, 0.0f,0.0f,0.0f }; // No Cull
 		break;
 	}
-	mTerrain.SetClippingPlane(mClippingPlane);
-	mTankEffect.SetClippingPlane(mClippingPlane);
+	mBoatEffect.SetClippingPlane(mClippingPlane);
 	mGroundEffect.SetClippingPlane(mClippingPlane);
 
 	auto matTrans = Matrix4::Translation(mTranslation);
 	auto matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
 	auto matWorld = matRot * matTrans;
 
+
+	//Boat
+	matTrans = Matrix4::Translation({ mBoatPosition });
+	matRot = Matrix4::RotationX(mBoatRotation.x) * Matrix4::RotationY(mBoatRotation.y) * Matrix4::RotationZ(mBoatRotation.z);
+	matWorld = Matrix4::Scaling(0.5f)* matRot * matTrans;
+	mBoatEffect.Begin();
+
+	mBoatEffect.SetMaterial(mModelMaterial);
+	mBoatEffect.SetDirectionalLight(mDirectionalLight);
+	mBoatEffect.SetViewPosition(mCamera.GetPosition());
+	mBoatEffect.SetWorldMatrix(matWorld);
+	mBoatEffect.SetWVPMatrix(matWorld, matView, matProj);
+	//mGroundEffect.SetDepthTexture(target);
+	//auto wvpLight = Transpose(matWorld * lightVP);
+	//mGroundEffect.UpdateShadowBuffer(wvpLight);
+	mBoatEffect.UpdateSettings();
+
+	mBoatMeshBuffer.Draw();
+	mBoatEffect.End();
+
+	// Ground
+	matTrans = Matrix4::Translation({ mGroundTranslation });
+	matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
+	matWorld =  matRot * matTrans;
+	mGroundEffect.Begin();
+	mGroundEffect.SetMaterial(mMaterial);
+	mGroundEffect.SetDirectionalLight(mDirectionalLight);
+	mGroundEffect.SetViewPosition(mCamera.GetPosition());
+	mGroundEffect.SetWorldMatrix(matWorld);
+	mGroundEffect.SetWVPMatrix(matWorld, matView, matProj);
+	//mGroundEffect.SetNormalMapWeight(1.0f);
+	//mGroundEffect.SetDepthTexture(target);
+	//auto wvpLight = Transpose(matWorld * lightVP);
+	//mGroundEffect.UpdateShadowBuffer(wvpLight);
+	mGroundEffect.UpdateSettings();
+
+	//mPlaneMeshBuffer.Draw();
+	mRockyTerrainBuffer.Draw();
+	mGroundEffect.End();
+
 	//Water
 	if (rendertype == RenderType::Normal)
 	{
 		matTrans = Matrix4::Translation({ mTranslation });
 		matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
-		matWorld = matRot * matTrans;
+		matWorld = Matrix4::Scaling({12.5f,1.0f,7.0f}) * matTrans* matRot ;
 
 		mWaterEffect.Begin();
 		mWaterEffect.SetMaterial(mMaterial);
@@ -275,46 +326,6 @@ void GameState::DrawScene(RenderType rendertype)
 		mPlaneMeshBuffer.Draw();
 		mWaterEffect.End();
 	}
-
-	//Tank
-	matTrans = Matrix4::Translation({ mTankPosition });
-	matRot = Matrix4::RotationX(mTankRotation.x) * Matrix4::RotationY(mTankRotation.y) * Matrix4::RotationZ(mTankRotation.z);
-	matWorld = Matrix4::Scaling(0.5f)* matRot * matTrans;
-	mTankEffect.Begin();
-	mTankEffect.SetMaterial(mMaterial);
-	mTankEffect.SetDirectionalLight(mDirectionalLight);
-	mTankEffect.SetViewPosition(mCamera.GetPosition());
-	mTankEffect.SetWorldMatrix(matWorld);
-	mTankEffect.SetWVPMatrix(matWorld, matView, matProj);
-	//mGroundEffect.SetDepthTexture(target);
-	//auto wvpLight = Transpose(matWorld * lightVP);
-	//mGroundEffect.UpdateShadowBuffer(wvpLight);
-	mTankEffect.UpdateSettings();
-
-	mTankMeshBuffer.Draw();
-	mTankEffect.End();
-
-	// Ground
-	matTrans = Matrix4::Translation({ mGroundTranslation });
-	matRot = Matrix4::RotationX(mRotation.x) * Matrix4::RotationY(mRotation.y) * Matrix4::RotationZ(mRotation.z);
-	matWorld =  matRot * matTrans;
-	mGroundEffect.Begin();
-	mGroundEffect.SetMaterial(mMaterial);
-	mGroundEffect.SetDirectionalLight(mDirectionalLight);
-	mGroundEffect.SetViewPosition(mCamera.GetPosition());
-	mGroundEffect.SetWorldMatrix(matWorld);
-	mGroundEffect.SetWVPMatrix(matWorld, matView, matProj);
-	//mGroundEffect.SetDepthTexture(target);
-	//auto wvpLight = Transpose(matWorld * lightVP);
-	//mGroundEffect.UpdateShadowBuffer(wvpLight);
-	mGroundEffect.UpdateSettings();
-
-	mPlaneMeshBuffer.Draw();
-	mGroundEffect.End();
-
-	// Terrain
-	mTerrain.SetDirectionalLight(mDirectionalLight);
-	mTerrain.Render(mCamera);
 }
 
 void GameState::PostProcess()

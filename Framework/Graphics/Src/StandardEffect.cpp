@@ -74,10 +74,14 @@ void StandardEffect::Begin()
 	mNormalMap.BindPS(3);
 	mAmbientOcclusionMap.BindPS(4);
 
-	mSettings.aoMapWeight = 0.0f;
-	mSettings.specularMapWeight = 0.0f;
-	mSettings.bumpMapWeight = 0.0f;
-	mSettings.normalMapWeight = 0.0f;
+	if(!mAmbientOcclusionMap.GetShaderResourceView())
+		mSettings.aoMapWeight = 0.0f;
+	if (!mSpecularMap.GetShaderResourceView())
+		mSettings.specularMapWeight = 0.0f;
+	if (!mDisplacementMap.GetShaderResourceView())
+		mSettings.bumpMapWeight = 0.0f;
+	if (!mNormalMap.GetShaderResourceView())
+		mSettings.normalMapWeight = 0.0f;
 
 	mVertexShader.Bind();
 	mPixelShader.Bind();
@@ -151,9 +155,9 @@ void StandardEffect::SetClippingPlane(const Math::Vector4& plane)
 	mClippingConstantBuffer.Set(mClipping);
 }
 
-void StandardEffect::SetDiffuseTexture(const std::filesystem::path& fileName)
+void StandardEffect::SetDiffuseTexture(const std::filesystem::path& fileName, bool enableGammaCorrection)
 {
-	mDiffuseMap.Initialize(fileName, true);
+	mDiffuseMap.Initialize(fileName, enableGammaCorrection);
 }
 void StandardEffect::SetNormalTexture(const std::filesystem::path& fileName)
 {

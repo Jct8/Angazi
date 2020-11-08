@@ -36,7 +36,7 @@ namespace Angazi::Graphics
 
 		void SetClippingPlane(const Math::Vector4& plane);
 
-		void SetDiffuseTexture(const std::filesystem::path& fileName);
+		void SetDiffuseTexture(const std::filesystem::path& fileName, bool enableGammaCorrection = false);
 		void SetNormalTexture(const std::filesystem::path& fileName);
 		void SetSpecularTexture(const std::filesystem::path& fileName);
 		void SetDisplacementTexture(const std::filesystem::path& fileName);

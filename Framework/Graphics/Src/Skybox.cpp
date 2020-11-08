@@ -31,6 +31,8 @@ void Skybox::CreateSkybox(const std::filesystem::path& hdrImagePath)
 		for (std::map<Side, std::filesystem::path>::iterator it = cubeSides.begin(); it != cubeSides.end(); ++it)
 			fileNames.push_back(it->second);
 		mTexture.Initialize(fileNames, true);
+		mIrradianceMap.InitializeCubeMap(mTexture, "../../Assets/Shaders/IrradianceMap.fx", 32, Texture::CubeMapType::IrradianceMap);
+		mPrefilterMap.InitializeCubeMap(mTexture, "../../Assets/Shaders/PreFilter.fx", 256, Texture::CubeMapType::PreFiltered);
 	}
 	else
 	{

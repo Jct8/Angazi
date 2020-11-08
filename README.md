@@ -97,11 +97,11 @@ Rendering features include:
     5. Post Processing
 
 <p align="center">
-    <img src="Assets/Images/ReadMe/Pbr.PNG" alt="Logo" width="960" height="600">
+    <img src="Assets/Images/ReadMe/Pbr.PNG" alt="Logo" width="801" height="470">
 </p>
 
 <p align="center">
-    <img src="Assets/Images/ReadMe/PbrModel.PNG" alt="Logo" width="960" height="600">
+    <img src="Assets/Images/ReadMe/PbrModel.PNG" alt="Logo" width="801" height="470">
 </p>
 
 ### Memory Management
@@ -149,7 +149,7 @@ Rendering features include:
 3. The Editor can save and load scenes
 
 <p align="center">
-    <img src="Assets/Images/ReadMe/Editor.PNG" alt="Logo" width="960" height="600">
+    <img src="Assets/Images/ReadMe/Editor.PNG" alt="Logo" width="960" height="515">
 </p>
 
 <!-- CONTACT -->

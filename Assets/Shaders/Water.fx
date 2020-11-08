@@ -129,12 +129,16 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	float2 displacementCoords = (displacementMap.SampleLevel(textureSampler, float2(xCoord, input.texCoord.y), 1).rg * 2.0f - 1.0f) * movementSpeed;
 	displacementCoords += (displacementMap.SampleLevel(textureSampler, float2(xCoord, yCoord), 1).rg * 2.0f - 1.0f) * movementSpeed;
 	displacementCoords *= saturate(waterDepth);
+
+	float2 displacementCoords2 = (displacementMap.SampleLevel(textureSampler, float2(xCoord, input.texCoord.y), 1).rg * 2.0f - 1.0f) * normalMapWeight;
+	displacementCoords2 += (displacementMap.SampleLevel(textureSampler, float2(xCoord, yCoord), 1).rg * 2.0f - 1.0f) * normalMapWeight;
+	displacementCoords2 *= saturate(waterDepth);
 	
 	float3 normal = worldNormal;
 	if (normalMapWeight != 0.0f)
 	{
 		float3x3 TBNW = { worldTangent, worldBinormal, worldNormal};
-		float4 normalColor = normalMap.Sample(textureSampler, displacementCoords+0.09);
+		float4 normalColor = normalMap.Sample(textureSampler, displacementCoords2* 0.02 +0.09);
 		float3 normalSampled = (normalColor.xyz * 2.0f) - 1.0f;
 		normal = mul(normalSampled, TBNW);
 	}
@@ -154,7 +158,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	UVRefraction = saturate(UVRefraction + displacementCoords);
 	UVReflect = saturate(UVReflect+ displacementCoords);
 
-	float4 texColor = diffuseMap.Sample(textureSampler, displacementCoords);
+	float4 texColor = diffuseMap.Sample(textureSampler, input.texCoord+ displacementCoords);
 	float4 texColorRefraction = refractionMap.Sample(textureSampler, UVRefraction);
 	float4 texColorReflection = reflectionMap.Sample(textureSampler, UVReflect);
 
@@ -164,11 +168,11 @@ float4 PS(VS_OUTPUT input) : SV_Target
 	reflectionFactor = pow(reflectionFactor, reflectivePower);
 
 	float4 waterColor = lerp(texColorReflection, texColorRefraction, reflectionFactor);
-	texColor = lerp(texColor, waterColor, 0.77f);
+	texColor = lerp(texColor, waterColor, 0.85f);
 
 	float4 color = (ambient + diffuse) * texColor * brightness + specular * (specularMapWeight != 0.0f ? specularFactor : 1.0f);
 	color.a = saturate(waterDepth);
-	//color = float4(waterDepth, waterDepth, waterDepth, waterDepth);
+	//color = float4(color.a, color.a, color.a, color.a);
 
 	return color;
 }

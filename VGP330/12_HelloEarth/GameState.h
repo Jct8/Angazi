@@ -15,6 +15,8 @@ public:
 private:
 	Angazi::Graphics::Camera mCamera;
 
+	Angazi::Graphics::Skybox mSkybox;
+
 	Angazi::Graphics::Mesh mMesh;
 	Angazi::Graphics::MeshBuffer mMeshBuffer;
 

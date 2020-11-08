@@ -25,7 +25,8 @@ void Terrain::Initialize(uint32_t numRows, uint32_t numCols, float cellSize)
 	mTerrainPixelShader.Initialize("../../Assets/Shaders/Terrain.fx");
 
 	mSampler.Initialize(Graphics::Sampler::Filter::Anisotropic, Graphics::Sampler::AddressMode::Wrap);
-	mGrassTexture.Initialize("../../Assets/Images/grass_2048.jpg",true);
+	mDiffuseTexture.Initialize("../../Assets/Images/BeachSandDiffuse.jpg", true);
+	mNormalTexture.Initialize("../../Assets/Images/BeachSandNormal.jpg");
 
 	GenerateIndices();
 	GenerateVertices();
@@ -36,7 +37,8 @@ void Terrain::Initialize(uint32_t numRows, uint32_t numCols, float cellSize)
 void Terrain::Terminate()
 {
 	mMeshBuffer.Terminate();
-	mGrassTexture.Terminate();
+	mDiffuseTexture.Terminate();
+	mNormalTexture.Terminate();
 	mSampler.Terminate();
 
 	mTerrainPixelShader.Terminate();
@@ -105,7 +107,8 @@ void Terrain::Render(const Graphics::Camera & camera)
 	mConstantBuffer.BindPS();
 
 	mSampler.BindPS();
-	mGrassTexture.BindPS(0);
+	mDiffuseTexture.BindPS(0);
+	mNormalTexture.BindPS(1);
 
 	mTerrainVertexShader.Bind();
 	mTerrainPixelShader.Bind();

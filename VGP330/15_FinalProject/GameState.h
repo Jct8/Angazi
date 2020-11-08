@@ -30,11 +30,9 @@ private:
 
 	Angazi::Graphics::DirectionalLight mDirectionalLight;
 	Angazi::Graphics::Material mMaterial;
+	Angazi::Graphics::Material mModelMaterial;
 
-	//Terrain
-	Angazi::Terrain mTerrain;
-
-	//Textures
+	// Textures
 	Angazi::Graphics::Sampler mSampler;;
 
 	Angazi::Math::Vector3 mRotation = 0.0f;
@@ -43,15 +41,19 @@ private:
 
 	Angazi::Math::Vector4 mClippingPlane;
 
-	//Reflections - Tank
-	Angazi::Graphics::Mesh mTankMesh;
-	Angazi::Graphics::MeshBuffer mTankMeshBuffer;
-	Angazi::Math::Vector3 mTankRotation = 0.0f;
-	Angazi::Math::Vector3 mTankPosition;
+	// Reflections - Boat
+	Angazi::Graphics::Mesh mBoatMesh;
+	Angazi::Graphics::MeshBuffer mBoatMeshBuffer;
+	Angazi::Math::Vector3 mBoatRotation = 0.0f;
+	Angazi::Math::Vector3 mBoatPosition;
+
+	// Terrain mesh
+	Angazi::Graphics::Mesh mRockyTerrain;
+	Angazi::Graphics::MeshBuffer mRockyTerrainBuffer;
 
 	// Effects
-	Angazi::Graphics::StandardEffect mTankEffect;
-	Angazi::Graphics::StandardEffect mGroundEffect;
+	Angazi::Graphics::StandardEffect mBoatEffect;
+	Angazi::Graphics::PbrEffect mGroundEffect;
 	Angazi::Graphics::WaterEffect mWaterEffect;
 	Angazi::Graphics::HdrEffect mHdrEffect;
 

@@ -26,8 +26,8 @@ private:
 	Angazi::Graphics::Material mMaterial;
 	Angazi::Graphics::Sampler mSampler;
 
-	Angazi::Graphics::Mesh mMesh;
 	Angazi::Graphics::MeshBuffer mMeshBufferHelmet;
+	Angazi::Graphics::MeshBuffer mMeshBufferSciFiHelmet;
 	Angazi::Graphics::MeshBuffer mSphereBuffer;
 
 	Angazi::Graphics::PbrEffect mPbrEffect;
@@ -38,5 +38,6 @@ private:
 	std::unordered_map<std::string ,std::unordered_map<std::string,std::unique_ptr<Angazi::Graphics::Texture>>> mTextures;
 
 	Angazi::Math::Vector3 mRotation = 0.0f;
+	float distance = 0.6f;
 	bool useTextureMap = true;
 };
