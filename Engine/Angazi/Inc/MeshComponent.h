@@ -19,11 +19,12 @@ namespace Angazi
 
 	private:
 		const TransformComponent* mTransformComponent = nullptr;
-		const MaterialComponent* mMaterialComponent = nullptr;
+		MaterialComponent* mMaterialComponent = nullptr;
 		std::filesystem::path mMeshFileName = "None";
 		std::vector<Graphics::MeshId> mMeshIds;
 
 		bool mIsCastingShadow = false;
-		bool mIsReceivingShadows= false;
+		bool mIsReceivingShadows = false;
+		bool mIsUsingIBL = false;
 	};
 }

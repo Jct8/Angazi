@@ -1,0 +1,240 @@
+{
+    "GameObjects": [
+        {
+            "Template": "NoTemplate",
+            "Name": "rpgpp_lt_terrain_grass_01",
+            "Enabled": true,
+            "Components": {
+                "TransformComponent": {
+                    "Position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Rotation": {
+                        "xDegree": -0.0,
+                        "yDegree": 0.0,
+                        "zDegree": -0.0
+                    },
+                    "Scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                "MeshComponent": {
+                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_grass_01.fbx",
+                    "CastingShadow": false,
+                    "ReceivingShadows": true
+                },
+                "MaterialComponent": {
+                    "DiffuseFilePath": "",
+                    "NormalFilePath": "",
+                    "SpecularFilePath": "",
+                    "DisplacementFilePath": "",
+                    "AmbientOcculsionFilePath": "",
+                    "MetallicFilePath": "",
+                    "RoughnessFilePath": "",
+                    "Material": {
+                        "Ambient": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0,
+                            "w": 1.0
+                        },
+                        "Diffuse": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0,
+                            "w": 1.0
+                        },
+                        "Specular": {
+                            "x": 0.5,
+                            "y": 0.5,
+                            "z": 0.5,
+                            "w": 1.0
+                        },
+                        "Power": 0.0
+                    }
+                }
+            }
+        },
+        {
+            "Template": "NoTemplate",
+            "Name": "rpgpp_lt_building_03",
+            "Enabled": true,
+            "Components": {
+                "TransformComponent": {
+                    "Position": {
+                        "x": 8.0,
+                        "y": 1.399999976158142,
+                        "z": -5.400000095367432
+                    },
+                    "Rotation": {
+                        "xDegree": -0.0,
+                        "yDegree": 89.98028564453125,
+                        "zDegree": -0.0
+                    },
+                    "Scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                "MeshComponent": {
+                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\buildings\\rpgpp_lt_building_03.fbx",
+                    "CastingShadow": false,
+                    "ReceivingShadows": false
+                },
+                "MaterialComponent": {
+                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "NormalFilePath": "",
+                    "SpecularFilePath": "",
+                    "DisplacementFilePath": "",
+                    "AmbientOcculsionFilePath": "",
+                    "MetallicFilePath": "",
+                    "RoughnessFilePath": "",
+                    "Material": {
+                        "Ambient": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0,
+                            "w": 1.0
+                        },
+                        "Diffuse": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0,
+                            "w": 1.0
+                        },
+                        "Specular": {
+                            "x": 0.5,
+                            "y": 0.5,
+                            "z": 0.5,
+                            "w": 1.0
+                        },
+                        "Power": 0.0
+                    }
+                }
+            }
+        },
+        {
+            "Template": "NoTemplate",
+            "Name": "rpgpp_lt_building_04",
+            "Enabled": true,
+            "Components": {
+                "TransformComponent": {
+                    "Position": {
+                        "x": -9.600000381469727,
+                        "y": 2.0,
+                        "z": 10.600000381469727
+                    },
+                    "Rotation": {
+                        "xDegree": -0.0,
+                        "yDegree": 89.98028564453125,
+                        "zDegree": -0.0
+                    },
+                    "Scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                "MeshComponent": {
+                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\buildings\\rpgpp_lt_building_04.fbx",
+                    "CastingShadow": false,
+                    "ReceivingShadows": false
+                },
+                "MaterialComponent": {
+                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "NormalFilePath": "",
+                    "SpecularFilePath": "",
+                    "DisplacementFilePath": "",
+                    "AmbientOcculsionFilePath": "",
+                    "MetallicFilePath": "",
+                    "RoughnessFilePath": "",
+                    "Material": {
+                        "Ambient": {
+                            "x": 0.4217391014099121,
+                            "y": 0.42173486948013308,
+                            "z": 0.42173486948013308,
+                            "w": 1.0
+                        },
+                        "Diffuse": {
+                            "x": 0.2130434513092041,
+                            "y": 0.21304132044315339,
+                            "z": 0.21304132044315339,
+                            "w": 1.0
+                        },
+                        "Specular": {
+                            "x": 0.5,
+                            "y": 0.5,
+                            "z": 0.5,
+                            "w": 1.0
+                        },
+                        "Power": 0.0
+                    }
+                }
+            }
+        },
+        {
+            "Template": "NoTemplate",
+            "Name": "rpgpp_lt_wagon_01",
+            "Enabled": true,
+            "Components": {
+                "TransformComponent": {
+                    "Position": {
+                        "x": -12.399999618530274,
+                        "y": 2.0,
+                        "z": -3.5999999046325685
+                    },
+                    "Rotation": {
+                        "xDegree": 180.00015258789063,
+                        "yDegree": -74.400146484375,
+                        "zDegree": 180.00015258789063
+                    },
+                    "Scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                "MeshComponent": {
+                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wagon_01.fbx",
+                    "CastingShadow": false,
+                    "ReceivingShadows": false
+                },
+                "MaterialComponent": {
+                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "NormalFilePath": "",
+                    "SpecularFilePath": "",
+                    "DisplacementFilePath": "",
+                    "AmbientOcculsionFilePath": "",
+                    "MetallicFilePath": "",
+                    "RoughnessFilePath": "",
+                    "Material": {
+                        "Ambient": {
+                            "x": 0.595652163028717,
+                            "y": 0.5956462025642395,
+                            "z": 0.5956462025642395,
+                            "w": 1.0
+                        },
+                        "Diffuse": {
+                            "x": 0.12608695030212403,
+                            "y": 0.12608568370342256,
+                            "z": 0.12608568370342256,
+                            "w": 1.0
+                        },
+                        "Specular": {
+                            "x": 0.5,
+                            "y": 0.5,
+                            "z": 0.5,
+                            "w": 1.0
+                        },
+                        "Power": 0.0
+                    }
+                }
+            }
+        }
+    ]
+}

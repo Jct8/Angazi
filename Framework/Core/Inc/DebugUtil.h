@@ -31,7 +31,14 @@ namespace Angazi::Core
 		}\
 	END_MACRO
 #else
-#define LOG(format, ...)
+//#define LOG(format, ...)
+#define LOG(format, ...)\
+	BEGIN_MACRO\
+		char _buffer[4096];\
+		int _res = _snprintf_s(_buffer, std::size(_buffer), _TRUNCATE, "[%.3f]: "##format##"\n", Angazi::Core::TimeUtil::GetTime(), __VA_ARGS__);\
+		OutputDebugStringA(_buffer);\
+		Angazi::Core::OnDebugLog(_buffer);\
+	END_MACRO
 #define ASSERT(condition, format, ...) do { (void)(sizeof(condition)); } while (false)
 #endif
 

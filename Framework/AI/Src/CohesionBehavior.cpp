@@ -20,6 +20,6 @@ Math::Vector2 CohesionBehavior::Calculate(Agent & agent)
 		else
 			return Seek(agent,target );
 	}
-	else
+	else 
 		return Math::Vector2();
 }

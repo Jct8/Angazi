@@ -5,6 +5,7 @@
 
 #include "D3DUtil.h"
 #include <ImGui/Inc/imgui.h>
+#include <ImGui/Inc/implot.h>
 #include <ImGui/Inc/imgui_impl_dx11.h>
 #include <ImGui/Inc/imgui_impl_win32.h>
 
@@ -169,6 +170,7 @@ void DebugUI::StaticInitialize(HWND window, bool docking, bool multiViewport)
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
+	ImPlot::CreateContext();
 
 	ImGuiIO& io = ImGui::GetIO();
 	if (docking)
@@ -190,6 +192,7 @@ void DebugUI::StaticTerminate()
 
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
+	ImPlot::DestroyContext();
 	ImGui::DestroyContext();
 }
 

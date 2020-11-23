@@ -35,10 +35,10 @@ void ShadowEffect::Initialize(const std::filesystem::path & fileName)
 	mLightCamera.SetFov(1.0f);
 	mLightCamera.SetAspectRatio(1.0f);
 
-	constexpr uint32_t depthMapSize = 8000;//4096;
+	constexpr uint32_t depthMapSize = 15000;// 8000;//4096;
 	auto graphicsSystem = GraphicsSystem::Get();
 	//mDepthMapRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
-	mDepthMapRenderTarget.Initialize(depthMapSize, depthMapSize, RenderTarget::Format::RGBA_U8);
+	mDepthMapRenderTarget.Initialize(depthMapSize, depthMapSize, RenderTarget::Format::RGBA_U32);
 	mDepthMapVertexShader.Initialize(fileName, BoneVertex::Format);
 	mDepthMapPixelShader.Initialize(fileName);
 	mDepthMapConstantBuffer.Initialize();
@@ -127,8 +127,9 @@ void ShadowEffect::SetLightDirection(const Math::Vector3 & direction, const Came
 		lightUp * (minY + maxY) * 0.5f +
 		lightLook * (minZ + maxZ) * 0.5f
 	);
-	mLightCamera.SetNearPlane(minZ - mCurrentCamera.GetFarPlane());
-	mLightCamera.SetFarPlane(maxZ + mCurrentCamera.GetFarPlane());
+	float farplane = Math::Min(mCurrentCamera.GetFarPlane(), 50.0f);
+	mLightCamera.SetNearPlane(minZ - farplane);
+	mLightCamera.SetFarPlane(maxZ + farplane);
 	mLightProjectionMatrix = mLightCamera.GetOrthographicMatrix(maxX - minX, maxY - minY);
 }
 

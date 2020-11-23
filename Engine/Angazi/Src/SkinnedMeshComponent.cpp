@@ -49,7 +49,11 @@ void SkinnedMeshComponent::Initialize()
 	mTransformComponent = GetGameObject().GetComponent<TransformComponent>();
 	mMaterialComponent = GetGameObject().GetComponent<MaterialComponent>();
 	if (!mMaterialComponent)
+	{
 		mMaterialComponent = GetGameObject().AddComponent<MaterialComponent>();
+		mMaterialComponent->Initialize();
+	}
+	
 	InitializeAnimator();
 
 	mInitialized = true;
@@ -121,7 +125,8 @@ void SkinnedMeshComponent::Update(float deltaTime)
 	if (currentAnimation == -1)
 		animator.ComputeBindPose();
 	constexpr float dt = 1.0f / 60.0f;
-	animator.Update(dt);
+	if(isPlayingAnimation)
+		animator.Update(dt);
 }
 
 void SkinnedMeshComponent::ShowInspectorProperties()
@@ -147,7 +152,7 @@ void SkinnedMeshComponent::ShowInspectorProperties()
 
 		auto model = ModelManager::Get()->GetModel(mModelId);
 
-		ImGui::Text("Animation");
+		ImGui::Text("Animations");
 		ImGui::NextColumn();
 		const char* combo_label = model != nullptr ? model->animationSet.clips[currentAnimation]->name.c_str() : "No Model";
 		if (ImGui::BeginCombo("##Animations", combo_label))
@@ -172,14 +177,19 @@ void SkinnedMeshComponent::ShowInspectorProperties()
 		}
 		ImGui::NextColumn();
 
+		ImGui::Text("Play Animation"); ImGui::SameLine();
+		ImGui::NextColumn();
+		ImGui::Checkbox("##StopPlayAnimation", &isPlayingAnimation);
+		ImGui::NextColumn();
+
 		ImGui::Text("Cast Shadows"); ImGui::SameLine();
 		ImGui::NextColumn();
 		ImGui::Checkbox("##CastShadow", &mIsCastingShadow);
 		ImGui::NextColumn();
 
-		ImGui::Text("Recieve Shadows"); ImGui::SameLine();
+		ImGui::Text("Receive Shadows"); ImGui::SameLine();
 		ImGui::NextColumn();
-		ImGui::Checkbox("##RecieveShadow", &mIsReceivingShadows);
+		ImGui::Checkbox("##ReceiveShadow", &mIsReceivingShadows);
 		ImGui::NextColumn();
 
 		ImGui::Text("Show Bones"); ImGui::SameLine();

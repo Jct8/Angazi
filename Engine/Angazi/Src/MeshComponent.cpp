@@ -32,7 +32,8 @@ namespace
 	void ChangeMesh(const char* title, std::vector<MeshId>& meshIds, std::filesystem::path& originalPath)
 	{
 		char filePath[MAX_PATH]{};
-		const char* filter = "Obj Files (*.obj)\0*.obj;\0FBX Files (*.fbx)\0*.fbx";
+		const char* filter = "Supported Files(*.obj, *.fbx)\0*.obj;*.fbx";
+		//const char* filter = "Obj Files (*.obj)\0*.obj \0FBX Files (*.fbx)\0*.fbx";
 		if (MainApp().OpenFileDialog(filePath, title, filter))
 		{
 			std::string x = filePath;
@@ -41,6 +42,7 @@ namespace
 			MeshLoader::Load(originalPath, 1.0f, meshIds);
 			if (meshIds.empty())
 				meshIds.emplace_back(MeshManager::Get()->LoadMesh(originalPath));
+			
 		}
 	}
 }
@@ -53,7 +55,10 @@ void MeshComponent::Initialize()
 	mTransformComponent = GetGameObject().GetComponent<TransformComponent>();
 	mMaterialComponent = GetGameObject().GetComponent<MaterialComponent>();
 	if (!mMaterialComponent)
+	{
 		mMaterialComponent = GetGameObject().AddComponent<MaterialComponent>();
+		mMaterialComponent->Initialize();
+	}
 
 	MeshLoader::Load(mMeshFileName, 1.0f, mMeshIds);
 	if (mMeshIds.empty())
@@ -102,7 +107,7 @@ void MeshComponent::Render()
 		pbrShader->SetPreFilterMap(env.GetPrefilteredMap());
 		pbrShader->SetIrradianceMap(env.GetIrradianceMap());
 
-		pbrShader->useIBL(true);
+		pbrShader->useIBL(mIsUsingIBL);
 		pbrShader->UseShadow(mIsReceivingShadows);
 		pbrShader->SetSkinnedMesh(false);
 		pbrShader->SetTransformData(matWorld, camera.GetViewMatrix(), camera.GetPerspectiveMatrix(), camera.GetPosition());
@@ -185,7 +190,11 @@ void MeshComponent::ShowInspectorProperties()
 		ImGui::Text("Change Mesh"); ImGui::SameLine();
 		ImGui::NextColumn();
 		if (ImGui::Button("Change"))
+		{
 			ChangeMesh("Change Mesh", mMeshIds, mMeshFileName);
+			if (GetGameObject().GetName() == "Empty GameObject")
+				GetGameObject().SetName(mMeshFileName.stem().u8string().c_str());
+		}
 		ImGui::NextColumn();
 
 		ImGui::Text("Cast Shadows"); ImGui::SameLine();
@@ -193,10 +202,16 @@ void MeshComponent::ShowInspectorProperties()
 		ImGui::Checkbox("##CastShadow", &mIsCastingShadow);
 		ImGui::NextColumn();
 
-		ImGui::Text("Recieve Shadows"); ImGui::SameLine();
+		ImGui::Text("Receive Shadows"); ImGui::SameLine();
 		ImGui::NextColumn();
-		ImGui::Checkbox("##RecieveShadow", &mIsReceivingShadows);
+		ImGui::Checkbox("##ReceiveShadow", &mIsReceivingShadows);
 		ImGui::NextColumn();
+
+		ImGui::Text("Use Image Based Lighting"); ImGui::SameLine();
+		ImGui::NextColumn();
+		ImGui::Checkbox("##UseIBL", &mIsUsingIBL);
+		ImGui::NextColumn();
+
 		ImGui::Columns(1);
 	}
 }

@@ -23,7 +23,7 @@ namespace Angazi
 		void InitializeAnimator();
 
 		const TransformComponent* mTransformComponent = nullptr;
-		const MaterialComponent* mMaterialComponent = nullptr;
+		MaterialComponent* mMaterialComponent = nullptr;
 		std::filesystem::path mModelFileName = "None";
 
 		Graphics::ModelId mModelId;
@@ -31,6 +31,7 @@ namespace Angazi
 		int currentAnimation = 0;
 		Graphics::Animator animator;
 
+		bool isPlayingAnimation = false;
 		bool mShowSkeleton = false;
 		bool mIsCastingShadow = true;
 		bool mIsReceivingShadows = true;

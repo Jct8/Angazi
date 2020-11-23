@@ -30,7 +30,7 @@ void Skybox::CreateSkybox(const std::filesystem::path& hdrImagePath)
 		std::vector<std::filesystem::path> fileNames;
 		for (std::map<Side, std::filesystem::path>::iterator it = cubeSides.begin(); it != cubeSides.end(); ++it)
 			fileNames.push_back(it->second);
-		mTexture.Initialize(fileNames, true);
+		mTexture.Initialize(fileNames, false);
 		mIrradianceMap.InitializeCubeMap(mTexture, "../../Assets/Shaders/IrradianceMap.fx", 32, Texture::CubeMapType::IrradianceMap);
 		mPrefilterMap.InitializeCubeMap(mTexture, "../../Assets/Shaders/PreFilter.fx", 256, Texture::CubeMapType::PreFiltered);
 	}
@@ -114,7 +114,7 @@ void Skybox::Draw(const Angazi::Graphics::Camera & camera)
 	matView._42 = 0.0f;
 	matView._43 = 0.0f;
 
-	mTransformData.wvp = Transpose(matView * matProj);
+	mTransformData.wvp = Transpose(Math::Matrix4::RotationY(180.0f)* matView * matProj);
 	mTransformBuffer.Set(mTransformData);
 	mTransformBuffer.BindVS(0);
 

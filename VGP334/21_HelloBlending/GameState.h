@@ -21,13 +21,14 @@ private:
 
 	Angazi::Graphics::DirectionalLight mDirectionalLight;
 	Angazi::Graphics::Material mMaterial;
+	Angazi::Graphics::Material mFloorMaterial;
 
 	Angazi::Graphics::Sampler mSampler;
 
 	// Standard Effects
 	Angazi::Graphics::StandardEffect mModelStandardEffect;
 	Angazi::Graphics::StandardEffect mArenaStandardEffect;
-	Angazi::Graphics::StandardEffect mGroundStandardEffect;
+	Angazi::Graphics::PbrEffect mGroundStandardEffect;
 
 	// Model
 	Angazi::Graphics::Model model;

@@ -11,25 +11,25 @@ using namespace Angazi;
 using namespace Angazi::Graphics;
 
 META_CLASS_BEGIN(Material)
-META_FIELD_BEGIN
-META_FIELD(ambient, "Ambient")
-META_FIELD(diffuse, "Diffuse")
-META_FIELD(specular, "Specular")
-META_FIELD(power, "Power")
-META_FIELD_END
+	META_FIELD_BEGIN
+		META_FIELD(ambient, "Ambient")
+		META_FIELD(diffuse, "Diffuse")
+		META_FIELD(specular, "Specular")
+		META_FIELD(power, "Power")
+	META_FIELD_END
 META_CLASS_END;
 
 META_DERIVED_BEGIN(MaterialComponent, Component)
-META_FIELD_BEGIN
-META_FIELD(mDiffuseFilePath, "DiffuseFilePath")
-META_FIELD(mNormalFilePath, "NormalFilePath")
-META_FIELD(mSpecularFilePath, "SpecularFilePath")
-META_FIELD(mDisplacementFilePath, "DisplacementFilePath")
-META_FIELD(mAmbientOcculsionFilePath, "AmbientOcculsionFilePath")
-META_FIELD(mMetallicFilePath, "MetallicFilePath")
-META_FIELD(mRoughnessFilePath, "RoughnessFilePath")
-META_FIELD(material, "Material")
-META_FIELD_END
+	META_FIELD_BEGIN
+		META_FIELD(mDiffuseFilePath, "DiffuseFilePath")
+		META_FIELD(mNormalFilePath, "NormalFilePath")
+		META_FIELD(mSpecularFilePath, "SpecularFilePath")
+		META_FIELD(mDisplacementFilePath, "DisplacementFilePath")
+		META_FIELD(mAmbientOcculsionFilePath, "AmbientOcculsionFilePath")
+		META_FIELD(mMetallicFilePath, "MetallicFilePath")
+		META_FIELD(mRoughnessFilePath, "RoughnessFilePath")
+		META_FIELD(material, "Material")
+	META_FIELD_END
 META_CLASS_END;
 
 namespace
@@ -37,7 +37,8 @@ namespace
 	void ChangeTextureId(const char* title, TextureId& textureId, std::filesystem::path& originalPath)
 	{
 		char filePath[MAX_PATH]{};
-		const char* filter = "PNG Files (*.png)\0*.png;\0JPG Files (*.jpg)\0*.jpg";
+		const char* filter = "Supported Textures(*.png, *.jpg)\0*.png;*.jpg";
+		//const char* filter = "PNG Files (*.png)\0*.png;\0JPG Files (*.jpg)\0*.jpg";
 		if (MainApp().OpenFileDialog(filePath, title, filter))
 		{
 			if (std::filesystem::exists(filePath))
@@ -61,6 +62,9 @@ void MaterialComponent::Initialize()
 	ambientOcculsionId.emplace_back(TextureManager::Get()->Load(mAmbientOcculsionFilePath, false, false));
 	metallicId.emplace_back(TextureManager::Get()->Load(mMetallicFilePath, false, false));
 	roughnessId.emplace_back(TextureManager::Get()->Load(mRoughnessFilePath, false, false));
+	material.ambient = { 1.0f };
+	material.diffuse = { 1.0f };
+	material.specular = { 0.5f,0.5f,0.5f,1.0f };
 	mInitialized = true;
 }
 
@@ -93,7 +97,7 @@ void MaterialComponent::ShowInspectorProperties()
 		ImGui::Columns(1);
 		for (size_t i = 0; i < diffuseId.size(); i++)
 		{
-			if (ImGui::TreeNode("Material number" + i ))
+			if (ImGui::TreeNode("Material" + i ))
 			{
 				auto textureManager = TextureManager::Get();
 				constexpr float imageSize = 30.0f;

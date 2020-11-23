@@ -98,9 +98,9 @@ void Angazi::App::Run(AppConfig appConfig)
 			continue;
 		}
 
-		//constexpr float deltaTime = 1.0f / 60.0f;
+		constexpr float deltaTime = 1.0f / 60.0f;
 		//float deltaTime = Math::Min( TimeUtil::GetDeltaTime(), 1.0f / 60.0f);
-		float deltaTime = TimeUtil::GetDeltaTime();
+		//float deltaTime = TimeUtil::GetDeltaTime();
 		//LOG("dt = %.5f",deltaTime);
 		mCurrentState->Update(deltaTime);
 

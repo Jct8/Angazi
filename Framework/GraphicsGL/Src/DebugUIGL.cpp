@@ -4,6 +4,7 @@
 #ifdef ENABLE_OPENGL
 
 #include <ImGui/Inc/imgui.h>
+#include <ImGui/Inc/implot.h>
 #include <ImGui/Inc/imgui_impl_opengl3.h>
 #include <ImGui/Inc/imgui_impl_win32_opengl.h>
 #include "GraphicsSystemGL.h"
@@ -168,10 +169,9 @@ LRESULT CALLBACK DebugUIMessageHandler(HWND window, UINT message, WPARAM wParam,
 
 void DebugUI::StaticInitialize(HWND window, bool docking, bool multiViewport)
 {
-
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-
+	ImPlot::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	if (docking)
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
@@ -193,6 +193,7 @@ void DebugUI::StaticTerminate()
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplWin32_opengl_Shutdown();
+	ImPlot::DestroyContext();
 	ImGui::DestroyContext();
 }
 

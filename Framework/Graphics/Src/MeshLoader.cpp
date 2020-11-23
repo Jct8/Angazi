@@ -42,7 +42,7 @@ void MeshLoader::Load(const std::filesystem::path& filePath, float scale, std::v
 	const aiScene* scene = importer.ReadFile(rootPath.u8string() + filePath.u8string(), aiProcessPreset_TargetRealtime_Quality | aiProcess_ConvertToLeftHanded);
 	if (scene == nullptr)
 	{
-		LOG("Error: %s", importer.GetErrorString());
+		//LOG("Error: %s", importer.GetErrorString());
 		return;
 	}
 
@@ -61,7 +61,7 @@ void MeshLoader::Load(const std::filesystem::path& filePath, float scale, std::v
 			//LOG("Reading Material Index...\n");
 			//model.meshData[meshIndex].materialIndex = inputMesh->mMaterialIndex;
 
-			LOG("Reading vertices...");
+			//LOG("Reading vertices...");
 			std::vector<Vertex> vertices;
 			vertices.reserve(numVertices);
 
@@ -80,7 +80,7 @@ void MeshLoader::Load(const std::filesystem::path& filePath, float scale, std::v
 				vertices.push_back(vertex);
 			}
 
-			LOG("Reading indices...");
+			//LOG("Reading indices...");
 			std::vector<uint32_t> indices;
 			indices.reserve(numIndices);
 

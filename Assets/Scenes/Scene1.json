@@ -12,7 +12,7 @@
                         "z": 0.0
                     },
                     "Rotation": {
-                        "xDegree": -180.00015258789063,
+                        "xDegree": 180.00013732910157,
                         "yDegree": 0.00013159493391867727,
                         "zDegree": -180.00013732910157
                     },
@@ -49,15 +49,15 @@
                     "RoughnessFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_roughness.png",
                     "Material": {
                         "Ambient": {
-                            "x": 0.800000011920929,
-                            "y": 0.800000011920929,
-                            "z": 0.800000011920929,
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0,
                             "w": 1.0
                         },
                         "Diffuse": {
-                            "x": 0.800000011920929,
-                            "y": 0.800000011920929,
-                            "z": 0.800000011920929,
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0,
                             "w": 1.0
                         },
                         "Specular": {
@@ -121,24 +121,24 @@
                     "RoughnessFilePath": "",
                     "Material": {
                         "Ambient": {
-                            "x": 0.800000011920929,
-                            "y": 0.800000011920929,
-                            "z": 0.800000011920929,
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0,
                             "w": 1.0
                         },
                         "Diffuse": {
-                            "x": 0.800000011920929,
-                            "y": 0.800000011920929,
-                            "z": 0.800000011920929,
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0,
                             "w": 1.0
                         },
                         "Specular": {
-                            "x": 0.5,
-                            "y": 0.5,
-                            "z": 0.5,
+                            "x": 9.999999974752428e-7,
+                            "y": 9.17391275834234e-7,
+                            "z": 9.17391275834234e-7,
                             "w": 1.0
                         },
-                        "Power": 80.0
+                        "Power": 100.0
                     }
                 }
             }
@@ -171,13 +171,13 @@
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Images\\Floor\\Stone_Tiles_004_diffuse.jpg",
-                    "NormalFilePath": "..\\..\\Assets\\Images\\Floor\\Stone_Tiles_004_normal.jpg",
+                    "DiffuseFilePath": "..\\..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-albedo.png",
+                    "NormalFilePath": "..\\..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-Normal-dx.png",
                     "SpecularFilePath": "",
-                    "DisplacementFilePath": "..\\..\\Assets\\Images\\Floor\\Stone_Tiles_004_height.png",
-                    "AmbientOcculsionFilePath": "..\\..\\Assets\\Images\\Floor\\Stone_Tiles_004_ao.jpg",
-                    "MetallicFilePath": "",
-                    "RoughnessFilePath": "",
+                    "DisplacementFilePath": "..\\..\\Assets\\Images\\PBR\\stylized-cliff2\\stylized-cliff2_height.png",
+                    "AmbientOcculsionFilePath": "..\\..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-ao.png",
+                    "MetallicFilePath": "..\\..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-Metallic.png",
+                    "RoughnessFilePath": "..\\..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-Roughness.png",
                     "Material": {
                         "Ambient": {
                             "x": 1.0,
@@ -186,15 +186,15 @@
                             "w": 1.0
                         },
                         "Diffuse": {
-                            "x": 0.800000011920929,
-                            "y": 0.800000011920929,
-                            "z": 0.800000011920929,
+                            "x": 0.9999911785125732,
+                            "y": 0.9999899864196777,
+                            "z": 1.0,
                             "w": 1.0
                         },
                         "Specular": {
-                            "x": 1.0,
-                            "y": 0.9999899864196777,
-                            "z": 0.9999899864196777,
+                            "x": 9.999999974752428e-7,
+                            "y": 9.999899930335233e-7,
+                            "z": 9.999899930335233e-7,
                             "w": 1.0
                         },
                         "Power": 80.0

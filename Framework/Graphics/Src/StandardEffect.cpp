@@ -27,11 +27,13 @@ void StandardEffect::Initialize(const std::filesystem::path& fileName)
 	mPixelShader.Initialize(fileName);
 
 	// 
+	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Wrap);
 	mBlendState.Initialize(BlendState::Mode::Additive);
 }
 void StandardEffect::Terminate()
 {
 	mBlendState.Terminate();
+	mSampler.Terminate();
 
 	// Shaders
 	mPixelShader.Terminate();
@@ -66,6 +68,9 @@ void StandardEffect::Begin()
 	mShadowConstantBuffer.BindVS(4);
 	mBoneTransformBuffer.BindVS(5);
 	mClippingConstantBuffer.BindVS(6);
+
+	mSampler.BindVS();
+	mSampler.BindPS();
 
 	// Maps
 	mDiffuseMap.BindPS(0);

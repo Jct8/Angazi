@@ -410,8 +410,8 @@ Mesh MeshBuilder::CreatePlane(float size, int height, int width)
 	{
 		for (int x = 0; x < width; x++)
 		{
-			float u = static_cast<float>(x) / static_cast<float>(width-1);
-			float v = static_cast<float>(y) / static_cast<float>(height-1);
+			float u = static_cast<float>(x) / static_cast<float>((width-1) / size);
+			float v = static_cast<float>(y) / static_cast<float>((height-1) / size);
 			Math::Vector3 normal = Math::Vector3::YAxis;
 			Math::Vector3 tangent = Math::Vector3::ZAxis;
 			retMesh.vertices.push_back({

@@ -25,7 +25,9 @@
     <ClInclude Include="Inc\imgui_impl_opengl3.h" />
     <ClInclude Include="Inc\imgui_impl_win32.h" />
     <ClInclude Include="Inc\imgui_impl_win32_opengl.h" />
+    <ClInclude Include="Inc\implot.h" />
     <ClInclude Include="Src\imgui_internal.h" />
+    <ClInclude Include="Src\implot_internal.h" />
     <ClInclude Include="Src\imstb_rectpack.h" />
     <ClInclude Include="Src\imstb_textedit.h" />
     <ClInclude Include="Src\imstb_truetype.h" />
@@ -39,6 +41,8 @@
     <ClCompile Include="Src\imgui_impl_win32.cpp" />
     <ClCompile Include="Src\imgui_impl_win32_opengl.cpp" />
     <ClCompile Include="Src\imgui_widgets.cpp" />
+    <ClCompile Include="Src\implot.cpp" />
+    <ClCompile Include="Src\implot_items.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
