@@ -23,14 +23,14 @@ void DepthStencilState::Terminate()
 	Clear();
 }
 
-void DepthStencilState::Set()
+void DepthStencilState::Set() const
 {
 	mDepthEnabled == true ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
 	mDepthWrite == true ? glDepthMask(GL_TRUE): glDepthMask(GL_FALSE);
 	glDepthFunc(GL_LEQUAL);
 }
 
-void DepthStencilState::Clear()
+void DepthStencilState::Clear() const
 {
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);

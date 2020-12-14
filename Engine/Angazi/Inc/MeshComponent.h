@@ -17,6 +17,7 @@ namespace Angazi
 		void RenderShadow() override;
 		void ShowInspectorProperties() override;
 
+		void RenderEdge();
 	private:
 		const TransformComponent* mTransformComponent = nullptr;
 		MaterialComponent* mMaterialComponent = nullptr;

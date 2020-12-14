@@ -50,7 +50,7 @@ void MeshLoader::Load(const std::filesystem::path& filePath, float scale, std::v
 	{
 		const uint32_t numMeshes = scene->mNumMeshes;
 
-		LOG("Reading mesh data...");
+		//LOG("Reading mesh data...");
 		for (uint32_t meshIndex = 0; meshIndex < numMeshes; ++meshIndex)
 		{
 			const aiMesh* inputMesh = scene->mMeshes[meshIndex];

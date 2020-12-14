@@ -12,6 +12,7 @@ namespace Angazi::Graphics
 			RGBA_U8,
 			RGBA_F16,
 			RGBA_U32,
+			RGBA_F32,
 			R_F16,
 			R_S32
 		};

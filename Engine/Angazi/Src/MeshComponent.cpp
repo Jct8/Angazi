@@ -176,6 +176,28 @@ void MeshComponent::RenderShadow()
 	}
 }
 
+void MeshComponent::RenderEdge()
+{
+	const auto& camera = GetGameObject().GetWorld().GetService<CameraService>()->GetActiveCamera();
+	const auto& shadowEffect = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<ShadowEffect>();
+	const auto& matWorld = mTransformComponent->GetTransform();
+	const auto& meshBuffer = MeshManager::Get()->GetModel(mMeshIds.front());
+	if (!meshBuffer)
+		return;
+
+	shadowEffect->BeginWithoutTarget();
+	shadowEffect->SetTransformData(matWorld, camera.GetViewMatrix(), camera.GetPerspectiveMatrix(), camera.GetPosition());
+	shadowEffect->SetSkinnedMesh(false);
+	shadowEffect->UpdateSettings();
+	for (auto& meshId : mMeshIds)
+	{
+		auto mesh = MeshManager::Get()->GetModel(meshId);
+		if (mesh)
+			mesh->Draw();
+	}
+	shadowEffect->EndWithoutTarget();
+}
+
 void MeshComponent::ShowInspectorProperties()
 {
 	if (ImGui::CollapsingHeader("Mesh Renderer", ImGuiTreeNodeFlags_DefaultOpen))

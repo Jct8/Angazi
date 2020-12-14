@@ -28,6 +28,7 @@ namespace Angazi::Graphics
 
 		void EnableHDR(bool enable) { mSettings.useHDR = enable; }
 		void EnableGammaCorrection(bool enable) { mSettings.useGammaCorrection = enable; }
+		void EnableEdgeDetection(bool enable) { mSettings.useEdgeDetection = enable; }
 		void SetExposure(float exposure) { mSettings.exposure = exposure; }
 
 		void RenderHdrQuad();
@@ -38,8 +39,11 @@ namespace Angazi::Graphics
 		{
 			int useHDR = true;
 			int useGammaCorrection = true;
+			int useEdgeDetection = false;
 			float exposure = 2.0f;
-			float padding;
+			float width = 1280.0f;
+			float height = 720.0f;
+			float padding[2];
 		};
 
 		Angazi::Graphics::TypedConstantBuffer<Settings> mSettingsBuffer;

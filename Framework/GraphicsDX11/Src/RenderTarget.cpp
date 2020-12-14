@@ -16,6 +16,7 @@ namespace
 		case Angazi::Graphics::RenderTarget::Format::RGBA_U8:	return DXGI_FORMAT_R8G8B8A8_UNORM;
 		case Angazi::Graphics::RenderTarget::Format::RGBA_F16:	return DXGI_FORMAT_R16G16B16A16_FLOAT;
 		case Angazi::Graphics::RenderTarget::Format::RGBA_U32:	return DXGI_FORMAT_R32G32B32A32_UINT;
+		case Angazi::Graphics::RenderTarget::Format::RGBA_F32:	return DXGI_FORMAT_R32G32B32A32_FLOAT;
 		case Angazi::Graphics::RenderTarget::Format::R_F16:		return DXGI_FORMAT_R16_FLOAT;
 		case Angazi::Graphics::RenderTarget::Format::R_S32:		return DXGI_FORMAT_R32_SINT;
 		default:

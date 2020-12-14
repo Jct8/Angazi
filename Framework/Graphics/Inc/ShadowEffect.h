@@ -20,9 +20,13 @@ namespace Angazi::Graphics
 
 		void Begin() override;
 		void End() override;
+
+		void BeginWithoutTarget();
+		void EndWithoutTarget();
 	public:
 		void SetLightDirection(const Math::Vector3& direction, const Angazi::Graphics::Camera& mCurrentCamera);
 		void SetWorldMatrix(const Math::Matrix4& world);
+		void SetTransformData(const Math::Matrix4& world, const Math::Matrix4& view, const Math::Matrix4& projection, const Math::Vector3& viewPosition);
 		void SetBoneTransforms(const std::vector<Math::Matrix4>& boneTransforms);
 
 		void SetSkinnedMesh(bool isSkinnedMesh) { mSettings.isSkinnedMesh = isSkinnedMesh == true ? 1.0f : 0.0f; };

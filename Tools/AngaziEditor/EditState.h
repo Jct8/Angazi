@@ -18,6 +18,7 @@ private:
 
 private:
 	Angazi::Graphics::RenderTarget mRenderTarget;
+	Angazi::Graphics::RenderTarget mSelectedObjectTarget;
 
 	Angazi::GameWorld mWorld;
 	Angazi::Editor mEditor{ mWorld };

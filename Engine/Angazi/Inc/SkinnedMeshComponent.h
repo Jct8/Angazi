@@ -19,6 +19,7 @@ namespace Angazi
 		void Update(float deltaTime) override;
 		void ShowInspectorProperties() override;
 
+		void RenderEdge();
 	private:
 		void InitializeAnimator();
 

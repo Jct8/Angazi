@@ -94,6 +94,7 @@ void StandardEffect::Begin()
 void StandardEffect::End()
 {
 	// Constant Buffer
+
 	mTransformBuffer.UnbindVS(0);
 	mLightBuffer.UnbindVS(1);
 	mLightBuffer.UnbindPS(1);

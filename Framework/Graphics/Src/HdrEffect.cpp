@@ -13,7 +13,7 @@ META_CLASS_END
 void HdrEffect::Initialize(const std::filesystem::path& fileName, const char* vshaderName, const char* pshaderName)
 {
 	auto graphicsSystem = GraphicsSystem::Get();
-	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_F16);
+	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_F32);
 	mScreenQuadBuffer.Initialize(MeshBuilder::CreateNDCQuad());
 	mVertexShader.Initialize(fileName, VertexPX::Format, vshaderName);
 	mPixelShader.Initialize(fileName, pshaderName);
@@ -41,6 +41,9 @@ void HdrEffect::EndRender()
 
 void HdrEffect::RenderHdrQuad()
 {
+	auto graphicsSystem = GraphicsSystem::Get();
+	mSettings.width = graphicsSystem->GetBackBufferWidth();
+	mSettings.height = graphicsSystem->GetBackBufferHeight();
 	mSettingsBuffer.Set(mSettings);
 	mSettingsBuffer.BindPS(0);
 	mRenderTarget.BindPS(0);

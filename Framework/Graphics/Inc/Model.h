@@ -47,5 +47,7 @@ namespace Angazi::Graphics
 		std::vector<MaterialData> materialData;
 		Skeleton skeleton;
 		AnimationSet animationSet;
+		BlendState mBlendState;
+		DepthStencilState mDepthStencilState;
 	};
 }

@@ -117,16 +117,23 @@ void Model::Initialize(const std::filesystem::path& fileName)
 	ModelLoader::LoadModel(fileName, *this);
 	ModelLoader::LoadSkeleton(fileName, skeleton);
 	ModelLoader::LoadAnimationSet(fileName,animationSet);
+	mBlendState.Initialize(BlendState::Mode::Additive);
+	mDepthStencilState.Initialize(true, true);
+
 }
 
 void Model::Terminate()
 {
+	mDepthStencilState.Terminate();
+	mBlendState.Terminate();
 	for (auto& data : meshData)
 		data.meshBuffer.Terminate();
 	for (auto& data : materialData)
-		data.diffuseMap->Terminate();
+		if(data.diffuseMap)
+			data.diffuseMap->Terminate();
 	for (auto& data : materialData)
-		data.normalMap->Terminate();
+		if (data.normalMap)
+			data.normalMap->Terminate();
 }
 
 void Model::Draw(Effect *effect) const
@@ -139,10 +146,21 @@ void Model::Draw(Effect *effect) const
 		if (effect->GetEffectType() == Effect::EffectType::StandardType)
 		{
 			StandardEffect* standardEffect = static_cast<StandardEffect*>(effect);
-			standardEffect->SetDiffuseTexture(materialData[data.materialIndex].diffuseMap.get());
-			standardEffect->SetNormalTexture(materialData[data.materialIndex].normalMap.get());
+			if(materialData[data.materialIndex].diffuseMap)
+				standardEffect->SetDiffuseTexture(materialData[data.materialIndex].diffuseMap.get());
+			if(materialData[data.materialIndex].normalMap)
+				standardEffect->SetNormalTexture(materialData[data.materialIndex].normalMap.get());
 			//standardEffect->SetMaterial(materialData[data.materialIndex].material);
 		}
+		//if (materialData[data.materialIndex].diffuseMapName == "Sponza_diffuse_14.png"
+		//	|| materialData[data.materialIndex].diffuseMapName == "Sponza_diffuse_9.png"
+		//	|| materialData[data.materialIndex].diffuseMapName == "Sponza_diffuse_11.png")
+		//{
+		//	mDepthStencilState.Set();
+		//	mBlendState.Bind();
+		//}
 		data.meshBuffer.Draw();
+		mBlendState.ClearState();
+		mDepthStencilState.Clear();
 	}
 }

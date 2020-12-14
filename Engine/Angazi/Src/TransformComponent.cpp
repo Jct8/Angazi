@@ -26,8 +26,8 @@ void TransformComponent::Initialize()
 
 void TransformComponent::DebugUI()
 {
-	auto transform = GetTransform();
-	SimpleDraw::AddTransform(transform);
+	//auto transform = GetTransform();
+	//SimpleDraw::AddTransform(transform);
 }
 
 void TransformComponent::ShowInspectorProperties()

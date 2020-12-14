@@ -26,6 +26,8 @@ void EditState::Initialize()
 	mShaderService->AddShader<HdrEffect>();
 	mShaderService->AddShader<ShadowEffect>();
 
+	mShaderService->GetShader<HdrEffect>()->EnableEdgeDetection(true);
+
 	mEnvironmentService->AddEnvironment("Helipad HDR");
 	mEnvironmentService->AddEnvironment("Shiodome HDR");
 	mEnvironmentService->AddEnvironment("Simons Town HDR");
@@ -54,14 +56,17 @@ void EditState::Initialize()
 	light.diffuse = { 0.7f };
 	light.specular = { 0.0f };
 
-	mWorld.LoadScene("../../Assets/Scenes/Scene1.json");
+	mWorld.LoadScene("../../Assets/Scenes/Village_Scene.json");
 
 	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(),
+		GraphicsSystem::Get()->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
+	mSelectedObjectTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(),
 		GraphicsSystem::Get()->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
 }
 
 void EditState::Terminate()
 {
+	mSelectedObjectTarget.Terminate();
 	mRenderTarget.Terminate();
 	mWorld.Terminate();
 }
@@ -102,6 +107,20 @@ void EditState::Update(float deltaTime)
 void EditState::Render()
 {
 	mWorld.RenderShadowMap();
+	mSelectedObjectTarget.BeginRender();
+	if (mEditor.mSelectedGameObject)
+	{
+		auto component = mEditor.mSelectedGameObject->GetComponent<MeshComponent>();
+		auto skincomponent = mEditor.mSelectedGameObject->GetComponent<SkinnedMeshComponent>();
+		if (component)
+			component->RenderEdge();
+		if (skincomponent)
+			skincomponent->RenderEdge();
+
+		auto transform = mEditor.mSelectedGameObject->GetComponent<TransformComponent>()->GetTransform();
+		SimpleDraw::AddTransform(transform);
+	}
+	mSelectedObjectTarget.EndRender();
 
 	auto hdrEffect = mShaderService->GetShader<HdrEffect>();
 	if (hdrEffect)
@@ -111,7 +130,9 @@ void EditState::Render()
 		hdrEffect->EndRender();
 
 		mRenderTarget.BeginRender();
+		mSelectedObjectTarget.BindPS(1);
 		hdrEffect->RenderHdrQuad();
+		mSelectedObjectTarget.UnbindPS(1);
 		mRenderTarget.EndRender();
 	}
 	else
@@ -172,7 +193,7 @@ void EditState::ShowSceneView()
 	float height = vMax.y - vMin.y;
 	mCameraService->GetActiveCamera().SetAspectRatio(width / height);
 
-	ImGui::GetForegroundDrawList()->AddRect(vMin, vMax, IM_COL32(135, 206, 239, 255));
+	//ImGui::GetForegroundDrawList()->AddRect(vMin, vMax, IM_COL32(135, 206, 239, 255));
 	ImGui::Image(mRenderTarget.GetShaderResourceView(), { width, height }, { 0.0f,0.0f }, { 1.0f,1.0f });
 	mIsSceneHovered = ImGui::IsWindowHovered();
 	ImGui::End();

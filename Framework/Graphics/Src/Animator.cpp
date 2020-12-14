@@ -11,7 +11,8 @@ void Animator::Initialize(const Model & model)
 	mBoneMatrices.clear();
 	mBoneMatrices.resize(mModel->skeleton.bones.size());
 	isSkeletalAnimation = false;
-	ComputeBindPose();
+	if(!mBoneMatrices.empty())
+		ComputeBindPose();
 }
 void Animator::Terminate()
 {

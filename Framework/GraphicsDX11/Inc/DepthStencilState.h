@@ -16,8 +16,8 @@ namespace Angazi::Graphics
 		void Initialize(bool depthEnable, bool depthWrite);
 		void Terminate();
 
-		void Set();
-		void Clear();
+		void Set() const;
+		void Clear() const;
 
 	private:
 		ID3D11DepthStencilState* mDepthStencilState = nullptr;

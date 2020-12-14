@@ -179,7 +179,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 		ambientOcclusion = aoMap.Sample(textureSampler, input.texCoord).r;
 	float4 ambient = LightAmbient * MaterialAmbient;
 
-	float diffuseIntensity = saturate(dot(dirToLight, normal));
+	float diffuseIntensity = clamp(dot(dirToLight, normal), 0.02,1);
 	float4 diffuse = diffuseIntensity * LightDiffuse * MaterialDiffuse;
 
 	float3 halfAngle = normalize(dirToLight + dirToView);
@@ -203,7 +203,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
 			float savedDepth = depthMap.Sample(textureSampler, shadowUV).r;
 			if (savedDepth > actualDepth + depthBias)
 			{
-				color = ambient * texColor;
+				color = (ambient + diffuse) * texColor * 0.5f;
 			}
 		}
 	}

@@ -53,7 +53,7 @@ void GameState::Initialize()
 	mGroundStandardEffect.UseShadow(true);
 	mGroundStandardEffect.SetBumpMapWeight(6.0f);
 
-	mGroundMesh = MeshBuilder::CreatePlane(100.0f, 50, 50);
+	mGroundMesh = MeshBuilder::CreatePlane(10, 50, 50);
 	mGroundMeshBuffer.Initialize(mGroundMesh);
 
 	mHdrEffect.Initialize();

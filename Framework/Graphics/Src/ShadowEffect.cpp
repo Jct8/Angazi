@@ -79,6 +79,23 @@ void ShadowEffect::End()
 	mDepthMapRenderTarget.EndRender();
 }
 
+void ShadowEffect::BeginWithoutTarget()
+{
+	mDepthMapPixelShader.Bind();
+	mDepthMapVertexShader.Bind();
+	mDepthMapConstantBuffer.BindVS(0);
+
+	mBoneTransformBuffer.BindVS(1);
+	mSettingsBuffer.BindVS(2);
+}
+void ShadowEffect::EndWithoutTarget()
+{
+	mDepthMapConstantBuffer.UnbindVS(0);
+	mBoneTransformBuffer.UnbindVS(1);
+	mSettingsBuffer.UnbindVS(2);
+
+}
+
 void ShadowEffect::SetLightDirection(const Math::Vector3 & direction, const Camera& mCurrentCamera)
 {
 	mLightCamera.SetDirection(direction);
@@ -127,8 +144,9 @@ void ShadowEffect::SetLightDirection(const Math::Vector3 & direction, const Came
 		lightUp * (minY + maxY) * 0.5f +
 		lightLook * (minZ + maxZ) * 0.5f
 	);
-	float farplane = Math::Min(mCurrentCamera.GetFarPlane(), 50.0f);
-	mLightCamera.SetNearPlane(minZ - farplane);
+	float farplane = Math::Min(mCurrentCamera.GetFarPlane(), 100.0f);
+	//mLightCamera.SetNearPlane(minZ - farplane);
+	mLightCamera.SetNearPlane(minZ - mCurrentCamera.GetFarPlane());
 	mLightCamera.SetFarPlane(maxZ + farplane);
 	mLightProjectionMatrix = mLightCamera.GetOrthographicMatrix(maxX - minX, maxY - minY);
 }
@@ -139,6 +157,12 @@ void ShadowEffect::SetWorldMatrix(const Math::Matrix4 & world)
 	auto matProjLight = mLightProjectionMatrix;// mLightCamera.GetPerspectiveMatrix();
 
 	auto wvp = Math::Transpose(world * matViewLight * matProjLight);
+	mDepthMapConstantBuffer.Update(&wvp);
+}
+
+void ShadowEffect::SetTransformData(const Math::Matrix4& world, const Math::Matrix4& view, const Math::Matrix4& projection, const Math::Vector3& viewPosition)
+{
+	auto wvp = Math::Transpose(world * view * projection);
 	mDepthMapConstantBuffer.Update(&wvp);
 }
 

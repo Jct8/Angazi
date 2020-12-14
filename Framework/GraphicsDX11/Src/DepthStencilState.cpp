@@ -29,13 +29,13 @@ void DepthStencilState::Terminate()
 	SafeRelease(mDepthStencilState);
 }
 
-void DepthStencilState::Set()
+void DepthStencilState::Set() const
 {
 	auto context = GraphicsSystem::Get()->GetContext();
 	context->OMSetDepthStencilState(mDepthStencilState,0);
 }
 
-void DepthStencilState::Clear()
+void DepthStencilState::Clear() const
 {
 	auto context = GraphicsSystem::Get()->GetContext();
 	context->OMSetDepthStencilState(nullptr,0);

@@ -62,9 +62,6 @@ void MaterialComponent::Initialize()
 	ambientOcculsionId.emplace_back(TextureManager::Get()->Load(mAmbientOcculsionFilePath, false, false));
 	metallicId.emplace_back(TextureManager::Get()->Load(mMetallicFilePath, false, false));
 	roughnessId.emplace_back(TextureManager::Get()->Load(mRoughnessFilePath, false, false));
-	material.ambient = { 1.0f };
-	material.diffuse = { 1.0f };
-	material.specular = { 0.5f,0.5f,0.5f,1.0f };
 	mInitialized = true;
 }
 

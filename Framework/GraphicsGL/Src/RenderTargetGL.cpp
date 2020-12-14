@@ -17,6 +17,7 @@ namespace
 		case Angazi::Graphics::RenderTarget::Format::RGBA_U8:	return { GL_RGBA, GL_RGBA8 };
 		case Angazi::Graphics::RenderTarget::Format::RGBA_F16:	return { GL_RGBA, GL_RGBA16F };
 		case Angazi::Graphics::RenderTarget::Format::RGBA_U32:	return { GL_RGBA_INTEGER, GL_RGBA32UI };
+		case Angazi::Graphics::RenderTarget::Format::RGBA_F32:	return { GL_RGBA, GL_RGBA32F };
 		case Angazi::Graphics::RenderTarget::Format::R_F16:		return { GL_RED, GL_R16F };
 		case Angazi::Graphics::RenderTarget::Format::R_S32:		return { GL_RED_INTEGER, GL_R32I};
 		default:

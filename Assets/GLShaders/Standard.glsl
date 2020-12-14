@@ -236,7 +236,7 @@ void main()
 	vec4 ambient = LightAmbient * MaterialAmbient;
 
 	// diffuse
-	float diffuseIntensity = clamp(dot(dirToLight, normal),0.0,1.0);
+	float diffuseIntensity = clamp(dot(dirToLight, normal),0.02,1.0);
 	vec4 diffuse = diffuseIntensity * LightDiffuse* MaterialDiffuse;
 
 	// specular
@@ -260,7 +260,7 @@ void main()
 			float savedDepth = texture(depthMap, shadowUV).r;
 			if (savedDepth > actualDepth + depthBias)
 			{
-				color = ambient * mainTexture;
+				color = (ambient + diffuse) * mainTexture * 0.5f;
 			}
 		}
 	}

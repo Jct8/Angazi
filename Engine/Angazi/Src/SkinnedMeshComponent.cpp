@@ -102,6 +102,24 @@ void SkinnedMeshComponent::Render()
 	SimpleDraw::Render(camera, matWorld);
 }
 
+void SkinnedMeshComponent::RenderEdge()
+{
+	const auto& camera = GetGameObject().GetWorld().GetService<CameraService>()->GetActiveCamera();
+	const auto& shadowEffect = GetGameObject().GetWorld().GetService<ShaderService>()->GetShader<ShadowEffect>();
+	const auto& matWorld = mTransformComponent->GetTransform();
+	const auto& model = ModelManager::Get()->GetModel(mModelId);
+	if (!model)
+		return;
+
+	shadowEffect->BeginWithoutTarget();
+	shadowEffect->SetTransformData(matWorld, camera.GetViewMatrix(), camera.GetPerspectiveMatrix(), camera.GetPosition());
+	shadowEffect->SetBoneTransforms(animator.GetBoneMatrices());
+	shadowEffect->SetSkinnedMesh(true);
+	shadowEffect->UpdateSettings();
+	model->Draw(shadowEffect);
+	shadowEffect->EndWithoutTarget();
+}
+
 void SkinnedMeshComponent::RenderShadow()
 {
 	if (mIsCastingShadow && !mShowSkeleton)
@@ -146,6 +164,8 @@ void SkinnedMeshComponent::ShowInspectorProperties()
 		if (ImGui::Button("Change"))
 		{
 			ChangeSkinnedMesh("Change Model", mModelId, mModelFileName);
+			if (GetGameObject().GetName() == "Empty GameObject")
+				GetGameObject().SetName(mModelFileName.stem().u8string().c_str());
 			InitializeAnimator();
 		}
 		ImGui::NextColumn();
@@ -154,7 +174,8 @@ void SkinnedMeshComponent::ShowInspectorProperties()
 
 		ImGui::Text("Animations");
 		ImGui::NextColumn();
-		const char* combo_label = model != nullptr ? model->animationSet.clips[currentAnimation]->name.c_str() : "No Model";
+		const char* combo_label = model != nullptr && !model->animationSet.clips.empty()
+			? model->animationSet.clips[currentAnimation]->name.c_str() : "No Model";
 		if (ImGui::BeginCombo("##Animations", combo_label))
 		{
 			if (model)
@@ -210,7 +231,8 @@ void SkinnedMeshComponent::InitializeAnimator()
 		animator.Initialize(*model);
 		for (size_t n = 0; n < model->animationSet.clips.size(); n++)
 			animator.SetClipLooping(n, true);
-		animator.PlayAnimation(0);
+		if(!model->animationSet.clips.empty())
+			animator.PlayAnimation(0);
 	}
 }
 
