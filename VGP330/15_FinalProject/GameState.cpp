@@ -13,7 +13,7 @@ void GameState::Initialize()
 	mCamera.SetPosition({ -52.6286125f,-14.4062014f,-25.0168896f });
 	mCamera.SetDirection({ 0.300396204f, 0.183217078f ,-0.936052144f  });
 
-	mPlaneMeshBuffer.Initialize(MeshBuilder::CreatePlane(200.0f, 20, 20));
+	mPlaneMeshBuffer.Initialize(MeshBuilder::CreatePlane(1.0f, 20, 20));
 
 	mDirectionalLight.direction = Normalize({ -0.914f, 0.261f, 0.309f });
 	mDirectionalLight.direction = Normalize({ 0.985f,- 0.069f, 0.156f });
