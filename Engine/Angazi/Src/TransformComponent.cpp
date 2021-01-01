@@ -13,6 +13,7 @@ META_DERIVED_BEGIN(TransformComponent, Component)
 		META_FIELD(rotation, "Rotation")
 		META_FIELD(scale, "Scale")
 	META_FIELD_END
+	META_NO_METHOD
 META_CLASS_END;
 
 void TransformComponent::Initialize()

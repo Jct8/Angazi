@@ -9,6 +9,7 @@ using namespace Angazi::Graphics;
 
 META_DERIVED_BEGIN(StandardEffect, Effect)
 	META_NO_FIELD
+	META_NO_METHOD
 META_CLASS_END
 
 void StandardEffect::Initialize(const std::filesystem::path& fileName)

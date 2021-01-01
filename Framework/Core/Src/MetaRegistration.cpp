@@ -68,6 +68,16 @@ namespace Angazi::Core::Meta
 	}
 }
 
+	template<> 
+	const Angazi::Core::Meta::MetaType* Angazi::Core::Meta::GetMetaType<void>()
+	{
+		static const Angazi::Core::Meta::MetaType sMetaType(
+			Angazi::Core::Meta::MetaType::Category::Primitive,"void", 0,
+			nullptr,
+			nullptr);
+		return &sMetaType;
+	}
+
 // Primitive Type Declarations
 META_TYPE_DEFINE(int, Integer)
 META_TYPE_DEFINE(float, Number)

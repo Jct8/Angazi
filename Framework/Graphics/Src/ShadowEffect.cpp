@@ -9,6 +9,7 @@ using namespace Angazi::Graphics;
 
 META_DERIVED_BEGIN(ShadowEffect, Effect)
 	META_NO_FIELD
+	META_NO_METHOD
 META_CLASS_END
 
 namespace

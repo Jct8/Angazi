@@ -102,6 +102,9 @@
     <ClInclude Include="Inc\MetaRegistry.h">
       <Filter>Inc\Meta</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\MetaFunction.h">
+      <Filter>Inc\Meta</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Window.cpp">
@@ -141,6 +144,9 @@
       <Filter>Src\Meta</Filter>
     </ClCompile>
     <ClCompile Include="Src\MetaRegistry.cpp">
+      <Filter>Src\Meta</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MetaFunction.cpp">
       <Filter>Src\Meta</Filter>
     </ClCompile>
   </ItemGroup>

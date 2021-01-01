@@ -7,6 +7,7 @@
 #include "MetaRegistry.h"
 #include "MetaType.h"
 #include "MetaUtil.h"
+#include "MetaFunction.h"
 
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -55,19 +56,32 @@
 #define META_FIELD_BEGIN\
 		static const std::initializer_list<Angazi::Core::Meta::MetaField> fields {
 
+		using namespace Angazi::Core::Meta;
 #define META_FIELD(Var, Name)\
 			{ Angazi::Core::Meta::GetFieldType(&Class::Var), Name, Angazi::Core::Meta::GetFieldOffset(&Class::Var) },
 
 #define META_FIELD_END\
 		};
 
+////////////////////////////// Meta Method Macros /////////////////////////////
+#define META_METHOD_BEGIN\
+		static const std::initializer_list<Angazi::Core::Meta::MetaFunction> methods {
+
+#define META_METHOD(Method)\
+			{ #Method, Angazi::Core::Meta::GetMethodReturnType(&Class::Method), Angazi::Core::Meta::GetMethodParameterTypes(&Class::Method) },
+
+#define META_METHOD_END\
+		};
+
 #define META_NO_FIELD\
 		static const std::initializer_list<Angazi::Core::Meta::MetaField> fields;
+#define META_NO_METHOD\
+		static const std::initializer_list<Angazi::Core::Meta::MetaFunction> methods;
 
 #define META_CLASS_END\
 		static const Angazi::Core::Meta::MetaClass sMetaClass(\
 			className, sizeof(Class),\
 			parentMetaClass, fields,\
-			[]{return new Class();});\
+			[]{return new Class();},methods);\
 		return &sMetaClass;\
 	}

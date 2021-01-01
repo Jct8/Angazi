@@ -11,6 +11,8 @@ public:
 public:
 	void Move() { mPosition += 1.0f; }
 
+	void SetPos(float pos) { mPosition = pos; };
+
 protected:
 	float mPosition = 0.0f;
 	bool mAutomatic = true;
@@ -31,12 +33,17 @@ META_CLASS_BEGIN(Car)
 		META_FIELD(mPosition, "Position")
 		META_FIELD(mAutomatic, "Automatic")
 	META_FIELD_END
+	META_METHOD_BEGIN
+		META_METHOD(Move)
+		META_METHOD(SetPos)
+	META_METHOD_END
 META_CLASS_END
 
 META_DERIVED_BEGIN(Tesla,Car)
 	META_FIELD_BEGIN
 		META_FIELD(mGPS, "GPS")
 	META_FIELD_END
+	META_NO_METHOD
 META_CLASS_END
 
 
@@ -122,6 +129,25 @@ namespace CoreTest
 			Assert::IsTrue(metaField2->GetMetaType() == Meta::GetMetaType<bool>());
 			Assert::AreEqual(metaField2->GetName(), "GPS");
 			Assert::IsTrue(metaField2 == metaClass->FindField("GPS"));
+		}
+
+		TEST_METHOD(TestMetaFunction)
+		{
+			auto metaClassCar = Meta::GetMetaType<Car>()->AsMetaClass();
+
+			auto metaMethodMove = metaClassCar->FindMethod("Move");
+			Assert::IsTrue(metaMethodMove->GetReturnType() == Meta::GetMetaType<void>());
+
+			auto metaMethodSetPos = metaClassCar->FindMethod("SetPos");
+			Assert::IsTrue(metaMethodSetPos->GetReturnType() == Meta::GetMetaType<void>());
+			Assert::IsTrue(metaMethodSetPos->GetParameterCount() == 1);
+			Assert::IsTrue(metaMethodSetPos->GetParameterType(0) == Meta::GetMetaType<float>());
+
+			//auto metaMethodGetPos = metaClassCar->FindMethod("GetPos");
+			//Assert::IsTrue(metaMethodGetPos->GetReturnType() == Meta::GetMetaType<float>());
+
+			//auto newCar = metaClassCar->Create();
+			//metaMethodSetPos->Invoke(newCar,3.14f);
 		}
 	};
 }

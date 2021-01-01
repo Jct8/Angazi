@@ -14,6 +14,7 @@ META_DERIVED_BEGIN(TerrainService, Service)
 		//META_FIELD(mColumns, "Columns")
 		META_FIELD(mCellSize, "CellSize")
 	META_FIELD_END
+	META_NO_METHOD
 META_CLASS_END;
 
 void TerrainService::Initialize()

@@ -12,6 +12,7 @@ using namespace Angazi::Graphics;
 
 META_DERIVED_BEGIN(EnvironmentService, Service)
 	META_NO_FIELD
+	META_NO_METHOD
 META_CLASS_END;
 
 void EnvironmentService::Terminate()

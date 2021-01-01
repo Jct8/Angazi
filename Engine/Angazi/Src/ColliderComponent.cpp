@@ -13,6 +13,7 @@ META_DERIVED_BEGIN(ColliderComponent, Component)
 		META_FIELD(center, "Center")
 		META_FIELD(extend, "Extend")
 	META_FIELD_END
+	META_NO_METHOD
 META_CLASS_END;
 
 void Angazi::ColliderComponent::Initialize()

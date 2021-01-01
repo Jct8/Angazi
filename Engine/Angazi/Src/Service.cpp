@@ -5,4 +5,5 @@ using namespace Angazi;
 
 META_CLASS_BEGIN(Service)
 	META_NO_FIELD
+	META_NO_METHOD
 META_CLASS_END

@@ -6,6 +6,7 @@ using namespace Angazi;
 
 META_DERIVED_BEGIN(CameraService, Service)
 META_NO_FIELD
+META_NO_METHOD
 META_CLASS_END
 
 void CameraService::Initialize()

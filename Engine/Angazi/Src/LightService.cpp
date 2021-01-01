@@ -7,6 +7,7 @@ using namespace Angazi;
 
 META_DERIVED_BEGIN(LightService, Service)
 	META_NO_FIELD
+	META_NO_METHOD
 META_CLASS_END
 
 void LightService::Initialize()

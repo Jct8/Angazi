@@ -3,11 +3,12 @@
 
 #include "DebugUtil.h"
 #include "MetaField.h"
+#include "MetaFunction.h"
 
 using namespace Angazi::Core::Meta;
 
-MetaClass::MetaClass(const char * name, size_t size, const MetaClass * parent, std::vector<MetaField> fields, CreateFunc create)
-	:MetaType(MetaType::Category::Class, name, size), mParent(parent), mFields(std::move(fields)), mCreate(std::move(create))
+MetaClass::MetaClass(const char * name, size_t size, const MetaClass * parent, std::vector<MetaField> fields, CreateFunc create, std::vector<MetaFunction> methods)
+	:MetaType(MetaType::Category::Class, name, size), mParent(parent), mFields(std::move(fields)), mCreate(std::move(create)),mMethods(std::move(methods))
 {
 }
 
@@ -50,6 +51,11 @@ size_t MetaClass::GetParentFieldCount() const
 	return mParent ? mParent->GetFieldCount() : 0u;
 }
 
+size_t Angazi::Core::Meta::MetaClass::GetParentMethodCount() const
+{
+	return mParent ? mParent->GetMethodCount() : 0u;
+}
+
 void* MetaClass::Create() const
 {
 	ASSERT(mCreate, "MetaClass -- no create callable registered for %s.",GetName());
@@ -80,4 +86,33 @@ void MetaClass::Serialize(const void* classInstance, rapidjson::Value& jsonValue
 		metaType->Serialize(metaField.GetFieldInstance(classInstance), fieldProperties, document);
 		jsonValue.AddMember(fieldName, fieldProperties,document.GetAllocator());
 	}
+}
+
+const MetaFunction* Angazi::Core::Meta::MetaClass::FindMethod(const char* name) const
+{
+	for (auto& method : mMethods)
+	{
+		if (strcmp(method.GetName(), name) == 0)
+			return &method;
+	}
+
+	// If the field is not found , try the parent
+	if (mParent != nullptr)
+		return mParent->FindMethod(name);
+
+	return nullptr;
+}
+
+const MetaFunction* Angazi::Core::Meta::MetaClass::GetMethod(size_t index) const
+{
+	ASSERT(index < GetMethodCount(), "MetaClass -- Subscript out of range!");
+	const size_t parentCount = GetParentMethodCount();
+	if (index < parentCount)
+		return mParent->GetMethod(index);
+	return mMethods.data() + (index - parentCount);
+}
+
+size_t Angazi::Core::Meta::MetaClass::GetMethodCount() const
+{
+	return mMethods.size() + GetParentMethodCount();
 }

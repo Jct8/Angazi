@@ -58,4 +58,32 @@ namespace Angazi::Core::Meta
 	{
 		return (size_t)(void*)&(((ClassType*)nullptr)->*field);
 	}
+
+	template <class ClassType, class ReturnType, class... Args>
+	inline const MetaType* GetMethodReturnType(ReturnType (ClassType::*)(Args...)) noexcept
+	{
+		return GetMetaType<ReturnType>();
+	}
+
+	template <class ClassType, class ReturnType, class... Args>
+	inline const MetaType* GetMethodReturnType(ReturnType(ClassType::*)(Args...) const) noexcept
+	{
+		return GetMetaType<ReturnType>();
+	}
+
+	template <class ClassType, class ReturnType, class... Args>
+	inline auto GetMethodParameterTypes(ReturnType(ClassType::*)(Args...) ) noexcept
+	{
+		std::vector<const MetaType*> paramTypes;
+		(paramTypes.push_back(GetMetaType<Args>()), ...);
+		return paramTypes;
+	}
+
+	template <class ClassType, class ReturnType, class... Args>
+	inline auto GetMethodParameterTypes(ReturnType(ClassType::*)(Args...) const) noexcept
+	{
+		std::vector<const MetaType*> paramTypes;
+		(paramTypes.push_back(GetMetaType<Args>()), ...);
+		return paramTypes;
+	}
 }

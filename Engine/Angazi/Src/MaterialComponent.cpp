@@ -17,6 +17,7 @@ META_CLASS_BEGIN(Material)
 		META_FIELD(specular, "Specular")
 		META_FIELD(power, "Power")
 	META_FIELD_END
+	META_NO_METHOD
 META_CLASS_END;
 
 META_DERIVED_BEGIN(MaterialComponent, Component)
@@ -30,6 +31,7 @@ META_DERIVED_BEGIN(MaterialComponent, Component)
 		META_FIELD(mRoughnessFilePath, "RoughnessFilePath")
 		META_FIELD(material, "Material")
 	META_FIELD_END
+	META_NO_METHOD
 META_CLASS_END;
 
 namespace

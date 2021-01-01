@@ -8,6 +8,7 @@ using namespace Angazi;
 
 META_DERIVED_BEGIN(ShaderService, Service)
 	META_NO_FIELD
+	META_NO_METHOD
 META_CLASS_END;
 
 void ShaderService::Terminate()

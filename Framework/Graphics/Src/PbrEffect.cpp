@@ -9,6 +9,7 @@ using namespace Angazi::Graphics;
 
 META_DERIVED_BEGIN(PbrEffect, Effect)
 	META_NO_FIELD
+	META_NO_METHOD
 META_CLASS_END
 
 void PbrEffect::Initialize(const std::filesystem::path & fileName)

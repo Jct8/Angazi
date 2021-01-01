@@ -25,6 +25,7 @@ META_DERIVED_BEGIN(MeshComponent, Component)
 		META_FIELD(mIsCastingShadow, "CastingShadow")
 		META_FIELD(mIsReceivingShadows, "ReceivingShadows")
 	META_FIELD_END
+	META_NO_METHOD
 META_CLASS_END;
 
 namespace
