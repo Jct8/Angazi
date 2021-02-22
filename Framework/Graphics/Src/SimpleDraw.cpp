@@ -540,7 +540,8 @@ namespace
 				0.0f	 ,  0.0f	, 1.0f , 0.0f,
 				-1.0f	 ,  1.0f	, 0.0f , 1.0f
 			};
-			mConstantBuffer.Update(&Math::Transpose(screenToNDC));
+			auto mat = Math::Transpose(screenToNDC);
+			mConstantBuffer.Update(&mat);
 			mConstantBuffer.BindVS();
 
 			mMeshBuffer.Update(m2DLineVertices.get(), m2DVertexCount);
