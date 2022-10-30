@@ -7,15 +7,19 @@ namespace Angazi::Core::Meta
 	template <class DataType>
 	const MetaType* GetMetaType();
 
+	// https://stackoverflow.com/questions/71867795/specialised-template-not-asserting-despite-compile-time-constant-static-assert
+	// or compile with /permissive- option
+	template<class...> constexpr bool alwaysFalse = false;
+
 	template< class DataType>
 	void Deserialize(void* instance, const rapidjson::Value& value)
 	{
-		static_assert(false, "No specialization found for deserializing this type.");
+		static_assert(alwaysFalse<DataType>, "No specialization found for deserializing this type.");
 	}
 	template< class DataType>
 	void Serialize(const void* instance, rapidjson::Value& value, rapidjson::Document& document)
 	{
-		static_assert(false, "No specialization found for serializing this type.");
+		static_assert(alwaysFalse<DataType>, "No specialization found for serializing this type.");
 	}
 
 	namespace Detail
