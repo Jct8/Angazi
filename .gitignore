@@ -337,3 +337,5 @@ ASALocalRun/
 
 /External/DirectXTK/Src/Shaders/Compiled/*.inc
 /External/DirectXTK/Src/Shaders/Compiled/*.pdb
+/Build/bin/
+/Build/bin-int/
