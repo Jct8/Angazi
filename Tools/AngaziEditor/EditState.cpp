@@ -35,13 +35,13 @@ void EditState::Initialize()
 	mWorld.Initialize(100);
 	
 	auto skybox = mEnvironmentService->FindEnvironment("Helipad HDR");
-	skybox->CreateSkybox("../../Assets/Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
+	skybox->CreateSkybox(Angazi::Core::FilePath::GetAssetFilePath() + "Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
 	skybox = mEnvironmentService->FindEnvironment("Shiodome HDR");
-	skybox->CreateSkybox("../../Assets/Images/HdrMaps/Shiodome_Stairs/10-Shiodome_Stairs_3k.hdr");
+	skybox->CreateSkybox(Angazi::Core::FilePath::GetAssetFilePath() + "Images/HdrMaps/Shiodome_Stairs/10-Shiodome_Stairs_3k.hdr");
 	skybox = mEnvironmentService->FindEnvironment("Simons Town HDR");
-	skybox->CreateSkybox("../../Assets/Images/HdrMaps/simons_town_rocks_8k.hdr");
+	skybox->CreateSkybox(Angazi::Core::FilePath::GetAssetFilePath() + "Images/HdrMaps/simons_town_rocks_8k.hdr");
 	skybox = mEnvironmentService->FindEnvironment("Blue Lagoon Night");
-	skybox->CreateSkybox("../../Assets/Images/HdrMaps/blue_lagoon_night_8k.hdr");
+	skybox->CreateSkybox(Angazi::Core::FilePath::GetAssetFilePath() + "Images/HdrMaps/blue_lagoon_night_8k.hdr");
 
 	auto& camera = mCameraService->GetActiveCamera();
 	camera.SetNearPlane(0.1f);
@@ -56,7 +56,7 @@ void EditState::Initialize()
 	light.diffuse = { 0.7f };
 	light.specular = { 0.0f };
 
-	mWorld.LoadScene("../../Assets/Scenes/Village_Scene.json");
+	mWorld.LoadScene(Angazi::Core::FilePath::GetAssetFilePath() + "Scenes/Village_Scene.json");
 
 	mRenderTarget.Initialize(GraphicsSystem::Get()->GetBackBufferWidth(),
 		GraphicsSystem::Get()->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);

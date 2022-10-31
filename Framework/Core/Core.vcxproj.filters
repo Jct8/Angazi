@@ -105,6 +105,9 @@
     <ClInclude Include="Inc\MetaFunction.h">
       <Filter>Inc\Meta</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\FilePathUtil.h">
+      <Filter>Inc\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Window.cpp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="Src\MetaFunction.cpp">
       <Filter>Src\Meta</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\FilePathUtil.cpp">
+      <Filter>Src\Util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

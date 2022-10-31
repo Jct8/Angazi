@@ -7,7 +7,7 @@ using namespace Angazi::Math;
 
 void Pipe::Load()
 {
-	mTextureId = TextureManager::Get()->Load("FlappyBird/pipe.png");
+	mTextureId = TextureManager::Get()->Load("FlappyBird/pipe.png", false, true);
 }
 
 void Pipe::Update(float deltaTime)

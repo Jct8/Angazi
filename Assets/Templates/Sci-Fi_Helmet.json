@@ -31,16 +31,16 @@
                 }
             },
             "MeshComponent": {
-                "MeshFileName": "Sci-Fi_Helmet/helmet.obj"
+                "MeshFileName": "../Assets/Models/Sci-Fi_Helmet/helmet.obj"
             },
             "MaterialComponent": {
-                "DiffuseFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_basecolor.png",
-                "NormalFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_normal.png",
+                "DiffuseFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_basecolor.png",
+                "NormalFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_normal.png",
                 "SpecularFilePath": "",
-                "DisplacementFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_emission.png",
-                "AmbientOcculsionFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_occlusion.png",
-                "MetallicFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_metalness.png",
-                "RoughnessFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_roughness.png",
+                "DisplacementFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_emission.png",
+                "AmbientOcculsionFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_occlusion.png",
+                "MetallicFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_metalness.png",
+                "RoughnessFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_roughness.png",
                 "Material": {
                     "Ambient": {
                         "x": 0.800000011920929,

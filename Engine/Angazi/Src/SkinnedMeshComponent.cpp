@@ -36,8 +36,8 @@ namespace
 		if (MainApp().OpenFileDialog(filePath, title, filter))
 		{
 			std::string x = filePath;
-			originalPath = "..\\..\\" + x.substr(x.find("\\Assets\\") + 1);
-			modelId = ModelManager::Get()->LoadModel(originalPath);
+			originalPath = Core::FilePath::GetAssetFilePath() + x.substr(x.find("\\Assets\\") + sizeof("\\Assets\\") - 1);
+			modelId = ModelManager::Get()->LoadModel(originalPath, false);
 		}
 	}
 }
@@ -46,7 +46,7 @@ void SkinnedMeshComponent::Initialize()
 {
 	if (mInitialized)
 		return;
-	mModelId = ModelManager::Get()->LoadModel(mModelFileName);
+	mModelId = ModelManager::Get()->LoadModel(mModelFileName, false);
 	mTransformComponent = GetGameObject().GetComponent<TransformComponent>();
 	mMaterialComponent = GetGameObject().GetComponent<MaterialComponent>();
 	if (!mMaterialComponent)

@@ -65,7 +65,7 @@ void Player::Load(std::filesystem::path fileName, bool facingLeft)
 		{
 			fscanf_s(file, "%s\n", name, maxsize);
 			mAnimations[anim].emplace_back();
-			mAnimations[anim].back()= TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
+			mAnimations[anim].back()= TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/" + std::string(name));
 		}
 	}
 	fclose(file);
@@ -79,8 +79,8 @@ void Player::Load(std::filesystem::path fileName, bool facingLeft)
 
 	mSecondaryWeapon = WeaponManager::Get().GetWeapon("Weapon2").get();
 	mWeapon = WeaponManager::Get().GetWeapon("Weapon1").get();
-	mTargetEnemyTexture = TextureManager::Get()->Load("Rougelike/skull.png");
-	mDetectedTexture = TextureManager::Get()->Load("Rougelike/detected.png");
+	mTargetEnemyTexture = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/skull.png");
+	mDetectedTexture = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/detected.png");
 }
 
 void Player::Unload()

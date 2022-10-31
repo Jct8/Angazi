@@ -13,7 +13,7 @@ PixelShader::~PixelShader()
 
 void PixelShader::Initialize(const std::filesystem::path& filePath, const char * shaderName)
 {
-	std::filesystem::path defaultFilePathName = "../../Assets/GLShaders/";
+	std::filesystem::path defaultFilePathName = Angazi::Core::FilePath::GetAssetFilePath() + "GLShaders/";
 	if (filePath.extension() != "glsl")
 	{
 		defaultFilePathName.append(filePath.stem().string());

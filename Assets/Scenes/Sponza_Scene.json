@@ -23,7 +23,7 @@
                     }
                 },
                 "SkinnedMeshComponent": {
-                    "ModelFileName": "..\\..\\Assets\\Models\\Sponza\\Sponza.model",
+                    "ModelFileName": "..\\Assets\\Models\\Sponza\\Sponza.model",
                     "CastingShadow": true,
                     "ReceivingShadows": true,
                     "ShowSkeleton": false

@@ -46,7 +46,7 @@ namespace
 			if (std::filesystem::exists(filePath))
 			{
 				std::string x = filePath;
-				originalPath = "..\\..\\" + x.substr(x.find("\\Assets\\") + 1);
+				originalPath = Core::FilePath::GetAssetFilePath() + x.substr(x.find("\\Assets\\") + sizeof("\\Assets\\") - 1);
 				textureId = TextureManager::Get()->Load(originalPath);
 			}
 		}

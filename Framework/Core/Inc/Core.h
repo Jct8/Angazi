@@ -21,4 +21,5 @@
 
 // Util headers
 #include "DebugUtil.h"
+#include "FilePathUtil.h"
 #include "TimeUtil.h"

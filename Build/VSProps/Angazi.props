@@ -12,8 +12,13 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\External\assimp-5.0.1\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-        <PostBuildEvent>
-      <Command>copy /y "$(SolutionDir)..\External\assimp-5.0.1\Bin\*.dll" "$(OutDir)"</Command>
+    <PostBuildEvent>
+      <Command>
+        robocopy /nfl /nc /ns /np /e /xo $(SolutionDir)..\Assets $(OutDir)..\Assets\
+        robocopy /nfl /nc /ns /np /e /xo $(ProjectDir) $(OutDir) *.ini *.txt
+        robocopy /nfl /nc /ns /np /e /xo $(SolutionDir)..\External\assimp-5.0.1\Bin\ $(OutDir) *.dll
+        if %errorlevel% leq 1 exit 0 else exit %errorlevel%
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />

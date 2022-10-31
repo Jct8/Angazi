@@ -38,8 +38,8 @@ void PbrEffect::Initialize(const std::filesystem::path & fileName)
 
 	mBRDFlutTexture.Initialize(512, 512, RenderTarget::Format::RGBA_F16);
 	meshBuffer.Initialize(MeshBuilder::CreateNDCQuad());
-	vertexShader.Initialize("../../Assets/Shaders/BRDF.fx", VertexPX::Format);
-	pixelShader.Initialize("../../Assets/Shaders/BRDF.fx");
+	vertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/BRDF.fx", VertexPX::Format);
+	pixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/BRDF.fx");
 	mBRDFlutTexture.BeginRender();
 	pixelShader.Bind();
 	vertexShader.Bind();

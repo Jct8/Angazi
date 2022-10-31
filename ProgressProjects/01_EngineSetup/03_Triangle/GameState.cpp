@@ -38,8 +38,9 @@ void GameState::Initialize()
 	DWORD shaderFlags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
 	ID3DBlob* shaderBlob = nullptr; // ID3DBlob- block of memory
 	ID3DBlob* errorBlob = nullptr; // gets passed to vram
+	std::filesystem::path shader = Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoNothing.fx";
 	hr = D3DCompileFromFile(
-		L"../../Assets/Shaders/DoNothing.fx",
+		shader.c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
 		"VS", "vs_5_0",
@@ -78,7 +79,7 @@ void GameState::Initialize()
 
 #pragma region CompileAndCreatePixelShader
 	hr = D3DCompileFromFile(
-		L"../../Assets/Shaders/DoNothing.fx",
+		shader.c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
 		"PS", "ps_5_0",

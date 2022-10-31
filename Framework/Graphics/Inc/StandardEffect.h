@@ -16,7 +16,7 @@ namespace Angazi::Graphics
 		StandardEffect(const StandardEffect&) = delete;
 		StandardEffect& operator=(const StandardEffect&) = delete;
 
-		void Initialize(const std::filesystem::path& fileName = "../../Assets/Shaders/Standard.fx") override;
+		void Initialize(const std::filesystem::path& fileName = Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx") override;
 		void Terminate() override;
 
 		void Begin() override;

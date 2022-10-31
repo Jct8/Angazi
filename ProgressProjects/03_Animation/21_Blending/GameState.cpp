@@ -34,10 +34,10 @@ void GameState::Initialize()
 	mFloorMaterial.power = 80.0f;
 
 	// Post Processing
-	mPostProcessingEffect.Initialize("../../Assets/Shaders/PostProcessing.fx", "VS", "PSNoProcessing");
+	mPostProcessingEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx", "VS", "PSNoProcessing");
 
 	// Model
-	model.Initialize("../../Assets/Models/Ely/Ely.model");
+	model.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Ely/Ely.model");
 	animator.Initialize(model);
 	animator.SetClipLooping(1, true); // backwards left
 	animator.SetClipLooping(2, true); // backwards right
@@ -61,24 +61,24 @@ void GameState::Initialize()
 	//animator.AddBlendAnimation({  0,-1 }, 8);
 
 	// Effects
-	mModelStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
+	mModelStandardEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
 	mModelStandardEffect.UseShadow(true);
 	mModelStandardEffect.SetNormalMapWeight(1.0f);
 	mModelStandardEffect.SetSkinnedMesh(1.0f);
 
 	mGroundStandardEffect.Initialize();
-	//mGroundStandardEffect.SetDiffuseTexture("../../Assets/Images/Pbr/4K_Planks/Planks019_4K_Color.jpg");
-	//mGroundStandardEffect.SetNormalTexture("../../Assets/Images/Pbr/4K_Planks/Planks019_4K_Normal.jpg");
-	//mGroundStandardEffect.SetAOTexture("../../Assets/Images/Pbr/4K_Planks/Planks019_4K_AmbientOcclusion.jpg");
-	//mGroundStandardEffect.SetRoughnessTexture("../../Assets/Images/Pbr/4K_Planks/Planks019_4K_Roughness.jpg");
-	//mGroundStandardEffect.SetMetallicTexture("../../Assets/Images/Pbr/4K_Planks/Planks019_4K_Metalness.jpg");
+	//mGroundStandardEffect.SetDiffuseTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Pbr/4K_Planks/Planks019_4K_Color.jpg");
+	//mGroundStandardEffect.SetNormalTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Pbr/4K_Planks/Planks019_4K_Normal.jpg");
+	//mGroundStandardEffect.SetAOTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Pbr/4K_Planks/Planks019_4K_AmbientOcclusion.jpg");
+	//mGroundStandardEffect.SetRoughnessTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Pbr/4K_Planks/Planks019_4K_Roughness.jpg");
+	//mGroundStandardEffect.SetMetallicTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Pbr/4K_Planks/Planks019_4K_Metalness.jpg");
 
-	mGroundStandardEffect.SetDiffuseTexture("../../Assets/Images/Pbr/Stylized_Stone_Floor_002_SD/Stylized_Stone_Floor_002_basecolor.jpg");
-	mGroundStandardEffect.SetNormalTexture("../../Assets/Images/Pbr/Stylized_Stone_Floor_002_SD/Stylized_Stone_Floor_002_normal.jpg");
-	mGroundStandardEffect.SetAOTexture("../../Assets/Images/Pbr/Stylized_Stone_Floor_002_SD/Stylized_Stone_Floor_002_ambientOcclusion.jpg");
-	mGroundStandardEffect.SetRoughnessTexture("../../Assets/Images/Pbr/Stylized_Stone_Floor_002_SD/Stylized_Stone_Floor_002_roughness.jpg");
-	mGroundStandardEffect.SetMetallicTexture("../../Assets/Images/Pbr/4K_Planks/Planks019_4K_Metalness.jpg");
-	//mGroundStandardEffect.SetDisplacementTexture("../../Assets/Images/Pbr/Stylized_Stone_Floor_002_SD/Stylized_Stone_Floor_002_height.png");
+	mGroundStandardEffect.SetDiffuseTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Pbr/Stylized_Stone_Floor_002_SD/Stylized_Stone_Floor_002_basecolor.jpg");
+	mGroundStandardEffect.SetNormalTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Pbr/Stylized_Stone_Floor_002_SD/Stylized_Stone_Floor_002_normal.jpg");
+	mGroundStandardEffect.SetAOTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Pbr/Stylized_Stone_Floor_002_SD/Stylized_Stone_Floor_002_ambientOcclusion.jpg");
+	mGroundStandardEffect.SetRoughnessTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Pbr/Stylized_Stone_Floor_002_SD/Stylized_Stone_Floor_002_roughness.jpg");
+	mGroundStandardEffect.SetMetallicTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Pbr/4K_Planks/Planks019_4K_Metalness.jpg");
+	//mGroundStandardEffect.SetDisplacementTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Pbr/Stylized_Stone_Floor_002_SD/Stylized_Stone_Floor_002_height.png");
 
 	mGroundStandardEffect.UseShadow(true);
 	mGroundStandardEffect.SetBumpMapWeight(5.0f);
@@ -86,7 +86,7 @@ void GameState::Initialize()
 	mGroundMesh = MeshBuilder::CreatePlane(10.0f, 100, 100);
 	mGroundMeshBuffer.Initialize(mGroundMesh);
 
-	mShadowEffect.Initialize("../../Assets/Shaders/DepthMap.fx");
+	mShadowEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DepthMap.fx");
 	mSkybox.CreateSkybox();
 
 	mHdrEffect.Initialize();

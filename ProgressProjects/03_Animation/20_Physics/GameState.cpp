@@ -33,10 +33,10 @@ void GameState::Initialize()
 
 	mMesh = MeshBuilder::CreatePlanePX(height, width);
 	mMeshBuffer.Initialize(mMesh,true);
-	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx", VertexPX::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
+	mVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoTexturing.fx", VertexPX::Format);
+	mPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoTexturing.fx");
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Border);
-	mTexture.Initialize("../../Assets/Images/GOAT.jpg");
+	mTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/GOAT.jpg");
 	mConstantBuffer.Initialize(sizeof(Matrix4));
 }
 

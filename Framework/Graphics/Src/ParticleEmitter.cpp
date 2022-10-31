@@ -10,8 +10,8 @@ using namespace Angazi::Graphics;
 void ParticleEmitter::Initialize(const std::filesystem::path& imagePath, uint32_t maxParticles)
 {
 	mMeshBuffer.Initialize<VertexPCX>(nullptr, maxParticles * 6, true);
-	mVertexShader.Initialize("../../Assets/Shaders/Particles.fx", VertexPCX::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/Particles.fx");
+	mVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Particles.fx", VertexPCX::Format);
+	mPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Particles.fx");
 	mSampler.Initialize(Sampler::Filter::Linear, Sampler::AddressMode::Clamp);
 	mTexture.Initialize(imagePath);
 	mBlendState.Initialize(BlendState::Mode::Additive);

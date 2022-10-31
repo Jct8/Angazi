@@ -48,7 +48,7 @@ void GameState::Initialize()
 	mActiveCamera = &mDefaultCamera;
 	////////////
 
-	ObjLoader::Load("../../Assets/Models/Tank/tank.obj", 0.001f, mTankMesh);
+	ObjLoader::Load(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Tank/tank.obj", 0.001f, mTankMesh);
 	mTankMeshBuffer.Initialize(mTankMesh);
 
 	mTransformBuffer.Initialize();
@@ -66,16 +66,16 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
 	mMaterial.power = 80.0f;
 
-	mVertexShader.Initialize("../../Assets/Shaders/Standard.fx", BoneVertex::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/Standard.fx");
+	mVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx", BoneVertex::Format);
+	mPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mTexture.Initialize("../../Assets/Models/Tank/tank_diffuse.jpg");
-	mSpecularTexture.Initialize("../../Assets/Models/Tank/tank_specular.jpg");
-	mNormalMap.Initialize("../../Assets/Models/Tank/tank_normal.jpg");
-	mAOMap.Initialize("../../Assets/Models/Tank/tank_ao.jpg");
+	mTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Tank/tank_diffuse.jpg");
+	mSpecularTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Tank/tank_specular.jpg");
+	mNormalMap.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Tank/tank_normal.jpg");
+	mAOMap.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Tank/tank_ao.jpg");
 
-	mGroundTexture.Initialize("../../Assets/Images/Sand.jpg");
+	mGroundTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Sand.jpg");
 
 	mGroundMesh = MeshBuilder::CreatePlane(100.0f, 200, 200);
 	mGroundMeshBuffer.Initialize(mGroundMesh);
@@ -85,16 +85,16 @@ void GameState::Initialize()
 
 	constexpr uint32_t depthMapSize = 4096;
 	mDepthMapRenderTarget.Initialize(depthMapSize, depthMapSize, RenderTarget::Format::RGBA_U32);
-	mDepthMapVertexShader.Initialize("../../Assets/Shaders/DepthMap.fx", BoneVertex::Format);
-	mDepthMapPixelShader.Initialize("../../Assets/Shaders/DepthMap.fx");
+	mDepthMapVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DepthMap.fx", BoneVertex::Format);
+	mDepthMapPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DepthMap.fx");
 	mDepthMapConstantBuffer.Initialize();
 
 	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
 	mScreenQuad = MeshBuilder::CreateNDCQuad();
 	mScreenQuadBuffer.Initialize(mScreenQuad);
 
-	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
-	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
+	mPostProcessingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx", VertexPX::Format);
+	mPostProcessingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx", "PSNoProcessing");
 
 	SimpleDraw::AddGroundPlane(200, true, Graphics::Colors::Blue);
 

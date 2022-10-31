@@ -152,15 +152,6 @@ Rendering features include:
     <img src="Assets/Images/ReadMe/Editor.PNG" alt="Logo" width="960" height="515">
 </p>
 
-<!-- CONTACT -->
-## Contact
-
-Justin - tim.justin8@gmail.com
-
-<!--Project Link: [https://github.com/Jct8/Angazi](https://github.com/Jct8/Angazi) -->
-
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 ## External Libraries
 * [Assimp](https://www.assimp.org/)
 * [DirectXTK](https://github.com/microsoft/DirectXTK)
@@ -176,5 +167,4 @@ Justin - tim.justin8@gmail.com
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/justintim0/
 [product-screenshot]: images/screenshot.png

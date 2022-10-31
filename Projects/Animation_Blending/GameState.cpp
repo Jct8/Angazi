@@ -28,10 +28,10 @@ void GameState::Initialize()
 	mMaterial.power = 80.0f;
 
 	// Post Processing
-	mPostProcessingEffect.Initialize("../../Assets/Shaders/PostProcessing.fx", "VS", "PSNoProcessing");
+	mPostProcessingEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx", "VS", "PSNoProcessing");
 
 	// Model
-	model.Initialize("../../Assets/Models/Swat/Swat.model");
+	model.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Swat/Swat.model");
 	animator.Initialize(model);
 	animator.SetClipLooping(0, true); // left
 	animator.SetClipLooping(1, true); // right
@@ -47,23 +47,23 @@ void GameState::Initialize()
 	animator.AddBlendAnimation({  0, 1 }, 4);
 
 	// Effects
-	mModelStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
+	mModelStandardEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
 	mModelStandardEffect.UseShadow(true);
 	mModelStandardEffect.SetNormalMapWeight(1.0f);
 	mModelStandardEffect.SetSkinnedMesh(1.0f);
 
-	mGroundStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
-	mGroundStandardEffect.SetDiffuseTexture("../../Assets/Images/Floor/Stone_Tiles_004_diffuse.jpg");
-	mGroundStandardEffect.SetNormalTexture("../../Assets/Images/Floor/Stone_Tiles_004_normal.jpg");
-	mGroundStandardEffect.SetAOTexture("../../Assets/Images/Floor/Stone_Tiles_004_ao.jpg");
-	mGroundStandardEffect.SetDisplacementTexture("../../Assets/Images/Floor/Stone_Tiles_004_height.png");
+	mGroundStandardEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
+	mGroundStandardEffect.SetDiffuseTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_diffuse.jpg");
+	mGroundStandardEffect.SetNormalTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_normal.jpg");
+	mGroundStandardEffect.SetAOTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_ao.jpg");
+	mGroundStandardEffect.SetDisplacementTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_height.png");
 	mGroundStandardEffect.UseShadow(true);
 	mGroundStandardEffect.SetBumpMapWeight(6.0f);
 
 	mGroundMesh = MeshBuilder::CreatePlane(100.0f, 50, 50);
 	mGroundMeshBuffer.Initialize(mGroundMesh);
 
-	mShadowEffect.Initialize("../../Assets/Shaders/DepthMap.fx");
+	mShadowEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DepthMap.fx");
 
 	mSkybox.CreateSkybox();
 	mHdrEffect.Initialize();

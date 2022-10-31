@@ -31,17 +31,17 @@ void ParticleManager::Load()
 	for (int i = 0; i < defaultSize; i++)
 	{
 		mParticles["BloodMelee"].emplace_back();
-		mParticles["BloodMelee"][i].Load("../../Assets/Images/Rougelike/bloodSplat.png", 3, 3);
+		mParticles["BloodMelee"][i].Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/bloodSplat.png", 3, 3);
 	}
 	for (int i = 0; i < defaultSize; i++)
 	{
 		mParticles["LightningSheet"].emplace_back();
-		mParticles["LightningSheet"][i].Load("../../Assets/Images/Rougelike/LightningSheet.png", 1, 8);
+		mParticles["LightningSheet"][i].Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/LightningSheet.png", 1, 8);
 	}
 	for (int i = 0; i < defaultSize; i++)
 	{
 		mParticles["particleSheet"].emplace_back();
-		mParticles["particleSheet"][i].Load("../../Assets/Images/Rougelike/particleSheet.png", 8, 5);
+		mParticles["particleSheet"][i].Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/particleSheet.png", 8, 5);
 	}
 
 }

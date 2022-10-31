@@ -60,9 +60,9 @@ void Enemy::Load(std::filesystem::path fileName, bool facingLeft)
 		{
 			fscanf_s(file, "%s\n", name, maxsize);
 			//Angazi::Graphics::Texture tex;
-			//tex.Initialize("../../Assets/Images/Rougelike/" + std::string(name));
+			//tex.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/" + std::string(name));
 			mAnimations[anim].emplace_back();
-			mAnimations[anim].back() = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
+			mAnimations[anim].back() = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/" + std::string(name));
 		}
 	}
 	fclose(file);

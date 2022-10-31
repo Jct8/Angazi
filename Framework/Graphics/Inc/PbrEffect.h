@@ -16,7 +16,7 @@ namespace Angazi::Graphics
 		PbrEffect(const PbrEffect&) = delete;
 		PbrEffect& operator=(const PbrEffect&) = delete;
 
-		void Initialize(const std::filesystem::path& fileName = "../../Assets/Shaders/PBR.fx") override;
+		void Initialize(const std::filesystem::path& fileName = Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PBR.fx") override;
 		void Terminate() override;
 
 		void Begin() override;

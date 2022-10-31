@@ -6,9 +6,9 @@ using namespace Angazi::Graphics;
 
 void Rifle::Load()
 {
-	mSurvivorTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/survivor_rifle.png");
-	mCrosshairTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/crosshair_rifle.png");
-	mTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/bullet_rifle.png");
+	mSurvivorTextureId = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/XEngine/survivor_rifle.png");
+	mCrosshairTextureId = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/XEngine/crosshair_rifle.png");
+	mTextureId = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/XEngine/bullet_rifle.png");
 	mDamage = 30;
 	mAmmoCount = 30;
 }
@@ -33,7 +33,7 @@ void Rifle::Render()
 		mReloadDelay = time + 1.0f;
 		isReloading = false;
 		mCrosshairTextureId = 0;
-		mCrosshairTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/crosshair_shotgun.png");
+		mCrosshairTextureId = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/XEngine/crosshair_shotgun.png");
 	}
 
 	for (int i = 0; i < mAmmoCount; i++)
@@ -68,6 +68,6 @@ void Rifle::Reload()
 	isReloading = true;
 	mReloadDelay = MainApp().GetTime() + 1.0f;
 	mCrosshairTextureId = 0;
-	mCrosshairTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/reload.png");
+	mCrosshairTextureId = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/XEngine/reload.png");
 
 }

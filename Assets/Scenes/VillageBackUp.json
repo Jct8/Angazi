@@ -23,12 +23,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_grass_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_grass_01.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -82,12 +82,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\buildings\\rpgpp_lt_building_03.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\buildings\\rpgpp_lt_building_03.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -141,12 +141,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\buildings\\rpgpp_lt_building_04.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\buildings\\rpgpp_lt_building_04.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -200,12 +200,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wagon_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wagon_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -259,12 +259,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_path_01a.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_path_01a.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -318,12 +318,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -377,12 +377,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_sand_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_sand_01.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -436,12 +436,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_path_01b.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_path_01b.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -495,12 +495,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_path_01a.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_path_01a.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -554,12 +554,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_tree_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_tree_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -613,12 +613,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_tree_02.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_tree_02.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -672,12 +672,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_tree_pine_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_tree_pine_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -731,12 +731,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_flower_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_flower_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -790,12 +790,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_grass_small_01b.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_grass_small_01b.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -849,12 +849,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_hill_small_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_hill_small_01.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -908,12 +908,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_hill_small_02.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_hill_small_02.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -967,12 +967,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_mountain_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_mountain_01.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1026,12 +1026,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_mountain_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_mountain_01.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1085,12 +1085,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_hill_small_02.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_hill_small_02.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1144,12 +1144,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_mountain_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_mountain_01.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1203,12 +1203,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_path_01b.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_path_01b.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1262,12 +1262,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_rock_small_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_rock_small_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1321,12 +1321,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_hill_small_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_hill_small_01.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1380,12 +1380,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_bird_house_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_bird_house_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1439,12 +1439,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_path_01a.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_terrain_path_01a.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1498,12 +1498,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01b.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01b.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1557,12 +1557,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1616,12 +1616,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1675,12 +1675,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1734,12 +1734,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1793,12 +1793,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1852,12 +1852,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01b.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01b.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1911,12 +1911,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_wood_path_01a.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -1970,12 +1970,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_grass_small_01a.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_grass_small_01a.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2029,12 +2029,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_grass_small_01b.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_grass_small_01b.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2088,12 +2088,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_grass_small_01b.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_grass_small_01b.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2147,12 +2147,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_flower_02.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_flower_02.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2206,12 +2206,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_flower_03.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_flower_03.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2265,12 +2265,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_well_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_well_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2324,12 +2324,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_rock_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_rock_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2383,12 +2383,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_bush_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_bush_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2442,12 +2442,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_hill_small_02.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_hill_small_02.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2501,12 +2501,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_rake_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_rake_01.fbx",
                     "CastingShadow": false,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2560,12 +2560,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_bench_wood_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_bench_wood_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2619,12 +2619,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_rocks_tiny_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_rocks_tiny_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2678,12 +2678,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_barrel_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_barrel_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2737,12 +2737,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_grass_small_01b.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\nature\\rpgpp_lt_grass_small_01b.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",
@@ -2796,12 +2796,12 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "..\\..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_log_wood_01.fbx",
+                    "MeshFileName": "..\\Assets\\Models\\rpgpp_lt_models\\props\\rpgpp_lt_log_wood_01.fbx",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
+                    "DiffuseFilePath": "..\\Assets\\Models\\rpgpp_lt_models\\rpgpp_lt_tex_a.png",
                     "NormalFilePath": "",
                     "SpecularFilePath": "",
                     "DisplacementFilePath": "",

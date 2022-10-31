@@ -32,28 +32,28 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
 	mMaterial.power = 80.0f;
 
-	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/Earth.fx", Vertex::Format, "VSEarth");
-	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/Earth.fx", "PSEarth");
+	mPhongShadingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Earth.fx", Vertex::Format, "VSEarth");
+	mPhongShadingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Earth.fx", "PSEarth");
 
-	mCloudShadingVertexShader.Initialize("../../Assets/Shaders/Earth.fx", Vertex::Format, "VSCloud");
-	mCloudShadingPixelShader.Initialize("../../Assets/Shaders/Earth.fx", "PSCloud");
+	mCloudShadingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Earth.fx", Vertex::Format, "VSCloud");
+	mCloudShadingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Earth.fx", "PSCloud");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mTexture.Initialize("../../Assets/Images/Earth/10k_earth.jpg",true);
-	mSpecularTexture.Initialize("../../Assets//Images/Earth/10k_earth_spec.jpg");
-	mDisplacementTexture.Initialize("../../Assets/Images/Earth/earth_bump.jpg");
-	mNormalMap.Initialize("../../Assets/Images/Earth/earth_normal.jpg");
-	mNightMap.Initialize("../../Assets/Images/Earth/10k_earth_nightmap.jpg");
-	mClouds.Initialize("../../Assets/Images/Earth/8k_earth_clouds.jpg");
+	mTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/10k_earth.jpg",true);
+	mSpecularTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "/Images/Earth/10k_earth_spec.jpg");
+	mDisplacementTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/earth_bump.jpg");
+	mNormalMap.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/earth_normal.jpg");
+	mNightMap.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/10k_earth_nightmap.jpg");
+	mClouds.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/8k_earth_clouds.jpg");
 
 	mBlendState.Initialize(BlendState::Mode::Additive);
 
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/back.png", Skybox::Back);
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/front.png", Skybox::Front);
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/left.png", Skybox::Left);
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/right.png", Skybox::Right);
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/top.png", Skybox::Top);
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/bottom.png", Skybox::Bottom);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/back.png", Skybox::Back);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/front.png", Skybox::Front);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/left.png", Skybox::Left);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/right.png", Skybox::Right);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/top.png", Skybox::Top);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/bottom.png", Skybox::Bottom);
 	mSkybox.CreateSkybox();
 }
 

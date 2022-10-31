@@ -27,9 +27,9 @@ void GameState::Initialize()
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
 	gameState = GameStart;
-	backgroundTex = TextureManager::Get()->Load("../../Assets/Images/Rougelike/Background.png");
-	characterTex = TextureManager::Get()->Load( "../../Assets/Images/Rougelike/Start.png");
-	character2Tex = TextureManager::Get()->Load("../../Assets/Images/Rougelike/Start2.png");
+	backgroundTex = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/Background.png");
+	characterTex = TextureManager::Get()->Load( Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/Start.png");
+	character2Tex = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/Start2.png");
 	Camera2D::StaticInitialize();
 
 	TileMap::StaticInitialize();

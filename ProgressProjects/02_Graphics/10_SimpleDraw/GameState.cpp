@@ -18,8 +18,8 @@ void GameState::Initialize()
 
 	mConstantBuffer.Initialize(sizeof(Matrix4));
 
-	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx", VertexPX::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
+	mVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoTexturing.fx", VertexPX::Format);
+	mPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoTexturing.fx");
 }
 
 void GameState::Terminate()

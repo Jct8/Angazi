@@ -29,8 +29,8 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
 	mMaterial.power = 80.0f;
 
-	mVertexShader.Initialize("../../Assets/Shaders/Standard.fx", BoneVertex::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/Standard.fx");
+	mVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx", BoneVertex::Format);
+	mPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	mBlendState.Initialize(BlendState::Mode::Additive);
@@ -40,17 +40,17 @@ void GameState::Initialize()
 	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);
 	mScreenQuad = MeshBuilder::CreateNDCQuad();
 	mScreenQuadBuffer.Initialize(mScreenQuad);
-	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
-	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
+	mPostProcessingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx", VertexPX::Format);
+	mPostProcessingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx", "PSNoProcessing");
 
 	// Jet
 	mJetPosition = { 0.0f,0.0f,0.0f };
-	ObjLoader::Load("../../Assets/Models/Jet/F 15.obj", 1.0f, mJetMesh);
+	ObjLoader::Load(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Jet/F 15.obj", 1.0f, mJetMesh);
 	mJetMeshBuffer.Initialize(mJetMesh);
-	mJetTexture.Initialize("../../Assets/Models/Jet/F 15E.jpg",true);
-	mJetSpecularTexture.Initialize("../../Assets/Models/Jet/F 15 Specular.jpg");
-	mJetNormalMap.Initialize("../../Assets/Models/Jet/F-15C normal.jpg");
-	mJetAOMap.Initialize("../../Assets/Models/Jet/F-15CAO.jpg");
+	mJetTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Jet/F 15E.jpg",true);
+	mJetSpecularTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Jet/F 15 Specular.jpg");
+	mJetNormalMap.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Jet/F-15C normal.jpg");
+	mJetAOMap.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Jet/F-15CAO.jpg");
 
 	// Settings
 	mSettings.brightness = 0.825f;

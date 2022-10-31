@@ -16,7 +16,7 @@ namespace Angazi::Graphics
 		HdrEffect& operator=(const HdrEffect&) = delete;
 	public:
 		void Initialize(const std::filesystem::path& fileName, const char* vshaderName, const char* pshaderName );
-		void Initialize(const std::filesystem::path& fileName = "../../Assets/Shaders/HDR.fx") override { Initialize(fileName,"VS","PS"); }
+		void Initialize(const std::filesystem::path& fileName = Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/HDR.fx") override { Initialize(fileName,"VS","PS"); }
 
 		void Terminate() override;
 

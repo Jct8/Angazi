@@ -10,8 +10,8 @@ using namespace Angazi::Graphics;
 
 void Projectile::Load(std::string fileName)
 {
-	mTexture = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + fileName);
-	mBloodTexture = TextureManager::Get()->Load("../../Assets/Images/Rougelike/blood.png");
+	mTexture = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/" + fileName);
+	mBloodTexture = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/blood.png");
 	isActive = false;
 }
 

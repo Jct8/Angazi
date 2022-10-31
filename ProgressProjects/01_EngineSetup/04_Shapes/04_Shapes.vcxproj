@@ -154,7 +154,7 @@
     <ClInclude Include="GameState.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Engine\Angazi\Angazi.vcxproj">
+    <ProjectReference Include="..\..\..\Engine\Angazi\Angazi.vcxproj">
       <Project>{c3204d71-84ac-46fa-8cbb-42ed98fa9e8c}</Project>
     </ProjectReference>
   </ItemGroup>

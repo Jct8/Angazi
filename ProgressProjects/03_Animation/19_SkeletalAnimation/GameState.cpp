@@ -26,30 +26,30 @@ void GameState::Initialize()
 	mMaterial.power = 80.0f;
 
 	// Post Processing
-	mPostProcessingEffect.Initialize("../../Assets/Shaders/PostProcessing.fx", "VS", "PSNoProcessing");
+	mPostProcessingEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx", "VS", "PSNoProcessing");
 
 	// Model
-	model.Initialize("../../Assets/Models/James/James.model");
-	//modelArena.Initialize("../../Assets/Models/Arena/Arena.model");
+	model.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/James/James.model");
+	//modelArena.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Arena/Arena.model");
 	animator.Initialize(model);
 	animator.SetClipLooping(0 , true);
 
 	// Effects
-	mModelStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
+	mModelStandardEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
 	mModelStandardEffect.UseShadow(true);
 	mModelStandardEffect.SetNormalMapWeight(1.0f);
 	mModelStandardEffect.SetSkinnedMesh(true);
 
-	//mArenaStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
+	//mArenaStandardEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
 	//mArenaStandardEffect.UseShadow(true);
 	//mArenaStandardEffect.SetNormalMapWeight(0.0f);
 	//mArenaStandardEffect.SetSkinnedMesh(0.0f);
 
-	mGroundStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
-	mGroundStandardEffect.SetDiffuseTexture("../../Assets/Images/Floor/Stone_Tiles_004_diffuse.jpg");
-	mGroundStandardEffect.SetNormalTexture("../../Assets/Images/Floor/Stone_Tiles_004_normal.jpg");
-	mGroundStandardEffect.SetAOTexture("../../Assets/Images/Floor/Stone_Tiles_004_ao.jpg");
-	mGroundStandardEffect.SetDisplacementTexture("../../Assets/Images/Floor/Stone_Tiles_004_height.png");
+	mGroundStandardEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
+	mGroundStandardEffect.SetDiffuseTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_diffuse.jpg");
+	mGroundStandardEffect.SetNormalTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_normal.jpg");
+	mGroundStandardEffect.SetAOTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_ao.jpg");
+	mGroundStandardEffect.SetDisplacementTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_height.png");
 	mGroundStandardEffect.UseShadow(true);
 	mGroundStandardEffect.SetBumpMapWeight(6.0f);
 
@@ -60,7 +60,7 @@ void GameState::Initialize()
 	mHdrEffect.EnableHDR(true);
 	mHdrEffect.EnableGammaCorrection(true);
 
-	mShadowEffect.Initialize("../../Assets/Shaders/DepthMap.fx");
+	mShadowEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DepthMap.fx");
 	mSkybox.CreateSkybox();
 }
 

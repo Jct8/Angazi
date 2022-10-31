@@ -16,7 +16,7 @@ void Enemy::Load()
 	mStateMachine->AddState<IdleState>("Idle");
 	mStateMachine->AddState<FollowState>("Follow");
 	mStateMachine->AddState<RunState>("Run");
-	mTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/zombie_idle.png");
+	mTextureId = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/XEngine/zombie_idle.png");
 }
 
 void Enemy::Unload()
@@ -71,7 +71,7 @@ void Enemy::TakeDamage(int damage)
 	if (mHealth <= 0 && isAlive)
 	{
 		mTextureId = 0;
-		mTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/zombie_dead.png");
+		mTextureId = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/XEngine/zombie_dead.png");
 		isAlive = false;
 		EnemyManager::Get().IncreaseDeathCount();
 		mDeathDelay = MainApp().GetTime() + 4.0f;

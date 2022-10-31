@@ -7,7 +7,7 @@ using namespace Angazi::Graphics;
 
 void TileMap::Load()
 {
-	std::string path = "../../Assets/Images/XEngine/";
+	std::string path = Angazi::Core::FilePath::GetAssetFilePath() + "Images/XEngine/";
 	mTextureIds[0] = TextureManager::Get()->Load(path+ "grass.png");
 	mTextureIds[1] = TextureManager::Get()->Load(path+ "flower.png");
 	mTextureIds[2] = TextureManager::Get()->Load(path+ "tree0.png");

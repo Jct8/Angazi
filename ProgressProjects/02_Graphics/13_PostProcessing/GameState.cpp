@@ -34,20 +34,20 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f,0.5f,0.5f ,1.0f };
 	mMaterial.power = 80.0f;
 
-	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/Earth.fx", Vertex::Format, "VSEarth");
-	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/Earth.fx", "PSEarth");
+	mPhongShadingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Earth.fx", Vertex::Format, "VSEarth");
+	mPhongShadingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Earth.fx", "PSEarth");
 
-	mCloudShadingVertexShader.Initialize("../../Assets/Shaders/Earth.fx", Vertex::Format, "VSCloud");
-	mCloudShadingPixelShader.Initialize("../../Assets/Shaders/Earth.fx", "PSCloud");
+	mCloudShadingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Earth.fx", Vertex::Format, "VSCloud");
+	mCloudShadingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Earth.fx", "PSCloud");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mTexture.Initialize("../../Assets/Images/Earth/8k_earth.jpg");
-	mSpecularTexture.Initialize("../../Assets/Images/Earth/earth_spec.jpg");
-	mDisplacementTexture.Initialize("../../Assets/Images/Earth/earth_bump.jpg");
-	mNormalMap.Initialize("../../Assets/Images/Earth/earth_normal.jpg");
-	//mNightMap.Initialize("../../Assets/Images/Earth/earth_lights.jpg");
-	mNightMap.Initialize("../../Assets/Images/Earth/8k_earth_nightmap.jpg");
-	mClouds.Initialize("../../Assets/Images/Earth/earth_clouds.jpg");
+	mTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/8k_earth.jpg");
+	mSpecularTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/earth_spec.jpg");
+	mDisplacementTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/earth_bump.jpg");
+	mNormalMap.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/earth_normal.jpg");
+	//mNightMap.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/earth_lights.jpg");
+	mNightMap.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/8k_earth_nightmap.jpg");
+	mClouds.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/earth_clouds.jpg");
 
 	mBlendState.Initialize(BlendState::Mode::Additive);
 
@@ -57,8 +57,8 @@ void GameState::Initialize()
 	mScreenQuad = MeshBuilder::CreateNDCQuad();
 	mScreenQuadBuffer.Initialize(mScreenQuad);
 
-	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
-	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx");
+	mPostProcessingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx", VertexPX::Format);
+	mPostProcessingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx");
 
 }
 

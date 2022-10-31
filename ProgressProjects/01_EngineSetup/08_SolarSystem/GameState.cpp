@@ -18,8 +18,8 @@ void GameState::Initialize()
 
 	mMeshBufferSphere.Initialize(mMeshSphere);
 
-	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx", VertexPX::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
+	mVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoTexturing.fx", VertexPX::Format);
+	mPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoTexturing.fx");
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Wrap);
 
 	for (int i = 0; i < 10; i++)
@@ -30,19 +30,19 @@ void GameState::Initialize()
 		mScale.emplace_back();
 		mTranslation.emplace_back();
 		mMoonTextures.emplace_back();
-		mMoonTextures[i].Initialize("../../Assets/Images/Space/Moon.jpg");
+		mMoonTextures[i].Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Space/Moon.jpg");
 	}
 
-	mPlanetTextures[0].Initialize("../../Assets/Images/Space/Sun.jpg");
-	mPlanetTextures[1].Initialize("../../Assets/Images/Space/Mercury.jpg");
-	mPlanetTextures[2].Initialize("../../Assets/Images/Space/Venus.jpg");
-	mPlanetTextures[3].Initialize("../../Assets/Images/Space/Earth.jpg");
-	mPlanetTextures[4].Initialize("../../Assets/Images/Space/Mars.jpg");
-	mPlanetTextures[5].Initialize("../../Assets/Images/Space/Jupiter.jpg");
-	mPlanetTextures[6].Initialize("../../Assets/Images/Space/Saturn.jpg");
-	mPlanetTextures[7].Initialize("../../Assets/Images/Space/Uranus.jpg");
-	mPlanetTextures[8].Initialize("../../Assets/Images/Space/Neptune.jpg");
-	mPlanetTextures[9].Initialize("../../Assets/Images/Space/Pluto.jpg");
+	mPlanetTextures[0].Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Space/Sun.jpg");
+	mPlanetTextures[1].Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Space/Mercury.jpg");
+	mPlanetTextures[2].Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Space/Venus.jpg");
+	mPlanetTextures[3].Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Space/Earth.jpg");
+	mPlanetTextures[4].Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Space/Mars.jpg");
+	mPlanetTextures[5].Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Space/Jupiter.jpg");
+	mPlanetTextures[6].Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Space/Saturn.jpg");
+	mPlanetTextures[7].Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Space/Uranus.jpg");
+	mPlanetTextures[8].Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Space/Neptune.jpg");
+	mPlanetTextures[9].Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Space/Pluto.jpg");
 
 	mSelfRotationSpeed[0] = 0.0f;
 	mSelfRotationSpeed[1] = 0.2f;
@@ -77,12 +77,12 @@ void GameState::Initialize()
 	mScale[8] = 1.0f;
 	mScale[9] = 0.3f;
 
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/back.png", Skybox::Back);
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/front.png", Skybox::Front);
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/left.png", Skybox::Left);
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/right.png", Skybox::Right);
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/top.png", Skybox::Top);
-	mSkybox.AddTexture("../../Assets/Images/SpaceSkybox/bottom.png", Skybox::Bottom);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/back.png", Skybox::Back);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/front.png", Skybox::Front);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/left.png", Skybox::Left);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/right.png", Skybox::Right);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/top.png", Skybox::Top);
+	mSkybox.AddTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/SpaceSkybox/bottom.png", Skybox::Bottom);
 	mSkybox.CreateSkybox();
 }
 

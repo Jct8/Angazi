@@ -61,7 +61,7 @@ void SCV::Initialize()
 	{
 		char name[256];
 		sprintf_s(name, "XEngine/scv_%02zu.png", i + 1);
-		mTextureIds[i] = TextureManager::Get()->Load(name);
+		mTextureIds[i] = TextureManager::Get()->Load(name, false, true);
 	}
 }
 

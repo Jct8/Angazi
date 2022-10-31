@@ -31,14 +31,14 @@ void Skybox::CreateSkybox(const std::filesystem::path& hdrImagePath)
 		for (std::map<Side, std::filesystem::path>::iterator it = cubeSides.begin(); it != cubeSides.end(); ++it)
 			fileNames.push_back(it->second);
 		mTexture.Initialize(fileNames, false);
-		mIrradianceMap.InitializeCubeMap(mTexture, "../../Assets/Shaders/IrradianceMap.fx", 32, Texture::CubeMapType::IrradianceMap);
-		mPrefilterMap.InitializeCubeMap(mTexture, "../../Assets/Shaders/PreFilter.fx", 256, Texture::CubeMapType::PreFiltered);
+		mIrradianceMap.InitializeCubeMap(mTexture, Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/IrradianceMap.fx", 32, Texture::CubeMapType::IrradianceMap);
+		mPrefilterMap.InitializeCubeMap(mTexture, Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PreFilter.fx", 256, Texture::CubeMapType::PreFiltered);
 	}
 	else
 	{
-		mTexture.InitializeHdrCube(hdrImagePath, "../../Assets/Shaders/Equirectangular.fx", 1024);
-		mIrradianceMap.InitializeCubeMap(mTexture, "../../Assets/Shaders/IrradianceMap.fx", 32,Texture::CubeMapType::IrradianceMap);
-		mPrefilterMap.InitializeCubeMap(mTexture, "../../Assets/Shaders/PreFilter.fx", 256, Texture::CubeMapType::PreFiltered);
+		mTexture.InitializeHdrCube(hdrImagePath, Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Equirectangular.fx", 1024);
+		mIrradianceMap.InitializeCubeMap(mTexture, Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/IrradianceMap.fx", 32,Texture::CubeMapType::IrradianceMap);
+		mPrefilterMap.InitializeCubeMap(mTexture, Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PreFilter.fx", 256, Texture::CubeMapType::PreFiltered);
 	}
 
 	// Render States
@@ -54,8 +54,8 @@ void Skybox::CreateSkybox(const std::filesystem::path& hdrImagePath)
 	mBoxBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
 
 	// Shaders
-	mVertexShader.Initialize("../../Assets/Shaders/Skybox.fx", VertexP::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/Skybox.fx");
+	mVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Skybox.fx", VertexP::Format);
+	mPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Skybox.fx");
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 	mTransformBuffer.Initialize();
 }
@@ -79,7 +79,7 @@ void Skybox::Terminate()
 
 void Skybox::ChangeDefualtSkybox(int skyboxNumber)
 {
-	std::string defaultPath = "../../Assets/Images/";
+	std::string defaultPath = Angazi::Core::FilePath::GetAssetFilePath() + "Images/";
 	switch (skyboxNumber)
 	{
 	case 1:	defaultPath.append("Skybox"); break;

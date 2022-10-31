@@ -12,7 +12,7 @@ Enemy::Enemy(AI::AIWorld& world)
 
 void Enemy::Load()
 {
-	mTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/interceptor_09.png");
+	mTextureId = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/XEngine/interceptor_09.png");
 	maxSpeed = 500.0f;
 	position = { GraphicsSystem::Get()->GetBackBufferWidth() *0.3f, GraphicsSystem::Get()->GetBackBufferHeight() *0.3f};
 

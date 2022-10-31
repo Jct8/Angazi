@@ -137,12 +137,12 @@ void GameState::Initialize()
 	//mPhysicsWorld.AddStaticOBB({ {-3.0f,4.5f,0.0f }, {4.0f,0.2f,5.0f} , Quaternion::RotationAxis(Vector3::ZAxis,-15.0f * Constants::DegToRad) });
 
 	// Model
-	mModel.Initialize("../../Assets/Models/James/James.model");
+	mModel.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/James/James.model");
 	animator.Initialize(mModel);
 	animator.SetClipLooping(0, true);
 
 	// Effects
-	mModelStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
+	mModelStandardEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
 	mModelStandardEffect.UseShadow(true);
 	mModelStandardEffect.SetNormalMapWeight(1.0f);
 	mModelStandardEffect.SetSkinnedMesh(1.0f);

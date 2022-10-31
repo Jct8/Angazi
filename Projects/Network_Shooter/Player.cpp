@@ -35,9 +35,9 @@ namespace
 
 void Player::Initialize(int playerNumber, float speed, const char* playerPath, const char* healthBarPath)
 {
-	mTextureId = TextureManager::Get()->Load(playerPath);
-	healthBarEmpty = TextureManager::Get()->Load("Network/bar_empty.png");
-	healthBarFull = TextureManager::Get()->Load(healthBarPath);
+	mTextureId = TextureManager::Get()->Load(playerPath, false, true);
+	healthBarEmpty = TextureManager::Get()->Load("Network/bar_empty.png", false, true);
+	healthBarFull = TextureManager::Get()->Load(healthBarPath, false, true);
 
 	mPlayerNumber = playerNumber;
 	mPosition = spawnPositions[playerNumber];

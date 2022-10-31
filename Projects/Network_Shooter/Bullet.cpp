@@ -9,7 +9,7 @@ extern std::array<Player, 4> players;
 
 void Bullet::Initialize(int playerNumber)
 {
-	mTextureId = TextureManager::Get()->Load("Network/bullet2.png");
+	mTextureId = TextureManager::Get()->Load("Network/bullet2.png", false , true);
 	mPlayerNumber = playerNumber;
 	isActive = false;
 }

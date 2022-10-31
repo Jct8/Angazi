@@ -30,11 +30,11 @@ void GameState::Initialize()
 	mMaterial.power = 80.0f;
 
 	// Post Processing
-	mPostProcessingEffect.Initialize("../../Assets/Shaders/PostProcessing.fx", "VS", "PSNoProcessing");
+	mPostProcessingEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx", "VS", "PSNoProcessing");
 
 	// Jet
 	mJetPosition = { 0.0f,0.0f,0.0f };
-	ObjLoader::Load("../../Assets/Models/Jet/F 15.obj", 1.0f, mJetMesh);
+	ObjLoader::Load(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Jet/F 15.obj", 1.0f, mJetMesh);
 	mJetMeshBuffer.Initialize(mJetMesh);
 
 	mAnimation = Graphics::AnimationBuilder()
@@ -57,29 +57,29 @@ void GameState::Initialize()
 		.SetLooping(true)
 		.Build();
 
-	model.Initialize("../../Assets/Models/Chad/Chad.model");
+	model.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Chad/Chad.model");
 	mBoneMatrices.resize(model.skeleton.bones.size());
 	UpdateBoneMatrices(model.skeleton.root, mBoneMatrices);
 
 	// Effects
-	mJetStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
-	mJetStandardEffect.SetDiffuseTexture("../../Assets/Models/Jet/F 15E.jpg");
-	mJetStandardEffect.SetSpecularTexture("../../Assets/Models/Jet/F 15 Specular.jpg");
-	mJetStandardEffect.SetNormalTexture("../../Assets/Models/Jet/F-15C normal.jpg");
-	mJetStandardEffect.SetAOTexture("../../Assets/Models/Jet/F-15CAO.jpg");
+	mJetStandardEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
+	mJetStandardEffect.SetDiffuseTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Jet/F 15E.jpg");
+	mJetStandardEffect.SetSpecularTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Jet/F 15 Specular.jpg");
+	mJetStandardEffect.SetNormalTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Jet/F-15C normal.jpg");
+	mJetStandardEffect.SetAOTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Jet/F-15CAO.jpg");
 	mJetStandardEffect.UseShadow(true);
 
-	mModelStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
+	mModelStandardEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
 	mModelStandardEffect.UseShadow(true);
 
-	mGroundStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
-	mGroundStandardEffect.SetDiffuseTexture("../../Assets/Images/Sand.jpg");
+	mGroundStandardEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
+	mGroundStandardEffect.SetDiffuseTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Sand.jpg");
 	mGroundStandardEffect.UseShadow(true);
 
 	mGroundMesh = MeshBuilder::CreatePlane(100.0f, 200, 200);
 	mGroundMeshBuffer.Initialize(mGroundMesh);
 
-	//mShadowEffect.Initialize("../../Assets/Shaders/DepthMap.fx");
+	//mShadowEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DepthMap.fx");
 	mHdrEffect.Initialize();
 }
 

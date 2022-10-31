@@ -12,7 +12,7 @@
       <AdditionalDependencies>assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y "$(SolutionDir)..\External\assimp-5.0.1\Bin\*.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y /d "$(SolutionDir)..\External\assimp-5.0.1\Bin\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />

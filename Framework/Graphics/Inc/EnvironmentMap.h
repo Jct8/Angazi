@@ -13,7 +13,7 @@ namespace Angazi::Graphics
 		EnvironmentMap(const EnvironmentMap&) = delete;
 		EnvironmentMap& operator=(const EnvironmentMap&) = delete;
 
-		void Initialize(const std::filesystem::path& fileName = "../../Assets/Shaders/EnvironmentMap.fx");
+		void Initialize(const std::filesystem::path& fileName = Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/EnvironmentMap.fx");
 		void Terminate();
 
 		void Begin();

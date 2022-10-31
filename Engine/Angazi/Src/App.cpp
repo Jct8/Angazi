@@ -37,16 +37,16 @@ void Angazi::App::Run(AppConfig appConfig)
 
 	//Initialize the graphics systems
 	GraphicsSystem::StaticInitialize(handle, false);
-	TextureManager::StaticInitialize("../../Assets/Images/");
+	TextureManager::StaticInitialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/");
 	BatchRenderer::StaticInitialize();
 	SpriteRenderer::StaticInitialize();
-	ModelManager::StaticInitialize("../../Assets/Models/");
-	MeshManager::StaticInitialize("../../Assets/Models/");
+	ModelManager::StaticInitialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/");
+	MeshManager::StaticInitialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/");
 
 	// Start Logo 
 	float startTimer = TimeUtil::GetTime() + 2.0f;
 	TextureId startTextureId;
-	startTextureId = TextureManager::Get()->Load("AngaziLogo.png");
+	startTextureId = TextureManager::Get()->Load("AngaziLogo.png", false, true);
 	BatchRenderer::Get()->AddSprite(startTextureId, { mAppConfig.windowWidth * 0.5f , mAppConfig.windowHeight * 0.5f });
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 	GraphicsSystem::Get()->BeginRender();

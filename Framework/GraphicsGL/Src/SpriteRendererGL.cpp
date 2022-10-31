@@ -68,8 +68,8 @@ void SpriteRenderer::Initialize()
 {
 	mTransform = Math::Matrix4::Identity;
 
-	mPixelShader.Initialize("../../Assets/GLShaders/Sprite.glsl");
-	mVertexShader.Initialize("../../Assets/GLShaders/Sprite.glsl", VertexPX::Format);
+	mPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "GLShaders/Sprite.glsl");
+	mVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "GLShaders/Sprite.glsl", VertexPX::Format);
 	mConstantBuffer.Initialize(sizeof(Math::Matrix4));
 
 	MeshPX mesh;

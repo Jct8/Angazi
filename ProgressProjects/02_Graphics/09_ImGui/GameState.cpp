@@ -20,10 +20,10 @@ void GameState::Initialize()
 	mMeshBufferPlane.Initialize(mMeshPlane);
 	mMeshBufferSphere.Initialize(mMeshSphere);
 
-	mVertexShader.Initialize("../../Assets/Shaders/DoTexturing.fx", VertexPX::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/DoTexturing.fx");
+	mVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoTexturing.fx", VertexPX::Format);
+	mPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoTexturing.fx");
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Wrap);
-	mTexture.Initialize("../../Assets/Images/Earth.jpg");
+	mTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Earth/10k_earth.jpg");
 }
 
 void GameState::Terminate()

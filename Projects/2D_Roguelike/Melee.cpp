@@ -22,7 +22,7 @@ void MeleeWeapon::Load(std::filesystem::path fileName)
 	fscanf_s(file, "HitSize:%f,%f\n", &mHitWidth, &mHitHeight);
 	fscanf_s(file, "Damage:%d\n", &mDamage);
 	fscanf_s(file, "%s\n", name, maxsize);
-	mSprite = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
+	mSprite = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/" + std::string(name));
 	fscanf_s(file, "Particle:%s\n", name, maxsize);
 	mParticleName = name;
 
@@ -33,7 +33,7 @@ void MeleeWeapon::Load(std::filesystem::path fileName)
 		{
 			fscanf_s(file, "%s\n", name, maxsize);
 			mAnimationsMap[i].emplace_back();
-			mAnimationsMap[i][j] = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
+			mAnimationsMap[i][j] = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/" + std::string(name));
 			fscanf_s(file, "%f,%f\n", &x, &y);
 			mAnimationDamageMap[i].push_back({ x , y });
 		}

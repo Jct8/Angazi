@@ -32,14 +32,14 @@ void GameState::Initialize()
 	mMaterial.power = 80.0f;
 
 	mMeshBufferSphere.Initialize(MeshBuilder::CreateSphere(0.5f, 32, 32));
-	ObjLoader::Load("../../Assets/Models/Teapot/utah-teapot.obj", 0.05f, mMeshTeapot);
+	ObjLoader::Load(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Teapot/utah-teapot.obj", 0.05f, mMeshTeapot);
 	mMeshBufferTeaPot.Initialize(mMeshTeapot);
 	mMeshBufferCube.Initialize(MeshBuilder::CreateCube());
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
 
 	mEnvironmentMap.Initialize();
-	mEnvironmentMap.SetDiffuseTexture("../../Assets/Images/white.jpg");
+	mEnvironmentMap.SetDiffuseTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/white.jpg");
 
 	mSkybox.ChangeDefualtSkybox(1);
 	mSkybox.CreateSkybox();

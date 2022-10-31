@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Src\BlockAllocator.cpp" />
     <ClCompile Include="Src\DebugUtil.cpp" />
+    <ClCompile Include="Src\FilePathUtil.cpp" />
     <ClCompile Include="Src\MetaArray.cpp" />
     <ClCompile Include="Src\MetaClass.cpp" />
     <ClCompile Include="Src\MetaField.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="Inc\Core.h" />
     <ClInclude Include="Inc\DebugUtil.h" />
     <ClInclude Include="Inc\EventHandler.h" />
+    <ClInclude Include="Inc\FilePathUtil.h" />
     <ClInclude Include="Inc\Handle.h" />
     <ClInclude Include="Inc\HandlePool.h" />
     <ClInclude Include="Inc\Meta.h" />

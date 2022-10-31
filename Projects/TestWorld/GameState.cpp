@@ -45,11 +45,11 @@ void GameState::Initialize()
 
 
 	// Effects
-	mGroundStandardEffect.Initialize("../../Assets/Shaders/Standard.fx");
-	mGroundStandardEffect.SetDiffuseTexture("../../Assets/Images/Floor/Stone_Tiles_004_diffuse.jpg");
-	mGroundStandardEffect.SetNormalTexture("../../Assets/Images/Floor/Stone_Tiles_004_normal.jpg");
-	mGroundStandardEffect.SetAOTexture("../../Assets/Images/Floor/Stone_Tiles_004_ao.jpg");
-	mGroundStandardEffect.SetDisplacementTexture("../../Assets/Images/Floor/Stone_Tiles_004_height.png");
+	mGroundStandardEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
+	mGroundStandardEffect.SetDiffuseTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_diffuse.jpg");
+	mGroundStandardEffect.SetNormalTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_normal.jpg");
+	mGroundStandardEffect.SetAOTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_ao.jpg");
+	mGroundStandardEffect.SetDisplacementTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Floor/Stone_Tiles_004_height.png");
 	mGroundStandardEffect.UseShadow(true);
 	mGroundStandardEffect.SetBumpMapWeight(6.0f);
 
@@ -58,14 +58,15 @@ void GameState::Initialize()
 	DirectX::ScratchImage image;
 	//std::array<ID3D11Resource*, 6> resourceArray;
 
-	HRESULT hr = DirectX::LoadFromHDRFile(L"../../Assets/Images/HdrMaps/Shiodome_Stairs/10-Shiodome_Stairs_3k.hdr", nullptr, image);
+	std::filesystem::path stairsHdr = Angazi::Core::FilePath::GetAssetFilePath() + "Images/HdrMaps/Shiodome_Stairs/10-Shiodome_Stairs_3k.hdr";
+	HRESULT hr = DirectX::LoadFromHDRFile(stairsHdr.c_str(), nullptr, image);
 	ASSERT(SUCCEEDED(hr), "[Texture] Failed to load texture");
 	hr = CreateShaderResourceView(GetDevice(), image.GetImages(), image.GetImageCount(), image.GetMetadata(), &hdrShaderResourceView);
 
 	renderTarget.Initialize(512, 512, RenderTarget::Format::RGBA_F16);
 	meshBuffer.Initialize(MeshBuilder::CreateInnerCubeP());
-	vertexShader.Initialize("../../Assets/Shaders/Equirectangular.fx", VertexP::Format);
-	pixelShader.Initialize("../../Assets/Shaders/Equirectangular.fx");
+	vertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Equirectangular.fx", VertexP::Format);
+	pixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Equirectangular.fx");
 	tranformBuffer.Initialize();
 
 	camera.SetNearPlane(0.1f);

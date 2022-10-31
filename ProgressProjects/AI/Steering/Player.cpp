@@ -8,7 +8,7 @@ using namespace Angazi::Graphics;
 
 void Player::Load()
 {
-	mTextureId = TextureManager::Get()->Load("../../Assets/Images/XEngine/survivor_handgun.png");
+	mTextureId = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/XEngine/survivor_handgun.png");
 	maxSpeed = 300.0f;
 	position = {GraphicsSystem::Get()->GetBackBufferWidth()*0.5f , GraphicsSystem::Get()->GetBackBufferHeight() *0.5f };
 

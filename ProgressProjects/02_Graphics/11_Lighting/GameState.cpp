@@ -16,7 +16,7 @@ void GameState::Initialize()
 	mMesh = MeshBuilder::CreateSphere(1.0f, 16, 16);
 	mMeshBuffer.Initialize(mMesh);
 
-	ObjLoader::Load("../../Assets/Models/Teapot/utah-teapot.obj", 0.1f, mMeshTeapot);
+	ObjLoader::Load(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Teapot/utah-teapot.obj", 0.1f, mMeshTeapot);
 	mMeshBufferTeaPot.Initialize(mMeshTeapot);
 
 	mTransformBuffer.Initialize();
@@ -33,21 +33,21 @@ void GameState::Initialize()
 	mMaterial.specular = { 0.5f };
 	mMaterial.power = 80.0f;
 
-	mGouraudShadingVertexShader.Initialize("../../Assets/Shaders/DoGouraudShading.fx", VertexPN::Format);
-	mGouraudShadingPixelShader.Initialize("../../Assets/Shaders/DoGouraudShading.fx");
+	mGouraudShadingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoGouraudShading.fx", VertexPN::Format);
+	mGouraudShadingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoGouraudShading.fx");
 
-	mPhongShadingVertexShader.Initialize("../../Assets/Shaders/DoPhongShading.fx", Vertex::Format);
-	mPhongShadingPixelShader.Initialize("../../Assets/Shaders/DoPhongShading.fx");
+	mPhongShadingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoPhongShading.fx", Vertex::Format);
+	mPhongShadingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoPhongShading.fx");
 
-	mPointPhongShadingVertexShader.Initialize("../../Assets/Shaders/DoPhongPointShading.fx", Vertex::Format);
-	mPointPhongShadingPixelShader.Initialize("../../Assets/Shaders/DoPhongPointShading.fx");
+	mPointPhongShadingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoPhongPointShading.fx", Vertex::Format);
+	mPointPhongShadingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoPhongPointShading.fx");
 
-	mFlatShadingVertexShader.Initialize("../../Assets/Shaders/DoFlatShading.fx", VertexPN::Format);
-	mFlatShadingPixelShader.Initialize("../../Assets/Shaders/DoFlatShading.fx");
+	mFlatShadingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoFlatShading.fx", VertexPN::Format);
+	mFlatShadingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoFlatShading.fx");
 
 	mSampler.Initialize(Sampler::Filter::Anisotropic, Sampler::AddressMode::Clamp);
-	mTexture.Initialize("../../Assets/Images/white.jpg");
-	mSpecularTexture.Initialize("../../Assets/Images/white.jpg");
+	mTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/white.jpg");
+	mSpecularTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/white.jpg");
 }
 
 void GameState::Terminate()

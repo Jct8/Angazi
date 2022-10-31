@@ -88,10 +88,10 @@ void GameState::Initialize()
 	mMaterial.power = 80.0f;
 
 	Mesh mMesh;
-	ObjLoader::Load("../../Assets/Models/Mandalorian_Helmet/Mandalorian_Helmet.obj",0.02f, mMesh);
+	ObjLoader::Load(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Mandalorian_Helmet/Mandalorian_Helmet.obj",0.02f, mMesh);
 	mMeshBufferHelmet.Initialize(mMesh);
 	Mesh mesh;
-	ObjLoader::Load("../../Assets/Models/Sci-Fi_Helmet/helmet.obj",1.0f, mesh);
+	ObjLoader::Load(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Sci-Fi_Helmet/helmet.obj",1.0f, mesh);
 	mMeshBufferSciFiHelmet.Initialize(mesh);
 
 	mSphereBuffer.Initialize(MeshBuilder::CreateSphere(0.5f,64,64));
@@ -103,38 +103,38 @@ void GameState::Initialize()
 
 	//mSkybox.ChangeDefualtSkybox(2);
 	//mSkybox.CreateSkybox();
-	mSkybox.CreateSkybox("../../Assets/Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
-	//mSkybox.CreateSkybox("../../Assets/Images/HdrMaps/Shiodome_Stairs/10-Shiodome_Stairs_3k.hdr");
+	mSkybox.CreateSkybox(Angazi::Core::FilePath::GetAssetFilePath() + "Images/HdrMaps/Helipad_GoldenHour/LA_Downtown_Helipad_GoldenHour_3k.hdr");
+	//mSkybox.CreateSkybox(Angazi::Core::FilePath::GetAssetFilePath() + "Images/HdrMaps/Shiodome_Stairs/10-Shiodome_Stairs_3k.hdr");
 
-	mPlainTexture.Initialize("../../Assets/Images/white.jpg");
+	mPlainTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/white.jpg");
 
 	mTextures["Helmet"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Albedo"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_BaseColor.png", true);
+	mTextures["Helmet"]["Albedo"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Mandalorian_Helmet/mandalorianUV2_Helmet_BaseColor.png", true);
 	mTextures["Helmet"]["Normal"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Normal"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Normal.png");
+	mTextures["Helmet"]["Normal"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Normal.png");
 	mTextures["Helmet"]["AO"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["AO"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_AO.png");
+	mTextures["Helmet"]["AO"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Mandalorian_Helmet/mandalorianUV2_Helmet_AO.png");
 	mTextures["Helmet"]["Displacement"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Displacement"]->Initialize("../../Assets/Models//Mandalorian_Helmet/mandalorianUV2_Helmet_Cavity.png");
+	mTextures["Helmet"]["Displacement"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models//Mandalorian_Helmet/mandalorianUV2_Helmet_Cavity.png");
 	mTextures["Helmet"]["Roughness"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Roughness"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Roughness2.png");
+	mTextures["Helmet"]["Roughness"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Roughness2.png");
 	mTextures["Helmet"]["Metallic"] = std::make_unique<Texture>();
-	mTextures["Helmet"]["Metallic"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Metallic2.png");
+	mTextures["Helmet"]["Metallic"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Metallic2.png");
 	//mTextures["Helmet"]["Specular"] = std::make_unique<Texture>();
-	//mTextures["Helmet"]["Specular"]->Initialize("../../Assets/Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Metallic2.png");
+	//mTextures["Helmet"]["Specular"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Mandalorian_Helmet/mandalorianUV2_Helmet_Metallic2.png");
 
 	mTextures["SciFi_Helmet"]["Albedo"] = std::make_unique<Texture>();
-	mTextures["SciFi_Helmet"]["Albedo"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_basecolor.png", true);
+	mTextures["SciFi_Helmet"]["Albedo"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Sci-Fi_Helmet/helmet_basecolor.png", true);
 	mTextures["SciFi_Helmet"]["Normal"] = std::make_unique<Texture>();
-	mTextures["SciFi_Helmet"]["Normal"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_normal.png");
+	mTextures["SciFi_Helmet"]["Normal"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Sci-Fi_Helmet/helmet_normal.png");
 	mTextures["SciFi_Helmet"]["AO"] = std::make_unique<Texture>();
-	mTextures["SciFi_Helmet"]["AO"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_occlusion.png");
+	mTextures["SciFi_Helmet"]["AO"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Sci-Fi_Helmet/helmet_occlusion.png");
 	mTextures["SciFi_Helmet"]["Displacement"] = std::make_unique<Texture>();
-	mTextures["SciFi_Helmet"]["Displacement"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_emission.png");
+	mTextures["SciFi_Helmet"]["Displacement"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Sci-Fi_Helmet/helmet_emission.png");
 	mTextures["SciFi_Helmet"]["Roughness"] = std::make_unique<Texture>();
-	mTextures["SciFi_Helmet"]["Roughness"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_roughness.png");
+	mTextures["SciFi_Helmet"]["Roughness"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Sci-Fi_Helmet/helmet_roughness.png");
 	mTextures["SciFi_Helmet"]["Metallic"] = std::make_unique<Texture>();
-	mTextures["SciFi_Helmet"]["Metallic"]->Initialize("../../Assets/Models/Sci-Fi_Helmet/helmet_metalness.png");
+	mTextures["SciFi_Helmet"]["Metallic"]->Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Sci-Fi_Helmet/helmet_metalness.png");
 
 	for (auto &textures : mTextures)
 		textureNames.push_back(textures.first);

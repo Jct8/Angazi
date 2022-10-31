@@ -14,8 +14,8 @@ namespace
 	public:
 		void Initialize(uint32_t maxVertexCount)
 		{
-			mVertexShader.Initialize("../../Assets/Shaders/SimpleDraw.fx", VertexPC::Format);
-			mPixelShader.Initialize("../../Assets/Shaders/SimpleDraw.fx");
+			mVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/SimpleDraw.fx", VertexPC::Format);
+			mPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/SimpleDraw.fx");
 			mConstantBuffer.Initialize(sizeof(Math::Matrix4));
 			mMeshBuffer.Initialize<VertexPC>(nullptr, maxVertexCount, true);
 			mLineVertices = std::make_unique<VertexPC[]>(maxVertexCount);

@@ -4,7 +4,7 @@ using namespace Angazi::Graphics;
 
 void Background::Load()
 {
-	mTextureId = TextureManager::Get()->Load("FlappyBird/bg.jpg");
+	mTextureId = TextureManager::Get()->Load("FlappyBird/bg.jpg", false, true);
 	mOffset.x = (float)TextureManager::Get()->GetTexture(mTextureId)->GetWidth();
 }
 

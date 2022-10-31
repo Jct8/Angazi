@@ -93,7 +93,7 @@ void TileMap::LoadTexture(std::filesystem::path fileName)
 	{
 		char buffer[256];
 		fscanf_s(file, "%s\n", buffer, static_cast<int>(std::size(buffer)));
-		mTiles[i] = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(buffer));
+		mTiles[i] = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/" + std::string(buffer));
 	}
 
 	fclose(file);

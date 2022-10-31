@@ -23,7 +23,7 @@ void RangedWeapon::Load(std::filesystem::path fileName)
 	fscanf_s(file, "Damage:%d\n", &mDamage);
 	fscanf_s(file, "Projectiles:%d\n", &mTotalProjectiles);
 	fscanf_s(file, "%s\n", name, maxsize);
-	mSprite = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
+	mSprite = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/" + std::string(name));
 
 	for (int i = 0; i < total; i++)
 	{
@@ -31,7 +31,7 @@ void RangedWeapon::Load(std::filesystem::path fileName)
 		//Angazi::Graphics::Texture tex;
 		//tex.Initialize(name);
 		mAnimations.emplace_back();
-		mAnimations.back() = TextureManager::Get()->Load("../../Assets/Images/Rougelike/" + std::string(name));
+		mAnimations.back() = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/" + std::string(name));
 	}
 	fclose(file);
 	mAttackDelay = 1.0f;

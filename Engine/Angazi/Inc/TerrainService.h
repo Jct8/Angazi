@@ -26,7 +26,7 @@ namespace Angazi
 		Terrain mTerrain;
 		uint32_t mRows = 200;
 		uint32_t mColumns = 200;
-		std::filesystem::path mHeighMapPath = "../../Assets/Heightmaps/heightmap_200x200.raw";
+		std::filesystem::path mHeighMapPath = Angazi::Core::FilePath::GetAssetFilePath() + "Heightmaps/heightmap_200x200.raw";
 
 		float mHeightScale = 30.0f;
 		float mCellSize = 1.0f;

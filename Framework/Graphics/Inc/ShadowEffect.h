@@ -15,7 +15,7 @@ namespace Angazi::Graphics
 		ShadowEffect(const ShadowEffect&) = delete;
 		ShadowEffect& operator=(const ShadowEffect&) = delete;
 
-		void Initialize(const std::filesystem::path& fileName = "../../Assets/Shaders/DepthMap.fx") override;
+		void Initialize(const std::filesystem::path& fileName = Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DepthMap.fx") override;
 		void Terminate() override;
 
 		void Begin() override;

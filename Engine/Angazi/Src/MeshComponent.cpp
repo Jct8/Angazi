@@ -38,11 +38,11 @@ namespace
 		if (MainApp().OpenFileDialog(filePath, title, filter))
 		{
 			std::string x = filePath;
-			originalPath = "..\\..\\" + x.substr(x.find("\\Assets\\") + 1);
+			originalPath = Core::FilePath::GetAssetFilePath() + x.substr(x.find("\\Assets\\") + sizeof("\\Assets\\") - 1);
 			meshIds.clear();
-			MeshLoader::Load(originalPath, 1.0f, meshIds);
+			MeshLoader::Load(originalPath, 1.0f, meshIds, false);
 			if (meshIds.empty())
-				meshIds.emplace_back(MeshManager::Get()->LoadMesh(originalPath));
+				meshIds.emplace_back(MeshManager::Get()->LoadMesh(originalPath, false));
 			
 		}
 	}
@@ -61,9 +61,9 @@ void MeshComponent::Initialize()
 		mMaterialComponent->Initialize();
 	}
 
-	MeshLoader::Load(mMeshFileName, 1.0f, mMeshIds);
+	MeshLoader::Load(mMeshFileName, 1.0f, mMeshIds, false);
 	if (mMeshIds.empty())
-		mMeshIds.emplace_back(MeshManager::Get()->LoadMesh(mMeshFileName));
+		mMeshIds.emplace_back(MeshManager::Get()->LoadMesh(mMeshFileName, false));
 
 	mInitialized = true;
 }

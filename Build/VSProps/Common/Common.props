@@ -3,9 +3,10 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
-    <PropertyGroup>
+  <PropertyGroup>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+    <LocalDebuggerWorkingDirectory>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</LocalDebuggerWorkingDirectory> 
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

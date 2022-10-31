@@ -74,8 +74,8 @@ void GameState::Initialize()
 	mConstantBuffer.Initialize(sizeof(Matrix4));
 	mMeshBuffer.Initialize(mMesh);
 
-	mVertexShader.Initialize("../../Assets/Shaders/DoTransform.fx", VertexPC::Format);
-	mPixelShader.Initialize("../../Assets/Shaders/DoTransform.fx");
+	mVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoTransform.fx", VertexPC::Format);
+	mPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/DoTransform.fx");
 
 }
 

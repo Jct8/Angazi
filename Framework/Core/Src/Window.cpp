@@ -2,6 +2,7 @@
 #include "Window.h"
 
 #include "DebugUtil.h"
+#include "FilePathUtil.h"
 
 using namespace Angazi;
 using namespace Angazi::Core;
@@ -41,7 +42,9 @@ void Angazi::Core::Window::Initialize(HINSTANCE instance, LPCSTR appName, uint32
 	// 2) Create a window instance of the class type
 	// 3) Retrieve/ dispatch/ handle messages for this window.
 
-	HICON myIcon = (HICON) LoadImageW (nullptr, L"../../Assets/Images/Angazi_Icon.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
+	std::filesystem::path iconPath = Angazi::Core::FilePath::GetAssetFilePath() + "Images/Angazi_Icon.ico";
+
+	HICON myIcon = (HICON) LoadImageW (nullptr, iconPath.c_str(), IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
 
 	//Register class
 	WNDCLASSEXA classInfo{};

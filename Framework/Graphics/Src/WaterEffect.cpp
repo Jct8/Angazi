@@ -31,10 +31,10 @@ void WaterEffect::Initialize(const std::filesystem::path & fileName)
 	mBlendState.Initialize(BlendState::Mode::AlphaBlend);
 
 	// Textures
-	SetDiffuseTexture("../../Assets/Images/Water/water.jpg");
-	SetSpecularTexture("../../Assets/Images/Water/waterSpec.jpg");
-	SetDisplacementTexture("../../Assets/Images/Water/waterdudv.png");
-	SetNormalTexture("../../Assets/Images/Water/waterNormal.png");
+	SetDiffuseTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Water/water.jpg");
+	SetSpecularTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Water/waterSpec.jpg");
+	SetDisplacementTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Water/waterdudv.png");
+	SetNormalTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Water/waterNormal.png");
 
 	auto graphicsSystem = GraphicsSystem::Get();
 	mReflectionRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_U8);

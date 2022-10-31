@@ -21,12 +21,12 @@ void Terrain::Initialize(uint32_t numRows, uint32_t numCols, float cellSize)
 
 	mConstantBuffer.Initialize();
 
-	mTerrainVertexShader.Initialize("../../Assets/Shaders/Terrain.fx", Graphics::Vertex::Format);
-	mTerrainPixelShader.Initialize("../../Assets/Shaders/Terrain.fx");
+	mTerrainVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Terrain.fx", Graphics::Vertex::Format);
+	mTerrainPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Terrain.fx");
 
 	mSampler.Initialize(Graphics::Sampler::Filter::Anisotropic, Graphics::Sampler::AddressMode::Wrap);
-	mDiffuseTexture.Initialize("../../Assets/Images/BeachSandDiffuse.jpg", true);
-	mNormalTexture.Initialize("../../Assets/Images/BeachSandNormal.jpg");
+	mDiffuseTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/BeachSandDiffuse.jpg", true);
+	mNormalTexture.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Images/BeachSandNormal.jpg");
 
 	GenerateIndices();
 	GenerateVertices();

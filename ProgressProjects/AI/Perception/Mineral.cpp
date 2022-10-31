@@ -12,8 +12,8 @@ Mineral::Mineral(AI::AIWorld& world)
 
 void Mineral::Initialize()
 {
-	mTextureId = TextureManager::Get()->Load("XEngine/minerals.png");
-	mEyeTextureId = TextureManager::Get()->Load("XEngine/eye.png");
+	mTextureId = TextureManager::Get()->Load("XEngine/minerals.png", false, true);
+	mEyeTextureId = TextureManager::Get()->Load("XEngine/eye.png", false, true);
 	position = Math::RandomVector2({ 100.0f, 100.0f }, { 1180.0f, 710.0f });
 }
 

@@ -31,8 +31,8 @@ UIManager & UIManager::Get()
 
 void UIManager::Load()
 {
-	barEmpty = TextureManager::Get()->Load("../../Assets/Images/Rougelike/bar_empty.png");
-	barRed = TextureManager::Get()->Load("../../Assets/Images/Rougelike/bar_red.png");
+	barEmpty = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/bar_empty.png");
+	barRed = TextureManager::Get()->Load(Angazi::Core::FilePath::GetAssetFilePath() + "Images/Rougelike/bar_red.png");
 }
 
 void UIManager::Unload()

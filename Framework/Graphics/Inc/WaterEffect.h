@@ -14,7 +14,7 @@ namespace Angazi::Graphics
 		WaterEffect(const WaterEffect&) = delete;
 		WaterEffect& operator=(const WaterEffect&) = delete;
 
-		void Initialize(const std::filesystem::path& fileName = "../../Assets/Shaders/Water.fx");
+		void Initialize(const std::filesystem::path& fileName = Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Water.fx");
 		void Terminate();
 
 		void Update(float deltaTime);

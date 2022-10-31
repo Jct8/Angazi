@@ -1,7 +1,7 @@
 {
     "GameObjects": [
         {
-            "Template": "../../Assets/Templates/Sci-Fi_Helmet.json",
+            "Template": "../Assets/Templates/Sci-Fi_Helmet.json",
             "Name": "Sci-Fi Helmet",
             "Enabled": true,
             "Components": {
@@ -35,18 +35,18 @@
                     }
                 },
                 "MeshComponent": {
-                    "MeshFileName": "Sci-Fi_Helmet/helmet.obj",
+                    "MeshFileName": "../Assets/Models/Sci-Fi_Helmet/helmet.obj",
                     "CastingShadow": true,
                     "ReceivingShadows": false
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_basecolor.png",
-                    "NormalFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_normal.png",
+                    "DiffuseFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_basecolor.png",
+                    "NormalFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_normal.png",
                     "SpecularFilePath": "",
-                    "DisplacementFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_emission.png",
-                    "AmbientOcculsionFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_occlusion.png",
-                    "MetallicFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_metalness.png",
-                    "RoughnessFilePath": "../../Assets/Models/Sci-Fi_Helmet/helmet_roughness.png",
+                    "DisplacementFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_emission.png",
+                    "AmbientOcculsionFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_occlusion.png",
+                    "MetallicFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_metalness.png",
+                    "RoughnessFilePath": "../Assets/Models/Sci-Fi_Helmet/helmet_roughness.png",
                     "Material": {
                         "Ambient": {
                             "x": 1.0,
@@ -72,7 +72,7 @@
             }
         },
         {
-            "Template": "../../Assets/Templates/JamesModel.json",
+            "Template": "../Assets/Templates/JamesModel.json",
             "Name": "James Model",
             "Enabled": true,
             "Components": {
@@ -106,7 +106,7 @@
                     }
                 },
                 "SkinnedMeshComponent": {
-                    "ModelFileName": "James/James.model",
+                    "ModelFileName": "../Assets/Models/James/James.model",
                     "CastingShadow": true,
                     "ReceivingShadows": false,
                     "ShowSkeleton": false
@@ -171,13 +171,13 @@
                     "ReceivingShadows": true
                 },
                 "MaterialComponent": {
-                    "DiffuseFilePath": "..\\..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-albedo.png",
-                    "NormalFilePath": "..\\..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-Normal-dx.png",
+                    "DiffuseFilePath": "..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-albedo.png",
+                    "NormalFilePath": "..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-Normal-dx.png",
                     "SpecularFilePath": "",
-                    "DisplacementFilePath": "..\\..\\Assets\\Images\\PBR\\stylized-cliff2\\stylized-cliff2_height.png",
-                    "AmbientOcculsionFilePath": "..\\..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-ao.png",
-                    "MetallicFilePath": "..\\..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-Metallic.png",
-                    "RoughnessFilePath": "..\\..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-Roughness.png",
+                    "DisplacementFilePath": "..\\Assets\\Images\\PBR\\stylized-cliff2\\stylized-cliff2_height.png",
+                    "AmbientOcculsionFilePath": "..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-ao.png",
+                    "MetallicFilePath": "..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-Metallic.png",
+                    "RoughnessFilePath": "..\\Assets\\Images\\PBR\\gray-bricks1\\gray-bricks1-Roughness.png",
                     "Material": {
                         "Ambient": {
                             "x": 1.0,

@@ -8,11 +8,11 @@ using namespace Angazi::Math;
 
 void Bird::Load()
 {
-	mTextureIds[0] = TextureManager::Get()->Load("FlappyBird/bird1.png");
-	mTextureIds[1] = TextureManager::Get()->Load("FlappyBird/bird2.png");
-	mTextureIds[2] = TextureManager::Get()->Load("FlappyBird/bird3.png");
-	mTextureIds[3] = TextureManager::Get()->Load("FlappyBird/bird2.png");
-	mTextureIds[4] = TextureManager::Get()->Load("FlappyBird/bird_die.png");
+	mTextureIds[0] = TextureManager::Get()->Load("FlappyBird/bird1.png", false, true);
+	mTextureIds[1] = TextureManager::Get()->Load("FlappyBird/bird2.png", false, true);
+	mTextureIds[2] = TextureManager::Get()->Load("FlappyBird/bird3.png", false, true);
+	mTextureIds[3] = TextureManager::Get()->Load("FlappyBird/bird2.png", false, true);
+	mTextureIds[4] = TextureManager::Get()->Load("FlappyBird/bird_die.png", false, true);
 }
 
 void Bird::Update(float deltaTime, const PipeManager& pm)

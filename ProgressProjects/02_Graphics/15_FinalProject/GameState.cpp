@@ -38,16 +38,16 @@ void GameState::Initialize()
 	mRenderTarget.Initialize(graphicsSystem->GetBackBufferWidth(), graphicsSystem->GetBackBufferHeight(), RenderTarget::Format::RGBA_F16);
 	mScreenQuadBuffer.Initialize(MeshBuilder::CreateNDCQuad());
 
-	mPostProcessingVertexShader.Initialize("../../Assets/Shaders/PostProcessing.fx", VertexPX::Format);
-	mPostProcessingPixelShader.Initialize("../../Assets/Shaders/PostProcessing.fx", "PSNoProcessing");
+	mPostProcessingVertexShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx", VertexPX::Format);
+	mPostProcessingPixelShader.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/PostProcessing.fx", "PSNoProcessing");
 
 	// Boat
 	mBoatPosition = { 0.0f,3.5f,0.0f };
-	ObjLoader::Load("../../Assets/Models/OldBoat/OldBoat.obj", 0.5f, mBoatMesh);
+	ObjLoader::Load(Angazi::Core::FilePath::GetAssetFilePath() + "Models/OldBoat/OldBoat.obj", 0.5f, mBoatMesh);
 	mBoatMeshBuffer.Initialize(mBoatMesh);
 
 	// Terrain
-	ObjLoader::Load("../../Assets/Models/Terrain/terrain_01.obj", 0.01f, mRockyTerrain);
+	ObjLoader::Load(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Terrain/terrain_01.obj", 0.01f, mRockyTerrain);
 	mRockyTerrainBuffer.Initialize(mRockyTerrain);
 
 	//mTranslation = { 21.3f,2.1f,43.5f };
@@ -57,17 +57,17 @@ void GameState::Initialize()
 	mRotation = { 0.0f,0.5f ,0.0f };
 
 	mGroundEffect.Initialize();
-	mGroundEffect.SetDiffuseTexture("../../Assets/Models/Terrain/textures/base.png");
-	mGroundEffect.SetNormalTexture("../../Assets/Models/Terrain/textures/Normal2.png");
-	mGroundEffect.SetMetallicTexture("../../Assets/Models/Terrain/textures/metallic.png");
-	mGroundEffect.SetRoughnessTexture("../../Assets/Models/Terrain/textures/roughness.png");
+	mGroundEffect.SetDiffuseTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Terrain/textures/base.png");
+	mGroundEffect.SetNormalTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Terrain/textures/Normal2.png");
+	mGroundEffect.SetMetallicTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Terrain/textures/metallic.png");
+	mGroundEffect.SetRoughnessTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Models/Terrain/textures/roughness.png");
 
-	mBoatEffect.Initialize("../../Assets/Shaders/Standard.fx");
-	mBoatEffect.SetDiffuseTexture("../../Assets/Models/OldBoat/boattex2.jpg");
-	mBoatEffect.SetNormalTexture("../../Assets/Models/OldBoat/boattexnm.jpg");
+	mBoatEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Standard.fx");
+	mBoatEffect.SetDiffuseTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Models/OldBoat/boattex2.jpg");
+	mBoatEffect.SetNormalTexture(Angazi::Core::FilePath::GetAssetFilePath() + "Models/OldBoat/boattexnm.jpg");
 	mBoatEffect.SetBrightness(2.5f);
 
-	mWaterEffect.Initialize("../../Assets/Shaders/Water.fx");
+	mWaterEffect.Initialize(Angazi::Core::FilePath::GetAssetFilePath() + "Shaders/Water.fx");
 	mWaterEffect.SetBrightness(waterBrightness);
 	mWaterEffect.SetWaterDisplacement(waterDisplacement);
 	mWaterEffect.SetMovementSpeed(waterMovementSpeed);

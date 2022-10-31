@@ -15,7 +15,7 @@ VertexShader::~VertexShader()
 
 void VertexShader::Initialize(const std::filesystem::path& filePath, uint32_t vertextFormat, const char * shaderName)
 {
-	std::filesystem::path defaultFilePathName = "../../Assets/GLShaders/";
+	std::filesystem::path defaultFilePathName = Angazi::Core::FilePath::GetAssetFilePath() + "GLShaders/";
 	if (filePath.extension() != "glsl")
 	{
 		defaultFilePathName.append(filePath.stem().string());

@@ -13,7 +13,7 @@ void TextureManager::StaticInitialize(const std::filesystem::path& root)
 	ASSERT(sTextureManager == nullptr, "TextureManager -- TextureManager already initialized!");
 	sTextureManager = std::make_unique<TextureManager>();
 	sTextureManager->SetRootPath(root);
-	sTextureManager->defaultTexture = sTextureManager->Load("Empty.png");
+	sTextureManager->defaultTexture = sTextureManager->Load("Empty.png", false, true);
 }
 
 void TextureManager::StaticTerminate()
