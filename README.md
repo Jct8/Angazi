@@ -43,21 +43,17 @@ with the OpenGL library designed to follow the same format. The Engine supports 
 
 ### Prerequisites
 
-Visual Studio 2019
+Visual Studio 2022
 
 ### Usage
 
 The Engine requires one header include, reference to the Angazi Project and reference to the Angazi Property sheet.
 
-```sh
+```cpp
     #include <Angazi/Inc/Angazi.h>
 ```
 
-Switching between DirectX11 and OpenGL requires one of the following defines in Core's common.h:
-```sh
-    #define ENABLE_DIRECTX11
-    #define ENABLE_OPENGL
-```
+Switching between DirectX11 and OpenGL can be done by changing the build configuration in visual studio to Debug/Release DX11/OpenGL
 
 1. Running an existing project
    1. Set the project as the startup project and run
